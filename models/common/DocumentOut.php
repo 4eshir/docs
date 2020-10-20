@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $document_date
+ * @property string $document_name
  * @property string $document_theme
  * @property int $destination_id
  * @property int $signed_id
@@ -41,7 +42,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['document_date', 'document_theme', 'destination_id', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'Scan', 'register_id'], 'required'],
+            [['document_name', 'document_date', 'document_theme', 'destination_id', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'Scan', 'register_id'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
             [['destination_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
             [['document_theme', 'Scan'], 'string', 'max' => 1000],

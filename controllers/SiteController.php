@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
 use Yii;
 use yii\console\ExitCode;
@@ -30,7 +31,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'outdocs'],
+                        'actions' => ['logout', 'index', 'index-docs-out'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -82,16 +83,6 @@ class SiteController extends Controller
         }
     }
 
-    public function actionOutdocs()
-    {
-        $model = new SearchOutDocsModel();
-        if ($model->load(Yii::$app->request->post()) && $model->validate())
-            $model->documents = DocumentOutExtended::getDocByFilter($model->sendMethod);
-        else
-            $model->documents = DocumentOutExtended::getAllDocOut();
-        return $this->render('outdocs', ['model' => $model]) ;
-    }
-
     /**
      * Logout action.
      *
@@ -102,6 +93,17 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionIndexDocsOut()
+    {
+        $searchModel = new SearchDocumentOut();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index-docs-out', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 }
