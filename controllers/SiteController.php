@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\SearchOutDocsModel;
 use Yii;
 use yii\console\ExitCode;
 use yii\filters\AccessControl;
@@ -10,7 +11,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\User;
+use app\models\extended\UserExtended;
+use app\models\extended\DocumentOutExtended;
 
 class SiteController extends Controller
 {
@@ -82,7 +84,12 @@ class SiteController extends Controller
 
     public function actionOutdocs()
     {
-        return $this->render('outdocs');
+        $model = new SearchOutDocsModel();
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+            $model->documents = DocumentOutExtended::getDocByFilter($model->sendMethod);
+        else
+            $model->documents = DocumentOutExtended::getAllDocOut();
+        return $this->render('outdocs', ['model' => $model]) ;
     }
 
     /**
@@ -96,6 +103,5 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
-
 
 }
