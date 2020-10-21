@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\common\Company;
 use app\models\common\Destination;
 use app\models\common\People;
 use app\models\common\SendMethod;
@@ -20,7 +21,6 @@ class SearchDocumentOut extends DocumentOut
     public $executorName;
     public $registerName;
     public $sendMethodName;
-    public $destinationName;
     public $companyName;
     public $positionName;
     /**
@@ -29,9 +29,9 @@ class SearchDocumentOut extends DocumentOut
     public function rules()
     {
         return [
-            [['id', 'destination_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
-            [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName',
-                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName', 'destinationName'], 'safe'],
+            [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
+            [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
+                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName'], 'safe'],
         ];
     }
 
@@ -58,7 +58,8 @@ class SearchDocumentOut extends DocumentOut
         $query->joinWith(['executor']);
         $query->joinWith(['register']);
         $query->joinWith(['sendMethod']);
-        $query->joinWith(['destination']);
+        $query->joinWith(['company']);
+        $query->joinWith(['position']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -85,10 +86,6 @@ class SearchDocumentOut extends DocumentOut
             'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['destinationName'] = [
-            'asc' => [Destination::tableName().'.company.name' => SORT_ASC],
-            'desc' => [Destination::tableName().'.company.name' => SORT_DESC],
-        ];
 
         $this->load($params);
 
@@ -103,7 +100,7 @@ class SearchDocumentOut extends DocumentOut
             'id' => $this->id,
             'document_date' => $this->document_date,
             'document_name' => $this->document_name,
-            'destination_id' => $this->destination_id,
+            'company_id' => $this->company_id,
             'signed_id' => $this->signed_id,
             'executor_id' => $this->executor_id,
             'send_method_id' => $this->send_method_id,
@@ -117,7 +114,7 @@ class SearchDocumentOut extends DocumentOut
             ->andFilterWhere(['like', People::tableName().'.secondname', $this->executorName])
             ->andFilterWhere(['like', People::tableName().'.secondname', $this->registerName])
             ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
-            ->andFilterWhere(['like', Destination::tableName().'.company.name', $this->destinationName]);
+            ->andFilterWhere(['like', Company::tableName().'.name', $this->companyName]);
 
         return $dataProvider;
     }

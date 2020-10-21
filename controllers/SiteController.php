@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\DocumentOut;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
 use Yii;
@@ -31,7 +32,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -100,9 +101,21 @@ class SiteController extends Controller
         $searchModel = new SearchDocumentOut();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index-docs-out', [
+        return $this->render('/docs-out/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCreateOutdocs()
+    {
+        $model = new DocumentOut();
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            return $this->redirect('index.php?r=site%2Findex-docs-out');
+        }
+
+        return $this->render('/docs-out/create', [
+            'model' => $model,
         ]);
     }
 

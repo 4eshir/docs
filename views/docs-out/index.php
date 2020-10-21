@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Document Out', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Document Out', ['create-docs-out'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,13 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute' => 'id','label' => '№ документа'],
+            ['attribute' => 'document_number','label' => '№ документа'],
+            ['attribute' => 'document_date','label' => 'Дата документа'],
             ['attribute' => 'document_name','label' => 'Название документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
-            ['attribute' => 'destinationName','label' => 'Корреспондент', 'value' => function ($model) {
-                return $model->destination->position->name.' '.$model->destination->company->name;
+            ['attribute' => 'companyName','label' => 'Корреспондент', 'value' => function ($model) {
+                return $model->position->name.' '.$model->company->name;
             },
             ],
             ['attribute' => 'signedName','label' => 'Кем подписан', 'value' => function ($model) {
