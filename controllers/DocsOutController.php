@@ -64,7 +64,14 @@ class DocsOutController extends Controller
      */
     public function actionCreate()
     {
+        $model = new DocumentOut();
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            return $this->redirect('index.php?r=docs-out/index');
+        }
 
+        return $this->render('/docs-out/create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -79,7 +86,7 @@ class DocsOutController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index.php?r=docs-out/index');
         }
 
         return $this->render('update', [

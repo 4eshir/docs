@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-out-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->document_name) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -29,16 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'document_date',
-            'document_theme',
-            'destination_id',
-            'signed_id',
-            'executor_id',
-            'send_method_id',
-            'sent_date',
-            'Scan',
-            'register_id',
+            ['label' => 'Номер документа', 'attribute' => 'document_number'],
+            ['label' => 'Дата документа', 'attribute' => 'document_date'],
+            ['label' => 'Тема документа', 'attribute' => 'document_theme'],
+            ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => $model->position->name],
+            ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
+            ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname],
+            ['label' => 'Кто исполнил', 'attribute' => 'executor_id', 'value' => $model->executor->secondname],
+            ['label' => 'Метод отправки', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
+            ['label' => 'Дата отправления', 'attribute' => 'sent_date'],
+            ['label' => 'Скан документа', 'attribute' => 'Scan'],
+            ['label' => 'Кто зарегистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname],
         ],
     ]) ?>
 

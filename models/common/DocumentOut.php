@@ -147,27 +147,5 @@ class DocumentOut extends \yii\db\ActiveRecord
         return $this->hasMany(File::className(), ['document_id' => 'id']);
     }
 
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
 
-            $dir = 'upload/';
-            $name = $this->randomFileName($this->file->extension);
-            $this->Scan = $dir . $name;
-            $this->file->saveAs($this->Scan);
-
-            return true;
-        }
-        return false;
-    }
-
-    private function randomFileName($extension = false)
-    {
-        $extension = $extension ? '.' . $extension : '';
-        do {
-            $name = md5(microtime() . rand(0, 1000));
-            $file = $name . $extension;
-        } while (file_exists($file));
-        return $file;
-    }
 }

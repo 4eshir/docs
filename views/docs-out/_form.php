@@ -112,7 +112,7 @@ use yii\widgets\ActiveForm;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата отправки') ?>
 
-    <?= $form->field($model, 'file')->fileInput() ?>
+    <?= $form->field($model, 'Scan')->textInput() ?>
 
     <?php
     $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();

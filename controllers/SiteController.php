@@ -109,14 +109,7 @@ class SiteController extends Controller
 
     public function actionCreateOutdocs()
     {
-        $model = new DocumentOut();
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->redirect('index.php?r=site%2Findex-docs-out');
-        }
 
-        return $this->render('/docs-out/create', [
-            'model' => $model,
-        ]);
     }
 
 }
