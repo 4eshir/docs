@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
-            ['attribute' => 'document_number','label' => '№ документа'],
+            ['attribute' => 'document_number','label' => '№'],
             ['attribute' => 'document_date','label' => 'Дата документа'],
             ['attribute' => 'document_name','label' => 'Название документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
@@ -43,7 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
             ['attribute' => 'sent_date','label' => 'Дата отправления'],
-            ['attribute' => 'Scan','label' => 'Скан документа'],
+            /*['attribute' => 'Scan','label' => 'Скан документа', 'value' => function ($model) {
+                return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],*/
             ['attribute' => 'registerName','label' => 'Кто регистрировал', 'value' => function ($model) {
                 return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
             },

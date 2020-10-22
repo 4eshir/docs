@@ -8,6 +8,7 @@ use app\models\SearchDocumentOut;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * DocsOutController implements the CRUD actions for DocumentOut model.
@@ -65,9 +66,22 @@ class DocsOutController extends Controller
     public function actionCreate()
     {
         $model = new DocumentOut();
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->redirect('index.php?r=docs-out/index');
+
+        if($model->load(Yii::$app->request->post()))
+        {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->Scan = 'lol';
+            if ($model->validate(false)) {
+                $path = '@app/upload/files/';
+                $model->Scan = $model->scanFile;
+                $model->save(false);
+                $model->scanFile->saveAs( $path . $model->scanFile);
+                return $this->redirect('index.php?r=docs-out/index');
+            }
         }
+
+
+
 
         return $this->render('/docs-out/create', [
             'model' => $model,
@@ -123,4 +137,21 @@ class DocsOutController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionGetFile($fileName = null)
+    {
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                return $this->redirect('index.php?r=docs-out/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
+    }
+
 }

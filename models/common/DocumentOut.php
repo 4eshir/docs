@@ -30,6 +30,7 @@ use Yii;
  */
 class DocumentOut extends \yii\db\ActiveRecord
 {
+    public $scanFile;
     /**
      * {@inheritdoc}
      */
@@ -44,9 +45,11 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'Scan', 'register_id', 'document_number'], 'required'],
+            [['scanFile'], 'file', 'extensions' => 'txt, png', 'skipOnEmpty' => false],
+
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
-            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
+            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_theme', 'Scan'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -64,6 +67,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'document_number' => 'Document Number',
             'document_date' => 'Document Date',
             'document_theme' => 'Document Theme',
             'company_id' => 'Company ID',
@@ -146,6 +150,4 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return $this->hasMany(File::className(), ['document_id' => 'id']);
     }
-
-
 }

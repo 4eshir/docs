@@ -13,9 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'document_number')->label('№ документа'); ?>
+    <?= $form->field($model, 'document_number')->textInput()->label('№ документа'); ?>
 
-    <?= $form->field($model, 'document_name')->label('Название документа'); ?>
+    <?= $form->field($model, 'document_name')->textInput()->label('Название документа'); ?>
 
     <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -112,7 +112,7 @@ use yii\widgets\ActiveForm;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата отправки') ?>
 
-    <?= $form->field($model, 'Scan')->textInput() ?>
+    <?= $form->field($model, 'scanFile')->fileInput() ?>
 
     <?php
     $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();

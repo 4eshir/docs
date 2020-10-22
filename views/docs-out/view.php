@@ -38,7 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Кто исполнил', 'attribute' => 'executor_id', 'value' => $model->executor->secondname],
             ['label' => 'Метод отправки', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Дата отправления', 'attribute' => 'sent_date'],
-            ['label' => 'Скан документа', 'attribute' => 'Scan'],
+            ['label' => 'Скан документа', 'attribute' => 'Scan', 'value' => function ($model) {
+                return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
             ['label' => 'Кто зарегистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname],
         ],
     ]) ?>
