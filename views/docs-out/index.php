@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchDocumentOut */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Document Outs';
+$this->title = 'Исходящая документация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-out-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Document Out', ['docs-out/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить исходящий документ', ['docs-out/create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -70,7 +70,7 @@ class DocsOutController extends Controller
         if($model->load(Yii::$app->request->post()))
         {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            $model->Scan = 'lol';
+            $model->Scan = 'init';
             if ($model->validate(false)) {
                 $path = '@app/upload/files/';
                 $model->Scan = $model->scanFile;
@@ -98,9 +98,18 @@ class DocsOutController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index.php?r=docs-out/index');
+        $model->scanFile = $model->Scan;
+        if($model->load(Yii::$app->request->post()))
+        {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->Scan = 'init';
+            if ($model->validate(false)) {
+                $path = '@app/upload/files/';
+                $model->Scan = $model->scanFile;
+                $model->save(false);
+                $model->scanFile->saveAs( $path . $model->scanFile);
+                return $this->redirect('index.php?r=docs-out/index');
+            }
         }
 
         return $this->render('update', [

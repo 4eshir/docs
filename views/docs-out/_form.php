@@ -112,7 +112,13 @@ use yii\widgets\ActiveForm;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата отправки') ?>
 
-    <?= $form->field($model, 'scanFile')->fileInput() ?>
+    <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
+        ->label('Скан документа')?>
+
+    <?php
+        if ($model->Scan !== null)
+            echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan])).'</h5><br>';
+    ?>
 
     <?php
     $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();

@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\DocumentOut */
 
-$this->title = 'Create Document Out';
-$this->params['breadcrumbs'][] = ['label' => 'Document Outs', 'url' => ['index']];
+$this->title = 'Добавить исходящий документ';
+$this->params['breadcrumbs'][] = ['label' => 'Исходящая документация', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-out-create">

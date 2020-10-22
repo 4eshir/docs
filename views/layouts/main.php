@@ -41,7 +41,8 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Outdocs', 'url' => ['docs-out/index']],
+            ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
+            ['label' => 'Приказы', 'url' => ['document-order/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

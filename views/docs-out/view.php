@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\DocumentOut */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Document Outs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Исходящая документация', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->document_name;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="document-out-view">

@@ -4,6 +4,7 @@ namespace app\models\common;
 
 use Faker\Provider\File;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "document_out".
@@ -45,7 +46,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'txt, png', 'skipOnEmpty' => false],
+            [['scanFile'], 'file', 'extensions' => 'txt, png', 'skipOnEmpty' => true],
 
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
@@ -150,4 +151,21 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return $this->hasMany(File::className(), ['document_id' => 'id']);
     }
+
+    public function getImagesLinks()
+    {
+        $path = ArrayHelper::getColumn(self::find()->all(), Yii::$app->basePath.'/upload/files/'.$this->Scan);
+        return $path;
+    }
+
+    /*public function getImagesLinksData()
+    {
+        $files = UploadsFiles::find()->all();
+        return ArrayHelper::toArray($files,[
+            UploadsFiles::class => [
+                'caption' => 'file',
+                'key' => 'id'
+            ]
+        ]);
+    }*/
 }
