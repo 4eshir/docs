@@ -2,12 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\common\Responsible;
+use app\models\DynamicModel;
 use Yii;
 use app\models\common\DocumentOrder;
 use app\models\SearchDocumentOrder;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 
 /**
  * DocumentOrderController implements the CRUD actions for DocumentOrder model.
@@ -64,14 +69,31 @@ class DocumentOrderController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new DocumentOrder();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelResponsible = [new Responsible];
+        if ($model->load(Yii::$app->request->post())) {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->scan = 'init';
+
+            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
+            $model->responsibles = $modelResponsible;
+
+            if ($model->validate(false)) {
+                $path = '@app/upload/files/';
+                $model->scan = $model->scanFile;
+                $model->save();
+                $model->scanFile->saveAs( $path . $model->scanFile);
+
+            }
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
         ]);
     }
 

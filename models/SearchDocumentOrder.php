@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\common\People;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\DocumentOrder;
@@ -11,6 +12,10 @@ use app\models\common\DocumentOrder;
  */
 class SearchDocumentOrder extends DocumentOrder
 {
+    public $signedName;
+    public $executorName;
+    public $registerName;
+    public $bringName;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +23,8 @@ class SearchDocumentOrder extends DocumentOrder
     {
         return [
             [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
-            [['order_name', 'order_date'], 'safe'],
+            [['signedName', 'executorName', 'registerName', 'bringName'], 'string'],
+            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName'], 'safe'],
         ];
     }
 
@@ -41,12 +47,32 @@ class SearchDocumentOrder extends DocumentOrder
     public function search($params)
     {
         $query = DocumentOrder::find();
-
+        $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['signedName'] = [
+            'asc' => ['signed.secondname' => SORT_ASC],
+            'desc' => ['signed.secondname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['executorName'] = [
+            'asc' => ['executor.secondname' => SORT_ASC],
+            'desc' => ['executor.secondname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['registerName'] = [
+            'asc' => ['register.secondname' => SORT_ASC],
+            'desc' => ['register.secondname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['bringName'] = [
+            'asc' => ['bring.secondname' => SORT_ASC],
+            'desc' => ['bring.secondname' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -68,7 +94,12 @@ class SearchDocumentOrder extends DocumentOrder
             'register_id' => $this->register_id,
         ]);
 
-        $query->andFilterWhere(['like', 'order_name', $this->order_name]);
+        $query->andFilterWhere(['like', 'order_name', $this->order_name])
+            ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
+            ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
+            ->andFilterWhere(['like', 'register.secondname', $this->registerName])
+            ->andFilterWhere(['like', 'bring.secondname', $this->bringName]);
+
 
         return $dataProvider;
     }

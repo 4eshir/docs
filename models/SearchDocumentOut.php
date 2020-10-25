@@ -31,7 +31,7 @@ class SearchDocumentOut extends DocumentOut
         return [
             [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName'], 'safe'],
+                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName', 'document_number'], 'safe'],
         ];
     }
 
@@ -54,9 +54,7 @@ class SearchDocumentOut extends DocumentOut
     public function search($params)
     {
         $query = DocumentOut::find();
-        $query->joinWith(['signed']);
-        $query->joinWith(['executor']);
-        $query->joinWith(['register']);
+        $query->joinWith(['signed signed', 'executor executor', 'register register']);
         $query->joinWith(['sendMethod']);
         $query->joinWith(['company']);
         $query->joinWith(['position']);
@@ -67,18 +65,18 @@ class SearchDocumentOut extends DocumentOut
         ]);
 
         $dataProvider->sort->attributes['signedName'] = [
-            'asc' => [People::tableName().'.secondname' => SORT_ASC],
-            'desc' => [People::tableName().'.secondname' => SORT_DESC],
+            'asc' => ['signed.secondname' => SORT_ASC],
+            'desc' => ['signed.secondname' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['executorName'] = [
-            'asc' => [People::tableName().'.secondname' => SORT_ASC],
-            'desc' => [People::tableName().'.secondname' => SORT_DESC],
+            'asc' => ['executor.secondname' => SORT_ASC],
+            'desc' => ['executor.secondname' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['registerName'] = [
-            'asc' => [People::tableName().'.secondname' => SORT_ASC],
-            'desc' => [People::tableName().'.secondname' => SORT_DESC],
+            'asc' => ['register.secondname' => SORT_ASC],
+            'desc' => ['register.secondname' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['sendMethodName'] = [
@@ -110,9 +108,9 @@ class SearchDocumentOut extends DocumentOut
 
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])
             ->andFilterWhere(['like', 'Scan', $this->Scan])
-            ->andFilterWhere(['like', People::tableName().'.secondname', $this->signedName])
-            ->andFilterWhere(['like', People::tableName().'.secondname', $this->executorName])
-            ->andFilterWhere(['like', People::tableName().'.secondname', $this->registerName])
+            ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
+            ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
+            ->andFilterWhere(['like', 'register.secondname', $this->registerName])
             ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['like', Company::tableName().'.name', $this->companyName]);
 

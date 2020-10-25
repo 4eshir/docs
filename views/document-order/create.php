@@ -1,12 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use wbraganca\dynamicform\DynamicFormAsset;
+use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\DocumentOrder */
 
-$this->title = 'Create Document Order';
-$this->params['breadcrumbs'][] = ['label' => 'Document Orders', 'url' => ['index']];
+$this->title = 'Добавить приказ';
+$this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-order-create">
@@ -15,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelResponsible' => $modelResponsible,
     ]) ?>
 
 </div>

@@ -2,7 +2,7 @@
 
 use yii\jui\DatePicker;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\DocumentOut */
@@ -111,6 +111,11 @@ use yii\widgets\ActiveForm;
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата отправки') ?>
+
+    <div class="padding-v-md">
+        <div class="line line-dashed"></div>
+    </div>
+
 
     <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
         ->label('Скан документа')?>

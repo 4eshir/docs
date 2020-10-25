@@ -73,6 +73,7 @@ class DocsOutController extends Controller
             $model->Scan = 'init';
             if ($model->validate(false)) {
                 $path = '@app/upload/files/';
+
                 $model->Scan = $model->scanFile;
                 $model->save(false);
                 $model->scanFile->saveAs( $path . $model->scanFile);

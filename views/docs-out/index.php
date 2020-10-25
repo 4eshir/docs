@@ -41,16 +41,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
             },
             ],
+            ['attribute' => 'registerName','label' => 'Кто регистрировал', 'value' => function ($model) {
+                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+            },
+            ],
             ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
             ['attribute' => 'sent_date','label' => 'Дата отправления'],
             /*['attribute' => 'Scan','label' => 'Скан документа', 'value' => function ($model) {
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],*/
-            ['attribute' => 'registerName','label' => 'Кто регистрировал', 'value' => function ($model) {
-                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
-            },
-            ],
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
