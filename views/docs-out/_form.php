@@ -56,9 +56,9 @@ use yii\bootstrap\ActiveForm;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'signed_id')->widget(
+    echo $form->field($model, 'signedString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
@@ -71,9 +71,9 @@ use yii\bootstrap\ActiveForm;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'executor_id')->widget(
+    echo $form->field($model, 'executorString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
@@ -126,9 +126,9 @@ use yii\bootstrap\ActiveForm;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'register_id')->widget(
+    echo $form->field($model, 'registerString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,

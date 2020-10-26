@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $model->document_name;
     <h1><?= Html::encode($model->document_name) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -34,15 +34,15 @@ $this->params['breadcrumbs'][] = $model->document_name;
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => $model->position->name],
             ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
-            ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname],
-            ['label' => 'Кто исполнил', 'attribute' => 'executor_id', 'value' => $model->executor->secondname],
+            ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
+            ['label' => 'Кто исполнил', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],
             ['label' => 'Метод отправки', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Дата отправления', 'attribute' => 'sent_date'],
             ['label' => 'Скан документа', 'attribute' => 'Scan', 'value' => function ($model) {
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
-            ['label' => 'Кто зарегистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname],
+            ['label' => 'Кто зарегистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
         ],
     ]) ?>
 

@@ -23,7 +23,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
-        //'dateFormat' => 'dd.MM.yyyy,
         'options' => [
             'placeholder' => 'Дата документа',
             'class'=> 'form-control',
@@ -33,16 +32,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-            //'showOn' => 'button',
-            //'buttonText' => 'Выбрать дату',
-            //'buttonImageOnly' => true,
-            //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата приказа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'signed_id')->widget(
+    echo $form->field($model, 'signedString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
@@ -53,9 +48,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ])->label('Кем подписан'); ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'bring_id')->widget(
+    echo $form->field($model, 'bringString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
@@ -66,9 +61,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ])->label('Проект вносит'); ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'executor_id')->widget(
+    echo $form->field($model, 'executorString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
@@ -139,9 +134,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'scanFile')->fileInput() ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $params = [];
-    echo $form->field($model, 'register_id')->widget(
+    echo $form->field($model, 'registerString')->widget(
         \yii\jui\AutoComplete::className(), [
         'clientOptions' => [
             'source' => $people,
