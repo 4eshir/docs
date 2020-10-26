@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property int $send_method_id
  * @property string $sent_date
  * @property string $Scan
+ * @property string $applications
  * @property int $register_id
  *
  * @property People $executor
@@ -32,6 +33,7 @@ use yii\helpers\ArrayHelper;
 class DocumentOut extends \yii\db\ActiveRecord
 {
     public $scanFile;
+    public $applicationFiles;
     public $signedString;
     public $executorString;
     public $registerString;
@@ -50,6 +52,8 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+
             [['signedString', 'executorString', 'registerString'], 'string'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
@@ -161,6 +165,19 @@ class DocumentOut extends \yii\db\ActiveRecord
         return $path;
     }
 
+    public function uploadApplicationFiles()
+    {
+        if ($this->validate(false)) {
+            foreach ($this->applicationFiles as $file) {
+                $filename = Yii::$app->getSecurity()->generateRandomString(15);
+                $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function beforeSave($insert)
     {
         $fioSigned = explode(" ", $this->signedString);
@@ -173,7 +190,7 @@ class DocumentOut extends \yii\db\ActiveRecord
         $fioExecutorDb = People::find()->where(['secondname' => $fioExecutor[0]])
             ->andWhere(['firstname' => $fioExecutor[1]])
             ->andWhere(['patronymic' => $fioExecutor[2]])->one();
-        $fioRegisterDb = People::find()->where(['secondname' => $fioRegister[0]])
+        $fioRegisterDb = User::find()->where(['secondname' => $fioRegister[0]])
             ->andWhere(['firstname' => $fioRegister[1]])
             ->andWhere(['patronymic' => $fioRegister[2]])->one();
 

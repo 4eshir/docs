@@ -118,6 +118,8 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
         ->label('Скан документа')?>
 
+    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+
     <?php
         if ($model->Scan !== null)
             echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan])).'</h5><br>';

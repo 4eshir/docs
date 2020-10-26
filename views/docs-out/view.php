@@ -42,6 +42,14 @@ $this->params['breadcrumbs'][] = $model->document_theme;
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
+            ['label' => 'Приложения', 'attribute' => 'applicationFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->applications);
+                $result = '';
+                for ($i = 0; $i < count($split); $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'<br>';
+                return $result;
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
             ['label' => 'Кто зарегистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
         ],
     ]) ?>

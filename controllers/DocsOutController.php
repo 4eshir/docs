@@ -89,6 +89,15 @@ class DocsOutController extends Controller
         {
             $model->register_id = Yii::$app->user->identity->getId();
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+            if ($model->uploadApplicationFiles())
+            {
+                $model->applications = $model->applicationFiles[0].' ';
+                for ($i = 1; $i < count($model->applicationFiles); $i++)
+                    $model->applications = $model->applications.' '.$model->applicationFiles[$i];
+            }
+
+
             $model->Scan = 'init';
             if ($model->validate(false)) {
                 $path = '@app/upload/files/';
