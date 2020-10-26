@@ -8,12 +8,12 @@ use yii\widgets\DetailView;
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Исходящая документация', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->document_name;
+$this->params['breadcrumbs'][] = $model->document_theme;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="document-out-view">
 
-    <h1><?= Html::encode($model->document_name) ?></h1>
+    <h1><?= Html::encode($model->document_theme) ?></h1>
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

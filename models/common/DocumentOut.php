@@ -49,7 +49,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'txt, png', 'skipOnEmpty' => true],
+            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['signedString', 'executorString', 'registerString'], 'string'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
@@ -122,7 +122,7 @@ class DocumentOut extends \yii\db\ActiveRecord
      */
     public function getRegister()
     {
-        return $this->hasOne(People::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'register_id']);
     }
 
     /**

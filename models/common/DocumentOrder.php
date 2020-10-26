@@ -47,7 +47,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'txt, png', 'skipOnEmpty' => false],
+            [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf', 'skipOnEmpty' => false],
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id'], 'required'],
             [['order_number', 'signed_id', 'bring_id', 'executor_id', 'register_id'], 'integer'],

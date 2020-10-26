@@ -25,33 +25,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
-            ['attribute' => 'order_number', 'label' => 'Номер приказа'],
-            ['attribute' => 'order_name', 'label' => 'Название приказа'],
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
+            ['attribute' => 'order_number', 'label' => 'Номер приказа'],
+            ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
             ['attribute' => 'signedName','label' => 'Кем подписан', 'value' => function ($model) {
                 return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'.'.mb_substr($model->signed->patronymic, 0, 1).'.';
-            },
-            ],
-            ['attribute' => 'executorName','label' => 'Исполнитель', 'value' => function ($model) {
-                return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
             },
             ],
             ['attribute' => 'bringName','label' => 'Проект вносит', 'value' => function ($model) {
                 return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'.'.mb_substr($model->bring->patronymic, 0, 1).'.';
             },
             ],
-
-            //'scan',
-            ['attribute' => 'registerName','label' => 'Регистратор приказа', 'value' => function ($model) {
-                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+            ['attribute' => 'executorName','label' => 'Исполнитель', 'value' => function ($model) {
+                return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
             },
             ],
+
             ['attribute' => 'responsibilities','label' => 'Ответственные', 'contentOptions' => ['class' => 'wrap'], 'value' => function ($model) {
                 $tmp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
                 $result = '';
                 for ($i = 0; $i < count($tmp); $i++)
-                    $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($result.$tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($result.$tmp[$i]->people->patronymic, 0, 1).'. ';
+                    $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($tmp[$i]->people->patronymic, 0, 1).'. ';
+
                 return $result;
+            },
+            ],
+            ['attribute' => 'registerName','label' => 'Регистратор приказа', 'value' => function ($model) {
+                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
             },
             ],
 

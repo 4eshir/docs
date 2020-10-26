@@ -15,8 +15,6 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'document_number')->textInput()->label('№ документа'); ?>
 
-    <?= $form->field($model, 'document_name')->textInput()->label('Название документа'); ?>
-
     <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
@@ -125,20 +123,6 @@ use yii\bootstrap\ActiveForm;
             echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan])).'</h5><br>';
     ?>
 
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'registerString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кто регистрировал');
-
-    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Добавить документ', ['class' => 'btn btn-success']) ?>

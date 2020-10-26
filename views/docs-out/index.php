@@ -27,9 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['attribute' => 'document_number','label' => '№'],
             ['attribute' => 'document_date','label' => 'Дата документа'],
-            ['attribute' => 'document_name','label' => 'Название документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
-            ['attribute' => 'companyName','label' => 'Корреспондент', 'value' => function ($model) {
+            ['attribute' => 'companyName','label' => 'Кому адресован', 'value' => function ($model) {
                 return $model->position->name.' '.$model->company->name;
             },
             ],

@@ -6,6 +6,7 @@ use app\models\common\Company;
 use app\models\common\Destination;
 use app\models\common\People;
 use app\models\common\SendMethod;
+use app\models\common\User;
 use app\models\extended\DocumentOutExtended;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -54,7 +55,8 @@ class SearchDocumentOut extends DocumentOut
     public function search($params)
     {
         $query = DocumentOut::find();
-        $query->joinWith(['signed signed', 'executor executor', 'register register']);
+        $query->joinWith(['signed signed', 'executor executor']);
+        $query->joinWith(['register']);
         $query->joinWith(['sendMethod']);
         $query->joinWith(['company']);
         $query->joinWith(['position']);
@@ -84,6 +86,11 @@ class SearchDocumentOut extends DocumentOut
             'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['registerName'] = [
+            'asc' => [User::tableName().'.secondname' => SORT_ASC],
+            'desc' => [User::tableName().'.secondname' => SORT_DESC],
+        ];
+
 
         $this->load($params);
 
@@ -110,7 +117,7 @@ class SearchDocumentOut extends DocumentOut
             ->andFilterWhere(['like', 'Scan', $this->Scan])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
-            ->andFilterWhere(['like', 'register.secondname', $this->registerName])
+            ->andFilterWhere(['like', User::tableName().'.secondname', $this->registerName])
             ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['like', Company::tableName().'.name', $this->companyName]);
 

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\common\DocumentOut;
 use app\models\SearchDocumentOut;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,20 @@ class DocsOutController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,6 +51,8 @@ class DocsOutController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
         $searchModel = new SearchDocumentOut();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -66,9 +83,11 @@ class DocsOutController extends Controller
     public function actionCreate()
     {
         $model = new DocumentOut();
+        $model->document_name = "default";
 
         if($model->load(Yii::$app->request->post()))
         {
+            $model->register_id = Yii::$app->user->identity->getId();
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->Scan = 'init';
             if ($model->validate(false)) {
@@ -100,15 +119,19 @@ class DocsOutController extends Controller
     {
         $model = $this->findModel($id);
         $model->scanFile = $model->Scan;
+
         if($model->load(Yii::$app->request->post()))
         {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            $model->Scan = 'init';
             if ($model->validate(false)) {
                 $path = '@app/upload/files/';
-                $model->Scan = $model->scanFile;
+
+                if ($model->scanFile !== null)
+                    $model->Scan = $model->scanFile;
+
                 $model->save(false);
-                $model->scanFile->saveAs( $path . $model->scanFile);
+                if ($model->scanFile !== null)
+                    $model->scanFile->saveAs( $path . $model->scanFile);
                 return $this->redirect('index.php?r=docs-out/index');
             }
         }
