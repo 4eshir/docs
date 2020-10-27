@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "document_out".
  *
  * @property int $id
- * @property int $document_number
+ * @property srting $document_number
  * @property string $document_date
  * @property string $document_name
  * @property string $document_theme
@@ -28,7 +28,6 @@ use yii\helpers\ArrayHelper;
  * @property People $register
  * @property SendMethod $sendMethod
  * @property People $signed
- * @property File[] $files
  */
 class DocumentOut extends \yii\db\ActiveRecord
 {
@@ -52,12 +51,12 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
-            [['signedString', 'executorString', 'registerString'], 'string'],
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required'],
+            [['signedString', 'executorString', 'registerString', 'document_number'], 'string', 'message' => 'Введите корректные ФИО'],
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required', 'message' => 'Данное поле не может быть пустым'],
             [['document_date', 'sent_date'], 'safe'],
-            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
+            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
             [['document_theme', 'Scan'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -85,6 +84,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             'send_method_id' => 'Send Method ID',
             'sent_date' => 'Sent Date',
             'Scan' => 'Scan',
+            'applications' => 'Applications',
             'register_id' => 'Register ID',
         ];
     }
@@ -149,16 +149,6 @@ class DocumentOut extends \yii\db\ActiveRecord
         return $this->hasOne(People::className(), ['id' => 'signed_id']);
     }
 
-    /**
-     * Gets query for [[Files]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFiles()
-    {
-        return $this->hasMany(File::className(), ['document_id' => 'id']);
-    }
-
     public function getImagesLinks()
     {
         $path = ArrayHelper::getColumn(self::find()->all(), Yii::$app->basePath.'/upload/files/'.$this->Scan);
@@ -167,11 +157,15 @@ class DocumentOut extends \yii\db\ActiveRecord
 
     public function uploadApplicationFiles()
     {
-        if ($this->validate(false)) {
+        if ($this->validate()) {
+            $result = '';
             foreach ($this->applicationFiles as $file) {
                 $filename = Yii::$app->getSecurity()->generateRandomString(15);
                 $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
+                $result = $result.$filename . '.' . $file->extension.' ';
             }
+
+            $this->applications = $result;
             return true;
         } else {
             return false;

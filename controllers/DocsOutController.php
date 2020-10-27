@@ -87,24 +87,25 @@ class DocsOutController extends Controller
 
         if($model->load(Yii::$app->request->post()))
         {
+            $model->applications = '';
+            $model->Scan = '';
+            $model->signed_id = 1;
+            $model->executor_id = 1;
+
             $model->register_id = Yii::$app->user->identity->getId();
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
-            if ($model->uploadApplicationFiles())
-            {
-                $model->applications = $model->applicationFiles[0].' ';
-                for ($i = 1; $i < count($model->applicationFiles); $i++)
-                    $model->applications = $model->applications.' '.$model->applicationFiles[$i];
-            }
+            $model->uploadApplicationFiles();
 
-
-            $model->Scan = 'init';
-            if ($model->validate(false)) {
+            if ($model->validate()) {
                 $path = '@app/upload/files/';
+                $filename = Yii::$app->getSecurity()->generateRandomString(15);
+                $model->Scan = $filename . $model->scanFile->extension;
 
-                $model->Scan = $model->scanFile;
                 $model->save(false);
-                $model->scanFile->saveAs( $path . $model->scanFile);
+
+                if ($model->scanFile !== null)
+                    $model->scanFile->saveAs( $path . $filename . '.' . $model->scanFile->extension);
                 return $this->redirect('index.php?r=docs-out/index');
             }
         }

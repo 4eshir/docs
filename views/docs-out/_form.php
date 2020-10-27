@@ -118,15 +118,29 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
         ->label('Скан документа')?>
 
-    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+
 
     <?php
         if ($model->Scan !== null)
             echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan])).'</h5><br>';
     ?>
 
+    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Приложения') ?>
+
+    <?php
+    if ($model->applications !== null)
+    {
+        $split = explode(" ", $model->applications);
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5>';
+        }
+    }
+
+    ?>
 
     <div class="form-group">
+        <br>
         <?= Html::submitButton('Добавить документ', ['class' => 'btn btn-success']) ?>
     </div>
 
