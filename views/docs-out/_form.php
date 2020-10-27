@@ -133,7 +133,7 @@ use yii\bootstrap\ActiveForm;
         $split = explode(" ", $model->applications);
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5>';
+            echo '<h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5>&nbsp;'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id]));
         }
     }
 

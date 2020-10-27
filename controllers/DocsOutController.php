@@ -181,8 +181,34 @@ class DocsOutController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionGetFile($fileName = null)
+    public function actionDeleteFile($fileName = null, $modelId = null)
     {
+
+        $model = DocumentOut::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
+        {
+
+            $result = '';
+            $split = explode(" ", $model->applications);
+            for ($i = 0; $i < count($split) - 1; $i++)
+            {
+                if ($split[$i] !== $fileName)
+                {
+                    $result = $result.$split[$i].' ';
+                }
+            }
+            $model->applications = $result;
+            $model->save();
+        }
+        return $this->render('update', [
+            'model' => $this->findModel($modelId),
+        ]);
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null)
+    {
+
         if ($fileName !== null && !Yii::$app->user->isGuest) {
             $currentFile = Yii::$app->basePath.'/upload/files/'.$fileName;
             if (is_file($currentFile)) {
