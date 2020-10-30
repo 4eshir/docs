@@ -13,7 +13,6 @@ use yii\bootstrap\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'document_number')->textInput()->label('№ документа'); ?>
 
     <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -131,10 +130,12 @@ use yii\bootstrap\ActiveForm;
     if ($model->applications !== null)
     {
         $split = explode(" ", $model->applications);
+        echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5>&nbsp;'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id]));
+            echo '<tr><td><h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
         }
+        echo '</table>';
     }
 
     ?>

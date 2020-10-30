@@ -23,9 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => false,
         'columns' => [
 
-            ['attribute' => 'document_number','label' => '№'],
+            ['attribute' => 'document_number','label' => '№ п/п'],
             ['attribute' => 'document_date','label' => 'Дата документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
             ['attribute' => 'companyName','label' => 'Кому адресован', 'value' => function ($model) {

@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "document_out".
  *
  * @property int $id
- * @property srting $document_number
+ * @property int $document_number
  * @property string $document_date
  * @property string $document_name
  * @property string $document_theme
@@ -53,8 +53,8 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
-            [['signedString', 'executorString', 'registerString', 'document_number'], 'string', 'message' => 'Введите корректные ФИО'],
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required', 'message' => 'Данное поле не может быть пустым'],
+            [['signedString', 'executorString', 'registerString'], 'string', 'message' => 'Введите корректные ФИО'],
+            [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required', 'message' => 'Данное поле не может быть пустым'],
             [['document_date', 'sent_date'], 'safe'],
             [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
             [['document_theme', 'Scan'], 'string', 'max' => 1000],
@@ -155,21 +155,41 @@ class DocumentOut extends \yii\db\ActiveRecord
         return $path;
     }
 
+    public function uploadScanFile()
+    {
+        $path = '@app/upload/files/';
+        do{
+            $filename = Yii::$app->getSecurity()->generateRandomString(15);
+        }while(file_exists('@app/upload/files/' . $filename . '.' . $this->scanFile->extension));
+        $this->Scan = $filename . '.' . $this->scanFile->extension;
+        $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
+    }
+
     public function uploadApplicationFiles()
     {
-        if ($this->validate()) {
-            $result = '';
-            foreach ($this->applicationFiles as $file) {
-                $filename = Yii::$app->getSecurity()->generateRandomString(15);
-                $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
-                $result = $result.$filename . '.' . $file->extension.' ';
-            }
+        $result = '';
+        foreach ($this->applicationFiles as $file) {
 
-            $this->applications = $result;
-            return true;
-        } else {
-            return false;
+            do{
+                $filename = Yii::$app->getSecurity()->generateRandomString(15);
+            }while(file_exists('@app/upload/files/' . $filename . '.' . $file->extension));
+
+            $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
+            $result = $result.$filename . '.' . $file->extension.' ';
         }
+
+        $this->applications = $result;
+        return true;
+    }
+
+    public function getDocumentNumber()
+    {
+        $max = DocumentOut::find()->max('document_number');
+        if ($max == null)
+            $max = 1;
+        else
+            $max = $max + 1;
+        return $max;
     }
 
     public function beforeSave($insert)

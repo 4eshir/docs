@@ -102,7 +102,7 @@ class SearchDocumentOut extends DocumentOut
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'document_number' => $this->document_number,
             'document_date' => $this->document_date,
             'document_name' => $this->document_name,
             'company_id' => $this->company_id,
