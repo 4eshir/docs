@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\DocumentOut */
@@ -25,6 +26,8 @@ $this->params['breadcrumbs'][] = $model->document_theme;
             ],
         ]) ?>
     </p>
+
+
 
     <?= DetailView::widget([
         'model' => $model,

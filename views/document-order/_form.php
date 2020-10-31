@@ -110,11 +110,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     echo Html::activeHiddenInput($modelResponsibleOne, "[{$i}]id");
                                 }
                                 ?>
+
                                 <?php
-                                echo $form->field($modelResponsibleOne, "[{$i}]people_id")->widget(
+                                echo $form->field($modelResponsibleOne, "[{$i}]fio")->widget(
                                     \yii\jui\AutoComplete::className(), [
                                     'clientOptions' => [
-                                        'source' => $model->people_arr,
+                                        'source' => $people,
                                     ],
                                     'options'=>[
                                         'class'=>'form-control',

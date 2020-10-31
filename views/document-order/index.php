@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => false,
         'columns' => [
 
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],

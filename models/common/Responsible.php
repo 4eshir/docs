@@ -16,6 +16,7 @@ use Yii;
  */
 class Responsible extends \yii\db\ActiveRecord
 {
+    public $fio;
     /**
      * {@inheritdoc}
      */
@@ -30,6 +31,7 @@ class Responsible extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['fio'], 'string'],
             [['people_id', 'document_order_id'], 'required'],
             [['people_id', 'document_order_id'], 'integer'],
             [['document_order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['document_order_id' => 'id']],

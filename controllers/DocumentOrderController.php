@@ -86,7 +86,8 @@ class DocumentOrderController extends Controller
             if ($model->validate(false)) {
                 $path = '@app/upload/files/';
                 $model->scan = $model->scanFile;
-                $model->save();
+                $model->save(false);
+
                 $model->scanFile->saveAs( $path . $model->scanFile);
 
             }
