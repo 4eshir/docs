@@ -165,7 +165,7 @@ class DocumentOut extends \yii\db\ActiveRecord
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }
 
-    public function uploadApplicationFiles()
+    public function uploadApplicationFiles($upd = null)
     {
         $result = '';
         foreach ($this->applicationFiles as $file) {
@@ -177,8 +177,10 @@ class DocumentOut extends \yii\db\ActiveRecord
             $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
             $result = $result.$filename . '.' . $file->extension.' ';
         }
-
-        $this->applications = $result;
+        if ($upd == null)
+            $this->applications = $result;
+        else
+            $this->applications = $this->applications.$result;
         return true;
     }
 

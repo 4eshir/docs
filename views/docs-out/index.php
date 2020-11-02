@@ -37,14 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
         {
             return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1);
         }],
-        ['attribute' => 'registerName', 'label' => 'Кто исполнил', 'value' => function($model)
+        ['attribute' => 'registerName', 'label' => 'Кто регистрировал', 'value' => function($model)
         {
             return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
         }],
         ['attribute' => 'sendMethod.name', 'label' => 'Способ отправки'],
         ['attribute' => 'sent_date', 'label' => 'Дата отправки'],
     ];
-    echo '<b>Скачать Excel </b>';
+    echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $gridColumns,

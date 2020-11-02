@@ -99,8 +99,10 @@ class DocsOutController extends Controller
 
 
             if ($model->validate()) {
-                $model->uploadScanFile();
-                $model->uploadApplicationFiles();
+                if ($model->scanFile != null)
+                    $model->uploadScanFile();
+                if ($model->applicationFiles != null)
+                    $model->uploadApplicationFiles();
                 $model->save(false);
                 return $this->redirect('index.php?r=docs-out/index');
             }
@@ -129,15 +131,14 @@ class DocsOutController extends Controller
         if($model->load(Yii::$app->request->post()))
         {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            if ($model->validate(false)) {
-                $path = '@app/upload/files/';
-
-                if ($model->scanFile !== null)
-                    $model->Scan = $model->scanFile;
-
+            $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+            if ($model->validate()) {
+                if ($model->scanFile != null)
+                    $model->uploadScanFile();
+                if ($model->applicationFiles != null)
+                    $model->uploadApplicationFiles(10);
                 $model->save(false);
-                if ($model->scanFile !== null)
-                    $model->scanFile->saveAs( $path . $model->scanFile);
+
                 return $this->redirect('index.php?r=docs-out/index');
             }
         }

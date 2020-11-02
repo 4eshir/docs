@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchDocumentOrder */
@@ -18,8 +19,50 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
 
+    $gridColumns = [
+        ['attribute' => 'order_date', 'label' => 'Дата приказа'],
+        ['attribute' => 'order_number', 'label' => 'Номер приказа'],
+        ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
+        ['attribute' => 'signedName', 'label' => 'Кем подписан', 'value' => function($model)
+        {
+            return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1);
+        }],
+        ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
+        {
+            return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1);
+        }],
+        ['attribute' => 'executorName', 'label' => 'Исполнитель', 'value' => function($model)
+        {
+            return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1);
+        }],
+        ['attribute' => 'responsiblies', 'label' => 'Ответственные', 'value' => function($model)
+        {
+            $resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            $result = '';
+            foreach ($resp as $respOne)
+                $result = $result.$respOne->people->secondname.' '.mb_substr($respOne->people->firstname, 0, 1).'. '.mb_substr($respOne->people->patronymic, 0, 1).'. ';
+            return $result;
+        }],
+        ['attribute' => 'registerName', 'label' => 'Регистратор приказа', 'value' => function($model)
+        {
+            return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
+        }],
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
+
+    </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

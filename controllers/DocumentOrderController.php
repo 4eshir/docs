@@ -84,14 +84,11 @@ class DocumentOrderController extends Controller
             $model->responsibles = $modelResponsible;
 
             if ($model->validate(false)) {
-                $path = '@app/upload/files/';
-                $model->scan = $model->scanFile;
+                $model->uploadScanFile();
                 $model->save(false);
 
-                $model->scanFile->saveAs( $path . $model->scanFile);
-
             }
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -110,13 +107,58 @@ class DocumentOrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+        DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
+        $model->responsibles = $modelResponsible;
+        if ($model->load(Yii::$app->request->post())) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
+            $model->responsibles = $modelResponsible;
+
+
+            if ($model->validate()) {
+                $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+                if ($model->scanFile !== null)
+                    $model->uploadScanFile();
+
+                $model->save(false);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
+        ]);
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null)
+    {
+
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                return $this->redirect('index.php?r=docs-out/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionDeleteResponsible($peopleId, $orderId)
+    {
+        $resp = Responsible::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
+        $resp->delete();
+        $model = $this->findModel($orderId);
+        return $this->render('update', [
+            'model' => $model,
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
         ]);
     }
 

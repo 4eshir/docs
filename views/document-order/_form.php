@@ -76,6 +76,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
+            <?php
+            $resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            if ($resp != null)
+            {
+                echo '<table>';
+                foreach ($resp as $respOne) {
+                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->people_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -132,7 +144,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
     </div>
 
-    <?= $form->field($model, 'scanFile')->fileInput() ?>
+    <?= $form->field($model, 'scanFile')->fileInput()->label('Скан приказа') ?>
+    <?php
+    if ($model->scan !== null)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    ?>
 
     <?php
     $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();

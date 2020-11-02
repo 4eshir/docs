@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $html;
             }, 'format' => 'raw'],
             ['label' => 'Скан приказа', 'attribute' => 'Scan', 'value' => function ($model) {
-                return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan]));
+                return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Кто регистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
