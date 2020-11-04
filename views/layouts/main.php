@@ -39,6 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
 
+            ['label' => 'ПО "Административный процесс"', 'url' => ['as-admin/index']],
             ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
             ['label' => 'Приказы', 'url' => ['document-order/index']],
             Yii::$app->user->isGuest ? (

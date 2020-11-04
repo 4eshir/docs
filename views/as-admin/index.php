@@ -24,14 +24,55 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             ['attribute' => 'id', 'label' => '№ п/п'],
             ['attribute' => 'as_name', 'label' => 'Наименование'],
             ['attribute' => 'requisites', 'label' => 'Реквизиты', 'value' => function($model){
-                return $model->company->name.' '.$model->document_number.' '.$model->document_date;
+                return 'Компания: '.$model->asCompany->name.'<br>Номер док.: '.$model->document_number.'<br>Дата док.: '.$model->document_date;
+            }, 'format' => 'raw'],
+            ['attribute' => 'count', 'label' => 'Кол-во'],
+            ['attribute' => 'price', 'label' => 'Цена'],
+            ['attribute' => 'cost', 'label' => 'Стоимость', 'value' => function($model){
+                return $model->count * $model->price;
             }],
-
+            ['attribute' => 'inst_quant', 'label' => 'Установ. Кванториум', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['attribute' => 'inst_tech', 'label' => 'Установ. Технопарк', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['attribute' => 'inst_cdntt', 'label' => 'Установ. ЦДНТТ', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
+            ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
+                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'с '.explode("-", $resOne->start_date)[0].' по '.explode("-", $resOne->end_date)[0].'<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['attribute' => 'license_date', 'label' => 'Срок лицензии', 'value' => function($model){
+                return 'с '.explode("-", $model->license_start)[0].' по '.explode("-", $model->license_finish)[0];
+            }],
+            ['attribute' => 'license', 'label' => 'Тип лицензии', 'value' => 'license.name'],
+            ['attribute' => 'scan', 'label' => 'Договор (скан)'],
+            ['attribute' => 'registerName', 'label' => 'Регистратор', 'value' => function ($model) {
+                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+            },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

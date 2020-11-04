@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\AsAdmin */
 
-$this->title = $model->id;
+$this->title = $model->as_name;
 $this->params['breadcrumbs'][] = ['label' => 'As Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,20 +29,54 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'as_company_id',
-            'document_number',
-            'document_date',
-            'count',
-            'price',
-            'country_prod_id',
-            'license_start',
-            'license_finish',
-            'version_id',
-            'license_id',
-            'comment',
-            'scan',
-            'register_id',
+            ['label' => '№ п/п', 'attribute' => 'id'],
+            ['label' => 'Реквизиты', 'attribute' => 'as_company_id', 'value' => function($model){
+                return 'Компания: '.$model->asCompany->name.'<br>Номер документа: '.$model->document_number.'<br>Дата документа: '.$model->document_date;
+            }, 'format' => 'raw'],
+            ['label' => 'Кол-во экземпляров', 'attribute' => 'count'],
+            ['label' => 'Цена за 1 шт.', 'attribute' => 'price'],
+            ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Установлено в "Технопарк"', 'attribute' => 'inst_tech', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Установлено в "ЦДНТТ"', 'attribute' => 'inst_cdntt', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Цена за 1 шт.', 'attribute' => 'price'],
+            ['label' => 'Стоимость', 'attribute' => 'cost', 'value' => function($model){
+                return $model->count * $model->price;
+            }],
+            ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
+            ['label' => 'Годы использования','attribute' => 'useYear',  'value' => function($model){
+                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'с '.$resOne->start_date.' по '.$resOne->end_date.'<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Срок лицензии', 'attribute' => 'license_date', 'value' => function($model){
+                return 'с '.$model->license_start.' по '.$model->license_finish;
+            }],
+            ['label' => 'Тип лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['label' => 'Договор (скан)', 'attribute' => 'scan'],
+            ['label' => 'Регистратор', 'attribute' => 'registerName', 'value' => function ($model) {
+                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+            },
+            ],
         ],
     ]) ?>
 
