@@ -14,6 +14,7 @@ use app\models\DynamicModel;
 use Yii;
 use app\models\common\AsAdmin;
 use app\models\SearchAsAdmin;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,6 +31,17 @@ class AsAdminController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license',
+                            'add-version', 'index-company', 'index-country', 'index-license', 'index-version'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
