@@ -1,7 +1,10 @@
 <?php
 
+use yii\jui\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use wbraganca\dynamicform\DynamicFormAsset;
+use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\AsAdmin */
@@ -10,33 +13,213 @@ use yii\widgets\ActiveForm;
 
 <div class="as-admin-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'as_company_id')->textInput() ?>
+    <?= $form->field($model, 'as_name')->textInput()->label('Наименование ПО') ?>
 
-    <?= $form->field($model, 'document_number')->textInput() ?>
+    <?php
+    $company = \app\models\common\AsCompany::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+    $params = [];
+    echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Реквизиты: организация');
 
-    <?= $form->field($model, 'document_date')->textInput() ?>
+    ?>
 
-    <?= $form->field($model, 'count')->textInput() ?>
+    <?= $form->field($model, 'document_number')->textInput()->label('Реквизиты: номер документа') ?>
 
-    <?= $form->field($model, 'price')->textInput() ?>
+    <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'Дата документа',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Реквизиты: дата документа') ?>
 
-    <?= $form->field($model, 'country_prod_id')->textInput() ?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Установлено в "Кванториуме"</h4></div>
 
-    <?= $form->field($model, 'license_start')->textInput() ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items1', // required: css class selector
+                    'widgetItem' => '.item1', // required: css class
+                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelAsInstall[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
 
-    <?= $form->field($model, 'license_finish')->textInput() ?>
+                        'cabinet',
+                        'count',
+                    ],
+                ]); ?>
 
-    <?= $form->field($model, 'version_id')->textInput() ?>
+                <div class="container-items1" ><!-- widgetContainer -->
+                    <?php foreach ($modelAsInstall as $i => $modelAsInstallOne): ?>
+                        <div class="item1 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left"></h3>
+                                <div class="pull-right">
+                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body" style="display:inline-block">
+                                <?php
+                                // necessary for update action.
+                                if (! $modelAsInstallOne->isNewRecord) {
+                                    echo Html::activeHiddenInput($modelAsInstallOne, "[{$i}]id");
+                                }
+                                ?>
+                                <div style="display:inline-block">
+                                    <?php
 
-    <?= $form->field($model, 'license_id')->textInput() ?>
+                                    $branch = \app\models\common\Branch::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+                                    $params = [];
+                                    echo $form->field($modelAsInstallOne, "[{$i}]branch_id")->dropDownList($items,$params)->label('Филиал');
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+                                    echo $form->field($modelAsInstallOne, "[{$i}]cabinet")->textInput()->label('Кабинет');
 
-    <?= $form->field($model, 'scan')->textInput(['maxlength' => true]) ?>
+                                    echo $form->field($modelAsInstallOne, "[{$i}]count")->textInput()->label('Количество экземпляров')
 
-    <?= $form->field($model, 'register_id')->textInput() ?>
+                                    ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+
+    <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
+
+    <?= $form->field($model, 'price')->textInput()->label('Цена за 1 шт.') ?>
+
+    <?php
+    $country = \app\models\common\Country::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($country,'id','name');
+    $params = [];
+    echo $form->field($model, 'country_prod_id')->dropDownList($items,$params)->label('Страна производитель');
+
+    ?>
+
+    <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'Дата',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата начала использования') ?>
+
+    <?= $form->field($model, 'useEndDate')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'Дата',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата окончания использования') ?>
+
+    <?= $form->field($model, 'license_start')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'Дата документа',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата начала действия лицензии') ?>
+
+    <?= $form->field($model, 'license_finish')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'Дата документа',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата окончания действия лицензии') ?>
+
+    <?php
+    $vers = \app\models\common\Version::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($vers,'id','name');
+    $params = [];
+    echo $form->field($model, 'version_id')->dropDownList($items,$params)->label('Версия ПО');
+
+    ?>
+
+    <?php
+    $lic = \app\models\common\License::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Тип лицензии');
+
+    ?>
+
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
+
+    <?= $form->field($model, 'scanFile')->textInput(['maxlength' => true])->fileInput()->label('Договор (скан)') ?>
+
+    <?= $form->field($model, 'serviceNoteFile[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Служебные записки') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

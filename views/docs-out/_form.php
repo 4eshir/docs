@@ -36,7 +36,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
     <?php
     $position = \app\models\common\Position::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($position    ,'id','name');
+    $items = \yii\helpers\ArrayHelper::map($position,'id','name');
     $params = [
         'prompt' => '---'
     ];

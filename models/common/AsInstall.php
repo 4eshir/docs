@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int $branch_id
  * @property int $as_admin_id
- * @property int $cabinet
+ * @property string $cabinet
  * @property int $count
  *
  * @property AsAdmin $asAdmin
@@ -33,7 +33,8 @@ class AsInstall extends \yii\db\ActiveRecord
     {
         return [
             [['branch_id', 'as_admin_id', 'cabinet', 'count'], 'required'],
-            [['branch_id', 'as_admin_id', 'cabinet', 'count'], 'integer'],
+            [['branch_id', 'as_admin_id', 'count'], 'integer'],
+            [['cabinet'], 'string', 'max' => 1000],
             [['as_admin_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsAdmin::className(), 'targetAttribute' => ['as_admin_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
         ];

@@ -35,6 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             }, 'format' => 'raw'],
             ['label' => 'Кол-во экземпляров', 'attribute' => 'count'],
             ['label' => 'Цена за 1 шт.', 'attribute' => 'price'],
+            ['label' => 'Стоимость', 'attribute' => 'cost', 'value' => function($model){
+                return $model->count * $model->price;
+            }],
             ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                 $html = '';
@@ -56,23 +59,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
                 return $html;
             }, 'format' => 'raw'],
-            ['label' => 'Цена за 1 шт.', 'attribute' => 'price'],
-            ['label' => 'Стоимость', 'attribute' => 'cost', 'value' => function($model){
-                return $model->count * $model->price;
-            }],
             ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
             ['label' => 'Годы использования','attribute' => 'useYear',  'value' => function($model){
                 $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->all();
                 $html = '';
                 foreach ($res as $resOne)
                     $html = $html.'с '.$resOne->start_date.' по '.$resOne->end_date.'<br>';
+                if ($html == 'с 1999-01-01 по 1999-01-01<br>')
+                    return 'Бессрочно';
                 return $html;
             }, 'format' => 'raw'],
             ['label' => 'Срок лицензии', 'attribute' => 'license_date', 'value' => function($model){
                 return 'с '.$model->license_start.' по '.$model->license_finish;
             }],
             ['label' => 'Тип лицензии', 'attribute' => 'license', 'value' => $model->license->name],
-            ['label' => 'Договор (скан)', 'attribute' => 'scan'],
+            ['label' => 'Договор (скан)', 'attribute' => 'scan', 'value' => function ($model) {
+                return Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'scan/'.$model->scan]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Служебные записки', 'attribute' => 'serviceNoteFile', 'value' => function ($model) {
+                $split = explode(" ", $model->service_note);
+                $result = '';
+                for ($i = 0; $i < count($split); $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'service_note/'.$split[$i]])).'<br>';
+                return $result;
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
             ['label' => 'Регистратор', 'attribute' => 'registerName', 'value' => function ($model) {
                 return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
             },

@@ -1,5 +1,7 @@
 <?php
 
+use app\models\common\AsInstall;
+use app\models\common\UseYears;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -15,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelUseYears' => (empty($modelUseYears)) ? [new UseYears] : $modelUseYears,
+        'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstall] : $modelAsInstall,
     ]) ?>
 
 </div>

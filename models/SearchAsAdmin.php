@@ -18,7 +18,7 @@ class SearchAsAdmin extends AsAdmin
     {
         return [
             [['id', 'as_company_id', 'document_number', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
-            [['document_date', 'license_start', 'license_finish', 'comment', 'scan'], 'safe'],
+            [['document_date', 'license_start', 'license_finish', 'comment', 'scan', 'as_name'], 'safe'],
             [['price'], 'number'],
         ];
     }
