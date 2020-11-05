@@ -3,6 +3,11 @@
 namespace app\controllers;
 
 use app\models\common\AsInstall;
+use app\models\common\Company;
+use app\models\common\AsCompany;
+use app\models\common\Country;
+use app\models\common\Version;
+use app\models\common\License;
 use app\models\common\Responsible;
 use app\models\common\UseYears;
 use app\models\DynamicModel;
@@ -171,5 +176,130 @@ class AsAdminController extends Controller
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+
+    //--------------------------
+
+    public function actionIndexCompany()
+    {
+        $model = AsCompany::find()->all();
+        return $this->render('index-company', ['model' => $model]);
+    }
+
+    public function actionAddCompany()
+    {
+        $model = new AsCompany();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            Yii::$app->session->addFlash('success', 'Компания успешно добавлена');
+            return $this->redirect('index.php?r=as-admin/index-company');
+        }
+
+        return $this->render('add-company', ['model' => $model]);
+    }
+
+    public function actionDeleteCompany($model_id)
+    {
+        $model = AsCompany::find()->where(['id' => $model_id])->one();
+        if (count(AsAdmin::find()->where(['as_company_id' => $model_id])->all()) == 0)
+            $model->delete();
+        else
+            Yii::$app->session->addFlash('error', 'Невозможно удалить компанию! (используется в списке ПО)');
+        return $this->redirect('index.php?r=as-admin/index-company');
+    }
+
+    //---------------------------------
+
+    public function actionIndexCountry()
+    {
+        $model = Country::find()->all();
+        return $this->render('index-country', ['model' => $model]);
+    }
+
+    public function actionAddCountry()
+    {
+        $model = new Country();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            Yii::$app->session->addFlash('success', 'Страна успешно добавлена');
+            return $this->redirect('index.php?r=as-admin/index-country');
+        }
+
+        return $this->render('add-country', ['model' => $model]);
+    }
+
+    public function actionDeleteCountry($model_id)
+    {
+        $model = Country::find()->where(['id' => $model_id])->one();
+        if (count(AsAdmin::find()->where(['country_prod_id' => $model_id])->all()) == 0)
+            $model->delete();
+        else
+            Yii::$app->session->addFlash('error', 'Невозможно удалить страну! (используется в списке ПО)');
+        return $this->redirect('index.php?r=as-admin/index-country');
+    }
+
+    //---------------------------------
+
+    public function actionIndexVersion()
+    {
+        $model = Version::find()->all();
+        return $this->render('index-version', ['model' => $model]);
+    }
+
+    public function actionAddVersion()
+    {
+        $model = new Version();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            Yii::$app->session->addFlash('success', 'Версия успешно добавлена');
+            return $this->redirect('index.php?r=as-admin/index-version');
+        }
+
+        return $this->render('add-version', ['model' => $model]);
+    }
+
+    public function actionDeleteVersion($model_id)
+    {
+        $model = Version::find()->where(['id' => $model_id])->one();
+        if (count(AsAdmin::find()->where(['version_id' => $model_id])->all()) == 0)
+            $model->delete();
+        else
+            Yii::$app->session->addFlash('error', 'Невозможно удалить версию! (используется в списке ПО)');
+        return $this->redirect('index.php?r=as-admin/index-version');
+    }
+
+    //---------------------------------
+
+    public function actionIndexLicense()
+    {
+        $model = License::find()->all();
+        return $this->render('index-license', ['model' => $model]);
+    }
+
+    public function actionAddLicense()
+    {
+        $model = new License();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            Yii::$app->session->addFlash('success', 'Тип лицензии успешно добавлен');
+            return $this->redirect('index.php?r=as-admin/index-license');
+        }
+
+        return $this->render('add-license', ['model' => $model]);
+    }
+
+    public function actionDeleteLicense($model_id)
+    {
+        $model = License::find()->where(['id' => $model_id])->one();
+        if (count(AsAdmin::find()->where(['license_id' => $model_id])->all()) == 0)
+            $model->delete();
+        else
+            Yii::$app->session->addFlash('error', 'Невозможно удалить тип лицензии! (используется в списке ПО)');
+        return $this->redirect('index.php?r=as-admin/index-license');
     }
 }

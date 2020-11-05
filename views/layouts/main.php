@@ -39,7 +39,13 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
 
-            ['label' => 'ПО "Административный процесс"', 'url' => ['as-admin/index']],
+            ['label' => 'ПО "Административный процесс"', 'items' => [
+                ['label' => 'Работа с базой ПО', 'url' => ['/as-admin/index']],
+                ['label' => 'Компании', 'url' => ['/as-admin/index-company']],
+                ['label' => 'Страны', 'url' => ['/as-admin/index-country']],
+                ['label' => 'Версии ПО', 'url' => ['/as-admin/index-version']],
+                ['label' => 'Тип лицензии', 'url' => ['/as-admin/index-license']],
+            ]],
             ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
             ['label' => 'Приказы', 'url' => ['document-order/index']],
             Yii::$app->user->isGuest ? (
