@@ -39,21 +39,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                 $html = '';
                 foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
             }, 'format' => 'raw'],
             ['attribute' => 'inst_tech', 'label' => 'Установ. Технопарк', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
                 $html = '';
                 foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
             }, 'format' => 'raw'],
             ['attribute' => 'inst_cdntt', 'label' => 'Установ. ЦДНТТ', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
                 $html = '';
                 foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
             }, 'format' => 'raw'],
             ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
