@@ -35,8 +35,8 @@ class AsAdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license',
-                            'add-version', 'index-company', 'index-country', 'index-license', 'index-version'],
+                        'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license', 'delete-file', 'delete',
+                            'add-version', 'index-company', 'index-country', 'index-license', 'index-version', 'delete-install', 'get-file'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -98,17 +98,19 @@ class AsAdminController extends Controller
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
 
-            $modelUseYears = DynamicModel::createMultiple(UseYears::classname());
-            DynamicModel::loadMultiple($modelUseYears, Yii::$app->request->post());
-            $model->useYears = $modelUseYears;
+            //$modelUseYears = DynamicModel::createMultiple(UseYears::classname());
+            //DynamicModel::loadMultiple($modelUseYears, Yii::$app->request->post());
+            //$model->useYears = $modelUseYears;
 
             $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
 
             if ($model->validate(false)) {
-                $model->uploadScanFile();
-                $model->uploadServiceNoteFiles();
+                if ($model->scanFile !== null)
+                    $model->uploadScanFile();
+                if ($model->serviceNoteFile !== null)
+                    $model->uploadServiceNoteFiles();
                 $model->save(false);
 
             }
@@ -133,8 +135,25 @@ class AsAdminController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelAsInstall = [new AsInstall];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
+            DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
+            $model->asInstalls = $modelAsInstall;
+
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
+            if ($model->validate(false))
+            {
+                if ($model->scanFile !== null)
+                    $model->uploadScanFile();
+                if ($model->serviceNoteFile !== null)
+                    $model->uploadServiceNoteFiles();
+                $model->save();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -313,5 +332,38 @@ class AsAdminController extends Controller
         else
             Yii::$app->session->addFlash('error', 'Невозможно удалить тип лицензии! (используется в списке ПО)');
         return $this->redirect('index.php?r=as-admin/index-license');
+    }
+
+    //--------------------------------------------
+
+    public function actionDeleteInstall($id, $model_id)
+    {
+        $inst = AsInstall::find()->where(['id' => $id])->one();
+        $inst->delete();
+        $model = $this->findModel($model_id);
+        return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
+    }
+
+    public function actionDeleteFile($fileName = null, $modelId = null)
+    {
+
+        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
+        {
+
+            $result = '';
+            $split = explode(" ", $model->service_note);
+            for ($i = 0; $i < count($split) - 1; $i++)
+            {
+                if ($split[$i] !== $fileName)
+                {
+                    $result = $result.$split[$i].' ';
+                }
+            }
+            $model->service_note = $result;
+            $model->save();
+        }
+        return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
     }
 }

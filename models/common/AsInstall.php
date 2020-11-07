@@ -32,7 +32,6 @@ class AsInstall extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['branch_id', 'as_admin_id', 'cabinet', 'count'], 'required'],
             [['branch_id', 'as_admin_id', 'count'], 'integer'],
             [['cabinet'], 'string', 'max' => 1000],
             [['as_admin_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsAdmin::className(), 'targetAttribute' => ['as_admin_id' => 'id']],

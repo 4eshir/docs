@@ -48,8 +48,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Установлено в "Кванториуме"</h4></div>
-
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Установлено</h4></div>
+            <?php
+            $asInstall = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
+            if ($asInstall != null)
+            {
+                echo '<table>';
+                foreach ($asInstall  as $asInstallOne) {
+                    echo '<tr><td style="padding-left: 20px"><h4>"'.$asInstallOne->branch->name.'" Кабинет: '.$asInstallOne->cabinet.' ('.$asInstallOne->count.' шт.)</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-install', 'id' => $asInstallOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -113,7 +123,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
 
-    <?= $form->field($model, 'price')->textInput()->label('Цена за 1 шт.') ?>
+    <?= $form->field($model, 'price')->textInput()->label('Цена за 1 шт. в руб.') ?>
 
     <?php
     $country = \app\models\common\Country::find()->all();
@@ -128,7 +138,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         'language' => 'ru',
         //'dateFormat' => 'dd.MM.yyyy,
         'options' => [
-            'placeholder' => 'Дата',
+            'placeholder' => 'оставить поле пустым, если бессрочно',
             'class'=> 'form-control',
             'autocomplete'=>'off'
         ],
@@ -147,7 +157,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         'language' => 'ru',
         //'dateFormat' => 'dd.MM.yyyy,
         'options' => [
-            'placeholder' => 'Дата',
+            'placeholder' => 'оставить поле пустым, если бессрочно',
             'class'=> 'form-control',
             'autocomplete'=>'off'
         ],
@@ -219,10 +229,29 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'scanFile')->textInput(['maxlength' => true])->fileInput()->label('Договор (скан)') ?>
 
+    <?php
+    if ($model->scan !== null)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    ?>
+
     <?= $form->field($model, 'serviceNoteFile[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Служебные записки') ?>
 
+    <?php
+    if ($model->service_note !== null)
+    {
+        $split = explode(" ", $model->service_note);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
