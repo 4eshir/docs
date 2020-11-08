@@ -35,7 +35,11 @@ $this->params['breadcrumbs'][] = $model->document_theme;
             ['label' => 'Номер документа', 'attribute' => 'document_number'],
             ['label' => 'Дата документа', 'attribute' => 'document_date'],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
-            ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => $model->position->name],
+            ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => function($model){
+                if ($model->position_id == 7)
+                    return '';
+                return $model->position->name;
+            }],
             ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
             ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
             ['label' => 'Кто исполнил', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],

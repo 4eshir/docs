@@ -38,7 +38,7 @@ use yii\bootstrap\ActiveForm;
     $position = \app\models\common\Position::find()->all();
     $items = \yii\helpers\ArrayHelper::map($position,'id','name');
     $params = [
-        'prompt' => '---'
+        
     ];
     echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
 

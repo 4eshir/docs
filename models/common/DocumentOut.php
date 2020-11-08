@@ -54,7 +54,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'executorString', 'registerString'], 'string', 'message' => 'Введите корректные ФИО'],
-            [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number'], 'required', 'message' => 'Данное поле не может быть пустым'],
+            [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
             [['document_date', 'sent_date'], 'safe'],
             [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
             [['document_theme', 'Scan'], 'string', 'max' => 1000],

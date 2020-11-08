@@ -49,7 +49,8 @@ class DocumentOrder extends \yii\db\ActiveRecord
         return [
             [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf', 'skipOnEmpty' => true],
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
-            [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id'], 'required'],
+            [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
+              'signedString', 'executorString', 'bringString'], 'required'],
             [['order_number', 'signed_id', 'bring_id', 'executor_id', 'register_id'], 'integer'],
             [['order_date'], 'safe'],
             [['order_name', 'scan'], 'string', 'max' => 1000],
@@ -131,6 +132,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
 
     public function  beforeSave($insert)
     {
+
         $fioSigned = explode(" ", $this->signedString);
         $fioExecutor = explode(" ", $this->executorString);
         $fioRegister = explode(" ", $this->registerString);

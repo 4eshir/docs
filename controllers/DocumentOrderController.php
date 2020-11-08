@@ -84,7 +84,8 @@ class DocumentOrderController extends Controller
             $model->responsibles = $modelResponsible;
 
             if ($model->validate(false)) {
-                $model->uploadScanFile();
+                if ($model->scanFile !== "" || $model->scanFile !== null)
+                    $model->uploadScanFile();
                 $model->save(false);
 
             }
