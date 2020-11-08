@@ -230,7 +230,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'scanFile')->textInput(['maxlength' => true])->fileInput()->label('Договор (скан)') ?>
 
     <?php
-    if ($model->scan !== null)
+    if ($model->scan !== "")
         echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->scan])).'</h5><br>';
     ?>
 

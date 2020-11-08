@@ -167,7 +167,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     {
         $path = '@app/upload/files/as_admin/scan/';
         do {
-            $filename = Yii::$app->getSecurity()->generateRandomString(15);
+            $filename = $this->scanFile.'_'.Yii::$app->getSecurity()->generateRandomString(15);
         } while (file_exists('@app/upload/files/as_admin/scan/' . $filename . '.' . $this->scanFile->extension));
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs($path . $filename . '.' . $this->scanFile->extension);

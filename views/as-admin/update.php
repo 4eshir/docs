@@ -6,7 +6,7 @@ use app\models\common\AsInstall;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\AsAdmin */
 
-$this->title = 'Update As Admin: ' . $model->id;
+$this->title = 'Редактировать: ' . $model->as_name;
 $this->params['breadcrumbs'][] = ['label' => 'As Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
