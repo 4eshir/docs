@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property string $Scan
  * @property string $applications
  * @property int $register_id
+ * @property string $key_words
  *
  * @property People $executor
  * @property People $register
@@ -53,11 +54,11 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
-            [['signedString', 'executorString', 'registerString'], 'string', 'message' => 'Введите корректные ФИО'],
+            [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
             [['document_date', 'sent_date'], 'safe'],
             [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
-            [['document_theme', 'Scan'], 'string', 'max' => 1000],
+            [['document_theme', 'Scan', 'key_words'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
@@ -86,6 +87,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             'Scan' => 'Scan',
             'applications' => 'Applications',
             'register_id' => 'Register ID',
+            'key_words' => 'Key Words',
         ];
     }
 
@@ -201,8 +203,8 @@ class DocumentOut extends \yii\db\ActiveRecord
         $fioRegister = explode(" ", $this->registerString);
 
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
-                            ->andWhere(['firstname' => $fioSigned[1]])
-                            ->andWhere(['patronymic' => $fioSigned[2]])->one();
+            ->andWhere(['firstname' => $fioSigned[1]])
+            ->andWhere(['patronymic' => $fioSigned[2]])->one();
         $fioExecutorDb = People::find()->where(['secondname' => $fioExecutor[0]])
             ->andWhere(['firstname' => $fioExecutor[1]])
             ->andWhere(['patronymic' => $fioExecutor[2]])->one();

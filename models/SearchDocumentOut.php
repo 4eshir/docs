@@ -32,7 +32,7 @@ class SearchDocumentOut extends DocumentOut
         return [
             [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName', 'document_number'], 'safe'],
+                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName', 'document_number', 'key_words'], 'safe'],
         ];
     }
 
@@ -111,6 +111,7 @@ class SearchDocumentOut extends DocumentOut
             'send_method_id' => $this->send_method_id,
             'sent_date' => $this->sent_date,
             'register_id' => $this->register_id,
+            'key_words' => $this->key_words,
         ]);
 
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])

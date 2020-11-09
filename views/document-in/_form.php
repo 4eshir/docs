@@ -115,6 +115,8 @@ use yii\jui\DatePicker;
 
     ?>
 
+    <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
+
     <?= $form->field($model, 'scanFile')->fileInput()
         ->label('Скан документа')?>
 

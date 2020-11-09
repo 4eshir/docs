@@ -113,6 +113,7 @@ use yii\bootstrap\ActiveForm;
         <div class="line line-dashed"></div>
     </div>
 
+    <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
     <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
         ->label('Скан документа')?>

@@ -22,6 +22,7 @@ use Yii;
  * @property string $scan
  * @property string $applications
  * @property int $register_id
+ * @property string $key_words
  *
  * @property Company $company
  * @property User $get
@@ -58,7 +59,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             [['local_number', 'local_date', 'real_number', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
             [['local_number', 'real_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
             [['local_date', 'real_date'], 'safe'],
-            [['document_theme', 'target', 'scan', 'applications'], 'string', 'max' => 1000],
+            [['document_theme', 'target', 'scan', 'applications', 'key_words'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['get_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['get_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -87,6 +88,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             'scan' => 'Scan',
             'applications' => 'Applications',
             'register_id' => 'Register ID',
+            'key_words' => 'Key Words'
         ];
     }
 

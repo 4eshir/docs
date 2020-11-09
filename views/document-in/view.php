@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Скан документа', 'attribute' => 'scan'],
             ['label' => 'Приложения', 'attribute' => 'applications'],
+            ['label' => 'Ключевые слова', 'attribute' => 'key_words'],
             ['label' => 'Регистратор документа', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
         ],
     ]) ?>
