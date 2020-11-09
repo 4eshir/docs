@@ -151,7 +151,7 @@ class AsAdminController extends Controller
                     $model->uploadScanFile();
                 if ($model->serviceNoteFile !== null)
                     $model->uploadServiceNoteFiles();
-                $model->save();
+                $model->save(false);
             }
 
             return $this->redirect(['view', 'id' => $model->id]);

@@ -212,6 +212,14 @@ class AsAdmin extends \yii\db\ActiveRecord
             $use->end_date = $this->useEndDate;
             $use->save(false);
         }
+        else
+        {
+            $use = UseYears::find()->where(['as_admin_id' => $this->id])->one();
+            $use->start_date = $this->useStartDate;
+            $use->end_date = $this->useEndDate;
+            $use->save(false);
+        }
+
 
     }
 

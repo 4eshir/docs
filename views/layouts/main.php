@@ -47,6 +47,7 @@ AppAsset::register($this);
                 ['label' => 'Тип лицензии', 'url' => ['/as-admin/index-license']],
             ]],
             ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
+            ['label' => 'Входящая документация', 'url' => ['document-in/index']],
             ['label' => 'Приказы', 'url' => ['document-order/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
