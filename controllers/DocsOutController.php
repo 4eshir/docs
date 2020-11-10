@@ -2,14 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\common\Position;
 use Yii;
 use app\models\common\DocumentOut;
 use app\models\SearchDocumentOut;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use \kartik\depdrop\DepDrop;
 
 /**
  * DocsOutController implements the CRUD actions for DocumentOut model.
@@ -98,7 +101,7 @@ class DocsOutController extends Controller
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
 
 
-            if ($model->validate()) {
+            if ($model->validate(false)) {
                 if ($model->scanFile != null)
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
@@ -132,7 +135,7 @@ class DocsOutController extends Controller
         {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
-            if ($model->validate()) {
+            if ($model->validate(false)) {
                 if ($model->scanFile != null)
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
@@ -218,6 +221,21 @@ class DocsOutController extends Controller
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionPositions()
+    {
+        $parents = Yii::$app->request->post('depdrop_parents', null);
+        if ($parents != null) {
+            $positions = $parents[0];
+            $arr = Position::find()->where(['id' => $positions->position_id])->one();
+            return Json::encode(array(
+                'output' => $arr,
+                'selected' => $positions
+            ));
+        }
+
+        return Json::encode(['output'=>'', 'selected'=>'']);
     }
 
 }

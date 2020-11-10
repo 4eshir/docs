@@ -111,11 +111,11 @@ class SearchDocumentOut extends DocumentOut
             'send_method_id' => $this->send_method_id,
             'sent_date' => $this->sent_date,
             'register_id' => $this->register_id,
-            'key_words' => $this->key_words,
         ]);
 
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])
             ->andFilterWhere(['like', 'Scan', $this->Scan])
+            ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
             ->andFilterWhere(['like', User::tableName().'.secondname', $this->registerName])

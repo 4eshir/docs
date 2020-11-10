@@ -66,7 +66,12 @@ class DocumentInController extends Controller
     {
         $model = new DocumentIn();
 
+
         if ($model->load(Yii::$app->request->post())) {
+            $model->local_number = 0;
+            $model->signed_id = 1;
+            $model->target = 1;
+            $model->get_id = 1;
             if ($model->scanFile == '')
                 $model->scan = '';
             if ($model->applicationFiles[0] == '')

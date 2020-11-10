@@ -29,10 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => 'Локальный номер', 'attribute' => 'local_number'],
+            ['label' => 'Локальный номер', 'attribute' => 'id'],
             ['label' => 'Локальная дата', 'attribute' => 'local_date'],
             ['label' => 'Исходящий номер', 'attribute' => 'real_number'],
             ['label' => 'Исходящая дата', 'attribute' => 'real_date'],
+            ['label' => 'ФИО корреспондента', 'attribute' => 'correspondent_id', 'value' => $model->correspondent->secondname.' '.mb_substr($model->correspondent->firstname, 0, 1).'. '.mb_substr($model->correspondent->patronymic, 0, 1).'.'],
             ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => function($model){
                 if ($model->position_id == 7)
                     return '';
@@ -40,9 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
-            ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
-            ['label' => 'Кому адресован', 'attribute' => 'document_theme'],
-            ['label' => 'Кто принял', 'attribute' => 'get_id', 'value' => $model->get->secondname.' '.mb_substr($model->get->firstname, 0, 1).'. '.mb_substr($model->get->patronymic, 0, 1).'.'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Скан документа', 'attribute' => 'scan'],
             ['label' => 'Приложения', 'attribute' => 'applications'],

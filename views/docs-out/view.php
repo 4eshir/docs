@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $model->document_theme;
             ['label' => 'Номер документа', 'attribute' => 'document_number'],
             ['label' => 'Дата документа', 'attribute' => 'document_date'],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
+            ['label' => 'ФИО корреспондента', 'attribute' => 'correspondent_id', 'value' => $model->correspondent->secondname.' '.mb_substr($model->correspondent->firstname, 0, 1).'. '.mb_substr($model->correspondent->patronymic, 0, 1).'.'],
             ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => function($model){
                 if ($model->position_id == 7)
                     return '';

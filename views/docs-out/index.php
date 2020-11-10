@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить исходящий документ', ['docs-out/create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php
 
     $gridColumns = [
@@ -85,7 +85,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
             ['attribute' => 'sent_date', 'label' => 'Дата отправления'],
-            ['attribute' => 'key_words', 'label' => 'Поиск по КС'],
             /*['attribute' => 'Scan','label' => 'Скан документа', 'value' => function ($model) {
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);

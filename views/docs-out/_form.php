@@ -34,51 +34,57 @@ use yii\bootstrap\ActiveForm;
         ]])->label('Дата документа') ?>
 
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
+
     <?php
-    $position = \app\models\common\Position::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
-        
+        'prompt' => 'Выберите корреспондента',
+        'id' => 'corr',
     ];
-    echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+    echo $form->field($model, 'correspondent_id')->dropDownList($items,$params)->label('ФИО корреспондента');
+
+    ?>
+
+    <div id="corr_div1">
+        <?php
+        $position = \app\models\common\Position::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+        $params = [
+            'id' => 'position',
+        ];
+        echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+
+        ?>
+    </div>
+
+    <div id="corr_div2">
+        <?php
+        $company = \app\models\common\Company::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+        $params = [
+            'id' => 'company',
+        ];
+        echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+
+        ?>
+    </div>
+
+    <?php
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+    ];
+    echo $form->field($model, 'signed_id')->dropDownList($items,$params)->label('Кем подписан');
 
     ?>
 
     <?php
-    $company = \app\models\common\Company::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-    $params = [];
-    echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
-
-    ?>
-
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'signedString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кем подписан');
-
-    ?>
-
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'executorString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кто исполнил');
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+    ];
+    echo $form->field($model, 'executor_id')->dropDownList($items,$params)->label('Кто исполнил');
 
     ?>
 
@@ -147,3 +153,19 @@ use yii\bootstrap\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $("#corr").change(function() {
+        if (this.value != '') {
+            $("#corr_div1").attr("hidden", "true");
+            $("#corr_div2").attr("hidden", "true");
+        }
+        else
+        {
+            $("#corr_div1").removeAttr("hidden");
+            $("#corr_div2").removeAttr("hidden");
+        }
+    });
+</script>

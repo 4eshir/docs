@@ -16,10 +16,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
     $model->people_arr = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'order_number')->textInput()->label('Номер документа') ?>
-
-    <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Название приказа') ?>
-
     <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
@@ -34,44 +30,27 @@ use wbraganca\dynamicform\DynamicFormWidget;
             'yearRange' => '2000:2050',
         ]])->label('Дата приказа') ?>
 
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'signedString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кем подписан'); ?>
+    <?= $form->field($model, 'order_number')->textInput()->label('Преамбула') ?>
+
+    <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Название приказа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'bringString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Проект вносит'); ?>
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+    ];
+    echo $form->field($model, 'bring_id')->dropDownList($items,$params)->label('Проект вносит');
+
+    ?>
 
     <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'executorString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кто исполнил'); ?>
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+    ];
+    echo $form->field($model, 'executor_id')->dropDownList($items,$params)->label('Кто исполнил');
+
+    ?>
 
     <div class="row">
         <div class="panel panel-default">
@@ -122,17 +101,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     echo Html::activeHiddenInput($modelResponsibleOne, "[{$i}]id");
                                 }
                                 ?>
-
                                 <?php
-                                echo $form->field($modelResponsibleOne, "[{$i}]fio")->widget(
-                                    \yii\jui\AutoComplete::className(), [
-                                    'clientOptions' => [
-                                        'source' => $people,
-                                    ],
-                                    'options'=>[
-                                        'class'=>'form-control',
-                                    ]
-                                ])->label('ФИО');
+                                $people = \app\models\common\People::find()->all();
+                                $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
+                                $params = [
+                                ];
+                                echo $form->field($modelResponsibleOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО');
 
                                 ?>
                             </div>
@@ -149,19 +123,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
     if ($model->scan !== null)
         echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan])).'</h5><br>';
     ?>
-
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'registerString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кто регистрировал'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Добавить приказ', ['class' => 'btn btn-success']) ?>

@@ -18,7 +18,7 @@ class SearchDocumentIn extends DocumentIn
     {
         return [
             [['id', 'local_number', 'real_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
-            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications'], 'safe'],
+            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words'], 'safe'],
         ];
     }
 
@@ -73,7 +73,8 @@ class SearchDocumentIn extends DocumentIn
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])
             ->andFilterWhere(['like', 'target', $this->target])
             ->andFilterWhere(['like', 'scan', $this->scan])
-            ->andFilterWhere(['like', 'applications', $this->applications]);
+            ->andFilterWhere(['like', 'applications', $this->applications])
+            ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
         return $dataProvider;
     }

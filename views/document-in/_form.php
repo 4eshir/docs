@@ -13,8 +13,6 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'local_number')->textInput()->label('Локальный номер') ?>
-
     <?= $form->field($model, 'local_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
@@ -32,9 +30,7 @@ use yii\jui\DatePicker;
             //'buttonText' => 'Выбрать дату',
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Локальная дата') ?>
-
-    <?= $form->field($model, 'real_number')->textInput()->label('Номер исходящего документа') ?>
+        ]])->label('Дата поступления документа') ?>
 
     <?= $form->field($model, 'real_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -53,65 +49,54 @@ use yii\jui\DatePicker;
             //'buttonText' => 'Выбрать дату',
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Дата исходящего документа') ?>
+        ]])->label('Дата входящего документа') ?>
+
+
+    <?= $form->field($model, 'real_number')->textInput()->label('Регистрационный номер входящего документа') ?>
+
 
     <?php
-    $position = \app\models\common\Position::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+    $people = \app\models\common\People::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
-
+        'prompt' => 'Выберите корреспондента',
+        'id' => 'corr',
     ];
-    echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+    echo $form->field($model, 'correspondent_id')->dropDownList($items,$params)->label('ФИО корреспондента');
 
     ?>
 
-    <?php
-    $company = \app\models\common\Company::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-    $params = [];
-    echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+    <div id="corr_div1">
+        <?php
+        $position = \app\models\common\Position::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+        $params = [
+            'id' => 'position',
+        ];
+        echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
 
-    ?>
+        ?>
+    </div>
+
+    <div id="corr_div2">
+        <?php
+        $company = \app\models\common\Company::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+        $params = [
+            'id' => 'company',
+        ];
+        echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+
+        ?>
+    </div>
 
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
-
-    <?php
-    $people = \app\models\common\People::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'signedString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кем подписан');
-
-    ?>
-
-    <?= $form->field($model, 'target')->textInput(['maxlength' => true])->label('Кому адресован') ?>
 
     <?php
     $sendMethod= \app\models\common\SendMethod::find()->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
     $params = [];
     echo $form->field($model, 'send_method_id')->dropDownList($items,$params)->label('Способ отправки');
-
-    ?>
-
-    <?php
-    $people = \app\models\common\User::find()->select(["CONCAT(secondname, ' ', firstname, ' ', patronymic) as value", "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $params = [];
-    echo $form->field($model, 'getString')->widget(
-        \yii\jui\AutoComplete::className(), [
-        'clientOptions' => [
-            'source' => $people,
-        ],
-        'options'=>[
-            'class'=>'form-control'
-        ]
-    ])->label('Кем принят');
 
     ?>
 
@@ -123,9 +108,26 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Приложения') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $("#corr").change(function() {
+        if (this.value != '') {
+            $("#corr_div1").attr("hidden", "true");
+            $("#corr_div2").attr("hidden", "true");
+        }
+        else
+        {
+            $("#corr_div1").removeAttr("hidden");
+            $("#corr_div2").removeAttr("hidden");
+        }
+    });
+</script>
