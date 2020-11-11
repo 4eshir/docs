@@ -68,4 +68,17 @@ class Company extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Destination::className(), ['company_id' => 'id']);
     }
+
+    public function checkForeignKeys()
+    {
+        $doc_out = DocumentOut::find()->where(['company_id' => $this->id])->all();
+        $doc_in = DocumentIn::find()->where(['company_id' => $this->id])->all();
+        if (count($doc_out) > 0 || count($doc_in) > 0)
+        {
+
+            Yii::$app->session->addFlash('error', 'Невозможно удалить организацию! Организация используется в документах');
+            return false;
+        }
+        return true;
+    }
 }
