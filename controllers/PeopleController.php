@@ -35,6 +35,8 @@ class PeopleController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
         $searchModel = new SearchPeople();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

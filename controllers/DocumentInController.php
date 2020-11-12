@@ -36,6 +36,8 @@ class DocumentInController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
         $searchModel = new SearchDocumentIn();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
