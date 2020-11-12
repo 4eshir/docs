@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->companyType->type;
             }],
             ['label' => 'Название организации', 'attribute' => 'name'],
+            ['label' => 'Краткое название', 'attribute' => 'short_name'],
         ],
     ]) ?>
 

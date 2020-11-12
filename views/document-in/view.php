@@ -42,7 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
-            ['label' => 'Скан документа', 'attribute' => 'scan'],
+            ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {
+                return Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
             ['label' => 'Приложения', 'attribute' => 'applications'],
             ['label' => 'Ключевые слова', 'attribute' => 'key_words'],
             ['label' => 'Регистратор документа', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],

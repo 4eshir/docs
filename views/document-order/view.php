@@ -29,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => 'Номер приказа', 'attribute' => 'order_number', 'value' => $model->order_number],
+            ['label' => 'Номер приказа', 'attribute' => 'order_number', 'value' => $model->order_number.'/'.$model->id],
             ['label' => 'Наименование приказа', 'attribute' => 'order_name', 'value' => $model->order_name],
             ['label' => 'Дата приказа', 'attribute' => 'order_date', 'value' => $model->order_date],
             ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
             ['label' => 'Проект вносит', 'attribute' => 'bring_id', 'value' => $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1).'.'],
             ['label' => 'Исполнитель', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],
-            ['label' => 'Отетственные по приказу', 'value' => function ($model) {
+            ['label' => 'Ответственные по приказу', 'value' => function ($model) {
                 $res = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
                 $html = '';
                 for ($i = 0; $i != count($res); $i++)

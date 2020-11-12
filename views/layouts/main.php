@@ -46,9 +46,17 @@ AppAsset::register($this);
                 ['label' => 'Версии ПО', 'url' => ['/as-admin/index-version']],
                 ['label' => 'Тип лицензии', 'url' => ['/as-admin/index-license']],
             ]],
-            ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
-            ['label' => 'Входящая документация', 'url' => ['document-in/index']],
-            ['label' => 'Приказы', 'url' => ['document-order/index']],
+            ['label' => 'Вход./исход. документация', 'items' => [
+                ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
+                ['label' => 'Входящая документация', 'url' => ['document-in/index']],
+                ['label' => 'Приказы', 'url' => ['document-order/index']],
+            ]],
+            
+            ['label' => 'Дополнительно', 'items' => [
+                ['label' => 'Организации', 'url' => ['/company/index']],
+                ['label' => 'Должности', 'url' => ['/position/index']],
+                ['label' => 'Люди', 'url' => ['/people/index']],
+            ]],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
             ) : (

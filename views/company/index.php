@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->companyType->type;
             }],
             ['attribute' => 'name', 'label' => 'Наименование'],
+            ['attribute' => 'short_name', 'label' => 'Краткое наименование'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

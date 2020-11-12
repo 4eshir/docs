@@ -12,7 +12,8 @@ $this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="document-order-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
+    <br>
 
     <?php
     $fioDb = \app\models\common\People::find()->where(['id' => $model->signed_id])->one();

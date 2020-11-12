@@ -5,14 +5,15 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\DocumentIn */
 
-$this->title = 'Update Document In: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Document Ins', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Редактировать входящий документ: ' . $model->document_theme;
+$this->params['breadcrumbs'][] = ['label' => 'Входящая документация', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->document_theme, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="document-in-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
+    <br>
 
     <?= $this->render('_form', [
         'model' => $model,

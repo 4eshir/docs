@@ -55,7 +55,7 @@ class DocumentIn extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'getString'], 'string', 'message' => 'Введите корректные ФИО'],
             [['local_date', 'real_number', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
@@ -169,10 +169,13 @@ class DocumentIn extends \yii\db\ActiveRecord
     public function uploadScanFile()
     {
         $path = '@app/upload/files/document_in/scan/';
-        do{
-            $filename = Yii::$app->getSecurity()->generateRandomString(15);
-        }while(file_exists($path . $filename . '.' . $this->scanFile->extension));
-        $this->Scan = $filename . '.' . $this->scanFile->extension;
+        $date = $this->real_date;
+        $new_date = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+        $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }
 

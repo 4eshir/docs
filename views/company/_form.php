@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название организации') ?>
 
+    <?= $form->field($model, 'short_name')->textInput(['maxlength' => true])->label('Краткое название организации') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

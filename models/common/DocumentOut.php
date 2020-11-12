@@ -54,7 +54,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
@@ -172,10 +172,13 @@ class DocumentOut extends \yii\db\ActiveRecord
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/';
-        do{
-            $filename = Yii::$app->getSecurity()->generateRandomString(15);
-        }while(file_exists('@app/upload/files/' . $filename . '.' . $this->scanFile->extension));
+        $path = '@app/upload/files/document_out/scan/';
+        $date = $this->document_date;
+        $new_date = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
         $this->Scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }

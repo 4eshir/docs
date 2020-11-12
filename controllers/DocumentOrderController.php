@@ -80,14 +80,13 @@ class DocumentOrderController extends Controller
             $model->signed_id = 1;
             $model->bring_id = 1;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            $model->scan = 'init';
+            $model->scan = '';
 
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
-
             if ($model->validate(false)) {
-                if ($model->scanFile !== "" || $model->scanFile !== null)
+                if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 $model->save(false);
 
@@ -115,14 +114,13 @@ class DocumentOrderController extends Controller
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
-
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
 
 
-            if ($model->validate()) {
-                $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            if ($model->validate(false)) {
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
 
@@ -142,7 +140,7 @@ class DocumentOrderController extends Controller
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/'.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");

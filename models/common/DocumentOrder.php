@@ -47,7 +47,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf', 'skipOnEmpty' => true],
+            [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
@@ -108,7 +108,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
      */
     public function getRegister()
     {
-        return $this->hasOne(People::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'register_id']);
     }
 
     /**
@@ -171,10 +171,13 @@ class DocumentOrder extends \yii\db\ActiveRecord
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/order/scan';
-        do{
-            $filename = Yii::$app->getSecurity()->generateRandomString(15);
-        }while(file_exists($path . $filename . '.' . $this->scanFile->extension));
+        $path = '@app/upload/files/order/';
+        $date = $this->order_date;
+        $new_date = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->id.'_'.$this->order_name;
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }

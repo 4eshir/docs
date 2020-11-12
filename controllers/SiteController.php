@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\DocumentOut;
+use app\models\common\User;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
 use Yii;
@@ -15,6 +16,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\extended\UserExtended;
 use app\models\extended\DocumentOutExtended;
+
 
 class SiteController extends Controller
 {
@@ -32,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -112,4 +114,20 @@ class SiteController extends Controller
 
     }
 
+    /*public function actionAddAdmin() {
+    $model = User::find()->where(['username' => 'ar_khabekenova'])->one();
+    if (empty($model)) {
+        $user = new User();
+        $user->username = 'ar_khabekenova';
+        $user->firstname = 'Анара';
+        $user->secondname = 'Хабекенова';
+        $user->patronymic = 'Романовна';
+        $user->email = '-';
+        $user->setPassword('schooltech_doc');
+        $user->generateAuthKey();
+        if ($user->save()) {
+            echo 'good';
+        }
+    }*/
 }
+

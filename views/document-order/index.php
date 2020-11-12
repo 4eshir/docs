@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             ],
 
-            ['attribute' => 'responsibilities','label' => 'Ответственные', 'contentOptions' => ['class' => 'wrap'], 'value' => function ($model) {
+            ['attribute' => 'responsibilities','label' => 'Ответственные', 'contentOptions' => ['encode' => 'false'], 'value' => function ($model) {
                 $tmp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
                 $result = '';
                 for ($i = 0; $i < count($tmp); $i++)

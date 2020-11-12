@@ -8,6 +8,7 @@ use app\models\SearchDocumentIn;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * DocumentInController implements the CRUD actions for DocumentIn model.
@@ -99,8 +100,21 @@ class DocumentInController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->scanFile = $model->scan;
+
+        if($model->load(Yii::$app->request->post()))
+        {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+            if ($model->validate(false)) {
+                if ($model->scanFile != null)
+                    $model->uploadScanFile();
+                if ($model->applicationFiles != null)
+                    $model->uploadApplicationFiles(10);
+                $model->save(false);
+
+                return $this->redirect('index.php?r=document-in/index');
+            }
         }
 
         return $this->render('update', [
@@ -136,5 +150,22 @@ class DocumentInController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null)
+    {
+
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/document_in/scan/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                return $this->redirect('index.php?r=docs-out/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
     }
 }

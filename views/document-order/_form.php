@@ -102,9 +102,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 }
                                 ?>
                                 <?php
-                                $people = \app\models\common\People::find()->all();
+                                $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
                                 $params = [
+                                    'prompt' => ''
                                 ];
                                 echo $form->field($modelResponsibleOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО');
 

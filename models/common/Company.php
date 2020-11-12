@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int $company_type_id
  * @property string $name
+ * @property string $short_name
  *
  * @property CompanyType $companyType
  * @property Destination[] $destinations
@@ -32,7 +33,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['company_type_id', 'name'], 'required'],
             [['company_type_id'], 'integer'],
-            [['name'], 'string', 'max' => 1000],
+            [['name', 'short_name'], 'string', 'max' => 1000],
             [['company_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyType::className(), 'targetAttribute' => ['company_type_id' => 'id']],
         ];
     }
@@ -46,6 +47,7 @@ class Company extends \yii\db\ActiveRecord
             'id' => 'ID',
             'company_type_id' => 'Company Type ID',
             'name' => 'Name',
+            'short_name' => 'Short Name',
         ];
     }
 
