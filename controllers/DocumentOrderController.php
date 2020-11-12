@@ -77,8 +77,7 @@ class DocumentOrderController extends Controller
 
         $modelResponsible = [new Responsible];
         if ($model->load(Yii::$app->request->post())) {
-            $model->signed_id = 1;
-            $model->bring_id = 1;
+            $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->scan = '';
 

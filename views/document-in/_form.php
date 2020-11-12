@@ -18,7 +18,7 @@ use yii\jui\DatePicker;
         'language' => 'ru',
         //'dateFormat' => 'dd.MM.yyyy,
         'options' => [
-            'placeholder' => 'оставить поле пустым, если бессрочно',
+            'placeholder' => 'Дата',
             'class'=> 'form-control',
             'autocomplete'=>'off'
         ],
@@ -37,7 +37,7 @@ use yii\jui\DatePicker;
         'language' => 'ru',
         //'dateFormat' => 'dd.MM.yyyy,
         'options' => [
-            'placeholder' => 'оставить поле пустым, если бессрочно',
+            'placeholder' => 'Дата',
             'class'=> 'form-control',
             'autocomplete'=>'off'
         ],
