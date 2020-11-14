@@ -29,17 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => 'Локальный номер', 'attribute' => 'id'],
-            ['label' => 'Локальная дата', 'attribute' => 'local_date'],
-            ['label' => 'Исходящий номер', 'attribute' => 'real_number'],
-            ['label' => 'Исходящая дата', 'attribute' => 'real_date'],
+            ['label' => '№ п/п', 'attribute' => 'id'],
+            ['label' => 'Дата поступления документа', 'attribute' => 'local_date'],
+            ['label' => 'Дата входящего документа', 'attribute' => 'real_date'],
+            ['label' => 'Регистрационный номер входящего документа', 'attribute' => 'real_number'],
             ['label' => 'ФИО корреспондента', 'attribute' => 'correspondent_id', 'value' => $model->correspondent->secondname.' '.mb_substr($model->correspondent->firstname, 0, 1).'. '.mb_substr($model->correspondent->patronymic, 0, 1).'.'],
             ['label' => 'Должность корреспондента', 'attribute' => 'position_id', 'value' => function($model){
                 if ($model->position_id == 7)
                     return '';
                 return $model->position->name;
             }],
-            ['label' => 'Компания корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
+            ['label' => 'Организация корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {

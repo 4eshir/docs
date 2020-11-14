@@ -68,7 +68,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'summary' => false,
         'columns' => [
-
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
             ['attribute' => 'order_number', 'label' => 'Номер приказа', 'value' => function($model){
                 return $model->order_number.'/'.$model->id;
@@ -87,14 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 $tmp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
                 $result = '';
                 for ($i = 0; $i < count($tmp); $i++)
-                    $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($tmp[$i]->people->patronymic, 0, 1).'. ';
+                    $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($tmp[$i]->people->patronymic, 0, 1).'. <br>';
 
                 return $result;
-            },
-            ],
-            ['attribute' => 'registerName','label' => 'Регистратор приказа', 'value' => function ($model) {
-                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
-            },
+            }, 'format' => 'html'
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

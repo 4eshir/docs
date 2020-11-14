@@ -66,29 +66,48 @@ use yii\jui\DatePicker;
 
     ?>
 
-    <div id="corr_div1">
-        <?php
-        $position = \app\models\common\Position::find()->all();
-        $items = \yii\helpers\ArrayHelper::map($position,'id','name');
-        $params = [
-            'id' => 'position',
-        ];
-        echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+    <?php 
+        if ($model->correspondent_id !== null)
+        {
+            echo '<div id="corr_div1" hidden="true">';
+                $position = \app\models\common\Position::find()->all();
+                $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+                $params = [
+                    'id' => 'position',
+                ];
+                echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+            echo '</div>';
 
-        ?>
-    </div>
+            echo '<div id="corr_div2" hidden="true">';
+                $company = \app\models\common\Company::find()->all();
+                $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+                $params = [
+                    'id' => 'company',
+                ];
+                echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+            echo '</div>';
+        }
+        else
+        {
+            echo '<div id="corr_div1">';
+                $position = \app\models\common\Position::find()->all();
+                $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+                $params = [
+                    'id' => 'position',
+                ];
+                echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
+            echo '</div>';
 
-    <div id="corr_div2">
-        <?php
-        $company = \app\models\common\Company::find()->all();
-        $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-        $params = [
-            'id' => 'company',
-        ];
-        echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
-
-        ?>
-    </div>
+            echo '<div id="corr_div2">';
+                $company = \app\models\common\Company::find()->all();
+                $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+                $params = [
+                    'id' => 'company',
+                ];
+                echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+            echo '</div>';
+        }
+    ?>
 
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
 
@@ -96,7 +115,7 @@ use yii\jui\DatePicker;
     $sendMethod= \app\models\common\SendMethod::find()->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
     $params = [];
-    echo $form->field($model, 'send_method_id')->dropDownList($items,$params)->label('Способ отправки');
+    echo $form->field($model, 'send_method_id')->dropDownList($items,$params)->label('Способ получения');
 
     ?>
 

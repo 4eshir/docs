@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }],
                 ['attribute' => 'correspondent_id', 'label' => 'Кем подписан', 'value' => 'correspondent.fullName'],
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
-                ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
+                ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
 
 
                 ['class' => 'yii\grid\ActionColumn'],
