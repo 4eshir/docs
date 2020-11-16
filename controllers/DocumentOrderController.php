@@ -85,6 +85,7 @@ class DocumentOrderController extends Controller
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
             if ($model->validate(false)) {
+
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 $model->save(false);

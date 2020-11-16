@@ -51,7 +51,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
     echo $form->field($model, 'executor_id')->dropDownList($items,$params)->label('Кто исполнил');
 
     ?>
-
+    <br>
+    <?php
+    echo $form->field($model, 'allResp')
+    ->checkbox([
+        'label' => 'Добавить всех работников в ответственных',
+        'labelOptions' => [
+        ],
+    ]);
+    ?>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
