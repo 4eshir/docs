@@ -132,7 +132,7 @@ class DocsOutController extends Controller
 
         $model->save(false);
 
-        return $this->redirect('index.php?r=document-in/index');
+        return $this->redirect('index.php?r=docs-out/index');
     }
 
     /**

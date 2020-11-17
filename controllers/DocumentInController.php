@@ -107,7 +107,7 @@ class DocumentInController extends Controller
 
         $model->save(false);
 
-        return $this->redirect('index.php?r=docs-out/index');
+        return $this->redirect('index.php?r=document-in/index');
     }
 
     /**
