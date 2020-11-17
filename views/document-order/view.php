@@ -29,7 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => 'Номер приказа', 'attribute' => 'order_number', 'value' => $model->order_number.'/'.$model->id],
+            ['label' => 'Номер приказа', 'attribute' => 'order_number', 'value' => function($model){
+                if ($model->order_postfix == null)
+                    return $model->order_number.'/'.$model->order_copy_id;
+                else
+                    return $model->order_number.'/'.$model->order_copy_id.'/'.$model->order_postfix;
+            }],
             ['label' => 'Наименование приказа', 'attribute' => 'order_name', 'value' => $model->order_name],
             ['label' => 'Дата приказа', 'attribute' => 'order_date', 'value' => $model->order_date],
             ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
