@@ -105,7 +105,7 @@ class DocsOutController extends Controller
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles();
                 $model->save(false);
-                return $this->redirect('index.php?r=docs-out/index');
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
