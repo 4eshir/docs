@@ -206,7 +206,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function getDocumentNumber()
     {
         $docs = DocumentOut::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all();
-        if (end($docs)->document_date > $this->document_date && !$this->document_theme == 'Резерв')
+        if (end($docs)->document_date > $this->document_date && $this->document_theme != 'Резерв')
         {
             $tempId = 0;
             $tempPre = 0;
@@ -224,8 +224,10 @@ class DocumentOut extends \yii\db\ActiveRecord
                     break;
                 }
             }
+
             $this->document_number = $tempId;
             $this->document_postfix = $tempPre;
+            Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->document_number.'/'.$this->document_postfix);
         }
         else
         {

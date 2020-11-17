@@ -29,7 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => '№ п/п', 'attribute' => 'id'],
+            ['label' => '№ п/п', 'attribute' => 'id', 'value' => function($model){
+                if ($model->local_postfix == null)
+                    return $model->local_number;
+                else
+                    return $model->local_number.'/'.$model->local_postfix;
+            }],
             ['label' => 'Дата поступления документа', 'attribute' => 'local_date'],
             ['label' => 'Дата входящего документа', 'attribute' => 'real_date'],
             ['label' => 'Регистрационный номер входящего документа', 'attribute' => 'real_number'],

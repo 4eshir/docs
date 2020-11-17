@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
+        <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
 
     <?php
@@ -70,7 +71,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
             ['attribute' => 'order_number', 'label' => 'Номер приказа', 'value' => function($model){
-                return $model->order_number.'/'.$model->id;
+                if ($model->order_postfix == null)
+                    return $model->order_number.'/'.$model->order_copy_id;
+                else
+                    return $model->order_number.'/'.$model->order_copy_id.'/'.$model->order_postfix;
             }],
             ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
             ['attribute' => 'bringName','label' => 'Проект вносит', 'value' => function ($model) {

@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $model->document_theme;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['label' => 'Номер документа', 'attribute' => 'document_number'],
+            ['label' => 'Номер документа', 'attribute' => 'document_number', 'value' => function($model){
+                if ($model->document_postfix == null)
+                    return $model->document_number;
+                else
+                    return $model->document_number.'/'.$model->document_postfix;
+            }],
             ['label' => 'Дата документа', 'attribute' => 'document_date'],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'ФИО корреспондента', 'attribute' => 'correspondent_id', 'value' => $model->correspondent->secondname.' '.mb_substr($model->correspondent->firstname, 0, 1).'. '.mb_substr($model->correspondent->patronymic, 0, 1).'.'],

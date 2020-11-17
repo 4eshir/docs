@@ -52,6 +52,7 @@ class SearchDocumentOrder extends DocumentOrder
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC]]
         ]);
 
         $dataProvider->sort->attributes['signedName'] = [

@@ -81,6 +81,7 @@ class DocumentInController extends Controller
                 $model->applications = '';
             if ($model->validate(false))
             {
+                $model->getDocumentNumber();
                 $model->save(false);
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -89,6 +90,24 @@ class DocumentInController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCreateReserve()
+    {
+        $model = new DocumentIn();
+
+        $model->document_theme = 'Резерв';
+
+        $model->local_date = end(DocumentIn::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        $model->real_date = '1999-01-01';
+        $model->scan = '';
+        $model->applications = '';
+        $model->register_id = Yii::$app->user->identity->getId();
+        $model->getDocumentNumber();
+
+        $model->save(false);
+
+        return $this->redirect('index.php?r=docs-out/index');
     }
 
     /**

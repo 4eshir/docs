@@ -88,6 +88,7 @@ class DocumentOrderController extends Controller
 
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
+                $model->getDocumentNumber();
                 $model->save(false);
 
             }
@@ -98,6 +99,22 @@ class DocumentOrderController extends Controller
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
         ]);
+    }
+
+    public function actionCreateReserve()
+    {
+        $model = new DocumentOrder();
+
+        $model->order_name = 'Резерв';
+        $model->order_number = '0202';
+        $model->order_date = end(DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all())->order_date;
+        $model->scan = '';
+        $model->register_id = Yii::$app->user->identity->getId();
+        $model->getDocumentNumber();
+
+        $model->save(false);
+
+        return $this->redirect('index.php?r=document-order/index');
     }
 
     /**

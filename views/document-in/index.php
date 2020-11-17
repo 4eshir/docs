@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить входящий документ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить входящий документ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
+        <?= Html::a('Добавить резерв', ['document-in/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,7 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => [
 
-                ['attribute' => 'id', 'label' => '№ п/п', 'encodeLabel' => false],
+                ['attribute' => 'id', 'label' => '№ п/п', 'value' => function($model){
+                    if ($model->local_postfix == null)
+                        return $model->local_number;
+                    else
+                        return $model->local_number.'/'.$model->local_postfix;
+                }],
                 ['attribute' => 'local_date', 'label' => 'Дата поступления<br>документа', 'encodeLabel' => false],
                 ['attribute' => 'real_date', 'label' => 'Дата входящего<br>документа', 'encodeLabel' => false],
                 ['attribute' => 'real_number', 'label' => 'Рег. номер<br>входящего док.', 'encodeLabel' => false],

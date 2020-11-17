@@ -46,6 +46,7 @@ class SearchDocumentIn extends DocumentIn
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC]]
         ]);
 
         $this->load($params);

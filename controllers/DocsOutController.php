@@ -123,7 +123,7 @@ class DocsOutController extends Controller
 
         $model->document_theme = 'Резерв';
         $model->document_name = '';
-        $model->document_date = '1999-01-01';
+        $model->document_date = end(DocumentOut::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all())->document_date;
         $model->sent_date = '1999-01-01';
         $model->Scan = '';
         $model->applications = '';
@@ -132,7 +132,7 @@ class DocsOutController extends Controller
 
         $model->save(false);
 
-        return $this->redirect('index.php?r=docs-out/index');
+        return $this->redirect('index.php?r=document-in/index');
     }
 
     /**

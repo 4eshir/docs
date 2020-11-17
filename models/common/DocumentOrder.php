@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $order_number
+ * @property string $order_postfix
  * @property string $order_name
  * @property string $order_date
  * @property int $signed_id
@@ -53,7 +54,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
-            [['order_number', 'signed_id', 'bring_id', 'executor_id', 'register_id'], 'integer'],
+            [['order_number', 'signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix'], 'integer'],
             [['order_date', 'allResp'], 'safe'],
             [['order_name', 'scan'], 'string', 'max' => 1000],
             [['order_number'], 'string', 'max' => 100],
@@ -190,17 +191,21 @@ class DocumentOrder extends \yii\db\ActiveRecord
         {
             $resp = [new Responsible];
             $resp = $this->responsibles;
-            for ($i = 0; $i < count($resp); $i++)
+            if ($resp != null)
             {
-                $split = explode(" ", $resp[$i]->fio);
-                $p_id = People::find()->where(['firstname' => $split[1]])->andWhere(['secondname' => $split[0]])
-                    ->andWhere(['patronymic' => $split[2]])->one()->id;
-                if (!$this->IsResponsibleDuplicate($p_id)) {
-                    $resp[$i]->people_id = $p_id;
-                    $resp[$i]->document_order_id = $this->id;
-                    $resp[$i]->save();
+                for ($i = 0; $i < count($resp); $i++)
+                {
+                    $split = explode(" ", $resp[$i]->fio);
+                    $p_id = People::find()->where(['firstname' => $split[1]])->andWhere(['secondname' => $split[0]])
+                        ->andWhere(['patronymic' => $split[2]])->one()->id;
+                    if (!$this->IsResponsibleDuplicate($p_id)) {
+                        $resp[$i]->people_id = $p_id;
+                        $resp[$i]->document_order_id = $this->id;
+                        $resp[$i]->save();
+                    }
                 }
             }
+            
         }
         else
         {
@@ -235,5 +240,48 @@ class DocumentOrder extends \yii\db\ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function getDocumentNumber()
+    {
+        $docs = DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
+        if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
+        {
+            $tempId = 0;
+            $tempPre = 0;
+            if (count($docs) == 0)
+                $tempId = 1;
+            for ($i = count($docs) - 1; $i >= 0; $i--)
+            {
+                if ($docs[$i]->order_date <= $this->order_date)
+                {
+                    $tempId = $docs[$i]->order_copy_id;
+                    if ($docs[$i]->order_postfix != null)
+                        $tempPre = $docs[$i]->order_postfix + 1;
+                    else
+                        $tempPre = 1;
+                    break;
+                }
+            }
+
+            $this->order_copy_id = $tempId;
+            $this->order_postfix = $tempPre;
+            Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix);
+        }
+        else
+        {
+            if (count($docs) == 0)
+                $this->order_copy_id = 1;
+            else
+            {
+                $this->order_copy_id = end($docs)->order_copy_id + 1;
+            }
+        }
+        /*$max = DocumentOut::find()->max('document_number');
+        if ($max == null)
+            $max = 1;
+        else
+            $max = $max + 1;
+        return $max;*/
     }
 }
