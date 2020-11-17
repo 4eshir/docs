@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property int $document_number
+ * @property int $document_postfix
  * @property string $document_date
  * @property string $document_name
  * @property string $document_theme
@@ -57,9 +58,9 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
-            [['document_number', 'document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
             [['document_date', 'sent_date'], 'safe'],
-            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id'], 'integer'],
+            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_postfix', 'document_number'], 'integer'],
             [['document_theme', 'Scan', 'key_words'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -204,12 +205,43 @@ class DocumentOut extends \yii\db\ActiveRecord
 
     public function getDocumentNumber()
     {
-        $max = DocumentOut::find()->max('document_number');
+        $docs = DocumentOut::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all();
+        if (end($docs)->document_date > $this->document_date && !$this->document_theme == 'Резерв')
+        {
+            $tempId = 0;
+            $tempPre = 0;
+            if (count($docs) == 0)
+                $tempId = 1;
+            for ($i = count($docs) - 1; $i >= 0; $i--)
+            {
+                if ($docs[$i]->document_date <= $this->document_date)
+                {
+                    $tempId = $docs[$i]->document_number;
+                    if ($docs[$i]->document_postfix != null)
+                        $tempPre = $docs[$i]->document_postfix + 1;
+                    else
+                        $tempPre = 1;
+                    break;
+                }
+            }
+            $this->document_number = $tempId;
+            $this->document_postfix = $tempPre;
+        }
+        else
+        {
+            if (count($docs) == 0)
+                $this->document_number = 1;
+            else
+            {
+                $this->document_number = end($docs)->document_number + 1;
+            }
+        }
+        /*$max = DocumentOut::find()->max('document_number');
         if ($max == null)
             $max = 1;
         else
             $max = $max + 1;
-        return $max;
+        return $max;*/
     }
 
     public function beforeSave($insert)

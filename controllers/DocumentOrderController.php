@@ -156,12 +156,10 @@ class DocumentOrderController extends Controller
     public function actionDeleteResponsible($peopleId, $orderId)
     {
         $resp = Responsible::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
-        $resp->delete();
+        if ($resp != null)
+            $resp->delete();
         $model = $this->findModel($orderId);
-        return $this->render('update', [
-            'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
-        ]);
+        return $this->redirect('index.php?r=document-order/update&id='.$orderId);
     }
 
     /**

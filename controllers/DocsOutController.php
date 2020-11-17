@@ -91,7 +91,7 @@ class DocsOutController extends Controller
         if($model->load(Yii::$app->request->post()))
         {
             $model->applications = '';
-            $model->document_number = $model->getDocumentNumber();
+            $model->getDocumentNumber();
             $model->Scan = '';
 
             $model->register_id = Yii::$app->user->identity->getId();
@@ -115,6 +115,24 @@ class DocsOutController extends Controller
         return $this->render('/docs-out/create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCreateReserve()
+    {
+        $model = new DocumentOut();
+
+        $model->document_theme = 'Резерв';
+        $model->document_name = '';
+        $model->document_date = '1999-01-01';
+        $model->sent_date = '1999-01-01';
+        $model->Scan = '';
+        $model->applications = '';
+        $model->register_id = Yii::$app->user->identity->getId();
+        $model->getDocumentNumber();
+
+        $model->save(false);
+
+        return $this->redirect('index.php?r=docs-out/index');
     }
 
     /**

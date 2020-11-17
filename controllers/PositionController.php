@@ -108,7 +108,12 @@ class PositionController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->checkForeignKeys())
-            $model->delete();
+        {
+            if ($model->id == 7)
+                Yii::$app->session->addFlash('error', 'Невозможно удалить должность. Данная должность является базовой');
+            else
+                $model->delete();
+        }
 
         return $this->redirect(['index']);
     }

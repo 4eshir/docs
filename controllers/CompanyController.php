@@ -54,6 +54,7 @@ class CompanyController extends Controller
      */
     public function actionView($id)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -107,8 +108,14 @@ class CompanyController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+
         if ($model->checkForeignKeys())
-            $model->delete();
+        {
+            if ($model->id == 8 || $model->id == 7)
+                Yii::$app->session->addFlash('error', 'Невозможно удалить организацию. Данная организация является базовой');
+            else
+                $model->delete();
+        }
 
         return $this->redirect(['index']);
     }

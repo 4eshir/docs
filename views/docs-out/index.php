@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить исходящий документ', ['docs-out/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить исходящий документ', ['docs-out/create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
+        <?= Html::a('Добавить резерв', ['docs-out/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php
@@ -66,7 +67,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'summary' => false,
         'columns' => [
 
-            ['attribute' => 'document_number','label' => '№ п/п'],
+            ['attribute' => 'document_number','label' => '№ п/п', 'value' => function($model){
+                if ($model->document_postfix == null)
+                    return $model->document_number;
+                else
+                    return $model->document_number.'/'.$model->document_postfix;
+            }],
             ['attribute' => 'document_date','label' => 'Дата документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
             ['attribute' => 'companyName','label' => 'Кому адресован', 'value' => function ($model) {
