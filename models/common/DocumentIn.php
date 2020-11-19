@@ -170,7 +170,7 @@ class DocumentIn extends \yii\db\ActiveRecord
     public function uploadScanFile()
     {
         $path = '@app/upload/files/document_in/scan/';
-        $date = $this->real_date;
+        $date = $this->local_date;
         $new_date = '';
         $filename = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -185,7 +185,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                     $res= $res.'_';
                 else
                     $res = $res.$sn[$i];
-            $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$res.'_'.$this->document_theme;
         }
         else
         {
@@ -196,7 +196,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                     $res= $res.'_';
                 else
                     $res = $res.$sn[$i];
-            $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$res.'_'.$this->document_theme;
         }
         $newFilename = $filename;
         $res = '';
@@ -218,8 +218,10 @@ class DocumentIn extends \yii\db\ActiveRecord
     {
         $path = '@app/upload/files/document_in/apps/';
         $result = '';
+        $counter = 0;
         foreach ($this->applicationFiles as $file) {
-            $date = $this->real_date;
+            $counter++;
+            $date = $this->local_date;
             $new_date = '';
             for ($i = 0; $i < strlen($date); ++$i)
                 if ($date[$i] != '-')
@@ -233,7 +235,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение'.($i + 1).'_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.$counter.'_Вх.'.$new_date.'_'.$this->local_number.'_'.$res.'_'.$this->document_theme;
             }
             else
             {
@@ -244,7 +246,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение'.($i + 1).'_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.$counter.'_Вх.'.$new_date.'_'.$this->local_number.'_'.$res.'_'.$this->document_theme;
             }
             $newFilename = $filename;
             $res = '';

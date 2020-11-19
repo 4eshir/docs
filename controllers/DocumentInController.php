@@ -89,11 +89,12 @@ class DocumentInController extends Controller
 
             if ($model->validate(false))
             {
+                $model->getDocumentNumber();
                 if ($model->scanFile != null)
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles();
-                $model->getDocumentNumber();
+
                 $model->save(false);
             }
             return $this->redirect(['view', 'id' => $model->id]);
