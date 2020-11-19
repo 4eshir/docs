@@ -157,7 +157,7 @@ use yii\bootstrap\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
         }
         echo '</table>';
     }

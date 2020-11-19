@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\DocumentOut;
 use Yii;
 use app\models\common\DocumentIn;
 use app\models\SearchDocumentIn;
@@ -75,12 +76,17 @@ class DocumentInController extends Controller
             $model->signed_id = null;
             $model->target = null;
             $model->get_id = null;
-            if ($model->scanFile == '')
-                $model->scan = '';
-            if ($model->applicationFiles[0] == '')
-                $model->applications = '';
+            $model->applications = '';
+            $model->scan = '';
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+
             if ($model->validate(false))
             {
+                if ($model->scanFile != null)
+                    $model->uploadScanFile();
+                if ($model->applicationFiles != null)
+                    $model->uploadApplicationFiles();
                 $model->getDocumentNumber();
                 $model->save(false);
             }
@@ -188,5 +194,29 @@ class DocumentInController extends Controller
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionDeleteFile($fileName = null, $modelId = null)
+    {
+
+        $model = DocumentIn::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
+        {
+
+            $result = '';
+            $split = explode(" ", $model->applications);
+            for ($i = 0; $i < count($split) - 1; $i++)
+            {
+                if ($split[$i] !== $fileName)
+                {
+                    $result = $result.$split[$i].' ';
+                }
+            }
+            
+            $model->applications = $result;
+            $model->save(false);
+        }
+        return $this->redirect('index.php?r=document-in/update&id='.$modelId);
     }
 }

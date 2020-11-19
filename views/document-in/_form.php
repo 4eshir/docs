@@ -124,7 +124,26 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'scanFile')->fileInput()
         ->label('Скан документа')?>
 
+    <?php
+    if ($model->scan !== null)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    ?>
+
     <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Приложения') ?>
+
+    <?php
+    if ($model->applications !== null)
+    {
+        $split = explode(" ", $model->applications);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-in/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

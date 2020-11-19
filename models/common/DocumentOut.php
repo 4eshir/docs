@@ -189,9 +189,12 @@ class DocumentOut extends \yii\db\ActiveRecord
         $result = '';
         foreach ($this->applicationFiles as $file) {
 
-            do{
-                $filename = Yii::$app->getSecurity()->generateRandomString(15);
-            }while(file_exists('@app/upload/files/' . $filename . '.' . $file->extension));
+            $date = $this->document_date;
+            $new_date = '';
+            for ($i = 0; $i < strlen($date); ++$i)
+                if ($date[$i] != '-')
+                    $new_date = $new_date.$date[$i];
+            $filename = 'Прилож_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
 
             $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
             $result = $result.$filename . '.' . $file->extension.' ';
