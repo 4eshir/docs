@@ -172,6 +172,7 @@ class DocumentIn extends \yii\db\ActiveRecord
         $path = '@app/upload/files/document_in/scan/';
         $date = $this->real_date;
         $new_date = '';
+        $filename = '';
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
@@ -197,8 +198,20 @@ class DocumentIn extends \yii\db\ActiveRecord
                     $res = $res.$sn[$i];
             $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
         }
-        $this->scan = $filename . '.' . $this->scanFile->extension;
-        $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
+        $newFilename = $filename;
+        $res = '';
+        for ($i = 0; $i < strlen($newFilename); $i++)
+        {
+            if ($newFilename[$i] == ' ')
+                $res= $res.'_';
+            else if ($newFilename[$i] == '"')
+                $res = $res.'';
+            else
+                $res = $res.$newFilename[$i];
+
+        }
+        $this->scan = $res.'.'.$this->scanFile->extension;
+        $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
     }
 
     public function uploadApplicationFiles($upd = null)
@@ -220,7 +233,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.($i + 1).'_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
             }
             else
             {
@@ -231,11 +244,20 @@ class DocumentIn extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.($i + 1).'_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
             }
+            $newFilename = $filename;
+            $res = '';
+            for ($i = 0; $i < strlen($newFilename); $i++)
+                if ($newFilename[$i] == ' ')
+                    $res= $res.'_';
+                else if ($newFilename[$i] == '"')
+                    $res = $res.'';
+                else
+                    $res = $res.$newFilename[$i];
 
-            $file->saveAs($path . $filename . '.' . $file->extension);
-            $result = $result.$filename . '.' . $file->extension.' ';
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
         }
         if ($upd == null)
             $this->applications = $result;

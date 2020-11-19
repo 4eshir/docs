@@ -78,6 +78,12 @@ class DocumentInController extends Controller
             $model->get_id = null;
             $model->applications = '';
             $model->scan = '';
+            if ($model->correspondent_id !== null)
+            {
+                $model->company_id = $model->correspondent->company_id;
+                $model->position_id = $model->correspondent->position_id;
+            }
+
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
 
@@ -194,7 +200,7 @@ class DocumentInController extends Controller
                 header("Content-Length: " . filesize($currentFile));
                 header("Content-Disposition: attachment; filename=" . $fileName);
                 readfile($currentFile);
-                return $this->redirect('index.php?r=docs-out/create');
+                return $this->redirect('index.php?r=document-in/create');
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');

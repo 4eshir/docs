@@ -201,13 +201,25 @@ class DocumentOut extends \yii\db\ActiveRecord
                     $res = $res.$sn[$i];
             $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
         }
+        $newFilename = $filename;
+        $res = '';
+        for ($i = 0; $i < strlen($newFilename); $i++)
+        {
+            if ($newFilename[$i] == ' ')
+                $res= $res.'_';
+            else if ($newFilename[$i] == '"')
+                $res = $res.'';
+            else
+                $res = $res.$newFilename[$i];
 
-        $this->Scan = $filename . '.' . $this->scanFile->extension;
-        $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
+        }
+        $this->scan = $res.'.'.$this->scanFile->extension;
+        $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
     }
 
     public function uploadApplicationFiles($upd = null)
     {
+        $path = '@app/upload/files/document_out/apps/';
         $result = '';
         foreach ($this->applicationFiles as $file) {
 
@@ -225,7 +237,7 @@ class DocumentOut extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.($i + 1).'_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
             }
             else
             {
@@ -236,12 +248,20 @@ class DocumentOut extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение'.($i + 1).'_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
             }
+            $newFilename = $filename;
+            $res = '';
+            for ($i = 0; $i < strlen($newFilename); $i++)
+                if ($newFilename[$i] == ' ')
+                    $res= $res.'_';
+                else if ($newFilename[$i] == '"')
+                    $res = $res.'';
+                else
+                    $res = $res.$newFilename[$i];
 
-
-            $file->saveAs('@app/upload/files/document_out/apps/' . $filename . '.' . $file->extension);
-            $result = $result.$filename . '.' . $file->extension.' ';
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
         }
         if ($upd == null)
             $this->applications = $result;
