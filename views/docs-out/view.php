@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $model->document_theme;
                 $split = explode(" ", $model->applications);
                 $result = '';
                 for ($i = 0; $i < count($split); $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'app'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],

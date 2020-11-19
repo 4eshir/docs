@@ -240,7 +240,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             }
 
 
-            $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
+            $file->saveAs('@app/upload/files/document_out/apps/' . $filename . '.' . $file->extension);
             $result = $result.$filename . '.' . $file->extension.' ';
         }
         if ($upd == null)
