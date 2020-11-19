@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "document_order".
  *
  * @property int $id
+ * @property int $order_copy_id
  * @property string $order_number
  * @property string $order_postfix
  * @property string $order_name
@@ -54,7 +55,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
-            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix'], 'integer'],
+            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id'], 'integer'],
             [['order_date', 'allResp'], 'safe'],
             [['order_name', 'scan'], 'string', 'max' => 1000],
             [['order_number'], 'string', 'max' => 100],
@@ -178,7 +179,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-        $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->id.'_'.$this->order_name;
+        $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }

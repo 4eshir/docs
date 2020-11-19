@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['label' => 'Наименование приказа', 'attribute' => 'order_name', 'value' => $model->order_name],
             ['label' => 'Дата приказа', 'attribute' => 'order_date', 'value' => $model->order_date],
-            ['label' => 'Кем подписан', 'attribute' => 'signed_id', 'value' => $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1).'.'],
             ['label' => 'Проект вносит', 'attribute' => 'bring_id', 'value' => $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1).'.'],
             ['label' => 'Исполнитель', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],
             ['label' => 'Ответственные по приказу', 'value' => function ($model) {
