@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Организация корреспондента', 'attribute' => 'company_id', 'value' => $model->company->name],
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
-            ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {
+            ['label' => 'Скан документа', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
