@@ -179,11 +179,15 @@ class DocumentInController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionGetFile($fileName = null, $modelId = null)
+    public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/document_in/scan/'.$fileName;
+            $currentFile = '';
+            if ($type == 'app')
+                $currentFile = Yii::$app->basePath.'/upload/files/document_in/apps/'.$fileName;
+            else
+                $currentFile = Yii::$app->basePath.'/upload/files/document_in/scan/'.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");

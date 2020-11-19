@@ -175,7 +175,28 @@ class DocumentIn extends \yii\db\ActiveRecord
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-        $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+        if ($this->company->short_name !== '')
+        {
+            $res = '';
+            $sn = $this->company->short_name;
+            for ($i = 0; $i < strlen($sn); $i++)
+                if ($sn[$i] == ' ')
+                    $res= $res.'_';
+                else
+                    $res = $res.$sn[$i];
+            $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+        }
+        else
+        {
+            $res = '';
+            $sn = $this->company->name;
+            for ($i = 0; $i < strlen($sn); $i++)
+                if ($sn[$i] == ' ')
+                    $res= $res.'_';
+                else
+                    $res = $res.$sn[$i];
+            $filename = 'Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+        }
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }
@@ -190,7 +211,28 @@ class DocumentIn extends \yii\db\ActiveRecord
             for ($i = 0; $i < strlen($date); ++$i)
                 if ($date[$i] != '-')
                     $new_date = $new_date.$date[$i];
-            $filename = 'Приложение_Вх.'.$new_date.'_'.$this->real_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+            if ($this->company->short_name !== '')
+            {
+                $res = '';
+                $sn = $this->company->short_name;
+                for ($i = 0; $i < strlen($sn); $i++)
+                    if ($sn[$i] == ' ')
+                        $res= $res.'_';
+                    else
+                        $res = $res.$sn[$i];
+                $filename = 'Приложение_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            }
+            else
+            {
+                $res = '';
+                $sn = $this->company->name;
+                for ($i = 0; $i < strlen($sn); $i++)
+                    if ($sn[$i] == ' ')
+                        $res= $res.'_';
+                    else
+                        $res = $res.$sn[$i];
+                $filename = 'Приложение_Вх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            }
 
             $file->saveAs($path . $filename . '.' . $file->extension);
             $result = $result.$filename . '.' . $file->extension.' ';

@@ -179,7 +179,29 @@ class DocumentOut extends \yii\db\ActiveRecord
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-        $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+        if ($this->company->short_name !== '')
+        {
+            $res = '';
+            $sn = $this->company->short_name;
+            for ($i = 0; $i < strlen($sn); $i++)
+                if ($sn[$i] == ' ')
+                    $res= $res.'_';
+                else
+                    $res = $res.$sn[$i];
+            $filename = 'Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+        }
+        else
+        {
+            $res = '';
+            $sn = $this->company->name;
+            for ($i = 0; $i < strlen($sn); $i++)
+                if ($sn[$i] == ' ')
+                    $res= $res.'_';
+                else
+                    $res = $res.$sn[$i];
+            $filename = 'Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+        }
+
         $this->Scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
     }
@@ -194,7 +216,29 @@ class DocumentOut extends \yii\db\ActiveRecord
             for ($i = 0; $i < strlen($date); ++$i)
                 if ($date[$i] != '-')
                     $new_date = $new_date.$date[$i];
-            $filename = 'Прилож_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+            if ($this->company->short_name !== '')
+            {
+                $res = '';
+                $sn = $this->company->short_name;
+                for ($i = 0; $i < strlen($sn); $i++)
+                    if ($sn[$i] == ' ')
+                        $res= $res.'_';
+                    else
+                        $res = $res.$sn[$i];
+                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            }
+            else
+            {
+                $res = '';
+                $sn = $this->company->name;
+                for ($i = 0; $i < strlen($sn); $i++)
+                    if ($sn[$i] == ' ')
+                        $res= $res.'_';
+                    else
+                        $res = $res.$sn[$i];
+                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            }
+
 
             $file->saveAs('@app/upload/files/' . $filename . '.' . $file->extension);
             $result = $result.$filename . '.' . $file->extension.' ';
