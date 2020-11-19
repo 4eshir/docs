@@ -204,7 +204,7 @@ class DocumentIn extends \yii\db\ActiveRecord
         {
             if ($newFilename[$i] == ' ')
                 $res= $res.'_';
-            else if ($newFilename[$i] == '"')
+            else if ($newFilename[$i] == '"' || $newFilename[$i] == '/')
                 $res = $res.'';
             else
                 $res = $res.$newFilename[$i];
@@ -251,7 +251,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             for ($i = 0; $i < strlen($newFilename); $i++)
                 if ($newFilename[$i] == ' ')
                     $res= $res.'_';
-                else if ($newFilename[$i] == '"')
+                else if ($newFilename[$i] == '"' || $newFilename[$i] == '/')
                     $res = $res.'';
                 else
                     $res = $res.$newFilename[$i];
