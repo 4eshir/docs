@@ -188,7 +188,7 @@ class DocumentOut extends \yii\db\ActiveRecord
                     $res= $res.'_';
                 else
                     $res = $res.$sn[$i];
-            $filename = 'Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
         }
         else
         {
@@ -199,7 +199,7 @@ class DocumentOut extends \yii\db\ActiveRecord
                     $res= $res.'_';
                 else
                     $res = $res.$sn[$i];
-            $filename = 'Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+            $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
         }
 
         $this->Scan = $filename . '.' . $this->scanFile->extension;
@@ -225,7 +225,7 @@ class DocumentOut extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
             }
             else
             {
@@ -236,7 +236,7 @@ class DocumentOut extends \yii\db\ActiveRecord
                         $res= $res.'_';
                     else
                         $res = $res.$sn[$i];
-                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->real_number.'_'.$res.'_'.$this->document_theme;
+                $filename = 'Приложение_Исх.'.$new_date.'_'.$this->document_number.'_'.$res.'_'.$this->document_theme;
             }
 
 
