@@ -179,9 +179,15 @@ class DocumentOrder extends \yii\db\ActiveRecord
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-        $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
-        $this->scan = $filename . '.' . $this->scanFile->extension;
-        $this->scanFile->saveAs( $path . $filename . '.' . $this->scanFile->extension);
+        $filename = '';
+        if ($this->order_postfix == null)
+            $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
+        else
+            $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'-'.$this->order_postfix.'_'.$this->order_name;
+        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+        $this->scan = $res . '.' . $this->scanFile->extension;
+        $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
     }
 
     public function afterSave($insert, $changedAttributes)
