@@ -140,7 +140,7 @@ class DocumentInController extends Controller
                     $model->uploadApplicationFiles(10);
                 $model->save(false);
 
-                return $this->redirect('index.php?r=document-in/index');
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -213,7 +213,7 @@ class DocumentInController extends Controller
                     $result = $result.$split[$i].' ';
                 }
             }
-            
+
             $model->applications = $result;
             $model->save(false);
         }
