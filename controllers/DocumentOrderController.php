@@ -73,7 +73,7 @@ class DocumentOrderController extends Controller
     {
 
         $model = new DocumentOrder();
-        $model->order_number = "0202";
+        $model->order_number = "02-02";
 
         $modelResponsible = [new Responsible];
         if ($model->load(Yii::$app->request->post())) {
@@ -106,7 +106,7 @@ class DocumentOrderController extends Controller
         $model = new DocumentOrder();
 
         $model->order_name = 'Резерв';
-        $model->order_number = '0202';
+        $model->order_number = '02-02';
         $model->order_date = end(DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all())->order_date;
         $model->scan = '';
         $model->register_id = Yii::$app->user->identity->getId();
