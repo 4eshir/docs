@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\AutoComplete;
+use app\models\common\Position;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\People */
@@ -19,10 +21,20 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'patronymic')->textInput(['maxlength' => true])->label('Отчество') ?>
 
     <?php
-    $position = \app\models\common\Position::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($position,'id','name');
-    $params = [];
-    echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность');
+
+    $positionList = Position::find()->select(['name as value', 'name as label'])->asArray()->all();
+    echo $form->field($model, 'stringPosition')->widget(AutoComplete::className(), [
+                                            'clientOptions' => [
+                                                'source' => $positionList,
+                                            ],
+                                            'options' => [
+                                                'class' => 'form-control',
+                                            ]
+                                        ])->label('Должность');
+    //$position = \app\models\common\Position::find()->all();
+    //$items = \yii\helpers\ArrayHelper::map($position,'id','name');
+    //$params = [];
+    //echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность');
 
     ?>
 

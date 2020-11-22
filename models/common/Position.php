@@ -58,10 +58,11 @@ class Position extends \yii\db\ActiveRecord
     {
         $doc_out = DocumentOut::find()->where(['position_id' => $this->id])->all();
         $doc_in = DocumentIn::find()->where(['position_id' => $this->id])->all();
-        if (count($doc_out) > 0 || count($doc_in) > 0)
+        $people = People::find()->where(['position_id' => $this->id])->all();
+        if (count($doc_out) > 0 || count($doc_in) > 0 || count($people) > 0)
         {
 
-            Yii::$app->session->addFlash('error', 'Невозможно удалить должность! Должность используется в документах');
+            Yii::$app->session->addFlash('error', 'Невозможно удалить должность! Должность используется в документах и/или является должностью человека в системе');
             return false;
         }
         return true;

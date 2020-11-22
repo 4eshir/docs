@@ -68,7 +68,9 @@ class PeopleController extends Controller
     {
         $model = new People();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -19,6 +19,7 @@ use Yii;
  */
 class People extends \yii\db\ActiveRecord
 {
+    public $stringPosition;
     /**
      * {@inheritdoc}
      */
@@ -35,7 +36,7 @@ class People extends \yii\db\ActiveRecord
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
             [['id', 'company_id', 'position_id'], 'integer'],
-            [['firstname', 'secondname', 'patronymic'], 'string', 'max' => 1000],
+            [['firstname', 'secondname', 'patronymic', 'stringPosition'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -95,5 +96,21 @@ class People extends \yii\db\ActiveRecord
     public function getFullName()
     {
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+    }
+
+    public function beforeSave($insert)
+    {
+        $position = Position::find()->where(['name' => $this->stringPosition])->one();
+        if ($position !== null)
+            $this->position_id = $position->id;
+        else
+        {
+            $position = new Position();
+            $position->name = $this->stringPosition;
+            $position->save();
+            $newPos = Position::find()->where(['name' => $this->stringPosition])->one();
+            $this->position_id = $newPos->id;
+        }
+        return parent::beforeSave($insert);
     }
 }
