@@ -26,6 +26,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\extended\UserExtended',
             'enableAutoLogin' => true,
+            'authTimeout' => '28800',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
