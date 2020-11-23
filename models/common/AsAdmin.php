@@ -215,6 +215,7 @@ class AsAdmin extends \yii\db\ActiveRecord
         else
         {
             $use = new UseYears();
+            $use->as_admin_id = $this->id;
             $use->start_date = $this->useStartDate;
             $use->end_date = $this->useEndDate;
             $use->save(false);
