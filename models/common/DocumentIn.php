@@ -56,7 +56,7 @@ class DocumentIn extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf, png, jpg, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'getString'], 'string', 'message' => 'Введите корректные ФИО'],
             [['local_date', 'real_number', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
