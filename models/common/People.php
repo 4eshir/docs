@@ -95,7 +95,7 @@ class People extends \yii\db\ActiveRecord
 
     public function getFullName()
     {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
     }
 
     public function beforeSave($insert)
