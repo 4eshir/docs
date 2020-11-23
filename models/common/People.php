@@ -100,6 +100,8 @@ class People extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        if ($this->stringPosition == '')
+            $this->stringPosition = '---';
         $position = Position::find()->where(['name' => $this->stringPosition])->one();
         if ($position !== null)
             $this->position_id = $position->id;
