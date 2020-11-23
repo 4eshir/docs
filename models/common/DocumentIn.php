@@ -78,20 +78,20 @@ class DocumentIn extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'local_number' => 'Local Number',
-            'local_date' => 'Local Date',
-            'real_number' => 'Real Number',
-            'real_date' => 'Real Date',
-            'position_id' => 'Position ID',
-            'company_id' => 'Company ID',
-            'document_theme' => 'Document Theme',
-            'signed_id' => 'Signed ID',
-            'target' => 'Target',
-            'get_id' => 'Get ID',
-            'scan' => 'Scan',
-            'applications' => 'Applications',
-            'register_id' => 'Register ID',
-            'key_words' => 'Key Words'
+            'local_number' => '№ п/п',
+            'local_date' => 'Дата поступления документа',
+            'real_number' => 'Регистрационный номер входящего документа ',
+            'real_date' => 'Дата входящего документа ',
+            'position_id' => 'Должность',
+            'company_id' => 'Организация',
+            'document_theme' => 'Тема документа',
+            'signed_id' => 'Кем подписан',
+            'target' => 'Кому адресован',
+            'get_id' => 'Кем получен',
+            'scan' => 'Скан',
+            'applications' => 'Приложения',
+            'register_id' => 'Регистратор документа',
+            'key_words' => 'Ключевые слова'
         ];
     }
 

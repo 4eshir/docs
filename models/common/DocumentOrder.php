@@ -73,14 +73,14 @@ class DocumentOrder extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'order_number' => 'Order Number',
-            'order_name' => 'Order Name',
-            'order_date' => 'Order Date',
-            'signed_id' => 'Signed ID',
-            'bring_id' => 'Bring ID',
-            'executor_id' => 'Executor ID',
-            'scan' => 'Scan',
-            'register_id' => 'Register ID',
+            'order_number' => 'Номер приказа',
+            'order_name' => 'Наименование приказа',
+            'order_date' => 'Дата приказа',
+            'signed_id' => 'Кем подписан',
+            'bring_id' => 'Проект вносит',
+            'executor_id' => 'Кто исполнил',
+            'scan' => 'Скан',
+            'register_id' => 'Кто регистрировал',
         ];
     }
 

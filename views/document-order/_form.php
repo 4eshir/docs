@@ -32,7 +32,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'order_number')->textInput()->label('Преамбула') ?>
 
-    <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Название приказа') ?>
+    <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
     <?php
     $people = \app\models\common\People::find()->all();
