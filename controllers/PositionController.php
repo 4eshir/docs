@@ -69,6 +69,7 @@ class PositionController extends Controller
         $model = new Position();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', 'Должность "'.$model->name.'" успешно добавлена');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -112,7 +113,10 @@ class PositionController extends Controller
             if ($model->id == 7)
                 Yii::$app->session->addFlash('error', 'Невозможно удалить должность. Данная должность является базовой');
             else
+            {
                 $model->delete();
+                Yii::$app->session->addFlash('success', 'Должность "'.$model->name.'" успешно удалена');
+            }
         }
 
         return $this->redirect(['index']);

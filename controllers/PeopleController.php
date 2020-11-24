@@ -69,8 +69,8 @@ class PeopleController extends Controller
         $model = new People();
 
         if ($model->load(Yii::$app->request->post())) {
-            
             $model->save(false);
+            Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно добавлен');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -110,7 +110,11 @@ class PeopleController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->checkForeignKeys())
+        {
             $model->delete();
+            Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно удален');
+        }
+
 
         return $this->redirect(['index']);
     }

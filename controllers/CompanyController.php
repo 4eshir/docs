@@ -70,6 +70,7 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', 'Организация "'.$model->name.'" успешно добавлена');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -109,12 +110,14 @@ class CompanyController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->checkForeignKeys())
-        {
+        if ($model->checkForeignKeys()) {
             if ($model->id == 8 || $model->id == 7)
                 Yii::$app->session->addFlash('error', 'Невозможно удалить организацию. Данная организация является базовой');
             else
+            {
+                Yii::$app->session->addFlash('success', 'Организация "'.$model->name.'" успешно удалена');
                 $model->delete();
+            }
         }
 
         return $this->redirect(['index']);
