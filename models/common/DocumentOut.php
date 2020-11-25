@@ -58,7 +58,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
 
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required', 'message' => 'Данное поле не может быть пустым'],
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
             [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_postfix', 'document_number'], 'integer'],
             [['document_theme', 'Scan', 'key_words'], 'string', 'max' => 1000],
@@ -79,19 +79,19 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'document_number' => 'Document Number',
-            'document_date' => 'Document Date',
-            'document_theme' => 'Document Theme',
-            'company_id' => 'Company ID',
-            'position_id' => 'Position ID',
-            'signed_id' => 'Signed ID',
-            'executor_id' => 'Executor ID',
-            'send_method_id' => 'Send Method ID',
-            'sent_date' => 'Sent Date',
-            'Scan' => 'Scan',
-            'applications' => 'Applications',
-            'register_id' => 'Register ID',
-            'key_words' => 'Key Words',
+            'document_number' => 'Номер документа',
+            'document_date' => 'Дата документа',
+            'document_theme' => 'Тема документа',
+            'company_id' => 'Организация',
+            'position_id' => 'Должность',
+            'signed_id' => 'Кем подписан',
+            'executor_id' => 'Кто исполнил',
+            'send_method_id' => 'Способ отправки',
+            'sent_date' => 'Дата отправки',
+            'Scan' => 'Скан',
+            'applications' => 'Приложения',
+            'register_id' => 'Кто зарегистрировал',
+            'key_words' => 'Ключевые слова',
         ];
     }
 

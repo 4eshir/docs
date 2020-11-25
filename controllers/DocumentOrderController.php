@@ -111,7 +111,7 @@ class DocumentOrderController extends Controller
         $model->scan = '';
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
-
+        Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
 
         return $this->redirect('index.php?r=document-order/index');
@@ -188,8 +188,9 @@ class DocumentOrderController extends Controller
      */
     public function actionDelete($id)
     {
+        $name = $this->findModel($id)->order_name;
         $this->findModel($id)->delete();
-
+        Yii::$app->session->addFlash('success', 'Приказ "'.$name.'" успешно удален');
         return $this->redirect(['index']);
     }
 

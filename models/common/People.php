@@ -95,11 +95,13 @@ class People extends \yii\db\ActiveRecord
 
     public function getFullName()
     {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
     }
 
     public function beforeSave($insert)
     {
+        if ($this->stringPosition == '')
+            $this->stringPosition = '---';
         $position = Position::find()->where(['name' => $this->stringPosition])->one();
         if ($position !== null)
             $this->position_id = $position->id;

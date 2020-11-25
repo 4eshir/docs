@@ -117,7 +117,7 @@ class DocumentInController extends Controller
         $model->applications = '';
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
-
+        Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
 
         return $this->redirect('index.php?r=document-in/index');
@@ -165,8 +165,9 @@ class DocumentInController extends Controller
      */
     public function actionDelete($id)
     {
+        $name = $this->findModel($id)->document_theme;
         $this->findModel($id)->delete();
-
+        Yii::$app->session->addFlash('success', 'Документ "'.$name.'" успешно удален');
         return $this->redirect(['index']);
     }
 

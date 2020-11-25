@@ -214,7 +214,8 @@ class AsAdmin extends \yii\db\ActiveRecord
         }
         else
         {
-            $use = UseYears::find()->where(['as_admin_id' => $this->id])->one();
+            $use = new UseYears();
+            $use->as_admin_id = $this->id;
             $use->start_date = $this->useStartDate;
             $use->end_date = $this->useEndDate;
             $use->save(false);
@@ -226,7 +227,8 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function beforeDelete()
     {
         $useYears = UseYears::find()->where(['as_admin_id' => $this->id])->one();
-        $useYears->delete();
+        if ($useYears !== null)
+            $useYears->delete();
         $asInstall = AsInstall::find()->where(['as_admin_id' => $this->id])->all();
         foreach ($asInstall as $asInstallOne) {
             $asInstallOne->delete();
