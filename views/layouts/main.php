@@ -50,6 +50,7 @@ AppAsset::register($this);
                 ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                 ['label' => 'Входящая документация', 'url' => ['document-in/index']],
                 ['label' => 'Приказы', 'url' => ['document-order/index']],
+                ['label' => 'Положения', 'url' => ['regulation/index']],
             ]],
             
             ['label' => 'Дополнительно', 'items' => [

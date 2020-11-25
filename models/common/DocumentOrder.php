@@ -290,4 +290,12 @@ class DocumentOrder extends \yii\db\ActiveRecord
             $max = $max + 1;
         return $max;*/
     }
+
+    public function getFullName()
+    {
+        if ($this->order_postfix !== null)
+            return $this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix.' '.$this->order_name;
+        else
+            return $this->order_number.'/'.$this->order_copy_id.' '.$this->order_name;
+    }
 }
