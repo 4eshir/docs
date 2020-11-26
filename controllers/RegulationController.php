@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\common\Expire;
+use app\models\DynamicModel;
 use Yii;
 use app\models\common\Regulation;
 use app\models\SearchRegulation;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * RegulationController implements the CRUD actions for Regulation model.
@@ -65,13 +68,28 @@ class RegulationController extends Controller
     public function actionCreate()
     {
         $model = new Regulation();
+        $modelExpire = [new Expire];
+        if ($model->load(Yii::$app->request->post())) {
+            $model->state = 'Актуально';
+            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
+            $model->expires = $modelExpire;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->scan = '';
+
+            if ($model->validate(false))
+            {
+                if ($model->scanFile !== null)
+                    $model->uploadScanFile();
+                $model->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
         ]);
     }
 
@@ -85,13 +103,22 @@ class RegulationController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelExpire = [new Expire];
+        if ($model->load(Yii::$app->request->post())) {
+            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
+            $model->expires = $modelExpire;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->validate(false))
+            {
+                $model->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
         ]);
     }
 
@@ -107,6 +134,23 @@ class RegulationController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null)
+    {
+
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/regulation/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                return $this->redirect('index.php?r=regulation/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
     }
 
     /**

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\Regulation */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Regulations', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Положение', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить положение?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,16 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'date',
             'name',
-            'order_id',
+            ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
+                $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+                return $order->fullName;
+            }],
             'ped_council_number',
             'ped_council_date',
             'par_council_number',
             'par_council_date',
             'state',
-            'scan',
+            ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {
+                return Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
         ],
     ]) ?>
 

@@ -11,8 +11,8 @@ use Yii;
  * @property int $active_regulation_id
  * @property int $expire_regulation_id
  *
- * @property Regulation $activeRegulation
- * @property Regulation $expireRegulation
+ * @property DocumentOrder $activeRegulation
+ * @property DocumentOrder $expireRegulation
  */
 class Expire extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,10 @@ class Expire extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['active_regulation_id', 'expire_regulation_id'], 'required'],
+            [['active_regulation_id'], 'required'],
             [['active_regulation_id', 'expire_regulation_id'], 'integer'],
-            [['active_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['active_regulation_id' => 'id']],
-            [['expire_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['expire_regulation_id' => 'id']],
+            [['active_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['active_regulation_id' => 'id']],
+            [['expire_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['expire_regulation_id' => 'id']],
         ];
     }
 
@@ -56,7 +56,7 @@ class Expire extends \yii\db\ActiveRecord
      */
     public function getActiveRegulation()
     {
-        return $this->hasOne(Regulation::className(), ['id' => 'active_regulation_id']);
+        return $this->hasOne(DocumentOrder::className(), ['id' => 'active_regulation_id']);
     }
 
     /**
@@ -66,6 +66,6 @@ class Expire extends \yii\db\ActiveRecord
      */
     public function getExpireRegulation()
     {
-        return $this->hasOne(Regulation::className(), ['id' => 'expire_regulation_id']);
+        return $this->hasOne(DocumentOrder::className(), ['id' => 'expire_regulation_id']);
     }
 }

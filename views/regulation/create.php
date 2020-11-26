@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\Regulation */
 
-$this->title = 'Create Regulation';
-$this->params['breadcrumbs'][] = ['label' => 'Regulations', 'url' => ['index']];
+$this->title = 'Добавить положение';
+$this->params['breadcrumbs'][] = ['label' => 'Положения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regulation-create">
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelExpire' => $modelExpire,
     ]) ?>
 
 </div>
