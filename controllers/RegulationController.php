@@ -38,6 +38,8 @@ class RegulationController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
         $searchModel = new SearchRegulation();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -131,7 +133,8 @@ class RegulationController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $reg = $this->findModel($id);
+        $reg->delete();
 
         return $this->redirect(['index']);
     }
@@ -151,6 +154,17 @@ class RegulationController extends Controller
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionDeleteExpire($expireId, $modelId)
+    {
+        $expire = Expire::find()->where(['id' => $expireId])->one();
+        $model = Regulation::find()->where(['id' => $modelId])->one();
+        $expire->delete();
+        return $this->render('update', [
+            'model' => $model,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+        ]);
     }
 
     /**

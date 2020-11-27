@@ -298,4 +298,14 @@ class DocumentOrder extends \yii\db\ActiveRecord
         else
             return $this->order_number.'/'.$this->order_copy_id.' '.$this->order_name;
     }
+
+    public function checkForeignKeys()
+    {
+        $regs1 = Regulation::find()->where(['active_regulation_id' => $this->id])->all();
+        $regs2 = Regulation::find()->where(['expire_regulation_id' => $this->id])->all();
+        if (count($regs1) > 0 || count($regs2) > 0)
+            return true;
+        else
+            return false;
+    }
 }

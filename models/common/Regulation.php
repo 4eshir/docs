@@ -128,6 +128,15 @@ class Regulation extends \yii\db\ActiveRecord
         $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
     }
 
+    public function checkForeignKeys()
+    {
+        $order = DocumentOrder::find()->where(['id' => $this->order_id])->all();
+        if (count($order) > 0)
+            return true;
+        else
+            return false;
+    }
+
     //--------------------------
 
     public function afterSave($insert, $changedAttributes)
@@ -140,8 +149,12 @@ class Regulation extends \yii\db\ActiveRecord
             for ($i = 0; $i < count($expireOrder); $i++)
             {
                 $reg = Regulation::find()->where(['order_id' => $expireOrder[$i]])->one();
-                $reg->state = 'Утратило силу';
-                $reg->save(false);
+                if ($reg !== null)
+                {
+                    $reg->state = 'Утратило силу';
+                    $reg->save(false);
+                }
+
                 $expireOrder[$i]->active_regulation_id = $this->order_id;
                 $expireOrder[$i]->save(false);
             }

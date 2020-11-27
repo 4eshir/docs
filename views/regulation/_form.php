@@ -72,17 +72,23 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу приказы</h4></div>
+            <br>
             <?php
-            /*$order = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
+            $order = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->order_id])->all();
             if ($order != null)
             {
                 echo '<table>';
                 foreach ($order as $orderOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $orderOne->people_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу приказ: </b>'.$orderOne->expireRegulation->fullName.'</h4></td><td style="padding-left: 10px">'
+                        .Html::a('Отменить', \yii\helpers\Url::to(['regulation/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                            'class' => 'btn btn-danger',
+                            'data' => [
+                                'confirm' => 'Вы уверены?',
+                                'method' => 'post',
+                            ],]).'</td></tr>';
                 }
                 echo '</table>';
-            }*/
+            }
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([

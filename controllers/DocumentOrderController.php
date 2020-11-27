@@ -188,9 +188,15 @@ class DocumentOrderController extends Controller
      */
     public function actionDelete($id)
     {
-        $name = $this->findModel($id)->order_name;
-        $this->findModel($id)->delete();
-        Yii::$app->session->addFlash('success', 'Приказ "'.$name.'" успешно удален');
+        $order = $this->findModel($id);
+        $name = $order->order_name;
+        if (!$order->checkForeignKeys())
+        {
+            $order->delete();
+            Yii::$app->session->addFlash('success', 'Приказ "' . $name . '" успешно удален');
+        }
+        else
+            Yii::$app->session->addFlash('error', 'Приказ "' . $name . '" невозможно удалить. Он упоминается в одном или нескольких положениях!');
         return $this->redirect(['index']);
     }
 
