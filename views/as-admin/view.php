@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return 'с '.$model->license_start.' по '.$model->license_finish;
             }],
             ['label' => 'Тип лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['label' => 'Примечание', 'attribute' => 'comment', 'value' => $model->comment],
             ['label' => 'Договор (скан)', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'scan/'.$model->scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
