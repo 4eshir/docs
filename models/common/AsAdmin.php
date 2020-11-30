@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $as_name
  * @property int $as_company_id
- * @property int $document_number
+ * @property string $document_number
  * @property string $document_date
  * @property int $count
  * @property float $price
@@ -56,10 +56,10 @@ class AsAdmin extends \yii\db\ActiveRecord
     {
         return [
             [['as_name', 'as_company_id', 'document_number', 'document_date', 'count', 'country_prod_id', 'license_start', 'license_finish', 'version_id', 'license_id', 'comment', 'scan', 'register_id'], 'required'],
-            [['as_type_id', 'as_company_id', 'document_number', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
+            [['as_type_id', 'as_company_id', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
-            [['comment', 'scan', 'as_name', 'service_note'], 'string', 'max' => 1000],
+            [['comment', 'scan', 'as_name', 'service_note', 'document_number'], 'string', 'max' => 1000],
             [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
             [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
             [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => License::className(), 'targetAttribute' => ['license_id' => 'id']],
