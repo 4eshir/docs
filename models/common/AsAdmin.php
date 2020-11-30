@@ -55,6 +55,8 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
+            [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['as_name', 'as_company_id', 'document_number', 'document_date', 'count', 'country_prod_id', 'license_start', 'license_finish', 'version_id', 'license_id', 'comment', 'scan', 'register_id'], 'required'],
             [['as_type_id', 'as_company_id', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
