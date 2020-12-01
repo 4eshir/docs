@@ -46,7 +46,7 @@ AppAsset::register($this);
                 ['label' => 'Версии ПО', 'url' => ['/as-admin/index-version']],
                 ['label' => 'Тип лицензии', 'url' => ['/as-admin/index-license']],
             ]],
-            ['label' => 'Вход./исход. документация', 'items' => [
+            ['label' => 'Документооборот', 'items' => [
                 ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                 ['label' => 'Входящая документация', 'url' => ['document-in/index']],
                 ['label' => 'Приказы', 'url' => ['document-order/index']],

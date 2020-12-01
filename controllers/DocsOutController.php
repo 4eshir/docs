@@ -91,12 +91,14 @@ class DocsOutController extends Controller
         if($model->load(Yii::$app->request->post()))
         {
             $model->applications = '';
+            $model->doc = '';
             $model->getDocumentNumber();
             $model->Scan = '';
 
             $model->register_id = Yii::$app->user->identity->getId();
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
 
 
             if ($model->validate(false)) {
@@ -104,6 +106,8 @@ class DocsOutController extends Controller
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles();
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles();
                 $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -156,6 +160,8 @@ class DocsOutController extends Controller
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles(10);
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles(10);
                 $model->save(false);
 
                 return $this->redirect(['view', 'id' => $model->id]);

@@ -94,6 +94,8 @@ class DocumentInController extends Controller
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles();
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles();
 
                 $model->save(false);
             }
@@ -145,6 +147,8 @@ class DocumentInController extends Controller
                     $model->uploadScanFile();
                 if ($model->applicationFiles != null)
                     $model->uploadApplicationFiles(10);
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles(10);
                 $model->save(false);
 
                 return $this->redirect(['view', 'id' => $model->id]);

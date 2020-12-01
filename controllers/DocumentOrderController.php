@@ -88,6 +88,8 @@ class DocumentOrderController extends Controller
                 $model->getDocumentNumber();
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles();
                 
                 $model->save(false);
 
@@ -140,6 +142,8 @@ class DocumentOrderController extends Controller
             if ($model->validate(false)) {
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
+                if ($model->docFiles != null)
+                    $model->uploadDocFiles(10);
 
                 $model->save(false);
             }

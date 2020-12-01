@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property int $send_method_id
  * @property string $sent_date
  * @property string $Scan
+ * @property string $doc
  * @property string $applications
  * @property int $register_id
  * @property string $key_words
@@ -36,6 +37,7 @@ use yii\helpers\ArrayHelper;
 class DocumentOut extends \yii\db\ActiveRecord
 {
     public $scanFile;
+    public $docFiles;
     public $applicationFiles;
     public $signedString;
     public $executorString;
@@ -55,7 +57,8 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10,'checkExtensionByMimeType'=>false],
+            [['docFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, doc, docx', 'maxFiles' => 10],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10],
 
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
@@ -224,6 +227,39 @@ class DocumentOut extends \yii\db\ActiveRecord
             $this->applications = $result;
         else
             $this->applications = $this->applications.$result;
+        return true;
+    }
+
+    public function uploadDocFiles($upd = null)
+    {
+        $path = '@app/upload/files/document_out/docs/';
+        $result = '';
+        $counter = 0;
+        foreach ($this->docFiles as $file) {
+            $counter++;
+            $date = $this->document_date;
+            $new_date = '';
+            for ($i = 0; $i < strlen($date); ++$i)
+                if ($date[$i] != '-')
+                    $new_date = $new_date.$date[$i];
+            $filename = '';
+            if ($this->company->short_name !== '')
+            {
+                $filename = 'Ред'.$counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+            }
+            else
+            {
+                $filename = 'Ред'.$counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->name.'_'.$this->document_theme;
+            }
+            $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
+        }
+        if ($upd == null)
+            $this->doc = $result;
+        else
+            $this->doc = $this->doc.$result;
         return true;
     }
 

@@ -17,6 +17,7 @@ use Yii;
  * @property int $bring_id
  * @property int $executor_id
  * @property int $scan
+ * @property int $doc
  * @property int $register_id
  *
  * @property People $bring
@@ -28,6 +29,7 @@ use Yii;
 class DocumentOrder extends \yii\db\ActiveRecord
 {
     public $scanFile;
+    public $docFiles;
     public $responsibles;
     public $people_arr;
 
@@ -52,6 +54,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['docFiles'], 'file', 'extensions' => 'xls, xlsx, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
@@ -188,6 +191,35 @@ class DocumentOrder extends \yii\db\ActiveRecord
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $this->scan = $res . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
+    }
+
+    public function uploadDocFiles($upd = null)
+    {
+        $path = '@app/upload/files/document_out/docs/';
+        $result = '';
+        $counter = 0;
+        foreach ($this->docFiles as $file) {
+            $counter++;
+            $date = $this->document_date;
+            $new_date = '';
+            for ($i = 0; $i < strlen($date); ++$i)
+                if ($date[$i] != '-')
+                    $new_date = $new_date.$date[$i];
+            $filename = '';
+            if ($this->order_postfix == null)
+                $filename = 'Ред.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
+            else
+                $filename = 'Ред.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'-'.$this->order_postfix.'_'.$this->order_name;
+            $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
+        }
+        if ($upd == null)
+            $this->doc = $result;
+        else
+            $this->doc = $this->doc.$result;
+        return true;
     }
 
     public function afterSave($insert, $changedAttributes)
