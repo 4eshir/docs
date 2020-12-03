@@ -188,10 +188,12 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function uploadScanFile()
     {
         $path = '@app/upload/files/as_admin/scan/';
+        $name = $this->as_name;
+        if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
         if ($this->id == null)
-            $filename = 'Скан_'.$this->as_name.'_'.$this->GetNewId();
+            $filename = 'Скан_'.$name.'_'.$this->GetNewId();
         else
-            $filename = 'Скан_'.$this->as_name.'_'.$this->id;
+            $filename = 'Скан_'.$name.'_'.$this->id;
         $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
         $this->scan = $filename . '.' . $this->scanFile->extension;
@@ -203,11 +205,13 @@ class AsAdmin extends \yii\db\ActiveRecord
         $result = '';
         $i = 1;
         foreach ($this->serviceNoteFile as $file) {
+            $name = $this->as_name;
+            if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
             $filename = '';
             if ($this->id == null)
-                $filename = 'Служебная_'.$i.'_'.$this->as_name.'_'.$this->GetNewId();
+                $filename = 'Служебная_'.$i.'_'.$name.'_'.$this->GetNewId();
             else
-                $filename = 'Служебная_'.$i.'_'.$this->as_name.'_'.$this->id;
+                $filename = 'Служебная_'.$i.'_'.$name.'_'.$this->id;
             $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
 
@@ -227,11 +231,13 @@ class AsAdmin extends \yii\db\ActiveRecord
         $result = '';
         $i = 1;
         foreach ($this->commercialFiles as $file) {
+            $name = $this->as_name;
+            if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
             $filename = '';
             if ($this->id == null)
-                $filename = 'КомПредложение_'.$i.'_'.$this->as_name.'_'.$this->GetNewId();
+                $filename = 'КомПредложение_'.$i.'_'.$name.'_'.$this->GetNewId();
             else
-                $filename = 'КомПредложение_'.$i.'_'.$this->as_name.'_'.$this->id;
+                $filename = 'КомПредложение_'.$i.'_'.$name.'_'.$this->id;
             $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
 
