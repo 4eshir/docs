@@ -9,26 +9,26 @@ use Yii;
  *
  * @property int $id
  * @property string $as_name
+ * @property int $copyright_id
  * @property int $as_company_id
  * @property string $document_number
  * @property string $document_date
  * @property int $count
  * @property float $price
  * @property int $country_prod_id
- * @property string $license_start
- * @property string $license_finish
- * @property int $version_id
+ * @property int $distribution_type_id
  * @property int $license_id
  * @property string $comment
  * @property string $scan
+ * @property string $commercial_offers
  * @property string $service_note
  * @property int $register_id
  *
- * @property AsCompany $asCompany
+ * @property Company $asCompany
+ * @property Company $copyright
  * @property Country $countryProd
  * @property License $license
  * @property User $register
- * @property Version $version
  * @property AsInstall[] $asInstalls
  * @property UseYears $useYears
  */
@@ -37,6 +37,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     public $useYears;
     public $asInstalls;
     public $scanFile;
+    public $commercialFiles;
     public $serviceNoteFile;
     public $useStartDate;
     public $useEndDate;
@@ -56,17 +57,20 @@ class AsAdmin extends \yii\db\ActiveRecord
     {
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['as_name', 'as_company_id', 'document_number', 'document_date', 'count', 'country_prod_id', 'license_start', 'license_finish', 'version_id', 'license_id', 'scan', 'register_id'], 'required'],
-            [['as_type_id', 'as_company_id', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
+            [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['commercialFiles'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['as_name', 'as_company_id', 'count', 'country_prod_id', 'license_id', 'scan', 'register_id'], 'required'],
+            [['as_type_id', 'as_company_id', 'count', 'country_prod_id', 'license_id', 'register_id', 'copyright_id', 'distribution_type_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
             [['comment', 'scan', 'as_name', 'service_note', 'document_number'], 'string', 'max' => 1000],
             [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
             [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
+            [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['copyright_id' => 'id']],
             [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => License::className(), 'targetAttribute' => ['license_id' => 'id']],
+            [['distribution_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DistributionType::className(), 'targetAttribute' => ['license_id' => 'id']],
             [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['register_id' => 'id']],
-            [['version_id'], 'exist', 'skipOnError' => true, 'targetClass' => Version::className(), 'targetAttribute' => ['version_id' => 'id']],
+
         ];
     }
 
@@ -86,7 +90,6 @@ class AsAdmin extends \yii\db\ActiveRecord
             'country_prod_id' => 'Country Prod ID',
             'license_start' => 'License Start',
             'license_finish' => 'License Finish',
-            'version_id' => 'Version ID',
             'license_id' => 'License ID',
             'comment' => 'Comment',
             'scan' => 'Scan',
@@ -102,7 +105,7 @@ class AsAdmin extends \yii\db\ActiveRecord
      */
     public function getAsCompany()
     {
-        return $this->hasOne(AsCompany::className(), ['id' => 'as_company_id']);
+        return $this->hasOne(Company::className(), ['id' => 'as_company_id']);
     }
 
     /**
@@ -126,6 +129,26 @@ class AsAdmin extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Copyright]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCopyright()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'copyright_id']);
+    }
+
+    /**
+     * Gets query for [[DistributionType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDistributionType()
+    {
+        return $this->hasOne(DistributionType::className(), ['id' => 'distribution_type_id']);
+    }
+
+    /**
      * Gets query for [[Register]].
      *
      * @return \yii\db\ActiveQuery
@@ -135,15 +158,6 @@ class AsAdmin extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'register_id']);
     }
 
-    /**
-     * Gets query for [[Version]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVersion()
-    {
-        return $this->hasOne(Version::className(), ['id' => 'version_id']);
-    }
 
     /**
      * Gets query for [[AsInstalls]].
@@ -181,7 +195,7 @@ class AsAdmin extends \yii\db\ActiveRecord
         foreach ($this->serviceNoteFile as $file) {
             $filename = '';
             do {
-                $filename = $file.'_'.Yii::$app->getSecurity()->generateRandomString(15);
+                $filename = Yii::$app->getSecurity()->generateRandomString(15);
             } while (file_exists('@app/upload/files/as_admin/service_note/' . $filename . '.' . $file->extension));
 
             $file->saveAs('@app/upload/files/as_admin/service_note/' . $filename . '.' . $file->extension);
@@ -191,6 +205,25 @@ class AsAdmin extends \yii\db\ActiveRecord
             $this->service_note = $result;
         else
             $this->service_note = $this->service_note . $result;
+        return true;
+    }
+
+    public function uploadCommercialFiles($upd = null)
+    {
+        $result = '';
+        foreach ($this->commercialFiles as $file) {
+            $filename = '';
+            do {
+                $filename = Yii::$app->getSecurity()->generateRandomString(15);
+            } while (file_exists('@app/upload/files/as_admin/commercial_files/' . $filename . '.' . $file->extension));
+
+            $file->saveAs('@app/upload/files/as_admin/commercial_files/' . $filename . '.' . $file->extension);
+            $result = $result . $filename . '.' . $file->extension . ' ';
+        }
+        if ($upd == null)
+            $this->commercial_offers = $result;
+        else
+            $this->commercial_offers = $this->commercial_offers . $result;
         return true;
     }
 
@@ -205,23 +238,15 @@ class AsAdmin extends \yii\db\ActiveRecord
                     $asInstallOne->save();
             }
 
-        if (($this->useStartDate == null || $this->useEndDate == null) && count(UseYears::find()->where(['as_admin_id' => $this->id])->all()) == 0) {
-            $this->useStartDate = '1999-01-01';
-            $this->useEndDate = '1999-01-01';
-            $use = new UseYears();
-            $use->as_admin_id = $this->id;
-            $use->start_date = $this->useStartDate;
-            $use->end_date = $this->useEndDate;
-            $use->save(false);
-        }
-        else
-        {
-            $use = new UseYears();
-            $use->as_admin_id = $this->id;
-            $use->start_date = $this->useStartDate;
-            $use->end_date = $this->useEndDate;
-            $use->save(false);
-        }
+        if ($this->useStartDate == null) $this->useStartDate = '1999-01-01';
+        if ($this->useEndDate == null) $this->useEndDate = '1999-01-01';
+
+        $use = new UseYears();
+        $use->as_admin_id = $this->id;
+        $use->start_date = $this->useStartDate;
+        $use->end_date = $this->useEndDate;
+        $use->save(false);
+
 
 
     }

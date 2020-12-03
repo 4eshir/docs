@@ -15,10 +15,18 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
+    <?php
+    $company = \app\models\common\Company::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+    $params = [];
+    echo $form->field($model, 'copyright_id')->dropDownList($items,$params)->label('Правообладатель ПО');
+
+    ?>
+
     <?= $form->field($model, 'as_name')->textInput()->label('Наименование ПО') ?>
 
     <?php
-    $company = \app\models\common\AsCompany::find()->all();
+    $company = \app\models\common\Company::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
     echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Реквизиты: организация');
@@ -102,11 +110,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     $branch = \app\models\common\Branch::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [];
-                                    echo $form->field($modelAsInstallOne, "[{$i}]branch_id")->dropDownList($items,$params)->label('Филиал');
+                                    echo $form->field($modelAsInstallOne, "[{$i}]branch_id", ['options' => ['class' => 'col-md-4', ]])->dropDownList($items,$params)->label('Филиал');
 
-                                    echo $form->field($modelAsInstallOne, "[{$i}]cabinet")->textInput()->label('Кабинет');
+                                    echo $form->field($modelAsInstallOne, "[{$i}]cabinet", ['options' => ['class' => 'col-md-4', ]])->textInput()->label('Кабинет');
 
-                                    echo $form->field($modelAsInstallOne, "[{$i}]count")->textInput()->label('Количество экземпляров')
+                                    echo $form->field($modelAsInstallOne, "[{$i}]count", ['options' => ['class' => 'col-md-4', ]])->textInput()->label('Кол-во экземпляров')
 
                                     ?>
 
@@ -123,7 +131,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
 
-    <?= $form->field($model, 'price')->textInput()->label('Цена за 1 шт. в руб.') ?>
+    <?= $form->field($model, 'price')->textInput()->label('Стоимость') ?>
 
     <?php
     $country = \app\models\common\Country::find()->all();
@@ -171,49 +179,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата окончания использования') ?>
 
-    <?= $form->field($model, 'license_start')->widget(DatePicker::class, [
-        'dateFormat' => 'php:Y-m-d',
-        'language' => 'ru',
-        //'dateFormat' => 'dd.MM.yyyy,
-        'options' => [
-            'placeholder' => 'Дата документа',
-            'class'=> 'form-control',
-            'autocomplete'=>'off'
-        ],
-        'clientOptions' => [
-            'changeMonth' => true,
-            'changeYear' => true,
-            'yearRange' => '2000:2050',
-            //'showOn' => 'button',
-            //'buttonText' => 'Выбрать дату',
-            //'buttonImageOnly' => true,
-            //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Дата начала действия лицензии') ?>
-
-    <?= $form->field($model, 'license_finish')->widget(DatePicker::class, [
-        'dateFormat' => 'php:Y-m-d',
-        'language' => 'ru',
-        //'dateFormat' => 'dd.MM.yyyy,
-        'options' => [
-            'placeholder' => 'Дата документа',
-            'class'=> 'form-control',
-            'autocomplete'=>'off'
-        ],
-        'clientOptions' => [
-            'changeMonth' => true,
-            'changeYear' => true,
-            'yearRange' => '2000:2050',
-            //'showOn' => 'button',
-            //'buttonText' => 'Выбрать дату',
-            //'buttonImageOnly' => true,
-            //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Дата окончания действия лицензии') ?>
 
     <?php
-    $vers = \app\models\common\Version::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($vers,'id','name');
+    $lic = \app\models\common\DistributionType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
-    echo $form->field($model, 'version_id')->dropDownList($items,$params)->label('Версия ПО');
+    echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
 
     ?>
 
@@ -222,6 +193,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Тип лицензии');
+
+    ?>
+
+    <?php
+    $lic = \app\models\common\AsType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','type');
+    $params = [];
+    echo $form->field($model, 'as_type_id')->dropDownList($items,$params)->label('Тип ПО');
 
     ?>
 
@@ -234,7 +213,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
         echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->scan])).'</h5><br>';
     ?>
 
-    <?= $form->field($model, 'serviceNoteFile[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Служебные записки') ?>
+    <?= $form->field($model, 'commercialFiles[]')->fileInput(['multiple' => true])->label('Коммерческие предложения') ?>
+
+    <?php
+    if ($model->commercial_offers !== null)
+    {
+        $split = explode(" ", $model->commercial_offers);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл : '.Html::a($split[$i], \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-file-commercial', 'fileName' => $split[$i], 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
+
+    <?= $form->field($model, 'serviceNoteFile[]')->fileInput(['multiple' => true])->label('Служебные записки') ?>
 
     <?php
     if ($model->service_note !== null)

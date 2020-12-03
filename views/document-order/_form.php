@@ -35,7 +35,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->all();
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -44,7 +44,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->all();
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -60,7 +60,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         ],
     ]);
     ?>
-    <div class="row">
+    <div class="row" style="overflow-y: scroll; height: 250px">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
             <?php
@@ -94,15 +94,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 <div class="container-items"><!-- widgetContainer -->
                     <?php foreach ($modelResponsible as $i => $modelResponsibleOne): ?>
                         <div class="item panel panel-default"><!-- widgetBody -->
-                            <div class="panel-heading">
+                            <div class="panel-heading" onload="scrolling()">
                                 <h3 class="panel-title pull-left">Ответственный</h3>
                                 <div class="pull-right">
-                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" name="add" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" id="scroll">
                                 <?php
                                 // necessary for update action.
                                 if (! $modelResponsibleOne->isNewRecord) {
@@ -140,3 +140,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<script>
+
+    $('#scroll').onclick(function()
+    {
+        alert('lol');
+        //$('#scroll').scrollTop = 9999;
+    });
+</script>

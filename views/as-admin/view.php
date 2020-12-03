@@ -61,21 +61,30 @@ $this->params['breadcrumbs'][] = $this->title;
             }, 'format' => 'raw'],
             ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
             ['label' => 'Годы использования','attribute' => 'useYear',  'value' => function($model){
-                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->all();
+                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+                if ($res == null)
+                    return '';
                 $html = '';
-                foreach ($res as $resOne)
-                    $html = $html.'с '.$resOne->start_date.' по '.$resOne->end_date.'<br>';
-                if ($html == 'с 1999-01-01 по 1999-01-01<br>')
-                    return 'Бессрочно';
+                if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
+                    $html = 'Бессрочно';
+                else if ($res->end_date == '1999-01-01')
+                    $html = $html.' '.$res->start_date.' - бессрочно';
+                else
+                    $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
                 return $html;
             }, 'format' => 'raw'],
-            ['label' => 'Срок лицензии', 'attribute' => 'license_date', 'value' => function($model){
-                return 'с '.$model->license_start.' по '.$model->license_finish;
-            }],
-            ['label' => 'Тип лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['label' => 'Вид лицензии', 'attribute' => 'license', 'value' => $model->license->name],
             ['label' => 'Примечание', 'attribute' => 'comment', 'value' => $model->comment],
             ['label' => 'Договор (скан)', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'scan/'.$model->scan]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Коммерческие предложения', 'attribute' => 'commercialFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->commercial_offers);
+                $result = '';
+                for ($i = 0; $i < count($split); $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'commercial_files/'.$split[$i]])).'<br>';
+                return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Служебные записки', 'attribute' => 'serviceNoteFile', 'value' => function ($model) {

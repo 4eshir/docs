@@ -15,7 +15,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput()->label('Название версии') ?>
+    <?= $form->field($model, 'type')->textInput()->label('Название типа') ?>
 
 
     <div class="form-group">

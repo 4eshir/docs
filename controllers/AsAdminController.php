@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\AsInstall;
+use app\models\common\AsType;
 use app\models\common\Company;
 use app\models\common\AsCompany;
 use app\models\common\Country;
@@ -36,7 +37,8 @@ class AsAdminController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license', 'delete-file', 'delete',
-                            'add-version', 'index-company', 'index-country', 'index-license', 'index-version', 'delete-install', 'get-file'],
+                            'add-as-type', 'index-company', 'index-country', 'index-license', 'index-as-type', 'delete-install', 'get-file',
+                            'delete-file-commercial', 'delete-as-type'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -92,12 +94,13 @@ class AsAdminController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->service_note = '';
+            $model->commercial_offers = '';
             $model->scan = '';
             $model->register_id = Yii::$app->user->identity->getId();
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
-
+            $model->commercialFiles = UploadedFile::getInstances($model, 'commercialFiles');
             //$modelUseYears = DynamicModel::createMultiple(UseYears::classname());
             //DynamicModel::loadMultiple($modelUseYears, Yii::$app->request->post());
             //$model->useYears = $modelUseYears;
@@ -111,6 +114,8 @@ class AsAdminController extends Controller
                     $model->uploadScanFile();
                 if ($model->serviceNoteFile !== null)
                     $model->uploadServiceNoteFiles();
+                if ($model->commercialFiles !== null)
+                    $model->uploadCommercialFiles();
                 $model->save(false);
 
             }
@@ -145,12 +150,16 @@ class AsAdminController extends Controller
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
+            $model->commercialFiles = UploadedFile::getInstances($model, 'commercialFiles');
+
             if ($model->validate(false))
             {
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->serviceNoteFile !== null)
                     $model->uploadServiceNoteFiles();
+                if ($model->commercialFiles !== null)
+                    $model->uploadCommercialFiles();
                 $model->save(false);
             }
 
@@ -274,33 +283,33 @@ class AsAdminController extends Controller
 
     //---------------------------------
 
-    public function actionIndexVersion()
+    public function actionIndexAsType()
     {
-        $model = Version::find()->all();
-        return $this->render('index-version', ['model' => $model]);
+        $model = AsType::find()->all();
+        return $this->render('index-as-type', ['model' => $model]);
     }
 
-    public function actionAddVersion()
+    public function actionAddAsType()
     {
-        $model = new Version();
+        $model = new AsType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
-            Yii::$app->session->addFlash('success', 'Версия успешно добавлена');
-            return $this->redirect('index.php?r=as-admin/index-version');
+            Yii::$app->session->addFlash('success', 'Тип успешно добавлен');
+            return $this->redirect('index.php?r=as-admin/index-as-type');
         }
 
-        return $this->render('add-version', ['model' => $model]);
+        return $this->render('add-as-type', ['model' => $model]);
     }
 
-    public function actionDeleteVersion($model_id)
+    public function actionDeleteAsType($model_id)
     {
-        $model = Version::find()->where(['id' => $model_id])->one();
-        if (count(AsAdmin::find()->where(['version_id' => $model_id])->all()) == 0)
+        $model = AsType::find()->where(['id' => $model_id])->one();
+        if (count(AsAdmin::find()->where(['as_type_id' => $model_id])->all()) == 0)
             $model->delete();
         else
-            Yii::$app->session->addFlash('error', 'Невозможно удалить версию! (используется в списке ПО)');
-        return $this->redirect('index.php?r=as-admin/index-version');
+            Yii::$app->session->addFlash('error', 'Невозможно удалить тип! (используется в списке ПО)');
+        return $this->redirect('index.php?r=as-admin/index-as-type');
     }
 
     //---------------------------------
@@ -346,7 +355,6 @@ class AsAdminController extends Controller
 
     public function actionDeleteFile($fileName = null, $modelId = null)
     {
-
         $model = AsAdmin::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
@@ -362,7 +370,30 @@ class AsAdminController extends Controller
                 }
             }
             $model->service_note = $result;
-            $model->save();
+            $model->save(false);
+        }
+        return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
+    }
+
+    public function actionDeleteFileCommercial($fileName = null, $modelId = null)
+    {
+
+        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
+        {
+
+            $result = '';
+            $split = explode(" ", $model->commercial_offers);
+            for ($i = 0; $i < count($split) - 1; $i++)
+            {
+                if ($split[$i] !== $fileName)
+                {
+                    $result = $result.$split[$i].' ';
+                }
+            }
+            $model->commercial_offers = $result;
+            $model->save(false);
         }
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
     }

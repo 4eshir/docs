@@ -17,8 +17,8 @@ class SearchAsAdmin extends AsAdmin
     public function rules()
     {
         return [
-            [['id', 'as_company_id', 'document_number', 'count', 'country_prod_id', 'version_id', 'license_id', 'register_id'], 'integer'],
-            [['document_date', 'license_start', 'license_finish', 'comment', 'scan', 'as_name'], 'safe'],
+            [['id', 'as_company_id', 'document_number', 'count', 'country_prod_id', 'license_id', 'register_id'], 'integer'],
+            [['document_date', 'comment', 'scan', 'as_name'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -66,9 +66,6 @@ class SearchAsAdmin extends AsAdmin
             'count' => $this->count,
             'price' => $this->price,
             'country_prod_id' => $this->country_prod_id,
-            'license_start' => $this->license_start,
-            'license_finish' => $this->license_finish,
-            'version_id' => $this->version_id,
             'license_id' => $this->license_id,
             'register_id' => $this->register_id,
         ]);
