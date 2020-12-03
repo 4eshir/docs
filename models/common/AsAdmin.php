@@ -23,6 +23,7 @@ use Yii;
  * @property string $commercial_offers
  * @property string $service_note
  * @property int $register_id
+ * @property int $as_type_id
  *
  * @property Company $asCompany
  * @property Company $copyright
@@ -60,10 +61,10 @@ class AsAdmin extends \yii\db\ActiveRecord
             [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['commercialFiles'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['as_name', 'as_company_id', 'count', 'country_prod_id', 'license_id', 'scan', 'register_id'], 'required'],
-            [['as_type_id', 'as_company_id', 'count', 'country_prod_id', 'license_id', 'register_id', 'copyright_id', 'distribution_type_id'], 'integer'],
+            [['as_company_id', 'count', 'country_prod_id', 'license_id', 'register_id', 'as_type_id', 'copyright_id', 'distribution_type_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
-            [['comment', 'scan', 'as_name', 'service_note', 'document_number'], 'string', 'max' => 1000],
+            [['comment', 'scan', 'as_name', 'service_note', 'document_number', 'unifed_register_number'], 'string', 'max' => 1000],
             [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
             [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
             [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['copyright_id' => 'id']],
@@ -179,12 +180,20 @@ class AsAdmin extends \yii\db\ActiveRecord
         return $this->hasOne(UseYears::className(), ['as_admin_id' => 'id']);
     }
 
+    public function GetNewId()
+    {
+        return AsAdmin::find()->orderBy('id DESC')->one()->id + 1;
+    }
+
     public function uploadScanFile()
     {
         $path = '@app/upload/files/as_admin/scan/';
-        do {
-            $filename = $this->scanFile.'_'.Yii::$app->getSecurity()->generateRandomString(15);
-        } while (file_exists('@app/upload/files/as_admin/scan/' . $filename . '.' . $this->scanFile->extension));
+        if ($this->id == null)
+            $filename = 'Скан_'.$this->as_name.'_'.$this->GetNewId();
+        else
+            $filename = 'Скан_'.$this->as_name.'_'.$this->id;
+        $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs($path . $filename . '.' . $this->scanFile->extension);
     }
@@ -192,14 +201,19 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function uploadServiceNoteFiles($upd = null)
     {
         $result = '';
+        $i = 1;
         foreach ($this->serviceNoteFile as $file) {
             $filename = '';
-            do {
-                $filename = Yii::$app->getSecurity()->generateRandomString(15);
-            } while (file_exists('@app/upload/files/as_admin/service_note/' . $filename . '.' . $file->extension));
+            if ($this->id == null)
+                $filename = 'Служебная_'.$i.'_'.$this->as_name.'_'.$this->GetNewId();
+            else
+                $filename = 'Служебная_'.$i.'_'.$this->as_name.'_'.$this->id;
+            $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
 
             $file->saveAs('@app/upload/files/as_admin/service_note/' . $filename . '.' . $file->extension);
             $result = $result . $filename . '.' . $file->extension . ' ';
+            $i = $i + 1;
         }
         if ($upd == null)
             $this->service_note = $result;
@@ -211,14 +225,19 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function uploadCommercialFiles($upd = null)
     {
         $result = '';
+        $i = 1;
         foreach ($this->commercialFiles as $file) {
             $filename = '';
-            do {
-                $filename = Yii::$app->getSecurity()->generateRandomString(15);
-            } while (file_exists('@app/upload/files/as_admin/commercial_files/' . $filename . '.' . $file->extension));
+            if ($this->id == null)
+                $filename = 'КомПредложение_'.$i.'_'.$this->as_name.'_'.$this->GetNewId();
+            else
+                $filename = 'КомПредложение_'.$i.'_'.$this->as_name.'_'.$this->id;
+            $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
 
             $file->saveAs('@app/upload/files/as_admin/commercial_files/' . $filename . '.' . $file->extension);
             $result = $result . $filename . '.' . $file->extension . ' ';
+            $i = $i + 1;
         }
         if ($upd == null)
             $this->commercial_offers = $result;

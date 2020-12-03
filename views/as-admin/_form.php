@@ -141,6 +141,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
+    <?= $form->field($model, 'unifed_register_number')->textInput()->label('Номер в реестре') ?>
+
     <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
