@@ -38,7 +38,7 @@ class AsAdminController extends Controller
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license', 'delete-file', 'delete',
                             'add-as-type', 'index-company', 'index-country', 'index-license', 'index-as-type', 'delete-install', 'get-file',
-                            'delete-file-commercial', 'delete-as-type'],
+                            'delete-file-commercial', 'delete-file-scan', 'delete-file-license', 'delete-as-type'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -99,6 +99,7 @@ class AsAdminController extends Controller
             $model->register_id = Yii::$app->user->identity->getId();
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->licenseFile = UploadedFile::getInstance($model, 'licenseFile');
             $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
             $model->commercialFiles = UploadedFile::getInstances($model, 'commercialFiles');
             //$modelUseYears = DynamicModel::createMultiple(UseYears::classname());
@@ -116,6 +117,8 @@ class AsAdminController extends Controller
                     $model->uploadServiceNoteFiles();
                 if ($model->commercialFiles !== null)
                     $model->uploadCommercialFiles();
+                if ($model->licenseFile !== null)
+                    $model->uploadLicenseFile();
                 $model->save(false);
 
             }
@@ -141,14 +144,22 @@ class AsAdminController extends Controller
     {
         $model = $this->findModel($id);
         $modelAsInstall = [new AsInstall];
+        $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+        if ($res->start_date !== '1999-01-01') $model->useStartDate = $res->start_date;
+        if ($res->end_date !== '1999-01-01') $model->useEndDate = $res->end_date;
 
         if ($model->load(Yii::$app->request->post())) {
 
             $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
+            $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+            if ($model->useStartDate !== "") $res->start_date = $model->useStartDate;
+            if ($model->useEndDate !== "") $res->end_date = $model->useEndDate;
+            $res->save(false);
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->licenseFile = UploadedFile::getInstance($model, 'licenseFile');
             $model->serviceNoteFile = UploadedFile::getInstances($model, 'serviceNoteFile');
             $model->commercialFiles = UploadedFile::getInstances($model, 'commercialFiles');
 
@@ -160,6 +171,8 @@ class AsAdminController extends Controller
                     $model->uploadServiceNoteFiles();
                 if ($model->commercialFiles !== null)
                     $model->uploadCommercialFiles();
+                if ($model->licenseFile !== null)
+                    $model->uploadLicenseFile();
                 $model->save(false);
             }
 
@@ -372,6 +385,22 @@ class AsAdminController extends Controller
             $model->service_note = $result;
             $model->save(false);
         }
+        return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
+    }
+
+    public function actionDeleteFileScan($modelId = null)
+    {
+        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model->scan = '';
+        $model->save(false);
+        return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
+    }
+
+    public function actionDeleteFileLicense($modelId = null)
+    {
+        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model->license_file = '';
+        $model->save(false);
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
     }
 

@@ -54,6 +54,77 @@ use wbraganca\dynamicform\DynamicFormWidget;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Реквизиты: дата документа') ?>
 
+
+
+    <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
+
+    <?= $form->field($model, 'price')->textInput()->label('Стоимость') ?>
+
+    <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'оставить поле пустым, если бессрочно',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата начала использования') ?>
+
+    <?= $form->field($model, 'useEndDate')->widget(DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        //'dateFormat' => 'dd.MM.yyyy,
+        'options' => [
+            'placeholder' => 'оставить поле пустым, если бессрочно',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+            //'showOn' => 'button',
+            //'buttonText' => 'Выбрать дату',
+            //'buttonImageOnly' => true,
+            //'buttonImage' => 'images/calendar.gif'
+        ]])->label('Дата окончания использования') ?>
+
+    <?php
+    $country = \app\models\common\Country::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($country,'id','name');
+    $params = [];
+    echo $form->field($model, 'country_prod_id')->dropDownList($items,$params)->label('Страна производитель');
+
+    ?>
+
+    <?= $form->field($model, 'unifed_register_number')->textInput()->label('Номер в едином реестре ПО') ?>
+
+
+    <?php
+    $lic = \app\models\common\DistributionType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
+
+    ?>
+
+    <?php
+    $lic = \app\models\common\License::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Вид лицензии');
+
+    ?>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Установлено</h4></div>
@@ -129,75 +200,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
     </div>
 
-    <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
-
-    <?= $form->field($model, 'price')->textInput()->label('Стоимость') ?>
-
-    <?php
-    $country = \app\models\common\Country::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($country,'id','name');
-    $params = [];
-    echo $form->field($model, 'country_prod_id')->dropDownList($items,$params)->label('Страна производитель');
-
-    ?>
-
-    <?= $form->field($model, 'unifed_register_number')->textInput()->label('Номер в реестре') ?>
-
-    <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
-        'dateFormat' => 'php:Y-m-d',
-        'language' => 'ru',
-        //'dateFormat' => 'dd.MM.yyyy,
-        'options' => [
-            'placeholder' => 'оставить поле пустым, если бессрочно',
-            'class'=> 'form-control',
-            'autocomplete'=>'off'
-        ],
-        'clientOptions' => [
-            'changeMonth' => true,
-            'changeYear' => true,
-            'yearRange' => '2000:2050',
-            //'showOn' => 'button',
-            //'buttonText' => 'Выбрать дату',
-            //'buttonImageOnly' => true,
-            //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Дата начала использования') ?>
-
-    <?= $form->field($model, 'useEndDate')->widget(DatePicker::class, [
-        'dateFormat' => 'php:Y-m-d',
-        'language' => 'ru',
-        //'dateFormat' => 'dd.MM.yyyy,
-        'options' => [
-            'placeholder' => 'оставить поле пустым, если бессрочно',
-            'class'=> 'form-control',
-            'autocomplete'=>'off'
-        ],
-        'clientOptions' => [
-            'changeMonth' => true,
-            'changeYear' => true,
-            'yearRange' => '2000:2050',
-            //'showOn' => 'button',
-            //'buttonText' => 'Выбрать дату',
-            //'buttonImageOnly' => true,
-            //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Дата окончания использования') ?>
-
-
-    <?php
-    $lic = \app\models\common\DistributionType::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
-    $params = [];
-    echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
-
-    ?>
-
-    <?php
-    $lic = \app\models\common\License::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
-    $params = [];
-    echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Тип лицензии');
-
-    ?>
-
     <?php
     $lic = \app\models\common\AsType::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','type');
@@ -211,8 +213,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'scanFile')->textInput(['maxlength' => true])->fileInput()->label('Договор (скан)') ?>
 
     <?php
-    if ($model->scan !== "")
-        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    if (strlen($model->scan) > 3)
+        echo '<table><tr><td>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->scan])).'</td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-file-scan', 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr></table><br>';
+    ?>
+
+    <?= $form->field($model, 'licenseFile')->textInput(['maxlength' => true])->fileInput()->label('Лицензия') ?>
+
+    <?php
+    if (strlen($model->license_file) > 3)
+        echo '<table><tr><td>Загруженный файл: '.Html::a($model->license_file, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => $model->license_file])).'</td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-file-license', 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr></table><br>';
     ?>
 
     <?= $form->field($model, 'commercialFiles[]')->fileInput(['multiple' => true])->label('Коммерческие предложения') ?>

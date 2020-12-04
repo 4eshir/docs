@@ -16,10 +16,12 @@ use Yii;
  * @property int $count
  * @property float $price
  * @property int $country_prod_id
+ * @property int $unifed_register_number
  * @property int $distribution_type_id
  * @property int $license_id
  * @property string $comment
  * @property string $scan
+ * @property string $license_file
  * @property string $commercial_offers
  * @property string $service_note
  * @property int $register_id
@@ -38,6 +40,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     public $useYears;
     public $asInstalls;
     public $scanFile;
+    public $licenseFile;
     public $commercialFiles;
     public $serviceNoteFile;
     public $useStartDate;
@@ -57,9 +60,10 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
-            [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['commercialFiles'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['licenseFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
+            [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['commercialFiles'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['as_name', 'as_company_id', 'count', 'country_prod_id', 'license_id', 'scan', 'register_id'], 'required'],
             [['as_company_id', 'count', 'country_prod_id', 'license_id', 'register_id', 'as_type_id', 'copyright_id', 'distribution_type_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
@@ -198,6 +202,21 @@ class AsAdmin extends \yii\db\ActiveRecord
         $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
         $this->scan = $filename . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs($path . $filename . '.' . $this->scanFile->extension);
+    }
+
+    public function uploadLicenseFile()
+    {
+        $path = '@app/upload/files/as_admin/license/';
+        $name = $this->as_name;
+        if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
+        if ($this->id == null)
+            $filename = 'Лиц_'.$name.'_'.$this->GetNewId();
+        else
+            $filename = 'Лиц_'.$name.'_'.$this->id;
+        $filename = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $filename = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $filename);
+        $this->license_file = $filename . '.' . $this->licenseFile->extension;
+        $this->licenseFile->saveAs($path . $filename . '.' . $this->licenseFile->extension);
     }
 
     public function uploadServiceNoteFiles($upd = null)

@@ -30,36 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             ['label' => '№ п/п', 'attribute' => 'id'],
+            ['label' => 'Правообладатель', 'attribute' => 'copyright.name'],
             ['label' => 'Реквизиты', 'attribute' => 'as_company_id', 'value' => function($model){
                 return 'Компания: '.$model->asCompany->name.'<br>Номер документа: '.$model->document_number.'<br>Дата документа: '.$model->document_date;
             }, 'format' => 'raw'],
             ['label' => 'Кол-во экземпляров', 'attribute' => 'count'],
-            ['label' => 'Цена за 1 шт.', 'attribute' => 'price'],
-            ['label' => 'Стоимость', 'attribute' => 'cost', 'value' => function($model){
-                return $model->count * $model->price;
-            }],
-            ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
-                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
-                $html = '';
-                foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
-                return $html;
-            }, 'format' => 'raw'],
-            ['label' => 'Установлено в "Технопарк"', 'attribute' => 'inst_tech', 'value' => function($model){
-                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
-                $html = '';
-                foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
-                return $html;
-            }, 'format' => 'raw'],
-            ['label' => 'Установлено в "ЦДНТТ"', 'attribute' => 'inst_cdntt', 'value' => function($model){
-                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
-                $html = '';
-                foreach ($res as $resOne)
-                    $html = $html.'Кабинет: '.$resOne->cabinet.' '.$resOne->count.' шт.<br>';
-                return $html;
-            }, 'format' => 'raw'],
-            ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
+            ['label' => 'Стоимость', 'attribute' => 'price'],
             ['label' => 'Годы использования','attribute' => 'useYear',  'value' => function($model){
                 $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
                 if ($res == null)
@@ -73,10 +49,45 @@ $this->params['breadcrumbs'][] = $this->title;
                     $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
                 return $html;
             }, 'format' => 'raw'],
+            ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
+            ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
+            ['attribute' => 'license', 'label' => 'Способ распространения', 'value' => $model->distributionType->name],
+            ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
+                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+                if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
+                    return 'Срочная';
+                else
+                    return 'Бессрочная';
+            }],
             ['label' => 'Вид лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Установлено в "Технопарк"', 'attribute' => 'inst_tech', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+                return $html;
+            }, 'format' => 'raw'],
+            ['label' => 'Установлено в "ЦДНТТ"', 'attribute' => 'inst_cdntt', 'value' => function($model){
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+                $html = '';
+                foreach ($res as $resOne)
+                    $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+                return $html;
+            }, 'format' => 'raw'],
             ['label' => 'Примечание', 'attribute' => 'comment', 'value' => $model->comment],
             ['label' => 'Договор (скан)', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'scan/'.$model->scan]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Лицензия', 'attribute' => 'license_file', 'value' => function ($model) {
+                return Html::a($model->license_file, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'license/'.$model->license_file]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Коммерческие предложения', 'attribute' => 'commercialFiles', 'value' => function ($model) {

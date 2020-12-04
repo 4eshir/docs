@@ -58,6 +58,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 }, 'format' => 'raw'],
                 ['attribute' => 'count', 'label' => 'Кол-во'],
                 ['attribute' => 'price', 'label' => 'Стоимость'],
+                ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
+                    $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+                    if ($res == null)
+                        return '';
+                    $html = '';
+                    if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
+                        $html = 'Бессрочно';
+                    else if ($res->end_date == '1999-01-01')
+                        $html = $html.' '.$res->start_date.' - бессрочно';
+                    else
+                        $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
+                    return $html;
+                }, 'format' => 'raw'],
+                ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
+                ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
+
+
+                ['attribute' => 'license', 'label' => 'Способ распространения', 'value' => 'distributionType.name'],
+                ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
+                    $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+                    if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
+                        return 'Срочная';
+                    else
+                        return 'Бессрочная';
+                }],
+                ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
                 ['attribute' => 'inst_quant', 'label' => 'Установ. Кванториум', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                     $html = '';
@@ -79,23 +105,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
                 }, 'format' => 'raw'],
-                ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
-                ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
-                    $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
-                    if ($res == null)
-                        return '';
-                    $html = '';
-                    if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
-                        $html = 'Бессрочно';
-                    else if ($res->end_date == '1999-01-01')
-                        $html = $html.' '.$res->start_date.' - бессрочно';
-                    else
-                        $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
-                    return $html;
-                }, 'format' => 'raw'],
-
-                ['attribute' => 'license', 'label' => 'Способ распространения', 'value' => 'distributionType.name'],
-                ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
+                ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {
+                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
+                    $sum = 0;
+                    foreach ($res as $resOne)
+                        $sum = $sum + $resOne->count;
+                    return $model->count - $sum;
+                },
+                ],
                 ['attribute' => 'registerName', 'label' => 'Регистратор', 'value' => function ($model) {
                     return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
                 },
