@@ -33,13 +33,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
                 $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
-                return $order->fullName;
-            }],
+                return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+            }, 'format' => 'raw'],
             'ped_council_number',
             'ped_council_date',
             'par_council_number',
             'par_council_date',
-            'state',
+            ['label' => 'Состояние', 'attribute' => 'state', 'value' => function($model){
+                if ($model->state) return 'Актуально';
+                $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->order_id])->one();
+                $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                $doc_num = 0;
+                if ($order->order_postfix == null)
+                    $doc_num = $order->order_number.'/'.$order->order_copy_id;
+                else
+                    $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
+                return 'Утратило силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
+
+            }, 'format' => 'raw'],
             ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);

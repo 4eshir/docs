@@ -137,9 +137,11 @@ class Regulation extends \yii\db\ActiveRecord
             return false;
     }
 
-    public static function CheckRegulationState($orderId, $state)
+    public static function CheckRegulationState($orderId, $state = null)
     {
         $regs = Regulation::find()->where(['order_id' => $orderId])->all();
+        if ($state == null)
+            $state = DocumentOrder::find()->where(['id' => $orderId])->one()->state;
         foreach ($regs as $regOne)
         {
             $regOne->state = $state;

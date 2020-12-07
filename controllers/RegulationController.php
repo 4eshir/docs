@@ -107,6 +107,7 @@ class RegulationController extends Controller
         $model = $this->findModel($id);
         $modelExpire = [new Expire];
         if ($model->load(Yii::$app->request->post())) {
+            Regulation::CheckRegulationState($model->order_id);
             $modelExpire = DynamicModel::createMultiple(Expire::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;

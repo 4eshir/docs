@@ -46,6 +46,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     $html = $html.$res[$i]->people->secondname.' '.mb_substr($res[$i]->people->firstname, 0, 1).'. '.mb_substr($res[$i]->people->patronymic, 0, 1).'.<br>';
                 return $html;
             }, 'format' => 'raw'],
+            ['label' => 'Утратили силу приказы', 'attribute' => 'expires', 'value' => function($model){
+                $exp = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
+                $res = '';
+                foreach ($exp as $expOne)
+                {
+                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $expOne->expire_regulation_id])->one();
+                    $doc_num = 0;
+                    if ($order->order_postfix == null)
+                        $doc_num = $order->order_number.'/'.$order->order_copy_id;
+                    else
+                        $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
+                    $res = $res . Html::a('Приказ №'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
+
+                }
+                return $res;
+            }, 'format' => 'raw'],
             ['label' => 'Скан приказа', 'attribute' => 'Scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);

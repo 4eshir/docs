@@ -119,9 +119,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;
                     else
                         $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
-                    return 'Утратил силу в связи с приказом №'.$doc_num;
+                    return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
                 }
-            }],
+            }, 'format' => 'raw'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
