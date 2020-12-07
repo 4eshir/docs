@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <?= $this->render('_form', [
         'model' => $model,
         'modelResponsible' => $modelResponsible,
+        'modelExpire' => $modelExpire,
     ]) ?>
 
 </div>

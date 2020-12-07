@@ -16,6 +16,7 @@ class SearchDocumentOrder extends DocumentOrder
     public $executorName;
     public $registerName;
     public $bringName;
+    public $stateName;
     /**
      * {@inheritdoc}
      */
@@ -23,8 +24,8 @@ class SearchDocumentOrder extends DocumentOrder
     {
         return [
             [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
-            [['signedName', 'executorName', 'registerName', 'bringName'], 'string'],
-            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName'], 'safe'],
+            [['signedName', 'executorName', 'registerName', 'bringName', 'stateName'], 'string'],
+            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName'], 'safe'],
         ];
     }
 
@@ -75,6 +76,11 @@ class SearchDocumentOrder extends DocumentOrder
             'desc' => ['bring.secondname' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['stateName'] = [
+            'asc' => ['state' => SORT_ASC],
+            'desc' => ['state' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -93,6 +99,7 @@ class SearchDocumentOrder extends DocumentOrder
             'executor_id' => $this->executor_id,
             'scan' => $this->scan,
             'register_id' => $this->register_id,
+            'state' => $this->state,
         ]);
 
         $query->andFilterWhere(['like', 'order_name', $this->order_name])

@@ -72,7 +72,7 @@ class RegulationController extends Controller
         $model = new Regulation();
         $modelExpire = [new Expire];
         if ($model->load(Yii::$app->request->post())) {
-            $model->state = 'Актуально';
+            $model->state = 1;
             $modelExpire = DynamicModel::createMultiple(Expire::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
@@ -156,16 +156,7 @@ class RegulationController extends Controller
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
-    public function actionDeleteExpire($expireId, $modelId)
-    {
-        $expire = Expire::find()->where(['id' => $expireId])->one();
-        $model = Regulation::find()->where(['id' => $modelId])->one();
-        $expire->delete();
-        return $this->render('update', [
-            'model' => $model,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
-        ]);
-    }
+
 
     /**
      * Finds the Regulation model based on its primary key value.

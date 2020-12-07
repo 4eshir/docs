@@ -46,6 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 $result = $result.$respOne->people->secondname.' '.mb_substr($respOne->people->firstname, 0, 1).'. '.mb_substr($respOne->people->patronymic, 0, 1).'. ';
             return $result;
         }],
+        ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
+            if ($model->state == 1)
+                return 'Актуален';
+            else
+                return 'Утратил силу';
+        }],
         ['attribute' => 'registerName', 'label' => 'Регистратор приказа', 'value' => function($model)
         {
             return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
@@ -67,6 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            if ($data['state'] == 0)
+                return ['class' => 'danger'];
+            else
+                return ['class' => 'default'];
+        },
         'summary' => false,
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
@@ -95,6 +107,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
             }, 'format' => 'html'
             ],
+            ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
+                if ($model->state == 1)
+                    return 'Актуален';
+                else
+                {
+                    $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->id])->one();
+                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                    $doc_num = 0;
+                    if ($order->order_postfix == null)
+                        $doc_num = $order->order_number.'/'.$order->order_copy_id;
+                    else
+                        $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
+                    return 'Утратил силу в связи с приказом №'.$doc_num;
+                }
+            }],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

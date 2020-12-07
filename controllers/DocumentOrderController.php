@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\common\Expire;
+use app\models\common\Regulation;
 use app\models\common\Responsible;
 use app\models\DynamicModel;
 use Yii;
@@ -74,16 +76,20 @@ class DocumentOrderController extends Controller
 
         $model = new DocumentOrder();
         $model->order_number = "02-02";
-
+        $modelExpire = [new Expire];
         $modelResponsible = [new Responsible];
         if ($model->load(Yii::$app->request->post())) {
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->scan = '';
+            $model->state = true;
 
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
+            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
+            $model->expires = $modelExpire;
+
             if ($model->validate(false)) {
                 $model->getDocumentNumber();
                 if ($model->scanFile !== null)
@@ -99,7 +105,8 @@ class DocumentOrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
         ]);
     }
 
@@ -111,6 +118,7 @@ class DocumentOrderController extends Controller
         $model->order_number = '02-02';
         $model->order_date = end(DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all())->order_date;
         $model->scan = '';
+        $model->state = true;
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
@@ -130,6 +138,7 @@ class DocumentOrderController extends Controller
     {
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+        $modelExpire = DynamicModel::createMultiple(Expire::classname());
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
@@ -137,6 +146,8 @@ class DocumentOrderController extends Controller
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
+            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
+            $model->expires = $modelExpire;
 
 
             if ($model->validate(false)) {
@@ -153,7 +164,24 @@ class DocumentOrderController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+        ]);
+    }
+
+    public function actionDeleteExpire($expireId, $modelId)
+    {
+        $expire = Expire::find()->where(['id' => $expireId])->one();
+        $order = DocumentOrder::find()->where(['id' => $expire->expire_regulation_id])->one();
+        $order->state = 1;
+        Regulation::CheckRegulationState($order->id, 1);
+        $order->save(false);
+        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+        $expire->delete();
+        return $this->render('update', [
+            'model' => $model,
+            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
         ]);
     }
 

@@ -137,6 +137,16 @@ class Regulation extends \yii\db\ActiveRecord
             return false;
     }
 
+    public static function CheckRegulationState($orderId, $state)
+    {
+        $regs = Regulation::find()->where(['order_id' => $orderId])->all();
+        foreach ($regs as $regOne)
+        {
+            $regOne->state = $state;
+            $regOne->save(false);
+        }
+    }
+
     //--------------------------
 
     public function afterSave($insert, $changedAttributes)
