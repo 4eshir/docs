@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\DocumentOrder::find()->all();
+    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [];
 

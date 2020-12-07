@@ -183,7 +183,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 }
                                 ?>
                                 <?php
-                                $orders = \app\models\common\DocumentOrder::find()->all();
+                                $orders = [];
+                                if ($model->id == null)
+                                    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->all();
+                                else
+                                    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
                                 $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
                                 $params = [
                                     'prompt' => '',
