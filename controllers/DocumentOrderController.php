@@ -81,6 +81,7 @@ class DocumentOrderController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             $model->scan = '';
             $model->state = true;
 
@@ -143,6 +144,7 @@ class DocumentOrderController extends Controller
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;

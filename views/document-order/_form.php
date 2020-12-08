@@ -211,6 +211,22 @@ use wbraganca\dynamicform\DynamicFormWidget;
         echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan])).'</h5><br>';
     ?>
 
+    <?= $form->field($model, 'docFiles[]')->fileInput(['multiple' => true])->label('Редактируемые документы') ?>
+
+    <?php
+    if ($model->doc !== null)
+    {
+        $split = explode(" ", $model->doc);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton('Добавить приказ', ['class' => 'btn btn-success']) ?>
     </div>

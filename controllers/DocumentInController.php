@@ -86,7 +86,7 @@ class DocumentInController extends Controller
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
-
+            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             if ($model->validate(false))
             {
                 $model->getDocumentNumber();
@@ -142,6 +142,7 @@ class DocumentInController extends Controller
         {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
+            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             if ($model->validate(false)) {
                 if ($model->scanFile != null)
                     $model->uploadScanFile();
