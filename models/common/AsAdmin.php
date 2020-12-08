@@ -45,6 +45,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     public $serviceNoteFile;
     public $useStartDate;
     public $useEndDate;
+    public $requisits;
 
     /**
      * {@inheritdoc}
@@ -68,7 +69,7 @@ class AsAdmin extends \yii\db\ActiveRecord
             [['as_company_id', 'count', 'country_prod_id', 'license_id', 'register_id', 'as_type_id', 'copyright_id', 'distribution_type_id'], 'integer'],
             [['document_date', 'license_start', 'license_finish', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
-            [['comment', 'scan', 'as_name', 'service_note', 'document_number', 'unifed_register_number'], 'string', 'max' => 1000],
+            [['comment', 'scan', 'as_name', 'service_note', 'document_number', 'unifed_register_number', 'requisits'], 'string', 'max' => 1000],
             [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
             [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
             [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['copyright_id' => 'id']],
@@ -161,6 +162,13 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function getRegister()
     {
         return $this->hasOne(User::className(), ['id' => 'register_id']);
+    }
+
+    public function getRequisits()
+    {
+        if ($this->document_number == null)
+            return '';
+        return $this->asCompany->name.' '.$this->document_number.' '.$this->document_date;
     }
 
 

@@ -49,13 +49,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 ['attribute' => 'id', 'label' => '№ п/п'],
-                ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => 'copyright.name'],
+                ['attribute' => 'copyrightName', 'label' => 'Правообладатель', 'value' => 'copyright.name'],
                 ['attribute' => 'as_name', 'label' => 'Наименование'],
-                ['attribute' => 'requisites', 'label' => 'Реквизиты', 'value' => function($model){
+                ['attribute' => 'requisitsName', 'label' => 'Реквизиты', 'value' => function($model){
                     if ($model->document_number == null)
                         return '';
                     return 'Компания: '.$model->asCompany->name.'<br>Номер док.: '.$model->document_number.'<br>Дата док.: '.$model->document_date;
-                }, 'format' => 'raw'],
+                }, 'format' => 'raw', 'header' => '<div style="width:200px;">Реквизиты</div>'],
                 ['attribute' => 'count', 'label' => 'Кол-во'],
                 ['attribute' => 'price', 'label' => 'Стоимость'],
                 ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
@@ -71,11 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
                     return $html;
                 }, 'format' => 'raw'],
-                ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
+                ['attribute' => 'countryName', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
                 ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
 
 
-                ['attribute' => 'license', 'label' => 'Способ распространения', 'value' => 'distributionType.name'],
+                ['attribute' => 'distribution_type_id', 'label' => 'Способ<br>распространения', 'value' => 'distributionType.name', 'encodeLabel' => false],
                 ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
                     $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
                     if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
@@ -84,27 +84,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         return 'Бессрочная';
                 }],
                 ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
-                ['attribute' => 'inst_quant', 'label' => 'Установ. Кванториум', 'value' => function($model){
+                ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
-                }, 'format' => 'raw'],
-                ['attribute' => 'inst_tech', 'label' => 'Установ. Технопарк', 'value' => function($model){
+                }, 'format' => 'raw', 'encodeLabel' => false],
+                ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
-                }, 'format' => 'raw'],
-                ['attribute' => 'inst_cdntt', 'label' => 'Установ. ЦДНТТ', 'value' => function($model){
+                }, 'format' => 'raw', 'encodeLabel' => false],
+                ['attribute' => 'inst_cdntt', 'label' => 'Установ.<br>ЦДНТТ', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
-                }, 'format' => 'raw'],
+                }, 'format' => 'raw', 'encodeLabel' => false],
                 ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
                     $sum = 0;
