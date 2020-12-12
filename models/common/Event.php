@@ -1,0 +1,181 @@
+<?php
+
+namespace app\models\common;
+
+use Yii;
+
+/**
+ * This is the model class for table "event".
+ *
+ * @property int $id
+ * @property string $start_date
+ * @property string $finish_date
+ * @property int $event_type_id
+ * @property int $event_form_id
+ * @property string $address
+ * @property int $event_level_id
+ * @property int $participants_count
+ * @property int $is_federal
+ * @property int $responsible_id
+ * @property string $key_words
+ * @property string $comment
+ * @property int $order_id
+ * @property int $regulation_id
+ * @property string $protocol
+ * @property string $photos
+ * @property string $reporting_doc
+ * @property string $other_files
+ *
+ * @property EventForm $eventForm
+ * @property EventLevel $eventLevel
+ * @property EventType $eventType
+ * @property DocumentOrder $order
+ * @property Regulation $regulation
+ * @property People $responsible
+ */
+class Event extends \yii\db\ActiveRecord
+{
+    public $protocolFile;
+    public $photoFiles;
+    public $reportingFile;
+    public $otherFiles;
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'event';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'protocol'], 'required'],
+            [['start_date', 'finish_date'], 'safe'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id'], 'integer'],
+            [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files'], 'string', 'max' => 1000],
+            [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
+            [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
+            [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
+            [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gif', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['otherFiles'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'start_date' => 'Дата начала',
+            'finish_date' => 'Дата окончания',
+            'event_type_id' => 'Тип мероприятия',
+            'event_form_id' => 'Форма мероприятия',
+            'address' => 'Адрес',
+            'event_level_id' => 'Уровень мероприятия',
+            'participants_count' => 'Кол-во участников',
+            'is_federal' => 'Входит в ФП',
+            'responsible_id' => 'Ответственный',
+            'key_words' => 'Ключевые слова',
+            'comment' => 'Примечание',
+            'order_id' => 'Приказ',
+            'regulation_id' => 'Положение',
+            'protocol' => 'Протокол',
+            'photos' => 'Фотоотчет',
+            'reporting_doc' => 'Явочный документ',
+            'other_files' => 'Другие файлы',
+        ];
+    }
+
+    /**
+     * Gets query for [[EventForm]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventForm()
+    {
+        return $this->hasOne(EventForm::className(), ['id' => 'event_form_id']);
+    }
+
+    /**
+     * Gets query for [[EventLevel]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventLevel()
+    {
+        return $this->hasOne(EventLevel::className(), ['id' => 'event_level_id']);
+    }
+
+    /**
+     * Gets query for [[EventType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventType()
+    {
+        return $this->hasOne(EventType::className(), ['id' => 'event_type_id']);
+    }
+
+    /**
+     * Gets query for [[Order]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrder()
+    {
+        return $this->hasOne(DocumentOrder::className(), ['id' => 'order_id']);
+    }
+
+    /**
+     * Gets query for [[Regulation]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegulation()
+    {
+        return $this->hasOne(Regulation::className(), ['id' => 'regulation_id']);
+    }
+
+    /**
+     * Gets query for [[Responsible]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsible()
+    {
+        return $this->hasOne(People::className(), ['id' => 'responsible_id']);
+    }
+
+    //---------------------------------
+
+    public function uploadProtocolFile()
+    {
+        $path = '@app/upload/files/event/protocol/';
+        $date = $this->order->order_date;
+        $new_date = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = '';
+        if ($this->order->order_postfix == null)
+            $filename = 'Мер.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->order->order_name;
+        else
+            $filename = 'Мер.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->order->order_name;
+
+        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+        $this->protocol = $res . '.' . $this->protocolFile->extension;
+        $this->protocolFile->saveAs( $path . $res . '.' . $this->protocolFile->extension);
+    }
+}

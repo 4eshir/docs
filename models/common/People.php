@@ -98,6 +98,11 @@ class People extends \yii\db\ActiveRecord
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
     }
 
+    public function getShortName()
+    {
+        return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
+    }
+
     public function beforeSave($insert)
     {
         if ($this->stringPosition == '')
