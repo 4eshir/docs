@@ -166,6 +166,9 @@ class EventController extends Controller
      */
     public function actionDelete($id)
     {
+        $links = EventsLink::find()->where(['event_id' => $id])->all();
+        foreach ($links as $link)
+            $link->delete();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
