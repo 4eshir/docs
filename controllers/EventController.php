@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\common\EventExternal;
+use app\models\common\EventsLink;
+use app\models\common\UseYears;
+use app\models\DynamicModel;
 use Yii;
 use app\models\common\Event;
 use app\models\SearchEvent;
@@ -66,14 +70,32 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
+        $modelEventsLinks = [new EventsLink];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->protocolFile = UploadedFile::getInstance($model, 'protocolFile');
+            $model->reportingFile = UploadedFile::getInstance($model, 'reportingFile');
+            $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
+            $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
             $model->protocol = '';
+            $model->reporting_doc = '';
+            $model->photos = '';
+            $model->other_files = '';
+
+            $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
+            DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
+            $model->eventsLink = $modelEventsLinks;
+
             if ($model->validate(false))
             {
                 if ($model->protocolFile !== null)
                     $model->uploadProtocolFile();
+                if ($model->reportingFile !== null)
+                    $model->uploadReportingFile();
+                if ($model->photoFiles !== null)
+                    $model->uploadPhotosFiles();
+                if ($model->otherFiles !== null)
+                    $model->uploadOtherFiles();
                 $model->save(false);
             }
             else
@@ -85,6 +107,7 @@ class EventController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLink] : $modelEventsLinks,
         ]);
     }
 
@@ -98,17 +121,39 @@ class EventController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelEventsLinks = [new EventsLink];
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate(false))
             {
-                $model->save(false);
+                $model->protocolFile = UploadedFile::getInstance($model, 'protocolFile');
+                $model->reportingFile = UploadedFile::getInstance($model, 'reportingFile');
+                $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
+                $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
+
+                $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
+                DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
+                $model->eventsLink = $modelEventsLinks;
+
+                if ($model->validate(false))
+                {
+                    if ($model->protocolFile !== null)
+                        $model->uploadProtocolFile();
+                    if ($model->reportingFile !== null)
+                        $model->uploadReportingFile();
+                    if ($model->photoFiles !== null)
+                        $model->uploadPhotosFiles(10);
+                    if ($model->otherFiles !== null)
+                        $model->uploadOtherFiles(10);
+                    $model->save(false);
+                }
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLink] : $modelEventsLinks,
         ]);
     }
 
@@ -140,5 +185,23 @@ class EventController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //-------------------------
+
+    public function actionGetFile($fileName = null)
+    {
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/event/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                return $this->redirect('index.php?r=docs-out/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
     }
 }

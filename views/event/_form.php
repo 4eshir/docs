@@ -1,5 +1,6 @@
 <?php
 
+use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -10,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="event-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -104,14 +105,82 @@ use yii\widgets\ActiveForm;
 
     ?>
 
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Внешние мероприятия</h4></div>
+            <?php
+            $extEvents = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
+            if ($extEvents != null)
+            {
+                echo '<table>';
+                foreach ($extEvents  as $extEvent) {
+                    echo '<tr><td style="padding-left: 20px"><h4>"'.$extEvent->eventExternal->name.'"</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-external-event', 'id' => $extEvents->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items1', // required: css class selector
+                    'widgetItem' => '.item1', // required: css class
+                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelEventsLinks[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'eventExternalName',
+                    ],
+                ]); ?>
+
+                <div class="container-items1" ><!-- widgetContainer -->
+                    <?php foreach ($modelEventsLinks as $i => $modelEventsLink): ?>
+                        <div class="item1 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Мероприятие</h3>
+                                <div class="pull-right">
+                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <?php
+                                // necessary for update action.
+                                if (! $modelEventsLink->isNewRecord) {
+                                    echo Html::activeHiddenInput($modelEventsLink, "[{$i}]id");
+                                }
+                                ?>
+                                <div>
+                                    <?php
+
+                                    $branch = \app\models\common\Branch::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+                                    $params = [];
+                                    echo $form->field($modelEventsLink, "[{$i}]eventExternalName")->textInput()->label('Название мероприятия');
+                                    ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+
 
     <?= $form->field($model, 'protocolFile')->fileInput() ?>
 
-    <?= $form->field($model, 'photos')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'photoFiles[]')->fileInput(['multiple' => true]) ?>
 
-    <?= $form->field($model, 'reporting_doc')->fileInput() ?>
+    <?= $form->field($model, 'reportingFile')->fileInput() ?>
 
-    <?= $form->field($model, 'other_files')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'otherFiles[]')->fileInput(['multiple' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -49,10 +49,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'],
             ['attribute' => 'regulation_id', 'value' => Html::a($model->regulation->name, \yii\helpers\Url::to(['regulation/view', 'id' => $model->regulation_id])),
                 'format' => 'raw'],
-            'protocol',
-            'photos',
-            'reporting_doc',
-            'other_files',
+            ['attribute' => 'eventsLink', 'label' => 'Внешние мероприятия', 'value' => function($model){
+                $events = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
+                $result = '';
+                foreach ($events as $event)
+                    $result = $result.$event->eventExternal->name.'<br>';
+                return $result;
+            }, 'format' => 'raw'],
+            ['label' => 'Протокол мероприятия', 'attribute' => 'protocol', 'value' => function ($model) {
+                return Html::a($model->protocol, \yii\helpers\Url::to(['event/get-file', 'fileName' => 'protocol/'.$model->protocol]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Фотоотчет', 'attribute' => 'photoFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->photos);
+                $result = '';
+                for ($i = 0; $i < count($split) - 1; $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$split[$i]])).'<br>';
+                return $result;
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Явочный документ', 'attribute' => 'reporting_doc', 'value' => function ($model) {
+                return Html::a($model->reporting_doc, \yii\helpers\Url::to(['event/get-file', 'fileName' => 'reporting/'.$model->reporting_doc]));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Другие файлы', 'attribute' => 'otherFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->other_files);
+                $result = '';
+                for ($i = 0; $i < count($split) - 1; $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i]])).'<br>';
+                return $result;
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
         ],
     ]) ?>
 

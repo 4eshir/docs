@@ -1,5 +1,6 @@
 <?php
 
+use app\models\common\EventsLink;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelEventsLinks' => $modelEventsLinks,
     ]) ?>
 
 </div>

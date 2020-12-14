@@ -13,6 +13,7 @@ use Yii;
  */
 class EventsLink extends \yii\db\ActiveRecord
 {
+    public $eventExternalName;
     /**
      * {@inheritdoc}
      */
@@ -29,6 +30,7 @@ class EventsLink extends \yii\db\ActiveRecord
         return [
             [['event_external_id', 'event_id'], 'required'],
             [['event_external_id', 'event_id'], 'integer'],
+            [['eventExternalName'], 'string'],
         ];
     }
 
@@ -42,5 +44,15 @@ class EventsLink extends \yii\db\ActiveRecord
             'event_external_id' => 'Event External ID',
             'event_id' => 'Event ID',
         ];
+    }
+
+    /**
+     * Gets query for [[EventExternal]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventExternal()
+    {
+        return $this->hasOne(EventExternal::className(), ['id' => 'event_external_id']);
     }
 }
