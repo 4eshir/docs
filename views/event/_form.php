@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',

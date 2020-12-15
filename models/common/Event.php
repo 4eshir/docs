@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "event".
  *
  * @property int $id
+ * @property string $name
  * @property string $start_date
  * @property string $finish_date
  * @property int $event_type_id
@@ -58,7 +59,7 @@ class Event extends \yii\db\ActiveRecord
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'protocol'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
             [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id'], 'integer'],
-            [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files'], 'string', 'max' => 1000],
+            [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
@@ -96,6 +97,11 @@ class Event extends \yii\db\ActiveRecord
             'photos' => 'Фотоотчет',
             'reporting_doc' => 'Явочный документ',
             'other_files' => 'Другие файлы',
+            'protocolFile' => 'Протокол мероприятия',
+            'reportingFile' => 'Явочный документ',
+            'photoFiles' => 'Фотоотчет',
+            'otherFiles' => 'Другие файлы',
+            'name' => 'Название мероприятия',
         ];
     }
 
