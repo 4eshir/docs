@@ -175,12 +175,24 @@ class DocumentOrderController extends Controller
     public function actionDeleteExpire($expireId, $modelId)
     {
         $expire = Expire::find()->where(['id' => $expireId])->one();
-        $order = DocumentOrder::find()->where(['id' => $expire->expire_regulation_id])->one();
-        $order->state = 1;
-        Regulation::CheckRegulationState($order->id, 1);
-        $order->save(false);
-        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+        $order = DocumentOrder::find()->where(['id' => $expire->expire_order_id])->one();
+        if ($order !== null)
+        {
+            $order->state = 1;
+            Regulation::CheckRegulationState($order->id, 1);
+            $order->save(false);
+            $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+
+        }
+        $reg = Regulation::find()->where(['id' => $expire->expire_regulation_id])->one();
+        if ($reg !== null)
+        {
+            $reg->state = 'Утратило силу';
+            $reg->save(false);
+        }
         $expire->delete();
+
+        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
         return $this->render('update', [
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,

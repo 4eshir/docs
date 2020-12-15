@@ -14,7 +14,7 @@ use Yii;
  * @property int $document_type_id
  *
  * @property DocumentOrder $activeRegulation
- * @property DocumentOrder $expireRegulation
+ * @property Regulation $expireRegulation
  * @property DocumentType $documentType
  */
 class Expire extends \yii\db\ActiveRecord
@@ -71,7 +71,7 @@ class Expire extends \yii\db\ActiveRecord
      */
     public function getExpireRegulation()
     {
-        return $this->hasOne(DocumentOrder::className(), ['id' => 'expire_regulation_id']);
+        return $this->hasOne(Regulation::className(), ['id' => 'expire_regulation_id']);
     }
 
     /**

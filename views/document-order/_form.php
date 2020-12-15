@@ -137,13 +137,22 @@ use wbraganca\dynamicform\DynamicFormWidget;
             {
                 echo '<table>';
                 foreach ($order as $orderOne) {
-                    echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b>'.$orderOne->expireRegulation->fullName.'</h4></td><td style="padding-left: 10px">'
-                        .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => 'Вы уверены?',
-                                'method' => 'post',
-                            ],]).'</td></tr>';
+                    if ($orderOne->expireRegulation !== null)
+                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Положение "'.$orderOne->expireRegulation->name.'"</h4></td><td style="padding-left: 10px">'
+                            .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => 'Вы уверены?',
+                                    'method' => 'post',
+                                ],]).'</td></tr>';
+                    if ($orderOne->expireOrder !== null)
+                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Приказ №'.$orderOne->expireOrder->fullName.'"</h4></td><td style="padding-left: 10px">'
+                            .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => 'Вы уверены?',
+                                    'method' => 'post',
+                                ],]).'</td></tr>';
                 }
                 echo '</table>';
             }

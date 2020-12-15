@@ -248,8 +248,9 @@ class DocumentOrder extends \yii\db\ActiveRecord
                 else
                     $expireOrder[$i]->document_type_id = 4;
 
+                $expireOrder[$i]->active_regulation_id = $this->id;
+                $reg = Regulation::find()->where(['order_id' => $expireOrder[$i]->active_regulation_id])->all();
 
-                $reg = Regulation::find()->where(['order_id' => $expireOrder[$i]->expire_regulation_id])->all();
                 if (count($reg) > 0)
                 {
                     foreach ($reg as $regOne)
@@ -259,7 +260,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
                     }
                 }
 
-                $expireOrder[$i]->active_regulation_id = $this->id;
+
                 $expireOrder[$i]->save(false);
             }
         }
@@ -376,7 +377,8 @@ class DocumentOrder extends \yii\db\ActiveRecord
     {
         $regs1 = Expire::find()->where(['active_regulation_id' => $this->id])->all();
         $regs2 = Expire::find()->where(['expire_regulation_id' => $this->id])->all();
-        if (count($regs1) > 0 || count($regs2) > 0)
+        $regs3 = Regulation::find()->where(['order_id' => $this->id])->all();
+        if (count($regs1) > 0 || count($regs2) > 0 || count($regs3) > 0)
             return true;
         else
             return false;

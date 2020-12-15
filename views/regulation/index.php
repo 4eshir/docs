@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Актуально';
                 else
                 {
-                    $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->order_id])->one();
+                    $exp = \app\models\common\Expire::find()->where(['expire_order_id' => $model->order_id])->one();
                     $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
