@@ -73,8 +73,8 @@ class EventController extends Controller
         $modelEventsLinks = [new EventsLink];
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->protocolFile = UploadedFile::getInstance($model, 'protocolFile');
-            $model->reportingFile = UploadedFile::getInstance($model, 'reportingFile');
+            $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
+            $model->reportingFile = UploadedFile::getInstances($model, 'reportingFile');
             $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
             $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
             $model->protocol = '';
@@ -126,8 +126,8 @@ class EventController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate(false))
             {
-                $model->protocolFile = UploadedFile::getInstance($model, 'protocolFile');
-                $model->reportingFile = UploadedFile::getInstance($model, 'reportingFile');
+                $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
+                $model->reportingFile = UploadedFile::getInstances($model, 'reportingFile');
                 $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
                 $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
 
@@ -138,9 +138,9 @@ class EventController extends Controller
                 if ($model->validate(false))
                 {
                     if ($model->protocolFile !== null)
-                        $model->uploadProtocolFile();
+                        $model->uploadProtocolFile(10);
                     if ($model->reportingFile !== null)
-                        $model->uploadReportingFile();
+                        $model->uploadReportingFile(10);
                     if ($model->photoFiles !== null)
                         $model->uploadPhotosFiles(10);
                     if ($model->otherFiles !== null)

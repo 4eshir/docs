@@ -129,7 +129,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <br>
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу приказы</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу документы</h4></div>
             <br>
             <?php
             $order = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
@@ -137,7 +137,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             {
                 echo '<table>';
                 foreach ($order as $orderOne) {
-                    echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу приказ: </b>'.$orderOne->expireRegulation->fullName.'</h4></td><td style="padding-left: 10px">'
+                    echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b>'.$orderOne->expireRegulation->fullName.'</h4></td><td style="padding-left: 10px">'
                         .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
                             'class' => 'btn btn-danger',
                             'data' => [
@@ -193,7 +193,17 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     'prompt' => '',
                                 ];
 
-                                echo $form->field($modelExpireOne, "[{$i}]expire_regulation_id")->dropDownList($items,$params)->label('Приказ');
+                                echo $form->field($modelExpireOne, "[{$i}]expire_order_id")->dropDownList($items,$params)->label('Приказ');
+                                ?>
+
+                                <?php
+                                $orders = \app\models\common\Regulation::find()->all();
+                                $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
+                                $params = [
+                                    'prompt' => '',
+                                ];
+
+                                echo $form->field($modelExpireOne, "[{$i}]expire_regulation_id")->dropDownList($items,$params)->label('Положение');
 
                                 ?>
                             </div>
@@ -204,6 +214,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             </div>
         </div>
     </div>
+
 
     <?= $form->field($model, 'scanFile')->fileInput()->label('Скан приказа') ?>
     <?php
@@ -234,13 +245,3 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-
-<script>
-
-    $('#scroll').onclick(function()
-    {
-        alert('lol');
-        //$('#scroll').scrollTop = 9999;
-    });
-</script>

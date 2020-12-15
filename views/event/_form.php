@@ -176,11 +176,11 @@ use yii\widgets\ActiveForm;
     </div>
 
 
-    <?= $form->field($model, 'protocolFile')->fileInput() ?>
+    <?= $form->field($model, 'protocolFile[]')->fileInput(['multiple' => true]) ?>
 
     <?= $form->field($model, 'photoFiles[]')->fileInput(['multiple' => true]) ?>
 
-    <?= $form->field($model, 'reportingFile')->fileInput() ?>
+    <?= $form->field($model, 'reportingFile[]')->fileInput(['multiple' => true]) ?>
 
     <?= $form->field($model, 'otherFiles[]')->fileInput(['multiple' => true]) ?>
 

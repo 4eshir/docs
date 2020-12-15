@@ -51,13 +51,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 $res = '';
                 foreach ($exp as $expOne)
                 {
-                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $expOne->expire_regulation_id])->one();
+                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $expOne->expire_order_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;
                     else
                         $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
                     $res = $res . Html::a('Приказ №'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
+
+                }
+                return $res;
+            }, 'format' => 'raw'],
+            ['label' => 'Утратили силу положения', 'attribute' => 'expires', 'value' => function($model){
+                $exp = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->andWhere(['!=', 'expire_regulation_id', null])->all();
+                $res = '';
+                foreach ($exp as $expOne)
+                {
+                    $reg = \app\models\common\Regulation::find()->where(['id' => $expOne->expire_regulation_id])->one();
+                    var_dump($reg);
+                    $res = $res . Html::a('Положение '.$reg->name, \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id])).'<br>';
 
                 }
                 return $res;

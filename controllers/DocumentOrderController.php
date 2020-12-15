@@ -88,6 +88,7 @@ class DocumentOrderController extends Controller
             $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
+            $modelExpire = DynamicModel::createMultiple(Expire::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 
@@ -107,7 +108,7 @@ class DocumentOrderController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
         ]);
     }
 
@@ -167,7 +168,7 @@ class DocumentOrderController extends Controller
         return $this->render('update', [
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
         ]);
     }
 

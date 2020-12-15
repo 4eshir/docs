@@ -66,9 +66,9 @@ class Event extends \yii\db\ActiveRecord
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gif', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['otherFiles'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
     }
@@ -84,22 +84,22 @@ class Event extends \yii\db\ActiveRecord
             'finish_date' => 'Дата окончания',
             'event_type_id' => 'Тип мероприятия',
             'event_form_id' => 'Форма мероприятия',
-            'address' => 'Адрес',
+            'address' => 'Адрес проведения',
             'event_level_id' => 'Уровень мероприятия',
             'participants_count' => 'Кол-во участников',
             'is_federal' => 'Входит в ФП',
-            'responsible_id' => 'Ответственный',
+            'responsible_id' => 'Ответственный работник',
             'key_words' => 'Ключевые слова',
             'comment' => 'Примечание',
             'order_id' => 'Приказ',
             'regulation_id' => 'Положение',
-            'protocol' => 'Протокол',
-            'photos' => 'Фотоотчет',
+            'protocol' => 'Протоколы',
+            'photos' => 'Фотоматериалы',
             'reporting_doc' => 'Явочный документ',
             'other_files' => 'Другие файлы',
             'protocolFile' => 'Протокол мероприятия',
-            'reportingFile' => 'Явочный документ',
-            'photoFiles' => 'Фотоотчет',
+            'reportingFile' => 'Явочные документы',
+            'photoFiles' => 'Фотоматериалы',
             'otherFiles' => 'Другие файлы',
             'name' => 'Название мероприятия',
         ];
@@ -177,44 +177,67 @@ class Event extends \yii\db\ActiveRecord
 
     //---------------------------------
 
-    public function uploadProtocolFile()
+    public function uploadProtocolFile($upd = null)
     {
         $path = '@app/upload/files/event/protocol/';
-        $date = $this->order->order_date;
-        $new_date = '';
-        for ($i = 0; $i < strlen($date); ++$i)
-            if ($date[$i] != '-')
-                $new_date = $new_date.$date[$i];
-        $filename = '';
-        if ($this->order->order_postfix == null)
-            $filename = 'Пр.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+        $counter = 0;
+        if (strlen($this->protocol) > 3)
+            $counter = count(explode(" ", $this->protocol)) - 1;
+        foreach ($this->protocolFile as $file) {
+            $counter++;
+            $date = $this->order->order_date;
+            $new_date = '';
+            for ($i = 0; $i < strlen($date); ++$i)
+                if ($date[$i] != '-')
+                    $new_date = $new_date.$date[$i];
+            $filename = '';
+            if ($this->order->order_postfix == null)
+                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+            else
+                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+            $filename = $filename.'_'.$this->getEventNumber();
+            $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
+        }
+        if ($upd == null)
+            $this->protocol = $result;
         else
-            $filename = 'Пр.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
-        $filename = $filename.'_'.$this->getEventNumber();
-        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
-        $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
-        $this->protocol = $res . '.' . $this->protocolFile->extension;
-        $this->protocolFile->saveAs( $path . $res . '.' . $this->protocolFile->extension);
+            $this->protocol = $this->protocol.$result;
+        return true;
     }
 
-    public function uploadReportingFile()
+    public function uploadReportingFile($upd = null)
     {
         $path = '@app/upload/files/event/reporting/';
-        $date = $this->order->order_date;
-        $new_date = '';
-        for ($i = 0; $i < strlen($date); ++$i)
-            if ($date[$i] != '-')
-                $new_date = $new_date.$date[$i];
-        $filename = '';
-        if ($this->order->order_postfix == null)
-            $filename = 'Яв.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+
+        $counter = 0;
+        if (strlen($this->reporting_doc) > 3)
+            $counter = count(explode(" ", $this->reporting_doc)) - 1;
+        foreach ($this->reportingFile as $file) {
+            $counter++;
+            $date = $this->order->order_date;
+            $new_date = '';
+            for ($i = 0; $i < strlen($date); ++$i)
+                if ($date[$i] != '-')
+                    $new_date = $new_date.$date[$i];
+            $filename = '';
+            if ($this->order->order_postfix == null)
+                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+            else
+                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+            $filename = $filename.'_'.$this->getEventNumber();
+            $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+            $file->saveAs($path . $res . '.' . $file->extension);
+            $result = $result.$res . '.' . $file->extension.' ';
+        }
+        if ($upd == null)
+            $this->reporting_doc = $result;
         else
-            $filename = 'Яв.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
-        $filename = $filename.'_'.$this->getEventNumber();
-        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
-        $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
-        $this->reporting_doc = $res . '.' . $this->reportingFile->extension;
-        $this->reportingFile->saveAs( $path . $res . '.' . $this->reportingFile->extension);
+            $this->reporting_doc = $this->reporting_doc.$result;
+        return true;
     }
 
     public function uploadPhotosFiles($upd = null)
@@ -222,6 +245,8 @@ class Event extends \yii\db\ActiveRecord
         $path = '@app/upload/files/event/photos/';
         $result = '';
         $counter = 0;
+        if (strlen($this->photos) > 3)
+            $counter = count(explode(" ", $this->photos)) - 1;
         foreach ($this->photoFiles as $file) {
             $counter++;
             $date = $this->order->order_date;
