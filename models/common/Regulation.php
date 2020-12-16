@@ -40,7 +40,7 @@ class Regulation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'name', 'order_id', 'ped_council_number', 'ped_council_date', 'par_council_number', 'par_council_date', 'state'], 'required'],
+            [['date', 'name', 'order_id', 'state'], 'required'],
             [['date', 'ped_council_date', 'par_council_date'], 'safe'],
             [['order_id', 'ped_council_number', 'par_council_number', 'state'], 'integer'],
             [['name', 'scan'], 'string', 'max' => 1000],
