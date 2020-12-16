@@ -39,6 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Дата приказа', 'attribute' => 'order_date', 'value' => $model->order_date],
             ['label' => 'Проект вносит', 'attribute' => 'bring_id', 'value' => $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1).'.'],
             ['label' => 'Исполнитель', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],
+            ['label' => 'Положения по приказу', 'value' => function ($model) {
+                $res = \app\models\common\Regulation::find()->where(['order_id' => $model->id])->all();
+                $html = '';
+                for ($i = 0; $i != count($res); $i++)
+                    $html = $html.Html::a('Положение "'.$res[$i]->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $res[$i]->id])).'<br>';
+                return $html;
+            }, 'format' => 'raw'],
             ['label' => 'Ответственные по приказу', 'value' => function ($model) {
                 $res = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
                 $html = '';
