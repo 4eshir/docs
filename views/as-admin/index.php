@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'requisitsName', 'label' => 'Реквизиты', 'value' => function($model){
             if ($model->document_number == null)
                 return '';
-            return 'Компания: '.$model->asCompany->name.'<br>Номер док.: '.$model->document_number.'<br>Дата док.: '.$model->document_date;
+            return 'Компания: '.$model->asCompany->name.' Номер док.: '.$model->document_number.' Дата док.: '.$model->document_date;
         }, 'format' => 'raw', 'header' => '<div style="width:200px;">Реквизиты</div>'],
         ['attribute' => 'count', 'label' => 'Кол-во'],
         ['attribute' => 'price', 'label' => 'Стоимость'],
