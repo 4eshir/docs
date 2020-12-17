@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,7 +8,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchAsAdmin */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'ПО "Административный процесс';
+$this->title = 'Реестр ПО';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -38,6 +39,90 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить ПО', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?php
+
+    $gridColumns = [
+        ['attribute' => 'id', 'label' => '№ п/п'],
+        ['attribute' => 'copyrightName', 'label' => 'Правообладатель', 'value' => 'copyright.name'],
+        ['attribute' => 'as_name', 'label' => 'Наименование'],
+        ['attribute' => 'requisitsName', 'label' => 'Реквизиты', 'value' => function($model){
+            if ($model->document_number == null)
+                return '';
+            return 'Компания: '.$model->asCompany->name.'<br>Номер док.: '.$model->document_number.'<br>Дата док.: '.$model->document_date;
+        }, 'format' => 'raw', 'header' => '<div style="width:200px;">Реквизиты</div>'],
+        ['attribute' => 'count', 'label' => 'Кол-во'],
+        ['attribute' => 'price', 'label' => 'Стоимость'],
+        ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
+            $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+            if ($res == null)
+                return '';
+            $html = '';
+            if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
+                $html = 'Бессрочно';
+            else if ($res->end_date == '1999-01-01')
+                $html = $html.' '.$res->start_date.' - бессрочно';
+            else
+                $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
+            return $html;
+        }, 'format' => 'raw'],
+        ['attribute' => 'countryName', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
+        ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
+
+
+        ['attribute' => 'distribution_type_id', 'label' => 'Способ<br>распространения', 'value' => 'distributionType.name', 'encodeLabel' => false],
+        ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
+            $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+            if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
+                return 'Срочная';
+            else
+                return 'Бессрочная';
+        }],
+        ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
+        ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+            $html = '';
+            foreach ($res as $resOne)
+                $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+            return $html;
+        }, 'format' => 'raw', 'encodeLabel' => false],
+        ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+            $html = '';
+            foreach ($res as $resOne)
+                $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+            return $html;
+        }, 'format' => 'raw', 'encodeLabel' => false],
+        ['attribute' => 'inst_cdntt', 'label' => 'Установ.<br>ЦДНТТ', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+            $html = '';
+            foreach ($res as $resOne)
+                $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+            return $html;
+        }, 'format' => 'raw', 'encodeLabel' => false],
+        ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
+            $sum = 0;
+            foreach ($res as $resOne)
+                $sum = $sum + $resOne->count;
+            return $model->count - $sum;
+        },
+        ],
+        ['attribute' => 'registerName', 'label' => 'Регистратор', 'value' => function ($model) {
+            return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+        },
+        ],
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+    ?>
 
     <div id="topscrl">
         <div id="topfake"></div>
