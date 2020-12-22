@@ -42,6 +42,10 @@ class Event extends \yii\db\ActiveRecord
     public $reportingFile;
     public $otherFiles;
     public $eventsLink;
+
+    public $isTechnopark;
+    public $isQuantorium;
+    public $isCDNTT;
     /**
      * {@inheritdoc}
      */
@@ -58,7 +62,7 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'protocol'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id'], 'integer'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'isTechnopark', 'isQuantorium', 'isCDNTT'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
@@ -102,6 +106,9 @@ class Event extends \yii\db\ActiveRecord
             'photoFiles' => 'Фотоматериалы',
             'otherFiles' => 'Другие файлы',
             'name' => 'Название мероприятия',
+            'isTechnopark' => 'Технопарк',
+            'isQuantorium' => 'Кванториум',
+            'isCDNTT' => 'ЦДНТТ',
         ];
     }
 
@@ -323,9 +330,6 @@ class Event extends \yii\db\ActiveRecord
             {
                 if ($eventLink->eventExternalName !== '')
                 {
-                    $extEvent = new EventExternal();
-                    $extEvent->name = $eventLink->eventExternalName;
-                    $extEvent->save(false);
                     $evnLnk = new EventsLink();
                     $evnLnk->event_id = $this->id;
                     $evnLnk->event_external_id = EventExternal::find()->where(['name' => $eventLink->eventExternalName])->one()->id;
@@ -333,6 +337,50 @@ class Event extends \yii\db\ActiveRecord
                 }
 
             }
+        }
+        $edT = new EventBranch();
+        if ($this->isTechnopark == 1)
+        {
+            $edT->branch_id = 2;
+            $edT->event_id = $this->id;
+            if (count(EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $this->id])->all()) == 0)
+                $edT->save();
+        }
+        else
+        {
+            $edT = EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $this->id])->one();
+            if ($edT !== null)
+                $edT->delete();
+        }
+
+        $edQ = new EventBranch();
+        if ($this->isQuantorium == 1)
+        {
+            $edQ->branch_id = 1;
+            $edQ->event_id = $this->id;
+            if (count(EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $this->id])->all()) == 0)
+                $edQ->save();
+        }
+        else
+        {
+            $edQ = EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $this->id])->one();
+            if ($edQ !== null)
+                $edQ->delete();
+        }
+
+        $edC = new EventBranch();
+        if ($this->isCDNTT == 1)
+        {
+            $edC->branch_id = 3;
+            $edC->event_id = $this->id;
+            if (count(EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $this->id])->all()) == 0)
+                $edC->save();
+        }
+        else
+        {
+            $edC = EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $this->id])->one();
+            if ($edC !== null)
+                $edC->delete();
         }
     }
 }

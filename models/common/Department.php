@@ -5,21 +5,21 @@ namespace app\models\common;
 use Yii;
 
 /**
- * This is the model class for table "event_form".
+ * This is the model class for table "department".
  *
  * @property int $id
  * @property string $name
  *
- * @property Event[] $events
+ * @property EventDepartment[] $eventDepartments
  */
-class EventForm extends \yii\db\ActiveRecord
+class Department extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'event_form';
+        return 'department';
     }
 
     /**
@@ -40,17 +40,17 @@ class EventForm extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'name' => 'Name',
         ];
     }
 
     /**
-     * Gets query for [[Events]].
+     * Gets query for [[EventDepartments]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEvents()
+    public function getEventDepartments()
     {
-        return $this->hasMany(Event::className(), ['event_form_id' => 'id']);
+        return $this->hasMany(EventDepartment::className(), ['department_id' => 'id']);
     }
 }

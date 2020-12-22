@@ -84,6 +84,28 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'responsible_id')->dropDownList($items,$params)->label('Ответственный за мероприятие');
 
     ?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Мероприятие проводит</h4></div>
+            <div class="panel-body">
+
+                <?php
+                $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+                $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+                $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $value = false;
+                ?>
+                <?php if (count($tech) > 0) $value = true; else $value = false; ?>
+                <?= $form->field($model, 'isTechnopark')->checkbox(['checked' => $value]) ?>
+
+                <?php if (count($quant) > 0) $value = true; else $value = false; ?>
+                <?= $form->field($model, 'isQuantorium')->checkbox(['checked' => $value]) ?>
+
+                <?php if (count($cdntt) > 0) $value = true; else $value = false; ?>
+                <?= $form->field($model, 'isCDNTT')->checkbox(['checked' => $value]) ?>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
@@ -109,7 +131,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Внешние мероприятия</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Отчетные мероприятия</h4></div>
             <?php
             $extEvents = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
             if ($extEvents != null)
@@ -158,10 +180,12 @@ use yii\widgets\ActiveForm;
                                 <div>
                                     <?php
 
-                                    $branch = \app\models\common\Branch::find()->all();
+                                    $branch = \app\models\common\EventExternal::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
-                                    $params = [];
-                                    echo $form->field($modelEventsLink, "[{$i}]eventExternalName")->textInput()->label('Название мероприятия');
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
+                                    echo $form->field($modelEventsLink, "[{$i}]eventExternalName")->dropDownList($items,$params)->label('Название мероприятия');
                                     ?>
 
                                 </div>

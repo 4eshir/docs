@@ -43,6 +43,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Нет';
             }],
             ['attribute' => 'responsible_id', 'value' => $model->responsible->shortName],
+            ['attribute' => 'eventDepartment', 'label' => 'Мероприятие проводит', 'value' => function($model){
+                $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+                $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+                $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $result = '';
+                if (count($tech) > 0)
+                    $result = $result.'Технопарк';
+                if (count($quant) > 0)
+                    if ($result == '')
+                        $result = $result.'Кванториум';
+                    else
+                        $result = $result.'<br>Кванториум';
+                if (count($cdntt) > 0)
+                    if ($result == '')
+                        $result = $result.'ЦДНТТ';
+                    else
+                        $result = $result.'<br>ЦДНТТ';
+                return $result;
+            }, 'format' => 'raw'],
             'key_words',
             'comment',
             ['attribute' => 'order_id', 'value' => Html::a($model->order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])),
