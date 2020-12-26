@@ -15,6 +15,7 @@ use Yii;
  * @property string $ped_council_date
  * @property int $par_council_number
  * @property string $par_council_date
+ * @property int regulation_type_id
  * @property int $state
  * @property string $scan
  *
@@ -42,7 +43,7 @@ class Regulation extends \yii\db\ActiveRecord
         return [
             [['date', 'name', 'order_id', 'state'], 'required'],
             [['date', 'ped_council_date', 'par_council_date'], 'safe'],
-            [['order_id', 'ped_council_number', 'par_council_number', 'state'], 'integer'],
+            [['order_id', 'ped_council_number', 'par_council_number', 'state', 'regulation_type_id'], 'integer'],
             [['name', 'scan'], 'string', 'max' => 1000],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
@@ -95,6 +96,16 @@ class Regulation extends \yii\db\ActiveRecord
     public function getOrder()
     {
         return $this->hasOne(DocumentOrder::className(), ['id' => 'order_id']);
+    }
+
+    /**
+     * Gets query for [[RegulationType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegulationType()
+    {
+        return $this->hasOne(RegulationType::className(), ['id' => 'regulation_type_id']);
     }
 
     //--------------------------

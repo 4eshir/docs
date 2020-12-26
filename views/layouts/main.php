@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -49,7 +50,8 @@ AppAsset::register($this);
                 ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                 ['label' => 'Входящая документация', 'url' => ['document-in/index']],
                 ['label' => 'Приказы', 'url' => ['document-order/index']],
-                ['label' => 'Положения', 'url' => ['regulation/index']],
+                ['label' => 'Положения об учебном процессе', 'url' => Url::to(['regulation/index', 'c' => 1])],
+                ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                 ['label' => 'Мероприятия', 'url' => ['event/index']],
             ]],
             

@@ -38,9 +38,9 @@ class SearchRegulation extends Regulation
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $c)
     {
-        $query = Regulation::find();
+        $query = Regulation::find()->where(['regulation_type_id' => $c]);
 
         // add conditions that should always apply here
 

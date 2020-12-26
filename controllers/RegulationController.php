@@ -36,12 +36,14 @@ class RegulationController extends Controller
      * Lists all Regulation models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c = null)
     {
+        $session = Yii::$app->session;
+        $session->set('type', $c);
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         $searchModel = new SearchRegulation();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $c);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -72,6 +74,8 @@ class RegulationController extends Controller
         $model = new Regulation();
         $modelExpire = [new Expire];
         if ($model->load(Yii::$app->request->post())) {
+            $session = Yii::$app->session;
+            $model->regulation_type_id = $session->get('type');
             $model->state = 1;
             $modelExpire = DynamicModel::createMultiple(Expire::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
