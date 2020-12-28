@@ -7,7 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchRegulation */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Положения';
+$session = Yii::$app->session;
+if ($session->get('type') == '1')
+    $this->title = 'Положения об учебном процессе';
+else
+    $this->title = 'Положения о мероприятиях';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regulation-index">

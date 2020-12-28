@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\EventExternal */
 
-$this->title = 'Update Event External: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Event Externals', 'url' => ['index']];
+$this->title = 'Редактировать отчетное мероприятие: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Отчетные мероприятия', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="event-external-update">
 

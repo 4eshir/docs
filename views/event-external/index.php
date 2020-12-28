@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchEventExternal */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Event Externals';
+$this->title = 'Отчетные мероприятия';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-external-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Event External', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить отчетное мероприятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'name',
 

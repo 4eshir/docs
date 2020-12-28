@@ -6,7 +6,9 @@ use yii\helpers\Html;
 /* @var $model app\models\common\Regulation */
 
 $this->title = 'Добавить положение';
-$this->params['breadcrumbs'][] = ['label' => 'Положения', 'url' => ['index']];
+$session = Yii::$app->session;
+$this->params['breadcrumbs'][] = ['label' => $session->get('type') == 1 ? 'Положение об учебном процессе' : 'Положение о мероприятиях',
+                                  'url' => ['index', 'c' => $session->get('type')]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regulation-create">

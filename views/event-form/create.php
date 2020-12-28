@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\EventForm */
 
-$this->title = 'Create Event Form';
-$this->params['breadcrumbs'][] = ['label' => 'Event Forms', 'url' => ['index']];
+$this->title = 'Добавить форму мероприятий';
+$this->params['breadcrumbs'][] = ['label' => 'Формы мероприятий', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-form-create">
