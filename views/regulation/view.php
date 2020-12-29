@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return 'Утратило силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
 
             }, 'format' => 'raw'],
-            ['label' => 'Скан приказа', 'attribute' => 'scan', 'value' => function ($model) {
+            ['label' => 'Скан положения', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],

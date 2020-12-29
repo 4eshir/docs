@@ -57,12 +57,12 @@ class Regulation extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
-            'name' => 'Тема положения',
+            'name' => 'Наименование положения',
             'order_id' => 'Приказ',
             'ped_council_number' => '№ педагогического совета',
             'ped_council_date' => 'Дата педагогического совета',
-            'par_council_number' => '№ родителького совета',
-            'par_council_date' => 'Дата родительского совета',
+            'par_council_number' => '№ совета родителей',
+            'par_council_date' => 'Дата совета родителей',
             'state' => 'Состояние',
             'scan' => 'Скан',
         ];

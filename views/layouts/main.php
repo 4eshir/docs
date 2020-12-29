@@ -50,7 +50,7 @@ AppAsset::register($this);
                 ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                 ['label' => 'Входящая документация', 'url' => ['document-in/index']],
                 ['label' => 'Приказы', 'url' => ['document-order/index']],
-                ['label' => 'Положения об учебном процессе', 'url' => Url::to(['regulation/index', 'c' => 1])],
+                ['label' => 'Положения, инструкции и правила', 'url' => Url::to(['regulation/index', 'c' => 1])],
                 ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                 ['label' => 'Мероприятия', 'url' => ['event/index']],
             ]],

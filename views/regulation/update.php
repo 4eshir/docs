@@ -6,9 +6,12 @@ use yii\helpers\Html;
 /* @var $model app\models\common\Regulation */
 
 $this->title = 'Редактировать положение: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Положения', 'url' => ['index']];
+$session = Yii::$app->session;
+$tmp = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
+
+$this->params['breadcrumbs'][] = ['label' => $tmp, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Редактировать';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="regulation-update">
 

@@ -243,6 +243,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
                     {
                         $orderOne->state = false;
                         $orderOne->save(false);
+
                     }
                 }
                 else

@@ -8,10 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $session = Yii::$app->session;
-if ($session->get('type') == '1')
-    $this->title = 'Положения об учебном процессе';
-else
-    $this->title = 'Положения о мероприятиях';
+$this->title = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regulation-index">
@@ -36,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             ['attribute' => 'date', 'label' => 'Дата положения'],
-            ['attribute' => 'name', 'label' => 'Тема положения'],
+            ['attribute' => 'name'],
             ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
                 $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
                 $doc_num = 0;
@@ -48,16 +45,19 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['attribute' => 'ped_council_number', 'label' => '№ пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
             ['attribute' => 'ped_council_date', 'label' => 'Дата пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
-            ['attribute' => 'par_council_number', 'label' => '№ род.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
-            ['attribute' => 'par_council_date', 'label' => 'Дата род.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
+            ['attribute' => 'par_council_number', 'label' => '№ совета<br>род.', 'encodeLabel' => false, 'format' => 'raw'],
+            ['attribute' => 'par_council_date', 'label' => 'Дата совета<br>род.', 'encodeLabel' => false, 'format' => 'raw'],
             ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
                 if ($model->state == 1)
                     return 'Актуально';
                 else
                 {
                     $exp = \app\models\common\Expire::find()->where(['expire_order_id' => $model->order_id])->one();
+                    if ($exp == null)
+                        $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->id])->one();
                     $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
+
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;
                     else
