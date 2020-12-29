@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $date
  * @property string $name
+ * @property string $short_name
  * @property int $order_id
  * @property int $ped_council_number
  * @property string $ped_council_date
@@ -44,7 +45,7 @@ class Regulation extends \yii\db\ActiveRecord
             [['date', 'name', 'order_id', 'state'], 'required'],
             [['date', 'ped_council_date', 'par_council_date'], 'safe'],
             [['order_id', 'ped_council_number', 'par_council_number', 'state', 'regulation_type_id'], 'integer'],
-            [['name', 'scan'], 'string', 'max' => 1000],
+            [['name', 'scan', 'short_name'], 'string', 'max' => 1000],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
     }
@@ -58,6 +59,7 @@ class Regulation extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Дата',
             'name' => 'Наименование положения',
+            'short_name' => 'Краткое наименование положения',
             'order_id' => 'Приказ',
             'ped_council_number' => '№ педагогического совета',
             'ped_council_date' => 'Дата педагогического совета',
@@ -129,10 +131,10 @@ class Regulation extends \yii\db\ActiveRecord
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
         $filename = '';
-        if ($this->order->order_postfix == null)
-            $filename = 'П.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+        if ($this->short_name == null)
+            $filename = $new_date.'_'.$this->name;
         else
-            $filename = 'П.'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+            $filename = $new_date.'_'.$this->short_name;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $this->scan = $res . '.' . $this->scanFile->extension;
@@ -141,8 +143,9 @@ class Regulation extends \yii\db\ActiveRecord
 
     public function checkForeignKeys()
     {
-        $order = DocumentOrder::find()->where(['id' => $this->order_id])->all();
-        if (count($order) > 0)
+        $orders = DocumentOrder::find()->where(['id' => $this->order_id])->all();
+        $events = Event::find()->where(['regulation_id' => $this->id])->all();
+        if (count($orders) > 0 || count($events) > 0)
             return true;
         else
             return false;

@@ -27,6 +27,7 @@ use yii\widgets\ActiveForm;
         ]])->label('Дата положения') ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'short_name')->textInput(['maxlength' => true]) ?>
 
     <?php
     $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->all();
