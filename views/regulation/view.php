@@ -7,7 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\Regulation */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Положение', 'url' => ['index']];
+$this->title = 'Добавить положение';
+$session = Yii::$app->session;
+$tmp = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
+
+$this->params['breadcrumbs'][] = ['label' => $tmp, 'url' => ['index', 'c' => $session->get('type')]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
