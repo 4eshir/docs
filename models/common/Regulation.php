@@ -136,7 +136,8 @@ class Regulation extends \yii\db\ActiveRecord
         else
             $filename = $new_date.'_'.$this->short_name;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
-        $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+        $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+        var_dump($res);
         $this->scan = $res . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
     }

@@ -115,9 +115,12 @@ class RegulationController extends Controller
             $modelExpire = DynamicModel::createMultiple(Expire::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
-
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            $model->scan = '';
             if ($model->validate(false))
             {
+                if ($model->scanFile !== null)
+                    $model->uploadScanFile();
                 $model->save(false);
             }
             return $this->redirect(['view', 'id' => $model->id]);
