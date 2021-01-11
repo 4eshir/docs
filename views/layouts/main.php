@@ -62,6 +62,7 @@ AppAsset::register($this);
                 ['label' => 'Формы мероприятий', 'url' => ['/event-form/index']],
                 ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
             ]],
+            ['label' => 'Пользователи', 'url' => ['/user/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
             ) : (

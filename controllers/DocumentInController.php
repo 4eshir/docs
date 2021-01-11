@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\DocumentOut;
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\DocumentIn;
 use app\models\SearchDocumentIn;
@@ -37,6 +38,8 @@ class DocumentInController extends Controller
      */
     public function actionIndex()
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         $searchModel = new SearchDocumentIn();
@@ -56,6 +59,8 @@ class DocumentInController extends Controller
      */
     public function actionView($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -68,6 +73,8 @@ class DocumentInController extends Controller
      */
     public function actionCreate()
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $model = new DocumentIn();
 
 
@@ -109,6 +116,7 @@ class DocumentInController extends Controller
 
     public function actionCreateReserve()
     {
+
         $model = new DocumentIn();
 
         $model->document_theme = 'Резерв';
@@ -134,6 +142,8 @@ class DocumentInController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $model = $this->findModel($id);
 
         $model->scanFile = $model->scan;
@@ -170,6 +180,8 @@ class DocumentInController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $name = $this->findModel($id)->document_theme;
         $this->findModel($id)->delete();
         Yii::$app->session->addFlash('success', 'Документ "'.$name.'" успешно удален');
