@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\Expire;
+use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
 use app\models\common\Regulation;
@@ -38,6 +39,11 @@ class RegulationController extends Controller
      */
     public function actionIndex($c = null)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $session = Yii::$app->session;
         $session->set('type', $c);
         if (Yii::$app->user->isGuest)
@@ -59,6 +65,11 @@ class RegulationController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -71,6 +82,11 @@ class RegulationController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = new Regulation();
         $modelExpire = [new Expire];
         if ($model->load(Yii::$app->request->post())) {
@@ -108,6 +124,11 @@ class RegulationController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         $modelExpire = [new Expire];
         if ($model->load(Yii::$app->request->post())) {
@@ -141,6 +162,11 @@ class RegulationController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $reg = $this->findModel($id);
         $reg->delete();
 

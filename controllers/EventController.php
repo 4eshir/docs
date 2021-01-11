@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\common\EventExternal;
 use app\models\common\EventsLink;
 use app\models\common\UseYears;
+use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
 use app\models\common\Event;
@@ -40,6 +41,11 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchEvent();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -57,6 +63,11 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -69,6 +80,11 @@ class EventController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = new Event();
         $modelEventsLinks = [new EventsLink];
 
@@ -120,6 +136,11 @@ class EventController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         $modelEventsLinks = [new EventsLink];
 
@@ -166,6 +187,11 @@ class EventController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $links = EventsLink::find()->where(['event_id' => $id])->all();
         foreach ($links as $link)
             $link->delete();

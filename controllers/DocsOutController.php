@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\Position;
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\DocumentOut;
 use app\models\SearchDocumentOut;
@@ -56,6 +57,10 @@ class DocsOutController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
+
         $searchModel = new SearchDocumentOut();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -73,6 +78,10 @@ class DocsOutController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -85,6 +94,10 @@ class DocsOutController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $model = new DocumentOut();
         $model->document_name = "default";
 
@@ -148,6 +161,10 @@ class DocsOutController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $model = $this->findModel($id);
         $model->scanFile = $model->Scan;
 
@@ -182,6 +199,10 @@ class DocsOutController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
+            return $this->render('/site/error');
         $name = $this->findModel($id)->document_theme;
         $this->findModel($id)->delete();
         Yii::$app->session->addFlash('success', 'Документ "'.$name.'" успешно удален');

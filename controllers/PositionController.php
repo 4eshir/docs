@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\Position;
 use app\models\SearchPosition;
@@ -37,6 +38,9 @@ class PositionController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchPosition();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,6 +58,11 @@ class PositionController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,6 +75,11 @@ class PositionController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $model = new Position();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -87,6 +101,11 @@ class PositionController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,6 +126,11 @@ class PositionController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         if ($model->checkForeignKeys())
         {

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\common\Expire;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
+use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
 use app\models\common\DocumentOrder;
@@ -44,6 +45,9 @@ class DocumentOrderController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchDocumentOrder();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,6 +65,11 @@ class DocumentOrderController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -73,7 +82,11 @@ class DocumentOrderController extends Controller
      */
     public function actionCreate()
     {
-
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = new DocumentOrder();
         $model->order_number = "02-02";
         $modelExpire = [new Expire];
@@ -138,6 +151,11 @@ class DocumentOrderController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
         $modelExpire = DynamicModel::createMultiple(Expire::classname());
@@ -235,6 +253,11 @@ class DocumentOrderController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $order = $this->findModel($id);
         $name = $order->order_name;
         if (!$order->checkForeignKeys())

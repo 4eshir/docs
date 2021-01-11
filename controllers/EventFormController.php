@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\EventForm;
 use app\models\SearchEventForm;
@@ -35,6 +36,11 @@ class EventFormController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchEventForm();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +58,11 @@ class EventFormController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +75,11 @@ class EventFormController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $model = new EventForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +100,11 @@ class EventFormController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +125,11 @@ class EventFormController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
