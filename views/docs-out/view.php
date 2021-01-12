@@ -55,6 +55,14 @@ $this->params['breadcrumbs'][] = $model->document_theme;
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
+            ['label' => 'Редактируемые документы', 'attribute' => 'docFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->doc);
+                $result = '';
+                for ($i = 0; $i < count($split); $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'app'])).'<br>';
+                return $result;
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
             ['label' => 'Приложения', 'attribute' => 'applicationFiles', 'value' => function ($model) {
                 $split = explode(" ", $model->applications);
                 $result = '';
