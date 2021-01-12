@@ -291,6 +291,7 @@ class DocumentIn extends \yii\db\ActiveRecord
     public function getDocumentNumber()
     {
         $docs = DocumentIn::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all();
+
         if (end($docs)->local_date > $this->local_date && $this->document_theme != 'Резерв')
         {
             $tempId = 0;
@@ -310,7 +311,7 @@ class DocumentIn extends \yii\db\ActiveRecord
                 }
             }
 
-            $this->local_number = $tempId;
+            $this->local_number = $tempId + 1;
             $this->local_postfix = $tempPre;
             Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->local_number.'/'.$this->local_postfix);
         }
