@@ -311,12 +311,13 @@ class DocumentIn extends \yii\db\ActiveRecord
                 }
             }
 
-            $this->local_number = $tempId + 1;
+            $this->local_number = $tempId;
             $this->local_postfix = $tempPre;
             Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->local_number.'/'.$this->local_postfix);
         }
         else
         {
+            var_dump(end($docs)->local_number);
             if (count($docs) == 0)
                 $this->local_number = 1;
             else
