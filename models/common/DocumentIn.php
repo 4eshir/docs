@@ -317,7 +317,7 @@ class DocumentIn extends \yii\db\ActiveRecord
         }
         else
         {
-            var_dump(end($docs)->local_number);
+            var_dump($docs);
             if (count($docs) == 0)
                 $this->local_number = 1;
             else
