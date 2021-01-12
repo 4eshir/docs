@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'real_number', 'label' => 'Рег. номер<br>входящего док.', 'encodeLabel' => false],
 
                 ['attribute' => 'positionName', 'label' => 'Наименование<br>корреспондента', 'encodeLabel' => false, 'value' => function ($model) {
-                    return $model->position->name.' '.$model->company->name;
+                    return $model->company->name;
                 }],
-                ['attribute' => 'correspondent_id', 'label' => 'Кем подписан', 'value' => 'correspondent.shortName'],
+                ['attribute' => 'correspondent_id', 'label' => 'Кем подписан', 'value' => 'correspondent.fullName'],
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
 
