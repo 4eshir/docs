@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\common\AccessLevel;
 use app\models\components\UserRBAC;
+use app\models\Password;
 use Yii;
 use app\models\common\User;
 use app\models\UserSearch;
@@ -152,6 +153,24 @@ class UserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionChangePassword($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validatePassword($model->oldPass)) {
+            if (!$model->validatePassword($model->oldPass))
+                Yii::$app->session->addFlash('danger', 'Неверный старый пароль!');
+            else {
+                Yii::$app->session->addFlash('success', 'Пароль успешно изменен');
+                $model->setPassword($model->newPass);
+                $model->save();
+                Yii::$app->user->logout();
+                return $this->redirect(['/site/login']);
+            }
+        }
+        return $this->render('change-password', ['model' => $model]);
     }
 
     /**

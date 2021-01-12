@@ -49,6 +49,9 @@ class User extends ActiveRecord implements IdentityInterface
     public $viewAdd;
     public $editAdd;
 
+    public $oldPass;
+    public $newPass;
+
     /**
      * @inheritdoc
      */
@@ -74,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash'], 'string'],
+            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass'], 'string'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
@@ -90,7 +93,7 @@ class User extends ActiveRecord implements IdentityInterface
             'secondname' => 'Фамилия',
             'patronymic' => 'Отчество',
             'email' => 'E-mail',
-            'username' => 'Логин',
+            'username' => 'Логин (e-mail)',
             'addUsers' => 'Разрешено добавлять новых пользователей',
             'viewRoles' => 'Разрешено просматривать роли пользователей',
             'editRoles' => 'Разрешено редактировать роли пользователей',
@@ -108,6 +111,8 @@ class User extends ActiveRecord implements IdentityInterface
             'editAS' => 'Разрешено редактировать реестр ПО',
             'viewAdd' => 'Разрешено просматривать дополнительную информацию',
             'editAdd' => 'Разрешено редактировать дополнительную информацию',
+            'oldPass' => 'Старый пароль',
+            'newPass' => 'Новый пароль',
         ];
     }
 

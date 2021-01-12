@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'patronymic')->textInput() ?>
     <?= $form->field($model, 'username')->textInput() ?>
     <?= $form->field($model, 'password_hash')->textInput()->label('Пароль') ?>
-    <?= $form->field($model, 'email')->textInput() ?>
 
     <?php
     $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 1])->one();
