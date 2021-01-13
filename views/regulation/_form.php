@@ -68,7 +68,7 @@ use yii\widgets\ActiveForm;
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-        ]])->label('Дата родительского собрания') ?>
+        ]])->label('Дата совета родителей') ?>
 
 
 
