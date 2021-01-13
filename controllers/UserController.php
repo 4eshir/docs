@@ -163,10 +163,10 @@ class UserController extends Controller
             if (!$model->validatePassword($model->oldPass))
                 Yii::$app->session->addFlash('danger', 'Неверный старый пароль!');
             else {
-                Yii::$app->session->addFlash('success', 'Пароль успешно изменен');
                 $model->setPassword($model->newPass);
                 $model->save();
                 Yii::$app->user->logout();
+                Yii::$app->session->addFlash('success', 'Пароль успешно изменен. Пожалуйста, войдите в систему с новым паролем.');
                 return $this->redirect(['/site/login']);
             }
         }
