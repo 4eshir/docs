@@ -67,6 +67,7 @@ AppAsset::register($this);
                 ['label' => 'Пользователи', 'items' => [
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
                 ]],
+                ['label' => 'Обратная связь', 'url' => ['/site/feedback']],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (
@@ -115,6 +116,7 @@ AppAsset::register($this);
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
                     ['label' => 'Сменить пароль', 'url' => ['/user/change-password', 'id' => Yii::$app->user->identity->getId()]]
                 ]],
+                ['label' => 'Обратная связь', 'url' => ['/site/feedback']],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (

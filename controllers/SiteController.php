@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\DocumentOut;
+use app\models\common\Feedback;
 use app\models\common\User;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
@@ -34,7 +35,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -68,6 +69,23 @@ class SiteController extends Controller
     public function actionIndex($message = 'hello world')
     {
         return $this->render('index');
+    }
+
+    public function actionFeedback()
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+
+        $model = new Feedback();
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->user_id = Yii::$app->user->identity->getId();
+            $model->save();
+            Yii::$app->session->addFlash('success', 'Спасибо за Ваше обращение!');
+
+            return $this->redirect(['site/feedback']);
+        }
+        return $this->render('feedback', ['model' => $model]);
     }
 
     public function actionLogin()
