@@ -149,7 +149,7 @@ class SiteController extends Controller
                 $user = User::find()->where(['username' => $model->email])->one();
                 $user->password_hash = Yii::$app->security->generatePasswordHash($string);
                 $user->save();
-                Yii::$app->session->addFlash('success', 'Вам на почту было отправлено письмо с новым паролем.');
+                Yii::$app->session->addFlash('success', 'Вам на почту было отправлено письмо с новым паролем (проверьте папку "Спам"!).');
                 return $this->redirect(['/site/login']);
             }
             else
