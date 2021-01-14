@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\common\Expire;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
@@ -113,7 +114,7 @@ class DocumentOrderController extends Controller
                     $model->uploadDocFiles();
                 
                 $model->save(false);
-
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -138,7 +139,7 @@ class DocumentOrderController extends Controller
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
-
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен резерв приказа '.$model->order_number.'/'.$model->order_postfix);
         return $this->redirect('index.php?r=document-order/index');
     }
 
@@ -178,6 +179,7 @@ class DocumentOrderController extends Controller
                     $model->uploadDocFiles(10);
 
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -229,6 +231,7 @@ class DocumentOrderController extends Controller
                 header("Content-Length: " . filesize($currentFile));
                 header("Content-Disposition: attachment; filename=" . $fileName);
                 readfile($currentFile);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
                 return $this->redirect('index.php?r=docs-out/create');
             };
         }
@@ -262,11 +265,13 @@ class DocumentOrderController extends Controller
         $name = $order->order_name;
         if (!$order->checkForeignKeys())
         {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ '.$name);
             $order->delete();
             Yii::$app->session->addFlash('success', 'Приказ "' . $name . '" успешно удален');
         }
         else
             Yii::$app->session->addFlash('error', 'Приказ "' . $name . '" невозможно удалить. Он упоминается в одном или нескольких положениях!');
+
         return $this->redirect(['index']);
     }
 

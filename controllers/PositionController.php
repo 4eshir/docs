@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\Position;
@@ -83,6 +84,7 @@ class PositionController extends Controller
         $model = new Position();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена должность '.$model->name);
             Yii::$app->session->addFlash('success', 'Должность "'.$model->name.'" успешно добавлена');
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -109,6 +111,7 @@ class PositionController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена должность '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -138,6 +141,7 @@ class PositionController extends Controller
                 Yii::$app->session->addFlash('error', 'Невозможно удалить должность. Данная должность является базовой');
             else
             {
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена должность '.$model->name);
                 $model->delete();
                 Yii::$app->session->addFlash('success', 'Должность "'.$model->name.'" успешно удалена');
             }

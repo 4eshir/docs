@@ -245,11 +245,11 @@ class DocumentOut extends \yii\db\ActiveRecord
             $filename = '';
             if ($this->company->short_name !== '')
             {
-                $filename = 'Ред'.$counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+                $filename = $counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
             }
             else
             {
-                $filename = 'Ред'.$counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->name.'_'.$this->document_theme;
+                $filename = $counter.'_Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->name.'_'.$this->document_theme;
             }
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);

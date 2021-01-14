@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\AccessLevel;
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\Password;
 use Yii;
@@ -105,6 +106,7 @@ class UserController extends Controller
             $model->setPassword($model->password_hash);
             $model->generateAuthKey();
             $model->save();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен новый пользователь '.$model->username);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -129,6 +131,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пользователь '.$model->username);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -150,6 +153,7 @@ class UserController extends Controller
             return $this->redirect(['/site/login']);
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален пользователь '.$this->findModel($id)->username);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -165,6 +169,7 @@ class UserController extends Controller
             else {
                 $model->setPassword($model->newPass);
                 $model->save();
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пароль пользователя '.$model->username);
                 Yii::$app->user->logout();
                 Yii::$app->session->addFlash('success', 'Пароль успешно изменен. Пожалуйста, войдите в систему с новым паролем.');
                 return $this->redirect(['/site/login']);

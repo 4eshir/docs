@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\models\common\DocumentOut;
 use app\models\common\Feedback;
 use app\models\common\User;
+use app\models\components\Logger;
+use app\models\ForgotPassword;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
 use Yii;
@@ -31,7 +33,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'forgot-password'],
                         'allow' => true,
                     ],
                     [
@@ -96,6 +98,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен вход в систему');
             return $this->render('index');
         } else {
             return $this->render('login', [
@@ -111,6 +114,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -125,6 +129,34 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionForgotPassword()
+    {
+        $model = new ForgotPassword();
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validateEmail())
+            {
+                $string = Yii::$app->security->generateRandomString(8);
+                Yii::$app->mailer->compose()
+                    ->setFrom('no-reply-schooltech@mail.ru')
+                    ->setTo($model->email)
+                    ->setSubject('Восстановление пароля')
+                    ->setTextBody($string)
+                    ->setHtmlBody('Ваш новый пароль: '.$string)
+                    ->send();
+                $user = User::find()->where(['username' => $model->email])->one();
+                $user->password_hash = Yii::$app->security->generatePasswordHash($string);
+                $user->save();
+                Yii::$app->session->addFlash('success', 'Вам на почту было отправлено письмо с новым паролем.');
+                return $this->redirect(['/site/login']);
+            }
+            else
+                Yii::$app->session->addFlash('danger', 'Не найден пользователь с таким e-mail.');
+
+        }
+        return $this->render('forgot-password', ['model' => $model]);
     }
 
     public function actionCreateOutdocs()

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\EventExternal;
@@ -83,6 +84,7 @@ class EventExternalController extends Controller
         $model = new EventExternal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлено отчетное меропиятие '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -108,6 +110,7 @@ class EventExternalController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено отчетное меропиятие '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -130,7 +133,9 @@ class EventExternalController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
+        $name = $this->findModel($id)->name;
         $this->findModel($id)->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено отчетное меропиятие '.$name);
 
         return $this->redirect(['index']);
     }

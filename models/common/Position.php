@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\Logger;
 use Yii;
 
 /**
@@ -67,4 +68,5 @@ class Position extends \yii\db\ActiveRecord
         }
         return true;
     }
+
 }

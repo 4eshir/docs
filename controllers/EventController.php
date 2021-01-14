@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\common\EventExternal;
 use app\models\common\EventsLink;
 use app\models\common\UseYears;
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
@@ -113,6 +114,7 @@ class EventController extends Controller
                 if ($model->otherFiles !== null)
                     $model->uploadOtherFiles();
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлено мероприятие '.$model->name);
             }
             else
             {
@@ -167,6 +169,7 @@ class EventController extends Controller
                     if ($model->otherFiles !== null)
                         $model->uploadOtherFiles(10);
                     $model->save(false);
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено мероприятие '.$model->name);
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -193,9 +196,12 @@ class EventController extends Controller
             return $this->render('/site/error');
         }
         $links = EventsLink::find()->where(['event_id' => $id])->all();
+        $name = $this->findModel($id)->name;
         foreach ($links as $link)
             $link->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие '.$name);
         $this->findModel($id)->delete();
+
 
         return $this->redirect(['index']);
     }
@@ -228,6 +234,7 @@ class EventController extends Controller
                 header("Content-Length: " . filesize($currentFile));
                 header("Content-Disposition: attachment; filename=" . $fileName);
                 readfile($currentFile);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
                 return $this->redirect('index.php?r=docs-out/create');
             };
         }

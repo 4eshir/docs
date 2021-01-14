@@ -31,4 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <br>
+    <div>
+
+        <?= Html::a('Забыли пароль?', \yii\helpers\Url::to(['site/forgot-password'])) ?>
+    </div>
 </div>

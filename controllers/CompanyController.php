@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\Company;
@@ -83,6 +84,7 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена организация '.$model->name);
             Yii::$app->session->addFlash('success', 'Организация "'.$model->name.'" успешно добавлена');
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -109,6 +111,7 @@ class CompanyController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена организация '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -139,6 +142,7 @@ class CompanyController extends Controller
             else
             {
                 Yii::$app->session->addFlash('success', 'Организация "'.$model->name.'" успешно удалена');
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена организация '.$model->name);
                 $model->delete();
             }
         }

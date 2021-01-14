@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\Expire;
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
@@ -105,6 +106,7 @@ class RegulationController extends Controller
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлено положение '.$model->name);
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -143,6 +145,7 @@ class RegulationController extends Controller
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено положение '.$model->name);
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -168,6 +171,8 @@ class RegulationController extends Controller
             return $this->render('/site/error');
         }
         $reg = $this->findModel($id);
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено положение '.$reg->name);
         $reg->delete();
 
         return $this->redirect(['index']);
@@ -184,6 +189,7 @@ class RegulationController extends Controller
                 header("Content-Length: " . filesize($currentFile));
                 header("Content-Disposition: attachment; filename=" . $fileName);
                 readfile($currentFile);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
                 return $this->redirect('index.php?r=regulation/create');
             };
         }

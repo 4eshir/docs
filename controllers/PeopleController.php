@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\People;
@@ -84,6 +85,7 @@ class PeopleController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен новый человек '.$model->fullName);
             Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно добавлен');
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -110,6 +112,7 @@ class PeopleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен человек '.$model->fullName);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -135,6 +138,7 @@ class PeopleController extends Controller
         $model = $this->findModel($id);
         if ($model->checkForeignKeys())
         {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален человек '.$model->fullName);
             $model->delete();
             Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно удален');
         }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\EventForm;
@@ -83,6 +84,7 @@ class EventFormController extends Controller
         $model = new EventForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена форма мероприятия '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -108,6 +110,7 @@ class EventFormController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена форма мероприятия '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -130,7 +133,10 @@ class EventFormController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
+        $name = $this->findModel($id)->name;
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена форма мероприятия '.$name);
         $this->findModel($id)->delete();
+
 
         return $this->redirect(['index']);
     }

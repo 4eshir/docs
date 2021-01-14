@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\Position;
+use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\DocumentOut;
@@ -122,6 +123,7 @@ class DocsOutController extends Controller
                 if ($model->docFiles != null)
                     $model->uploadDocFiles();
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен исходящий документ '.$model->document_theme);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -148,7 +150,7 @@ class DocsOutController extends Controller
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
-
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Создан резерв исходящего документа '.$model->document_number.'/'.$model->document_postfix);
         return $this->redirect('index.php?r=docs-out/index');
     }
 
@@ -181,7 +183,7 @@ class DocsOutController extends Controller
                 if ($model->docFiles != null)
                     $model->uploadDocFiles(10);
                 $model->save(false);
-
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен исходящий документ '.$model->document_theme);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
@@ -205,8 +207,11 @@ class DocsOutController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
         $name = $this->findModel($id)->document_theme;
+        $theme = $this->findModel($id)->document_theme;
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален исходящий документ '.$theme);
         $this->findModel($id)->delete();
         Yii::$app->session->addFlash('success', 'Документ "'.$name.'" успешно удален');
+
         return $this->redirect(['index']);
     }
 
@@ -236,15 +241,19 @@ class DocsOutController extends Controller
 
             $result = '';
             $split = explode(" ", $model->applications);
+            $deleteFile = '';
             for ($i = 0; $i < count($split) - 1; $i++)
             {
                 if ($split[$i] !== $fileName)
                 {
                     $result = $result.$split[$i].' ';
                 }
+                else
+                    $deleteFile = $split[$i];
             }
             $model->applications = $result;
             $model->save();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
         }
         return $this->render('update', [
             'model' => $this->findModel($modelId),
@@ -262,7 +271,9 @@ class DocsOutController extends Controller
                 header("Content-Length: " . filesize($currentFile));
                 header("Content-Disposition: attachment; filename=" . $fileName);
                 readfile($currentFile);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
                 return $this->redirect('index.php?r=docs-out/create');
+
             };
         }
         //return $this->redirect('index.php?r=docs-out/index');
