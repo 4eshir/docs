@@ -255,7 +255,7 @@ class DocsOutController extends Controller
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/document_out/'.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/document_out/'.$type.'/'.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");
