@@ -255,11 +255,7 @@ class DocsOutController extends Controller
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = '';
-            if ($type == 'app')
-                $currentFile = Yii::$app->basePath.'/upload/files/document_out/apps/'.$fileName;
-            else
-                $currentFile = Yii::$app->basePath.'/upload/files/document_out/scan/'.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/document_out/';
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");
