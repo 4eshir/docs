@@ -223,7 +223,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             </div>
         </div>
     </div>
-
+    <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
     <?= $form->field($model, 'scanFile')->fileInput()->label('Скан приказа') ?>
     <?php

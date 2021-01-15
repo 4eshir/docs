@@ -94,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
+            ['label' => 'Ключевые слова', 'attribute' => 'key_words'],
             ['label' => 'Кто регистрировал', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
         ],
     ]) ?>

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
         <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
-
+    <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php
 
     $gridColumns = [
@@ -70,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="margin-bottom: 10px">
 
     </div>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

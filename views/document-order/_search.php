@@ -15,27 +15,10 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'order_number') ?>
-
-    <?= $form->field($model, 'order_name') ?>
-
-    <?= $form->field($model, 'order_date') ?>
-
-    <?= $form->field($model, 'signed_id') ?>
-
-    <?php // echo $form->field($model, 'bring_id') ?>
-
-    <?php // echo $form->field($model, 'executor_id') ?>
-
-    <?php // echo $form->field($model, 'scan') ?>
-
-    <?php // echo $form->field($model, 'register_id') ?>
+    <?= $form->field($model, 'key_words')->label('Поиск по ключевым словам') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

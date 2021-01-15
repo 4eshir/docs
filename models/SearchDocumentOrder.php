@@ -25,7 +25,7 @@ class SearchDocumentOrder extends DocumentOrder
         return [
             [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
             [['signedName', 'executorName', 'registerName', 'bringName', 'stateName'], 'string'],
-            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName'], 'safe'],
+            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'key_words'], 'safe'],
         ];
     }
 
@@ -106,7 +106,8 @@ class SearchDocumentOrder extends DocumentOrder
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
             ->andFilterWhere(['like', 'register.secondname', $this->registerName])
-            ->andFilterWhere(['like', 'bring.secondname', $this->bringName]);
+            ->andFilterWhere(['like', 'bring.secondname', $this->bringName])
+            ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
 
         return $dataProvider;

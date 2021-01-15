@@ -20,6 +20,7 @@ use Yii;
  * @property int $scan
  * @property int $doc
  * @property int $register_id
+ * @property string $key_words
  * @property boolean $state
  *
  * @property People $bring
@@ -64,7 +65,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id'], 'integer'],
             [['order_date', 'allResp'], 'safe'],
             [['state'], 'boolean'],
-            [['order_name', 'scan'], 'string', 'max' => 1000],
+            [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
             [['order_number'], 'string', 'max' => 100],
             [['bring_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['bring_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
