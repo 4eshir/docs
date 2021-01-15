@@ -203,7 +203,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
         $counter = 0;
         foreach ($this->docFiles as $file) {
             $counter++;
-            $date = $this->document_date;
+            $date = $this->order_date;
             $new_date = '';
             for ($i = 0; $i < strlen($date); ++$i)
                 if ($date[$i] != '-')
