@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\FileWizard;
 use Yii;
 
 /**
@@ -192,6 +193,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'-'.$this->order_postfix.'_'.$this->order_name;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+        $res = FileWizard::CutFilename($res);
         $this->scan = $res . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
     }
@@ -210,11 +212,12 @@ class DocumentOrder extends \yii\db\ActiveRecord
                     $new_date = $new_date.$date[$i];
             $filename = '';
             if ($this->order_postfix == null)
-                $filename = 'Ред.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
+                $filename = $counter.'_Пр.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;
             else
-                $filename = 'Ред.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'-'.$this->order_postfix.'_'.$this->order_name;
+                $filename = $counter.'_Пр.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'-'.$this->order_postfix.'_'.$this->order_name;
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+            $res = FileWizard::CutFilename($res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }

@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\FileWizard;
 use Yii;
 
 /**
@@ -204,6 +205,7 @@ class Event extends \yii\db\ActiveRecord
                 $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
@@ -237,6 +239,7 @@ class Event extends \yii\db\ActiveRecord
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+            $res = FileWizard::CutFilename($res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -269,6 +272,7 @@ class Event extends \yii\db\ActiveRecord
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
+            $res = FileWizard::CutFilename($res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -300,6 +304,7 @@ class Event extends \yii\db\ActiveRecord
                 $filename = 'Файл'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+            $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';

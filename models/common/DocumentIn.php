@@ -2,7 +2,9 @@
 
 namespace app\models\common;
 
+use app\models\components\FileWizard;
 use Yii;
+use ZipStream\File;
 
 /**
  * This is the model class for table "document_in".
@@ -189,6 +191,7 @@ class DocumentIn extends \yii\db\ActiveRecord
         }
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+        $res = FileWizard::CutFilename($res);
         $this->scan = $res.'.'.$this->scanFile->extension;
         $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
     }
@@ -215,6 +218,8 @@ class DocumentIn extends \yii\db\ActiveRecord
             }
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+            $res = FileWizard::CutFilename($res);
+
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -247,6 +252,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             }
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+            $res = FileWizard::CutFilename($res);
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
