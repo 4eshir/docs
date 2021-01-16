@@ -91,6 +91,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
             ['attribute' => 'sent_date', 'label' => 'Дата отправления'],
+            ['attribute' => 'isAnswer', 'label' => 'Является ответом на', 'value' => function($model){
+                $links = \app\models\common\InOutDocs::find()->where(['document_out_id' => $model->id])->one();
+                if ($links == null)
+                    return '';
+                else
+                    return Html::a('Входящий документ "'.\app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
+                        \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->id]));
+            }, 'format' => 'raw'],
             /*['attribute' => 'Scan','label' => 'Скан документа', 'value' => function ($model) {
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);

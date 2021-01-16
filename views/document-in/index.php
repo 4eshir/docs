@@ -23,6 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => function($data) {
+                $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $data['id']])->one();
+                if ($links == null || $links->document_out_id !== null)
+                    return ['class' => 'default'];
+                else
+                    return ['class' => 'warning'];
+            },
             'columns' => [
 
                 ['attribute' => 'id', 'label' => '№ п/п', 'value' => function($model){
@@ -41,7 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'correspondent_id', 'label' => 'Кем подписан', 'value' => 'correspondent.fullName'],
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
-
+                ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
+                   $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+                   if ($links == null)
+                       return '';
+                   if ($links->document_out_id == null)
+                       return 'Требуется ответ';
+                   else
+                       return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                           \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+                }, 'format' => 'raw'],
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

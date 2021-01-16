@@ -140,6 +140,28 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
+    <?php
+    $inoutdocs= \app\models\common\InOutDocs::find()->where(['document_out_id' => null])->orWhere(['document_out_id' => $model->id])->all();
+    $items = \yii\helpers\ArrayHelper::map($inoutdocs,'id','docInName');
+    $params = [];
+    if ($model->isAnswer !== null)
+    {
+        $params = [
+            'prompt' => '',
+            'options' => [$model->isAnswer => ['Selected' => true]],
+        ];
+    }
+    else
+    {
+        $params = [
+            'prompt' => '',
+        ];
+    }
+
+    echo $form->field($model, 'isAnswer')->dropDownList($items,$params)->label('Является ответом на');
+
+    ?>
+
     <?= $form->field($model, 'scanFile')->fileInput(['initialPreview' => $model->imagesLinks, 'initialPreviewAsData' => true, 'overwriteInitial' => false])
         ->label('Скан документа')?>
 

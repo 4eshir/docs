@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\DocumentOut;
+use app\models\common\InOutDocs;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
@@ -157,6 +158,10 @@ class DocumentInController extends Controller
         $model = $this->findModel($id);
 
         $model->scanFile = $model->scan;
+
+        $links = InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+        if ($links !== null)
+            $model->needAnswer = 1;
 
         if($model->load(Yii::$app->request->post()))
         {

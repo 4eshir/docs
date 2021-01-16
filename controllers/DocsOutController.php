@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\InOutDocs;
 use app\models\common\Position;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -169,6 +170,9 @@ class DocsOutController extends Controller
             return $this->render('/site/error');
         $model = $this->findModel($id);
         $model->scanFile = $model->Scan;
+        $inoutdocs = InOutDocs::find()->where(['document_out_id' => $model->id])->one();
+        if ($inoutdocs !== null)
+            $model->isAnswer = $inoutdocs->id;
 
         if($model->load(Yii::$app->request->post()))
         {
