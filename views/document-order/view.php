@@ -83,14 +83,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $res;
             }, 'format' => 'raw'],
             ['label' => 'Скан приказа', 'attribute' => 'Scan', 'value' => function ($model) {
-                return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => 'scan/'.$model->scan, 'modelId' => $model->id]));
+                return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan/']));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Редактируемые документы', 'attribute' => 'docFiles', 'value' => function ($model) {
                 $split = explode(" ", $model->doc);
                 $result = '';
                 for ($i = 0; $i < count($split); $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => 'docs/'.$split[$i], 'modelId' => $model->id, 'type' => 'docs'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'docs/'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],

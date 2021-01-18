@@ -220,11 +220,11 @@ class DocumentOrderController extends Controller
         ]);
     }
 
-    public function actionGetFile($fileName = null, $modelId = null)
+    public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$type.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");
