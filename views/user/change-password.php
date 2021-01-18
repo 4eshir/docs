@@ -7,18 +7,18 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\common\User */
 
 ?>
-    <div class="change-password">
+<div class="change-password">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'oldPass')->textInput() ?>
-    <?= $form->field($model, 'newPass')->textInput() ?>
+        <?= $form->field($model, 'oldPass')->textInput() ?>
+        <?= $form->field($model, 'newPass')->textInput() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-    </div>
+        <div class="form-group">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        </div>
 
-<?php $form = ActiveForm::end(); ?>
-    </div>
+    <?php $form = ActiveForm::end(); ?>
+</div>

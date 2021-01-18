@@ -36,6 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             ['attribute' => 'event_level_id', 'value' => $model->eventLevel->name],
             'participants_count',
+            'childs',
+            'teachers',
+            'others',
+            'leftAge',
+            'rightAge',
             ['attribute' => 'is_federal', 'value' => function($model){
                 if ($model->is_federal == 1)
                     return 'Да';
@@ -62,12 +67,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = $result.'<br>ЦДНТТ';
                 return $result;
             }, 'format' => 'raw'],
+            ['attribute' => 'contains_education', 'value' => function($model){
+                if ($model->contains_education == 0)
+                    return 'Не содержит образовательные программы';
+                else
+                    return 'Содержит образовательные программы';
+            }],
             'key_words',
             'comment',
             ['attribute' => 'order_id', 'value' => Html::a($model->order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])),
                 'format' => 'raw'],
             ['attribute' => 'regulation_id', 'value' => Html::a($model->regulation->name, \yii\helpers\Url::to(['regulation/view', 'id' => $model->regulation_id])),
                 'format' => 'raw'],
+
             ['attribute' => 'eventsLink', 'label' => 'Отчетные мероприятия', 'value' => function($model){
                 $events = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
                 $result = '';

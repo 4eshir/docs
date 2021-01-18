@@ -181,7 +181,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/order/';
+        $path = '@app/upload/files/order/scan/';
         $date = $this->order_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -201,7 +201,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
 
     public function uploadDocFiles($upd = null)
     {
-        $path = '@app/upload/files/document_out/docs/';
+        $path = '@app/upload/files/order/docs/';
         $result = '';
         $counter = 0;
         foreach ($this->docFiles as $file) {

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\EventExternal;
+use app\models\common\EventParticipants;
 use app\models\common\EventsLink;
 use app\models\common\UseYears;
 use app\models\components\Logger;
@@ -69,8 +70,15 @@ class EventController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
+        $model = $this->findModel($id);
+        $eventP = EventParticipants::find()->where(['event_id' => $model->id])->one();
+        $model->childs = $eventP->child_participants;
+        $model->teachers = $eventP->teacher_participants;
+        $model->others = $eventP->other_participants;
+        $model->leftAge = $eventP->age_left_border;
+        $model->rightAge = $eventP->age_right_border;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -145,14 +153,23 @@ class EventController extends Controller
         }
         $model = $this->findModel($id);
         $modelEventsLinks = [new EventsLink];
+        $eventP = EventParticipants::find()->where(['event_id' => $model->id])->one();
+        $model->childs = $eventP->child_participants;
+        $model->teachers = $eventP->teacher_participants;
+        $model->others = $eventP->other_participants;
+        $model->leftAge = $eventP->age_left_border;
+        $model->rightAge = $eventP->age_right_border;
 
         if ($model->load(Yii::$app->request->post())) {
+
             if ($model->validate(false))
             {
                 $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
                 $model->reportingFile = UploadedFile::getInstances($model, 'reportingFile');
                 $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
                 $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
+
+
 
                 $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
                 DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
@@ -204,6 +221,13 @@ class EventController extends Controller
 
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleteExternalEvent($id, $modelId)
+    {
+        $eventsLink = EventsLink::find()->where(['id' => $id])->one();
+        $eventsLink->delete();
+        return $this->redirect('index?r=event/update&id='.$modelId);
     }
 
     /**

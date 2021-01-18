@@ -71,8 +71,20 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'event_level_id')->dropDownList($items,$params)->label('Уровень мероприятия');
 
     ?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Участники</h4></div>
+            <div class="panel-body">
+                <?= $form->field($model, 'childs')->textInput(['value' => $model->childs == null ? 0 : $model->childs]) ?>
+                <?= $form->field($model, 'leftAge')->textInput(['value' => $model->leftAge == null ? 5 : $model->leftAge]) ?>
+                <?= $form->field($model, 'rightAge')->textInput(['value' => $model->rightAge == null ? 18 : $model->rightAge]) ?>
+                <br>
+                <?= $form->field($model, 'teachers')->textInput(['value' => $model->teachers == null ? 0 : $model->teachers]) ?>
+                <?= $form->field($model, 'others')->textInput(['value' => $model->others == null ? 0 : $model->others]) ?>
 
-    <?= $form->field($model, 'participants_count')->textInput() ?>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($model, 'is_federal')->checkbox() ?>
 
@@ -138,7 +150,7 @@ use yii\widgets\ActiveForm;
             {
                 echo '<table>';
                 foreach ($extEvents  as $extEvent) {
-                    echo '<tr><td style="padding-left: 20px"><h4>"'.$extEvent->eventExternal->name.'"</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-external-event', 'id' => $extEvents->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h4>"'.$extEvent->eventExternal->name.'"</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-external-event', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }
@@ -198,6 +210,9 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
     </div>
+
+    <?= $form->field($model, 'contains_education')->radioList(array(0 => 'Содержит образовательные программы',
+                                                                           1 => 'Не содержит образовательных программ'), ['value'=>0])->label('') ?>
 
 
     <?= $form->field($model, 'protocolFile[]')->fileInput(['multiple' => true]) ?>
