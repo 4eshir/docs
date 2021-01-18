@@ -204,6 +204,8 @@ class DocumentOrder extends \yii\db\ActiveRecord
         $path = '@app/upload/files/order/docs/';
         $result = '';
         $counter = 0;
+        if (strlen($this->doc) > 4)
+            $counter = count(explode(" ", $this->doc)) - 1;
         foreach ($this->docFiles as $file) {
             $counter++;
             $date = $this->order_date;

@@ -220,6 +220,29 @@ class DocumentOrderController extends Controller
         ]);
     }
 
+    public function actionDeleteFile($fileName = null, $modelId = null)
+    {
+
+        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
+
+            $result = '';
+            $split = explode(" ", $model->doc);
+            $deleteFile = '';
+            for ($i = 0; $i < count($split) - 1; $i++) {
+                if ($split[$i] !== $fileName) {
+                    $result = $result . $split[$i] . ' ';
+                } else
+                    $deleteFile = $split[$i];
+            }
+            $model->doc = $result;
+            $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile);
+        }
+        return $this->redirect('index?r=document-order/update&id='.$model->id);
+    }
+
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
 

@@ -183,7 +183,6 @@ use yii\bootstrap\ActiveForm;
         }
         echo '</table>';
     }
-
     ?>
 
     <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true])->label('Приложения') ?>

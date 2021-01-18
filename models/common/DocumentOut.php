@@ -207,6 +207,8 @@ class DocumentOut extends \yii\db\ActiveRecord
         $path = '@app/upload/files/document_out/apps/';
         $result = '';
         $counter = 0;
+        if (strlen($this->doc) > 4)
+            $counter = count(explode(" ", $this->applications)) - 1;
         foreach ($this->applicationFiles as $file) {
             $counter++;
             $date = $this->document_date;
@@ -241,6 +243,8 @@ class DocumentOut extends \yii\db\ActiveRecord
         $path = '@app/upload/files/document_out/docs/';
         $result = '';
         $counter = 0;
+        if (strlen($this->doc) > 4)
+            $counter = count(explode(" ", $this->doc)) - 1;
         foreach ($this->docFiles as $file) {
             $counter++;
             $date = $this->document_date;
@@ -359,8 +363,12 @@ class DocumentOut extends \yii\db\ActiveRecord
         else
         {
             $inoutdocs = InOutDocs::find()->where(['document_out_id' => $this->id])->one();
-            $inoutdocs->document_out_id = null;
-            $inoutdocs->save();
+            if ($inoutdocs !== null)
+            {
+                $inoutdocs->document_out_id = null;
+                $inoutdocs->save();
+            }
+
         }
     }
 

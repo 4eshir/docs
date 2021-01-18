@@ -206,6 +206,8 @@ class DocumentIn extends \yii\db\ActiveRecord
         $path = '@app/upload/files/document_in/apps/';
         $result = '';
         $counter = 0;
+        if (strlen($this->doc) > 4)
+            $counter = count(explode(" ", $this->applications)) - 1;
         foreach ($this->applicationFiles as $file) {
             $counter++;
             $date = $this->local_date;
@@ -240,6 +242,8 @@ class DocumentIn extends \yii\db\ActiveRecord
         $path = '@app/upload/files/document_in/docs/';
         $result = '';
         $counter = 0;
+        if (strlen($this->doc) > 4)
+            $counter = count(explode(" ", $this->doc)) - 1;
         foreach ($this->docFiles as $file) {
             $counter++;
             $date = $this->local_date;
