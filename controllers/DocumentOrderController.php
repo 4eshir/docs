@@ -224,7 +224,7 @@ class DocumentOrderController extends Controller
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$type.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$type.'/'.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");
