@@ -26,11 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'document_number', 'label' => 'Номер документа'],
         ['attribute' => 'document_date', 'label' => 'Дата документа'],
         ['attribute' => 'document_theme', 'label' => 'Тема документа'],
-        ['attribute' => 'companyName', 'label' => 'Корреспондент', 'value' => function($model)
+        ['attribute' => 'positionCompany', 'label' => 'Корреспондент', 'value' => function($model)
         {
             if ($model->position_id == 7)
                 return $model->company->name;
-            return $model->position->name.' '.$model->company->name;
+            return $model->positionCompany;
         }],
         ['attribute' => 'signedName', 'label' => 'Кем подписан', 'value' => function($model)
         {
@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['attribute' => 'document_date','label' => 'Дата документа'],
             ['attribute' => 'document_theme','label' => 'Тема документа'],
-            ['attribute' => 'companyName','label' => 'Кому адресован', 'value' => function ($model) {
+            ['attribute' => 'positionCompany','label' => 'Кому адресован', 'value' => function ($model) {
                 if ($model->position_id == 7)
                     return $model->company->name;
                 return $model->position->name.' '.$model->company->name;

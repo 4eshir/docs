@@ -5,6 +5,7 @@ namespace app\models;
 use app\models\common\Company;
 use app\models\common\Destination;
 use app\models\common\People;
+use app\models\common\Position;
 use app\models\common\SendMethod;
 use app\models\common\User;
 use app\models\extended\DocumentOutExtended;
@@ -22,8 +23,7 @@ class SearchDocumentOut extends DocumentOut
     public $executorName;
     public $registerName;
     public $sendMethodName;
-    public $companyName;
-    public $positionName;
+    public $positionCompany;
     /**
      * {@inheritdoc}
      */
@@ -32,7 +32,7 @@ class SearchDocumentOut extends DocumentOut
         return [
             [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'companyName', 'positionName', 'document_number', 'key_words'], 'safe'],
+                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words'], 'safe'],
         ];
     }
 
@@ -92,6 +92,14 @@ class SearchDocumentOut extends DocumentOut
             'desc' => [User::tableName().'.secondname' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['positionCompany'] = [
+            'asc' => ['position.name' => SORT_ASC, 'company.name' => SORT_ASC],
+            'desc' => ['position.name' => SORT_DESC, 'company.name' => SORT_DESC],
+
+        ];
+
+
+
 
         $this->load($params);
 
@@ -109,6 +117,7 @@ class SearchDocumentOut extends DocumentOut
             'company_id' => $this->company_id,
             'signed_id' => $this->signed_id,
             'executor_id' => $this->executor_id,
+
             'send_method_id' => $this->send_method_id,
             'sent_date' => $this->sent_date,
             'register_id' => $this->register_id,
@@ -121,7 +130,8 @@ class SearchDocumentOut extends DocumentOut
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
             ->andFilterWhere(['like', User::tableName().'.secondname', $this->registerName])
             ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
-            ->andFilterWhere(['like', Company::tableName().'.name', $this->companyName]);
+            ->andFilterWhere(['like', 'position.name', $this->positionCompany])
+            ->orFilterWhere(['like', 'company.name', $this->positionCompany]);
 
         return $dataProvider;
     }

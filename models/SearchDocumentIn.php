@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\common\SendMethod;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\DocumentIn;
@@ -11,6 +12,9 @@ use app\models\common\DocumentIn;
  */
 class SearchDocumentIn extends DocumentIn
 {
+    public $correspondentName;
+    public $companyName;
+    public $sendMethodName;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,7 @@ class SearchDocumentIn extends DocumentIn
     {
         return [
             [['id', 'local_number', 'real_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
-            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words'], 'safe'],
+            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName'], 'safe'],
         ];
     }
 
@@ -41,6 +45,9 @@ class SearchDocumentIn extends DocumentIn
     public function search($params)
     {
         $query = DocumentIn::find();
+        $query->joinWith(['correspondent correspondent']);
+        $query->joinWith(['company']);
+        $query->joinWith(['sendMethod']);
 
         // add conditions that should always apply here
 
@@ -48,6 +55,21 @@ class SearchDocumentIn extends DocumentIn
             'query' => $query,
             'sort'=> ['defaultOrder' => ['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC]]
         ]);
+
+        $dataProvider->sort->attributes['correspondentName'] = [
+            'asc' => ['correspondent.secondname' => SORT_ASC],
+            'desc' => ['correspondent.secondname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['companyName'] = [
+            'asc' => ['company.name' => SORT_ASC],
+            'desc' => ['company.name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['sendMethodName'] = [
+            'asc' => [SendMethod::tableName().'.name' => SORT_ASC],
+            'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -66,6 +88,7 @@ class SearchDocumentIn extends DocumentIn
             'real_date' => $this->real_date,
             'position_id' => $this->position_id,
             'company_id' => $this->company_id,
+            'correspondent_id' => $this->correspondent_id,
             'signed_id' => $this->signed_id,
             'get_id' => $this->get_id,
             'register_id' => $this->register_id,
@@ -75,6 +98,9 @@ class SearchDocumentIn extends DocumentIn
             ->andFilterWhere(['like', 'target', $this->target])
             ->andFilterWhere(['like', 'scan', $this->scan])
             ->andFilterWhere(['like', 'applications', $this->applications])
+            ->andFilterWhere(['like', 'correspondent.secondname', $this->correspondentName])
+            ->andFilterWhere(['like', 'company.name', $this->companyName])
+            ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
         return $dataProvider;

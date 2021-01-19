@@ -212,6 +212,8 @@ class EventController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
+        $eventP = EventParticipants::find()->where(['event_id' => $this->id])->one();
+        $eventP->delete();
         $links = EventsLink::find()->where(['event_id' => $id])->all();
         $name = $this->findModel($id)->name;
         foreach ($links as $link)

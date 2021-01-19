@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'secondname', 'label' => 'Фамилия'],
             ['attribute' => 'firstname', 'label' => 'Имя'],
             ['attribute' => 'patronymic', 'label' => 'Отчество'],
-            ['attribute' => 'position', 'label' => 'Должность', 'value' => function($model){
+            ['attribute' => 'positionName', 'label' => 'Должность', 'value' => function($model){
                 return $model->position->name;
             }],
-            ['attribute' => 'company', 'label' => 'Организация', 'value' => function($model){
+            ['attribute' => 'companyName', 'label' => 'Организация', 'value' => function($model){
                 return $model->company->name;
             }],
 

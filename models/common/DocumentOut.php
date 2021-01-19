@@ -43,6 +43,7 @@ class DocumentOut extends \yii\db\ActiveRecord
     public $signedString;
     public $executorString;
     public $registerString;
+    public $positionCompany;
 
     public $isAnswer;
 
@@ -63,7 +64,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['docFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, doc, docx', 'maxFiles' => 10],
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf, doc, docx', 'maxFiles' => 10],
-
+            [['positionCompany'], 'safe'],
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
             [['document_date', 'sent_date'], 'safe'],
@@ -176,6 +177,21 @@ class DocumentOut extends \yii\db\ActiveRecord
     {
         $path = ArrayHelper::getColumn(self::find()->all(), Yii::$app->basePath.'/upload/files/'.$this->Scan);
         return $path;
+    }
+
+    public function getPositionCompany()
+    {
+        return $this->position->name.' '.$this->company->name;
+    }
+
+    public function getCompanyName()
+    {
+        return $this->company->name;
+    }
+
+    public function getPositionName()
+    {
+        return $this->position->name;
     }
 
     public function uploadScanFile()
