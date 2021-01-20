@@ -210,24 +210,28 @@ class User extends ActiveRecord implements IdentityInterface
             $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
             $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
             $this->viewAdd, $this->editAdd);
-        for ($i = 0; $i != count($arr); $i++)
+        if ($changedAttributes['password_hash'] == null)
         {
-
-            $tmpAccess = AccessLevel::find()->where(['user_id' => $this->id])->andWhere(['access_id' => $i + 1])->one();
-
-            if ($arr[$i] == 1)
+            for ($i = 0; $i != count($arr); $i++)
             {
-                if ($tmpAccess == null)
+
+                $tmpAccess = AccessLevel::find()->where(['user_id' => $this->id])->andWhere(['access_id' => $i + 1])->one();
+
+                if ($arr[$i] == 1)
                 {
-                    $newAccess = new AccessLevel();
-                    $newAccess->user_id = $this->id;
-                    $newAccess->access_id = $i + 1;
-                    $newAccess->save(false);
+                    if ($tmpAccess == null)
+                    {
+                        $newAccess = new AccessLevel();
+                        $newAccess->user_id = $this->id;
+                        $newAccess->access_id = $i + 1;
+                        $newAccess->save(false);
+                    }
                 }
+                else
+                    if ($tmpAccess !== null)
+                        $tmpAccess->delete();
             }
-            else
-                if ($tmpAccess !== null)
-                    $tmpAccess->delete();
+
         }
 
     }
