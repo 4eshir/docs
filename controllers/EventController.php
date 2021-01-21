@@ -106,6 +106,8 @@ class EventController extends Controller
             $model->reporting_doc = '';
             $model->photos = '';
             $model->other_files = '';
+            if ($model->order_id == '') $model->order_id = null;
+            if ($model->regulation_id == '') $model->regulation_id = null;
 
             $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
             DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());

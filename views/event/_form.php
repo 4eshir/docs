@@ -126,7 +126,9 @@ use yii\widgets\ActiveForm;
     <?php
     $orders = \app\models\common\DocumentOrder::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
-    $params = [];
+    $params = [
+        'prompt' => 'Нет'
+    ];
 
     echo $form->field($model, 'order_id')->dropDownList($items,$params)->label('Приказ по мероприятию');
 
@@ -135,7 +137,9 @@ use yii\widgets\ActiveForm;
     <?php
     $orders = \app\models\common\Regulation::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
-    $params = [];
+    $params = [
+        'prompt' => 'Нет'
+    ];
 
     echo $form->field($model, 'regulation_id')->dropDownList($items,$params)->label('Положение по мероприятию');
 
@@ -211,8 +215,8 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <?= $form->field($model, 'contains_education')->radioList(array(0 => 'Содержит образовательные программы',
-                                                                           1 => 'Не содержит образовательных программ'), ['value'=>0])->label('') ?>
+    <?= $form->field($model, 'contains_education')->radioList(array(0 => 'Не содержит образовательных программ',
+                                                                           1 => 'Содержит образовательные программы'), ['value'=>$model->contains_education])->label('') ?>
 
 
     <?= $form->field($model, 'protocolFile[]')->fileInput(['multiple' => true]) ?>

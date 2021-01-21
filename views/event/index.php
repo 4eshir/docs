@@ -23,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            if ($data['order_id'] == null || $data['regulation_id'] == null)
+                return ['class' => 'danger'];
+            else
+                return ['class' => 'default'];
+        },
         'columns' => [
 
             ['attribute' => 'name'],
@@ -50,10 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['attribute' => 'order_id', 'value' => function($model){
                 $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+                if ($order == null)
+                    return 'Нет';
                 return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
             }, 'format' => 'raw'],
             ['attribute' => 'regulation_id', 'value' => function($model){
                 $reg = \app\models\common\Regulation::find()->where(['id' => $model->regulation_id])->one();
+                if ($reg == null)
+                    return 'Нет';
                 return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));
             }, 'format' => 'raw'],
 

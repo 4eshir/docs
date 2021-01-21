@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }, 'format' => 'raw'],
             ['attribute' => 'contains_education', 'value' => function($model){
                 if ($model->contains_education == 0)
-                    return 'Не содержит образовательные программы';
+                    return 'Не содержит образовательных программы';
                 else
                     return 'Содержит образовательные программы';
             }],

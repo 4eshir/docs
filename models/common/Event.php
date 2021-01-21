@@ -71,9 +71,9 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'protocol', 'contains_education'], 'required'],
+            [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge'], 'integer'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
