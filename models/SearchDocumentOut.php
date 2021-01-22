@@ -64,7 +64,7 @@ class SearchDocumentOut extends DocumentOut
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC]]
+            'sort'=> ['defaultOrder' => ['document_number' => SORT_DESC, 'document_postfix' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['signedName'] = [

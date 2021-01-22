@@ -53,7 +53,7 @@ class SearchDocumentIn extends DocumentIn
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC]]
+            'sort'=> ['defaultOrder' => ['local_number' => SORT_DESC, 'local_postfix' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['correspondentName'] = [
