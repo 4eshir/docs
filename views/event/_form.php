@@ -216,7 +216,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?= $form->field($model, 'contains_education')->radioList(array(0 => 'Не содержит образовательных программ',
-                                                                           1 => 'Содержит образовательные программы'), ['value'=>$model->contains_education])->label('') ?>
+                                                                           1 => 'Содержит образовательные программы'), ['value'=>$model->contains_education ])->label('') ?>
 
 
     <?= $form->field($model, 'protocolFile[]')->fileInput(['multiple' => true]) ?>
