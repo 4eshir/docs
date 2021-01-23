@@ -11,6 +11,8 @@ use kartik\export\ExportMenu;
 $this->title = 'Приказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <div class="document-order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -75,7 +77,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
-            if ($data['state'] == 0)
+            if (strtotime($data['order_date']) < strtotime('2021-01-01'))
+                return ['class' => 'warning'];
+            else if ($data['state'] == 0)
                 return ['class' => 'danger'];
             else
                 return ['class' => 'default'];
@@ -84,6 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
             ['attribute' => 'order_number', 'label' => 'Номер приказа', 'value' => function($model){
+                if ($model->order_copy_id == 0)
+                    return $model->order_number;
                 if ($model->order_postfix == null)
                     return $model->order_number.'/'.$model->order_copy_id;
                 else

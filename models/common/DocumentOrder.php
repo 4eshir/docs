@@ -333,6 +333,13 @@ class DocumentOrder extends \yii\db\ActiveRecord
 
     public function getDocumentNumber()
     {
+        if (strtotime($this->order_date) < strtotime('2021-01-01'))
+        {
+            $this->order_copy_id = 0;
+            Yii::$app->session->addFlash('warning', 'Добавлен архивный приказ. Дата приказа '.$this->order_date);
+
+            return;
+        }
         $docs = DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
         if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
         {

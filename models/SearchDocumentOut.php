@@ -76,7 +76,7 @@ class SearchDocumentOut extends DocumentOut
             'asc' => ['executor.secondname' => SORT_ASC],
             'desc' => ['executor.secondname' => SORT_DESC],
         ];
-
+            
         $dataProvider->sort->attributes['registerName'] = [
             'asc' => ['register.secondname' => SORT_ASC],
             'desc' => ['register.secondname' => SORT_DESC],
