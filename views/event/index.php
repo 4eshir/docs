@@ -41,9 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 return \app\models\common\EventForm::find()->where(['id' => $model->event_form_id])->one()->name;
             }],
             ['attribute' => 'address'],
-            ['attribute' => 'event_level_id', 'value' => function($model){
+            ['attribute' => 'event_level_id', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
                 return \app\models\common\EventLevel::find()->where(['id' => $model->event_level_id])->one()->name;
-            }],
+            }, 'encodeLabel' => false],
             ['attribute' => 'participants_count'],
             ['attribute' => 'is_federal', 'value' => function($model){
                 if ($model->is_federal == 1)

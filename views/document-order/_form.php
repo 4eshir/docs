@@ -111,7 +111,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 ?>
                                 <?php
                                 $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
-                                $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
+                                $items = \yii\helpers\ArrayHelper::map($people,'fullName','shortName');
                                 $params = [
                                     'prompt' => ''
                                 ];
