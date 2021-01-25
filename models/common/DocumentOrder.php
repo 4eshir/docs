@@ -285,9 +285,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             {
                 for ($i = 0; $i < count($resp); $i++)
                 {
-                    var_dump($resp[0]);
                     $split = explode(" ", $resp[$i]->fio);
-                    var_dump($split);
                     $p_id = People::find()->where(['firstname' => $split[1]])->andWhere(['secondname' => $split[0]])
                         ->andWhere(['patronymic' => $split[2]])->one()->id;
                     if (!$this->IsResponsibleDuplicate($p_id)) {
