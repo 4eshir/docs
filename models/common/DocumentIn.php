@@ -64,7 +64,7 @@ class DocumentIn extends \yii\db\ActiveRecord
         return [
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['docFiles'], 'file', 'extensions' => 'xls, xlsx, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf, png, jpg, doc, docx', 'maxFiles' => 10],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, pdf, png, jpg, doc, docx', 'maxFiles' => 10],
 
             [['signedString', 'getString'], 'string', 'message' => 'Введите корректные ФИО'],
             [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],

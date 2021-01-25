@@ -84,6 +84,9 @@ class PeopleController extends Controller
         $model = new People();
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->firstname = str_replace(' ', '', $model->firstname);
+            $model->secondname = str_replace(' ', '', $model->secondname);
+            $model->patronymic = str_replace(' ', '', $model->patronymic);
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен новый человек '.$model->fullName);
             Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно добавлен');
