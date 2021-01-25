@@ -280,6 +280,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
         {
             $resp = [new Responsible];
             $resp = $this->responsibles;
+            var_dump($this->responsibles);
             if ($resp != null)
             {
                 for ($i = 0; $i < count($resp); $i++)
