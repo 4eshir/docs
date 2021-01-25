@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int|null $child_participants
+ * @property int|null $child_rst_participants
  * @property int|null $teacher_participants
  * @property int|null $other_participants
  * @property int|null $age_left_border
@@ -33,7 +34,7 @@ class EventParticipants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['child_participants', 'teacher_participants', 'other_participants', 'age_left_border', 'age_right_border', 'event_id'], 'integer'],
+            [['child_participants', 'child_rst_participants', 'teacher_participants', 'other_participants', 'age_left_border', 'age_right_border', 'event_id'], 'integer'],
             [['event_id'], 'required'],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['event_id' => 'id']],
         ];
@@ -47,6 +48,7 @@ class EventParticipants extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'child_participants' => 'Child Participants',
+            'child_rst_participants' => 'Child RST Participants',
             'teacher_participants' => 'Teacher Participants',
             'other_participants' => 'Other Participants',
             'age_left_border' => 'Age Left Border',

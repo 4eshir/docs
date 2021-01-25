@@ -53,6 +53,7 @@ class Event extends \yii\db\ActiveRecord
     public $noEducation;
 
     public $childs;
+    public $childs_rst;
     public $teachers;
     public $others;
     public $leftAge;
@@ -73,7 +74,7 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge'], 'integer'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
@@ -123,11 +124,12 @@ class Event extends \yii\db\ActiveRecord
             'contains_education' => 'Содержит образовательные программы',
             'yesEducation' => 'Содержит образовательные программы',
             'noEducation' => 'Не содержит образовательные программы',
-            'childs' => 'Дети',
-            'teachers' => 'Педагоги',
-            'others' => 'Иные',
-            'leftAge' => 'Возраст детей: минимальный',
-            'rightAge' => 'Возраст детей: максимальный',
+            'childs' => 'Кол-во детей',
+            'childs_rst' => 'В т.ч. обучающихся РШТ',
+            'teachers' => 'Кол-во педагогов',
+            'others' => 'Кол-во иных',
+            'leftAge' => 'Возраст детей: минимальный, лет',
+            'rightAge' => 'Возраст детей: максимальный, лет',
         ];
     }
 

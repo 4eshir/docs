@@ -76,6 +76,7 @@ use yii\widgets\ActiveForm;
             <div class="panel-heading"><h4>Участники</h4></div>
             <div class="panel-body">
                 <?= $form->field($model, 'childs')->textInput(['value' => $model->childs == null ? 0 : $model->childs]) ?>
+                <?= $form->field($model, 'childs_rst')->textInput(['value' => $model->childs_rst == null ? 0 : $model->childs_rst]) ?>
                 <?= $form->field($model, 'leftAge')->textInput(['value' => $model->leftAge == null ? 5 : $model->leftAge]) ?>
                 <?= $form->field($model, 'rightAge')->textInput(['value' => $model->rightAge == null ? 18 : $model->rightAge]) ?>
                 <br>

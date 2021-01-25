@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
-            if ($data['order_id'] == null || $data['regulation_id'] == null)
+            if ($data['order_id'] == null)
                 return ['class' => 'danger'];
             else
                 return ['class' => 'default'];
