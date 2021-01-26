@@ -11,7 +11,7 @@ class FileWizard
         $result = '';
         $splitName = explode("_", $filename);
         $i = 0;
-        while (strlen($result) < 250 - strlen($splitName[$i]) && $i < count($splitName) - 1)
+        while (strlen($result) < 200 - strlen($splitName[$i]) && $i < count($splitName))
         {
             $result = $result."_".$splitName[$i];
             $i++;

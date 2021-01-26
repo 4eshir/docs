@@ -42,32 +42,6 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
 
-                ['label' => 'Реестр ПО', 'items' => [
-                    ['label' => 'Работа с базой ПО', 'url' => ['/as-admin/index']],
-                    ['label' => 'Страны', 'url' => ['/as-admin/index-country']],
-                    ['label' => 'Тип ПО', 'url' => ['/as-admin/index-as-type']],
-                    ['label' => 'Вид лицензии', 'url' => ['/as-admin/index-license']],
-                ]],
-                ['label' => 'Документооборот', 'items' => [
-                    ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
-                    ['label' => 'Входящая документация', 'url' => ['document-in/index']],
-                    ['label' => 'Приказы', 'url' => ['document-order/index']],
-                    ['label' => 'Положения, инструкции и правила', 'url' => Url::to(['regulation/index', 'c' => 1])],
-                    ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
-                    ['label' => 'Мероприятия', 'url' => ['event/index']],
-                ]],
-
-                ['label' => 'Дополнительно', 'items' => [
-                    ['label' => 'Организации', 'url' => ['/company/index']],
-                    ['label' => 'Должности', 'url' => ['/position/index']],
-                    ['label' => 'Люди', 'url' => ['/people/index']],
-                    ['label' => 'Формы мероприятий', 'url' => ['/event-form/index']],
-                    ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
-                ]],
-                ['label' => 'Пользователи', 'items' => [
-                    ['label' => 'Список пользователей', 'url' => ['/user/index']],
-                ]],
-                ['label' => 'Обратная связь', 'url' => ['/site/feedback']],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (
@@ -103,12 +77,14 @@ AppAsset::register($this);
                     ['label' => 'Положения, инструкции и правила', 'url' => Url::to(['regulation/index', 'c' => 1])],
                     ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                     ['label' => 'Мероприятия', 'url' => ['event/index']],
+                    ['label' => 'Участие во внешних мероприятиях', 'url' => ['foreign-event/index']],
                 ]],
 
                 ['label' => 'Дополнительно', 'items' => [
                     ['label' => 'Организации', 'url' => ['/company/index']],
                     ['label' => 'Должности', 'url' => ['/position/index']],
                     ['label' => 'Люди', 'url' => ['/people/index']],
+                    ['label' => 'Участники', 'url' => ['/foreign-event-participants/index']],
                     ['label' => 'Формы мероприятий', 'url' => ['/event-form/index']],
                     ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
                 ]],
