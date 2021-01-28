@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $model->document_theme;
                 if ($links == null)
                     return '';
                 else
-                    return Html::a('Входящий документ "'.\app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
+                    return Html::a('Исходящий документ "'.\app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
                         \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->id]));
             }, 'format' => 'raw'],
             ['label' => 'Скан документа', 'attribute' => 'Scan', 'value' => function ($model) {

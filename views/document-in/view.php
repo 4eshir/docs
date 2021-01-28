@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($links->document_out_id == null)
                     return 'Требуется ответ';
                 else
-                    return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                    return Html::a('Входящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
                         \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
             }, 'format' => 'raw'],
             ['label' => 'Регистратор документа', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
