@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\common\Responsible;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
+use app\models\extended\ParticipantsAchievementExtended;
 use Yii;
 use app\models\common\ForeignEvent;
 use app\models\SearchForeignEvent;
@@ -70,12 +71,16 @@ class ForeignEventController extends Controller
     {
         $model = new ForeignEvent();
         $modelParticipants = [new ForeignEventParticipantsExtended];
+        $modelAchievement = [new ParticipantsAchievementExtended];
 
         if ($model->load(Yii::$app->request->post())) {
 
             $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
             DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
+            $modelAchievement = DynamicModel::createMultiple(ParticipantsAchievementExtended::classname());
+            DynamicModel::loadMultiple($modelAchievement, Yii::$app->request->post());
             $model->participants = $modelParticipants;
+            $model->achievement = $modelAchievement;
             $i = 0;
             foreach ($modelParticipants as $modelParticipantOne)
             {
@@ -90,7 +95,8 @@ class ForeignEventController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelParticipants' => $modelParticipants
+            'modelParticipants' => $modelParticipants,
+            'modelAchievement' => $modelAchievement
         ]);
     }
 

@@ -67,7 +67,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             [['positionCompany'], 'safe'],
             [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
-            [['document_date', 'sent_date'], 'safe'],
+            [['document_date', 'sent_date', 'isAnswer'], 'safe'],
             [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_postfix', 'document_number'], 'integer'],
             [['document_theme', 'Scan', 'key_words', 'isAnswer'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
@@ -192,6 +192,11 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function getPositionName()
     {
         return $this->position->name;
+    }
+
+    public function getIsAnswer()
+    {
+        return $this->isAnswer;
     }
 
     public function uploadScanFile()
@@ -375,6 +380,10 @@ class DocumentOut extends \yii\db\ActiveRecord
             $inoutdocs = InOutDocs::find()->where(['id' => $this->isAnswer])->one();
             $inoutdocs->document_out_id = $this->id;
             $inoutdocs->save();
+
+            $docIn = DocumentIn::find()->where(['id' => $inoutdocs->document_in_id])->one();
+            $docIn->needAnswer = 0;
+            $docIn->save(false);
         }
         else
         {

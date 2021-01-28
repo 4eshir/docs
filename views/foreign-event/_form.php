@@ -127,7 +127,7 @@ use yii\widgets\ActiveForm;
                             <div class="col-xs-4">
                                 <?php
                                 $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
-                                $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
+                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                 $params = [
                                     'prompt' => ''
                                 ];
@@ -150,6 +150,74 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'min_participants_age')->textInput() ?>
 
     <?= $form->field($model, 'max_participants_age')->textInput() ?>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
+            <?php
+            /*$resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            if ($resp != null)
+            {
+                echo '<table>';
+                foreach ($resp as $respOne) {
+                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->people_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                }
+                echo '</table>';
+            }*/
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items1', // required: css class selector
+                    'widgetItem' => '.item1', // required: css class
+                    'limit' => 50, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item1', // css class
+                    'deleteButton' => '.remove-item1', // css class
+                    'model' => $modelAchievement[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'people_id',
+                    ],
+                ]); ?>
+
+                <div class="container-items1" style="padding: 0; margin: 0"><!-- widgetContainer -->
+                    <?php foreach ($modelAchievement as $i => $modelAchievementOne): ?>
+                        <div class="item1 panel panel-default" style="padding: 0; margin: 0"><!-- widgetBody -->
+                            <div class="panel-heading" style="padding: 0; margin: 0">
+                                <div class="pull-right">
+                                    <button type="button" name="add" class="add-item1 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item1 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-xs-6">
+                                <?php
+                                $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                $params = [
+                                    'prompt' => ''
+                                ];
+                                echo $form->field($modelAchievementOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
+
+                                ?>
+                            </div>
+                            <div class="col-xs-6">
+                                <?php
+
+                                echo $form->field($modelAchievementOne, "[{$i}]achieve")->textInput();
+
+                                ?>
+                            </div>
+                            <div class="panel-body" style="padding: 0; margin: 0"></div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($model, 'business_trip')->checkbox(['id' => 'tripCheckbox', 'onchange' => 'checkTrip()']) ?>
 

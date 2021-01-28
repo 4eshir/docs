@@ -32,7 +32,7 @@ class SearchDocumentOut extends DocumentOut
         return [
             [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words'], 'safe'],
+                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words', 'isAnswer'], 'safe'],
         ];
     }
 
@@ -66,6 +66,11 @@ class SearchDocumentOut extends DocumentOut
             'query' => $query,
             'sort'=> ['defaultOrder' => ['document_number' => SORT_DESC, 'document_postfix' => SORT_DESC]]
         ]);
+
+        $dataProvider->sort->attributes['isAnswer'] = [
+            'asc' => ['isAnswer' => SORT_ASC],
+            'desc' => ['isAnswer' => SORT_DESC],
+        ];
 
         $dataProvider->sort->attributes['signedName'] = [
             'asc' => ['signed.secondname' => SORT_ASC],

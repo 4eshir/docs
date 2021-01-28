@@ -28,6 +28,7 @@ use ZipStream\File;
  * @property string $applications
  * @property int $register_id
  * @property string $key_words
+ * @property boolean|null $needAnswer
  *
  * @property Company $company
  * @property User $get
@@ -46,7 +47,6 @@ class DocumentIn extends \yii\db\ActiveRecord
     public $docFiles;
     public $applicationFiles;
 
-    public $needAnswer;
 
     /**
      * {@inheritdoc}
@@ -356,7 +356,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             $newLink->document_in_id = $this->id;
             $newLink->save();
         }
-        else
+        else if ($this->needAnswer !== 0)
         {
             $links = InOutDocs::find()->where(['document_in_id' => $this->id])->one();
             if ($links !== null)
