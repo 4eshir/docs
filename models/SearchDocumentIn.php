@@ -56,6 +56,11 @@ class SearchDocumentIn extends DocumentIn
             'sort'=> ['defaultOrder' => ['local_number' => SORT_DESC, 'local_postfix' => SORT_DESC]]
         ]);
 
+        $dataProvider->sort->attributes['needAnswer'] = [
+            'asc' => ['needAnswer' => SORT_DESC],
+            'desc' => ['needAnswer' => SORT_ASC],
+        ];
+
         $dataProvider->sort->attributes['correspondentName'] = [
             'asc' => ['correspondent.secondname' => SORT_ASC],
             'desc' => ['correspondent.secondname' => SORT_DESC],
