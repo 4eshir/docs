@@ -76,16 +76,21 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
             <?php
-            /*$resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
-            if ($resp != null)
+            $parts = \app\models\common\TeacherParticipant::find()->where(['foreign_event_id' => $model->id])->all();
+            if ($parts != null)
             {
-                echo '<table>';
-                foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->people_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                echo '<table class="table table-bordered">';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Заявка</b></h4></td></tr>';
+                foreach ($parts as $partOne) {
+                    $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
+                    $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
+                    $partOneTeacher = \app\models\common\People::find()->where(['id' => $partOne->teacher_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOneTeacher->shortName.'</h4></td>'.
+                            '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
+                            '<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
-            }*/
+            }
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
@@ -155,16 +160,17 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
             <?php
-            /*$resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
-            if ($resp != null)
+            $parts = \app\models\common\ParticipantAchievement::find()->where(['foreign_event_id' => $model->id])->all();
+            if ($parts != null)
             {
-                echo '<table>';
-                foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->people_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                echo '<table class="table table-bordered">';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td></tr>';
+                foreach ($parts as $partOne) {
+                    $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
-            }*/
+            }
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
@@ -254,7 +260,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'docs_achievement')->fileInput() ?>
+    <?= $form->field($model, 'docsAchievement')->fileInput() ?>
+
+    <?php
+    if ($model->docs_achievement !== null)
+        echo '<h5>Загруженный файл: '.Html::a($model->docs_achievement, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $model->docs_achievement, 'type' => 'achievements_files'])).'</h5><br>';
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

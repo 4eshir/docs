@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\FileWizard;
 use Yii;
 
 /**
@@ -38,6 +39,8 @@ class ForeignEvent extends \yii\db\ActiveRecord
 {
     public $participants;
     public $achievement;
+
+    public $docsAchievement;
     /**
      * {@inheritdoc}
      */
@@ -179,6 +182,23 @@ class ForeignEvent extends \yii\db\ActiveRecord
         return $this->hasMany(TeacherParticipant::className(), ['foreign_event_id' => 'id']);
     }
 
+    public function uploadAchievementsFile()
+    {
+        $path = '@app/upload/files/foreign_event/achievements_files/';
+        $date = $this->start_date;
+        $new_date = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = '';
+        $filename = 'Д.'.$new_date.'_'.$this->name;
+        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $res = mb_ereg_replace('[^a-zA-Zа-яА-Я0-9._]{1}', '', $res);
+        $res = FileWizard::CutFilename($res);
+        $this->docs_achievement = $res . '.' . $this->docsAchievement->extension;
+        $this->docsAchievement->saveAs( $path . $res . '.' . $this->docsAchievement->extension);
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
         $this->uploadTeacherParticipants();
@@ -189,37 +209,46 @@ class ForeignEvent extends \yii\db\ActiveRecord
 
     private function uploadTeacherParticipants()
     {
-        foreach ($this->participants as $participantOne)
+        if ($this->participants !== null)
         {
-            $part = new TeacherParticipant();
-            $part->foreign_event_id = $this->id;
-            $part->participant_id = $participantOne->fio;
-            $part->teacher_id = $participantOne->teacher;
-            $part->save();
+            foreach ($this->participants as $participantOne)
+            {
+                $part = new TeacherParticipant();
+                $part->foreign_event_id = $this->id;
+                $part->participant_id = $participantOne->fio;
+                $part->teacher_id = $participantOne->teacher;
+                $part->save();
+            }
         }
     }
 
     private function uploadParticipantFiles()
     {
-        foreach ($this->participants as $participantOne)
+        if ($this->participants)
         {
-            $part = new ParticipantFiles();
-            $part->foreign_event_id = $this->id;
-            $part->participant_id = $participantOne->fio;
-            $part->filename = $participantOne->fileString;
-            $part->save();
+            foreach ($this->participants as $participantOne)
+            {
+                $part = new ParticipantFiles();
+                $part->foreign_event_id = $this->id;
+                $part->participant_id = $participantOne->fio;
+                $part->filename = $participantOne->fileString;
+                $part->save();
+            }
         }
     }
 
     private function uploadParticipantAchievement()
     {
-        foreach ($this->achievement as $achievementOne)
+        if ($this->achievement)
         {
-            $part = new ParticipantAchievement();
-            $part->foreign_event_id = $this->id;
-            $part->participant_id = $achievementOne->fio;
-            $part->achievment = $achievementOne->achieve;
-            $part->save();
+            foreach ($this->achievement as $achievementOne)
+            {
+                $part = new ParticipantAchievement();
+                $part->foreign_event_id = $this->id;
+                $part->participant_id = $achievementOne->fio;
+                $part->achievment = $achievementOne->achieve;
+                $part->save();
+            }
         }
     }
 }

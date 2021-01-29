@@ -2,7 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\common\ForeignEventParticipants;
+use app\models\common\ParticipantAchievement;
 use app\models\common\Responsible;
+use app\models\common\TeacherParticipant;
+use app\models\components\Logger;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
 use app\models\extended\ParticipantsAchievementExtended;
@@ -81,6 +85,11 @@ class ForeignEventController extends Controller
             DynamicModel::loadMultiple($modelAchievement, Yii::$app->request->post());
             $model->participants = $modelParticipants;
             $model->achievement = $modelAchievement;
+
+            $model->docsAchievement = UploadedFile::getInstance($model, 'docs_achievement');
+            if ($model->docsAchievement !== null)
+                $model->uploadAchievementsFile();
+
             $i = 0;
             foreach ($modelParticipants as $modelParticipantOne)
             {
@@ -110,14 +119,51 @@ class ForeignEventController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelParticipants = [new ForeignEventParticipantsExtended];
+        $modelAchievement = [new ParticipantsAchievementExtended];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
+            DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
+            $modelAchievement = DynamicModel::createMultiple(ParticipantsAchievementExtended::classname());
+            DynamicModel::loadMultiple($modelAchievement, Yii::$app->request->post());
+            $model->participants = $modelParticipants;
+            $model->achievement = $modelAchievement;
+
+            $model->docsAchievement = UploadedFile::getInstance($model, 'docsAchievement');
+            if ($model->docsAchievement !== null)
+                $model->uploadAchievementsFile();
+
+            $i = 0;
+            foreach ($modelParticipants as $modelParticipantOne)
+            {
+                $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");
+                if ($modelParticipantOne->file !== null) $modelParticipantOne->uploadFile($model->name, $model->start_date);
+
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelParticipants' => $modelParticipants,
+            'modelAchievement' => $modelAchievement
         ]);
+    }
+
+    public function actionDeleteParticipant($id, $model_id)
+    {
+        $part = TeacherParticipant::find()->where(['id' => $id])->one();
+        $part->delete();
+        return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
+    }
+
+    public function actionDeleteAchievement($id, $model_id)
+    {
+        $part = ParticipantAchievement::find()->where(['id' => $id])->one();
+        $part->delete();
+        return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
 
     /**
@@ -132,6 +178,25 @@ class ForeignEventController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    public function actionGetFile($fileName = null, $modelId = null, $type = null)
+    {
+
+        if ($fileName !== null && !Yii::$app->user->isGuest) {
+            $currentFile = Yii::$app->basePath.'/upload/files/foreign_event/'.$type.'/'.$fileName;
+            if (is_file($currentFile)) {
+                header("Content-Type: application/octet-stream");
+                header("Accept-Ranges: bytes");
+                header("Content-Length: " . filesize($currentFile));
+                header("Content-Disposition: attachment; filename=" . $fileName);
+                readfile($currentFile);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
+                return $this->redirect('index.php?r=foreign-event/create');
+            };
+        }
+        //return $this->redirect('index.php?r=docs-out/index');
     }
 
     /**
