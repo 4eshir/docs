@@ -25,27 +25,59 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <?php
+    if ($model->business_trip == 0)
+    { ?>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'name',
+                'companyString',
+                'start_date',
+                'finish_date',
+                'city',
+                'eventWayString',
+                'eventLevelString',
+                ['attribute' => 'participantsLink', 'format' => 'raw'],
+                ['attribute' => 'achievementsLink', 'format' => 'raw'],
+                'ageRange',
+                'businessTrip',
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'company_id',
-            'start_date',
-            'finish_date',
-            'city',
-            'event_way_id',
-            'event_level_id',
-            'min_participants_age',
-            'max_participants_age',
-            'business_trip',
-            'escort_id',
-            'order_participation_id',
-            'order_business_trip_id',
-            'key_words',
-            'docs_achievement',
-        ],
-    ]) ?>
+                ['attribute' => 'orderParticipationString', 'format' => 'raw'],
+
+                'key_words',
+                ['attribute' => 'docString', 'format' => 'raw'],
+            ],
+        ]) ?>
+    <?php }
+    else
+    { ?>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'name',
+                'companyString',
+                'start_date',
+                'finish_date',
+                'city',
+                'eventWayString',
+                'eventLevelString',
+                ['attribute' => 'participantsLink', 'format' => 'raw'],
+                ['attribute' => 'achievementsLink', 'format' => 'raw'],
+                'ageRange',
+                'businessTrip',
+                ['attribute' => 'escort_id', 'value' => function ($model) { return $model->escort->shortName; }],
+                ['attribute' => 'orderBusinessTripString', 'format' => 'raw'],
+
+                ['attribute' => 'orderParticipationString', 'format' => 'raw'],
+
+                'key_words',
+                ['attribute' => 'docString', 'format' => 'raw'],
+            ],
+        ]) ?>
+    <?php
+    }
+    ?>
+
 
 </div>

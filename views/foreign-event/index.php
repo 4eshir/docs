@@ -26,15 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             'name',
-            'company_id',
+            ['attribute' => 'companyString'],
             'start_date',
             'finish_date',
             'city',
-            'event_way_id',
-            'event_level_id',
-            'min_participants_age',
-            'max_participants_age',
-            'order_participation_id',
+            'eventWayString',
+            'eventLevelString',
+            'ageRange',
+            ['attribute' => 'orderParticipationString', 'format' => 'raw'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

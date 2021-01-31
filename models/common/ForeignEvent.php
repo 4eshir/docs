@@ -4,6 +4,7 @@ namespace app\models\common;
 
 use app\models\components\FileWizard;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "foreign_event".
@@ -58,7 +59,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'order_participation_id', 'key_words', 'docs_achievement'], 'required'],
             [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
-            [['name', 'city', 'key_words', 'docs_achievement'], 'string', 'max' => 1000],
+            [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['event_way_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventWay::className(), 'targetAttribute' => ['event_way_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
@@ -76,19 +77,29 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
             'company_id' => 'Организатор',
+            'companyString' => 'Организатор',
             'start_date' => 'Дата начала',
             'finish_date' => 'Дата окончания',
             'city' => 'Город',
             'event_way_id' => 'Формат проведения',
+            'eventWayString' => 'Формат проведения',
             'event_level_id' => 'Уровень',
+            'eventLevelString' => 'Уровень',
+            'ageRange' => 'Возраст участников',
             'min_participants_age' => 'Мин. возраст участников',
             'max_participants_age' => 'Макс. возраст участников',
             'business_trip' => 'Командировка',
+            'businessTrip' => 'Командировка',
             'escort_id' => 'Сопровождающий',
             'order_participation_id' => 'Приказ об участии',
+            'orderParticipationString' => 'Приказ об участии',
             'order_business_trip_id' => 'Приказ о командировке',
+            'orderBusinessTripString' => 'Приказ о командировке',
             'key_words' => 'Ключевые слова',
             'docs_achievement' => 'Документы о достижениях',
+            'participantsLink' => 'Участники',
+            'achievementsLink' => 'Достижения',
+            'docString' => 'Документ о достижениях',
         ];
     }
 
@@ -182,6 +193,88 @@ class ForeignEvent extends \yii\db\ActiveRecord
         return $this->hasMany(TeacherParticipant::className(), ['foreign_event_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[EventLevel]].
+     *
+     * @return string
+     */
+
+    public function getCompanyString()
+    {
+        return $this->company->name;
+    }
+
+    public function getEventWayString()
+    {
+        return $this->eventWay->name;
+    }
+
+    public function getEventLevelString()
+    {
+        return $this->eventLevel->name;
+    }
+
+    public function getAgeRange()
+    {
+        return $this->min_participants_age.' - '.$this->max_participants_age.' (лет)';
+    }
+
+    public function getBusinessTrip()
+    {
+        return $this->business_trip == 0 ? 'Нет' : 'Да';
+    }
+
+    /**
+     * Gets query for [[EventLevel]].
+     *
+     * @return string
+     */
+
+    public function getParticipantsLink()
+    {
+        $parts = TeacherParticipant::find()->where(['foreign_event_id' => $this->id])->all();
+        $partsLink = '';
+        foreach ($parts as $partOne)
+        {
+            $partsLink = $partsLink.Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог: '.Html::a($partOne->teacher->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id])).')'.'<br>';
+        }
+        return $partsLink;
+    }
+
+    public function getAchievementsLink()
+    {
+        $parts = ParticipantAchievement::find()->where(['foreign_event_id' => $this->id])->all();
+        $partsLink = '';
+        foreach ($parts as $partOne)
+        {
+            $partsLink = $partsLink.$partOne->achievment.' &mdash; '.Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).'<br>';
+        }
+        return $partsLink;
+    }
+
+    public function getOrderParticipationString()
+    {
+        $order = \app\models\common\DocumentOrder::find()->where(['id' => $this->order_participation_id])->one();
+        return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+    }
+
+    public function getOrderBusinessTripString()
+    {
+        $order = \app\models\common\DocumentOrder::find()->where(['id' => $this->order_business_trip_id])->one();
+        return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+    }
+
+    public function getDocString()
+    {
+        return Html::a($this->docs_achievement, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $this->docs_achievement, 'type' => 'achievements_files']));
+    }
+
+
+    public function getEscort()
+    {
+        return People::find()->where(['id' => $this->escort_id])->one();
+    }
+
     public function uploadAchievementsFile()
     {
         $path = '@app/upload/files/foreign_event/achievements_files/';
@@ -197,6 +290,16 @@ class ForeignEvent extends \yii\db\ActiveRecord
         $res = FileWizard::CutFilename($res);
         $this->docs_achievement = $res . '.' . $this->docsAchievement->extension;
         $this->docsAchievement->saveAs( $path . $res . '.' . $this->docsAchievement->extension);
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->business_trip == 0)
+        {
+            $this->order_business_trip_id = null;
+            $this->escort_id = null;
+        }
+        return parent::beforeSave($insert); // TODO: Change the autogenerated stub
     }
 
     public function afterSave($insert, $changedAttributes)

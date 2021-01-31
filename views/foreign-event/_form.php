@@ -227,7 +227,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'business_trip')->checkbox(['id' => 'tripCheckbox', 'onchange' => 'checkTrip()']) ?>
 
-    <div id="divEscort" hidden>
+    <div id="divEscort" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
         $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
@@ -238,7 +238,7 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
-    <div id="divOrderTrip" hidden>
+    <div id="divOrderTrip" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
         $orders = \app\models\common\DocumentOrder::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');

@@ -11,6 +11,9 @@ use app\models\common\ForeignEvent;
  */
 class SearchForeignEvent extends ForeignEvent
 {
+    public $companyString;
+    public $eventLevelString;
+    public $eventWayString;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class SearchForeignEvent extends ForeignEvent
     {
         return [
             [['id', 'company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id'], 'integer'],
-            [['name', 'start_date', 'finish_date', 'city', 'key_words', 'docs_achievement'], 'safe'],
+            [['name', 'start_date', 'finish_date', 'city', 'key_words', 'docs_achievement', 'companyString', 'eventLevelString', 'eventWayString'], 'safe'],
         ];
     }
 
@@ -41,12 +44,30 @@ class SearchForeignEvent extends ForeignEvent
     public function search($params)
     {
         $query = ForeignEvent::find();
+        $query->joinWith(['company company']);
+        $query->joinWith(['eventLevel']);
+        $query->joinWith(['eventWay']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['companyString'] = [
+            'asc' => ['company.Name' => SORT_ASC],
+            'desc' => ['company.Name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['eventLevelString'] = [
+            'asc' => ['event_level.Name' => SORT_ASC],
+            'desc' => ['event_level.Name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['eventWayString'] = [
+            'asc' => ['event_way.Name' => SORT_ASC],
+            'desc' => ['event_way.Name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -75,6 +96,9 @@ class SearchForeignEvent extends ForeignEvent
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'city', $this->city])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
+            ->andFilterWhere(['like', 'company.Name', $this->companyString])
+            ->andFilterWhere(['like', 'eventLevel.Name', $this->eventLevelString])
+            ->andFilterWhere(['like', 'eventWay.Name', $this->eventWayString])
             ->andFilterWhere(['like', 'docs_achievement', $this->docs_achievement]);
 
         return $dataProvider;

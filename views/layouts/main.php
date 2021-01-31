@@ -87,6 +87,7 @@ AppAsset::register($this);
                     ['label' => 'Участники', 'url' => ['/foreign-event-participants/index']],
                     ['label' => 'Формы мероприятий', 'url' => ['/event-form/index']],
                     ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
+                    ['label' => 'Участники мероприятий', 'url' => ['/foreign-event-participants/index']],
                 ]],
                 ['label' => 'Пользователи', 'items' => [
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
