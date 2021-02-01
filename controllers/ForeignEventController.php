@@ -140,7 +140,7 @@ class ForeignEventController extends Controller
             {
                 $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");
                 if ($modelParticipantOne->file !== null) $modelParticipantOne->uploadFile($model->name, $model->start_date);
-
+                $i++;
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);

@@ -38,6 +38,7 @@ class ForeignEventParticipantsExtended extends Model
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^a-zA-Zа-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
+
         $this->fileString = $res.'.'.$this->file->extension;
         $this->file->saveAs( $path.$this->fileString);
     }

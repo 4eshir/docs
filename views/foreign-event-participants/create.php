@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\ForeignEventParticipants */
 
-$this->title = 'Create Foreign Event Participants';
-$this->params['breadcrumbs'][] = ['label' => 'Foreign Event Participants', 'url' => ['index']];
+$this->title = 'Добавление нового участника мероприятия';
+$this->params['breadcrumbs'][] = ['label' => 'Участники мероприятий', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="foreign-event-participants-create">
