@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\ForeignEvent */
 
-$this->title = 'Update Foreign Event: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Foreign Events', 'url' => ['index']];
+$this->title = 'Редактировать внешнее мероприятие: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Участие во внешних мероприятиях', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="foreign-event-update">
 

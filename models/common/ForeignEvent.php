@@ -100,6 +100,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'participantsLink' => 'Участники',
             'achievementsLink' => 'Достижения',
             'docString' => 'Документ о достижениях',
+            'docsAchievement' => 'Документ о достижениях',
         ];
     }
 

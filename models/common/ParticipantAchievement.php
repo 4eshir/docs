@@ -48,7 +48,7 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
             'id' => 'ID',
             'participant_id' => 'Participant ID',
             'foreign_event_id' => 'Foreign Event ID',
-            'achievment' => 'Achievment',
+            'achievment' => 'Достижение',
         ];
     }
 

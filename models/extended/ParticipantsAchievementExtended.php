@@ -15,4 +15,12 @@ class ParticipantsAchievementExtended extends \yii\base\Model
             [['fio', 'achieve'], 'string']
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'fio' => 'ФИО участника',
+            'achieve' => 'Достижение',
+        ];
+    }
 }
