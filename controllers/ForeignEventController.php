@@ -8,6 +8,7 @@ use app\models\common\ParticipantFiles;
 use app\models\common\Responsible;
 use app\models\common\TeacherParticipant;
 use app\models\components\Logger;
+use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
 use app\models\extended\ParticipantsAchievementExtended;
@@ -45,6 +46,11 @@ class ForeignEventController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchForeignEvent();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -62,6 +68,11 @@ class ForeignEventController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -74,6 +85,11 @@ class ForeignEventController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = new ForeignEvent();
         $modelParticipants = [new ForeignEventParticipantsExtended];
         $modelAchievement = [new ParticipantsAchievementExtended];
@@ -119,6 +135,11 @@ class ForeignEventController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         $modelParticipants = [new ForeignEventParticipantsExtended];
         $modelAchievement = [new ParticipantsAchievementExtended];
@@ -179,6 +200,11 @@ class ForeignEventController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

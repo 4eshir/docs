@@ -119,6 +119,19 @@ use yii\widgets\ActiveForm;
     if ($tmp != null) $value = true; else $value = false;
     ?>
     <?= $form->field($model, 'editAdd')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 18])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'viewForeign')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 19])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'editForeign')->checkbox(['checked' => $value]) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

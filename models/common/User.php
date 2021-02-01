@@ -48,6 +48,8 @@ class User extends ActiveRecord implements IdentityInterface
     public $editAS;
     public $viewAdd;
     public $editAdd;
+    public $viewForeign;
+    public $editForeign;
 
     public $oldPass;
     public $newPass;
@@ -81,7 +83,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
-                'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd'], 'safe'],
+                'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd',
+                'viewForeign', 'editForeign'], 'safe'],
         ];
     }
 
@@ -111,6 +114,8 @@ class User extends ActiveRecord implements IdentityInterface
             'editAS' => 'Разрешено редактировать реестр ПО',
             'viewAdd' => 'Разрешено просматривать дополнительную информацию',
             'editAdd' => 'Разрешено редактировать дополнительную информацию',
+            'viewForeign' => 'Разрешено просматривать внешние мероприятия',
+            'editForeign' => 'Разрешено редактировать внешние мероприятия',
             'oldPass' => 'Старый пароль',
             'newPass' => 'Новый пароль',
         ];
@@ -209,7 +214,7 @@ class User extends ActiveRecord implements IdentityInterface
         $arr = array($this->addUsers, $this->viewRoles, $this->editRoles, $this->viewOut, $this->editOut,
             $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
             $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
-            $this->viewAdd, $this->editAdd);
+            $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign);
         if ($changedAttributes['password_hash'] == null)
         {
             for ($i = 0; $i != count($arr); $i++)

@@ -61,6 +61,11 @@ class UserRBAC
                 'create Add' => 17,
                 'update Add' => 17,
                 'delete Add' => 17,
+                'index foreign-event' => 18,
+                'view foreign-event' => 18,
+                'create foreign-event' => 19,
+                'update foreign-event' => 19,
+                'delete foreign-event' => 19,
             );
         }
 
