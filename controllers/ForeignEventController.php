@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\ParticipantAchievement;
+use app\models\common\ParticipantFiles;
 use app\models\common\Responsible;
 use app\models\common\TeacherParticipant;
 use app\models\components\Logger;
@@ -155,7 +156,10 @@ class ForeignEventController extends Controller
     public function actionDeleteParticipant($id, $model_id)
     {
         $part = TeacherParticipant::find()->where(['id' => $id])->one();
+        $p_id = $part->participant_id;
         $part->delete();
+        $files = ParticipantFiles::find()->where(['participant_id' => $p_id])->one();
+        $files->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
 
