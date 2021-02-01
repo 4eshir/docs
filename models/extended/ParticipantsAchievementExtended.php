@@ -8,11 +8,13 @@ class ParticipantsAchievementExtended extends \yii\base\Model
 {
     public $fio;
     public $achieve;
+    public $winner;
 
     public function rules()
     {
         return [
-            [['fio', 'achieve'], 'string']
+            [['fio', 'achieve'], 'string'],
+            [['winner'], 'integer']
         ];
     }
 
@@ -21,6 +23,7 @@ class ParticipantsAchievementExtended extends \yii\base\Model
         return [
             'fio' => 'ФИО участника',
             'achieve' => 'Достижение',
+            'winner' => 'Победитель',
         ];
     }
 }

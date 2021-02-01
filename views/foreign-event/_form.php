@@ -80,7 +80,7 @@ use yii\widgets\ActiveForm;
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Заявка</b></h4></td></tr>';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
                     $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
@@ -141,7 +141,7 @@ use yii\widgets\ActiveForm;
                                 ?>
                             </div>
                             <div class="col-xs-4">
-                                <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Заявка') ?>
+                                <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
                             </div>
                             <div class="panel-body" style="padding: 0; margin: 0"></div>
                         </div>
@@ -198,7 +198,7 @@ use yii\widgets\ActiveForm;
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <?php
                                 $people = \app\models\common\ForeignEventParticipants::find()->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
@@ -209,10 +209,17 @@ use yii\widgets\ActiveForm;
 
                                 ?>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]achieve")->textInput();
+
+                                ?>
+                            </div>
+                            <div class="col-xs-4">
+                                <?php
+
+                                echo $form->field($modelAchievementOne, "[{$i}]winner")->checkbox();
 
                                 ?>
                             </div>

@@ -32,8 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'city',
             'eventWayString',
             'eventLevelString',
-            'ageRange',
-            ['attribute' => 'orderParticipationString', 'format' => 'raw'],
+            ['attribute' => 'teachers', 'format' => 'raw'],
+            ['attribute' => 'winners', 'format' => 'raw'],
+            ['attribute' => 'prizes', 'format' => 'raw'],
+            'businessTrips',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

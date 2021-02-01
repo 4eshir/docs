@@ -101,6 +101,10 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'achievementsLink' => 'Достижения',
             'docString' => 'Документ о достижениях',
             'docsAchievement' => 'Документ о достижениях',
+            'teachers' => 'Педагоги',
+            'winners' => 'Победители',
+            'prizes' => 'Призеры',
+            'businessTrips' => 'Командировка',
         ];
     }
 
@@ -244,11 +248,12 @@ class ForeignEvent extends \yii\db\ActiveRecord
 
     public function getAchievementsLink()
     {
-        $parts = ParticipantAchievement::find()->where(['foreign_event_id' => $this->id])->all();
+        $parts = ParticipantAchievement::find()->where(['foreign_event_id' => $this->id])->orderBy(['winner' => SORT_DESC])->all();
         $partsLink = '';
         foreach ($parts as $partOne)
         {
-            $partsLink = $partsLink.$partOne->achievment.' &mdash; '.Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).'<br>';
+            $value = $partOne->winner == 1 ? 'Победитель: ' : 'Призер: ';
+            $partsLink = $partsLink. $value .Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' &mdash; '.$partOne->achievment.'<br>';
         }
         return $partsLink;
     }
@@ -274,6 +279,44 @@ class ForeignEvent extends \yii\db\ActiveRecord
     public function getEscort()
     {
         return People::find()->where(['id' => $this->escort_id])->one();
+    }
+
+    public function getTeachers()
+    {
+        $teachers = TeacherParticipant::find()->select(['teacher_id'])->where(['foreign_event_id' => $this->id])->distinct()->all();
+        $teacherList = '';
+        foreach ($teachers as $teacherOne)
+        {
+            $teacherList = $teacherList.$teacherOne->teacher->shortName.'<br>';
+        }
+        return $teacherList;
+    }
+
+    public function getWinners()
+    {
+        $parts = ParticipantAchievement::find()->where(['foreign_event_id' => $this->id])->andWhere(['winner' => 1])->all();
+        $partsList = '';
+        foreach ($parts as $partOne)
+        {
+            $partsList = $partsList.$partOne->participant->shortName.'<br>';
+        }
+        return $partsList;
+    }
+
+    public function getPrizes()
+    {
+        $parts = ParticipantAchievement::find()->where(['foreign_event_id' => $this->id])->andWhere(['winner' => 0])->all();
+        $partsList = '';
+        foreach ($parts as $partOne)
+        {
+            $partsList = $partsList.$partOne->participant->shortName.'<br>';
+        }
+        return $partsList;
+    }
+
+    public function getBusinessTrips()
+    {
+        return $this->business_trip == 1 ? 'Да' : 'Нет';
     }
 
     public function uploadAchievementsFile()
@@ -351,6 +394,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
                 $part->foreign_event_id = $this->id;
                 $part->participant_id = $achievementOne->fio;
                 $part->achievment = $achievementOne->achieve;
+                $part->winner = $achievementOne->winner;
                 $part->save();
             }
         }

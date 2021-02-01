@@ -11,6 +11,7 @@ use Yii;
  * @property int $participant_id
  * @property int $foreign_event_id
  * @property string $achievment
+ * @property int $winner
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
@@ -32,7 +33,7 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     {
         return [
             [['participant_id', 'foreign_event_id', 'achievment'], 'required'],
-            [['participant_id', 'foreign_event_id'], 'integer'],
+            [['participant_id', 'foreign_event_id', 'winner'], 'integer'],
             [['achievment'], 'string', 'max' => 1000],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
@@ -49,6 +50,7 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
             'participant_id' => 'Participant ID',
             'foreign_event_id' => 'Foreign Event ID',
             'achievment' => 'Достижение',
+            'winner' => 'Победитель',
         ];
     }
 
