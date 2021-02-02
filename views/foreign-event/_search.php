@@ -15,37 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'company_id') ?>
-
-    <?= $form->field($model, 'start_date') ?>
-
-    <?= $form->field($model, 'finish_date') ?>
-
-    <?php // echo $form->field($model, 'city') ?>
-
-    <?php // echo $form->field($model, 'event_way_id') ?>
-
-    <?php // echo $form->field($model, 'event_level_id') ?>
-
-    <?php // echo $form->field($model, 'min_participants_age') ?>
-
-    <?php // echo $form->field($model, 'max_participants_age') ?>
-
-    <?php // echo $form->field($model, 'business_trip') ?>
-
-    <?php // echo $form->field($model, 'escort_id') ?>
-
-    <?php // echo $form->field($model, 'order_participation_id') ?>
-
-    <?php // echo $form->field($model, 'order_business_trip_id') ?>
-
-    <?php // echo $form->field($model, 'key_words') ?>
-
-    <?php // echo $form->field($model, 'docs_achievement') ?>
+    <?= $form->field($model, 'teachers') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

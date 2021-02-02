@@ -69,6 +69,7 @@ class SearchForeignEvent extends ForeignEvent
             'desc' => ['event_way.Name' => SORT_DESC],
         ];
 
+
         $this->load($params);
 
         if (!$this->validate()) {

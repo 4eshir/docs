@@ -3,6 +3,7 @@
 namespace app\models\common;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "people".
@@ -101,6 +102,21 @@ class People extends \yii\db\ActiveRecord
     public function getShortName()
     {
         return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
+    }
+
+    public function getAchievements()
+    {
+        $achieves = ParticipantAchievement::find()
+                    ->leftJoin(TeacherParticipant::tableName(), TeacherParticipant::tableName().'.participant_id ='.ParticipantAchievement::tableName().'.participant_id')
+                    ->where([TeacherParticipant::tableName().'.teacher_id' => $this->id])
+                    ->all();
+        foreach ($achieves as $achieveOne)
+        {
+            $achieveList = $achieveList.Html::a($achieveOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $achieveOne->participant_id])).
+                ' &mdash; '.$achieveOne->achievment.
+                ' '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).'<br>';
+        }
+        return $achieveList;
     }
 
     public function beforeSave($insert)

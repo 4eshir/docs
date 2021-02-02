@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Участие во внешних мероприятиях';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="foreign-event-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить внешнее мероприятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'city',
             'eventWayString',
             'eventLevelString',
-            ['attribute' => 'teachers', 'format' => 'raw'],
+            ['attribute' => 'teachers', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
             ['attribute' => 'winners', 'format' => 'raw'],
             ['attribute' => 'prizes', 'format' => 'raw'],
             'businessTrips',

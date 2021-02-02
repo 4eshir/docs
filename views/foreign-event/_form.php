@@ -141,7 +141,17 @@ use yii\widgets\ActiveForm;
                                 ?>
                             </div>
                             <div class="col-xs-4">
-                                <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
+                                <div>
+                                    <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
+                                    <?php
+                                    $people = \app\models\common\ParticipantFiles::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'filename','filename');
+                                    $params = [
+                                    'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]file")->dropDownList($items,$params)->label(false);
+                                    ?>
+                                </div>
                             </div>
                             <div class="panel-body" style="padding: 0; margin: 0"></div>
                         </div>

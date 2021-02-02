@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],
+            ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования']
         ],
     ]) ?>
 
