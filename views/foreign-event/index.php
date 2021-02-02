@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'teachers', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
 
             ['attribute' => 'participantCount', 'format' => 'raw', 'label' => 'Кол-во<br>участников', 'encodeLabel' => false],
-            ['attribute' => 'winners', 'format' => 'raw'],
-            ['attribute' => 'prizes', 'format' => 'raw'],
+            ['attribute' => 'winners', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
+            ['attribute' => 'prizes', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
             'businessTrips',
 
             ['class' => 'yii\grid\ActionColumn'],
