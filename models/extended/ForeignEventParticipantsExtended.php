@@ -42,4 +42,9 @@ class ForeignEventParticipantsExtended extends Model
         $this->fileString = $res.'.'.$this->file->extension;
         $this->file->saveAs( $path.$this->fileString);
     }
+
+    public function uploadCopyFile($filename)
+    {
+        $this->fileString = $filename;
+    }
 }
