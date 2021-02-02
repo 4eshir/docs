@@ -40,6 +40,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
 {
     public $participants;
     public $achievement;
+    public $participantCount;
 
     public $docsAchievement;
     /**
@@ -57,7 +58,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'order_participation_id', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
@@ -105,6 +106,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'winners' => 'Победители',
             'prizes' => 'Призеры',
             'businessTrips' => 'Командировка',
+            'participantCount' => 'Кол-во участников',
         ];
     }
 
@@ -279,6 +281,11 @@ class ForeignEvent extends \yii\db\ActiveRecord
     public function getEscort()
     {
         return People::find()->where(['id' => $this->escort_id])->one();
+    }
+
+    public function getParticipantCount()
+    {
+        return count(TeacherParticipant::find()->where(['foreign_event_id' => $this->id])->all());
     }
 
     public function getTeachers()
