@@ -114,7 +114,7 @@ class People extends \yii\db\ActiveRecord
         {
             $achieveList = $achieveList.Html::a($achieveOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $achieveOne->participant_id])).
                 ' &mdash; '.$achieveOne->achievment.
-                ' '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).'<br>';
+                ' '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
         }
         return $achieveList;
     }

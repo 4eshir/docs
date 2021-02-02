@@ -18,7 +18,7 @@ class ForeignEventParticipantsExtended extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
+            [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['fio', 'teacher', 'fileString'], 'string']
         ];
     }

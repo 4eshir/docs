@@ -121,7 +121,8 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
         $achievesLink = '';
         foreach ($achieves as $achieveOne)
         {
-            $achievesLink = $achievesLink.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).'<br>';
+            $achievesLink = $achievesLink.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
+                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
         }
         return $achievesLink;
     }
