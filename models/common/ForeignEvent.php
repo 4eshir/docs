@@ -40,7 +40,6 @@ class ForeignEvent extends \yii\db\ActiveRecord
 {
     public $participants;
     public $achievement;
-    public $participantCount;
 
     public $docsAchievement;
     /**
