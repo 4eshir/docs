@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'secondname',
             'patronymic',
+            'birthdate',
 
             ['attribute' => 'documents', 'format' => 'raw'],
             ['attribute' => 'achievements', 'format' => 'raw'],
