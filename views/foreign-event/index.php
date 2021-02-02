@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'eventWayString',
             'eventLevelString',
             ['attribute' => 'teachers', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
-            'participantCount',
+
+            ['attribute' => 'participantCount', 'format' => 'raw', 'label' => 'Кол-во<br>участников', 'encodeLabel' => false],
             ['attribute' => 'winners', 'format' => 'raw'],
             ['attribute' => 'prizes', 'format' => 'raw'],
             'businessTrips',
