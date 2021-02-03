@@ -48,14 +48,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Скан документа', 'attribute' => 'scan', 'value' => function ($model) {
-                return Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'modelId' => $model->id]));
+                return Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan']));
+                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
+            }, 'format' => 'raw'],
+            ['label' => 'Редактируемые документы', 'attribute' => 'docFiles', 'value' => function ($model) {
+                $split = explode(" ", $model->doc);
+                $result = '';
+                for ($i = 0; $i < count($split); $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'docs'])).'<br>';
+                return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Приложения', 'attribute' => 'applications', 'value' => function ($model) {
                 $split = explode(" ", $model->applications);
                 $result = '';
                 for ($i = 0; $i < count($split); $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'app'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'apps'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],

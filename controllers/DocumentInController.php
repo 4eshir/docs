@@ -227,11 +227,7 @@ class DocumentInController extends Controller
     {
 
         if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = '';
-            if ($type == 'app')
-                $currentFile = Yii::$app->basePath.'/upload/files/document_in/apps/'.$fileName;
-            else
-                $currentFile = Yii::$app->basePath.'/upload/files/document_in/scan/'.$fileName;
+            $currentFile = Yii::$app->basePath.'/upload/files/document_in/'.$type.'/'.$fileName;
             if (is_file($currentFile)) {
                 header("Content-Type: application/octet-stream");
                 header("Accept-Ranges: bytes");

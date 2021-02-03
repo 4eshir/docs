@@ -125,7 +125,7 @@ use yii\jui\DatePicker;
         ->label('Скан документа')?>
     <?php
     if ($model->scan !== null)
-        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan])).'</h5><br>';
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'type' => 'scan'])).'</h5><br>';
     ?>
 
 
@@ -138,7 +138,7 @@ use yii\jui\DatePicker;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $split[$i], 'type' => 'docs'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
         }
         echo '</table>';
     }
@@ -156,7 +156,7 @@ use yii\jui\DatePicker;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-in/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $split[$i], 'type' => 'scan'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-in/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
         }
         echo '</table>';
     }
