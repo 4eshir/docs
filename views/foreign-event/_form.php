@@ -119,26 +119,32 @@ use yii\widgets\ActiveForm;
                                 <div class="clearfix"></div>
                             </div>
                             <div class="col-xs-4">
-                                <?php
-                                $people = \app\models\common\ForeignEventParticipants::find()->all();
-                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-                                $params = [
-                                    'prompt' => ''
-                                ];
-                                echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-
-                                ?>
+                                <div>
+                                    <?php
+                                    $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
+                                    $branchs = \app\models\common\Branch::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]branch")->dropDownList($items,$params)->label('Отдел');
+                                    ?>
+                                </div>
                             </div>
                             <div class="col-xs-4">
-                                <?php
-                                $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
-                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-                                $params = [
-                                    'prompt' => ''
-                                ];
-                                echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагога');
-
-                                ?>
+                                <div>
+                                    <?php
+                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагога');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]focus")->textInput()->label('Направленность');
+                                    ?>
+                                </div>
                             </div>
                             <div class="col-xs-4">
                                 <div>
@@ -285,7 +291,11 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success',
+            'data' => [
+                'confirm' => 'Сохранить изменения? Если были загружены новые файлы заявок/достижений, то они заменят более старые',
+                'method' => 'post',
+            ],]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

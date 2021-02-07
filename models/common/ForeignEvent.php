@@ -106,6 +106,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'prizes' => 'Призеры',
             'businessTrips' => 'Командировка',
             'participantCount' => 'Кол-во участников',
+            'participants' => 'Участники',
         ];
     }
 
@@ -370,6 +371,8 @@ class ForeignEvent extends \yii\db\ActiveRecord
                 $part->foreign_event_id = $this->id;
                 $part->participant_id = $participantOne->fio;
                 $part->teacher_id = $participantOne->teacher;
+                $part->branch_id = $participantOne->branch;
+                $part->focus = $participantOne->focus;
                 $part->save();
             }
         }

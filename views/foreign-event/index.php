@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить внешнее мероприятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'city',
             'eventWayString',
             'eventLevelString',
+            
             ['attribute' => 'teachers', 'format' => 'raw', 'contentOptions' => ['class' => 'text-nowrap']],
 
             ['attribute' => 'participantCount', 'format' => 'raw', 'label' => 'Кол-во<br>участников', 'encodeLabel' => false],

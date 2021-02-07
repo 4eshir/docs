@@ -11,8 +11,11 @@ use Yii;
  * @property int $participant_id
  * @property int $teacher_id
  * @property int $foreign_event_id
+ * @property int $branch_id
+ * @property string $focus
  *
  * @property ForeignEvent $foreignEvent
+ * @property Branch $branch
  * @property ForeignEventParticipants $participant
  * @property People $teacher
  */
@@ -32,8 +35,9 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
-            [['participant_id', 'teacher_id', 'foreign_event_id'], 'integer'],
+            [['participant_id', 'teacher_id', 'foreign_event_id', 'branch_id'], 'required'],
+            [['participant_id', 'teacher_id', 'foreign_event_id', 'branch_id'], 'integer'],
+            [['focus'], 'string'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
@@ -81,5 +85,10 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function getTeacher()
     {
         return $this->hasOne(People::className(), ['id' => 'teacher_id']);
+    }
+
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
     }
 }

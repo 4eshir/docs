@@ -12,6 +12,8 @@ class ForeignEventParticipantsExtended extends Model
 {
     public $fio;
     public $teacher;
+    public $branch;
+    public $focus;
     public $file;
     public $fileString;
 
@@ -19,7 +21,8 @@ class ForeignEventParticipantsExtended extends Model
     {
         return [
             [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
-            [['fio', 'teacher', 'fileString'], 'string']
+            [['teacher', 'fileString', 'focus'], 'string'],
+            [['fio', 'branch'], 'integer'],
         ];
     }
 
@@ -32,13 +35,11 @@ class ForeignEventParticipantsExtended extends Model
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-
         $participant = ForeignEventParticipants::find()->where(['id' => $this->fio])->one();
         $filename = $participant->secondname.'_'.$new_date.'_'.$event_name;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^a-zA-Zа-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
-
         $this->fileString = $res.'.'.$this->file->extension;
         $this->file->saveAs( $path.$this->fileString);
     }
