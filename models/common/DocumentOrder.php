@@ -59,7 +59,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
         return [
             [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx', 'skipOnEmpty' => true],
             [['docFiles'], 'file', 'extensions' => 'xls, xlsx, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['signedString', 'executorString', 'bringString', 'registerString'], 'string'],
+            [['signedString', 'executorString', 'bringString', 'registerString', 'documentNumberString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
             [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id'], 'integer'],
@@ -82,6 +82,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'order_number' => 'Номер приказа',
+            'documentNumberString' => 'Номер приказа',
             'order_name' => 'Наименование приказа',
             'order_date' => 'Дата приказа',
             'signed_id' => 'Кем подписан',
@@ -140,6 +141,16 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function getResponsibles()
     {
         return $this->hasMany(Responsible::className(), ['document_order_id' => 'id']);
+    }
+
+    public function getDocumentNumberString()
+    {
+        if ($this->order_copy_id == 0)
+            return $this->order_number;
+        if ($this->order_postfix == null)
+            return $this->order_number.'/'.$this->order_copy_id;
+        else
+            return $this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix;
     }
 
     public function  beforeSave($insert)

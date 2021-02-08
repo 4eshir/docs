@@ -17,6 +17,8 @@ class SearchDocumentOrder extends DocumentOrder
     public $registerName;
     public $bringName;
     public $stateName;
+
+    public $documentNumberString;
     /**
      * {@inheritdoc}
      */
@@ -24,7 +26,7 @@ class SearchDocumentOrder extends DocumentOrder
     {
         return [
             [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
-            [['signedName', 'executorName', 'registerName', 'bringName', 'stateName'], 'string'],
+            [['signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'documentNumberString'], 'string'],
             [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'key_words'], 'safe'],
         ];
     }
@@ -81,6 +83,11 @@ class SearchDocumentOrder extends DocumentOrder
             'desc' => ['state' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['documentNumberString'] = [
+            'asc' => ['order_number' => SORT_ASC, 'order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC],
+            'desc' => ['order_number' => SORT_DESC, 'order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -107,7 +114,11 @@ class SearchDocumentOrder extends DocumentOrder
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
             ->andFilterWhere(['like', 'register.secondname', $this->registerName])
             ->andFilterWhere(['like', 'bring.secondname', $this->bringName])
+            ->andFilterWhere(['=', 'order_copy_id', $this->documentNumberString])
+            ->orFilterWhere(['=', 'order_number', $this->documentNumberString])
+            ->orFilterWhere(['=', 'order_postfix', $this->documentNumberString])
             ->andFilterWhere(['like', 'key_words', $this->key_words]);
+
 
 
         return $dataProvider;

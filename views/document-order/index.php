@@ -87,14 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'summary' => false,
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-            ['attribute' => 'order_number', 'label' => 'Номер приказа', 'value' => function($model){
-                if ($model->order_copy_id == 0)
-                    return $model->order_number;
-                if ($model->order_postfix == null)
-                    return $model->order_number.'/'.$model->order_copy_id;
-                else
-                    return $model->order_number.'/'.$model->order_copy_id.'/'.$model->order_postfix;
-            }],
+            'documentNumberString',
             ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
             ['attribute' => 'bringName','label' => 'Проект вносит', 'value' => function ($model) {
                 return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'.'.mb_substr($model->bring->patronymic, 0, 1).'.';
