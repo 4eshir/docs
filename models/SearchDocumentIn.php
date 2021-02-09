@@ -21,7 +21,7 @@ class SearchDocumentIn extends DocumentIn
     public function rules()
     {
         return [
-            [['id', 'local_number', 'real_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
+            [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
             [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName'], 'safe'],
         ];
     }
