@@ -255,7 +255,7 @@ class DocsOutController extends Controller
                 else
                     $deleteFile = $split[$i];
             }
-            $type == 'app' ? $model->applications = $result : $model->doc = $result
+            $type == 'app' ? $model->applications = $result : $model->doc = $result;
             $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
         }
