@@ -235,7 +235,7 @@ class DocsOutController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionDeleteFile($fileName = null, $modelId = null)
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
         $model = DocumentOut::find()->where(['id' => $modelId])->one();
@@ -244,7 +244,7 @@ class DocsOutController extends Controller
         {
 
             $result = '';
-            $split = explode(" ", $model->applications);
+            $type == 'app' ? $split = explode(" ", $model->applications) : $split = explode(" ", $model->doc);
             $deleteFile = '';
             for ($i = 0; $i < count($split) - 1; $i++)
             {
@@ -255,7 +255,7 @@ class DocsOutController extends Controller
                 else
                     $deleteFile = $split[$i];
             }
-            $model->applications = $result;
+            $type == 'app' ? $model->applications = $result : $model->doc = $result
             $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
         }
