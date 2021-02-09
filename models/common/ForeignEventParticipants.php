@@ -13,6 +13,7 @@ use yii\helpers\Html;
  * @property string $secondname
  * @property string $patronymic
  * @property string $birthdate
+ * @property string $sex
  *
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
@@ -36,7 +37,7 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     {
         return [
             [['firstname', 'secondname', 'patronymic'], 'required'],
-            [['firstname', 'secondname', 'patronymic', 'birthdate'], 'string'],
+            [['firstname', 'secondname', 'patronymic', 'birthdate', 'sex'], 'string'],
         ];
     }
 
@@ -53,6 +54,7 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
             'documents' => 'Заявки',
             'achievements' => 'Достижения',
             'birthdate' => 'Дата рождения',
+            'sex' => 'Пол',
         ];
     }
 

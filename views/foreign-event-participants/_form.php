@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\ForeignEventParticipants */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap\ActiveForm */
 ?>
 
 <div class="foreign-event-participants-form">
@@ -37,6 +37,11 @@ use yii\widgets\ActiveForm;
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
         ]]) ?>
+    <div>
+        <?= $form->field($model, 'sex')->radioList(array('Мужской' => 'Мужской',
+            'Женский' => 'Женский', 'Другое' => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
