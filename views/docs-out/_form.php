@@ -176,6 +176,7 @@ use yii\bootstrap\ActiveForm;
     if ($model->doc !== null)
     {
         $split = explode(" ", $model->doc);
+        echo $model->doc;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
