@@ -36,7 +36,7 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic'], 'required'],
+            [['firstname', 'secondname', 'patronymic', 'sex'], 'required'],
             [['firstname', 'secondname', 'patronymic', 'birthdate', 'sex'], 'string'],
         ];
     }

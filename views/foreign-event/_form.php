@@ -80,12 +80,15 @@ use yii\widgets\ActiveForm;
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
                     $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
                     $partOneTeacher = \app\models\common\People::find()->where(['id' => $partOne->teacher_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOneTeacher->shortName.'</h4></td>'.
+                    $team = \app\models\common\Team::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.
+                            $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$partOneTeacher->shortName.'</h4></td>'.
+                            '<td style="padding-left: 10px">'.$team->name.'</td>'.
                             '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
                             '<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
@@ -159,7 +162,13 @@ use yii\widgets\ActiveForm;
                                     ?>
                                 </div>
                             </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <?= $form->field($modelParticipantsOne, "[{$i}]team")->label('В составе команды'); ?>
+                                </div>
+                            </div>
                             <div class="panel-body" style="padding: 0; margin: 0"></div>
+
                         </div>
                     <?php endforeach; ?>
                 </div>

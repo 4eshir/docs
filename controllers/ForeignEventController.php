@@ -12,6 +12,7 @@ use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
 use app\models\extended\ParticipantsAchievementExtended;
+use app\models\extended\TeamModel;
 use Yii;
 use app\models\common\ForeignEvent;
 use app\models\SearchForeignEvent;
@@ -122,7 +123,7 @@ class ForeignEventController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelParticipants' => $modelParticipants,
-            'modelAchievement' => $modelAchievement
+            'modelAchievement' => $modelAchievement,
         ]);
     }
 
@@ -177,8 +178,13 @@ class ForeignEventController extends Controller
         return $this->render('update', [
             'model' => $model,
             'modelParticipants' => $modelParticipants,
-            'modelAchievement' => $modelAchievement
+            'modelAchievement' => $modelAchievement,
         ]);
+    }
+
+    public function actionCreateTeam()
+    {
+        var_dump('lol');
     }
 
     public function actionDeleteParticipant($id, $model_id)

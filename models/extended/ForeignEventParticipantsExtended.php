@@ -15,13 +15,14 @@ class ForeignEventParticipantsExtended extends Model
     public $branch;
     public $focus;
     public $file;
+    public $team;
     public $fileString;
 
     public function rules()
     {
         return [
             [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
-            [['teacher', 'fileString', 'focus'], 'string'],
+            [['teacher', 'fileString', 'focus', 'team'], 'string'],
             [['fio', 'branch'], 'integer'],
         ];
     }

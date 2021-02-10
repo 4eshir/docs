@@ -12,8 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="alert alert-warning">
-    <?php $message = 'Система находится в стадии тестирования. Пожалуйста, опишите Вашу проблему как можно более подробно. По возможности опишите выполняемые действия.'; ?>
-    <?= nl2br(Html::encode($message)) ?>
+    <?php $message = 'Система находится в стадии тестирования. Пожалуйста, опишите Вашу проблему как можно более подробно. По возможности опишите выполняемые действия. 
+    Эл. почта для экстренной связи или пересылки файлов <b>gkalashnik@schooltech.ru</b>.'; ?>
+    <?= nl2br(Html::decode($message)) ?>
 </div>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
