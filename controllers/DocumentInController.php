@@ -225,11 +225,12 @@ class DocumentInController extends Controller
 
     public function actionFix()
     {
-        $docs = InOutDocs::find()->where(['document_out_id' => null])->all();
-        foreach ($docs as $doc) {
-            $res = DocumentIn::find()->where(['id' => $doc->document_in_id])->one();
-            $res->needAnswer = 1;
-            $res->save(false);
+        $docs = DocumentIn::find()->where(['needAnswer' => 1])->all();
+        foreach ($docs as $doc)
+        {
+            $link = new InOutDocs();
+            $link->document_in_id = $doc->id;
+            $link->save(false);
         }
     }
 
