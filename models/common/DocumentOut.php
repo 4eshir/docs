@@ -378,6 +378,7 @@ class DocumentOut extends \yii\db\ActiveRecord
         if ($this->isAnswer !== "")
         {
             $inoutdocs = InOutDocs::find()->where(['document_out_id' => $this->isAnswer])->one();
+            var_dump($this->isAnswer);
             if ($inoutdocs !== null)
             {
                 $inoutdocs->document_out_id = $this->id;
