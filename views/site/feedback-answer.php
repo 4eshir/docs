@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     $form = ActiveForm::begin(['id' => 'login-form']);
     $feedback = \app\models\common\Feedback::find()->all();
     ?>
-
+    <?php echo Html::a('Показать неотвеченные заявки', \yii\helpers\Url::to(['site/feedback-answer', 'type' => 1]), ['class' => 'btn btn-success']) ?>
+    <?php echo Html::a('Показать все заявки', \yii\helpers\Url::to(['site/feedback-answer']), ['class' => 'btn btn-success']) ?>
     <table class="table table-bordered">
         <tr>
             <td style="width: 33%"><b>Пользователь</b></td>
@@ -27,10 +28,25 @@ $this->params['breadcrumbs'][] = $this->title;
         $i = 0;
         foreach ($feedback as $feedbackOne)
         {
-            echo '<tr><td>'.$feedbackOne->user->secondname.' '.$feedbackOne->user->firstname.' '.$feedbackOne->user->patronymic.'</td>'.
-            '<td>'.$feedbackOne->text.'</td><td>'.
-            $form->field($model, 'answer[]')->textInput(['value' => $feedbackOne->answer])->label(false).'</td></tr>';
-            echo $form->field($model, 'id[]')->hiddenInput(['value' => $feedbackOne->id])->label(false);
+            if ($model->type == null)
+            {
+                echo '<tr><td>'.$feedbackOne->user->secondname.' '.$feedbackOne->user->firstname.' '.$feedbackOne->user->patronymic.'</td>'.
+                    '<td>'.$feedbackOne->text.'</td><td>'.
+                    $form->field($model, 'answer[]')->textInput(['value' => $feedbackOne->answer])->label(false).'</td></tr>';
+                echo $form->field($model, 'id[]')->hiddenInput(['value' => $feedbackOne->id])->label(false);
+            }
+            if ($model->type == 1)
+            {
+                if (strlen($feedbackOne->answer) < 3)
+                {
+                    echo '<tr><td>'.$feedbackOne->user->secondname.' '.$feedbackOne->user->firstname.' '.$feedbackOne->user->patronymic.'</td>'.
+                        '<td>'.$feedbackOne->text.'</td><td>'.
+                        $form->field($model, 'answer[]')->textInput(['value' => $feedbackOne->answer])->label(false).'</td></tr>';
+                    echo $form->field($model, 'id[]')->hiddenInput(['value' => $feedbackOne->id])->label(false);
+                }
+
+            }
+
             $i = $i + 1;
         }
         ?>

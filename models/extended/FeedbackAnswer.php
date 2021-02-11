@@ -11,6 +11,7 @@ class FeedbackAnswer extends Model
 {
     public $answer = [];
     public $id = [];
+    public $type;
 
     public function rules()
     {

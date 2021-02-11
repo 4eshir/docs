@@ -91,9 +91,10 @@ class SiteController extends Controller
         return $this->render('feedback', ['model' => $model]);
     }
 
-    public function actionFeedbackAnswer()
+    public function actionFeedbackAnswer($type = null)
     {
         $model = new FeedbackAnswer();
+        $model->type = $type;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
