@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <table class="table table-bordered">
         <tr>
-            <td><b>Пользователь</b></td>
-            <td><b>Сообщение</b></td>
-            <td><b>Ответ</b></td>
+            <td style="width: 33%"><b>Пользователь</b></td>
+            <td style="width: 33%"><b>Сообщение</b></td>
+            <td style="width: 34%"><b>Ответ</b></td>
         </tr>
         <?php
         $i = 0;
