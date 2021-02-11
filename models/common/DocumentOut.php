@@ -386,7 +386,7 @@ class DocumentOut extends \yii\db\ActiveRecord
 
 
             $docIn = DocumentIn::find()->where(['id' => $inoutdocs->document_in_id])->one();
-            if ($docIn !== null)
+            if ($docIn !== 0)
             {
                 $docIn->needAnswer = 0;
                 $docIn->save(false);
