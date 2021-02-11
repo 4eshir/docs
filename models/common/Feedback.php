@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property string $text
+ * @property string|null $answer
  *
  * @property User $user
  */
@@ -31,7 +32,7 @@ class Feedback extends \yii\db\ActiveRecord
         return [
             [['user_id', 'text'], 'required'],
             [['user_id'], 'integer'],
-            [['text'], 'string', 'max' => 10000],
+            [['text', 'answer'], 'string', 'max' => 10000],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

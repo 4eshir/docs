@@ -34,4 +34,26 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?php
+    $feedback = '';
+    if (Yii::$app->user->identity->getId() == 1)
+        $feedback = \app\models\common\Feedback::find()->all();
+    else
+        $feedback = \app\models\common\Feedback::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
+    ?>
+    <br>
+    <br>
+    <h3>Ваши обращения</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td><b>Сообщение</b></td>
+            <td><b>Ответ разработчика</b></td>
+        </tr>
+        <?php
+        foreach ($feedback as $feedbackOne)
+        {
+            echo '<tr><td>'.$feedbackOne->text.'</td><td>'.$feedbackOne->answer.'</td></tr>';
+        }
+        ?>
+    </table>
 </div>

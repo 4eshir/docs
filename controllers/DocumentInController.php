@@ -223,16 +223,6 @@ class DocumentInController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionFix()
-    {
-        $docs = DocumentIn::find()->where(['needAnswer' => 1])->all();
-        foreach ($docs as $doc)
-        {
-            $link = new InOutDocs();
-            $link->document_in_id = $doc->id;
-            $link->save(false);
-        }
-    }
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {

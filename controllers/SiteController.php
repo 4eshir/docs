@@ -6,6 +6,7 @@ use app\models\common\DocumentOut;
 use app\models\common\Feedback;
 use app\models\common\User;
 use app\models\components\Logger;
+use app\models\extended\FeedbackAnswer;
 use app\models\ForgotPassword;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
@@ -37,7 +38,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -88,6 +89,18 @@ class SiteController extends Controller
             return $this->redirect(['site/feedback']);
         }
         return $this->render('feedback', ['model' => $model]);
+    }
+
+    public function actionFeedbackAnswer()
+    {
+        $model = new FeedbackAnswer();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $model->loadFeedback();
+        }
+
+        return $this->render('feedback-answer', ['model' => $model]);
     }
 
     public function actionLogin()
