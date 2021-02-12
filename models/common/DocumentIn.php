@@ -356,7 +356,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             $newLink->document_in_id = $this->id;
             $newLink->save();
         }
-        else if ($this->needAnswer !== 0)
+        if (count($changedAttributes) !== 1 && $this->needAnswer == 0)
         {
             $links = InOutDocs::find()->where(['document_in_id' => $this->id])->one();
             if ($links !== null)
