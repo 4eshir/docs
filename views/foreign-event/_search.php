@@ -53,6 +53,22 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'secondnameParticipant')->textInput()->label('Фамилия участника'); ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
+    <div class="col-xs-5" style="padding-left: 0">
+        <?= $form->field($model, 'secondnameTeacher')->textInput()->label('Фамилия педагога'); ?>
+    </div>
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
+    <div class="col-xs-5" style="padding-left: 0">
+        <?php
+        $branchs = \app\models\common\Branch::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($branchs, 'name', 'name');
+        $params = [
+            'prompt' => ''
+        ];
+        echo $form->field($model, 'nameBranch')->dropDownList($items,$params)->label('Отдел');
+
+        ?>
+    </div>
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['foreign-event/index'])) ?>
