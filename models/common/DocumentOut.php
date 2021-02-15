@@ -207,15 +207,7 @@ class DocumentOut extends \yii\db\ActiveRecord
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
-        $filename = '';
-        if ($this->company->short_name !== '')
-        {
-            $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->short_name.'_'.$this->document_theme;
-        }
-        else
-        {
-            $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->name.'_'.$this->document_theme;
-        }
+        $filename = 'Исх.'.$new_date.'_'.$this->document_number.'_'.$this->company->name.'_'.$this->document_theme;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
