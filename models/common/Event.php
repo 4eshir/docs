@@ -426,6 +426,7 @@ class Event extends \yii\db\ActiveRecord
         if ($eventP == null)
             $eventP = new EventParticipants();
         $eventP->child_participants = $this->childs;
+        $eventP->child_rst_participants = $this->childs_rst;
         $eventP->teacher_participants = $this->teachers;
         $eventP->other_participants = $this->others;
         $eventP->age_left_border = $this->leftAge;

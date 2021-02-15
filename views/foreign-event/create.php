@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\ForeignEvent */
 
-$this->title = 'Добавление внешнего мероприятия';
-$this->params['breadcrumbs'][] = ['label' => 'Участие во внешних мероприятиях', 'url' => ['index']];
+$this->title = 'Добавление';
+$this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="foreign-event-create">

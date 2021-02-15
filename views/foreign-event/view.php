@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\ForeignEvent */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Участие во внешних мероприятиях', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Вы действительно хотите удалить внешнее мероприятие?',
+                'confirm' => 'Вы действительно хотите удалить мероприятие?',
                 'method' => 'post',
             ],
         ]) ?>

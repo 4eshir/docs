@@ -9,6 +9,21 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<style type="text/css">
+    .button {
+        position: fixed;
+        bottom: 0px;
+        background-color: lightgrey;
+        left: 18.5%;
+        width: 65%;
+        padding-bottom: 2%; /*104.5px is half of the button width*/
+    }
+    .test{
+        height:1000px;
+
+    }
+</style>
+
 <div class="foreign-event-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -298,14 +313,17 @@ use yii\widgets\ActiveForm;
     if ($model->docs_achievement !== null)
         echo '<h5>Загруженный файл: '.Html::a($model->docs_achievement, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $model->docs_achievement, 'type' => 'achievements_files'])).'</h5><br>';
     ?>
-
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success',
-            'data' => [
-                'confirm' => 'Сохранить изменения? Если были загружены новые файлы заявок/достижений, то они заменят более старые',
-                'method' => 'post',
-            ],]) ?>
+        <div class="button">
+
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => 'Сохранить изменения? Если были загружены новые файлы заявок/достижений, то они заменят более старые',
+                    'method' => 'post',
+                ],]) ?>
+        </div>
     </div>
+
 
     <?php ActiveForm::end(); ?>
 

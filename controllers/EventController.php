@@ -157,6 +157,7 @@ class EventController extends Controller
         $modelEventsLinks = [new EventsLink];
         $eventP = EventParticipants::find()->where(['event_id' => $model->id])->one();
         $model->childs = $eventP->child_participants;
+        $model->childs_rst = $eventP->child_rst_participants;
         $model->teachers = $eventP->teacher_participants;
         $model->others = $eventP->other_participants;
         $model->leftAge = $eventP->age_left_border;
