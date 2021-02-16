@@ -47,6 +47,9 @@ class DocumentIn extends \yii\db\ActiveRecord
     public $docFiles;
     public $applicationFiles;
 
+    public $dateAnswer;
+    public $nameAnswer;
+
 
     /**
      * {@inheritdoc}
@@ -67,6 +70,7 @@ class DocumentIn extends \yii\db\ActiveRecord
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, pdf, png, jpg, doc, docx', 'maxFiles' => 10],
 
             [['signedString', 'getString'], 'string', 'message' => 'Введите корректные ФИО'],
+            [['dateAnswer', 'nameAnswer'], 'string'],
             [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
             [['local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id', 'correspondent_id', 'local_postfix'], 'integer'],
             [['needAnswer'], 'boolean'],
@@ -354,6 +358,8 @@ class DocumentIn extends \yii\db\ActiveRecord
         {
             $newLink = new InOutDocs();
             $newLink->document_in_id = $this->id;
+            $newLink->date = $this->dateAnswer;
+            $newLink->people_id = $this->nameAnswer;
             $newLink->save();
         }
         if (count($changedAttributes) !== 1 && $this->needAnswer == 0)

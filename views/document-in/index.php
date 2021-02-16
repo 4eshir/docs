@@ -27,6 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $data['id']])->one();
                 if ($links == null || $links->document_out_id !== null)
                     return ['class' => 'default'];
+                else if ($links->date !== null && $links->date < date("Y-m-d"))
+                    return ['class' => 'danger'];
                 else
                     return ['class' => 'warning'];
             },
@@ -53,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                    if ($links == null)
                        return '';
                    if ($links->document_out_id == null)
-                       return 'Требуется ответ';
+                       return 'До '.$links->date.' от '.$links->people->shortName;
                    else
                        return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));

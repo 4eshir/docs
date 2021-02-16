@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property int $document_in_id
  * @property int|null $document_out_id
+ * @property string|null $date
+ * @property int|null $people_id
  *
  * @property DocumentIn $documentIn
  * @property DocumentOut $documentOut
@@ -31,7 +33,8 @@ class InOutDocs extends \yii\db\ActiveRecord
     {
         return [
             [['document_in_id'], 'required'],
-            [['document_in_id', 'document_out_id'], 'integer'],
+            [['date'], 'string'],
+            [['document_in_id', 'document_out_id', 'people_id'], 'integer'],
             [['document_in_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentIn::className(), 'targetAttribute' => ['document_in_id' => 'id']],
             [['document_out_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOut::className(), 'targetAttribute' => ['document_out_id' => 'id']],
         ];
@@ -57,6 +60,11 @@ class InOutDocs extends \yii\db\ActiveRecord
     public function getDocumentIn()
     {
         return $this->hasOne(DocumentIn::className(), ['id' => 'document_in_id']);
+    }
+
+    public function getPeople()
+    {
+        return $this->hasOne(People::className(), ['id' => 'people_id']);
     }
 
     /**

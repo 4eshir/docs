@@ -120,7 +120,39 @@ use yii\jui\DatePicker;
     ?>
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
-    <?= $form->field($model, 'needAnswer')->checkbox() ?>
+    <?= $form->field($model, 'needAnswer')->checkbox(['id' => 'needAnswer', 'onchange' => 'checkAnswer()']) ?>
+    <div id="dateAnswer" class="col-xs-4" <?php echo $model->needAnswer == 0 ? 'hidden' : '' ?>>
+        <?= $form->field($model, 'dateAnswer')->widget(DatePicker::class, [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            //'dateFormat' => 'dd.MM.yyyy,
+            'options' => [
+                'placeholder' => 'Дата',
+                'class'=> 'form-control',
+                'autocomplete'=>'off'
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+                //'showOn' => 'button',
+                //'buttonText' => 'Выбрать дату',
+                //'buttonImageOnly' => true,
+                //'buttonImage' => 'images/calendar.gif'
+            ]])->label('Крайний срок ответа') ?>
+    </div>
+    <div id="nameAnswer" class="col-xs-4" <?php echo $model->needAnswer == 0 ? 'hidden' : '' ?>>
+        <?php
+        $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+        $params = [
+            'prompt' => ''
+        ];
+        echo $form->field($model, "nameAnswer")->dropDownList($items,$params)->label('ФИО ответственного');
+
+        ?>
+    </div>
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
     <?= $form->field($model, 'scanFile')->fileInput()
         ->label('Скан документа')?>
     <?php
@@ -173,7 +205,22 @@ use yii\jui\DatePicker;
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+<script>
+    function checkAnswer()
+    {
+        var chkBox = document.getElementById('needAnswer');
+        if (chkBox.checked)
+        {
+            $("#dateAnswer").removeAttr("hidden");
+            $("#nameAnswer").removeAttr("hidden");
+        }
+        else
+        {
+            $("#dateAnswer").attr("hidden", "true");
+            $("#nameAnswer").attr("hidden", "true");
+        }
+    }
+</script>
 <script>
     $("#corr").change(function() {
         if (this.value != '') {
