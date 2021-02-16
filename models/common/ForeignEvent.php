@@ -25,6 +25,7 @@ use yii\helpers\Html;
  * @property int|null $order_business_trip_id
  * @property string $key_words
  * @property string $docs_achievement
+ * @property int $copy
  *
  * @property Company $company
  * @property EventWay $eventWay
@@ -58,7 +59,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'order_participation_id', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],

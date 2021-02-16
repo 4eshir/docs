@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled' => $model->copy == 1 ? 'disabled' : 'enabled']) ?>
 
     <?php
     $company = \app\models\common\Company::find()->all();
@@ -47,7 +47,8 @@ use yii\widgets\ActiveForm;
         'options' => [
             'placeholder' => 'Дата начала мероприятия',
             'class'=> 'form-control',
-            'autocomplete'=>'off'
+            'autocomplete'=>'off',
+            'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
         ],
         'clientOptions' => [
             'changeMonth' => true,
@@ -61,7 +62,8 @@ use yii\widgets\ActiveForm;
         'options' => [
             'placeholder' => 'Дата окончания мероприятия',
             'class'=> 'form-control',
-            'autocomplete'=>'off'
+            'autocomplete'=>'off',
+            'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
         ],
         'clientOptions' => [
             'changeMonth' => true,
@@ -84,6 +86,7 @@ use yii\widgets\ActiveForm;
     $levels = \app\models\common\EventLevel::find()->all();
     $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
     $params = [
+        'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
     ];
     echo $form->field($model, 'event_level_id')->dropDownList($items,$params);
 
