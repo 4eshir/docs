@@ -433,5 +433,19 @@ class Event extends \yii\db\ActiveRecord
         $eventP->age_right_border = $this->rightAge;
         $eventP->event_id = $this->id;
         $eventP->save();
+
+        if ($this->eventType->name == 'Соревновательный' && $insert)
+            $this->copyEvent();
+    }
+
+    private function copyEvent()
+    {
+        $fevent = new ForeignEvent();
+        $fevent->name = $this->name;
+        $fevent->start_date = $this->start_date;
+        $fevent->finish_date = $this->finish_date;
+        $fevent->event_level_id = $this->event_level_id;
+        $fevent->key_words = $this->key_words;
+        $fevent->save(false);
     }
 }

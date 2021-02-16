@@ -13,10 +13,12 @@ use yii\widgets\ActiveForm;
     .button {
         position: fixed;
         bottom: 0px;
-        background-color: lightgrey;
-        left: 18.5%;
-        width: 65%;
-        padding-bottom: 2%; /*104.5px is half of the button width*/
+        background-color: #f5f8f9;
+        width: 77%;
+        padding-left: 1%;
+        padding-top: 1%;
+        padding-right: 1%;
+        padding-bottom: 1%; /*104.5px is half of the button width*/
     }
     .test{
         height:1000px;
