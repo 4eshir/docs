@@ -141,7 +141,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
     <?php
-    $inoutdocs= \app\models\common\InOutDocs::find()->where(['document_out_id' => null])->orWhere(['document_out_id' => $model->id])->all();
+    $inoutdocs= \app\models\common\InOutDocs::find()->where(['document_out_id' => null])->all();
     $items = \yii\helpers\ArrayHelper::map($inoutdocs,'id','docInName');
     $params = [];
     if ($model->isAnswer !== null)
