@@ -57,6 +57,13 @@ $this->params['breadcrumbs'][] = $this->title;
                    $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
                    if ($links == null)
                        return '';
+                   if ($links->people == null)
+                   {
+                       if ($links->date == null)
+                           return 'Требуется ответ';
+                       else
+                           return 'До '.$links->date;
+                   }
                    if ($links->document_out_id == null)
                        return 'До '.$links->date.' от '.$links->people->shortName;
                    else
