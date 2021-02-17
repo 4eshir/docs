@@ -19,10 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить резерв', ['document-in/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo '<div style="margin-bottom: 10px">'.Html::a('Показать просроченные документы', \yii\helpers\Url::to(['document-in/index', 'sort' => '1'])).
+        ' || '.Html::a('Показать документы, требующие ответ', \yii\helpers\Url::to(['document-in/index', 'sort' => '2'])).
+        ' || '.Html::a('Показать все документы', \yii\helpers\Url::to(['document-in/index'])).'</div>' ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'summary' => false,
             'rowOptions' => function($data) {
                 $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $data['id']])->one();
                 if ($links == null || $links->document_out_id !== null)

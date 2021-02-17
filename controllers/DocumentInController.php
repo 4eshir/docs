@@ -38,7 +38,7 @@ class DocumentInController extends Controller
      * Lists all DocumentIn models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($sort = null)
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
@@ -47,7 +47,7 @@ class DocumentInController extends Controller
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         $searchModel = new SearchDocumentIn();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -2,10 +2,15 @@
 
 namespace app\models;
 
+use app\models\common\InOutDocs;
 use app\models\common\SendMethod;
+use phpDocumentor\Reflection\Types\Object_;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\DocumentIn;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * SearchDocumentIn represents the model behind the search form of `app\models\common\DocumentIn`.
@@ -43,12 +48,43 @@ class SearchDocumentIn extends DocumentIn
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $sort)
     {
+
         $query = DocumentIn::find();
+        if ($sort !== null)
+        {
+            if ($sort == 1)
+            {
+                $subquery = InOutDocs::find()->where(['<', 'date', date('Y-m-d')])->andWhere(['document_out_id' => null])->all();
+                $in = '';
+                foreach ($subquery as $sq) {
+                    $in .= $sq->document_in_id.',';
+                }
+                $in = substr($in,0,-1);
+                if (strlen($in) !== 0)
+                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
+                else
+                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
+            }
+            if ($sort == 2)
+            {
+                $subquery = InOutDocs::find()->where(['document_out_id' => null])->all();
+                $in = '';
+                foreach ($subquery as $sq) {
+                    $in .= $sq->document_in_id.',';
+                }
+                $in = substr($in,0,-1);
+                if (strlen($in) !== 0)
+                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
+                else
+                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
+            }
+        }
         $query->joinWith(['correspondent correspondent']);
         $query->joinWith(['company']);
         $query->joinWith(['sendMethod']);
+
 
         // add conditions that should always apply here
 
