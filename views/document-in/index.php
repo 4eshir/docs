@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php echo '<div style="margin-bottom: 10px">'.Html::a('Показать просроченные документы', \yii\helpers\Url::to(['document-in/index', 'sort' => '1'])).
-        ' || '.Html::a('Показать документы, требующие ответ', \yii\helpers\Url::to(['document-in/index', 'sort' => '2'])).
+        ' || '.Html::a('Показать документы, требующие ответа', \yii\helpers\Url::to(['document-in/index', 'sort' => '2'])).
         ' || '.Html::a('Показать все документы', \yii\helpers\Url::to(['document-in/index'])).'</div>' ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
