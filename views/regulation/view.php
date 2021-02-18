@@ -7,7 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\Regulation */
 
 $this->title = $model->name;
-$this->title = 'Добавить положение';
 $session = Yii::$app->session;
 $tmp = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
 
