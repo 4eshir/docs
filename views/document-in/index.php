@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'columns' => [
 
-                ['attribute' => 'id', 'label' => '№ п/п', 'value' => function($model){
+                ['attribute' => 'fullNumber', 'label' => '№ п/п', 'value' => function($model){
                     if ($model->local_postfix == null)
                         return $model->local_number;
                     else
