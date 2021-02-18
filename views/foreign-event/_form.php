@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled' => $model->copy == 1 ? 'disabled' : 'enabled']) ?>
+    <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
 
     <?php
     $company = \app\models\common\Company::find()->all();
@@ -41,35 +41,64 @@ use yii\widgets\ActiveForm;
 
     ?>
 
-    <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class, [
+    <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class,
+        $model->copy == 1 ? (
+        [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
         'options' => [
             'placeholder' => 'Дата начала мероприятия',
             'class'=> 'form-control',
             'autocomplete'=>'off',
-            'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
+            'disabled' =>'disabled'
         ],
         'clientOptions' => [
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-        ]]) ?>
+        ]]) : ([
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата начала мероприятия',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]
+        ])) ?>
 
-    <?= $form->field($model, 'finish_date')->widget(\yii\jui\DatePicker::class, [
+    <?= $form->field($model, 'finish_date')->widget(\yii\jui\DatePicker::class,
+    $model->copy == 1 ? (
+        [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
         'options' => [
             'placeholder' => 'Дата окончания мероприятия',
             'class'=> 'form-control',
             'autocomplete'=>'off',
-            'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
+            'disabled' => 'disabled'
         ],
         'clientOptions' => [
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-        ]]) ?>
+        ]]) : ([
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        'options' => [
+            'placeholder' => 'Дата окончания мероприятия',
+            'class'=> 'form-control',
+            'autocomplete'=>'off',
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+        ]])) ?>
 
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
@@ -86,9 +115,11 @@ use yii\widgets\ActiveForm;
     $levels = \app\models\common\EventLevel::find()->all();
     $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
     $params = [
-        'disabled' => $model->copy == 1 ? 'disabled' : 'enabled'
+        'disabled' => 'disabled'
     ];
-    echo $form->field($model, 'event_level_id')->dropDownList($items,$params);
+    $params0 = [
+    ];
+    echo $form->field($model, 'event_level_id')->dropDownList($items,$model->copy == 1 ? $params : $params0);
 
     ?>
 

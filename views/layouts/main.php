@@ -77,7 +77,7 @@ AppAsset::register($this);
                     ['label' => 'Положения, инструкции и правила', 'url' => Url::to(['regulation/index', 'c' => 1])],
                     ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                     ['label' => 'Мероприятия', 'url' => ['event/index']],
-                    ['label' => 'Участие во внешних мероприятиях', 'url' => ['foreign-event/index']],
+                    ['label' => 'Учет достижений в мероприятиях', 'url' => ['foreign-event/index']],
                 ]],
 
                 ['label' => 'Дополнительно', 'items' => [
