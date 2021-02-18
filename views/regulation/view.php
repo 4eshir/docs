@@ -39,10 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
                 return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
             }, 'format' => 'raw'],
-            'ped_council_number',
-            'ped_council_date',
-            'par_council_number',
-            'par_council_date',
+            ['attribute' => 'ped_council_number', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'ped_council_date', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'par_council_number', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'par_council_date', 'visible' => $session->get('type') == 1],
             ['label' => 'Состояние', 'attribute' => 'state', 'value' => function($model){
                 if ($model->state) return 'Актуально';
                 $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->order_id])->one();
