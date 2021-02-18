@@ -55,20 +55,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
                 ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
                    $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+
+
                    if ($links == null)
                        return '';
-                   if ($links->people == null)
-                   {
-                       if ($links->date == null)
-                           return 'Требуется ответ';
-                       else
-                           return 'До '.$links->date;
-                   }
-                   if ($links->document_out_id == null)
-                       return 'До '.$links->date.' от '.$links->people->shortName;
-                   else
-                       return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
-                           \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+                    if ($links->document_out_id == null)
+                    {
+                        if ($links->people == null)
+                        {
+                            if ($links->date == null)
+                                return 'Требуется ответ';
+                            else
+                                return 'До '.$links->date;
+                        }
+                        return 'До '.$links->date.' от '.$links->people->shortName;
+                    }
+
+                    else
+                        return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+
+
                 }, 'format' => 'raw'],
 
                 ['class' => 'yii\grid\ActionColumn'],
