@@ -365,10 +365,13 @@ class DocumentIn extends \yii\db\ActiveRecord
         else
         {
             $newLink = InOutDocs::find()->where(['document_in_id' => $this->id])->one() ;
-            $newLink->document_in_id = $this->id;
-            $newLink->date = $this->dateAnswer;
-            $newLink->people_id = $this->nameAnswer;
-            $newLink->save();
+            if ($newLink !== null)
+            {
+                $newLink->document_in_id = $this->id;
+                $newLink->date = $this->dateAnswer;
+                $newLink->people_id = $this->nameAnswer;
+                $newLink->save();
+            }
         }
         if (count($changedAttributes) !== 1 && $this->needAnswer == 0)
         {

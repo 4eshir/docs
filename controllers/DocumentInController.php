@@ -242,10 +242,16 @@ class DocumentInController extends Controller
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
-    public function actionDeleteFile($fileName = null, $modelId = null)
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
         $model = DocumentIn::find()->where(['id' => $modelId])->one();
+
+        if ($type == 'scan')
+        {
+            $model->scan = '';
+            $model->save(false);
+        }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
