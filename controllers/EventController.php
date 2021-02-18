@@ -235,6 +235,40 @@ class EventController extends Controller
         return $this->redirect('index?r=event/update&id='.$modelId);
     }
 
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
+    {
+
+        $model = Event::find()->where(['id' => $modelId])->one();
+
+        if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
+        {
+            $fileCell = $model->protocol;
+            if ($type == 'photos') $fileCell = $model->photos;
+            if ($type == 'report') $fileCell = $model->reporting_doc;
+            if ($type == 'other') $fileCell = $model->other_files;
+            $result = '';
+            $split = explode(" ", $fileCell);
+            $deleteFile = '';
+            for ($i = 0; $i < count($split) - 1; $i++)
+            {
+                if ($split[$i] !== $fileName)
+                {
+                    $result = $result.$split[$i].' ';
+                }
+                else
+                    $deleteFile = $split[$i];
+            }
+
+            if ($type == null) $model->protocol = $result;
+            if ($type == 'photos') $model->photos = $result;
+            if ($type == 'report') $model->reporting_doc = $result;
+            if ($type == 'other') $model->other_files = $result;
+            $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
+        }
+        return $this->redirect('index.php?r=event/update&id='.$modelId);
+    }
+
     /**
      * Finds the Event model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

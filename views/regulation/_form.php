@@ -82,8 +82,8 @@ $session = Yii::$app->session;
         ->label('Скан положения')?>
 
     <?php
-    if ($model->scan !== null)
-        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    if (strlen($model->scan) > 2)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['regulation/delete-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan'])).'</h5><br>';
     ?>
 
     <div class="form-group">

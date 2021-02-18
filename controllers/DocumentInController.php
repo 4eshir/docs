@@ -251,6 +251,9 @@ class DocumentInController extends Controller
         {
             $model->scan = '';
             $model->save(false);
+            return $this->render('update', [
+                'model' => $this->findModel($modelId),
+            ]);
         }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)

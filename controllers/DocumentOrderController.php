@@ -220,10 +220,18 @@ class DocumentOrderController extends Controller
         ]);
     }
 
-    public function actionDeleteFile($fileName = null, $modelId = null)
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
         $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+
+        if ($type == 'scan')
+        {
+            $model->scan = '';
+            $model->save(false);
+            return $this->redirect('index?r=document-order/update&id='.$model->id);
+        }
+
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
 

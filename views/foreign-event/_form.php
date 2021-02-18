@@ -346,8 +346,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'docsAchievement')->fileInput() ?>
 
     <?php
-    if ($model->docs_achievement !== null)
-        echo '<h5>Загруженный файл: '.Html::a($model->docs_achievement, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $model->docs_achievement, 'type' => 'achievements_files'])).'</h5><br>';
+    if (strlen($model->docs_achievement) > 2)
+        echo '<h5>Загруженный файл: '.Html::a($model->docs_achievement, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $model->docs_achievement, 'type' => 'achievements_files'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['foreign-event/delete-file', 'fileName' => $model->docs_achievement, 'modelId' => $model->id, 'type' => 'docs'])).'</h5><br>';
     ?>
     <div class="form-group">
         <div class="button">

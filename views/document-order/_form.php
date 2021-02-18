@@ -227,8 +227,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'scanFile')->fileInput()->label('Скан приказа') ?>
     <?php
-    if ($model->scan !== null)
-        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    if (strlen($model->scan) > 2)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan'])).'</h5><br>';
     ?>
 
     <?= $form->field($model, 'docFiles[]')->fileInput(['multiple' => true])->label('Редактируемые документы') ?>

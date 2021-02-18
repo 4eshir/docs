@@ -221,12 +221,64 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'protocolFile[]')->fileInput(['multiple' => true]) ?>
+    <?php
+    if (strlen($model->protocol) > 2)
+    {
+        $split = explode(" ", $model->protocol);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <?= $form->field($model, 'photoFiles[]')->fileInput(['multiple' => true]) ?>
+    <?php
+    if (strlen($model->photos) > 2)
+    {
+        $split = explode(" ", $model->photos);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'photos'])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <?= $form->field($model, 'reportingFile[]')->fileInput(['multiple' => true]) ?>
+    <?php
+    if (strlen($model->reporting_doc) > 2)
+    {
+        $split = explode(" ", $model->reporting_doc);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <?= $form->field($model, 'otherFiles[]')->fileInput(['multiple' => true]) ?>
+    <?php
+    if (strlen($model->other_files) > 2)
+    {
+        $split = explode(" ", $model->other_files);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
