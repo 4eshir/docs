@@ -162,6 +162,7 @@ class EventController extends Controller
         $model->others = $eventP->other_participants;
         $model->leftAge = $eventP->age_left_border;
         $model->rightAge = $eventP->age_right_border;
+        $model->old_name = $model->name;
 
         if ($model->load(Yii::$app->request->post())) {
 

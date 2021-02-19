@@ -10,6 +10,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string|null $old_name
  * @property string $start_date
  * @property string $finish_date
  * @property int $event_type_id
@@ -75,7 +76,7 @@ class Event extends \yii\db\ActiveRecord
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
             [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
-            [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'string', 'max' => 1000],
+            [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'old_name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
@@ -436,6 +437,8 @@ class Event extends \yii\db\ActiveRecord
 
         if ($this->eventType->name == 'Соревновательный' && $insert)
             $this->copyEvent();
+        else
+            $this->editCopy($changedAttributes);
     }
 
     private function copyEvent()
@@ -448,5 +451,25 @@ class Event extends \yii\db\ActiveRecord
         $fevent->key_words = $this->key_words;
         $fevent->copy = 1;
         $fevent->save(false);
+    }
+
+    private function editCopy($changedAttributes)
+    {
+        if ($changedAttributes["name"] !== null)
+            $fevent = ForeignEvent::find()->where(['name' => $this->old_name])->one();
+        else
+            $fevent = ForeignEvent::find()->where(['name' => $this->name])->one();
+        if ($fevent !== null)
+        {
+            $fevent->name = $this->name;
+            $fevent->start_date = $this->start_date;
+            $fevent->finish_date = $this->finish_date;
+            $fevent->event_level_id = $this->event_level_id;
+            $fevent->key_words = $this->key_words;
+            $fevent->copy = 1;
+            $fevent->save(false);
+        }
+        else
+            $this->copyEvent();
     }
 }
