@@ -242,6 +242,18 @@ class ForeignEventController extends Controller
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
+    {
+
+        $model = ForeignEvent::find()->where(['id' => $modelId])->one();
+
+        if ($type == 'docs') {
+            $model->docs_achievement = '';
+            $model->save(false);
+            return $this->redirect('index?r=foreign-event/update&id=' . $model->id);
+        }
+    }
+
     /**
      * Finds the ForeignEvent model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

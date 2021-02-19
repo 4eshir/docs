@@ -166,8 +166,8 @@ use yii\bootstrap\ActiveForm;
         ->label('Скан документа')?>
 
     <?php
-        if ($model->Scan !== null)
-            echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan, 'type' => 'scan'])).'</h5><br>';
+        if (strlen($model->Scan) > 2)
+            echo '<h5>Загруженный файл: '.Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan, 'type' => 'scan'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['docs-out/delete-file', 'fileName' => $model->Scan, 'modelId' => $model->id, 'type' => 'scan'])).'</h5>';
     ?>
 
     <?= $form->field($model, 'docFiles[]')->fileInput(['multiple' => true])->label('Редактируемые документы') ?>

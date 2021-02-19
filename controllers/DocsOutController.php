@@ -240,6 +240,15 @@ class DocsOutController extends Controller
 
         $model = DocumentOut::find()->where(['id' => $modelId])->one();
 
+        if ($type == 'scan')
+        {
+            $model->Scan = '';
+            $model->save(false);
+            return $this->render('update', [
+                'model' => $this->findModel($modelId),
+            ]);
+        }
+
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
 

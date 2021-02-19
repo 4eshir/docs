@@ -20,6 +20,8 @@ class SearchDocumentIn extends DocumentIn
     public $correspondentName;
     public $companyName;
     public $sendMethodName;
+
+    public $fullNumber;
     /**
      * {@inheritdoc}
      */
@@ -27,7 +29,7 @@ class SearchDocumentIn extends DocumentIn
     {
         return [
             [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
-            [['real_number'], 'string'],
+            [['real_number', 'fullNumber'], 'string'],
             [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName'], 'safe'],
         ];
     }
@@ -113,6 +115,11 @@ class SearchDocumentIn extends DocumentIn
             'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['fullNumber'] = [
+            'asc' => ['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC],
+            'desc' => ['local_number' => SORT_DESC, 'local_postfix' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -123,7 +130,7 @@ class SearchDocumentIn extends DocumentIn
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'document_in.id' => $this->id,
             'local_number' => $this->local_number,
             'local_date' => $this->local_date,
             'real_number' => $this->real_number,
@@ -143,6 +150,8 @@ class SearchDocumentIn extends DocumentIn
             ->andFilterWhere(['like', 'correspondent.secondname', $this->correspondentName])
             ->andFilterWhere(['like', 'company.name', $this->companyName])
             ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
+            ->andFilterWhere(['=', 'local_number', $this->fullNumber])
+            ->orFilterWhere(['=', 'local_postfix', $this->fullNumber])
             ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
         return $dataProvider;

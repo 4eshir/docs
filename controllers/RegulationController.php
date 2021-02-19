@@ -196,6 +196,18 @@ class RegulationController extends Controller
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
+    {
+        $model = Regulation::find()->where(['id' => $modelId])->one();
+        if ($type == 'scan')
+        {
+            $model->scan = '';
+            $model->save(false);
+        }
+        return $this->render('update', [
+            'model' => $this->findModel($modelId),
+        ]);
+    }
 
 
     /**

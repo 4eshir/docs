@@ -43,10 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
                 return 'Приказ №'.$doc_num.' "'.$order->order_name.'"';
             }],
-            ['attribute' => 'ped_council_number', 'label' => '№ пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
-            ['attribute' => 'ped_council_date', 'label' => 'Дата пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw'],
-            ['attribute' => 'par_council_number', 'label' => '№ совета<br>род.', 'encodeLabel' => false, 'format' => 'raw'],
-            ['attribute' => 'par_council_date', 'label' => 'Дата совета<br>род.', 'encodeLabel' => false, 'format' => 'raw'],
+            ['attribute' => 'ped_council_number', 'label' => '№ пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'ped_council_date', 'label' => 'Дата пед.<br>совета', 'encodeLabel' => false, 'format' => 'raw', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'par_council_number', 'label' => '№ совета<br>род.', 'encodeLabel' => false, 'format' => 'raw', 'visible' => $session->get('type') == 1],
+            ['attribute' => 'par_council_date', 'label' => 'Дата совета<br>род.', 'encodeLabel' => false, 'format' => 'raw', 'visible' => $session->get('type') == 1],
             ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
                 if ($model->state == 1)
                     return 'Актуально';

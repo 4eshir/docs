@@ -9,6 +9,10 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+$session = Yii::$app->session;
+?>
+
 <div class="regulation-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -38,7 +42,7 @@ use yii\widgets\ActiveForm;
 
     ?>
 
-    <?= $form->field($model, 'ped_council_number')->textInput() ?>
+    <?= $form->field($model, 'ped_council_number')->textInput(['type' => $session->get('type') == 1 ? 'text' : 'hidden'])->label($session->get('type') == 1 ? null : false) ?>
 
     <?= $form->field($model, 'ped_council_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -46,15 +50,16 @@ use yii\widgets\ActiveForm;
         'options' => [
             'placeholder' => 'Дата совета',
             'class'=> 'form-control',
-            'autocomplete'=>'off'
+            'autocomplete'=>'off',
+            'type' => $session->get('type') == 1 ? 'text' : 'hidden'
         ],
         'clientOptions' => [
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-        ]])->label('Дата педагогического совета') ?>
+        ]])->label($session->get('type') == 1 ? 'Дата педагогического совета' : false) ?>
 
-    <?= $form->field($model, 'par_council_number')->textInput() ?>
+    <?= $form->field($model, 'par_council_number')->textInput(['type' => $session->get('type') == 1 ? 'text' : 'hidden'])->label($session->get('type') == 1 ? null : false) ?>
 
     <?= $form->field($model, 'par_council_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -62,13 +67,14 @@ use yii\widgets\ActiveForm;
         'options' => [
             'placeholder' => 'Дата собрания',
             'class'=> 'form-control',
-            'autocomplete'=>'off'
+            'autocomplete'=>'off',
+            'type' => $session->get('type') == 1 ? 'text' : 'hidden'
         ],
         'clientOptions' => [
             'changeMonth' => true,
             'changeYear' => true,
             'yearRange' => '2000:2050',
-        ]])->label('Дата совета родителей') ?>
+        ]])->label($session->get('type') == 1 ? 'Дата совета родителей' : false) ?>
 
 
 
@@ -76,8 +82,8 @@ use yii\widgets\ActiveForm;
         ->label('Скан положения')?>
 
     <?php
-    if ($model->scan !== null)
-        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan])).'</h5><br>';
+    if (strlen($model->scan) > 2)
+        echo '<h5>Загруженный файл: '.Html::a($model->scan, \yii\helpers\Url::to(['regulation/get-file', 'fileName' => $model->scan])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['regulation/delete-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan'])).'</h5><br>';
     ?>
 
     <div class="form-group">
