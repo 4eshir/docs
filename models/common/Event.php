@@ -455,6 +455,7 @@ class Event extends \yii\db\ActiveRecord
 
     private function editCopy($changedAttributes)
     {
+        //---
         if ($changedAttributes["name"] !== null)
             $fevent = ForeignEvent::find()->where(['name' => $this->old_name])->one();
         else
