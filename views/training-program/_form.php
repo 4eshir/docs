@@ -60,7 +60,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>Мероприятие проводит</h4></div>
+            <div class="panel-heading"><h4>Отдел(-ы) - место реализации</h4></div>
             <div class="panel-body">
 
                 <?php

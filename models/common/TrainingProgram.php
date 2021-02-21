@@ -85,6 +85,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'isCDNTT' => 'ЦДНТТ',
             'isQuantorium' => 'Кванториум',
             'isTechnopark' => 'Технопарк',
+            'branchs' => 'Отдел(-ы) - место реализации'
         ];
     }
 
@@ -121,6 +122,17 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public function getAllowRemote()
     {
         return $this->allow_remote == 0 ? 'Нет' : 'Да';
+    }
+
+    public function getBranchs()
+    {
+        $branchs = BranchProgram::find()->where(['training_program_id' => $this->id])->all();
+        $result = '';
+        foreach ($branchs as $branch)
+        {
+            $result .= $branch->branch->name.'<br>';
+        }
+        return $result;
     }
 
     public function afterSave($insert, $changedAttributes)

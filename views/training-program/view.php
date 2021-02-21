@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'student_left_age',
             'student_right_age',
             'focus',
+            ['attribute' => 'branchs', 'format' => 'raw'],
             ['attribute' => 'allow_remote', 'value' => function($model) {return $model->allow_remote == 0 ? 'Нет' : 'Да';}],
             ['attribute' => 'doc_file', 'value' => function ($model) {
                 return Html::a($model->doc_file, \yii\helpers\Url::to(['training-program/get-file', 'fileName' => $model->doc_file, 'modelId' => $model->id, 'type' => 'doc']));
