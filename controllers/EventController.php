@@ -173,8 +173,6 @@ class EventController extends Controller
                 $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
                 $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
 
-
-
                 $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
                 DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
                 $model->eventsLink = $modelEventsLinks;

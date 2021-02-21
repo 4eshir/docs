@@ -106,7 +106,7 @@ use yii\widgets\ActiveForm;
                 $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
                 $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
                 $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
-                $value = false;
+                $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isTechnopark')->checkbox(['checked' => $value]) ?>
