@@ -85,6 +85,8 @@ class UserController extends Controller
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 17])->one() !== null) $model->editAdd = 1; else $model->editAdd = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 18])->one() !== null) $model->viewForeign = 1; else $model->viewForeign = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 19])->one() !== null) $model->editForeign = 1; else $model->editForeign = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 20])->one() !== null) $model->viewProgram = 1; else $model->viewProgram = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 21])->one() !== null) $model->editProgram = 1; else $model->editProgram = 0;
         return $this->render('view', [
             'model' => $model,
         ]);

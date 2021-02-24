@@ -78,6 +78,7 @@ AppAsset::register($this);
                     ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                     ['label' => 'Мероприятия', 'url' => ['event/index']],
                     ['label' => 'Учет достижений в мероприятиях', 'url' => ['foreign-event/index']],
+                    ['label' => 'Образовательные программы', 'url' => ['training-program/index']],
                 ]],
 
                 ['label' => 'Дополнительно', 'items' => [

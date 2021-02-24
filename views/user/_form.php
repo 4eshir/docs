@@ -131,6 +131,18 @@ use yii\widgets\ActiveForm;
     if ($tmp != null) $value = true; else $value = false;
     ?>
     <?= $form->field($model, 'editForeign')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 20])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'viewProgram')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 21])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'editProgram')->checkbox(['checked' => $value]) ?>
 
 
     <div class="form-group">

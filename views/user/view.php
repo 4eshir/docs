@@ -112,6 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editForeign', 'value' => function($model) {if ($model->editForeign == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'viewProgram', 'value' => function($model) {if ($model->viewProgram == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'editProgram', 'value' => function($model) {if ($model->editProgram == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
         ],
     ]) ?>
 

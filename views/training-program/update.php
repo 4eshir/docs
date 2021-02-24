@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\TrainingProgram */
 
-$this->title = 'Редактировать учебную программу: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Учебные программы', 'url' => ['index']];
+$this->title = 'Редактировать образовательную программу: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Образовательные программы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>

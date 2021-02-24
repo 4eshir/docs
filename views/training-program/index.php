@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchTrainingProgram */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Учебные программы';
+$this->title = 'Образовательные программы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="training-program-index">

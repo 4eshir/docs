@@ -66,6 +66,11 @@ class UserRBAC
                 'create foreign-event' => 19,
                 'update foreign-event' => 19,
                 'delete foreign-event' => 19,
+                'index training-program' => 20,
+                'view training-program' => 20,
+                'create training-program' => 21,
+                'update training-program' => 21,
+                'delete training-program' => 21,
             );
         }
 

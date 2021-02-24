@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>Возраст участников</h4></div>
+            <div class="panel-heading"><h4>Возраст учащихся</h4></div>
             <div class="panel-body">
                 <?= $form->field($model, 'student_left_age')->textInput(['value' => $model->student_left_age == null ? 5 : $model->student_left_age]) ?>
                 <?= $form->field($model, 'student_right_age')->textInput(['value' => $model->student_right_age == null ? 18 : $model->student_right_age]) ?>

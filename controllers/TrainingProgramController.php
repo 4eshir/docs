@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\components\Logger;
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\common\TrainingProgram;
 use app\models\SearchTrainingProgram;
@@ -37,6 +38,9 @@ class TrainingProgramController extends Controller
      */
     public function actionIndex()
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchTrainingProgram();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,6 +58,9 @@ class TrainingProgramController extends Controller
      */
     public function actionView($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,6 +73,9 @@ class TrainingProgramController extends Controller
      */
     public function actionCreate()
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = new TrainingProgram();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -94,6 +104,9 @@ class TrainingProgramController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -121,6 +134,9 @@ class TrainingProgramController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
