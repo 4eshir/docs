@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'capacity',
             'student_left_age',
             'student_right_age',
-            'focus',
+            'stringFocus',
             ['attribute' => 'branchs', 'format' => 'raw'],
             ['attribute' => 'allow_remote', 'value' => function($model) {return $model->allow_remote == 0 ? 'Нет' : 'Да';}],
             ['attribute' => 'doc_file', 'value' => function ($model) {

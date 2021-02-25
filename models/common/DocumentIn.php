@@ -373,8 +373,9 @@ class DocumentIn extends \yii\db\ActiveRecord
                 $newLink->save();
             }
         }
-        if (count($changedAttributes) !== 1 && $this->needAnswer == 0)
+        if ($changedAttributes["needAnswer"] == 1 && count($changedAttributes) !== 1 && $this->needAnswer == 0)
         {
+            var_dump($changedAttributes);
             $links = InOutDocs::find()->where(['document_in_id' => $this->id])->one();
             if ($links !== null)
                 $links->delete();

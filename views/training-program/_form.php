@@ -56,7 +56,13 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <?= $form->field($model, 'focus')->textInput() ?>
+    <?php
+    $focus = \app\models\common\Focus::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($focus,'id','name');
+    $params = [
+    ];
+    echo $form->field($model, "focus_id")->dropDownList($items,$params);
+    ?>
 
     <div class="row">
         <div class="panel panel-default">

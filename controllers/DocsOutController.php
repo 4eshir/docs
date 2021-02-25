@@ -176,6 +176,7 @@ class DocsOutController extends Controller
 
         if($model->load(Yii::$app->request->post()))
         {
+
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');

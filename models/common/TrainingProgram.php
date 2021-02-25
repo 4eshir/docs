@@ -16,7 +16,7 @@ use Yii;
  * @property int $capacity
  * @property int $student_left_age
  * @property int $student_right_age
- * @property int $focus
+ * @property int $focus_id
  * @property int $allow_remote
  * @property string|null $doc_file
  * @property string|null $edit_docs
@@ -50,8 +50,8 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return [
             [['name', 'author_id', 'focus'], 'required'],
             [['ped_council_date'], 'safe'],
-            [['author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark'], 'integer'],
-            [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words', 'focus'], 'string', 'max' => 1000],
+            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark'], 'integer'],
+            [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['docFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['editDocs'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -75,7 +75,8 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'student_left_age' => 'Мин. возраст учащихся, лет',
             'student_right_age' => 'Макс. возраст учащихся, лет',
             'studentAge' => 'Возраст учащихся, лет',
-            'focus' => 'Направленность',
+            'focus_id' => 'Направленность',
+            'stringFocus' => 'Направленность',
             'allow_remote' => 'С применением дистанционных технологий',
             'doc_file' => 'Документ программы',
             'docFile' => 'Документ программы',
@@ -109,6 +110,11 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return $this->hasOne(People::className(), ['id' => 'author_id']);
     }
 
+    public function getFocus()
+    {
+        return $this->hasOne(Focus::className(), ['id' => 'author_id']);
+    }
+
     public function getAuthorName()
     {
         return $this->author->shortName;
@@ -133,6 +139,11 @@ class TrainingProgram extends \yii\db\ActiveRecord
             $result .= $branch->branch->name.'<br>';
         }
         return $result;
+    }
+
+    public function getStringFocus()
+    {
+        return Focus::find()->where(['id' => $this->focus_id])->one()->name;
     }
 
     public function afterSave($insert, $changedAttributes)
