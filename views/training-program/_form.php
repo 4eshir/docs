@@ -1,5 +1,6 @@
 <?php
 
+use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
@@ -11,7 +12,7 @@ use yii\widgets\ActiveForm;
 
 <div class="training-program-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -36,13 +37,67 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ped_council_number')->textInput(['maxlength' => true]) ?>
 
-    <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
-    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-    $params = [
-    ];
-    echo $form->field($model, "author_id")->dropDownList($items,$params);
-    ?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Составители</h4></div>
+            <?php
+            $resp = \app\models\common\AuthorProgram::find()->where(['training_program_id' => $model->id])->all();
+            if ($resp != null)
+            {
+                echo '<table>';
+                foreach ($resp as $respOne) {
+                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->author_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-program/delete-author', 'peopleId' => $respOnePeople->id, 'modelId' => $model->id])).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items', // required: css class selector
+                    'widgetItem' => '.item', // required: css class
+                    'limit' => 40, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelAuthor[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'people_id',
+                    ],
+                ]); ?>
+
+                <div class="container-items"><!-- widgetContainer -->
+                    <?php foreach ($modelAuthor as $i => $modelAuthorOne): ?>
+                        <div class="item panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading" onload="scrolling()">
+                                <h3 class="panel-title pull-left">Составитель</h3>
+                                <div class="pull-right">
+                                    <button type="button" name="add" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body" id="scroll">
+
+                                <?php
+                                $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                $params = [
+                                    'prompt' => ''
+                                ];
+                                echo $form->field($modelAuthorOne, "[{$i}]author_id")->dropDownList($items,$params)->label('ФИО');
+
+                                ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($model, 'capacity')->textInput() ?>
 

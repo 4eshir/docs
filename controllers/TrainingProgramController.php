@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\common\AuthorProgram;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
+use app\models\DynamicModel;
+use app\models\extended\Author;
 use Yii;
 use app\models\common\TrainingProgram;
 use app\models\SearchTrainingProgram;
@@ -83,8 +86,12 @@ class TrainingProgramController extends Controller
             return $this->render('/site/error');
         }
         $model = new TrainingProgram();
+        $modelAuthor = [new AuthorProgram];
 
         if ($model->load(Yii::$app->request->post())) {
+            $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
+            DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
+            $model->authors = $modelAuthor;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             if ($model->docFile !== null)
@@ -98,6 +105,7 @@ class TrainingProgramController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelAuthor' => $modelAuthor,
         ]);
     }
 
@@ -116,8 +124,11 @@ class TrainingProgramController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-
+        $modelAuthor = [new AuthorProgram];
         if ($model->load(Yii::$app->request->post())) {
+            $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
+            DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
+            $model->authors = $modelAuthor;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             if ($model->docFile !== null)
@@ -130,6 +141,7 @@ class TrainingProgramController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'modelAuthor' => $modelAuthor
         ]);
     }
 
@@ -207,5 +219,14 @@ class TrainingProgramController extends Controller
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile);
         }
         return $this->redirect('index?r=training-program/update&id='.$model->id);
+    }
+
+    public function actionDeleteAuthor($peopleId, $modelId)
+    {
+        $resp = AuthorProgram::find()->where(['author_id' => $peopleId])->andWhere(['training_program_id' => $modelId])->one();
+        if ($resp != null)
+            $resp->delete();
+        $model = $this->findModel($modelId);
+        return $this->redirect('index.php?r=training-program/update&id='.$modelId);
     }
 }

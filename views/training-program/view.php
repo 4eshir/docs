@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'ped_council_date',
             'ped_council_number',
-            'authorName',
+            ['attribute' => 'authorsList', 'format' => 'html'],
             'capacity',
             'student_left_age',
             'student_right_age',
