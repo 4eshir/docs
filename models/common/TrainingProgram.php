@@ -30,6 +30,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public $isTechnopark;
     public $isQuantorium;
     public $isCDNTT;
+    public $isMobQuant;
 
 
     public $docFile;
@@ -50,7 +51,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return [
             [['name', 'author_id', 'focus'], 'required'],
             [['ped_council_date'], 'safe'],
-            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['docFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
@@ -86,6 +87,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'isCDNTT' => 'ЦДНТТ',
             'isQuantorium' => 'Кванториум',
             'isTechnopark' => 'Технопарк',
+            'isMobQuant' => 'Мобильный кванториум',
             'branchs' => 'Отдел(-ы) - место реализации'
         ];
     }
@@ -193,6 +195,21 @@ class TrainingProgram extends \yii\db\ActiveRecord
             $edC = BranchProgram::find()->where(['branch_id' => 3])->andWhere(['training_program_id' => $this->id])->one();
             if ($edC !== null)
                 $edC->delete();
+        }
+
+        $edM = new BranchProgram();
+        if ($this->isMobQuant == 1)
+        {
+            $edM->branch_id = 4;
+            $edM->training_program_id = $this->id;
+            if (count(BranchProgram::find()->where(['branch_id' => 4])->andWhere(['training_program_id' => $this->id])->all()) == 0)
+                $edM->save();
+        }
+        else
+        {
+            $edM = BranchProgram::find()->where(['branch_id' => 4])->andWhere(['training_program_id' => $this->id])->one();
+            if ($edM !== null)
+                $edM->delete();
         }
     }
 

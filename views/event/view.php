@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
                 $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
                 $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $mobquant = \app\models\common\EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
                 $result = '';
                 if (count($tech) > 0)
                     $result = $result.'Технопарк';
@@ -65,6 +66,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = $result.'ЦДНТТ';
                     else
                         $result = $result.'<br>ЦДНТТ';
+                if (count($mobquant) > 0)
+                    if ($result == '')
+                        $result = $result.'Мобильный кванториум';
+                    else
+                        $result = $result.'<br>Мобильный кванториум';
                 return $result;
             }, 'format' => 'raw'],
             ['attribute' => 'contains_education', 'value' => function($model){

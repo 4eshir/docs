@@ -49,6 +49,7 @@ class Event extends \yii\db\ActiveRecord
     public $isTechnopark;
     public $isQuantorium;
     public $isCDNTT;
+    public $isMobQuant;
 
     public $yesEducation;
     public $noEducation;
@@ -75,7 +76,7 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'old_name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
@@ -121,6 +122,7 @@ class Event extends \yii\db\ActiveRecord
             'name' => 'Название мероприятия',
             'isTechnopark' => 'Технопарк',
             'isQuantorium' => 'Кванториум',
+            'isMobQuant' => 'Мобильный кванториум',
             'isCDNTT' => 'ЦДНТТ',
             'contains_education' => 'Содержит образовательные программы',
             'yesEducation' => 'Содержит образовательные программы',
@@ -421,6 +423,21 @@ class Event extends \yii\db\ActiveRecord
             $edC = EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $this->id])->one();
             if ($edC !== null)
                 $edC->delete();
+        }
+
+        $edM = new EventBranch();
+        if ($this->isMobQuant == 1)
+        {
+            $edM->branch_id = 4;
+            $edM->event_id = $this->id;
+            if (count(EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $this->id])->all()) == 0)
+                $edM->save();
+        }
+        else
+        {
+            $edM = EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $this->id])->one();
+            if ($edM !== null)
+                $edM->delete();
         }
 
         $eventP = EventParticipants::find()->where(['event_id' => $this->id])->one();

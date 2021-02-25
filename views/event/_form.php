@@ -106,6 +106,7 @@ use yii\widgets\ActiveForm;
                 $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
                 $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
                 $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $mobquant = \app\models\common\EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
                 $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
@@ -116,6 +117,9 @@ use yii\widgets\ActiveForm;
 
                 <?php if (count($cdntt) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isCDNTT')->checkbox(['checked' => $value]) ?>
+
+                <?php if (count($mobquant) > 0) $value = true; else $value = false; ?>
+                <?= $form->field($model, 'isMobQuant')->checkbox(['checked' => $value]) ?>
             </div>
         </div>
     </div>
