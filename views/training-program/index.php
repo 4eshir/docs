@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             ['attribute' => 'ped_council_date', 'label' => 'Дата пед. сов.'],
             ['attribute' => 'ped_council_number', 'label' => '№ пед. сов.'],
-            'authorName',
+            ['attribute' => 'authorsList', 'format' => 'html'],
             'capacity',
             'studentAge',
             'stringFocus',
