@@ -226,19 +226,11 @@ class DocumentInController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/document_in/'.$type.'/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
-                return $this->redirect('index.php?r=document-in/create');
-            };
+        $file = Yii::$app->basePath . '/upload/files/document_in/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
         }
+        throw new \Exception('File not found');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
