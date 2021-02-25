@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'authorName',
             'capacity',
             'studentAge',
-            'focus',
+            'stringFocus',
             ['attribute' => 'allowRemote', 'label' => 'Дист. тех.'],
 
             ['class' => 'yii\grid\ActionColumn'],
