@@ -85,7 +85,7 @@ class TrainingProgramController extends Controller
         $model = new TrainingProgram();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->docFile = UploadedFile::getInstances($model, 'docFile');
+            $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             if ($model->docFile !== null)
                 $model->uploadDocFile();
