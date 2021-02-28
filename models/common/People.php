@@ -94,6 +94,11 @@ class People extends \yii\db\ActiveRecord
         return true;
     }
 
+    /**
+     * Gets query for [[TrainingProgramParticipants]].
+     *
+     * @return string
+     */
     public function getFullName()
     {
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
