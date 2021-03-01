@@ -3,9 +3,11 @@
 namespace app\controllers;
 
 use app\models\common\People;
+use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
 use app\models\components\Logger;
 use app\models\DynamicModel;
+use app\models\extended\TrainingGroupAuto;
 use Yii;
 use app\models\common\TrainingGroup;
 use app\models\SearchTrainingGroup;
@@ -71,6 +73,8 @@ class TrainingGroupController extends Controller
     {
         $model = new TrainingGroup();
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
+        $modelTrainingGroupLesson = [new TrainingGroupLesson];
+        $modelTrainingGroupAuto = [new TrainingGroupAuto];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
@@ -79,6 +83,12 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipant::classname());
             DynamicModel::loadMultiple($modelTrainingGroupParticipant, Yii::$app->request->post());
             $model->participants = $modelTrainingGroupParticipant;
+            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLesson::classname());
+            DynamicModel::loadMultiple($modelTrainingGroupLesson, Yii::$app->request->post());
+            $model->lessons = $modelTrainingGroupLesson;
+            $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
+            DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
+            $model->auto = $modelTrainingGroupAuto;
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile();
             if ($model->presentDataFile !== null)
@@ -91,7 +101,9 @@ class TrainingGroupController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant
+            'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
+            'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
+            'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
         ]);
     }
 
@@ -106,6 +118,8 @@ class TrainingGroupController extends Controller
     {
         $model = $this->findModel($id);
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
+        $modelTrainingGroupLesson = [new TrainingGroupLesson];
+        $modelTrainingGroupAuto = [new TrainingGroupAuto];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
@@ -114,6 +128,12 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipant::classname());
             DynamicModel::loadMultiple($modelTrainingGroupParticipant, Yii::$app->request->post());
             $model->participants = $modelTrainingGroupParticipant;
+            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLesson::classname());
+            DynamicModel::loadMultiple($modelTrainingGroupLesson, Yii::$app->request->post());
+            $model->lessons = $modelTrainingGroupLesson;
+            $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
+            DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
+            $model->auto = $modelTrainingGroupAuto;
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)
@@ -126,7 +146,9 @@ class TrainingGroupController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant
+            'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
+            'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
+            'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
         ]);
     }
 
@@ -165,6 +187,13 @@ class TrainingGroupController extends Controller
     public function actionDeleteParticipant($id, $modelId)
     {
         $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant->delete();
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionDeleteLesson($id, $modelId)
+    {
+        $participant = TrainingGroupLesson::find()->where(['id' => $id])->one();
         $participant->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }

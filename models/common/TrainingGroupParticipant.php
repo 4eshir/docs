@@ -33,7 +33,7 @@ class TrainingGroupParticipant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'training_group_id'], 'required'],
+            [['training_group_id'], 'required'],
             [['participant_id', 'certificat_number', 'send_method_id', 'training_group_id'], 'integer'],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],

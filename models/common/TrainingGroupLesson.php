@@ -12,7 +12,10 @@ use Yii;
  * @property string $lesson_start_time
  * @property string $lesson_end_time
  * @property int $duration
- * @property string $class
+ * @property int $auditorium_id
+ * @property int $training_group_id
+ *
+ * @property TrainingGroup $trainingGroup
  */
 class TrainingGroupLesson extends \yii\db\ActiveRecord
 {
@@ -30,10 +33,9 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lesson_date', 'lesson_start_time', 'lesson_end_time', 'duration', 'class'], 'required'],
-            [['lesson_date', 'lesson_start_time', 'lesson_end_time'], 'safe'],
-            [['duration'], 'integer'],
-            [['class'], 'string', 'max' => 1000],
+            [['lesson_date', 'lesson_start_time', 'lesson_end_time'], 'string'],
+            [['duration', 'auditorium_id', 'training_group_id'], 'integer'],
+            [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
         ];
     }
 
@@ -48,7 +50,23 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
             'lesson_start_time' => 'Lesson Start Time',
             'lesson_end_time' => 'Lesson End Time',
             'duration' => 'Duration',
-            'class' => 'Class',
+            'auditorium_id' => 'Auditorium ID',
+            'training_group_id' => 'Training Group ID',
         ];
+    }
+
+    /**
+     * Gets query for [[TrainingGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroup()
+    {
+        return $this->hasOne(TrainingGroup::className(), ['id' => 'training_group_id']);
+    }
+
+    public function getAuditorium()
+    {
+        return $this->hasOne(Auditorium::className(), ['id' => 'auditorium_id']);
     }
 }

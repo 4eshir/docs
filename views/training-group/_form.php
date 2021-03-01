@@ -3,10 +3,24 @@
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\TrainingGroup */
 /* @var $form yii\widgets\ActiveForm */
+?>
+
+<?php
+$js =<<< JS
+    $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        var d = new Date();
+        var elems = document.getElementsByClassName('def');
+        elems[elems.length - 1].value = d.getHours() + ':' + d.getMinutes();
+        elems[elems.length - 2].value = d.getHours() + ':' + d.getMinutes();
+        
+    });
+JS;
+$this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
 
 <div class="training-group-form">
@@ -24,7 +38,7 @@ use yii\widgets\ActiveForm;
             if ($extEvents != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td><b>ФИО</b></td><td><b>Номер сертфииката</b></td><td><b>Способ доставки</b></td></tr>';
+                echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
                 foreach ($extEvents  as $extEvent) {
                     echo '<tr><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
@@ -150,6 +164,181 @@ use yii\widgets\ActiveForm;
                 'yearRange' => '2000:2050',
             ]]) ?>
 
+    <?= $form->field($model, 'scheduleType')->radioList(array(0 => 'Ручное заполнение расписания',
+        1 => 'Автоматическое расписание по дням'), ['value' => '0', 'name' => 'scheduleType', 'onchange' => 'checkSchedule()'])->label('') ?>
+
+    <div id="manualSchedule">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ручное заполнение расписания</h4></div>
+                <div>
+                    <?php
+                    $extEvents = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                    if ($extEvents != null)
+                    {
+                        echo '<table class="table table-bordered">';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        foreach ($extEvents  as $extEvent) {
+                            echo '<tr><td><h5>'.$extEvent->lesson_date.'</h5></td><td><h5>'.$extEvent->lesson_start_time.'</h5></td><td><h5>'.$extEvent->lesson_end_time.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        }
+                        echo '</table>';
+                    }
+                    ?>
+                </div>
+                <div class="panel-body">
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items2', // required: css class selector
+                        'widgetItem' => '.item2', // required: css class
+                        'limit' => 100, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item2', // css class
+                        'deleteButton' => '.remove-item2', // css class
+                        'model' => $modelTrainingGroupLesson[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'eventExternalName',
+                        ],
+                    ]); ?>
+
+                    <div class="container-items2" ><!-- widgetContainer -->
+                        <?php foreach ($modelTrainingGroupLesson as $i => $modelTrainingGroupLessonOne): ?>
+                            <div class="item2 panel panel-default"><!-- widgetBody -->
+                                <div class="panel-heading">
+                                    <h3 class="panel-title pull-left">Занятие</h3>
+                                    <div class="pull-right">
+                                        <button type="button" class="add-item2 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item2 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+                                    <?php
+                                    // necessary for update action.
+                                    if (! $modelTrainingGroupLessonOne->isNewRecord) {
+                                        echo Html::activeHiddenInput($modelTrainingGroupLessonOne, "[{$i}]id");
+                                    }
+                                    ?>
+                                    <div class="col-xs-4">
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date'])->label('Дата занятия') ?>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_end_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Окончание занятия') ?>
+                                    </div>
+                                    <div class="col-xs-1" style="margin-right: 30px">
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]duration")->textInput()->label('Длительность в ак. ч.') ?>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <?php
+                                        $auds = \app\models\common\Auditorium::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
+                                        $params = [
+                                        ];
+                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Аудитория');
+
+                                        ?>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php DynamicFormWidget::end(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="autoSchedule" hidden>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Автоматическое заполнение расписания</h4></div>
+                <div>
+                    <?php
+                    $extEvents = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                    if ($extEvents != null)
+                    {
+                        echo '<table class="table table-bordered">';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        foreach ($extEvents  as $extEvent) {
+                            echo '<tr><td><h5>'.$extEvent->lesson_date.'</h5></td><td><h5>'.$extEvent->lesson_start_time.'</h5></td><td><h5>'.$extEvent->lesson_end_time.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        }
+                        echo '</table>';
+                    }
+                    ?>
+                </div>
+                <div class="panel-body">
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items3', // required: css class selector
+                        'widgetItem' => '.item3', // required: css class
+                        'limit' => 100, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item3', // css class
+                        'deleteButton' => '.remove-item3', // css class
+                        'model' => $modelTrainingGroupAuto[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'eventExternalName',
+                        ],
+                    ]); ?>
+
+                    <div class="container-items3" ><!-- widgetContainer -->
+                        <?php foreach ($modelTrainingGroupAuto as $i => $modelTrainingGroupAutoOne): ?>
+                            <div class="item3 panel panel-default"><!-- widgetBody -->
+                                <div class="panel-heading">
+                                    <h3 class="panel-title pull-left">Занятие</h3>
+                                    <div class="pull-right">
+                                        <button type="button" class="add-item3 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item3 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-xs-4">
+                                        <?php
+                                        $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
+                                        $params = [
+                                        ];
+                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->dropDownList($items,$params)->label('Периодичность');
+
+                                        ?>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]end_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Окончание занятия') ?>
+                                    </div>
+                                    <div class="col-xs-1" style="margin-right: 30px">
+                                        <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]duration")->textInput()->label('Длительность в ак. ч.') ?>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <?php
+                                        $auds = \app\models\common\Auditorium::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
+                                        $params = [
+                                        ];
+                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Аудитория');
+
+                                        ?>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php DynamicFormWidget::end(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?= $form->field($model, 'photosFile[]')->fileInput(['multiple' => true]) ?>
     <?php
     if (strlen($model->photos) > 2)
@@ -205,3 +394,21 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<script>
+    function checkSchedule()
+    {
+        var radioList = document.getElementsByName('scheduleType');
+        if (radioList[1].checked)
+        {
+            $("#manualSchedule").removeAttr("hidden");
+            $("#autoSchedule").attr("hidden", "true");
+        }
+        else
+        {
+            $("#autoSchedule").removeAttr("hidden");
+            $("#manualSchedule").attr("hidden", "true");
+        }
+    }
+</script>
