@@ -47,7 +47,7 @@ class TrainingGroupAuto extends Model
         if ($this->day == 6) $day = 'next saturday';
         if ($this->day == 7) $day = 'next sunday';
         $dateFrom->modify($day);
-        
+
         while ($dateFrom <= $dateTo) {
             $dates[] = $dateFrom->format('Y-m-d');
             $dateFrom->modify('+1 week');

@@ -156,7 +156,12 @@ class TrainingGroup extends \yii\db\ActiveRecord
         $parts = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
         $result = '';
         foreach ($parts as $part)
-            $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.'<br>';
+        {
+            if ((strtotime($part->lesson_end_time) - strtotime($part->lesson_start_time)) / 60 < $part->duration * 40)
+                $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: несовпадение временных рамок и объема занятия</i></font><br>';
+            else
+                $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.'<br>';
+        }
         return $result;
     }
 
