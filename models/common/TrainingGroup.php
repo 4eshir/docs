@@ -147,7 +147,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
         $parts = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
         $result = '';
         foreach ($parts as $part)
-            $result .= $part->participant->shortName.'<br>';
+            $result .= Html::a($part->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id])).'<br>';
         return $result;
     }
 
