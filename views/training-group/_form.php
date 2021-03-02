@@ -180,7 +180,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                         echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Длительность (ак.ч.)</b></td><td><b>Аудитория</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
-                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $this->start_date || $extEvent->lesson_date > $this->finish_date) $class = 'danger';
+                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
                             echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->duration.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
