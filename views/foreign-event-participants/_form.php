@@ -13,9 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'firstname')->textInput() ?>
-
     <?= $form->field($model, 'secondname')->textInput() ?>
+
+    <?= $form->field($model, 'firstname')->textInput() ?>
 
     <?= $form->field($model, 'patronymic')->textInput() ?>
 
