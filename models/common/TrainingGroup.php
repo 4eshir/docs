@@ -19,6 +19,7 @@ use yii\helpers\Html;
  * @property string|null $present_data
  * @property string|null $work_data
  * @property int $open
+ * @property int $schedule_type
  *
  * @property People $teacher
  * @property TrainingProgram $trainingProgram
@@ -34,7 +35,6 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public $lessons;
     public $auto;
 
-    public $scheduleType;
     /**
      * {@inheritdoc}
      */
@@ -50,7 +50,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return [
             [['number', 'teacher_id', 'start_date', 'finish_date'], 'required'],
-            [['number', 'training_program_id', 'teacher_id', 'open', 'scheduleType'], 'integer'],
+            [['number', 'training_program_id', 'teacher_id', 'open', 'schedule_type'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -84,6 +84,9 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'workDataFile' => 'Рабочие материалы',
             'open' => 'Утвердить расписание',
             'openText' => 'Расписание утверждено',
+            'participantNames' => 'Состав',
+            'lessonDates' => 'Расписание',
+            'scheduleType' => 'Тип расписания',
         ];
     }
 
@@ -137,6 +140,24 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public function getOpenText()
     {
         return $this->open ? 'Да' : 'Нет';
+    }
+
+    public function getParticipantNames()
+    {
+        $parts = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
+        $result = '';
+        foreach ($parts as $part)
+            $result .= $part->participant->shortName.'<br>';
+        return $result;
+    }
+
+    public function getLessonDates()
+    {
+        $parts = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $result = '';
+        foreach ($parts as $part)
+            $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.'<br>';
+        return $result;
     }
 
     public function uploadPhotosFile($upd = null)
@@ -241,8 +262,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 $trainingParticipant->save();
             }
         }
-
-        if ($this->scheduleType == 1)
+        if ($this->lessons[0]->duration !== "")
         {
             foreach ($this->lessons as $lesson)
             {
@@ -257,7 +277,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             }
         }
 
-        if ($this->scheduleType == 0)
+        if ($this->auto[0]->duration !== "")
         {
             foreach ($this->auto as $autoOne)
             {

@@ -37,18 +37,17 @@ class TrainingGroupAuto extends Model
         $date = explode("-", $dateFromString);
         $wint = date("w", mktime(0, 0, 0, $date[1], $date[2], $date[0]));
         if ($wint == $this->day)
-            $dates[] = $dateFrom->format('Y-m-d');
+            array_push($dates, $dateFrom->format('Y-m-d'));
         $day = 'next monday';
+
         if ($this->day == 2) $day = 'next tuesday';
         if ($this->day == 3) $day = 'next wednesday';
         if ($this->day == 4) $day = 'next thursday';
         if ($this->day == 5) $day = 'next friday';
         if ($this->day == 6) $day = 'next saturday';
         if ($this->day == 7) $day = 'next sunday';
-        if (1 != $dateFrom->format('N')) {
-            $dateFrom->modify($day);
-        }
-
+        $dateFrom->modify($day);
+        
         while ($dateFrom <= $dateTo) {
             $dates[] = $dateFrom->format('Y-m-d');
             $dateFrom->modify('+1 week');

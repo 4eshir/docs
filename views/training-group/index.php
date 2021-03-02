@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchTrainingGroup */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Training Groups';
+$this->title = 'Учебные группы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="training-group-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Training Group', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить новую учебную группу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

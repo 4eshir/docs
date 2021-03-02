@@ -1,5 +1,6 @@
 <?php
 
+use app\models\common\TrainingGroupParticipant;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,20 +8,20 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\TrainingGroup */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Training Groups', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Учебные группы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Группа '.$this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="training-group-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode('Группа '.$this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить группу?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -35,6 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'teacherName',
             'start_date',
             'finish_date',
+            ['attribute' => 'participantNames', 'format' => 'html'],
+            ['attribute' => 'lessonDates', 'format' => 'html'],
             ['attribute' => 'photos', 'value' => function ($model) {
                 $split = explode(" ", $model->photos);
                 $result = '';

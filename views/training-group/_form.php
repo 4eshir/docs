@@ -164,7 +164,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                 'yearRange' => '2000:2050',
             ]]) ?>
 
-    <?= $form->field($model, 'scheduleType')->radioList(array(0 => 'Ручное заполнение расписания',
+    <?= $form->field($model, 'schedule_type')->radioList(array(0 => 'Ручное заполнение расписания',
         1 => 'Автоматическое расписание по дням'), ['value' => '0', 'name' => 'scheduleType', 'onchange' => 'checkSchedule()'])->label('') ?>
 
     <div id="manualSchedule">
@@ -177,9 +177,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Длительность (ак.ч.)</b></td><td><b>Аудитория</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
-                            echo '<tr><td><h5>'.$extEvent->lesson_date.'</h5></td><td><h5>'.$extEvent->lesson_start_time.'</h5></td><td><h5>'.$extEvent->lesson_end_time.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            $class = 'default';
+                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
+                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->duration.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
                     }
@@ -263,9 +265,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Длительность (ак.ч.)</b></td><td><b>Аудитория</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
-                            echo '<tr><td><h5>'.$extEvent->lesson_date.'</h5></td><td><h5>'.$extEvent->lesson_start_time.'</h5></td><td><h5>'.$extEvent->lesson_end_time.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            $class = 'default';
+                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
+                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->duration.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
                     }
@@ -339,6 +343,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
         </div>
     </div>
 
+    <?= $form->field($model, 'open')->checkbox() ?>
+
     <?= $form->field($model, 'photosFile[]')->fileInput(['multiple' => true]) ?>
     <?php
     if (strlen($model->photos) > 2)
@@ -385,10 +391,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     echo '<br>';
     ?>
 
-    <?= $form->field($model, 'open')->checkbox() ?>
-
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
