@@ -164,8 +164,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                 'yearRange' => '2000:2050',
             ]]) ?>
 
-    <?= $form->field($model, 'schedule_type')->radioList(array(0 => 'Ручное заполнение расписания',
-        1 => 'Автоматическое расписание по дням'), ['value' => '0', 'name' => 'scheduleType', 'onchange' => 'checkSchedule()'])->label('') ?>
+    <?= $form->field($model, 'schedule_type')->radioList(array('0' => 'Ручное заполнение расписания',
+        '1' => 'Автоматическое расписание по дням'), ['value' => '0', 'name' => 'scheduleType', 'onchange' => 'checkSchedule()'])->label('') ?>
 
     <div id="manualSchedule">
         <div class="row">
@@ -177,11 +177,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Длительность (ак.ч.)</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
-                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
-                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->duration.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
+                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
                     }
@@ -222,16 +222,10 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     }
                                     ?>
                                     <div class="col-xs-4">
-                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date'])->label('Дата занятия') ?>
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date', 'id' => 'inputDate'])->label('Дата занятия') ?>
                                     </div>
                                     <div class="col-xs-1">
                                         <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_end_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Окончание занятия') ?>
-                                    </div>
-                                    <div class="col-xs-1" style="margin-right: 30px">
-                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]duration")->textInput()->label('Длительность в ак. ч.') ?>
                                     </div>
                                     <div class="col-xs-2">
                                         <?php
@@ -265,11 +259,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Длительность (ак.ч.)</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
-                            if ((strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
-                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->duration.'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
+                            echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
                     }
@@ -307,6 +301,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                         <?php
                                         $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                         $params = [
+                                            'prompt' => '',
+                                            'id' => 'selectDay'
                                         ];
                                         echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->dropDownList($items,$params)->label('Периодичность');
 
@@ -314,12 +310,6 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     </div>
                                     <div class="col-xs-1">
                                         <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]end_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Окончание занятия') ?>
-                                    </div>
-                                    <div class="col-xs-1" style="margin-right: 30px">
-                                        <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]duration")->textInput()->label('Длительность в ак. ч.') ?>
                                     </div>
                                     <div class="col-xs-2">
                                         <?php
@@ -406,11 +396,13 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
         var radioList = document.getElementsByName('scheduleType');
         if (radioList[1].checked)
         {
+            document.getElementById("selectDay").value = null;
             $("#manualSchedule").removeAttr("hidden");
             $("#autoSchedule").attr("hidden", "true");
         }
         else
         {
+            document.getElementById("inputDate").value = "";
             $("#autoSchedule").removeAttr("hidden");
             $("#manualSchedule").attr("hidden", "true");
         }

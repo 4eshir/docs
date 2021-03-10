@@ -18,8 +18,8 @@ class TrainingGroupAuto extends Model
     public function rules()
     {
         return [
-            [['day', 'start_time', 'end_time', 'auditorium'], 'required'],
-            [['start_time', 'end_time'], 'string'],
+            [['start_time', 'end_time', 'auditorium'], 'required'],
+            [['day','start_time', 'end_time'], 'string'],
             [['duration'], 'integer'],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
         ];

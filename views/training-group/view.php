@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\TrainingGroup */
 
-$this->title = $model->id;
+$this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Учебные группы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Группа '.$this->title;
 \yii\web\YiiAsset::register($this);

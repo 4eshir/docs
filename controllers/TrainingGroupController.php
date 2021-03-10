@@ -77,6 +77,7 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
 
         if ($model->load(Yii::$app->request->post())) {
+
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
             $model->workDataFile = UploadedFile::getInstances($model, 'workDataFile');
