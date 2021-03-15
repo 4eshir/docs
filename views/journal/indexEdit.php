@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
     $parts = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->trainingGroup])->all();
-    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->all();
+    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
     $form = ActiveForm::begin();
 
     echo '<br><h4>Журнал посещений<i> (</i>&#128505;<i> - посещение, </i>&#9633;<i> - неявка)</i></h4><table class="table table-bordered">';
@@ -35,15 +35,25 @@ $this->params['breadcrumbs'][] = $this->title;
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
-            $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $model->trainingGroup])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
-            if ($visits == null || $visits->status == 0)
-                echo "<td style='padding: 5px 0 0 10px'>".$form->field($model, 'visits[]', ['template' => "{label}\n{input}", 'options' => ['display' => 'block']])->checkbox(['label' => ''])."</td>";
-            else
-                echo '<td>'.$visits->status.'</td>';
+            $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+            $value = false;
+            if (!($visits == null || $visits->status == 0)) $value = true;
+            echo "<td style='padding: 5px 0 0 10px'>".$form->field($model, 'visits[]', ['template' => "{label}\n{input}", 'options' => ['display' => 'block']])->checkbox(['checked' => $value, 'label' => ''])."</td>";
+
         }
         echo '</tr>';
     }
-    echo '</table><br>';
+    echo '</table><br><br>';
+    echo '<h4>Тематический план занятий</h4><br>';
+    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td></tr>';
+    foreach ($lessons as $lesson)
+    {
+        $theme = \app\models\common\LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->one();
+        $value = '';
+        if ($theme !== null) $value = $theme->theme;
+        echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.$form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td></tr>';
+    }
+    echo '</table>';
     echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
     ActiveForm::end();
 ?>

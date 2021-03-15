@@ -42,6 +42,9 @@ class JournalController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
             $model = new JournalModel($model->trainingGroup);
+            return $this->render('index', [
+                'model' => $model,
+            ]);
         }
         return $this->render('index', [
             'model' => $model,
@@ -55,9 +58,7 @@ class JournalController extends Controller
         {
             $model->ClearVisits();
             $model->save();
-            return $this->render('index', [
-                'model' => $model,
-            ]);
+            return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }
         $model->trainingGroup = $group_id;
         return $this->render('indexEdit', [

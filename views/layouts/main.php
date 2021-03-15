@@ -70,6 +70,10 @@ AppAsset::register($this);
                     ['label' => 'Тип ПО', 'url' => ['/as-admin/index-as-type']],
                     ['label' => 'Вид лицензии', 'url' => ['/as-admin/index-license']],
                 ]],
+                ['label' => 'Эл. журнал', 'items' => [
+                    ['label' => 'Учебные группы', 'url' => ['training-group/index']],
+                    ['label' => 'Журнал', 'url' => ['journal/index']],
+                ]],
                 ['label' => 'Документооборот', 'items' => [
                     ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                     ['label' => 'Входящая документация', 'url' => ['document-in/index']],

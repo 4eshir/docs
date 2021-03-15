@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
     $parts = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->trainingGroup])->all();
-    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->all();
+    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
 
     $form = ActiveForm::begin(); ?>
     <?php
@@ -58,6 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo '<td>'.$visits->prettyStatus.'</td>';
         }
         echo '</tr>';
+    }
+    echo '</table><br><br>';
+    echo '<h4>Тематический план занятий</h4><br>';
+    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td></tr>';
+    foreach ($lessons as $lesson)
+    {
+        $theme = \app\models\common\LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->one();
+        $result = '';
+        if ($theme !== null) $result = $theme->theme;
+        echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td>
+             <td>'.$result.'</td></tr>';
     }
     echo '</table>';
 ?>
