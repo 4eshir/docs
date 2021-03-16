@@ -41,10 +41,16 @@ use app\models\common\Position;
     <?php
     $company = \app\models\common\Company::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-    $params = [];
+    $params = [
+        'id' => 'org'
+    ];
     echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация');
 
     ?>
+
+    <div id="orghid" hidden>
+        <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
+    </div>
 
 
     <div class="form-group">
@@ -54,3 +60,14 @@ use app\models\common\Position;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $("#org").change(function() {
+        if (this.options[this.selectedIndex].value === '8')
+            $("#orghid").removeAttr("hidden");
+        else
+            $("#orghid").attr("hidden", "true");
+    });
+</script>

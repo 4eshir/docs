@@ -16,6 +16,15 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'secondname')->textInput() ?>
     <?= $form->field($model, 'patronymic')->textInput() ?>
     <?= $form->field($model, 'username')->textInput() ?>
+    <?php
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, "aka")->dropDownList($items,$params);
+
+    ?>
 
     <?php
     $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 1])->one();

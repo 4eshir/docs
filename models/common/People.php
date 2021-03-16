@@ -12,6 +12,7 @@ use yii\helpers\Html;
  * @property string $firstname
  * @property string $secondname
  * @property string $patronymic
+ * @property string $short
  * @property int|null $company_id
  * @property int|null $position_id
  *
@@ -37,7 +38,7 @@ class People extends \yii\db\ActiveRecord
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
             [['id', 'company_id', 'position_id'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'stringPosition'], 'string', 'max' => 1000],
+            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -54,6 +55,7 @@ class People extends \yii\db\ActiveRecord
             'firstname' => 'Firstname',
             'secondname' => 'Secondname',
             'patronymic' => 'Patronymic',
+            'short' => 'Уникальный идентификатор',
             'company_id' => 'Company ID',
             'position_id' => 'Position ID',
         ];

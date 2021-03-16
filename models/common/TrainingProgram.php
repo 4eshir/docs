@@ -10,6 +10,8 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property int $thematic_direction_id
+ * @property int $level
  * @property string|null $ped_council_date
  * @property string|null $ped_council_number
  * @property int $author_id
@@ -52,9 +54,10 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return [
             [['name', 'author_id', 'focus'], 'required'],
             [['ped_council_date'], 'safe'],
-            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
             [['docFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['editDocs'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
 
@@ -72,6 +75,8 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'ped_council_date' => 'Дата педагогического совета',
             'ped_council_number' => 'Номер протокола педагогического совета',
             'author_id' => 'Составитель',
+            'thematic_direction_id' => 'Тематическое направление',
+            'level' => 'Уровень сложности',
             'authorsList' => 'Составители',
             'capacity' => 'Объем, ак. час.',
             'student_left_age' => 'Мин. возраст учащихся, лет',

@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],
-            ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования']
+            ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования'],
+            ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null]
         ],
     ]) ?>
 

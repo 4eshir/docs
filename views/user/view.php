@@ -74,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'patronymic',
             'username',
             'email',
+            'akaName',
             ['attribute' => 'addUsers', 'value' => function($model) {if ($model->addUsers == 1) return '<span class="badge badge-success">Да</span>';
                 else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'viewRoles', 'value' => function($model) {if ($model->viewRoles == 1) return '<span class="badge badge-success">Да</span>';

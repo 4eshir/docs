@@ -16,6 +16,24 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?php
+    $themes = \app\models\common\ThematicDirection::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($themes,'id','name');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, "thematic_direction_id")->dropDownList($items,$params);
+
+    ?>
+
+    <?php
+    $items = array(1, 2, 3);
+    $params = [
+    ];
+    echo $form->field($model, "level")->dropDownList($items,$params);
+
+    ?>
+
     <?= $form->field($model, 'ped_council_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',

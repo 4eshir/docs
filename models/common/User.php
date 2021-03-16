@@ -22,6 +22,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
+ * @property integer $aka
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -82,6 +83,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass'], 'string'],
+            [['aka'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
@@ -122,6 +124,8 @@ class User extends ActiveRecord implements IdentityInterface
             'editProgram' => 'Разрешено редактировать образовательные программы',
             'oldPass' => 'Старый пароль',
             'newPass' => 'Новый пароль',
+            'aka' => 'Также является',
+            'akaName' => 'Также является',
         ];
     }
 
@@ -158,6 +162,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    public function getAka()
+    {
+        return $this->hasOne(People::className(), ['id' => 'aka']);
+    }
+
+    public function getAkaName()
+    {
+        return People::find()->where(['id' => $this->aka])->one()->fullName;
     }
 
     /**
