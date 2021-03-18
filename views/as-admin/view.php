@@ -30,13 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             ['label' => '№ п/п', 'attribute' => 'id'],
-            ['label' => 'Правообладатель', 'attribute' => 'copyright.name'],
-            ['label' => 'Реквизиты', 'attribute' => 'as_company_id', 'value' => function($model){
-                return 'Компания: '.$model->asCompany->name.'<br>Номер документа: '.$model->document_number.'<br>Дата документа: '.$model->document_date;
-            }, 'format' => 'raw'],
-            ['label' => 'Кол-во экземпляров', 'attribute' => 'count'],
-            ['label' => 'Стоимость', 'attribute' => 'price'],
-            ['label' => 'Годы использования','attribute' => 'useYear',  'value' => function($model){
+
+            ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
+            ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
+            ['attribute' => 'price', 'label' => 'Сумма договора'],
+            ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
+            ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
+            ['attribute' => 'as_name', 'label' => 'Наименование'],
+            ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
+            ['attribute' => 'useYear', 'label' => 'Период использования', 'value' => function($model){
                 $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
                 if ($res == null)
                     return '';
@@ -44,45 +46,50 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
                     $html = 'Бессрочно';
                 else if ($res->end_date == '1999-01-01')
-                    $html = $html.' '.$res->start_date.' - бессрочно';
+                    $html = $html.' '.date("d.m.Y", strtotime($res->start_date)).' - бессрочно';
                 else
-                    $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
+                    $html = $html.'с '.date("d.m.Y", strtotime($res->start_date)).' по '.date("d.m.Y", strtotime($res->end_date)).'<br>';
                 return $html;
             }, 'format' => 'raw'],
-            ['attribute' => 'countryProd', 'label' => 'Страна производитель', 'value' => $model->countryProd->name],
-            ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
-            ['attribute' => 'license', 'label' => 'Способ распространения', 'value' => $model->distributionType->name],
-            ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
-                $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
-                if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
-                    return 'Срочная';
-                else
-                    return 'Бессрочная';
-            }],
-            ['label' => 'Вид лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['attribute' => 'country_name_id', 'label' => 'Страна производитель', 'value' => function($model){return $model->countryProd->name;}],            ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
+            ['attribute' => 'distribution_type_id', 'label' => 'Способ распространения', 'value' => function($model){return \app\models\common\DistributionType::find()->where(['id' => $model->distribution_type_id])->one()->name;}],
+            ['attribute' => 'license_term_type_id', 'label' => 'Срок лицензии', 'value' => function($model){return \app\models\common\LicenseTermType::find()->where(['id' => $model->license_term_type_id])->one()->name;}],
+            ['attribute' => 'license_id', 'label' => 'Вид лицензии', 'value' => function($model){return \app\models\common\License::find()->where(['id' => $model->license_id])->one()->name;}],
             ['attribute' => 'license_status', 'label' => 'Статус лицензии', 'value' => function($model){return $model->license_status == 0 ? 'Неактивна' : 'Активна';}],
-            ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
+            ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                 $html = '';
                 foreach ($res as $resOne)
                     $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
-            }, 'format' => 'raw'],
-            ['label' => 'Установлено в "Технопарк"', 'attribute' => 'inst_tech', 'value' => function($model){
+            }, 'format' => 'raw', 'encodeLabel' => false],
+            ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
                 $html = '';
                 foreach ($res as $resOne)
                     $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
-            }, 'format' => 'raw'],
-            ['label' => 'Установлено в "ЦДНТТ"', 'attribute' => 'inst_cdntt', 'value' => function($model){
+            }, 'format' => 'raw', 'encodeLabel' => false],
+            ['attribute' => 'inst_cdntt', 'label' => 'Установ.<br>ЦДНТТ', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
                 $html = '';
                 foreach ($res as $resOne)
                     $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                 return $html;
-            }, 'format' => 'raw'],
-            ['label' => 'Примечание', 'attribute' => 'comment', 'value' => $model->comment],
+            }, 'format' => 'raw', 'encodeLabel' => false],
+            ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {
+                $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
+                $sum = 0;
+                foreach ($res as $resOne)
+                    $sum = $sum + $resOne->count;
+                return $model->license_count - $sum;
+            },
+            ],
+            ['attribute' => 'register_id', 'label' => 'Отв. лицо', 'value' => function ($model) {
+                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+            },
+            ],
+            ['attribute' => 'comment', 'label' => 'Примечание'],
             ['label' => 'Договор (скан)', 'attribute' => 'scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['as-admin/get-file', 'fileName' => 'scan/'.$model->scan]));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
@@ -107,10 +114,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
-            ['label' => 'Регистратор', 'attribute' => 'registerName', 'value' => function ($model) {
-                return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
-            },
-            ],
         ],
     ]) ?>
 

@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
                 ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
                 ['attribute' => 'price', 'label' => 'Сумма договора'],
-                ['attribute' => 'document_date', 'label' => 'Дата договора'],
+                ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
                 ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
                 ['attribute' => 'as_name', 'label' => 'Наименование'],
                 ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
@@ -140,9 +140,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($res->start_date == '1999-01-01' && $res->end_date == '1999-01-01')
                         $html = 'Бессрочно';
                     else if ($res->end_date == '1999-01-01')
-                        $html = $html.' '.$res->start_date.' - бессрочно';
+                        $html = $html.' '.date("d.m.Y", strtotime($res->start_date)).' - бессрочно';
                     else
-                        $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
+                        $html = $html.'с '.date("d.m.Y", strtotime($res->start_date)).' по '.date("d.m.Y", strtotime($res->end_date)).'<br>';
                     return $html;
                 }, 'format' => 'raw'],
                 ['attribute' => 'country_name_id', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
