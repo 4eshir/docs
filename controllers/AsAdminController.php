@@ -438,9 +438,6 @@ class AsAdminController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $inst = AsInstall::find()->where(['id' => $id])->one();
         $inst->delete();
         $model = $this->findModel($model_id);
