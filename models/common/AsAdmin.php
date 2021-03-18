@@ -113,6 +113,7 @@ class AsAdmin extends \yii\db\ActiveRecord
             'contract_subject' => 'Contract Subject',
             'license_count' => 'License Count',
             'license_term_type_id' => 'License Term Type ID',
+            'license_status' => 'Лицензия активна'
         ];
     }
 

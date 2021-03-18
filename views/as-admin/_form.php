@@ -131,7 +131,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
-    <?= $form->field($model, 'license_status')->checkbox()->label('Лицензия активна') ?>
+    <?= $form->field($model, 'license_status', ['template' => "{input}{label}"])->checkbox() ?>
 
     <div class="row">
         <div class="panel panel-default">
