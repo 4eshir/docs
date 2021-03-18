@@ -19,21 +19,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
     $company = \app\models\common\Company::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
-    echo $form->field($model, 'copyright_id')->dropDownList($items,$params)->label('Правообладатель ПО');
+    echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Контрагент');
 
     ?>
 
-    <?= $form->field($model, 'as_name')->textInput()->label('Наименование ПО') ?>
+    <?= $form->field($model, 'contract_subject')->textInput()->label('Предмет договора'); ?>
 
-    <?php
-    $company = \app\models\common\Company::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-    $params = [];
-    echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Реквизиты: организация');
-
-    ?>
-
-    <?= $form->field($model, 'document_number')->textInput()->label('Реквизиты: номер документа') ?>
+    <?= $form->field($model, 'price')->textInput()->label('Сумма договора') ?>
 
     <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -52,13 +44,19 @@ use wbraganca\dynamicform\DynamicFormWidget;
             //'buttonText' => 'Выбрать дату',
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
-        ]])->label('Реквизиты: дата документа') ?>
+        ]])->label('Дата договора') ?>
 
+    <?php
+    $company = \app\models\common\Company::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+    $params = [];
+    echo $form->field($model, 'copyright_id')->dropDownList($items,$params)->label('Правообладатель');
 
+    ?>
 
-    <?= $form->field($model, 'count')->textInput()->label('Количество экземпляров') ?>
+    <?= $form->field($model, 'as_name')->textInput()->label('Наименование ПО') ?>
 
-    <?= $form->field($model, 'price')->textInput()->label('Стоимость') ?>
+    <?= $form->field($model, 'license_count')->textInput()->label('Количество лицензий') ?>
 
     <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -118,12 +116,22 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
     <?php
+    $lic = \app\models\common\LicenseTermType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'license_term_type_id')->dropDownList($items,$params)->label('Срок лицензии');
+
+    ?>
+
+    <?php
     $lic = \app\models\common\License::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Вид лицензии');
 
     ?>
+
+    <?= $form->field($model, 'license_status')->checkbox()->label('Лицензия активна') ?>
 
     <div class="row">
         <div class="panel panel-default">
@@ -199,14 +207,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
             </div>
         </div>
     </div>
-
-    <?php
-    $lic = \app\models\common\AsType::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($lic,'id','type');
-    $params = [];
-    echo $form->field($model, 'as_type_id')->dropDownList($items,$params)->label('Тип ПО');
-
-    ?>
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
 

@@ -44,16 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $gridColumns = [
         ['attribute' => 'id', 'label' => '№ п/п'],
+        ['attribute' => 'asCompany', 'label' => 'Контрагент'],
+        ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
+        ['attribute' => 'price', 'label' => 'Сумма договора'],
+        ['attribute' => 'document_date', 'label' => 'Дата договора'],
         ['attribute' => 'copyrightName', 'label' => 'Правообладатель', 'value' => 'copyright.name'],
         ['attribute' => 'as_name', 'label' => 'Наименование'],
-        ['attribute' => 'requisitsName', 'label' => 'Реквизиты', 'value' => function($model){
-            if ($model->document_number == null)
-                return '';
-            return 'Компания: '.$model->asCompany->name.' Номер док.: '.$model->document_number.' Дата док.: '.$model->document_date;
-        }, 'format' => 'raw', 'header' => '<div style="width:200px;">Реквизиты</div>'],
-        ['attribute' => 'count', 'label' => 'Кол-во'],
-        ['attribute' => 'price', 'label' => 'Стоимость'],
-        ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
+        ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
+        ['attribute' => 'useYear', 'label' => 'Период использования', 'value' => function($model){
             $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
             if ($res == null)
                 return '';
@@ -68,17 +66,9 @@ $this->params['breadcrumbs'][] = $this->title;
         }, 'format' => 'raw'],
         ['attribute' => 'countryName', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
         ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
-
-
-        ['attribute' => 'distribution_type_id', 'label' => 'Способ<br>распространения', 'value' => 'distributionType.name', 'encodeLabel' => false],
-        ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
-            $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
-            if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
-                return 'Срочная';
-            else
-                return 'Бессрочная';
-        }],
-        ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
+        ['attribute' => 'distributionType', 'label' => 'Способ распространения'],
+        ['attribute' => 'licenseTermType', 'label' => 'Срок лицензии'],
+        ['attribute' => 'license', 'label' => 'Вид лицензии'],
         ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
             $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
             $html = '';
@@ -108,10 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
             return $model->count - $sum;
         },
         ],
-        ['attribute' => 'registerName', 'label' => 'Регистратор', 'value' => function ($model) {
+        ['attribute' => 'registerName', 'label' => 'Отв. лицо', 'value' => function ($model) {
             return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
         },
         ],
+        ['attribute' => 'comment', 'label' => 'Примечание']
     ];
     echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([
@@ -134,16 +125,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 ['attribute' => 'id', 'label' => '№ п/п'],
-                ['attribute' => 'copyrightName', 'label' => 'Правообладатель', 'value' => 'copyright.name'],
+                ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
+                ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
+                ['attribute' => 'price', 'label' => 'Сумма договора'],
+                ['attribute' => 'document_date', 'label' => 'Дата договора'],
+                ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
                 ['attribute' => 'as_name', 'label' => 'Наименование'],
-                ['attribute' => 'requisitsName', 'label' => 'Реквизиты', 'value' => function($model){
-                    if ($model->document_number == null)
-                        return '';
-                    return 'Компания: '.$model->asCompany->name.'<br>Номер док.: '.$model->document_number.'<br>Дата док.: '.$model->document_date;
-                }, 'format' => 'raw', 'header' => '<div style="width:200px;">Реквизиты</div>'],
-                ['attribute' => 'count', 'label' => 'Кол-во'],
-                ['attribute' => 'price', 'label' => 'Стоимость'],
-                ['attribute' => 'useYear', 'label' => 'Годы использования', 'value' => function($model){
+                ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
+                ['attribute' => 'useYear', 'label' => 'Период использования', 'value' => function($model){
                     $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
                     if ($res == null)
                         return '';
@@ -156,19 +145,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         $html = $html.'с '.$res->start_date.' по '.$res->end_date.'<br>';
                     return $html;
                 }, 'format' => 'raw'],
-                ['attribute' => 'countryName', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
+                ['attribute' => 'country_name_id', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
                 ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
-
-
-                ['attribute' => 'distribution_type_id', 'label' => 'Способ<br>распространения', 'value' => 'distributionType.name', 'encodeLabel' => false],
-                ['attribute' => 'time', 'label' => 'Срок лицензии', 'value' => function($model){
-                    $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
-                    if ($res->start_date !== '1999-01-01' && $res->end_date !== '1999-01-01')
-                        return 'Срочная';
-                    else
-                        return 'Бессрочная';
-                }],
-                ['attribute' => 'license', 'label' => 'Вид лицензии', 'value' => 'license.name'],
+                ['attribute' => 'distribution_type_id', 'label' => 'Способ распространения', 'value' => function($model){return \app\models\common\DistributionType::find()->where(['id' => $model->distribution_type_id])->one()->name;}],
+                ['attribute' => 'license_term_type_id', 'label' => 'Срок лицензии', 'value' => function($model){return \app\models\common\LicenseTermType::find()->where(['id' => $model->license_term_type_id])->one()->name;}],
+                ['attribute' => 'license_id', 'label' => 'Вид лицензии', 'value' => function($model){return \app\models\common\License::find()->where(['id' => $model->license_id])->one()->name;}],
+                ['attribute' => 'license_status', 'label' => 'Статус лицензии', 'value' => function($model){return $model->license_status == 0 ? 'Неактивна' : 'Активна';}],
                 ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                     $html = '';
@@ -195,13 +177,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     $sum = 0;
                     foreach ($res as $resOne)
                         $sum = $sum + $resOne->count;
-                    return $model->count - $sum;
+                    return $model->license_count - $sum;
                 },
                 ],
-                ['attribute' => 'registerName', 'label' => 'Регистратор', 'value' => function ($model) {
+                ['attribute' => 'register_id', 'label' => 'Отв. лицо', 'value' => function ($model) {
                     return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
                 },
                 ],
+                ['attribute' => 'comment', 'label' => 'Примечание'],
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

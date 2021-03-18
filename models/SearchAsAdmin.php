@@ -86,10 +86,6 @@ class SearchAsAdmin extends AsAdmin
             'desc' => ['distribution_type_id' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['license'] = [
-            'asc' => ['license_id' => SORT_ASC],
-            'desc' => ['license_id' => SORT_DESC],
-        ];
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -105,7 +101,6 @@ class SearchAsAdmin extends AsAdmin
             'register_id' => $this->register_id,
             'unifed_register_number' => $this->unifed_register_number,
             'distribution_type_id' => $this->distribution_type_id,
-            'license' => $this->license_id,
         ]);
 
         $query->andFilterWhere(['like', 'comment', $this->comment])

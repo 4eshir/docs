@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Бессрочная';
             }],
             ['label' => 'Вид лицензии', 'attribute' => 'license', 'value' => $model->license->name],
+            ['attribute' => 'license_status', 'label' => 'Статус лицензии', 'value' => function($model){return $model->license_status == 0 ? 'Неактивна' : 'Активна';}],
             ['label' => 'Установлено в "Кванториум"', 'attribute' => 'inst_quant', 'value' => function($model){
                 $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                 $html = '';
