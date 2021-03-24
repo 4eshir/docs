@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             'finish_date',
             ['attribute' => 'participantNames', 'format' => 'html'],
             ['attribute' => 'lessonDates', 'format' => 'html'],
+            ['attribute' => 'ordersName', 'format' => 'html'],
             ['attribute' => 'photos', 'value' => function ($model) {
                 $split = explode(" ", $model->photos);
                 $result = '';

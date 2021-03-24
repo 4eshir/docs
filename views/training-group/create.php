@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
         'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
         'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
+        'modelOrderGroup' => $modelOrderGroup,
     ]) ?>
 
 </div>

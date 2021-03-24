@@ -34,6 +34,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public $participants;
     public $lessons;
     public $auto;
+    public $orders;
 
     /**
      * {@inheritdoc}
@@ -87,6 +88,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'participantNames' => 'Состав',
             'lessonDates' => 'Расписание',
             'scheduleType' => 'Тип расписания',
+            'ordersName' => 'Приказы',
         ];
     }
 
@@ -170,6 +172,17 @@ class TrainingGroup extends \yii\db\ActiveRecord
             }
             else
                 $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.'<br>';
+        }
+        return $result;
+    }
+
+    public function getOrdersName()
+    {
+        $orders = OrderGroup::find()->where(['training_group_id' => $this->id])->all();
+        $result = '';
+        foreach ($orders as $order)
+        {
+            $result .= Html::a($order->documentOrder->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->documentOrder->id])).'<br>';
         }
         return $result;
     }
@@ -286,7 +299,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 $newLesson->lesson_start_time = $lesson->lesson_start_time;
                 $newLesson->lesson_end_time = $lesson->lesson_end_time;
                 $newLesson->duration = $lesson->duration;
-                $newLesson->auditorium_id = $lesson->auditorium_id;
+                $aud = Auditorium::find()->where(['branch_id' => $lesson->auditorium_id])->andWhere(['name' => $lesson->auds])->one();
+                $newLesson->auditorium_id = $aud->id;
                 $newLesson->training_group_id = $this->id;
                 $newLesson->save();
             }
@@ -307,6 +321,18 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $newLesson->training_group_id = $this->id;
                     $newLesson->save();
                 }
+            }
+        }
+
+        if ($this->orders !== null && $this->orders[0]->document_order_id !== '')
+        {
+            foreach ($this->orders as $order)
+            {
+                $newOrder = new OrderGroup();
+                $newOrder->document_order_id = $order->document_order_id;
+                $newOrder->training_group_id = $this->id;
+                $newOrder->comment = $order->comment;
+                $newOrder->save();
             }
         }
     }

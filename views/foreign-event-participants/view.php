@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['attribute' => 'documents', 'format' => 'raw'],
             ['attribute' => 'achievements', 'format' => 'raw'],
+            ['attribute' => 'events', 'format' => 'raw'],
+            ['attribute' => 'studies', 'format' => 'raw'],
         ],
     ]) ?>
 

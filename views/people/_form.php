@@ -48,7 +48,16 @@ use app\models\common\Position;
 
     ?>
 
-    <div id="orghid" hidden>
+    <?php
+    if ($model->company_id == 8)
+    {
+        echo '<div id="orghid">';
+    }
+    else
+    {
+        echo '<div id="orghid" hidden>';
+    }
+    ?>
         <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
     </div>
 

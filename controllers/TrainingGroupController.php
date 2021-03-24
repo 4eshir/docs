@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\common\Auditorium;
+use app\models\common\Branch;
+use app\models\common\OrderGroup;
 use app\models\common\People;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
@@ -11,6 +14,7 @@ use app\models\extended\TrainingGroupAuto;
 use Yii;
 use app\models\common\TrainingGroup;
 use app\models\SearchTrainingGroup;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -75,6 +79,7 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
+        $modelOrderGroup = [new OrderGroup];
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -90,6 +95,9 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
             DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
             $model->auto = $modelTrainingGroupAuto;
+            $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
+            DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
+            $model->orders = $modelOrderGroup;
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile();
             if ($model->presentDataFile !== null)
@@ -105,6 +113,7 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
             'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
+            'modelOrderGroup' => $modelOrderGroup,
         ]);
     }
 
@@ -121,6 +130,7 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
+        $modelOrderGroup = [new OrderGroup];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
@@ -135,6 +145,9 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
             DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
             $model->auto = $modelTrainingGroupAuto;
+            $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
+            DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
+            $model->orders = $modelOrderGroup;
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)
@@ -150,6 +163,7 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
             'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
+            'modelOrderGroup' => $modelOrderGroup,
         ]);
     }
 
@@ -199,6 +213,13 @@ class TrainingGroupController extends Controller
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
+    public function actionDeleteOrder($id, $modelId)
+    {
+        $order = OrderGroup::find()->where(['id' => $id])->one();
+        $order->delete();
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
         //$path = \Yii::getAlias('@upload') ;
@@ -235,5 +256,24 @@ class TrainingGroupController extends Controller
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile);
         }
         return $this->redirect('index?r=training-group/update&id='.$model->id);
+    }
+
+    public function actionSubcat()
+    {
+        if ($id = Yii::$app->request->post('id')) {
+            $operationPosts = Branch::find()
+                ->where(['id' => $id])
+                ->count();
+
+            if ($operationPosts > 0) {
+                $operations = Auditorium::find()
+                    ->where(['branch_id' => $id])
+                    ->all();
+                foreach ($operations as $operation)
+                    echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+            } else
+                echo "<option>-</option>";
+
+        }
     }
 }

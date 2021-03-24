@@ -55,6 +55,7 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
             'achievements' => 'Достижения',
             'birthdate' => 'Дата рождения',
             'sex' => 'Пол',
+            'events' => 'Участие в мероприятиях',
         ];
     }
 
@@ -129,5 +130,25 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
                 ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
         }
         return $achievesLink;
+    }
+
+    public function getEvents()
+    {
+        $events = TeacherParticipant::find()->where(['participant_id' => $this->id])->all();
+        $eventsLink = '';
+        foreach ($events as $event)
+            $eventsLink = $eventsLink.Html::a($event->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $event->foreign_event_id])).'<br>';
+
+        return $eventsLink;
+    }
+
+    public function getStudies()
+    {
+        $events = TrainingGroupParticipant::find()->where(['participant_id' => $this->id])->all();
+        $eventsLink = '';
+        foreach ($events as $event)
+            $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id])).'<br>';
+
+        return $eventsLink;
     }
 }

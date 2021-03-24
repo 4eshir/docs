@@ -1,7 +1,9 @@
 <?php
 
+use kartik\depdrop\DepDrop;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 
@@ -17,7 +19,6 @@ $js =<<< JS
         var elems = document.getElementsByClassName('def');
         elems[elems.length - 1].value = d.getHours() + ':' + d.getMinutes();
         elems[elems.length - 2].value = d.getHours() + ':' + d.getMinutes();
-        
     });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
@@ -229,13 +230,39 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     </div>
                                     <div class="col-xs-2">
                                         <?php
-                                        $auds = \app\models\common\Auditorium::find()->all();
-                                        $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
+                                        //$branchs = \app\models\common\Branch::find()->all();
+                                        //$items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
                                         $params = [
+                                            'id' => $i,
+                                            'onchange' => '
+                                                $.post(
+                                                    "' . Url::toRoute('subcat') . '", 
+                                                    {id: $(this).val()}, 
+                                                    function(res){
+                                                        var elems = document.getElementsByClassName("aud");
+                                                        for (var c = 0; c !== elems.length; c++) {
+                                                            if (elems[c].id == "r" + id)
+                                                                elems[c].innerHTML = res;
+                                                        }
+                                                    }
+                                                );
+                                            ',
                                         ];
-                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Аудитория');
+
+                                        $audits = \app\models\common\Branch::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
+
+                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');
 
                                         ?>
+
+                                        <?php
+                                        $params = [
+                                            'prompt' => '',
+                                            'id' => 'r'.$i,
+                                            'class' => 'form-control aud',
+                                        ];
+                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auds")->dropDownList([], $params)->label('Аудитория'); ?>
                                     </div>
 
 
@@ -334,6 +361,84 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     </div>
 
     <?= $form->field($model, 'open')->checkbox() ?>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Приказы по группе</h4></div>
+            <div>
+                <?php
+                $orders = \app\models\common\OrderGroup::find()->where(['training_group_id' => $model->id])->all();
+                if ($orders != null)
+                {
+                    echo '<table class="table table-bordered">';
+                    echo '<tr><td><b>Номер и название приказа</b></td><td></td></tr>';
+                    foreach ($orders as $order) {
+                        echo '<tr><td><h5>'.$order->documentOrder->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    }
+                    echo '</table>';
+                }
+                ?>
+            </div>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items4', // required: css class selector
+                    'widgetItem' => '.item4', // required: css class
+                    'limit' => 100, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item4', // css class
+                    'deleteButton' => '.remove-item4', // css class
+                    'model' => $modelOrderGroup[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'eventExternalName',
+                    ],
+                ]); ?>
+
+                <div class="container-items4" ><!-- widgetContainer -->
+                    <?php foreach ($modelOrderGroup as $i => $modelOrderGroupOne): ?>
+                        <div class="item4 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Приказ</h3>
+                                <div class="pull-right">
+                                    <button type="button" class="add-item4 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item4 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <?php
+                                // necessary for update action.
+                                if (! $modelOrderGroupOne->isNewRecord) {
+                                    echo Html::activeHiddenInput($modelOrderGroupOne, "[{$i}]id");
+                                }
+                                ?>
+                                <div class="col-xs-4">
+                                    <?php
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
+
+                                    $orders = \app\models\common\DocumentOrder::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
+
+                                    echo $form->field($modelOrderGroupOne, "[{$i}]document_order_id")->dropDownList($items,$params);
+
+                                    ?>
+                                </div>
+                                <div class="col-xs-4">
+                                    <?= $form->field($modelOrderGroupOne, "[{$i}]comment")->textInput(); ?>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($model, 'photosFile[]')->fileInput(['multiple' => true]) ?>
     <?php

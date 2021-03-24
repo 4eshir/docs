@@ -19,6 +19,7 @@ use Yii;
  */
 class TrainingGroupLesson extends \yii\db\ActiveRecord
 {
+    public $auds;
     /**
      * {@inheritdoc}
      */
@@ -35,6 +36,7 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
         return [
             [['lesson_date', 'lesson_start_time', 'lesson_end_time'], 'string'],
             [['duration', 'auditorium_id', 'training_group_id'], 'integer'],
+            ['auds', 'safe'],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
         ];
     }

@@ -29,7 +29,6 @@ class Auditorium extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'branch_id'], 'required'],
             [['branch_id'], 'integer'],
             [['name'], 'string', 'max' => 1000],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
@@ -43,7 +42,7 @@ class Auditorium extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название аудитории',
             'branch_id' => 'Branch ID',
         ];
     }
