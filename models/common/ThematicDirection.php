@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $full_name
  *
  * @property TrainingProgram[] $trainingPrograms
  */
@@ -28,8 +29,8 @@ class ThematicDirection extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 1000],
+            [['name', 'full_name'], 'required'],
+            [['name', 'full_name'], 'string', 'max' => 1000],
         ];
     }
 
@@ -52,5 +53,10 @@ class ThematicDirection extends \yii\db\ActiveRecord
     public function getTrainingPrograms()
     {
         return $this->hasMany(TrainingProgram::className(), ['thematic_direction_id' => 'id']);
+    }
+
+    public function getTrueName()
+    {
+        return $this->full_name . ' (' . $this->name . ')';
     }
 }

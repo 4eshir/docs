@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?php
     $themes = \app\models\common\ThematicDirection::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($themes,'id','name');
+    $items = \yii\helpers\ArrayHelper::map($themes,'id','trueName');
     $params = [
         'prompt' => ''
     ];
