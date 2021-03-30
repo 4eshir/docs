@@ -37,8 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
         {
             $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
             $value = false;
+            $dis = false;
+            $date = new DateTime(date("Y-m-d"));
+            $date->modify('-1 week');
             if (!($visits == null || $visits->status == 0)) $value = true;
-            echo "<td style='padding: 5px 0 0 10px'>".$form->field($model, 'visits[]', ['template' => "{label}\n{input}", 'options' => ['display' => 'block']])->checkbox(['checked' => $value, 'label' => ''])."</td>";
+            if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
+
+            echo "<td style='padding: 5px 0 0 10px'>".$form->field($model, 'visits[]', ['template' => "{label}\n{input}", 'options' => ['display' => 'block', 'style' => $dis ? 'visibility:hidden' : '']])->checkbox(['checked' => $value, 'label' => ''])."</td>";
 
         }
         echo '</tr>';

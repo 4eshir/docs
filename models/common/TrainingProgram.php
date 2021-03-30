@@ -23,6 +23,7 @@ use Yii;
  * @property string|null $doc_file
  * @property string|null $edit_docs
  * @property string|null $key_words
+ * @property int $hour_capacity
  *
  * @property BranchProgram[] $branchPrograms
  * @property People $author
@@ -52,9 +53,9 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'author_id', 'focus'], 'required'],
+            [['name', 'author_id', 'focus', 'hour_capacity'], 'required'],
             [['ped_council_date'], 'safe'],
-            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
@@ -94,7 +95,8 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'isQuantorium' => 'Кванториум',
             'isTechnopark' => 'Технопарк',
             'isMobQuant' => 'Мобильный кванториум',
-            'branchs' => 'Отдел(-ы) - место реализации'
+            'branchs' => 'Отдел(-ы) - место реализации',
+            'hour_capacity' => 'Длительность 1 академического часа в минутах',
         ];
     }
 

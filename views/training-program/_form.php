@@ -174,6 +174,8 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'allow_remote')->checkbox(['checked' => $value]);
     ?>
 
+    <?= $form->field($model, 'hour_capacity')->textInput() ?>
+
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'docFile')->fileInput() ?>
