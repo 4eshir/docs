@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'student_left_age',
             'student_right_age',
             'stringFocus',
-            ['attribute' => 'trueName', 'label' => 'Тематическое направление', 'value' => function($model) {return $model->full_name . ' (' . $model->name . ')';}],
+            ['attribute' => 'trueName', 'label' => 'Тематическое направление', 'value' => function($model) {return $model->thematicDirection->full_name . ' (' . $model->thematicDirection->name . ')';}],
             'hour_capacity',
             ['attribute' => 'branchs', 'format' => 'raw'],
             ['attribute' => 'allow_remote', 'value' => function($model) {return $model->allow_remote == 0 ? 'Нет' : 'Да';}],
