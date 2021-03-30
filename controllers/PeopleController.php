@@ -113,7 +113,8 @@ class PeopleController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-
+        if ($model->position_id !== null)
+            $model->stringPosition = $model->position->name;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен человек '.$model->fullName);
             return $this->redirect(['view', 'id' => $model->id]);
