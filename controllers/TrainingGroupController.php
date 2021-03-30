@@ -9,6 +9,7 @@ use app\models\common\OrderGroup;
 use app\models\common\People;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
+use app\models\common\Visit;
 use app\models\components\Logger;
 use app\models\DynamicModel;
 use app\models\extended\TrainingGroupAuto;
@@ -211,8 +212,11 @@ class TrainingGroupController extends Controller
     {
         $participant = TrainingGroupLesson::find()->where(['id' => $id])->one();
         $themes = LessonTheme::find()->where(['training_group_lesson_id' => $participant->id])->all();
+        $visits = Visit::find()->where(['training_group_lesson_id' => $participant->id])->all();
         foreach ($themes as $theme)
             $theme->delete();
+        foreach ($visits as $visit)
+            $visit->delete();
         $participant->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
