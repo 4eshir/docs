@@ -20,6 +20,7 @@ use yii\helpers\Html;
  * @property string|null $work_data
  * @property int $open
  * @property int $schedule_type
+ * @property int $budget
  *
  * @property People $teacher
  * @property TrainingProgram $trainingProgram
@@ -50,8 +51,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'teacher_id', 'start_date', 'finish_date'], 'required'],
-            [['number', 'training_program_id', 'teacher_id', 'open'], 'integer'],
+            [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
+            [['number', 'training_program_id', 'teacher_id', 'open', 'budget'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type'], 'safe'],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -89,6 +90,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'lessonDates' => 'Расписание',
             'scheduleType' => 'Тип расписания',
             'ordersName' => 'Приказы',
+            'budget' => 'Бюджет',
         ];
     }
 

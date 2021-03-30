@@ -15,9 +15,11 @@ use yii\helpers\Html;
  * @property string $short
  * @property int|null $company_id
  * @property int|null $position_id
+ * @property int|null $branch_id
  *
  * @property Company $company
  * @property Position $position
+ * @property Branch $branch
  */
 class People extends \yii\db\ActiveRecord
 {
@@ -37,11 +39,12 @@ class People extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
-            [['id', 'company_id', 'position_id'], 'integer'],
+            [['id', 'company_id', 'position_id', 'branch_id'], 'integer'],
             [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
+            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
         ];
     }
 
@@ -58,6 +61,7 @@ class People extends \yii\db\ActiveRecord
             'short' => 'Уникальный идентификатор',
             'company_id' => 'Company ID',
             'position_id' => 'Position ID',
+            'branch_id' => 'Отдел по трудовому договору',
         ];
     }
 
@@ -79,6 +83,11 @@ class People extends \yii\db\ActiveRecord
     public function getPosition()
     {
         return $this->hasOne(Position::className(), ['id' => 'position_id']);
+    }
+
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
     }
 
     public function checkForeignKeys()

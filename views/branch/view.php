@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'name',
             ['attribute' => 'auditoriumsList', 'format' => 'html'],
+            ['attribute' => 'workerList', 'format' => 'raw'],
         ],
     ]) ?>
 

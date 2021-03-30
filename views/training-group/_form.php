@@ -29,7 +29,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'number')->textInput() ?>
-
+    <?= $form->field($model, 'budget')->checkbox() ?>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Состав</h4></div>

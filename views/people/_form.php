@@ -59,6 +59,15 @@ use app\models\common\Position;
     }
     ?>
         <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
+        <?php
+        $branchs = \app\models\common\Branch::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
+        $params = [
+
+        ];
+        echo $form->field($model, 'branch_id')->dropDownList($items,$params);
+
+        ?>
     </div>
 
 

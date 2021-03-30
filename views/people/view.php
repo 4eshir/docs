@@ -39,7 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->company->name;
             }],
             ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования'],
-            ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null]
+            ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null && $model->short !== ''],
+            ['label' => 'Отдел по трудовому договору', 'attribute' => 'branch_id', 'format' => 'raw', 'value' => function($model) {return Html::a($model->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $model->branch_id]));}, 'visible' => $model->branch_id !== null],
         ],
     ]) ?>
 

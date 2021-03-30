@@ -3,6 +3,7 @@
 namespace app\models\common;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "branch".
@@ -41,6 +42,7 @@ class Branch extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название отдела',
             'auditoriumsList' => 'Список аудиторий',
+            'workerList' => 'Список сотрудников',
         ];
     }
 
@@ -51,6 +53,17 @@ class Branch extends \yii\db\ActiveRecord
         foreach ($auds as $aud)
         {
             $result .= $aud->name.'<br>';
+        }
+        return $result;
+    }
+
+    public function getWorkerList()
+    {
+        $workers = People::find()->where(['branch_id' => $this->id])->all();
+        $result = '';
+        foreach ($workers as $worker)
+        {
+            $result .= Html::a($worker->fullName, \yii\helpers\Url::to(['people/view', 'id' => $worker->id])).'<br>';
         }
         return $result;
     }
