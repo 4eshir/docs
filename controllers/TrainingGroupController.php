@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\common\Auditorium;
 use app\models\common\Branch;
+use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
 use app\models\common\TrainingGroupLesson;
@@ -209,6 +210,9 @@ class TrainingGroupController extends Controller
     public function actionDeleteLesson($id, $modelId)
     {
         $participant = TrainingGroupLesson::find()->where(['id' => $id])->one();
+        $themes = LessonTheme::find()->where(['training_group_lesson_id' => $participant->id])->all();
+        foreach ($themes as $theme)
+            $theme->delete();
         $participant->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
