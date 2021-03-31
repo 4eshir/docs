@@ -120,6 +120,23 @@ class People extends \yii\db\ActiveRecord
         return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
     }
 
+    public function getGroups()
+    {
+        return TrainingGroup::find()->where(['teacher_id' => $this->id])->all();
+    }
+
+    public function getGroupsList()
+    {
+        $groups = TrainingGroup::find()->where(['teacher_id' => $this->id])->all();
+        $result = '';
+        foreach ($groups as $group)
+        {
+            $result .= Html::a('Группа '.$group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])).'<br>';
+
+        }
+        return $result;
+    }
+
     public function getAchievements()
     {
         $achieves = ParticipantAchievement::find()

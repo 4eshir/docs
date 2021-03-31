@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchForeignEventParticipants */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Участники мероприятий';
+$this->title = 'Участники образовательной деятельности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="foreign-event-participants-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить нового участника мероприятия', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить нового участника образовательной деятельности', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

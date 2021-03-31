@@ -56,6 +56,7 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
             'birthdate' => 'Дата рождения',
             'sex' => 'Пол',
             'events' => 'Участие в мероприятиях',
+            'studies' => 'Учебные группы участника',
         ];
     }
 
@@ -147,7 +148,15 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
         $events = TrainingGroupParticipant::find()->where(['participant_id' => $this->id])->all();
         $eventsLink = '';
         foreach ($events as $event)
-            $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id])).'<br>';
+        {
+            $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
+
+            if ($event->trainingGroup->finish_date < date("Y-m-d"))
+                $eventsLink .= ' (завершил обучение)';
+            else
+                $eventsLink .= '<font color="darkgreen"> (проходит обучение)</font>';
+            $eventsLink .= '<br>';
+        }
 
         return $eventsLink;
     }

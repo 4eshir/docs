@@ -89,10 +89,9 @@ AppAsset::register($this);
                     ['label' => 'Организации', 'url' => ['/company/index']],
                     ['label' => 'Должности', 'url' => ['/position/index']],
                     ['label' => 'Люди', 'url' => ['/people/index']],
-                    ['label' => 'Участники', 'url' => ['/foreign-event-participants/index']],
+                    ['label' => 'Участники образовательной деятельности', 'url' => ['/foreign-event-participants/index']],
                     ['label' => 'Формы мероприятий', 'url' => ['/event-form/index']],
                     ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
-                    ['label' => 'Участники мероприятий', 'url' => ['/foreign-event-participants/index']],
                     ['label' => 'Отделы', 'url' => ['/branch/index']],
                 ]],
                 ['label' => 'Пользователи', 'items' => [

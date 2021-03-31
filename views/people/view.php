@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <h4><u>Общая информация</u></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -38,10 +38,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],
-            ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования'],
+
             ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null && $model->short !== ''],
             ['label' => 'Отдел по трудовому договору', 'attribute' => 'branch_id', 'format' => 'raw', 'value' => function($model) {return Html::a($model->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $model->branch_id]));}, 'visible' => $model->branch_id !== null],
         ],
     ]) ?>
+    <?php
+    $vis = strlen($model->groupsList) > 3 ? 'visible' : 'hidden';
+    echo "<div style='visibility: ".$vis."'>";
+    ?>
+        <h4><u>Информация об образовательной деятельности</u></h4>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['label' => 'Группы', 'attribute' => 'groupsList', 'format' => 'raw'],
+                ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw'],
+
+            ],
+        ]) ?>
+    </div>
+
 
 </div>
