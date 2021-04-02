@@ -26,10 +26,7 @@ AppAsset::register($this);
     $this->head();
 
     ?>
-    1
-    2
-    <link rel="shortcut icon" href="<?php echo Yii::$app->basePath;
-    ?>/images/favicon.ico" type="image/x-icon" />
+
 </head>
 <body>
 <?php $this->beginBody() ?>
