@@ -13,6 +13,7 @@ use app\models\SearchOutDocsModel;
 use Yii;
 use yii\console\ExitCode;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
