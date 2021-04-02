@@ -169,6 +169,7 @@ class DocsOutController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
         $model = $this->findModel($id);
+
         $model->scanFile = $model->Scan;
         $inoutdocs = InOutDocs::find()->where(['document_out_id' => $model->id])->one();
         if ($inoutdocs !== null)
@@ -220,21 +221,7 @@ class DocsOutController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the DocumentOut model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return DocumentOut the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = DocumentOut::findOne($id)) !== null) {
-            return $model;
-        }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
@@ -245,9 +232,7 @@ class DocsOutController extends Controller
         {
             $model->Scan = '';
             $model->save(false);
-            return $this->render('update', [
-                'model' => $this->findModel($modelId),
-            ]);
+            return $this->redirect('index?r=docs-out/update&id='.$modelId);
         }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
@@ -265,13 +250,12 @@ class DocsOutController extends Controller
                 else
                     $deleteFile = $split[$i];
             }
+
             $type == 'app' ? $model->applications = $result : $model->doc = $result;
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
         }
-        return $this->render('update', [
-            'model' => $this->findModel($modelId),
-        ]);
+        return $this->redirect('index?r=docs-out/update&id='.$modelId);
     }
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
@@ -299,4 +283,20 @@ class DocsOutController extends Controller
         return Json::encode(['output'=>'', 'selected'=>'']);
     }
 
+
+    /**
+     * Finds the DocumentOut model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return DocumentOut the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = DocumentOut::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

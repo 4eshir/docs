@@ -63,7 +63,7 @@ use app\models\common\Position;
         $branchs = \app\models\common\Branch::find()->all();
         $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
         $params = [
-
+            'prompt' => '',
         ];
         echo $form->field($model, 'branch_id')->dropDownList($items,$params);
 

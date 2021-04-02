@@ -243,16 +243,14 @@ class DocumentInController extends Controller
         {
             $model->scan = '';
             $model->save(false);
-            return $this->render('update', [
-                'model' => $this->findModel($modelId),
-            ]);
+            return $this->redirect('index?r=document-in/update&id='.$modelId);
         }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
 
             $result = '';
-            $split = explode(" ", $model->applications);
+            $type == 'app' ? $split = explode(" ", $model->applications) : $split = explode(" ", $model->doc);
             $deleteFile = '';
             for ($i = 0; $i < count($split) - 1; $i++)
             {
@@ -264,9 +262,10 @@ class DocumentInController extends Controller
                     $deleteFile = $split[$i];
             }
 
-            $model->applications = $result;
+            $type == 'app' ? $model->applications = $result : $model->doc = $result;
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
+            return $this->redirect('index?r=document-in/update&id='.$modelId);
         }
         return $this->redirect('index.php?r=document-in/update&id='.$modelId);
     }
