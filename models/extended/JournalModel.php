@@ -10,6 +10,7 @@ use app\models\common\Visit;
 class JournalModel extends \yii\base\Model
 {
     public $visits; //матрица посещений
+    public $visits1; //матрица посещений
     public $trainingGroup; //группа
     public $participants; //список учеников
     public $lessons; //список занятий

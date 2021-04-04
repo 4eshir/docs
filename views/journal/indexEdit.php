@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $parts = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->trainingGroup])->all();
     $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
     $form = ActiveForm::begin();
+    $counter = 0;
 
     echo '<br><h4>Журнал посещений<i> (</i>&#128505;<i> - посещение, </i>&#9633;<i> - неявка)</i></h4><table class="table table-bordered">';
     echo '<tr><td>ФИО ученика / Даты занятий</td>';
@@ -43,8 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!($visits == null || $visits->status == 0)) $value = true;
             if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
 
-            echo "<td style='padding: 5px 0 0 10px'>".$form->field($model, 'visits[]', ['template' => "{label}\n{input}", 'options' => ['display' => 'block', 'style' => $dis ? 'visibility:hidden' : '']])->checkbox(['checked' => $value, 'label' => ''])."</td>";
-
+            echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block', 'style' => $dis ? 'visibility:' : '']])->dropDownList([0 => 'Б',
+                    1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]]])->label(false)."</td>";
+            $counter++;
         }
         echo '</tr>';
     }

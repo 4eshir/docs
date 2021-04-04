@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\common\TrainingGroupLesson;
+use app\models\common\Visit;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\extended\JournalModel;
 use Yii;
 use app\models\common\Company;
 use app\models\SearchCompany;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -53,10 +56,18 @@ class JournalController extends Controller
 
     public function actionIndexEdit($group_id = null)
     {
+
         $model = new JournalModel($group_id);
+        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $group_id])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = Visit::find()->where(['in', 'training_group_lesson_id', $newLessons])->all();
+        $newVisits = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        $model->visits = $newVisits;
         if ($model->load(Yii::$app->request->post()))
         {
-            $model->ClearVisits();
+
             $model->save();
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }

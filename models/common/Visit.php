@@ -73,9 +73,11 @@ class Visit extends \yii\db\ActiveRecord
 
     public function getPrettyStatus()
     {
-        if ($this->status == 0)
+        if ($this->status == 1)
             return '<font color=red>H</font>';
+        else if ($this->status == 2)
+            return '<font color=blue>Д</font>';
         else
-            return '+';
+            return '<font color=green>Б</font>';
     }
 }
