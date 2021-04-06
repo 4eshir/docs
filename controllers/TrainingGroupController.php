@@ -4,15 +4,19 @@ namespace app\controllers;
 
 use app\models\common\Auditorium;
 use app\models\common\Branch;
+use app\models\common\ForeignEventParticipants;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
 use app\models\common\Visit;
+use app\models\components\ExcelWizard;
 use app\models\components\Logger;
 use app\models\DynamicModel;
 use app\models\extended\TrainingGroupAuto;
+use PHPExcel_Shared_Date;
+use stdClass;
 use Yii;
 use app\models\common\TrainingGroup;
 use app\models\SearchTrainingGroup;
@@ -21,6 +25,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * TrainingGroupController implements the CRUD actions for TrainingGroup model.
@@ -283,5 +290,21 @@ class TrainingGroupController extends Controller
                 echo "<option>-</option>";
 
         }
+    }
+
+    public function actionParse()
+    {
+        //var_dump(Yii::$app->basePath.'/upload/files/bitrix/groups/group1.xls');
+        /*$inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/bitrix/groups/group2.xls');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/group2.xls');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $inputData = $writer->save(Yii::$app->basePath.'/upload/files/bitrix/groups/group2new.xls');
+
+        $newReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        $inputData = $newReader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/group2new.xls');
+        var_dump($inputData->getActiveSheet()->getCellByColumnAndRow(3, 3)->getValue());*/
+
+        ExcelWizard::GetAllParticipants("group2.xls");
     }
 }
