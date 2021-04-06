@@ -178,7 +178,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
                             if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
@@ -262,7 +262,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             'id' => 'r'.$i,
                                             'class' => 'form-control aud',
                                         ];
-                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auds")->dropDownList([], $params)->label('Аудитория'); ?>
+                                        echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auds")->dropDownList([], $params)->label('Помещение'); ?>
                                     </div>
 
 
@@ -286,7 +286,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Аудитория</b></td></tr>';
+                        echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
                             if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
@@ -344,7 +344,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                         $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
                                         $params = [
                                         ];
-                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Аудитория');
+                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Помещение');
 
                                         ?>
                                     </div>

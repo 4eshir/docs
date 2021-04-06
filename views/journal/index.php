@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if ($visits == null)
                 echo '<td>--</td>';
             else
-                echo '<td>'.$visits->prettyStatus.'</td>';
+                echo $visits->prettyStatus;
         }
         echo '</tr>';
     }

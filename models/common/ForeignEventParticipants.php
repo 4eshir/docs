@@ -149,12 +149,13 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
         $eventsLink = '';
         foreach ($events as $event)
         {
+            $eventsLink .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
             $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
 
             if ($event->trainingGroup->finish_date < date("Y-m-d"))
                 $eventsLink .= ' (завершил обучение)';
             else
-                $eventsLink .= '<font color="darkgreen"> (проходит обучение)</font>';
+                $eventsLink .= ' <div style="background-color: green; display: inline"><font color="white"> (проходит обучение)</font></div>';
             $eventsLink .= '<br>';
         }
 

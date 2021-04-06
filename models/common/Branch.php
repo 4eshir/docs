@@ -41,7 +41,7 @@ class Branch extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название отдела',
-            'auditoriumsList' => 'Список аудиторий',
+            'auditoriumsList' => 'Список помещений',
             'workerList' => 'Список сотрудников',
         ];
     }

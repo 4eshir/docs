@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!($visits == null || $visits->status == 0)) $value = true;
             if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
 
-            echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block', 'style' => $dis ? 'visibility:' : '']])->dropDownList([0 => 'Б',
+            echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block', 'style' => $dis ? 'visibility:' : '']])->dropDownList([0 => 'Я',
                     1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]]])->label(false)."</td>";
             $counter++;
         }
