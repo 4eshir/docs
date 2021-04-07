@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\common\PeoplePositionBranch;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
+use app\models\DynamicModel;
 use Yii;
 use app\models\common\People;
 use app\models\SearchPeople;
@@ -82,11 +84,15 @@ class PeopleController extends Controller
             return $this->render('/site/error');
         }
         $model = new People();
+        $modelPeoplePositionBranch = [new PeoplePositionBranch];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->firstname = str_replace(' ', '', $model->firstname);
             $model->secondname = str_replace(' ', '', $model->secondname);
             $model->patronymic = str_replace(' ', '', $model->patronymic);
+            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranch::classname());
+            DynamicModel::loadMultiple($modelPeoplePositionBranch, Yii::$app->request->post());
+            $model->positions = $modelPeoplePositionBranch;
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен новый человек '.$model->fullName);
             Yii::$app->session->addFlash('success', $model->secondname.' '.$model->firstname.' '.$model->patronymic.' ('.$model->position->name.') успешно добавлен');
@@ -95,6 +101,7 @@ class PeopleController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelPeoplePositionBranch' => $modelPeoplePositionBranch,
         ]);
     }
 
@@ -113,15 +120,21 @@ class PeopleController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
+        $modelPeoplePositionBranch = [new PeoplePositionBranch];
         if ($model->position_id !== null)
             $model->stringPosition = $model->position->name;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranch::classname());
+            DynamicModel::loadMultiple($modelPeoplePositionBranch, Yii::$app->request->post());
+            $model->positions = $modelPeoplePositionBranch;
+            $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен человек '.$model->fullName);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelPeoplePositionBranch' => $modelPeoplePositionBranch,
         ]);
     }
 
@@ -149,6 +162,13 @@ class PeopleController extends Controller
 
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeletePosition($id, $modelId)
+    {
+        $position = PeoplePositionBranch::find()->where(['id' => $id])->one();
+        $position->delete();
+        return $this->redirect('index?r=people/update&id='.$modelId);
     }
 
     /**

@@ -32,9 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Фамилия', 'attribute' => 'secondname'],
             ['label' => 'Имя', 'attribute' => 'firstname'],
             ['label' => 'Отчество', 'attribute' => 'patronymic'],
-            ['label' => 'Должность', 'attribute' => 'position', 'value' => function($model){
-                return $model->position->name;
-            }],
+            ['label' => 'Должность(-и)', 'attribute' => 'positionsList', 'format' => 'raw'],
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],

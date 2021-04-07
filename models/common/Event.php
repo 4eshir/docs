@@ -85,7 +85,7 @@ class Event extends \yii\db\ActiveRecord
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
             [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gi, zip, rar, 7z, tagf', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gi, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['otherFiles'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
