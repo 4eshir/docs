@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\ForeignEventParticipants */
 
 $this->title = $model->fullName;
-$this->params['breadcrumbs'][] = ['label' => 'Участники образовательной деятельности', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Участники деятельности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

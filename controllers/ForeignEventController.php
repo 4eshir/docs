@@ -11,6 +11,7 @@ use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
+use app\models\extended\LoadParticipants;
 use app\models\extended\ParticipantsAchievementExtended;
 use app\models\extended\TeamModel;
 use Yii;
@@ -245,6 +246,8 @@ class ForeignEventController extends Controller
             return $this->redirect('index?r=foreign-event/update&id=' . $model->id);
         }
     }
+
+
 
     /**
      * Finds the ForeignEvent model based on its primary key value.

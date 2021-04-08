@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use app\models\components\UserRBAC;
+use app\models\extended\LoadParticipants;
 use Yii;
 use app\models\common\ForeignEventParticipants;
 use app\models\SearchForeignEventParticipants;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ForeignEventParticipantsController implements the CRUD actions for ForeignEventParticipants model.
@@ -133,6 +135,21 @@ class ForeignEventParticipantsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionFileLoad()
+    {
+        $model = new LoadParticipants();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->save();
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('file-load', [
+            'model' => $model,
+        ]);
     }
 
     /**
