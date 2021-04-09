@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             ['label' => '№ п/п', 'attribute' => 'id'],
 
-            ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
+            ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\AsCompany::find()->where(['id' => $model->as_company_id])->one()->name;}],
             ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
             ['attribute' => 'price', 'label' => 'Сумма договора'],
             ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
-            ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
+            ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\AsCompany::find()->where(['id' => $model->copyright_id])->one()->name;}],
             ['attribute' => 'as_name', 'label' => 'Наименование'],
             ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
             ['attribute' => 'useYear', 'label' => 'Период использования', 'value' => function($model){

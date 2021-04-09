@@ -70,12 +70,12 @@ class AsAdmin extends \yii\db\ActiveRecord
             [['document_date', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
             [['as_name', 'document_number', 'unifed_register_number', 'comment', 'scan', 'license_file', 'commercial_offers', 'service_note', 'contract_subject'], 'string', 'max' => 1000],
-            [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['as_company_id' => 'id']],
-            [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['copyright_id' => 'id']],
+            [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
+            [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['copyright_id' => 'id']],
             [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
             [['distribution_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DistributionType::className(), 'targetAttribute' => ['distribution_type_id' => 'id']],
             [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => License::className(), 'targetAttribute' => ['license_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
             [['as_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsType::className(), 'targetAttribute' => ['as_type_id' => 'id']],
             [['license_term_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseTermType::className(), 'targetAttribute' => ['license_term_type_id' => 'id']],
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true],
@@ -124,7 +124,7 @@ class AsAdmin extends \yii\db\ActiveRecord
      */
     public function getAsCompany()
     {
-        return $this->hasOne(Company::className(), ['id' => 'as_company_id']);
+        return $this->hasOne(AsCompany::className(), ['id' => 'as_company_id']);
     }
 
     /**
@@ -134,7 +134,7 @@ class AsAdmin extends \yii\db\ActiveRecord
      */
     public function getCopyright()
     {
-        return $this->hasOne(Company::className(), ['id' => 'copyright_id']);
+        return $this->hasOne(AsCompany::className(), ['id' => 'copyright_id']);
     }
 
     /**
@@ -174,7 +174,7 @@ class AsAdmin extends \yii\db\ActiveRecord
      */
     public function getRegister()
     {
-        return $this->hasOne(User::className(), ['id' => 'register_id']);
+        return $this->hasOne(People::className(), ['id' => 'register_id']);
     }
 
     /**

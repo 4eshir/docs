@@ -45,6 +45,7 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['secondname' => SORT_ASC, 'firstname' => SORT_ASC]]
         ]);
 
         $this->load($params);

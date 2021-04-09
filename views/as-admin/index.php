@@ -126,9 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ['attribute' => 'id', 'label' => '№ п/п'],
                 ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
-                ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
-                ['attribute' => 'price', 'label' => 'Сумма договора'],
+                ['attribute' => 'document_number', 'label' => 'Договор №'],
                 ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
+                ['attribute' => 'price', 'label' => 'Сумма договора'],
+                ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
                 ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
                 ['attribute' => 'as_name', 'label' => 'Наименование'],
                 ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
@@ -146,11 +147,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $html;
                 }, 'format' => 'raw'],
                 ['attribute' => 'country_name_id', 'label' => 'Страна производитель', 'value' => 'countryProd.name'],
-                ['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
-                ['attribute' => 'distribution_type_id', 'label' => 'Способ распространения', 'value' => function($model){return \app\models\common\DistributionType::find()->where(['id' => $model->distribution_type_id])->one()->name;}],
+                //['attribute' => 'unifed_register_number', 'label' => 'Единый реестр ПО'],
+                //['attribute' => 'distribution_type_id', 'label' => 'Способ распространения', 'value' => function($model){return \app\models\common\DistributionType::find()->where(['id' => $model->distribution_type_id])->one()->name;}],
                 ['attribute' => 'license_term_type_id', 'label' => 'Срок лицензии', 'value' => function($model){return \app\models\common\LicenseTermType::find()->where(['id' => $model->license_term_type_id])->one()->name;}],
                 ['attribute' => 'license_id', 'label' => 'Вид лицензии', 'value' => function($model){return \app\models\common\License::find()->where(['id' => $model->license_id])->one()->name;}],
-                ['attribute' => 'license_status', 'label' => 'Статус лицензии', 'value' => function($model){return $model->license_status == 0 ? 'Неактивна' : 'Активна';}],
+                //['attribute' => 'license_status', 'label' => 'Статус лицензии', 'value' => function($model){return $model->license_status == 0 ? 'Неактивна' : 'Активна';}],
+                ['attribute' => 'comment', 'label' => 'Примечание'],
+                ['attribute' => 'register_id', 'label' => 'Отв. лицо', 'value' => function ($model) {
+                    return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
+                },
+                ],
                 ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
                     $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
                     $html = '';
@@ -180,11 +186,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->license_count - $sum;
                 },
                 ],
-                ['attribute' => 'register_id', 'label' => 'Отв. лицо', 'value' => function ($model) {
-                    return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
-                },
-                ],
-                ['attribute' => 'comment', 'label' => 'Примечание'],
+
+
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

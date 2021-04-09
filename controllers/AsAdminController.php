@@ -112,7 +112,7 @@ class AsAdminController extends Controller
             $model->service_note = '';
             $model->commercial_offers = '';
             $model->scan = '';
-            $model->register_id = Yii::$app->user->identity->getId();
+            //$model->register_id = Yii::$app->user->identity->getId();
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->licenseFile = UploadedFile::getInstance($model, 'licenseFile');

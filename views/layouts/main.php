@@ -72,6 +72,7 @@ AppAsset::register($this);
                     ['label' => 'Работа с базой ПО', 'url' => ['/as-admin/index']],
                     ['label' => 'Страны', 'url' => ['/as-admin/index-country']],
                     ['label' => 'Тип ПО', 'url' => ['/as-admin/index-as-type']],
+                    ['label' => 'Компании', 'url' => ['/as-admin/index-company']],
                     ['label' => 'Вид лицензии', 'url' => ['/as-admin/index-license']],
                 ]],
                 ['label' => 'Эл. журнал', 'items' => [

@@ -16,16 +16,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?php
-    $company = \app\models\common\Company::find()->all();
+    $company = \app\models\common\AsCompany::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
     echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Контрагент');
 
     ?>
 
-    <?= $form->field($model, 'contract_subject')->textInput()->label('Предмет договора'); ?>
-
-    <?= $form->field($model, 'price')->textInput()->label('Сумма договора') ?>
+    <?= $form->field($model, 'document_number')->textInput()->label('Договор №'); ?>
 
     <?= $form->field($model, 'document_date')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -46,17 +44,21 @@ use wbraganca\dynamicform\DynamicFormWidget;
             //'buttonImage' => 'images/calendar.gif'
         ]])->label('Дата договора') ?>
 
+    <?= $form->field($model, 'price')->textInput()->label('Сумма договора') ?>
+
+    <?= $form->field($model, 'contract_subject')->textInput()->label('Предмет договора'); ?>
+
     <?php
-    $company = \app\models\common\Company::find()->all();
+    $company = \app\models\common\AsCompany::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
     echo $form->field($model, 'copyright_id')->dropDownList($items,$params)->label('Правообладатель');
 
     ?>
 
-    <?= $form->field($model, 'as_name')->textInput()->label('Наименование ПО') ?>
+    <?= $form->field($model, 'as_name')->textInput()->label('Наименование') ?>
 
-    <?= $form->field($model, 'license_count')->textInput()->label('Количество лицензий') ?>
+    <?= $form->field($model, 'license_count')->textInput()->label('Кол-во лицензий') ?>
 
     <?= $form->field($model, 'useStartDate')->widget(DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
@@ -104,16 +106,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
-    <?= $form->field($model, 'unifed_register_number')->textInput()->label('Номер в едином реестре ПО') ?>
 
+    <?php //echo $form->field($model, 'unifed_register_number')->textInput()->label('Номер в едином реестре ПО') ?>
 
-    <?php
-    $lic = \app\models\common\DistributionType::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
-    $params = [];
-    echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
-
-    ?>
 
     <?php
     $lic = \app\models\common\LicenseTermType::find()->all();
@@ -131,7 +126,29 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
-    <?= $form->field($model, 'license_status', ['template' => "{input}{label}"])->checkbox() ?>
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
+
+    <?php
+    $peoples = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $items = \yii\helpers\ArrayHelper::map($peoples,'id','fullName');
+    $params = [
+        'prompt' => '',
+    ];
+    echo $form->field($model, 'register_id')->dropDownList($items,$params)->label('Ответственное лицо');
+
+    ?>
+
+    <?php
+    /*
+    $lic = \app\models\common\DistributionType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
+    */
+    ?>
+
+
+    <?php //echo $form->field($model, 'license_status', ['template' => "{input}{label}"])->checkbox() ?>
 
     <div class="row">
         <div class="panel panel-default">
@@ -207,8 +224,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
             </div>
         </div>
     </div>
-
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
 
     <?= $form->field($model, 'scanFile')->textInput(['maxlength' => true])->fileInput()->label('Договор (скан)') ?>
 
