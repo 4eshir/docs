@@ -27,65 +27,71 @@ class ExcelWizard
         $inputData = $reader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$filename);
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $splitName = explode(".", $filename);
-        $newFilename = $splitName[0].'_new'.'.'.$splitName[1];
+        $newFilename = $splitName[0].'_new'.'.xls';//.$splitName[1];
         $inputData = $writer->save(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$newFilename);
 
-        $newFilename = "group2_new.xls";
         $newReader = \PHPExcel_IOFactory::createReader('Excel2007');
         $inputData = $newReader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$newFilename);
 
+        $startRow = 1;
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
+        while ($startRow < 100 && strlen($tempValue) < 2)
+        {
+            $startRow++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
+        }
+
         $fioColumnIndex = 0;
         $tempValue = '_';
-        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, 2)->getValue();
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
 
         while ($fioColumnIndex < 100 && $tempValue !== 'Фамилия Имя Отчество проектанта')
         {
             $fioColumnIndex++;
-            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, 2)->getValue();
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
         }
 
         $birthdateColumnIndex = 0;
-        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, 2)->getValue();
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         while ($birthdateColumnIndex < 100 && $tempValue !== 'Дата рождения (л)')
         {
             $birthdateColumnIndex++;
-            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, 2)->getValue();
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         }
 
         $names = [];
         $curName = "_";
-        $startIndex = 3;
+        $startIndex = $startRow + 1;
+        $mainIndex = 0;
 
-        while ($startIndex < $inputData->getActiveSheet()->getHighestRow())
+        while ($mainIndex < $inputData->getActiveSheet()->getHighestRow() - $startRow)
         {
-            $curName = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startIndex)->getValue();
+            $curName = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startIndex + $mainIndex)->getValue();
             if ($curName !== null)
                 $names[] = $curName;
             else
                 $names[] = "none none none";
-            $startIndex++;
+            $mainIndex++;
         }
 
         $birthdates = [];
         $curDate = "_";
-        $startIndex = 3;
-
-        while ($startIndex < $inputData->getActiveSheet()->getHighestRow())
+        $startIndex = $startRow + 1;
+        $mainIndex = 0;
+        while ($mainIndex < $inputData->getActiveSheet()->getHighestRow() - $startRow)
         {
-            $curDate = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startIndex)->getValue();
+            $curDate = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startIndex + $mainIndex)->getFormattedValue();
             $birthdates[] = $curDate;
-            $startIndex++;
+            $mainIndex++;
         }
 
-        unset($birthdates[count($birthdates) - 1]);
-        unset($names[count($names) - 1]);
+        //unset($birthdates[count($birthdates) - 1]);
+        //unset($names[count($names) - 1]);
 
         $participants = [new ForeignEventParticipants];
         for ($i = 0; $i != count($names); $i++)
         {
             $fio = explode(" ", $names[$i]);
-            var_dump($fio);
-            var_dump('<br>');
             if (count($fio) == 3)
                 $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['patronymic' => $fio[2]])->andWhere(['birthdate' => date("Y-m-d", strtotime($birthdates[$i]))])->one();
             else

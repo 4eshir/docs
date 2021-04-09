@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\common\DocumentOut;
 use app\models\common\Feedback;
+use app\models\common\People;
+use app\models\common\PeoplePositionBranch;
 use app\models\common\User;
 use app\models\components\Logger;
 use app\models\extended\FeedbackAnswer;
@@ -39,7 +41,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer', 'temp'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -178,6 +180,26 @@ class SiteController extends Controller
     public function actionCreateOutdocs()
     {
 
+    }
+
+    public function actionTemp()
+    {
+        $peoples = People::find()->all();
+        foreach ($peoples as $people)
+        {
+            if ($people->branch_id !== null)
+                $newPPB = PeoplePositionBranch::find()->where(['people_id' => $people->id])
+                    ->andWhere(['position_id' => $people->position_id])
+                    ->andWhere(['branch_id' => $people->branch_id])->one();
+            else
+                $newPPB = PeoplePositionBranch::find()->where(['people_id' => $people->id])
+                    ->andWhere(['position_id' => $people->position_id])->one();
+            if ($newPPB == null) $newPPB = new PeoplePositionBranch();
+            $newPPB->position_id = $people->position_id;
+            $newPPB->people_id = $people->id;
+            $newPPB->branch_id = $people->branch_id;
+            $newPPB->save();
+        }
     }
 
     /*public function actionAddAdmin() {
