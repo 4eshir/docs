@@ -13,7 +13,7 @@ $this->title = 'ЦСХД';
         <h2><b>Добро пожаловать в систему!</b></h2>
 
         <p class="lead">Используйте меню навигации в верхней части экрана для доступа к элементам системы</p>
-        <?php echo Html::a('Тык сюда', \yii\helpers\Url::to(['training-group/parse']), ['class' => 'btn btn-success']) ?>
+        <?php //echo Html::a('Тык сюда', \yii\helpers\Url::to(['training-group/parse']), ['class' => 'btn btn-success']) ?>
     </div>
 
 
