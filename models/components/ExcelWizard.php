@@ -88,14 +88,24 @@ class ExcelWizard
         //unset($birthdates[count($birthdates) - 1]);
         //unset($names[count($names) - 1]);
 
-        $participants = [new ForeignEventParticipants];
+        $participants = array();
         for ($i = 0; $i != count($names); $i++)
         {
             $fio = explode(" ", $names[$i]);
             if (count($fio) == 3)
                 $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['patronymic' => $fio[2]])->andWhere(['birthdate' => date("Y-m-d", strtotime($birthdates[$i]))])->one();
-            else
-                $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['birthdate' => strtotime(date("Y-m-d", strtotime($birthdates[$i])))])->one();
+            else {
+                if (count($fio) > 3)
+                {
+                    $patr = '';
+                    for ($j = 2; $j != count($fio); $j++)
+                        $patr .= $fio[$j].' ';
+                    $patr = mb_substr($patr, 0, -1);
+                    $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['patronymic' => $patr])->andWhere(['birthdate' => date("Y-m-d", strtotime($birthdates[$i]))])->one();
+                }
+                else
+                    $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['birthdate' => date("Y-m-d", strtotime($birthdates[$i]))])->one();
+            }
             if ($newParticipant == null)
             {
                 $newParticipant = new ForeignEventParticipants();
@@ -103,11 +113,21 @@ class ExcelWizard
                 $newParticipant->secondname = $fio[0];
                 if (count($fio) == 3)
                     $newParticipant->patronymic = $fio[2];
+                if (count($fio) > 3)
+                {
+                    $patr = '';
+                    for ($j = 2; $j != count($fio); $j++)
+                        $patr .= $fio[$j].' ';
+                    $patr = mb_substr($patr, 0, -1);
+                    $newParticipant->patronymic = $patr;
+                }
                 $newParticipant->birthdate = date("Y-m-d", strtotime($birthdates[$i]));
                 $newParticipant->sex = self::GetSex($fio[1]);
                 $newParticipant->save();
             }
+            $participants[] = $newParticipant;
         }
+        return $participants;
     }
 
 }

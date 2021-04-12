@@ -17,7 +17,8 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
     public function rules()
     {
         return [
-            [['id', 'firstname', 'secondname', 'patronymic'], 'integer'],
+            ['id', 'integer'],
+            [['firstname', 'secondname', 'patronymic'], 'string'],
         ];
     }
 

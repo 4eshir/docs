@@ -33,6 +33,9 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Состав</h4></div>
+            <div style="padding-left: 1.5%; padding-top: 1%">
+                <?= $form->field($model, 'fileParticipants')->fileInput() ?>
+            </div>
             <div>
             <?php
             $extEvents = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->id])->all();
@@ -52,7 +55,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                     'widgetBody' => '.container-items1', // required: css class selector
                     'widgetItem' => '.item1', // required: css class
-                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'limit' => 100, // the maximum times, an element can be cloned (default 999)
                     'min' => 1, // 0 or 1 (default 1)
                     'insertButton' => '.add-item', // css class
                     'deleteButton' => '.remove-item', // css class

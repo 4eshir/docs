@@ -107,12 +107,15 @@ class TrainingGroupController extends Controller
             $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
+            $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile();
             if ($model->presentDataFile !== null)
                 $model->uploadPresentDataFile();
             if ($model->workDataFile !== null)
                 $model->uploadWorkDataFile();
+            if ($model->fileParticipants !== null)
+                $model->uploadFileParticipants();
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -157,12 +160,15 @@ class TrainingGroupController extends Controller
             $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
+            $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)
                 $model->uploadPresentDataFile(10);
             if ($model->workDataFile !== null)
                 $model->uploadWorkDataFile(10);
+            if ($model->fileParticipants !== null)
+                $model->uploadFileParticipants();
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }

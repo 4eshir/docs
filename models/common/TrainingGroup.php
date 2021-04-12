@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
@@ -37,6 +38,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public $auto;
     public $orders;
 
+    public $fileParticipants;
+
     /**
      * {@inheritdoc}
      */
@@ -58,6 +61,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgram::className(), 'targetAttribute' => ['training_program_id' => 'id']],
@@ -91,6 +95,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'scheduleType' => 'Тип расписания',
             'ordersName' => 'Приказы',
             'budget' => 'Бюджет',
+            'fileParticipants' => 'Загрузить участников из файла',
         ];
     }
 
@@ -274,6 +279,31 @@ class TrainingGroup extends \yii\db\ActiveRecord
         else
             $this->work_data = $this->work_data.$result;
         return true;
+    }
+
+    public function uploadFileParticipants()
+    {
+        $parts = ExcelWizard::GetAllParticipants($this->fileParticipants->name);
+        $this->addParticipants($parts);
+    }
+
+    private function addParticipants($participants)
+    {
+
+        if ($participants !== null && count($participants) > 0)
+        {
+            for ($i = 0; $i !== count($participants); $i++)
+            {
+                $newTrainingGroupParticipant = TrainingGroupParticipant::find()->where(['participant_id' => $participants[$i]->id])->andWhere(['training_group_id' => $this->id])->one();
+                if ($newTrainingGroupParticipant == null)
+                {
+                    $newTrainingGroupParticipant = new TrainingGroupParticipant();
+                    $newTrainingGroupParticipant->participant_id = $participants[$i]->id;
+                    $newTrainingGroupParticipant->training_group_id = $this->id;
+                    $newTrainingGroupParticipant->save();
+                }
+            }
+        }
     }
 
 

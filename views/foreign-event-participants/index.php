@@ -24,11 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            if ($data['sex'] == 'Другое')
+                return ['class' => 'danger'];
+            else if ($data['is_true'] == 0)
+                return ['class' => 'warning'];
+            else
+                return ['class' => 'default'];
+        },
         'columns' => [
 
             'secondname',
             'firstname',
             'patronymic',
+            'sex',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
