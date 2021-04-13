@@ -35,12 +35,11 @@ class ExcelWizard
 
         $startRow = 1;
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
-        while ($startRow < 100 && strlen($tempValue) < 2)
+        while ($startRow < 100 && strlen($tempValue) < 4)
         {
             $startRow++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
         }
-        $startRow++;
         $fioColumnIndex = 0;
         $tempValue = '_';
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
