@@ -21,7 +21,7 @@ class ExcelWizard
 
     static public function GetAllParticipants($filename)
     {
-
+        ini_set('memory_limit', '512M');
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$filename);
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$filename);
