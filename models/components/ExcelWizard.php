@@ -40,7 +40,7 @@ class ExcelWizard
             $startRow++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
         }
-
+        $startRow++;
         $fioColumnIndex = 0;
         $tempValue = '_';
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
@@ -58,7 +58,6 @@ class ExcelWizard
             $birthdateColumnIndex++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         }
-
         $names = [];
         $curName = "_";
         $startIndex = $startRow + 1;
@@ -84,7 +83,6 @@ class ExcelWizard
             $birthdates[] = $curDate;
             $mainIndex++;
         }
-
         //unset($birthdates[count($birthdates) - 1]);
         //unset($names[count($names) - 1]);
 
