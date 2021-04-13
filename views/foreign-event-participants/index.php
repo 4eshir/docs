@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'patronymic',
             'sex',
+            ['attribute' => 'birthdate', 'value' => function($model){return date("d.m.Y", strtotime($model->birthdate));}],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
