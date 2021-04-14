@@ -117,6 +117,14 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editProgram', 'value' => function($model) {if ($model->editProgram == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'viewGroup', 'value' => function($model) {if ($model->viewGroup == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'editGroup', 'value' => function($model) {if ($model->editGroup == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'viewJournal', 'value' => function($model) {if ($model->viewJournal == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'editJournal', 'value' => function($model) {if ($model->editJournal == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
         ],
     ]) ?>
 

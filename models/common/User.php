@@ -53,6 +53,10 @@ class User extends ActiveRecord implements IdentityInterface
     public $editForeign;
     public $viewProgram;
     public $editProgram;
+    public $viewGroup;
+    public $editGroup;
+    public $viewJournal;
+    public $editJournal;
 
     public $oldPass;
     public $newPass;
@@ -88,7 +92,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
                 'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd',
-                'viewForeign', 'editForeign', 'viewProgram', 'editProgram'], 'safe'],
+                'viewForeign', 'editForeign', 'viewProgram', 'editProgram', 'viewGroup', 'editGroup', 'viewJournal', 'editJournal'], 'safe'],
         ];
     }
 
@@ -122,6 +126,10 @@ class User extends ActiveRecord implements IdentityInterface
             'editForeign' => 'Разрешено редактировать внешние мероприятия',
             'viewProgram' => 'Разрешено просматривать образовательные программы',
             'editProgram' => 'Разрешено редактировать образовательные программы',
+            'viewGroup' => 'Разрешено просматривать все учебные группы',
+            'editGroup' => 'Разрешено редактировать все учебные группы',
+            'viewJournal' => 'Разрешено просматривать журналы всех учебных групп',
+            'editJournal' => 'Разрешено редактировать журналы всех учебных групп',
             'oldPass' => 'Старый пароль',
             'newPass' => 'Новый пароль',
             'aka' => 'Также является',
@@ -232,7 +240,8 @@ class User extends ActiveRecord implements IdentityInterface
         $arr = array($this->addUsers, $this->viewRoles, $this->editRoles, $this->viewOut, $this->editOut,
             $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
             $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
-            $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign, $this->viewProgram, $this->editProgram);
+            $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign, $this->viewProgram, $this->editProgram,
+            $this->viewGroup, $this->editGroup, $this->viewJournal, $this->editJournal);
         if ($changedAttributes['password_hash'] == null)
         {
             for ($i = 0; $i != count($arr); $i++)

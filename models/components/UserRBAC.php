@@ -71,6 +71,13 @@ class UserRBAC
                 'create training-program' => 21,
                 'update training-program' => 21,
                 'delete training-program' => 21,
+                'index training-group' => 22,
+                'view training-group' => 22,
+                'create training-group' => 23,
+                'update training-group' => 23,
+                'delete training-group' => 23,
+                'index journal' => 24,
+                'index-edit journal' => 25,
             );
         }
 

@@ -152,6 +152,30 @@ use yii\widgets\ActiveForm;
     if ($tmp != null) $value = true; else $value = false;
     ?>
     <?= $form->field($model, 'editProgram')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 22])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'viewGroup')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 23])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'editGroup')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 24])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'viewJournal')->checkbox(['checked' => $value]) ?>
+    <?php
+    $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 25])->one();
+    $value = 0;
+    if ($tmp != null) $value = true; else $value = false;
+    ?>
+    <?= $form->field($model, 'editJournal')->checkbox(['checked' => $value]) ?>
 
 
     <div class="form-group">

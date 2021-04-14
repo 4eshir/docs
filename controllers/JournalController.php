@@ -6,6 +6,7 @@ use app\models\common\TrainingGroupLesson;
 use app\models\common\Visit;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
+use app\models\extended\AccessTrainingGroup;
 use app\models\extended\JournalModel;
 use Yii;
 use app\models\common\Company;
@@ -41,6 +42,11 @@ class JournalController extends Controller
      */
     public function actionIndex($group_id = null)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $model = new JournalModel($group_id);
         if ($model->load(Yii::$app->request->post()))
         {
@@ -56,7 +62,11 @@ class JournalController extends Controller
 
     public function actionIndexEdit($group_id = null)
     {
-
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $model = new JournalModel($group_id);
         $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $group_id])->all();
         $newLessons = array();

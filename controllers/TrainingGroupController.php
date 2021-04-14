@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\AccessLevel;
 use app\models\common\Auditorium;
 use app\models\common\Branch;
 use app\models\common\ForeignEventParticipants;
@@ -13,7 +14,9 @@ use app\models\common\TrainingGroupParticipant;
 use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
+use app\models\components\UserRBAC;
 use app\models\DynamicModel;
+use app\models\extended\AccessTrainingGroup;
 use app\models\extended\TrainingGroupAuto;
 use PHPExcel_Shared_Date;
 use stdClass;
@@ -55,6 +58,11 @@ class TrainingGroupController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $searchModel = new SearchTrainingGroup();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -72,6 +80,11 @@ class TrainingGroupController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -84,6 +97,11 @@ class TrainingGroupController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $model = new TrainingGroup();
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
@@ -138,6 +156,11 @@ class TrainingGroupController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $model = $this->findModel($id);
         $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
@@ -191,6 +214,11 @@ class TrainingGroupController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+            return $this->render('/site/error');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
