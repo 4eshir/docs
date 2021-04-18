@@ -376,9 +376,9 @@ class TrainingGroup extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        $teacher = User::find()->where(['aka' => $this->teacher_id])->one();
+        $teacher = $this->teacher_id;
         $level = $this->trainingProgram->level++;
-        $this->number = $this->trainingProgram->thematicDirection->name.'.'.$level.'.'.People::find()->where(['id' => $teacher->aka])->one()->short.'.'.str_replace('-', '', $this->start_date);
+        $this->number = $this->trainingProgram->thematicDirection->name.'.'.$level.'.'.People::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
         $counter = count(TrainingGroup::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
         $current = TrainingGroup::find()->where(['id' => $this->id])->one();
         $counter++;
