@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\models\common\User;
+use app\models\components\UserRBAC;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\TrainingGroup;
@@ -41,6 +44,12 @@ class SearchTrainingGroup extends TrainingGroup
     public function search($params)
     {
         $query = TrainingGroup::find();
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+        {
+            $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+            $query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
+        }
+
 
         // add conditions that should always apply here
 

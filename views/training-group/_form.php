@@ -17,8 +17,8 @@ $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
         var d = new Date();
         var elems = document.getElementsByClassName('def');
-        elems[elems.length - 1].value = d.getHours() + ':' + d.getMinutes();
-        elems[elems.length - 2].value = d.getHours() + ':' + d.getMinutes();
+        elems[elems.length - 1].value = '10:00';
+        elems[elems.length - 2].value = '10:00';
     });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
@@ -28,7 +28,6 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'number')->textInput() ?>
     <?= $form->field($model, 'budget')->checkbox() ?>
     <div class="row">
         <div class="panel panel-default">
@@ -44,7 +43,14 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                 echo '<table class="table table-bordered">';
                 echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
                 foreach ($extEvents  as $extEvent) {
-                    echo '<tr><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    if ($extEvent->status == 0)
+                        echo '<tr><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                '<td>&nbsp;'.Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']).'</td>'.
+                                '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    else
+                        echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
+                                '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }
@@ -226,10 +232,10 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     }
                                     ?>
                                     <div class="col-xs-4">
-                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date', 'id' => 'inputDate'])->label('Дата занятия') ?>
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])->label('Дата занятия') ?>
                                     </div>
                                     <div class="col-xs-1">
-                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
+                                        <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['class' => 'form-control def', 'value' => '10:00'])->label('Начало занятия') ?>
                                     </div>
                                     <div class="col-xs-2">
                                         <?php
@@ -292,7 +298,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                         echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             $class = 'default';
-                            if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40) $class = 'danger';
+                            if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
                             echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->auditorium->fullName.'</h5></td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
@@ -332,7 +338,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                         $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                         $params = [
                                             'prompt' => '',
-                                            'id' => 'selectDay'
+                                            'id' => 'selectDay',
+                                            'class' => 'form-control selectDayClass'
                                         ];
                                         echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->dropDownList($items,$params)->label('Периодичность');
 
@@ -501,16 +508,18 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 <script>
     function checkSchedule()
     {
+
         var radioList = document.getElementsByName('scheduleType');
+
         if (radioList[1].checked)
         {
-            document.getElementById("selectDay").value = null;
+            document.getElementsByClassName("selectDayClass").value = null;
             $("#manualSchedule").removeAttr("hidden");
             $("#autoSchedule").attr("hidden", "true");
         }
         else
         {
-            document.getElementById("inputDate").value = "";
+            document.getElementsByClassName("inputDateClass").value = "";
             $("#autoSchedule").removeAttr("hidden");
             $("#manualSchedule").attr("hidden", "true");
         }

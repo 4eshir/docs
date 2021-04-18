@@ -60,7 +60,7 @@ class TrainingGroupController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), -1)) {
             return $this->render('/site/error');
         }
         $searchModel = new SearchTrainingGroup();
@@ -82,7 +82,7 @@ class TrainingGroupController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $id)) {
             return $this->render('/site/error');
         }
         return $this->render('view', [
@@ -99,7 +99,7 @@ class TrainingGroupController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $id)) {
             return $this->render('/site/error');
         }
         $model = new TrainingGroup();
@@ -158,7 +158,7 @@ class TrainingGroupController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $id)) {
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
@@ -216,7 +216,7 @@ class TrainingGroupController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $id)) {
             return $this->render('/site/error');
         }
         $this->findModel($id)->delete();
@@ -247,6 +247,45 @@ class TrainingGroupController extends Controller
         $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
         $participant->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionRemandParticipant($id, $modelId)
+    {
+        $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant->status = 1;
+        $participant->save();
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionUnremandParticipant($id, $modelId)
+    {
+        $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant->status = 0;
+        $participant->save();
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionUpdateParticipant($id)
+    {
+        $model = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $group = TrainingGroup::find()->where(['id' => $model->training_group_id])->one();
+            $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
+            $modelTrainingGroupLesson = [new TrainingGroupLesson];
+            $modelTrainingGroupAuto = [new TrainingGroupAuto];
+            $modelOrderGroup = [new OrderGroup];
+            return $this->render('update', [
+                'model' => $group,
+                'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
+                'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
+                'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
+                'modelOrderGroup' => $modelOrderGroup,
+            ]);
+        }
+        return $this->render('update-participant', [
+            'model' => $model,
+        ]);
     }
 
     public function actionDeleteLesson($id, $modelId)

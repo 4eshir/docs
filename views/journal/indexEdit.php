@@ -11,6 +11,19 @@ $this->title = 'Участники мероприятий';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<script>
+    function changeColor(obj)
+    {
+        if (obj.value == 0) obj.style.background = "green";
+        if (obj.value == 1) obj.style.background = "#DC143C";
+        if (obj.value == 2) obj.style.background = "#183BD9";
+    }
+</script>
+
+<style>
+    select:focus {outline:none;}
+</style>
+
 <div>
     <?php
     echo Html::a("Переключиться в режим просмотра", \yii\helpers\Url::to(['journal/index', 'group_id' => $model->trainingGroup]), ['class'=>'btn btn-success'])
@@ -22,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $form = ActiveForm::begin();
     $counter = 0;
 
-    echo '<br><h4>Журнал посещений<i> (</i>&#128505;<i> - посещение, </i>&#9633;<i> - неявка)</i></h4><table class="table table-bordered">';
+    echo '<br><h4>Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></h4><table class="table table-bordered">';
     echo '<tr><td>ФИО ученика / Даты занятий</td>';
     foreach ($lessons as $lesson)
     {
@@ -32,7 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</tr>';
     foreach ($parts as $part)
     {
-        echo '<tr><td style="padding: 5px 0 0 10px">'.$part->participant->shortName.'</td>';
+        $tr = '<tr>';
+        if ($part->status == 1)
+            $tr = '<tr style="background:lightcoral">';
+        echo $tr.'<td style="padding: 5px 0 0 10px">'.$part->participant->shortName.'</td>';
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
@@ -42,10 +58,25 @@ $this->params['breadcrumbs'][] = $this->title;
             $date = new DateTime(date("Y-m-d"));
             $date->modify('-1 week');
             if (!($visits == null || $visits->status == 0)) $value = true;
-            if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
+            //if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
+            if ($part->status == 1) $dis = true;
+            $selected0 = $model->visits[$counter] == 0 ? 'selected' : '';
+            $selected1 = $model->visits[$counter] == 1 ? 'selected' : '';
+            $selected2 = $model->visits[$counter] == 2 ? 'selected' : '';
+            $color = 'style="background: white"';
+            if ($model->visits[$counter] == 0) $color = 'style="background: green; color: white"';
+            if ($model->visits[$counter] == 1) $color = 'style="background: #DC143C; color: white"';
+            if ($model->visits[$counter] == 2) $color = 'style="background: #183BD9; color: white"';
+            echo "<td style='padding: 5px 5px 0 5px'>";
+            echo '<select onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]"'.$color.'>';
+            echo '<option value="3" style="background: white">--</option>';
+            echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
+            echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
+            echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
+            echo '</select></td>';
 
-            echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block', 'style' => $dis ? 'visibility:' : '']])->dropDownList([0 => 'Я',
-                    1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]]])->label(false)."</td>";
+            //echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block']])->dropDownList([3 => '--', 0 => 'Я',
+            //        1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]], 'disabled' => $dis ? true : false, 'style' => 'background: blue'])->label(false)."</td>";
             $counter++;
         }
         echo '</tr>';

@@ -1,5 +1,8 @@
 <?php
 
+use app\models\common\TrainingGroup;
+use app\models\common\User;
+use app\models\components\UserRBAC;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
@@ -20,6 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
     $form = ActiveForm::begin(); ?>
     <?php
     $groups = \app\models\common\TrainingGroup::find()->all();
+    if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+    {
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+    }
     $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
     $params = [
         'prompt' => '',
@@ -48,7 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</tr>';
     foreach ($parts as $part)
     {
-        echo '<tr><td>'.$part->participant->shortName.'</td>';
+        $tr = '<tr>';
+        if ($part->status == 1)
+            $tr = '<tr style="background:lightcoral">';
+        echo $tr.'<td>'.$part->participant->shortName.'</td>';
         foreach ($lessons as $lesson)
         {
             $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();

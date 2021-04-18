@@ -165,6 +165,17 @@ class People extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        if (strlen($this->short) > 2)
+        {
+            $current = People::find()->where(['id' => $this->id])->one();
+            if (strlen($current->short) < 7)
+            {
+                $similar = People::find()->where(['like', 'short', $this->short.'%', false])->andWhere(['!=', 'id', $current->id])->all();
+                $this->short .= count($similar) + 1;
+            }
+            else
+                $this->short = $current->short;
+        }
         if ($this->stringPosition == '')
             $this->stringPosition = '---';
         $position = Position::find()->where(['name' => $this->stringPosition])->one();
