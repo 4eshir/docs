@@ -71,7 +71,7 @@ class JournalController extends Controller
         $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $group_id])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = Visit::find()->where(['in', 'training_group_lesson_id', $newLessons])->all();
+        $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC])->all();
         $newVisits = array();
         foreach ($visits as $visit) $newVisits[] = $visit->status;
         $model->visits = $newVisits;

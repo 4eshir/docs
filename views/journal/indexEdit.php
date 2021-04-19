@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if (obj.value == 0) obj.style.background = "green";
         if (obj.value == 1) obj.style.background = "#DC143C";
         if (obj.value == 2) obj.style.background = "#183BD9";
+        if (obj.value == 3) obj.style.background = "white";
     }
 </script>
 
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 </div>
 <?php
-    $parts = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->trainingGroup])->all();
+    $parts = \app\models\common\TrainingGroupParticipant::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
     $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
     $form = ActiveForm::begin();
     $counter = 0;
@@ -63,14 +64,16 @@ $this->params['breadcrumbs'][] = $this->title;
             $selected0 = $model->visits[$counter] == 0 ? 'selected' : '';
             $selected1 = $model->visits[$counter] == 1 ? 'selected' : '';
             $selected2 = $model->visits[$counter] == 2 ? 'selected' : '';
+            $selected3 = $model->visits[$counter] == 3 ? 'selected' : '';
             $color = 'style="background: white"';
             if ($model->visits[$counter] == 0) $color = 'style="background: green; color: white"';
             if ($model->visits[$counter] == 1) $color = 'style="background: #DC143C; color: white"';
             if ($model->visits[$counter] == 2) $color = 'style="background: #183BD9; color: white"';
+            if ($model->visits[$counter] == 3) $color = 'style="background: white; color: white"';
             echo "<td style='padding: 5px 5px 0 5px'>";
             $disabledStr = $dis ? 'disabled' : '';
             echo '<select '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]"'.$color.'>';
-            echo '<option value="3" style="background: white">--</option>';
+            echo '<option value="3" '.$selected0.' style="background: white">--</option>';
             echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
             echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
             echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';

@@ -58,7 +58,7 @@ class Visit extends \yii\db\ActiveRecord
      */
     public function getForeignEventParticipant()
     {
-        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'foreign_event_participants']);
+        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'foreign_event_participant_id']);
     }
 
     /**
