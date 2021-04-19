@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <h4><u>Общая информация</u></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -75,12 +75,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'email',
             'akaName',
+        ],
+    ]) ?>
+    <h4><u>Административные права</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             ['attribute' => 'addUsers', 'value' => function($model) {if ($model->addUsers == 1) return '<span class="badge badge-success">Да</span>';
-                else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'viewRoles', 'value' => function($model) {if ($model->viewRoles == 1) return '<span class="badge badge-success">Да</span>';
-                else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editRoles', 'value' => function($model) {if ($model->editRoles == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+        ],
+    ]) ?>
+    <h4><u>Права доступа к системе документооборота</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             ['attribute' => 'viewOut', 'value' => function($model) {if ($model->viewOut == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editOut', 'value' => function($model) {if ($model->editOut == 1) return '<span class="badge badge-success">Да</span>';
@@ -101,22 +113,30 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editEvent', 'value' => function($model) {if ($model->editEvent == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'viewAS', 'value' => function($model) {if ($model->viewAS == 1) return '<span class="badge badge-success">Да</span>';
+            ['attribute' => 'viewForeign', 'value' => function($model) {if ($model->viewForeign == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'editAS', 'value' => function($model) {if ($model->editAS == 1) return '<span class="badge badge-success">Да</span>';
+            ['attribute' => 'editForeign', 'value' => function($model) {if ($model->editForeign == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'viewAdd', 'value' => function($model) {if ($model->viewAdd == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editAdd', 'value' => function($model) {if ($model->editAdd == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'viewForeign', 'value' => function($model) {if ($model->viewForeign == 1) return '<span class="badge badge-success">Да</span>';
+        ],
+    ]) ?>
+    <h4><u>Права доступа к реестру ПО</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'viewAS', 'value' => function($model) {if ($model->viewAS == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'editForeign', 'value' => function($model) {if ($model->editForeign == 1) return '<span class="badge badge-success">Да</span>';
+            ['attribute' => 'editAS', 'value' => function($model) {if ($model->editAS == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'viewProgram', 'value' => function($model) {if ($model->viewProgram == 1) return '<span class="badge badge-success">Да</span>';
-            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
-            ['attribute' => 'editProgram', 'value' => function($model) {if ($model->editProgram == 1) return '<span class="badge badge-success">Да</span>';
-            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+        ],
+    ]) ?>
+    <h4><u>Права доступа к электронному журналу</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             ['attribute' => 'viewGroup', 'value' => function($model) {if ($model->viewGroup == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editGroup', 'value' => function($model) {if ($model->editGroup == 1) return '<span class="badge badge-success">Да</span>';
@@ -127,5 +147,4 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
         ],
     ]) ?>
-
 </div>
