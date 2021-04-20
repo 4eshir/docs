@@ -61,19 +61,20 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!($visits == null || $visits->status == 0)) $value = true;
             if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
             if ($part->status == 1) $dis = true;
-            $selected0 = $model->visits[$counter] == 0 ? 'selected' : '';
-            $selected1 = $model->visits[$counter] == 1 ? 'selected' : '';
-            $selected2 = $model->visits[$counter] == 2 ? 'selected' : '';
-            $selected3 = $model->visits[$counter] == 3 ? 'selected' : '';
+            $selected0 = $visits->status == 0 ? 'selected' : '';
+            $selected1 = $visits->status == 1 ? 'selected' : '';
+            $selected2 = $visits->status == 2 ? 'selected' : '';
+            $selected3 = $visits->status == 3 ? 'selected' : '';
             $color = 'style="background: white"';
-            if ($model->visits[$counter] == 0) $color = 'style="background: green; color: white"';
-            if ($model->visits[$counter] == 1) $color = 'style="background: #DC143C; color: white"';
-            if ($model->visits[$counter] == 2) $color = 'style="background: #183BD9; color: white"';
-            if ($model->visits[$counter] == 3) $color = 'style="background: white; color: white"';
+            if ($visits->status == 0) $color = 'style="background: green; color: white"';
+            if ($visits->status == 1) $color = 'style="background: #DC143C; color: white"';
+            if ($visits->status == 2) $color = 'style="background: #183BD9; color: white"';
+            if ($visits->status == 3) $color = 'style="background: white; color: white"';
             echo "<td style='padding: 5px 5px 0 5px'>";
             $disabledStr = $dis ? 'disabled' : '';
-            echo '<select '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]"'.$color.'>';
-            echo '<option value="3" '.$selected0.' style="background: white">--</option>';
+            if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);
+            echo '<select '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
+            echo '<option value="3" '.$selected3.' style="background: white">--</option>';
             echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
             echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
             echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
@@ -87,13 +88,24 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     echo '</table><br><br>';
     echo '<h4>Тематический план занятий</h4><br>';
-    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td></tr>';
+    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {
+        $teachers = \app\models\common\TeacherGroup::find()->where(['training_group_id' => $model->trainingGroup])->all();
+        $teachers_id = [];
+        foreach ($teachers as $teacher)
+            $teachers_id[] = $teacher->teacher_id;
+        $people = \app\models\common\People::find()->where(['in', 'id', $teachers_id])->all();
+        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+        $params = [
+        ];
         $theme = \app\models\common\LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $value = '';
         if ($theme !== null) $value = $theme->theme;
-        echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.$form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td></tr>';
+        echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.
+            $form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td><td>'.
+            $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
+            '</td></tr>';
     }
     echo '</table>';
     echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);

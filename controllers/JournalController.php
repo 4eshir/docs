@@ -44,7 +44,8 @@ class JournalController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId())) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $group_id)
+            && UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26) == null) {
             return $this->render('/site/error');
         }
         $model = new JournalModel($group_id);
@@ -64,20 +65,25 @@ class JournalController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $group_id)) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $group_id)
+            && UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26) == null) {
             return $this->render('/site/error');
         }
         $model = new JournalModel($group_id);
-        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $group_id])->all();
+        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
         $newVisits = array();
+        $newVisitsId = array();
         foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
         $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+        //var_dump($model->visits);
         if ($model->load(Yii::$app->request->post()))
         {
-
             $model->save();
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }

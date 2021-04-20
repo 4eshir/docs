@@ -28,6 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
     }
+    else
+    {
+        $groups = UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26);
+    }
     $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
     $params = [
         'prompt' => '',
@@ -72,14 +76,14 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     echo '</table><br><br>';
     echo '<h4>Тематический план занятий</h4><br>';
-    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td></tr>';
+    echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {
         $theme = \app\models\common\LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $result = '';
         if ($theme !== null) $result = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td>
-             <td>'.$result.'</td></tr>';
+             <td>'.$result.'</td><td>'.$theme->teacher->shortName.'</td></tr>';
     }
     echo '</table>';
 ?>

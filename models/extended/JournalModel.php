@@ -15,6 +15,8 @@ class JournalModel extends \yii\base\Model
     public $participants; //список учеников
     public $lessons; //список занятий
     public $themes; //список тем занятий
+    public $teachers; //список педагогов, ведущих занятия
+    public $visits_id; //id записей о посещении
 
     function __construct($group_id = null)
     {
@@ -24,7 +26,7 @@ class JournalModel extends \yii\base\Model
     public function rules()
     {
         return [
-            [['visits', 'participants', 'lessons', 'themes'], 'safe'],
+            [['visits', 'participants', 'lessons', 'themes', 'teachers', 'visits_id'], 'safe'],
             [['trainingGroup'], 'integer'],
         ];
     }
@@ -46,7 +48,10 @@ class JournalModel extends \yii\base\Model
         $k = 0;
         for ($i = 0; $i !== count($this->visits); $i++, $k++)
         {
-            if ($i % count($this->lessons) == 0 && $i !== 0)
+            $vis = Visit::find()->where(['id' => $this->visits_id[$i]])->one();
+            $vis->status = $this->visits[$i];
+            $vis->save(false);
+            /*if ($i % count($this->lessons) == 0 && $i !== 0)
             {
                 $j++;
                 $k = 0;
@@ -57,7 +62,7 @@ class JournalModel extends \yii\base\Model
             $vis->foreign_event_participant_id = $this->participants[$j];
             $vis->training_group_lesson_id = $this->lessons[$k];
             $vis->status = $this->visits[$i];
-            $vis->save(false);
+            $vis->save(false);*/
         }
 
         for ($i = 0; $i !== count($this->themes); $i++)
@@ -69,6 +74,7 @@ class JournalModel extends \yii\base\Model
             {
                 $theme->theme = $this->themes[$i];
                 $theme->training_group_lesson_id = $this->lessons[$i];
+                $theme->teacher_id = $this->teachers[$i];
                 $theme->save();
             }
         }

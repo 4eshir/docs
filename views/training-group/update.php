@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
         'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
         'modelOrderGroup' => $modelOrderGroup,
+        'modelTeachers' => $modelTeachers,
     ]) ?>
 
 </div>

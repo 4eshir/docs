@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             'number',
             ['attribute' => 'budget', 'value' => function($model) {return $model->budget ? 'Бюджет' : 'Внебюджет';}],
             ['attribute' => 'programName', 'format' => 'html'],
-            'teacherName',
+            ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
             'finish_date',
             ['attribute' => 'participantNames', 'format' => 'html'],

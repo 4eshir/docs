@@ -91,6 +91,8 @@ class UserController extends Controller
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 23])->one() !== null) $model->editGroup = 1; else $model->editGroup = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 24])->one() !== null) $model->viewJournal = 1; else $model->viewJournal = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 25])->one() !== null) $model->editJournal = 1; else $model->editJournal = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 26])->one() !== null) $model->viewGroupBranch = 1; else $model->viewGroupBranch = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 27])->one() !== null) $model->editGroupBranch = 1; else $model->editGroupBranch = 0;
         return $this->render('view', [
             'model' => $model,
         ]);

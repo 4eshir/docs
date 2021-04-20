@@ -4,6 +4,9 @@ namespace app\models\components;
 
 use app\models\common\Access;
 use app\models\common\AccessLevel;
+use app\models\common\TrainingGroup;
+use app\models\common\User;
+use Yii;
 
 class UserRBAC
 {
@@ -93,5 +96,20 @@ class UserRBAC
                 return true;
         }
         return false;
+    }
+
+    public static function GetAccessGroupList($user_id, $access_id)
+    {
+        $access = AccessLevel::find()->where(['user_id' => $user_id])->andWhere(['access_id' => $access_id])->one();
+        if ($access == null) return null;
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $branch = \app\models\common\PeoplePositionBranch::find()->where(['people_id' => $user->aka])->one();
+        if ($branch !== null)
+            $groups = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->joinWith(['auditorium auditorium'])->where(['auditorium.branch_id' => $branch->branch_id])->all();
+        $newGroups = [];
+        foreach ($groups as $group)
+            $newGroups[] = TrainingGroup::find()->where(['id' => $group->training_group_id])->one();
+        $groups = $newGroups;
+        return $groups;
     }
 }

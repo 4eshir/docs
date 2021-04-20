@@ -171,6 +171,21 @@ use yii\widgets\ActiveForm;
         if ($tmp != null) $value = true; else $value = false;
         ?>
         <?= $form->field($model, 'editGroup')->checkbox(['checked' => $value]) ?>
+
+        <?php
+        $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 26])->one();
+        $value = 0;
+        if ($tmp != null) $value = true; else $value = false;
+        ?>
+        <?= $form->field($model, 'viewGroupBranch')->checkbox(['checked' => $value]) ?>
+        <?php
+        $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 27])->one();
+        $value = 0;
+        if ($tmp != null) $value = true; else $value = false;
+        ?>
+        <?= $form->field($model, 'editGroupBranch')->checkbox(['checked' => $value]) ?>
+
+
         <?php
         $tmp = \app\models\common\AccessLevel::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 24])->one();
         $value = 0;

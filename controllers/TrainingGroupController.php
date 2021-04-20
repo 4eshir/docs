@@ -9,6 +9,7 @@ use app\models\common\ForeignEventParticipants;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
+use app\models\common\TeacherGroup;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
 use app\models\common\Visit;
@@ -107,9 +108,10 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroup];
+        $modelTeachers = [new TeacherGroup];
 
         if ($model->load(Yii::$app->request->post())) {
-
+            $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
             $model->workDataFile = UploadedFile::getInstances($model, 'workDataFile');
@@ -125,6 +127,10 @@ class TrainingGroupController extends Controller
             $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
+
+            $modelTeachers = DynamicModel::createMultiple(TeacherGroup::classname());
+            DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
+            $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile();
@@ -135,6 +141,12 @@ class TrainingGroupController extends Controller
             if ($model->fileParticipants !== null)
                 $model->uploadFileParticipants();
             $model->save(false);
+            $model->GenerateNumber();
+            $model->auto = null;
+            $model->lessons = null;
+            $model->teachers = null;
+            $model->participants = null;
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -144,6 +156,7 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
             'modelOrderGroup' => $modelOrderGroup,
+            'modelTeachers' => $modelTeachers,
         ]);
     }
 
@@ -166,8 +179,10 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupLesson = [new TrainingGroupLesson];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroup];
+        $modelTeachers = [new TeacherGroup];
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
             $model->workDataFile = UploadedFile::getInstances($model, 'workDataFile');
@@ -183,6 +198,9 @@ class TrainingGroupController extends Controller
             $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
+            $modelTeachers = DynamicModel::createMultiple(TeacherGroup::classname());
+            DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
+            $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
@@ -193,6 +211,13 @@ class TrainingGroupController extends Controller
             if ($model->fileParticipants !== null)
                 $model->uploadFileParticipants();
             $model->save(false);
+            $model = $this->findModel($id);
+            $model->auto = null;
+            $model->lessons = null;
+            $model->teachers = null;
+            $model->participants = null;
+            $model->GenerateNumber();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -202,6 +227,7 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
             'modelOrderGroup' => $modelOrderGroup,
+            'modelTeachers' => $modelTeachers,
         ]);
     }
 
@@ -246,6 +272,13 @@ class TrainingGroupController extends Controller
     {
         $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
         $participant->delete();
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionDeleteTeacher($id, $modelId)
+    {
+        $teacher = TeacherGroup::find()->where(['id' => $id])->one();
+        $teacher->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
