@@ -55,10 +55,10 @@ class User extends ActiveRecord implements IdentityInterface
     public $editProgram;
     public $viewGroup;
     public $editGroup;
-    public $viewJournal;
-    public $editJournal;
     public $viewGroupBranch;
     public $editGroupBranch;
+    public $addGroup;
+    public $deleteGroup;
 
     public $oldPass;
     public $newPass;
@@ -94,8 +94,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
                 'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd',
-                'viewForeign', 'editForeign', 'viewProgram', 'editProgram', 'viewGroup', 'editGroup', 'viewJournal', 'editJournal',
-                'viewGroupBranch', 'editGroupBranch'], 'safe'],
+                'viewForeign', 'editForeign', 'viewProgram', 'editProgram', 'viewGroup', 'editGroup', 'viewGroupBranch', 'editGroupBranch',
+                'addGroup', 'deleteGroup'], 'safe'],
         ];
     }
 
@@ -130,11 +130,11 @@ class User extends ActiveRecord implements IdentityInterface
             'viewProgram' => 'Разрешено просматривать образовательные программы',
             'editProgram' => 'Разрешено редактировать образовательные программы',
             'viewGroup' => 'Разрешено просматривать все учебные группы',
-            'editGroup' => 'Разрешено добавлять новые учебные группы и редактировать все учебные группы',
-            'viewJournal' => 'Разрешено просматривать журналы всех учебных групп',
-            'editJournal' => 'Разрешено редактировать журналы всех учебных групп',
+            'editGroup' => 'Разрешено редактировать все учебные группы',
             'viewGroupBranch' => 'Разрешено просматривать все учебные группы своего отдела',
             'editGroupBranch' => 'Разрешено редактировать все учебные группы своего отдела',
+            'addGroup' => 'Разрешено добавлять учебные группы',
+            'deleteGroup' => 'Разрешено удалять учебные группы',
             'oldPass' => 'Старый пароль',
             'newPass' => 'Новый пароль',
             'aka' => 'Также является',
@@ -246,7 +246,7 @@ class User extends ActiveRecord implements IdentityInterface
             $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
             $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
             $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign, $this->viewProgram, $this->editProgram,
-            $this->viewGroup, $this->editGroup, $this->viewJournal, $this->editJournal, $this->viewGroupBranch, $this->editGroupBranch);
+            $this->viewGroup, $this->editGroup, $this->viewGroupBranch, $this->editGroupBranch, $this->addGroup, $this->deleteGroup);
         if ($changedAttributes['password_hash'] == null)
         {
             for ($i = 0; $i != count($arr); $i++)

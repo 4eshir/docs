@@ -11,7 +11,7 @@ class AccessTrainingGroup extends \yii\base\Model
 {
     static public function CheckAccess($id, $group_id)
     {
-        if ($group_id == -1)
+        if ($group_id == null)
             return true;
         $user = User::find()->where(['id' => $id])->one();
         if ($user == null)

@@ -44,11 +44,36 @@ class SearchTrainingGroup extends TrainingGroup
     public function search($params)
     {
         $query = TrainingGroup::find();
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
-            $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-            $query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
+            $groups = TrainingGroup::find();
         }
+        else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
+        {
+            $branchs = \app\models\common\PeoplePositionBranch::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+            if ($branchs !== null)
+            {
+                $branchs_id = [];
+                foreach ($branchs as $branch) $branchs_id[] = $branch->branch_id;
+                $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
+                $newGroups_id = [];
+                foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->training_group_id;
+                $groups = TrainingGroup::find()->where(['in', 'id', $newGroups_id]);
+            }
+        }
+        else
+        {
+            $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+            $teachers_id = [];
+            foreach ($teachers as $teacher) $teachers_id[] = $teacher->training_group_id;
+            $groups = TrainingGroup::find()->where(['in', 'id', $teachers_id]);
+        }
+
+        //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
+        $query = $groups;
 
 
         // add conditions that should always apply here

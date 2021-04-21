@@ -74,16 +74,16 @@ class UserRBAC
                 'create training-program' => 21,
                 'update training-program' => 21,
                 'delete training-program' => 21,
-                'index training-group' => 22,
-                'view training-group' => 22,
-                'create training-group' => 23,
-                'update training-group' => 23,
-                'delete training-group' => 23,
-                'index journal' => 24,
-                'index-edit journal' => 25,
+                'create training-group' => 26,
+                'delete training-group' => 27,
             );
         }
 
+    }
+
+    public static function IsAccess($user_id, $access_id)
+    {
+        return AccessLevel::find()->where(['user_id' => $user_id])->andWhere(['access_id' => $access_id])->one() !== null;
     }
 
     public static function CheckAccess($user_id, $action_type, $subsystem)
@@ -98,18 +98,87 @@ class UserRBAC
         return false;
     }
 
-    public static function GetAccessGroupList($user_id, $access_id)
+    public static function CheckAccessGroupListEdit($user_id, $group_id)
     {
-        $access = AccessLevel::find()->where(['user_id' => $user_id])->andWhere(['access_id' => $access_id])->one();
-        if ($access == null) return null;
         $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $branch = \app\models\common\PeoplePositionBranch::find()->where(['people_id' => $user->aka])->one();
-        if ($branch !== null)
-            $groups = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->joinWith(['auditorium auditorium'])->where(['auditorium.branch_id' => $branch->branch_id])->all();
-        $newGroups = [];
-        foreach ($groups as $group)
-            $newGroups[] = TrainingGroup::find()->where(['id' => $group->training_group_id])->one();
-        $groups = $newGroups;
+        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        $newGroups_id = [];
+        if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 23)) //доступ на редактирование ВСЕХ групп
+        {
+            $groups = TrainingGroup::find()->all();
+            foreach ($groups as $group) $newGroups_id[] = $group->id;
+        }
+        else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 25)) //доступ на редактирование групп СВОЕГО ОТДЕЛА
+        {
+            $branchs = \app\models\common\PeoplePositionBranch::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+            if ($branchs !== null)
+            {
+                $branchs_id = [];
+                foreach ($branchs as $branch) $branchs_id[] = $branch->branch_id;
+                $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
+
+                $newGroups_id = [];
+                foreach ($groups_id as $group) $newGroups_id[] = $group->training_group_id;
+            }
+        }
+        else
+        {
+            $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+            $newGroups_id = [];
+            foreach ($teachers as $teacher) $newGroups_id[] = $teacher->training_group_id;
+        }
+        return in_array($group_id, $newGroups_id);
+    }
+
+    /*
+    public static function GetGroupList($user_id, $access_id)
+    {
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+        {
+            $groups = TrainingGroup::find()->all();
+        }
+        else
+        {
+            $groups = array_merge($groups, UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26));
+        }
+        if ($groups !== null)
+            $items =  \yii\helpers\ArrayHelper::map($groups,'id','number');
+        else
+        {
+            $tgroups = \app\models\common\TeacherGroup::find()->where(['teacher_id' => $user->aka])->all();
+            $tgroups = \yii\helpers\ArrayHelper::map($tgroups, 'id', 'training_group_id');
+            $groups = TrainingGroup::find()->where(['in', 'id', $tgroups])->all();
+            $items = \yii\helpers\ArrayHelper::map($groups, 'id', 'number');
+        }
         return $groups;
     }
+
+    public static function CheckGroupAccess($user_id, $group_id)
+    {
+        if ($group_id == null) return true;
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+        {
+            $groups = TrainingGroup::find()->all();
+        }
+        else
+        {
+            $groups = array_merge($groups, UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26));
+        }
+        if ($groups !== null)
+            $items =  \yii\helpers\ArrayHelper::map($groups,'id','number');
+        else
+        {
+            $tgroups = \app\models\common\TeacherGroup::find()->where(['teacher_id' => $user->aka])->all();
+            $tgroups = \yii\helpers\ArrayHelper::map($tgroups, 'id', 'training_group_id');
+            $groups = TrainingGroup::find()->where(['in', 'id', $tgroups])->all();
+            $items = \yii\helpers\ArrayHelper::map($groups, 'id', 'number');
+        }
+        $targetGroup = TrainingGroup::find()->where(['in', 'number', $items])->one();
+        return $targetGroup !== null;
+    }
+    */
 }

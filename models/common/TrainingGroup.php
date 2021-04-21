@@ -177,9 +177,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
         $result = '';
         foreach ($parts as $part)
         {
-            if ((strtotime($part->lesson_end_time) - strtotime($part->lesson_start_time)) / 60 < $part->duration * 40)
-                $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: несовпадение временных рамок и объема занятия</i></font><br>';
-            else if ($part->lesson_date < $this->start_date)
+            if ($part->lesson_date < $this->start_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия раньше даты начала курса</i></font><br>';
             else if ($part->lesson_date > $this->finish_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
@@ -364,6 +362,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 $newLesson->lesson_end_time = $lesson->lesson_end_time;
                 $newLesson->duration = $lesson->duration;
                 $aud = Auditorium::find()->where(['branch_id' => $lesson->auditorium_id])->andWhere(['name' => $lesson->auds])->one();
+                $newLesson->branch_id = $lesson->auditorium_id;
                 $newLesson->auditorium_id = $aud->id;
                 $newLesson->training_group_id = $this->id;
                 $newLesson->save();
@@ -381,6 +380,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $newLesson->lesson_start_time = $autoOne->start_time;
                     $newLesson->lesson_end_time = $autoOne->end_time;
                     $newLesson->duration = $autoOne->duration;
+                    $newLesson->branch_id = $autoOne->branch_id;
                     $newLesson->auditorium_id = $autoOne->auditorium_id;
                     $newLesson->training_group_id = $this->id;
                     $newLesson->save();

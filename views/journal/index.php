@@ -19,20 +19,43 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
     $parts = \app\models\common\TrainingGroupParticipant::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
     $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
-
+    $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
     $form = ActiveForm::begin(); ?>
     <?php
-    $groups = \app\models\common\TrainingGroup::find()->all();
-    if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), 'index', 'training-group'))
+    $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+    if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
     {
-        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        $groups = TrainingGroup::find()->all();
+    }
+    else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
+    {
+        $branchs = \app\models\common\PeoplePositionBranch::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+        if ($branchs !== null)
+        {
+            $branchs_id = [];
+            foreach ($branchs as $branch) $branchs_id[] = $branch->branch_id;
+            $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
+            $newGroups_id = [];
+            foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->training_group_id;
+            $groups = TrainingGroup::find()->where(['in', 'id', $newGroups_id])->all();
+        }
     }
     else
     {
-        $groups = UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26);
+        $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+        $teachers_id = [];
+        foreach ($teachers as $teacher) $teachers_id[] = $teacher->training_group_id;
+        $groups = TrainingGroup::find()->where(['in', 'id', $teachers_id])->all();
     }
-    $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
+    if ($groups !== null)
+        $items =  \yii\helpers\ArrayHelper::map($groups,'id','number');
+    else
+    {
+        $tgroups = \app\models\common\TeacherGroup::find()->where(['teacher_id' => $user->aka])->all();
+        $tgroups = \yii\helpers\ArrayHelper::map($tgroups, 'id', 'training_group_id');
+        $groups = TrainingGroup::find()->where(['in', 'id', $tgroups])->all();
+        $items = \yii\helpers\ArrayHelper::map($groups, 'id', 'number');
+    }
     $params = [
         'prompt' => '',
     ];

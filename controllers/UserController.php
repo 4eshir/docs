@@ -89,10 +89,10 @@ class UserController extends Controller
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 21])->one() !== null) $model->editProgram = 1; else $model->editProgram = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 22])->one() !== null) $model->viewGroup = 1; else $model->viewGroup = 0;
         if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 23])->one() !== null) $model->editGroup = 1; else $model->editGroup = 0;
-        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 24])->one() !== null) $model->viewJournal = 1; else $model->viewJournal = 0;
-        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 25])->one() !== null) $model->editJournal = 1; else $model->editJournal = 0;
-        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 26])->one() !== null) $model->viewGroupBranch = 1; else $model->viewGroupBranch = 0;
-        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 27])->one() !== null) $model->editGroupBranch = 1; else $model->editGroupBranch = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 24])->one() !== null) $model->viewGroupBranch = 1; else $model->viewGroupBranch = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 25])->one() !== null) $model->editGroupBranch = 1; else $model->editGroupBranch = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 26])->one() !== null) $model->addGroup = 1; else $model->addGroup = 0;
+        if (AccessLevel::find()->where(['user_id' => $id])->andWhere(['access_id' => 27])->one() !== null) $model->deleteGroup = 1; else $model->deleteGroup = 0;
         return $this->render('view', [
             'model' => $model,
         ]);

@@ -44,10 +44,6 @@ class JournalController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $group_id)
-            && UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26) == null) {
-            return $this->render('/site/error');
-        }
         $model = new JournalModel($group_id);
         if ($model->load(Yii::$app->request->post()))
         {
@@ -65,8 +61,7 @@ class JournalController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), $group_id)
-            && UserRBAC::GetAccessGroupList(Yii::$app->user->identity->getId(), 26) == null) {
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !UserRBAC::CheckAccessGroupListEdit(Yii::$app->user->identity->getId(), $group_id)) {
             return $this->render('/site/error');
         }
         $model = new JournalModel($group_id);
