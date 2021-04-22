@@ -380,7 +380,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $newLesson->lesson_start_time = $autoOne->start_time;
                     $newLesson->lesson_end_time = $autoOne->end_time;
                     $newLesson->duration = $autoOne->duration;
-                    $newLesson->branch_id = $autoOne->branch_id;
+                    $aud = Auditorium::find()->where(['branch_id' => $autoOne->auditorium_id])->andWhere(['name' => $autoOne->auds])->one();
+                    $newLesson->branch_id = $aud->id;
                     $newLesson->auditorium_id = $autoOne->auditorium_id;
                     $newLesson->training_group_id = $this->id;
                     $newLesson->save();

@@ -15,12 +15,16 @@ class TrainingGroupAuto extends Model
     public $auditorium_id;
     public $duration;
 
+    public $auds;
+
+
     public function rules()
     {
         return [
             [['start_time', 'end_time', 'auditorium'], 'required'],
             [['day','start_time', 'end_time'], 'string'],
             [['duration'], 'integer'],
+            [['auds'], 'safe'],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
         ];
     }

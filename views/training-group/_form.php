@@ -414,13 +414,39 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     </div>
                                     <div class="col-xs-2">
                                         <?php
-                                        $auds = \app\models\common\Auditorium::find()->all();
-                                        $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
+                                        //$branchs = \app\models\common\Branch::find()->all();
+                                        //$items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
                                         $params = [
+                                            'id' => $i,
+                                            'onchange' => '
+                                                $.post(
+                                                    "' . Url::toRoute('subcat') . '", 
+                                                    {id: $(this).val()}, 
+                                                    function(res){
+                                                        var elems = document.getElementsByClassName("aud1");
+                                                        for (var c = 0; c !== elems.length; c++) {
+                                                            if (elems[c].id == "ra" + id)
+                                                                elems[c].innerHTML = res;
+                                                        }
+                                                    }
+                                                );
+                                            ',
                                         ];
-                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Помещение');
+
+                                        $audits = \app\models\common\Branch::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
+
+                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');
 
                                         ?>
+
+                                        <?php
+                                        $params = [
+                                            'prompt' => '',
+                                            'id' => 'ra'.$i,
+                                            'class' => 'form-control aud1',
+                                        ];
+                                        echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auds")->dropDownList([], $params)->label('Помещение'); ?>
                                     </div>
 
 
