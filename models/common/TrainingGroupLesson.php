@@ -86,7 +86,7 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
         $result = [];
         foreach ($lessons as $lesson)
         {
-            if (($this->lesson_start_time <= $lesson->lesson_end_time || $this->lesson_end_time >= $lesson->lesson_start_time) && $lesson->lesson_date == $this->lesson_date && $lesson->auditorium_id == $this->auditorium_id)
+            if (($this->lesson_start_time < $lesson->lesson_end_time && $this->lesson_end_time > $lesson->lesson_start_time) && $lesson->lesson_date == $this->lesson_date && $lesson->auditorium_id == $this->auditorium_id)
                 $result[] = $lesson->id;
         }
         return $result;
