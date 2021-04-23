@@ -318,7 +318,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public function GenerateNumber()
     {
         $teacher = TeacherGroup::find()->where(['training_group_id' => $this->id])->orderBy(['id' => SORT_ASC])->one()->teacher_id;
-        $level = $this->trainingProgram->level++;
+        $level = $this->trainingProgram->level;
+        $level++;
         $this->number = $this->trainingProgram->thematicDirection->name.'.'.$level.'.'.People::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
         $counter = count(TrainingGroup::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
         $current = TrainingGroup::find()->where(['id' => $this->id])->one();
