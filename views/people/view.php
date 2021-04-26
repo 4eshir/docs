@@ -36,9 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],
+            ['label' => 'Отдел по трудовому договору', 'attribute' => 'branch_id', 'format' => 'raw', 'value' => function($model) {return Html::a($model->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $model->branch_id]));}, 'visible' => $model->branch_id !== null],
 
             ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null && $model->short !== ''],
-            ['label' => 'Отдел по трудовому договору', 'attribute' => 'branch_id', 'format' => 'raw', 'value' => function($model) {return Html::a($model->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $model->branch_id]));}, 'visible' => $model->branch_id !== null],
+            ['label' => 'Дата рождения', 'attribute' => 'birthdate', 'visible' => $model->birthdate !== null && $model->birthdate !== ''],
+            ['label' => 'Пол', 'attribute' => 'sexString', 'visible' => $model->sex !== null && $model->sex !== ''],
         ],
     ]) ?>
     <?php

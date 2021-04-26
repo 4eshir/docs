@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
                 if ($auds != null)
                 {
                     echo '<table class="table table-bordered">';
-                    echo '<tr><td><b>Название аудитории</b></td><td></td></tr>';
+                    echo '<tr><td><b>Номер</b></td><td><b>Площадь (кв.м.)</b></td><td><b>Предназначен для обр. деят.</b></td><td></td></tr>';
                     foreach ($auds as $aud) {
-                        echo '<tr><td><h5>'.$aud->name.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['branch/delete-auditorium', 'id' => $aud->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td><h5>'.$aud->name.'</h5></td><td>'.$aud->square.'</td><td>'.$aud->isEducation.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['branch/delete-auditorium', 'id' => $aud->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -68,6 +68,12 @@ use yii\widgets\ActiveForm;
                                 ?>
                                 <div class="col-xs-4">
                                     <?= $form->field($modelAuditoriumOne, "[{$i}]name")->textInput(); ?>
+                                </div>
+                                <div class="col-xs-4">
+                                    <?= $form->field($modelAuditoriumOne, "[{$i}]square")->textInput(); ?>
+                                </div>
+                                <div class="col-xs-4">
+                                    <?= $form->field($modelAuditoriumOne, "[{$i}]is_education")->checkbox(); ?>
                                 </div>
 
 

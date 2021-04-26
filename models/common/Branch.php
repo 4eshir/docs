@@ -52,7 +52,7 @@ class Branch extends \yii\db\ActiveRecord
         $result = '';
         foreach ($auds as $aud)
         {
-            $result .= $aud->name.'<br>';
+            $result .= Html::a($aud->name, \yii\helpers\Url::to(['auditorium/view', 'id' => $aud->id])).'<br>';
         }
         return $result;
     }
@@ -63,7 +63,7 @@ class Branch extends \yii\db\ActiveRecord
         $result = '';
         foreach ($workers as $worker)
         {
-            $result .= Html::a($worker->fullName, \yii\helpers\Url::to(['people/view', 'id' => $worker->id])).'<br>';
+            $result .= Html::a($worker->getFullNameBranch($this->id), \yii\helpers\Url::to(['people/view', 'id' => $worker->id])).'<br>';
         }
         return $result;
     }
@@ -78,6 +78,8 @@ class Branch extends \yii\db\ActiveRecord
                 $newAuds = new Auditorium();
                 $newAuds->branch_id = $this->id;
                 $newAuds->name = $auditorium->name;
+                $newAuds->square = $auditorium->square;
+                $newAuds->is_education = $auditorium->is_education;
                 $newAuds->save(false);
             }
         }

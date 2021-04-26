@@ -76,7 +76,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     <?php foreach ($modelTrainingGroupParticipant as $i => $modelTrainingGroupParticipantOne): ?>
                         <div class="item1 panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <h3 class="panel-title pull-left">Участник</h3>
+                                <h3 class="panel-title pull-left">Учащийся</h3>
                                 <div class="pull-right">
                                     <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
@@ -98,7 +98,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     $params = [
                                         'prompt' => '',
                                     ];
-                                    echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО участника');
+                                    echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
                                     ?>
 
                                 </div>

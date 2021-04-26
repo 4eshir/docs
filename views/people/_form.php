@@ -2,6 +2,7 @@
 
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
 use app\models\common\Position;
@@ -152,6 +153,28 @@ use app\models\common\Position;
         echo $form->field($model, 'branch_id')->dropDownList($items,$params);
 
         ?>
+
+        <?= $form->field($model, 'birthdate')->widget(DatePicker::class, [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            //'dateFormat' => 'dd.MM.yyyy,
+            'options' => [
+                'placeholder' => 'Дата',
+                'class'=> 'form-control',
+                'autocomplete'=>'off'
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '1980:2050',
+                //'showOn' => 'button',
+                //'buttonText' => 'Выбрать дату',
+                //'buttonImageOnly' => true,
+                //'buttonImage' => 'images/calendar.gif'
+            ]]) ?>
+
+        <?= $form->field($model, 'sex')->radioList(array(0 => 'Мужской',
+            1 => 'Женский', 2 => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>
     </div>
 
 

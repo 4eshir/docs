@@ -16,6 +16,8 @@ use yii\helpers\Html;
  * @property int|null $company_id
  * @property int|null $position_id
  * @property int|null $branch_id
+ * @property string $birthdate
+ * @property int $sex
  *
  * @property Company $company
  * @property Position $position
@@ -41,8 +43,8 @@ class People extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
-            [['id', 'company_id', 'position_id', 'branch_id'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short'], 'string', 'max' => 1000],
+            [['id', 'company_id', 'position_id', 'branch_id', 'sex'], 'integer'],
+            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short', 'birthdate'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -64,6 +66,8 @@ class People extends \yii\db\ActiveRecord
             'company_id' => 'Company ID',
             'position_id' => 'Position ID',
             'branch_id' => 'Отдел по трудовому договору',
+            'birthdate' => 'Дата рождения',
+            'sex' => 'Пол',
         ];
     }
 
@@ -117,6 +121,21 @@ class People extends \yii\db\ActiveRecord
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
     }
 
+    public function getFullNameBranch($branch_id)
+    {
+        $newPosition = "";
+        $positions = PeoplePositionBranch::find()->where(['branch_id' => $branch_id])->andWhere(['people_id' => $this->id])->all();
+        if (count($positions) == 0) return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+        else if (count($positions) == 1) return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$positions[0]->position->name.')';
+        else
+        {
+            for ($i = 0; $i !== count($positions) - 1; $i++)
+                $newPosition .= $positions[$i]->position->name.', ';
+            $newPosition .= $positions[count($positions) - 1]->position->name;
+            return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$newPosition.')';
+        }
+    }
+
     public function getShortName()
     {
         return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
@@ -125,6 +144,14 @@ class People extends \yii\db\ActiveRecord
     public function getGroups()
     {
         return TrainingGroup::find()->where(['teacher_id' => $this->id])->all();
+    }
+
+    public function GetSexString()
+    {
+        if ($this->sex === null) return '---';
+        if ($this->sex === 0) return 'Мужской';
+        if ($this->sex === 1) return 'Женский';
+        if ($this->sex === 2) return 'Другое';
     }
 
     public function getPositionsList()

@@ -42,6 +42,14 @@ use yii\widgets\ActiveForm;
             'Женский' => 'Женский', 'Другое' => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>
     </div>
 
+    <div <?php echo $model->is_true ? 'hidden' : ''; ?>>
+        <?php
+        $value = $model->is_true ? true : false;
+        ?>
+
+        <?= $form->field($model, 'is_true')->checkbox(['checked' => $value]) ?>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

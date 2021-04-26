@@ -97,7 +97,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'scheduleType' => 'Тип расписания',
             'ordersName' => 'Приказы',
             'budget' => 'Бюджет',
-            'fileParticipants' => 'Загрузить участников из файла',
+            'fileParticipants' => 'Загрузить учащихся из файла',
             'teachersList' => 'Педагог(-и)',
         ];
     }
