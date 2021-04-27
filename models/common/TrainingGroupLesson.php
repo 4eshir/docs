@@ -80,6 +80,13 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
         return $this->hasOne(Auditorium::className(), ['id' => 'auditorium_id']);
     }
 
+    public function getFullName()
+    {
+        $aud = $this->auditorium_id;
+        if ($aud === null) return '--- ('.$this->branch->name.')';
+        else return $this->auditorium.' ('.$this->branch->name.')';
+    }
+
     public function checkValideTime($group_id)
     {
         $lessons = TrainingGroupLesson::find()->where(['!=', 'id', $this->id])->all();
