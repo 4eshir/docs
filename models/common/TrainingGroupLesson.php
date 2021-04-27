@@ -84,7 +84,7 @@ class TrainingGroupLesson extends \yii\db\ActiveRecord
     {
         $aud = $this->auditorium_id;
         if ($aud === null) return '--- ('.$this->branch->name.')';
-        else return $this->auditorium.' ('.$this->branch->name.')';
+        else return $this->auditorium->name.' ('.$this->branch->name.')';
     }
 
     public function checkValideTime($group_id)
