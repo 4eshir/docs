@@ -38,9 +38,13 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $sort)
     {
         $query = ForeignEventParticipants::find();
+        if ($sort == 1)
+        {
+            $query = ForeignEventParticipants::find()->where(['!=', 'is_true', 1])->andWhere(['guaranted_true' => null])->orWhere(['sex' => 'Другое']);
+        }
 
         // add conditions that should always apply here
 

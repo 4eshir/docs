@@ -42,12 +42,12 @@ use yii\widgets\ActiveForm;
             'Женский' => 'Женский', 'Другое' => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>
     </div>
 
-    <div <?php echo $model->is_true ? 'hidden' : ''; ?>>
+    <div <?php echo $model->is_true === 1 || $model->guaranted_true === 1 ? 'hidden' : ''; ?>>
         <?php
-        $value = $model->is_true ? true : false;
+        $value = $model->guaranted_true === 1 ? true : false;
         ?>
 
-        <?= $form->field($model, 'is_true')->checkbox(['checked' => $value]) ?>
+        <?= $form->field($model, 'guaranted_true')->checkbox(['checked' => $value]) ?>
     </div>
 
 

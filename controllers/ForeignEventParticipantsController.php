@@ -36,7 +36,7 @@ class ForeignEventParticipantsController extends Controller
      * Lists all ForeignEventParticipants models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($sort = null)
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
@@ -44,7 +44,7 @@ class ForeignEventParticipantsController extends Controller
             return $this->render('/site/error');
         }
         $searchModel = new SearchForeignEventParticipants();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -84,7 +84,9 @@ class ForeignEventParticipantsController extends Controller
         }
         $model = new ForeignEventParticipants();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $model->checkOther();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,6 +113,7 @@ class ForeignEventParticipantsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
+            $model->checkOther();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -151,6 +154,12 @@ class ForeignEventParticipantsController extends Controller
         return $this->render('file-load', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCheckCorrect()
+    {
+        $model = new ForeignEventParticipants();
+        $model->checkCorrect();
     }
 
     /**
