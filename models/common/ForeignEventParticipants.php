@@ -195,24 +195,15 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
 
     public function checkCorrect()
     {
-        $parts = ForeignEventParticipants::find()->all();
-        for ($i = 0; $i !== count($parts); $i++)
+        $parts = ForeignEventParticipants::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC, 'patronymic' => SORT_ASC])->all();
+        for ($i = 0; $i !== count($parts) - 1; $i++)
         {
-            for ($j = 0; $j !== count($parts); $j++)
+            if ($parts[$i]->secondname == $parts[$i + 1]->secondname && $parts[$i]->firstname == $parts[$i + 1]->firstname && $parts[$i]->patronymic == $parts[$i + 1]->patronymic)
             {
-                if ($i !== $j)
-                {
-                    if ($parts[$i]->firstname == $parts[$i]->firstname && $parts[$i]->secondname == $parts[$i]->secondname && $parts[$i]->patronymic == $parts[$i]->patronymic)
-                    {
-                        $parts[$i]->is_true = 0;
-                        $parts[$i]->guaranted_true = null;
-                        $parts[$i]->save();
-
-                        $parts[$j]->is_true = 0;
-                        $parts[$j]->guaranted_true = null;
-                        $parts[$j]->save();
-                    }
-                }
+                $parts[$i]->is_true = 0;
+                $parts[$i + 1]->is_true = 0;
+                $parts[$i]->save();
+                $parts[$i + 1]->save();
             }
         }
     }

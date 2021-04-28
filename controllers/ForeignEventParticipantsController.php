@@ -160,6 +160,7 @@ class ForeignEventParticipantsController extends Controller
     {
         $model = new ForeignEventParticipants();
         $model->checkCorrect();
+        return $this->redirect(['index']);
     }
 
     /**
