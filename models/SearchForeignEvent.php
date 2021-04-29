@@ -147,7 +147,7 @@ class SearchForeignEvent extends ForeignEvent
             'order_business_trip_id' => $this->order_business_trip_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'foreign_event.name', $this->name])
             ->andFilterWhere(['like', 'city', $this->city])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'company.Name', $this->companyString])
