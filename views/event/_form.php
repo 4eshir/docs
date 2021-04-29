@@ -262,7 +262,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
         }
         echo '</table>';
     }
@@ -277,7 +277,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
         }
         echo '</table>';
     }

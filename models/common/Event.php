@@ -223,9 +223,9 @@ class Event extends \yii\db\ActiveRecord
                     $new_date = $new_date.$date[$i];
             $filename = '';
             if ($this->order->order_postfix == null)
-                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'_'.$this->name;
             else
-                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+                $filename = 'Пр'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = FileWizard::CutFilename($res);
@@ -256,9 +256,9 @@ class Event extends \yii\db\ActiveRecord
                     $new_date = $new_date.$date[$i];
             $filename = '';
             if ($this->order->order_postfix == null)
-                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'_'.$this->name;
             else
-                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+                $filename = 'Яв'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
@@ -322,9 +322,9 @@ class Event extends \yii\db\ActiveRecord
                     $new_date = $new_date.$date[$i];
             $filename = '';
             if ($this->order->order_postfix == null)
-                $filename = 'Файл'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'_'.$this->name;
+                $filename = 'Файл'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'_'.$this->name;
             else
-                $filename = 'Файл'.$counter.'_'.$new_date.'_'.$this->order->order_number.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
+                $filename = 'Файл'.$counter.'_'.$new_date.'_'.$this->start_date.'-'.$this->order->order_copy_id.'-'.$this->order->order_postfix.'_'.$this->name;
             $filename = $filename.'_'.$this->getEventNumber();
             $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
             $res = FileWizard::CutFilename($res);
