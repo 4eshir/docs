@@ -6,10 +6,10 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\TeacherParticipant */
 
-$this->title = 'Update Teacher Participant: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Teacher Participants', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Редактировать: ' . $model->participant->fullName;
+$this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->participant->fullName, 'url' => ['foreign-event-participants/view', 'id' => $model->participant_id]];
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="teacher-participant-update">
 
@@ -17,18 +17,34 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'participant_id')->textInput() ?>
+    <?php
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, 'teacher_id')->dropDownList($items,$params)->label('ФИО педагога');
+    ?>
 
-    <?= $form->field($model, 'teacher_id')->textInput() ?>
+    <?php
+    $branchs = \app\models\common\Branch::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
+    $params = [];
+    echo $form->field($model, 'branch_id')->dropDownList($items,$params)->label('Отдел');
+    ?>
 
-    <?= $form->field($model, 'foreign_event_id')->textInput() ?>
+    <?= $form->field($model, 'team')->textInput()->label('Команда') ?>
 
-    <?= $form->field($model, 'branch_id')->textInput() ?>
+    <?= $form->field($model, 'file')->fileInput()->label('Представленные материалы') ?>
 
-    <?= $form->field($model, 'focus')->textInput(['maxlength' => true]) ?>
+    <?php
+    $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $model->participant_id])->andWhere(['foreign_event_id' => $model->foreign_event_id])->one();
+    if ($partFiles !== null)
+        echo '<h5>Загруженный файл: '.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['foreign-event/delete-file', 'fileName' => $partFiles->filename, 'modelId' => $partFiles->id, 'type' => 'participants'])).'</h5><br>';
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

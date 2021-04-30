@@ -186,9 +186,13 @@ class ForeignEventController extends Controller
     public function actionUpdateParticipant($id, $modelId)
     {
         $model = TeacherParticipant::find()->where(['id' => $id])->one();
+        $model->getTeam();
         if ($model->load(Yii::$app->request->post()))
         {
-            $model->save();
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file !== null)
+                $model->uploadParticipantFiles();
+            $model->save(false);
             $model = ForeignEvent::find()->where(['id' => $modelId])->one();
             $modelParticipants = [new ForeignEventParticipantsExtended];
             $modelAchievement = [new ParticipantsAchievementExtended];
@@ -265,6 +269,15 @@ class ForeignEventController extends Controller
             $model->save(false);
             return $this->redirect('index?r=foreign-event/update&id=' . $model->id);
         }
+        if ($type == 'participants')
+        {
+            $partFile = ParticipantFiles::find()->where(['id' => $modelId])->one();
+            $tp = TeacherParticipant::find()->where(['participant_id' => $partFile->participant_id])->andWhere(['foreign_event_id' => $partFile->foreign_event_id])->one();
+            $tModelId = $partFile->foreign_event_id;
+            $partFile->delete();
+            return $this->redirect('index?r=foreign-event/update-participant&id=' . $tp->id.'&modelId='.$tModelId);
+        }
+
     }
 
 
