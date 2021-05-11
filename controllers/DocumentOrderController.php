@@ -42,7 +42,7 @@ class DocumentOrderController extends Controller
      * Lists all DocumentOrder models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($sort = null)
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
@@ -50,7 +50,7 @@ class DocumentOrderController extends Controller
             return $this->render('/site/error');
         }
         $searchModel = new SearchDocumentOrder();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

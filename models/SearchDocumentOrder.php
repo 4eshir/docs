@@ -47,9 +47,15 @@ class SearchDocumentOrder extends DocumentOrder
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $sort)
     {
         $query = DocumentOrder::find();
+
+        if ($sort == 1)
+            $query = DocumentOrder::find()->where(['type' => 1]);
+        if ($sort == 2)
+            $query = DocumentOrder::find()->where(['type' => 0]);
+
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 

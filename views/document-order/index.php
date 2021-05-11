@@ -72,7 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="margin-bottom: 10px">
 
     </div>
-
+    <?php echo '<div style="margin-bottom: 10px">'.Html::a('Показать приказы по основной деятельности', \yii\helpers\Url::to(['document-order/index', 'sort' => '1'])).
+        ' || '.Html::a('Показать приказы по образовательной деятельности', \yii\helpers\Url::to(['document-order/index', 'sort' => '2'])).
+        ' || '.Html::a('Показать все приказы', \yii\helpers\Url::to(['document-order/index'])).'</div>' ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
