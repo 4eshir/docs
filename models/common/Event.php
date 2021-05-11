@@ -463,9 +463,10 @@ class Event extends \yii\db\ActiveRecord
         $eventP->event_id = $this->id;
         $eventP->save();
 
-        if ($this->eventType->name == 'Соревновательный' && $insert)
+        if ($this->eventType->name == 'Соревновательный' && $insert) {
             $this->copyEvent();
-        else
+        }
+        else if ($this->eventType->name == 'Соревновательный')
             $this->editCopy($changedAttributes);
     }
 
