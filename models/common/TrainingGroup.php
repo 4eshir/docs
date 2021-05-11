@@ -292,6 +292,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
 
     public function uploadFileParticipants()
     {
+        $this->fileParticipants->saveAs('@app/upload/files/bitrix/groups/' . $this->fileParticipants->name);
         $parts = ExcelWizard::GetAllParticipants($this->fileParticipants->name);
         $this->addParticipants($parts);
     }
