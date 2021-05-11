@@ -55,7 +55,7 @@ class Auditorium extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Уникальный глобальный номер',
             'square' => 'Площадь (кв.м.)',
-            'text' => 'Описание',
+            'text' => 'Наименование',
             'files' => 'Файлы',
             'is_education' => 'Предназначен для обр. деят.',
             'branch_id' => 'Отдел',

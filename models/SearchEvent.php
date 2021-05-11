@@ -11,13 +11,14 @@ use app\models\common\Event;
  */
 class SearchEvent extends Event
 {
+    public $eventBranchs;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id'], 'integer'],
+            [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
             [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
         ];
     }
@@ -41,6 +42,13 @@ class SearchEvent extends Event
     public function search($params)
     {
         $query = Event::find();
+        if ($params["SearchEvent"]["eventBranchs"] != null)
+        {
+            $str = 'SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = '.$params["SearchEvent"]["eventBranchs"].')';
+            $query = Event::findBySql($str);
+        }
+
+        //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)
 
         // add conditions that should always apply here
 

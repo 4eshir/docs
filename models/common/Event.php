@@ -206,6 +206,17 @@ class Event extends \yii\db\ActiveRecord
         return $this->hasMany(EventsLink::className(), ['event_id' => 'id']);
     }
 
+    public function getEventBranchs()
+    {
+        $branchs = EventBranch::find()->where(['event_id' => $this->id])->all();
+        $result = '';
+        foreach ($branchs as $branch)
+        {
+            $result .= $branch->branch->name.'<br>';
+        }
+        return $result;
+    }
+
     //---------------------------------
 
     public function uploadProtocolFile($upd = null)

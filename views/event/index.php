@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить мероприятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,9 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'finish_date'],
             ['attribute' => 'event_type_id', 'value' => function($model){
                 return \app\models\common\EventType::find()->where(['id' => $model->event_type_id])->one()->name;
-            }],
-            ['attribute' => 'event_form_id', 'value' => function($model){
-                return \app\models\common\EventForm::find()->where(['id' => $model->event_form_id])->one()->name;
             }],
             ['attribute' => 'address'],
             ['attribute' => 'event_level_id', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
