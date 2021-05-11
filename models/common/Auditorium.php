@@ -57,7 +57,7 @@ class Auditorium extends \yii\db\ActiveRecord
             'square' => 'Площадь (кв.м.)',
             'text' => 'Наименование',
             'files' => 'Файлы',
-            'is_education' => 'Предназначен для обр. деят.',
+            'is_education' => 'Предназначено для обр. деят.',
             'branch_id' => 'Отдел',
         ];
     }
