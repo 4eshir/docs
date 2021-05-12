@@ -116,6 +116,8 @@ class TeacherParticipant extends \yii\db\ActiveRecord
         if ($team === null)
             if ($this->team !== "")
                 $team = new Team();
+            else
+                return;
         $team->foreign_event_id = $this->foreign_event_id;
         $team->participant_id = $this->participant_id;
         $team->name = $this->team;
