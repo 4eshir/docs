@@ -113,8 +113,9 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function checkTeam()
     {
         $team = Team::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
+
         if ($team === null)
-            if ($this->team !== "")
+            if ($this->team !== "" && $this->team !== null)
                 $team = new Team();
             else
                 return;
