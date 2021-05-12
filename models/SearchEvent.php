@@ -67,7 +67,6 @@ class SearchEvent extends Event
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'name' => $this->name,
             'start_date' => $this->start_date,
             'finish_date' => $this->finish_date,
             'event_type_id' => $this->event_type_id,
