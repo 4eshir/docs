@@ -43,7 +43,7 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
         $query = ForeignEventParticipants::find();
         if ($sort == 1)
         {
-            $query = ForeignEventParticipants::find()->where(['is_true' => 0])->andWhere(['is', 'guaranted_true', new \yii\db\Expression('null')])->andWhere(['guaranted_true' => 0])->orWhere(['sex' => 'Другое']);
+            $query = ForeignEventParticipants::find()->where(['is_true' => 0])->andWhere(['is', 'guaranted_true', new \yii\db\Expression('null')])->orWhere(['guaranted_true' => 0])->orWhere(['sex' => 'Другое']);
         }
 
         // add conditions that should always apply here
