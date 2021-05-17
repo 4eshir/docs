@@ -226,6 +226,7 @@ class DocumentInController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        var_dump($fileName);
         $file = Yii::$app->basePath . '/upload/files/document_in/' . $type . '/' . $fileName;
         if (file_exists($file)) {
             return \Yii::$app->response->sendFile($file);
