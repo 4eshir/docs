@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\DocumentOrder;
 use app\models\common\DocumentOut;
 use app\models\common\Feedback;
 use app\models\common\People;
@@ -184,38 +185,13 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $peoples = People::find()->all();
-        foreach ($peoples as $people)
+        $orders = DocumentOrder::find()->all();
+        foreach ($orders as $order)
         {
-            if ($people->branch_id !== null)
-                $newPPB = PeoplePositionBranch::find()->where(['people_id' => $people->id])
-                    ->andWhere(['position_id' => $people->position_id])
-                    ->andWhere(['branch_id' => $people->branch_id])->one();
-            else
-                $newPPB = PeoplePositionBranch::find()->where(['people_id' => $people->id])
-                    ->andWhere(['position_id' => $people->position_id])->one();
-            if ($newPPB == null) $newPPB = new PeoplePositionBranch();
-            $newPPB->position_id = $people->position_id;
-            $newPPB->people_id = $people->id;
-            $newPPB->branch_id = $people->branch_id;
-            $newPPB->save();
+            $order->type = 1;
+            $order->save(false);
         }
     }
 
-    /*public function actionAddAdmin() {
-    $model = User::find()->where(['username' => 'ar_khabekenova'])->one();
-    if (empty($model)) {
-        $user = new User();
-        $user->username = 'ar_khabekenova';
-        $user->firstname = 'Анара';
-        $user->secondname = 'Хабекенова';
-        $user->patronymic = 'Романовна';
-        $user->email = '-';
-        $user->setPassword('schooltech_doc');
-        $user->generateAuthKey();
-        if ($user->save()) {
-            echo 'good';
-        }
-    }*/
 }
 
