@@ -42,15 +42,17 @@ class DocumentOrderController extends Controller
      * Lists all DocumentOrder models.
      * @return mixed
      */
-    public function actionIndex($sort = null)
+    public function actionIndex($c = null)
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
+        $session = Yii::$app->session;
+        $session->set('type', $c);
         $searchModel = new SearchDocumentOrder();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $c);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

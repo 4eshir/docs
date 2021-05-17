@@ -8,10 +8,15 @@ use kartik\export\ExportMenu;
 /* @var $searchModel app\models\SearchDocumentOrder */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Приказы';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
+<?php
+$session = Yii::$app->session;
+
+$this->title = $session->get('type') == 1 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
+$this->params['breadcrumbs'][] = $this->title;
+?>
 
 <div class="document-order-index">
 
@@ -72,9 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="margin-bottom: 10px">
 
     </div>
-    <?php echo '<div style="margin-bottom: 10px">'.Html::a('Показать приказы по основной деятельности', \yii\helpers\Url::to(['document-order/index', 'sort' => '1'])).
-        ' || '.Html::a('Показать приказы по образовательной деятельности', \yii\helpers\Url::to(['document-order/index', 'sort' => '2'])).
-        ' || '.Html::a('Показать все приказы', \yii\helpers\Url::to(['document-order/index'])).'</div>' ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

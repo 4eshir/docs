@@ -10,6 +10,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+$session = Yii::$app->session;
+?>
+
 <div class="document-order-form">
 
     <?php
@@ -224,7 +228,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
     </div>
 
-    <?= $form->field($model, 'type')->checkbox() ?>
+    <?php
+    $value = false;
+    if ($session->get('type') === 1) $value = true;
+    if ($model->order_date === null)
+        echo $form->field($model, 'type')->checkbox(['checked' => $value]);
+    else
+        echo $form->field($model, 'type')->checkbox();
+
+    ?>
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 

@@ -82,7 +82,8 @@ AppAsset::register($this);
                 ['label' => 'Документооборот', 'items' => [
                     ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],
                     ['label' => 'Входящая документация', 'url' => ['document-in/index']],
-                    ['label' => 'Приказы', 'url' => ['document-order/index']],
+                    ['label' => 'Приказы по основной деятельности', 'url' => ['document-order/index', 'c' => 1]],
+                    ['label' => 'Приказы по образовательной деятельности', 'url' => ['document-order/index', 'c'=>2]],
                     ['label' => 'Положения, инструкции и правила', 'url' => Url::to(['regulation/index', 'c' => 1])],
                     ['label' => 'Положения о мероприятиях', 'url' => Url::to(['regulation/index', 'c' => 2])],
                     ['label' => 'Мероприятия', 'url' => ['event/index']],
