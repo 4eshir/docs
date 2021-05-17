@@ -230,9 +230,10 @@ $session = Yii::$app->session;
 
     <?php
     $value = false;
-    if ($session->get('type') === 1) $value = true;
+    if ($session->get('type') === '1') $value = true;
+
     if ($model->order_date === null)
-        echo $form->field($model, 'type')->checkbox(['checked' => $value]);
+        echo $form->field($model, 'type')->checkbox(['checked' => $value ? '' : null]);
     else
         echo $form->field($model, 'type')->checkbox();
 

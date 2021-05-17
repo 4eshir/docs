@@ -56,7 +56,7 @@ use yii\jui\DatePicker;
 
 
     <?php
-    $people = \app\models\common\People::find()->all();
+    $people = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
         'prompt' => 'Выберите корреспондента',
@@ -70,7 +70,7 @@ use yii\jui\DatePicker;
         if ($model->correspondent_id !== null)
         {
             echo '<div id="corr_div1" hidden="true">';
-                $position = \app\models\common\Position::find()->all();
+                $position = \app\models\common\Position::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($position,'id','name');
                 $params = [
                     'id' => 'position',
@@ -79,7 +79,7 @@ use yii\jui\DatePicker;
             echo '</div>';
 
             echo '<div id="corr_div2" hidden="true">';
-                $company = \app\models\common\Company::find()->all();
+                $company = \app\models\common\Company::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
@@ -90,7 +90,7 @@ use yii\jui\DatePicker;
         else
         {
             echo '<div id="corr_div1">';
-                $position = \app\models\common\Position::find()->all();
+                $position = \app\models\common\Position::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($position,'id','name');
                 $params = [
                     'id' => 'position',
@@ -99,7 +99,7 @@ use yii\jui\DatePicker;
             echo '</div>';
 
             echo '<div id="corr_div2">';
-                $company = \app\models\common\Company::find()->all();
+                $company = \app\models\common\Company::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
@@ -112,7 +112,7 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
 
     <?php
-    $sendMethod= \app\models\common\SendMethod::find()->all();
+    $sendMethod= \app\models\common\SendMethod::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
     $params = [];
     echo $form->field($model, 'send_method_id')->dropDownList($items,$params)->label('Способ получения');
@@ -143,7 +143,7 @@ use yii\jui\DatePicker;
     </div>
     <div id="nameAnswer" class="col-xs-4" <?php echo $model->needAnswer == 0 ? 'hidden' : '' ?>>
         <?php
-        $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+        $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
             'prompt' => ''
