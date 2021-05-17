@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
         ]])->label('Дата окончания мероприятия') ?>
 
     <?php
-    $orders = \app\models\common\EventType::find()->all();
+    $orders = \app\models\common\EventType::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\common\EventForm::find()->all();
+    $orders = \app\models\common\EventForm::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -64,7 +64,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\EventLevel::find()->all();
+    $orders = \app\models\common\EventLevel::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -90,7 +90,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'is_federal')->checkbox() ?>
 
     <?php
-    $orders = \app\models\common\People::find()->all();
+    $orders = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
     $params = [];
 

@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
 
     <?php
-    $company = \app\models\common\Company::find()->all();
+    $company = \app\models\common\Company::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [
     ];
@@ -103,7 +103,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $ways = \app\models\common\EventWay::find()->all();
+    $ways = \app\models\common\EventWay::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
     $params = [
     ];
@@ -112,7 +112,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $levels = \app\models\common\EventLevel::find()->all();
+    $levels = \app\models\common\EventLevel::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
     $params = [
         'disabled' => 'disabled'
@@ -176,13 +176,13 @@ use yii\widgets\ActiveForm;
                             <div class="col-xs-4">
                                 <div>
                                     <?php
-                                    $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                    $people = \app\models\common\ForeignEventParticipants::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-                                    $branchs = \app\models\common\Branch::find()->all();
+                                    $branchs = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
                                     echo $form->field($modelParticipantsOne, "[{$i}]branch")->dropDownList($items,$params)->label('Отдел');
                                     ?>
@@ -191,7 +191,7 @@ use yii\widgets\ActiveForm;
                             <div class="col-xs-4">
                                 <div>
                                     <?php
-                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => ''

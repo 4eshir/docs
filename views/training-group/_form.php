@@ -93,7 +93,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                 <div class="col-xs-4">
                                     <?php
 
-                                    $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                    $people = \app\models\common\ForeignEventParticipants::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => '',
@@ -107,7 +107,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                 </div>
                                 <div class="col-xs-4">
                                     <?php
-                                    $sendMethod= \app\models\common\SendMethod::find()->all();
+                                    $sendMethod= \app\models\common\SendMethod::find()->orderBy(['name' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
                                     $params = [
                                         'prompt' => ''
@@ -127,7 +127,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     </div>
 
     <?php
-    $progs = \app\models\common\TrainingProgram::find()->all();
+    $progs = \app\models\common\TrainingProgram::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($progs,'id','name');
     $params = [
     ];
@@ -188,7 +188,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                 ?>
                                 <div class="col-xs-4">
                                     <?php
-                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => '',
@@ -322,7 +322,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             ',
                                         ];
 
-                                        $audits = \app\models\common\Branch::find()->all();
+                                        $audits = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
 
                                         echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');
@@ -433,7 +433,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             ',
                                         ];
 
-                                        $audits = \app\models\common\Branch::find()->all();
+                                        $audits = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
 
                                         echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');

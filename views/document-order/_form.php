@@ -39,7 +39,7 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -48,7 +48,7 @@ $session = Yii::$app->session;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -114,7 +114,7 @@ $session = Yii::$app->session;
                                 }
                                 ?>
                                 <?php
-                                $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
                                 $params = [
                                     'prompt' => ''
