@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->photos);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$split[$i]])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$model->photos])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
