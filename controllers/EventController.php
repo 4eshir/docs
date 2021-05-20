@@ -291,6 +291,7 @@ class EventController extends Controller
     public function actionGetFile($fileName = null)
     {
         $file = Yii::$app->basePath . '/upload/files/event/' . $fileName;
+        $file = substr($file, 0, -1);
         if (file_exists($file)) {
             return \Yii::$app->response->sendFile($file);
         }
