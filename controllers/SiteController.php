@@ -178,10 +178,6 @@ class SiteController extends Controller
         return $this->render('forgot-password', ['model' => $model]);
     }
 
-    public function actionCreateOutdocs()
-    {
-
-    }
 
     public function actionTemp()
     {

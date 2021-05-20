@@ -277,7 +277,8 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="col-xs-4">
                                 <?php
-                                $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                $parts = 
+                                $people = \app\models\common\ForeignEventParticipants::find()->where(['in', 'id', ])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                 $params = [
                                     'prompt' => ''
