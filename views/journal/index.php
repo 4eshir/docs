@@ -81,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
     }
     echo '</tr>';
+    $counter = 0;
     foreach ($parts as $part)
     {
         $tr = '<tr>';
@@ -89,11 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
         echo $tr.'<td>'.$part->participant->shortName.'</td>';
         foreach ($lessons as $lesson)
         {
-            $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
-            if ($visits == null)
-                echo '<td>--</td>';
-            else
-                echo $visits->prettyStatus;
+            //$visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+            $visits = \app\models\common\Visit::find()->where(['id' => $model->visits_id[$counter]])->one();
+            echo $visits->prettyStatus;
+            $counter++;
         }
         echo '</tr>';
     }

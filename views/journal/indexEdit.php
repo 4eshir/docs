@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
-            $visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+            //$visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+            $visits = \app\models\common\Visit::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
             $dis = false;
             $date = new DateTime(date("Y-m-d"));
@@ -67,10 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
             $selected2 = $visits->status == 2 ? 'selected' : '';
             $selected3 = $visits->status == 3 ? 'selected' : '';
             $color = 'style="background: white"';
-            if ($visits->status == 0) $color = 'style="background: green; color: white"';
-            if ($visits->status == 1) $color = 'style="background: #DC143C; color: white"';
-            if ($visits->status == 2) $color = 'style="background: #183BD9; color: white"';
-            if ($visits->status == 3) $color = 'style="background: white; color: white"';
+            if ($visits->status == 0) $color = 'style="background: green; color: white; appearance: none;-webkit-appearance: none;"';
+            if ($visits->status == 1) $color = 'style="background: #DC143C; color: white; appearance: none;-webkit-appearance: none;"';
+            if ($visits->status == 2) $color = 'style="background: #183BD9; color: white; appearance: none;-webkit-appearance: none;"';
+            if ($visits->status == 3) $color = 'style="background: white; color: white; appearance: none;-webkit-appearance: none;"';
             echo "<td style='padding: 5px 5px 0 5px'>";
             $disabledStr = $dis ? 'disabled' : '';
             if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);

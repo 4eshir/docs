@@ -45,9 +45,35 @@ class JournalController extends Controller
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         $model = new JournalModel($group_id);
+
+        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+        $newVisits = array();
+        $newVisitsId = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+        $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+
         if ($model->load(Yii::$app->request->post()))
         {
             $model = new JournalModel($model->trainingGroup);
+
+            $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+            $newLessons = array();
+            foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+            $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+            $newVisits = array();
+            $newVisitsId = array();
+            foreach ($visits as $visit) $newVisits[] = $visit->status;
+            foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+            $model->visits = $newVisits;
+            $model->visits_id = $newVisitsId;
+
             return $this->render('index', [
                 'model' => $model,
             ]);
@@ -69,6 +95,7 @@ class JournalController extends Controller
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
 
         $newVisits = array();
         $newVisitsId = array();

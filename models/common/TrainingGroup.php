@@ -181,13 +181,13 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия раньше даты начала курса</i></font><br>';
             else if ($part->lesson_date > $this->finish_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
-            else if ($part->checkValideTime($this->id))
+            else if (count($part->checkValideTime($this->id)) > 0)
             {
                 $number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
-                $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: на данное время назначено занятие у Группы №'.$number->trainingGroup->number.'</i></font><br>';
+                $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.' <i>ОШИБКА: на данное время назначено занятие у Группы №'.$number->trainingGroup->number.'</i></font><br>';
             }
             else
-                $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.'<br>';
+                $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.'<br>';
         }
         return $result;
     }
@@ -414,7 +414,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
         }
 
 
-        if (count($partsArr) > 0)
+        /*if (count($partsArr) > 0)
         {
             foreach ($partsArr as $participant)
             {
@@ -424,6 +424,32 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $visit = new Visit();
                     $visit->foreign_event_participant_id = $participant;
                     $visit->training_group_lesson_id = $lesson->id;
+                    $visit->status = 3;
+                    $visit->save(false);
+                }
+            }
+        }*/
+
+        $participants = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
+        $participantsId = [];
+        foreach ($participants as $pOne)
+            $participantsId[] = $pOne->id;
+
+        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
+        $lessonsId = [];
+        foreach ($lessons as $lOne)
+            $lessonsId[] = $lOne->id;
+
+        foreach ($lessonsId as $lId)
+        {
+            foreach ($participantsId as $pId)
+            {
+                $visit = Visit::find()->where(['foreign_event_participant_id' => $pId])->andWhere(['training_group_lesson_id' => $lId])->one();
+                if ($visit === null)
+                {
+                    $visit = new Visit();
+                    $visit->foreign_event_participant_id = $pId;
+                    $visit->training_group_lesson_id = $lId;
                     $visit->status = 3;
                     $visit->save(false);
                 }
