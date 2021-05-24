@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php
     $feedback = '';
-    if (Yii::$app->user->identity->getId() == 1)
+    if (Yii::$app->user->identity->getId() == 1 && Yii::$app->user->identity->getId() == 31)
         $feedback = \app\models\common\Feedback::find()->all();
     else
         $feedback = \app\models\common\Feedback::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
