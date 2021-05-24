@@ -131,18 +131,19 @@ class DocumentOrderController extends Controller
     public function actionCreateReserve()
     {
         $model = new DocumentOrder();
-
+        $session = Yii::$app->session;
         $model->order_name = 'Резерв';
         $model->order_number = '02-02';
-        $model->order_date = end(DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all())->order_date;
+        $model->order_date = DocumentOrder::find()->orderBy(['order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC])->one()->order_date;
         $model->scan = '';
         $model->state = true;
+        $model->type = $session->get('type') === '1' ? 1 : 0;
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен резерв приказа '.$model->order_number.'/'.$model->order_postfix);
-        return $this->redirect('index.php?r=document-order/index');
+        return $this->redirect('index.php?r=document-order/index&c='.$session->get('type'));
     }
 
     /**
