@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="alert alert-warning">
     <?php $message = 'Система находится в стадии тестирования. Пожалуйста, опишите Вашу проблему как можно более подробно. По возможности опишите выполняемые действия. 
-    Эл. почта для экстренной связи или пересылки файлов <b>gkalashnik@schooltech.ru</b>.'; ?>
+    Эл. почты для экстренной связи или пересылки файлов <b>gkalashnik@schooltech.ru</b> и <b>dkurina@schooltech.ru</b>.'; ?>
     <?= nl2br(Html::decode($message)) ?>
 </div>
 <div class="site-login">

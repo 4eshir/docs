@@ -105,7 +105,7 @@ AppAsset::register($this);
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
                     ['label' => 'Сменить пароль', 'url' => ['/user/change-password', 'id' => Yii::$app->user->identity->getId()]]
                 ]],
-                Yii::$app->user->identity->getId() == 1 ? (
+                Yii::$app->user->identity->getId() == 1 || Yii::$app->user->identity->getId() == 31 ? (
                 ['label' => 'Обратная связь', 'url' => ['/site/feedback-answer']]
                 ) : (
                 ['label' => 'Обратная связь', 'url' => ['/site/feedback']]
