@@ -10,13 +10,14 @@ use yii\widgets\ActiveForm;
 
 <div class="document-order-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+    <?php
+    $session = Yii::$app->session;
+    $form = ActiveForm::begin([
+        'action' => ['index', 'c' => $session->get('type')],
         'method' => 'get',
     ]); ?>
 
     <?= $form->field($model, 'key_words')->label('Поиск по ключевым словам') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
     </div>

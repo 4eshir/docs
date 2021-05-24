@@ -55,7 +55,6 @@ class SearchDocumentOrder extends DocumentOrder
             $query = DocumentOrder::find()->where(['type' => 1]);
         else
             $query = DocumentOrder::find()->where(['type' => 0]);
-
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 

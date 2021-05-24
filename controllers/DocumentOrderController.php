@@ -44,6 +44,7 @@ class DocumentOrderController extends Controller
      */
     public function actionIndex($c = null)
     {
+
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
@@ -90,6 +91,7 @@ class DocumentOrderController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
+        $session = Yii::$app->session;
         $model = new DocumentOrder();
         $model->order_number = "02-02";
         $modelExpire = [new Expire];
