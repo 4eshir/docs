@@ -7,7 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\common\DocumentOrder */
 
 $this->title = $model->order_name;
-$this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index']];
+$session = Yii::$app->session;
+$this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index', 'c' => $session->get('type') == 1 ? 1 : 0]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
