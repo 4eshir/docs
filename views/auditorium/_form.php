@@ -18,7 +18,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_education')->checkbox() ?>
+    <?= $form->field($model, 'is_education')->checkbox(['id' => 'org', 'onclick' => "checkEdu()"]) ?>
+
+    <?php
+    if ($model->is_education === 1)
+    {
+        echo '<div id="orghid">';
+    }
+    else
+    {
+        echo '<div id="orghid" hidden>';
+    }
+    ?>
+
+    <?= $form->field($model, 'capacity')->textInput() ?>
+
+    </div>
 
     <?php
     $branchs = \app\models\common\Branch::find()->all();
@@ -37,3 +52,15 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $('#org').change(function()
+    {
+        if (this.checked === true)
+            $("#orghid").removeAttr("hidden");
+        else
+            $("#orghid").attr("hidden", "true");
+    });
+</script>

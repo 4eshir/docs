@@ -13,6 +13,7 @@ use yii\helpers\Html;
  * @property string $name
  * @property float $square
  * @property string|null $text
+ * @property int|null $capacity
  * @property string|null $files
  * @property int $is_education
  * @property int $branch_id
@@ -39,7 +40,7 @@ class Auditorium extends \yii\db\ActiveRecord
         return [
             [['name', 'square', 'branch_id'], 'required'],
             [['square'], 'number'],
-            [['is_education', 'branch_id'], 'integer'],
+            [['is_education', 'branch_id', 'capacity'], 'integer'],
             [['name', 'text', 'files'], 'string', 'max' => 1000],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['filesList'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -55,10 +56,12 @@ class Auditorium extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Уникальный глобальный номер',
             'square' => 'Площадь (кв.м.)',
-            'text' => 'Наименование',
+            'text' => 'Имя',
             'files' => 'Файлы',
             'is_education' => 'Предназначено для обр. деят.',
+            'capacity' => 'Кол-во ученико-мест',
             'branch_id' => 'Отдел',
+            'filesList' => 'Файлы',
         ];
     }
 
