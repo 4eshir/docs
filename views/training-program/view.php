@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'stringFocus',
             ['attribute' => 'trueName', 'label' => 'Тематическое направление', 'value' => function($model) {return $model->thematicDirection->full_name . ' (' . $model->thematicDirection->name . ')';}],
             'hour_capacity',
+            ['attribute' => 'themesPlan', 'format' => 'raw', 'label' => 'Учебно-тематический план'],
             ['attribute' => 'branchs', 'format' => 'raw'],
             ['attribute' => 'allow_remote', 'value' => function($model) {return $model->allow_remote == 0 ? 'Нет' : 'Да';}],
             ['attribute' => 'doc_file', 'value' => function ($model) {

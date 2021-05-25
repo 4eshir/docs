@@ -37,6 +37,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public $isMobQuant;
 
     public $authors;
+    public $thematicPlan;
 
     public $docFile;
     public $editDocs;
@@ -163,6 +164,17 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return $result;
     }
 
+    public function getThemesPlan()
+    {
+        $tp = ThematicPlan::find()->where(['training_program_id' => $this->id])->all();
+        $result = count($tp) === $this->capacity ? "" : "<font color=red><i>Несовпадение УТП с объемом программы!</i></font><br>";
+        foreach ($tp as $tpOne)
+        {
+            $result .= $tpOne->theme.'<br>';
+        }
+        return $result;
+    }
+
     public function getStringFocus()
     {
         return Focus::find()->where(['id' => $this->focus_id])->one()->name;
@@ -244,6 +256,20 @@ class TrainingProgram extends \yii\db\ActiveRecord
                 if ($resp[$i]->author_id !== "" && !$this->IsAuthorDuplicate($resp[$i]->author_id)) {
                     $resp[$i]->training_program_id = $this->id;
                     $resp[$i]->save();
+
+                }
+            }
+        }
+
+        $tp = $this->thematicPlan;
+
+        if ($tp != null)
+        {
+            for ($i = 0; $i < count($tp); $i++)
+            {
+                if ($tp[$i]->theme !== "") {
+                    $tp[$i]->training_program_id = $this->id;
+                    $tp[$i]->save();
 
                 }
             }

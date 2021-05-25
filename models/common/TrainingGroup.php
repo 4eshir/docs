@@ -61,7 +61,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             [['start_date', 'finish_date', 'schedule_type'], 'safe'],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
@@ -361,9 +361,10 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 $newLesson = new TrainingGroupLesson();
                 $newLesson->lesson_date = $lesson->lesson_date;
                 $newLesson->lesson_start_time = $lesson->lesson_start_time;
-                $newLesson->lesson_end_time = $lesson->lesson_end_time;
+                $min = $this->trainingProgram->hour_capacity;
+                $newLesson->lesson_end_time = date("H:i", strtotime('+'.$min.' minutes', strtotime($lesson->lesson_start_time)));
                 $newLesson->duration = $lesson->duration;
-                $aud = Auditorium::find()->where(['branch_id' => $lesson->auditorium_id])->andWhere(['name' => $lesson->auds])->one();
+                $aud = Auditorium::find()->where(['id' => $lesson->auds])->one();
                 $newLesson->branch_id = $lesson->auditorium_id;
                 $newLesson->auditorium_id = $aud->id;
                 $newLesson->training_group_id = $this->id;
@@ -380,9 +381,10 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $newLesson = new TrainingGroupLesson();
                     $newLesson->lesson_date = $day;
                     $newLesson->lesson_start_time = $autoOne->start_time;
-                    $newLesson->lesson_end_time = $autoOne->end_time;
+                    $min = $this->trainingProgram->hour_capacity;
+                    $newLesson->lesson_end_time = date("H:i", strtotime('+'.$min.' minutes', strtotime($autoOne->start_time)));
                     $newLesson->duration = $autoOne->duration;
-                    $aud = Auditorium::find()->where(['branch_id' => $autoOne->auditorium_id])->andWhere(['name' => $autoOne->auds])->one();
+                    $aud = Auditorium::find()->where(['id' => $lesson->auds])->one();
                     $newLesson->branch_id = $aud->id;
                     $newLesson->auditorium_id = $autoOne->auditorium_id;
                     $newLesson->training_group_id = $this->id;
@@ -454,6 +456,12 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $visit->save(false);
                 }
             }
+        }
+
+
+        if ($this->open === 1)
+        {
+            //if ()
         }
 
     }

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\common\AuthorProgram;
+use app\models\common\ThematicPlan;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
@@ -87,11 +88,15 @@ class TrainingProgramController extends Controller
         }
         $model = new TrainingProgram();
         $modelAuthor = [new AuthorProgram];
+        $modelThematicPlan = [new ThematicPlan];
 
         if ($model->load(Yii::$app->request->post())) {
             $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
             DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
+            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlan::classname());
+            DynamicModel::loadMultiple($modelThematicPlan, Yii::$app->request->post());
             $model->authors = $modelAuthor;
+            $model->thematicPlan = $modelThematicPlan;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             if ($model->docFile !== null)
@@ -106,6 +111,7 @@ class TrainingProgramController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelAuthor' => $modelAuthor,
+            'modelThematicPlan' => $modelThematicPlan,
         ]);
     }
 
@@ -125,10 +131,15 @@ class TrainingProgramController extends Controller
         }
         $model = $this->findModel($id);
         $modelAuthor = [new AuthorProgram];
+        $modelThematicPlan = [new ThematicPlan];
+
         if ($model->load(Yii::$app->request->post())) {
             $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
             DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
+            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlan::classname());
+            DynamicModel::loadMultiple($modelThematicPlan, Yii::$app->request->post());
             $model->authors = $modelAuthor;
+            $model->thematicPlan = $modelThematicPlan;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             if ($model->docFile !== null)
@@ -141,7 +152,8 @@ class TrainingProgramController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelAuthor' => $modelAuthor
+            'modelAuthor' => $modelAuthor,
+            'modelThematicPlan' => $modelThematicPlan,
         ]);
     }
 

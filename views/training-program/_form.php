@@ -121,6 +121,61 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Учебно-тематический план</h4></div>
+            <?php /*
+            $resp = \app\models\common\AuthorProgram::find()->where(['training_program_id' => $model->id])->all();
+            if ($resp != null)
+            {
+                echo '<table>';
+                foreach ($resp as $respOne) {
+                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->author_id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-program/delete-author', 'peopleId' => $respOnePeople->id, 'modelId' => $model->id])).'</td></tr>';
+                }
+                echo '</table>';
+            } */
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper4', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items4', // required: css class selector
+                    'widgetItem' => '.item4', // required: css class
+                    'limit' => 999, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item4', // css class
+                    'deleteButton' => '.remove-item4', // css class
+                    'model' => $modelThematicPlan[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'people_id',
+                    ],
+                ]); ?>
+
+                <div class="container-items4"><!-- widgetContainer -->
+                    <?php foreach ($modelThematicPlan as $i => $modelThematicPlanOne): ?>
+                        <div class="item4 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading" onload="scrolling()">
+                                <h3 class="panel-title pull-left">Тема</h3>
+                                <div class="pull-right">
+                                    <button type="button" name="add" class="add-item4 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item4 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body" id="scroll">
+
+                                <?= $form->field($modelThematicPlanOne, "[{$i}]theme")->textInput() ?>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
             <div class="panel-heading"><h4>Возраст учащихся</h4></div>
             <div class="panel-body">
                 <?= $form->field($model, 'student_left_age')->textInput(['value' => $model->student_left_age == null ? 5 : $model->student_left_age]) ?>
