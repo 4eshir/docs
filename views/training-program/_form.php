@@ -122,17 +122,17 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Учебно-тематический план</h4></div>
-            <?php /*
-            $resp = \app\models\common\AuthorProgram::find()->where(['training_program_id' => $model->id])->all();
+            <?php
+            $resp = \app\models\common\ThematicPlan::find()->where(['training_program_id' => $model->id])->all();
             if ($resp != null)
             {
-                echo '<table>';
+                echo '<table class="table table-bordered">';
+                echo '<tr><td><b>Тема</b></td><td><b>Форма контроля</b></td><td></td></tr>';
                 foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->author_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-program/delete-author', 'peopleId' => $respOnePeople->id, 'modelId' => $model->id])).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h5>'.$respOne->theme.'</h5></td><td style="padding-left: 20px"><h5>'.$respOne->controlType->name.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-program/delete-plan', 'id' => $respOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
-            } */
+            }
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
@@ -162,8 +162,20 @@ use yii\widgets\ActiveForm;
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body" id="scroll">
+                                <div class="col-xs-4">
+                                    <?= $form->field($modelThematicPlanOne, "[{$i}]theme")->textInput()->label('Тема') ?>
+                                </div>
+                                <div class="col-xs-4">
+                                    <?php
+                                    $ct = \app\models\common\ControlType::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($ct,'id','name');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelThematicPlanOne, "[{$i}]control_type_id")->dropDownList($items,$params)->label('Форма контроля');
 
-                                <?= $form->field($modelThematicPlanOne, "[{$i}]theme")->textInput() ?>
+                                    ?>
+                                </div>
 
                             </div>
                         </div>

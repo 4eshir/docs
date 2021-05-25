@@ -10,6 +10,7 @@ use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
 use app\models\common\TeacherGroup;
+use app\models\common\ThematicPlan;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
 use app\models\common\Visit;
@@ -413,4 +414,6 @@ class TrainingGroupController extends Controller
 
         ExcelWizard::GetAllParticipants("group2.xls");
     }
+
+
 }

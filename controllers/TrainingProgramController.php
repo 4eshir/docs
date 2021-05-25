@@ -241,4 +241,11 @@ class TrainingProgramController extends Controller
         $model = $this->findModel($modelId);
         return $this->redirect('index.php?r=training-program/update&id='.$modelId);
     }
+
+    public function actionDeletePlan($id, $modelId)
+    {
+        $plan = ThematicPlan::find()->where(['id' => $id])->one();
+        $plan->delete();
+        return $this->redirect('index?r=training-program/update&id='.$modelId);
+    }
 }

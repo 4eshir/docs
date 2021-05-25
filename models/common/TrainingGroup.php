@@ -461,7 +461,22 @@ class TrainingGroup extends \yii\db\ActiveRecord
 
         if ($this->open === 1)
         {
-            //if ()
+
+            $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
+            $tp = ThematicPlan::find()->where(['training_program_id' => $this->training_program_id])->orderBy(['id' => SORT_ASC])->all();
+            $teachers = TeacherGroup::find()->where(['training_group_id' => $this->id])->all();
+
+            if (count($lessons) === count($tp))
+            {
+                for ($i = 0; $i < count($tp); $i++)
+                {
+                    $theme = new LessonTheme();
+                    $theme->theme = $tp[$i]->theme;
+                    $theme->training_group_lesson_id = $lessons[$i]->id;
+                    $theme->teacher_id = $teachers[0]->teacher_id;
+                    $theme->save();
+                }
+            }
         }
 
     }
