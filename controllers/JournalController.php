@@ -214,6 +214,17 @@ class JournalController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionAllAppearance($training_group_lesson_id, $group_id)
+    {
+        $visits = Visit::find()->where(['training_group_lesson_id' => $training_group_lesson_id])->all();
+        foreach ($visits as $visit)
+        {
+            $visit->status = 0;
+            $visit->save(false);
+        }
+        return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
+    }
+
     /**
      * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

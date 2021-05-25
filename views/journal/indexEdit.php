@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-        echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
+        echo "<td>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success'])."</td>";
     }
     echo '</tr>';
     foreach ($parts as $part)
