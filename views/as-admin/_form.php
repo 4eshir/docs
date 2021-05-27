@@ -134,7 +134,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
-    <?= $form->field($model, 'license_status')->checkbox()->label(false) ?>
+
 
 
 
