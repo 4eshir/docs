@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
 
                 ['attribute' => 'id', 'label' => '№ п/п'],
-                ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->as_company_id])->one()->name;}],
+                ['attribute' => 'as_company_id', 'label' => 'Контрагент', 'value' => function($model){return \app\models\common\AsCompany::find()->where(['id' => $model->as_company_id])->one()->name;}],
                 ['attribute' => 'document_number', 'label' => 'Договор №'],
                 ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
                 ['attribute' => 'price', 'label' => 'Сумма договора'],
