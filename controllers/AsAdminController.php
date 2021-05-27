@@ -13,6 +13,7 @@ use app\models\common\Responsible;
 use app\models\common\UseYears;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
+use DateTime;
 use Yii;
 use app\models\common\AsAdmin;
 use app\models\SearchAsAdmin;
@@ -39,7 +40,7 @@ class AsAdminController extends Controller
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license', 'delete-file', 'delete',
                             'add-as-type', 'index-company', 'index-country', 'index-license', 'index-as-type', 'delete-install', 'get-file',
-                            'delete-file-commercial', 'delete-file-scan', 'delete-file-license', 'delete-as-type', 'delete-company'],
+                            'delete-file-commercial', 'delete-file-scan', 'delete-file-license', 'delete-as-type', 'delete-company', 'refresh-license'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -175,10 +176,10 @@ class AsAdminController extends Controller
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
 
-            $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
-            if ($model->useStartDate !== "") $res->start_date = $model->useStartDate;
-            if ($model->useEndDate !== "") $res->end_date = $model->useEndDate;
-            $res->save(false);
+            //$res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
+            //if ($model->useStartDate !== "") $res->start_date = $model->useStartDate;
+            //if ($model->useEndDate !== "") $res->end_date = $model->useEndDate;
+            //$res->save(false);
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->licenseFile = UploadedFile::getInstance($model, 'licenseFile');
@@ -505,5 +506,26 @@ class AsAdminController extends Controller
             $model->save(false);
         }
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
+    }
+
+    public function actionRefreshLicense()
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
+            return $this->render('/site/error');
+        }
+        $as = AsAdmin::find()->all();
+        $date = new DateTime(date("Y-m-d"));
+        foreach ($as as $asOne)
+        {
+
+            if ($asOne->getUseEndDate() > $date->format('Y-m-d') || $asOne->getUseEndDate() == '1999-01-01')
+                $asOne->license_status = 1;
+            else
+                $asOne->license_status = 0;
+            $asOne->save(false);
+        }
+        return $this->redirect('index.php?r=as-admin/index');
     }
 }
