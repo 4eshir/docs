@@ -26,9 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             'name',
+            'text',
             'square',
             ['attribute' => 'isEducation', 'label' => 'Предназначен для обр. деят.'],
-            ['attribute' => 'branchLink', 'label' => 'Название отдела', 'format' => 'html'],
+            ['attribute' => 'branchName', 'label' => 'Название отдела', 'format' => 'html'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

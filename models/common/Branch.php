@@ -52,7 +52,7 @@ class Branch extends \yii\db\ActiveRecord
         $result = '';
         foreach ($auds as $aud)
         {
-            $result .= Html::a($aud->name, \yii\helpers\Url::to(['auditorium/view', 'id' => $aud->id])).'<br>';
+            $result .= Html::a($aud->name.' ('.$aud->text.')', \yii\helpers\Url::to(['auditorium/view', 'id' => $aud->id])).'<br>';
         }
         return $result;
     }

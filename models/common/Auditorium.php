@@ -90,7 +90,7 @@ class Auditorium extends \yii\db\ActiveRecord
         return $this->is_education ? 'Да' : 'Нет';
     }
 
-    public function GetBranchLink()
+    public function GetBranchName()
     {
         return Html::a($this->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $this->branch_id]));
     }

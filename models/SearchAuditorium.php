@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\common\Branch;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\Auditorium;
@@ -11,6 +12,7 @@ use app\models\common\Auditorium;
  */
 class SearchAuditorium extends Auditorium
 {
+    public $branchName;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class SearchAuditorium extends Auditorium
     {
         return [
             [['id', 'is_education', 'branch_id'], 'integer'],
-            [['name', 'text', 'files'], 'safe'],
+            [['name', 'text', 'files', 'branchName'], 'safe'],
             [['square'], 'number'],
         ];
     }
@@ -42,12 +44,18 @@ class SearchAuditorium extends Auditorium
     public function search($params)
     {
         $query = Auditorium::find();
+        $query->joinWith(['branch branch']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['branchName'] = [
+            'asc' => [Branch::tableName().'.name' => SORT_ASC],
+            'desc' => [Branch::tableName().'.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -67,6 +75,7 @@ class SearchAuditorium extends Auditorium
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'branch.name', $this->branchName])
             ->andFilterWhere(['like', 'files', $this->files]);
 
         return $dataProvider;
