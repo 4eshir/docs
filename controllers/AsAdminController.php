@@ -174,6 +174,7 @@ class AsAdminController extends Controller
             $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
+
             $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
             if ($model->useStartDate !== "") $res->start_date = $model->useStartDate;
             if ($model->useEndDate !== "") $res->end_date = $model->useEndDate;

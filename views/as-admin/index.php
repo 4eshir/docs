@@ -69,25 +69,32 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'distributionType', 'label' => 'Способ распространения'],
         ['attribute' => 'licenseTermType', 'label' => 'Срок лицензии'],
         ['attribute' => 'license', 'label' => 'Вид лицензии'],
-        ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
-            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+        ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 1])->all();
             $html = '';
             foreach ($res as $resOne)
                 $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
             return $html;
         }, 'format' => 'raw', 'encodeLabel' => false],
-        ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
-            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+        ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 2])->all();
             $html = '';
             foreach ($res as $resOne)
                 $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
             return $html;
         }, 'format' => 'raw', 'encodeLabel' => false],
         ['attribute' => 'inst_cdntt', 'label' => 'Установ.<br>ЦДНТТ', 'value' => function($model){
-            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 3])->all();
             $html = '';
             foreach ($res as $resOne)
                 $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+            return $html;
+        }, 'format' => 'raw', 'encodeLabel' => false],
+        ['attribute' => 'inst_web', 'label' => 'WEB', 'value' => function($model){
+            $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 4])->all();
+            $html = '';
+            foreach ($res as $resOne)
+                $html = $html.$resOne->count.' шт<br>';
             return $html;
         }, 'format' => 'raw', 'encodeLabel' => false],
         ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {
@@ -157,25 +164,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'.'.mb_substr($model->register->patronymic, 0, 1).'.';
                 },
                 ],
-                ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
-                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 1])->all();
+                ['attribute' => 'inst_quant', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
+                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 1])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
                 }, 'format' => 'raw', 'encodeLabel' => false],
-                ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Технопарк', 'value' => function($model){
-                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 2])->all();
+                ['attribute' => 'inst_tech', 'label' => 'Установ.<br>Кванториум', 'value' => function($model){
+                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 2])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
                     return $html;
                 }, 'format' => 'raw', 'encodeLabel' => false],
                 ['attribute' => 'inst_cdntt', 'label' => 'Установ.<br>ЦДНТТ', 'value' => function($model){
-                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['branch_id' => 3])->all();
+                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 3])->all();
                     $html = '';
                     foreach ($res as $resOne)
                         $html = $html.'Кабинет: '.$resOne->cabinet.' ('.$resOne->count.' шт.)<br>';
+                    return $html;
+                }, 'format' => 'raw', 'encodeLabel' => false],
+                ['attribute' => 'inst_web', 'label' => 'WEB', 'value' => function($model){
+                    $res = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->andWhere(['install_place_id' => 4])->all();
+                    $html = '';
+                    foreach ($res as $resOne)
+                        $html = $html.$resOne->count.' шт<br>';
                     return $html;
                 }, 'format' => 'raw', 'encodeLabel' => false],
                 ['attribute' => 'reserved', 'label' => 'Резерв', 'value' => function ($model) {

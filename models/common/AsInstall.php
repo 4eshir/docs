@@ -8,13 +8,13 @@ use Yii;
  * This is the model class for table "as_install".
  *
  * @property int $id
- * @property int $branch_id
+ * @property int $install_place_id
  * @property int $as_admin_id
  * @property string $cabinet
  * @property int $count
  *
  * @property AsAdmin $asAdmin
- * @property Branch $branch
+ * @property InstallPlace $installPlace
  */
 class AsInstall extends \yii\db\ActiveRecord
 {
@@ -32,10 +32,10 @@ class AsInstall extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['branch_id', 'as_admin_id', 'count'], 'integer'],
+            [['install_place_id', 'as_admin_id', 'count'], 'integer'],
             [['cabinet'], 'string', 'max' => 1000],
             [['as_admin_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsAdmin::className(), 'targetAttribute' => ['as_admin_id' => 'id']],
-            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['install_place_id'], 'exist', 'skipOnError' => true, 'targetClass' => InstallPlace::className(), 'targetAttribute' => ['install_place_id' => 'id']],
         ];
     }
 
@@ -46,7 +46,7 @@ class AsInstall extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'branch_id' => 'Branch ID',
+            'install_place_id' => 'Branch ID',
             'as_admin_id' => 'As Admin ID',
             'cabinet' => 'Cabinet',
             'count' => 'Count',
@@ -68,8 +68,8 @@ class AsInstall extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBranch()
+    public function getInstallPlace()
     {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        return $this->hasOne(InstallPlace::className(), ['id' => 'install_place_id']);
     }
 }

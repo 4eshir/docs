@@ -28,6 +28,7 @@ use Yii;
  * @property int $as_type_id
  * @property string|null $contract_subject
  * @property int|null $license_count
+ * @property int|null $license_type_id
  * @property int|null $license_term_type_id
  * @property int $license_status
  *
@@ -38,6 +39,7 @@ use Yii;
  * @property License $license
  * @property User $register
  * @property AsType $asType
+ * @property LicenseTermType $licenseType
  * @property LicenseTermType $licenseTermType
  */
 class AsAdmin extends \yii\db\ActiveRecord
@@ -66,7 +68,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     {
         return [
             [['as_name', 'as_company_id', 'document_number', 'document_date', 'count', 'price', 'country_prod_id', 'license_id', 'scan', 'service_note', 'register_id', 'as_type_id'], 'required'],
-            [['copyright_id', 'as_company_id', 'count', 'country_prod_id', 'distribution_type_id', 'license_id', 'register_id', 'as_type_id', 'license_count', 'license_term_type_id', 'license_status'], 'integer'],
+            [['copyright_id', 'as_company_id', 'count', 'country_prod_id', 'distribution_type_id', 'license_id', 'register_id', 'as_type_id', 'license_count', 'license_term_type_id', 'license_type_id', 'license_status'], 'integer'],
             [['document_date', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
             [['as_name', 'document_number', 'unifed_register_number', 'comment', 'scan', 'license_file', 'commercial_offers', 'service_note', 'contract_subject'], 'string', 'max' => 1000],
@@ -77,6 +79,7 @@ class AsAdmin extends \yii\db\ActiveRecord
             [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => License::className(), 'targetAttribute' => ['license_id' => 'id']],
             [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
             [['as_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsType::className(), 'targetAttribute' => ['as_type_id' => 'id']],
+            [['license_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseType::className(), 'targetAttribute' => ['license_type_id' => 'id']],
             [['license_term_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseTermType::className(), 'targetAttribute' => ['license_term_type_id' => 'id']],
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true],
             [['licenseFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
@@ -112,6 +115,7 @@ class AsAdmin extends \yii\db\ActiveRecord
             'as_type_id' => 'As Type ID',
             'contract_subject' => 'Contract Subject',
             'license_count' => 'License Count',
+            'license_type_id' => 'License Type ID',
             'license_term_type_id' => 'License Term Type ID',
             'license_status' => 'Лицензия активна'
         ];
@@ -165,6 +169,11 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function getLicense()
     {
         return $this->hasOne(License::className(), ['id' => 'license_id']);
+    }
+
+    public function getLicenseType()
+    {
+        return $this->hasOne(LicenseType::className(), ['id' => 'license_type_id']);
     }
 
     /**
@@ -291,7 +300,7 @@ class AsAdmin extends \yii\db\ActiveRecord
         if ($this->asInstalls !== null)
             foreach ($this->asInstalls as $asInstallOne) {
                 $asInstallOne->as_admin_id = $this->id;
-                if ($asInstallOne->cabinet !== "" && $asInstallOne->count !== "")
+                if ($asInstallOne->count !== "")
                     $asInstallOne->save();
             }
 

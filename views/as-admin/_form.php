@@ -111,6 +111,14 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
     <?php
+    $lic = \app\models\common\LicenseType::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
+    $params = [];
+    echo $form->field($model, 'license_type_id')->dropDownList($items,$params)->label('Тип лицензии');
+
+    ?>
+
+    <?php
     $lic = \app\models\common\LicenseTermType::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
@@ -125,6 +133,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
     echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Вид лицензии');
 
     ?>
+
+    <?= $form->field($model, 'license_status')->checkbox()->label(false) ?>
+
+
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
 
@@ -159,7 +171,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             {
                 echo '<table>';
                 foreach ($asInstall  as $asInstallOne) {
-                    echo '<tr><td style="padding-left: 20px"><h4>"'.$asInstallOne->branch->name.'" Кабинет: '.$asInstallOne->cabinet.' ('.$asInstallOne->count.' шт.)</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-install', 'id' => $asInstallOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h4>"'.$asInstallOne->installPlace->name.'" Кабинет: '.$asInstallOne->cabinet.' ('.$asInstallOne->count.' шт.)</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['as-admin/delete-install', 'id' => $asInstallOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }
@@ -203,10 +215,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <div style="display:inline-block">
                                     <?php
 
-                                    $branch = \app\models\common\Branch::find()->all();
+                                    $branch = \app\models\common\InstallPlace::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [];
-                                    echo $form->field($modelAsInstallOne, "[{$i}]branch_id", ['options' => ['class' => 'col-md-4', ]])->dropDownList($items,$params)->label('Филиал');
+                                    echo $form->field($modelAsInstallOne, "[{$i}]install_place_id", ['options' => ['class' => 'col-md-4', ]])->dropDownList($items,$params)->label('Место установки');
 
                                     echo $form->field($modelAsInstallOne, "[{$i}]cabinet", ['options' => ['class' => 'col-md-4', ]])->textInput()->label('Кабинет');
 
