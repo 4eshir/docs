@@ -316,17 +316,20 @@ class AsAdmin extends \yii\db\ActiveRecord
                 if ($asInstallOne->count !== "")
                     $asInstallOne->save();
             }
+        if ($this->useStartDate == null && count($changedAttributes) > 0 && !(count($changedAttributes) == 1 && $changedAttributes['license_status'] !== null)) $this->useStartDate = '1999-01-01';
+        if ($this->useEndDate == null && count($changedAttributes) > 0 && !(count($changedAttributes) == 1 && $changedAttributes['license_status'] !== null)) $this->useEndDate = '1999-01-01';
 
-        if ($this->useStartDate == null) $this->useStartDate = '1999-01-01';
-        if ($this->useEndDate == null) $this->useEndDate = '1999-01-01';
+        if (count($changedAttributes) > 0 && !(count($changedAttributes) == 1 && $changedAttributes['license_status'] !== null))
+        {
+            $use = UseYears::find()->where(['as_admin_id' => $this->id])->one();
+            if ($use === null)
+                $use = new UseYears();
+            $use->as_admin_id = $this->id;
+            $use->start_date = $this->useStartDate;
+            $use->end_date = $this->useEndDate;
+            $use->save(false);
+        }
 
-        $use = UseYears::find()->where(['as_admin_id' => $this->id])->one();
-        if ($use === null)
-            $use = new UseYears();
-        $use->as_admin_id = $this->id;
-        $use->start_date = $this->useStartDate;
-        $use->end_date = $this->useEndDate;
-        $use->save(false);
 
 
 
@@ -335,7 +338,7 @@ class AsAdmin extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $date = new DateTime(date("Y-m-d"));
-        if ($this->getUseEndDate() !== $this->useEndDate)
+        if ($this->getUseEndDate() !== $this->useEndDate && $this->useEndDate !== null)
         {
             if ($this->useEndDate > $date->format('Y-m-d') || $this->useEndDate == '1999-01-01')
                 $this->license_status = 1;
@@ -344,7 +347,7 @@ class AsAdmin extends \yii\db\ActiveRecord
         }
         else
         {
-            if ($this->getUseEndDate() > $date->format('Y-m-d') || $this->getUseEndDate() == '1999-01-01')
+            if (($this->getUseEndDate() > $date->format('Y-m-d') || $this->getUseEndDate() == '1999-01-01') && $this->getUseStartDate() < $date->format('Y-m-d') )
                 $this->license_status = 1;
             else
                 $this->license_status = 0;

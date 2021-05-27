@@ -520,7 +520,7 @@ class AsAdminController extends Controller
         foreach ($as as $asOne)
         {
 
-            if ($asOne->getUseEndDate() > $date->format('Y-m-d') || $asOne->getUseEndDate() == '1999-01-01')
+            if (($asOne->getUseEndDate() > $date->format('Y-m-d') || $asOne->getUseEndDate() == '1999-01-01') && $asOne->getUseStartDate() < $date->format('Y-m-d') )
                 $asOne->license_status = 1;
             else
                 $asOne->license_status = 0;
