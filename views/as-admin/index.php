@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'document_date', 'label' => 'Дата договора', 'value' => function($model){return date("d.m.Y", strtotime($model->document_date));}],
                 ['attribute' => 'price', 'label' => 'Сумма договора'],
                 ['attribute' => 'contract_subject', 'label' => 'Предмет договора'],
-                ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\Company::find()->where(['id' => $model->copyright_id])->one()->name;}],
+                ['attribute' => 'copyright_id', 'label' => 'Правообладатель', 'value' => function($model){return \app\models\common\AsCompany::find()->where(['id' => $model->copyright_id])->one()->name;}],
                 ['attribute' => 'as_name', 'label' => 'Наименование'],
                 ['attribute' => 'license_count', 'label' => 'Кол-во лицензий'],
                 ['attribute' => 'useYear', 'label' => 'Период использования', 'value' => function($model){
