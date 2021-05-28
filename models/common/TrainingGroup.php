@@ -450,7 +450,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 if ($visit === null)
                 {
                     $visit = new Visit();
-                    $visit->foreign_event_participant_id = $pId;
+                    $visit->foreign_event_participant_id = $pId->event_participant_id;
                     $visit->training_group_lesson_id = $lId;
                     $visit->status = 3;
                     $visit->save(false);
