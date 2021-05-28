@@ -435,7 +435,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
         $participants = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
         $participantsId = [];
         foreach ($participants as $pOne)
-            $participantsId[] = $pOne->id;
+            $participantsId[] = $pOne->participant_id;
 
         $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
         $lessonsId = [];
@@ -450,7 +450,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 if ($visit === null)
                 {
                     $visit = new Visit();
-                    $visit->foreign_event_participant_id = $pId->event_participant_id;
+                    $visit->foreign_event_participant_id = $pId;
                     $visit->training_group_lesson_id = $lId;
                     $visit->status = 3;
                     $visit->save(false);
