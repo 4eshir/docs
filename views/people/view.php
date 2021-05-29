@@ -58,5 +58,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </div>
 
+    <?php
+    $vis = $model->company_id === 8 ? 'visible' : 'hidden';
+    echo "<div style='visibility: ".$vis."'>";
+    ?>
+    <h4><u>Ответственность работника</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['label' => 'Ответственности', 'attribute' => 'respLinks', 'format' => 'raw'],
+
+        ],
+    ]) ?>
+    </div>
+
 
 </div>

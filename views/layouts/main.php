@@ -89,6 +89,7 @@ AppAsset::register($this);
                     ['label' => 'Мероприятия', 'url' => ['event/index']],
                     ['label' => 'Учет достижений в мероприятиях', 'url' => ['foreign-event/index']],
                     ['label' => 'Образовательные программы', 'url' => ['training-program/index']],
+                    ['label' => 'Учет ответственности работников', 'url' => ['local-responsibility/index']],
                 ]],
 
                 ['label' => 'Дополнительно', 'items' => [
@@ -100,6 +101,7 @@ AppAsset::register($this);
                     ['label' => 'Отчетные мероприятия', 'url' => ['/event-external/index']],
                     ['label' => 'Отделы', 'url' => ['/branch/index']],
                     ['label' => 'Помещения', 'url' => ['/auditorium/index']],
+                    ['label' => 'Виды ответственности', 'url' => ['/responsibility-type/index']],
                 ]],
                 ['label' => 'Пользователи', 'items' => [
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
