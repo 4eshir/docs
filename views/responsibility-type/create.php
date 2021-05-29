@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\ResponsibilityType */
 
-$this->title = 'Create Responsibility Type';
-$this->params['breadcrumbs'][] = ['label' => 'Responsibility Types', 'url' => ['index']];
+$this->title = 'Добавить вид ответственности';
+$this->params['breadcrumbs'][] = ['label' => 'Вид ответственности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="responsibility-type-create">
