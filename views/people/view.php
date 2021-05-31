@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <?php
-    $vis = strlen($model->groupsList) > 3 ? 'visible' : 'hidden';
-    echo "<div style='visibility: ".$vis."'>";
+    $vis = strlen($model->groupsList) > 3 ? 'normal' : 'none';
+    echo "<div style='display: ".$vis."'>";
     ?>
         <h4><u>Информация об образовательной деятельности</u></h4>
         <?= DetailView::widget([

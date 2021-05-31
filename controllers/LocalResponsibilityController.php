@@ -165,6 +165,7 @@ class LocalResponsibilityController extends Controller
                 $operations = Auditorium::find()
                     ->where(['branch_id' => $id])
                     ->all();
+                echo "<option value=>--</option>";
                 foreach ($operations as $operation)
                     echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
             } else
