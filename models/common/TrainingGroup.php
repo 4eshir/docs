@@ -475,6 +475,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                     $theme->training_group_lesson_id = $lessons[$i]->id;
                     $theme->teacher_id = $teachers[0]->teacher_id;
                     $theme->save();
+                    var_dump($theme->getErrors());
                 }
             }
         }
