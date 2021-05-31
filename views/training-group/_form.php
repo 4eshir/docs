@@ -17,8 +17,6 @@ $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
         var d = new Date();
         var elems = document.getElementsByClassName('def');
-        elems[elems.length - 1].value = '10:00';
-        elems[elems.length - 2].value = '10:00';
     });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
