@@ -392,7 +392,7 @@ class TrainingGroupController extends Controller
                     ->where(['branch_id' => $id])
                     ->all();
                 foreach ($operations as $operation)
-                    echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+                    echo "<option value='" . $operation->id . "'>" . $operation->name . ' (' . $operation->text . ')' . "</option>";
             } else
                 echo "<option>-</option>";
 
