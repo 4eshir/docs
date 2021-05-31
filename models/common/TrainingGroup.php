@@ -471,7 +471,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
                 for ($i = 0; $i < count($tp); $i++)
                 {
                     $theme = LessonTheme::find()->where(['training_group_lesson_id' => $lesson[$i]->id])->andWhere(['teacher_id' => $teachers[$i]->teacher_id])->one();
-                    var_dump($theme);
+                    var_dump($lesson[$i]->id);
                     if ($theme === null)
                         $theme = new LessonTheme();
                     $theme->theme = $tp[$i]->theme;
