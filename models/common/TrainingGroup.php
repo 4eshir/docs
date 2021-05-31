@@ -408,7 +408,9 @@ class TrainingGroup extends \yii\db\ActiveRecord
         {
             foreach ($this->teachers as $teacher)
             {
-                $teacherGroup = new TeacherGroup();
+                $teacherGroup = TeacherGroup::find()->where(['teacher_id' => $this->teachers[0]->teacher_id])->andWhere(['training_group_id' => $this->id])->one();
+                if ($teacherGroup === null)
+                    $teacherGroup = new TeacherGroup();
                 $teacherGroup->teacher_id = $teacher->teacher_id;
                 $teacherGroup->training_group_id = $this->id;
                 $teacherGroup->save();
