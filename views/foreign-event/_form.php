@@ -237,7 +237,7 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
             <?php
-            $parts = \app\models\common\TeacherParticipant::find()->where(['foreign_event_id' => $model->id])->all();
+            $parts = \app\models\common\ParticipantAchievement::find()->where(['foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
