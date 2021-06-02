@@ -73,7 +73,7 @@ class SearchAuditorium extends Auditorium
             'branch_id' => $this->branch_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'auditorium.name', $this->name])
             ->andFilterWhere(['like', 'text', $this->text])
             ->andFilterWhere(['like', 'branch.name', $this->branchName])
             ->andFilterWhere(['like', 'files', $this->files]);
