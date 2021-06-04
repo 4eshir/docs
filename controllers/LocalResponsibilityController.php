@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\common\Auditorium;
 use app\models\common\Branch;
+use app\models\common\LegacyResponsible;
 use app\models\components\Logger;
 use Yii;
 use app\models\common\LocalResponsibility;
@@ -93,9 +94,19 @@ class LocalResponsibilityController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $subModel = LegacyResponsible::find()->where(['people_id' => $model->people_id])->andWhere(['responsibility_type_id' => $model->responsibility_type_id])
+            ->andWhere(['branch_id' => $model->branch_id])->andWhere(['auditorium_id' => $model->auditorium_id])->one();
+
+        if ($subModel !== null)
+        {
+            $model->start_date = $subModel->start_date;
+            $model->order_id = $subModel->order_id;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $model->filesStr = UploadedFile::getInstances($model, 'filesStr');
+            if ($model->end_date !== "")
+                $model->detachResponsibility();
             if ($model->filesStr !== null)
                 $model->uploadFiles(10);
             $model->save();

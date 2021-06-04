@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <h4><u>Общая информация</u></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -41,6 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['local-responsibility/get-file', 'fileName' => $split[$i]])).'<br>';
                 return $result;
             }, 'format' => 'raw'],
+        ],
+    ]) ?>
+    <br>
+    <h4><u>История ответственности</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'legacyResp', 'label' => 'История', 'format' => 'raw'],
         ],
     ]) ?>
 
