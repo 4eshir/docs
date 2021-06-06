@@ -309,15 +309,42 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupLesson = [new TrainingGroupLesson];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroup];
+            $modelTeachers = [new TeacherGroup];
             return $this->render('update', [
                 'model' => $group,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
                 'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
                 'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
                 'modelOrderGroup' => $modelOrderGroup,
+                'modelTeachers' => $modelTeachers,
             ]);
         }
         return $this->render('update-participant', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdateLesson($lessonId, $modelId)
+    {
+        $model = TrainingGroupLesson::find()->where(['id' => $lessonId])->one();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $group = TrainingGroup::find()->where(['id' => $modelId])->one();
+            $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
+            $modelTrainingGroupLesson = [new TrainingGroupLesson];
+            $modelTrainingGroupAuto = [new TrainingGroupAuto];
+            $modelOrderGroup = [new OrderGroup];
+            $modelTeachers = [new TeacherGroup];
+            return $this->render('update', [
+                'model' => $group,
+                'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
+                'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
+                'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
+                'modelOrderGroup' => $modelOrderGroup,
+                'modelTeachers' => $modelTeachers,
+            ]);
+        }
+        return $this->render('update-lesson', [
             'model' => $model,
         ]);
     }
