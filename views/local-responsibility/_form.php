@@ -140,7 +140,7 @@ use yii\widgets\ActiveForm;
                 //'buttonImage' => 'images/calendar.gif'
             ]])->label(false);
         echo '</td><td>'.Html::a(\app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])). '</td>';
-        echo '</td><td>'.Html::submitButton('Открепить', ['class' => 'btn btn-danger']). '</td><tr>';
+        echo '</td><td>'.Html::submitButton('Открепить', ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']). '</td><tr>';
         echo '</table>';
         $orders = \app\models\common\DocumentOrder::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
