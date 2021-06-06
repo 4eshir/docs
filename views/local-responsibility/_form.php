@@ -71,6 +71,11 @@ use yii\widgets\ActiveForm;
     {
         $auds = \app\models\common\Auditorium::find()->where(['branch_id' => $model->branch_id])->all();
         $items = \yii\helpers\ArrayHelper::map($auds,'id','name');
+        $params = [
+            'disabled'=> $model->branch_id !== null ? 'disabled' : null,
+            'class' => 'form-control aud',
+            'prompt' => '--',
+        ];
         echo $form->field($model, 'auditorium_id')->dropDownList($items,$params);
     }
 
