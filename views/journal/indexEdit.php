@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
             echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
             echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
-            echo '</select>'.$visits->training_group_lesson_id.'</td>';
+            echo '</select></td>';
 
             //echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block']])->dropDownList([3 => '--', 0 => 'Я',
             //        1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]], 'disabled' => $dis ? true : false, 'style' => 'background: blue'])->label(false)."</td>";

@@ -80,6 +80,6 @@ class Visit extends \yii\db\ActiveRecord
         else if ($this->status == 3)
             return '<td>--</td>';
         else
-            return '<td style="background-color: green"><font color=white>Я'.$this->training_group_lesson_id.'</font></td>';
+            return '<td style="background-color: green"><font color=white>Я</font></td>';
     }
 }
