@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
     $parts = \app\models\common\TrainingGroupParticipant::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
-    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $form = ActiveForm::begin();
     $counter = 0;
 
