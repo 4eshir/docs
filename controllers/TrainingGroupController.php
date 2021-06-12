@@ -181,6 +181,9 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroup];
         $modelTeachers = [new TeacherGroup];
+        $session = Yii::$app->session;
+        if ($session->get("show") === null)
+            $session->set("show", "common");
 
         if ($model->load(Yii::$app->request->post())) {
             $model->number = "";
@@ -442,5 +445,25 @@ class TrainingGroupController extends Controller
         ExcelWizard::GetAllParticipants("group2.xls");
     }
 
+    public function actionShowCommon($modelId)
+    {
+        $session = Yii::$app->session;
+        $session->set("show", "common");
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionShowParts($modelId)
+    {
+        $session = Yii::$app->session;
+        $session->set("show", "parts");
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionShowSchedule($modelId)
+    {
+        $session = Yii::$app->session;
+        $session->set("show", "schedule");
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
 
 }

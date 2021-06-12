@@ -218,7 +218,8 @@ class ForeignEventController extends Controller
         $p_id = $part->participant_id;
         $part->delete();
         $files = ParticipantFiles::find()->where(['participant_id' => $p_id])->one();
-        $files->delete();
+        if ($files !== null)
+            $files->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
 
