@@ -445,24 +445,30 @@ class TrainingGroupController extends Controller
         ExcelWizard::GetAllParticipants("group2.xls");
     }
 
-    public function actionShowCommon($modelId)
+    public function actionShowCommon($modelId = null)
     {
         $session = Yii::$app->session;
         $session->set("show", "common");
+        if ($modelId == null)
+            return $this->redirect('index?r=training-group/create');
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
-    public function actionShowParts($modelId)
+    public function actionShowParts($modelId = null)
     {
         $session = Yii::$app->session;
         $session->set("show", "parts");
+        if ($modelId == null)
+            return $this->redirect('index?r=training-group/create');
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
-    public function actionShowSchedule($modelId)
+    public function actionShowSchedule($modelId = null)
     {
         $session = Yii::$app->session;
         $session->set("show", "schedule");
+        if ($modelId == null)
+            return $this->redirect('index?r=training-group/create');
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 

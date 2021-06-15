@@ -198,6 +198,36 @@ $session = Yii::$app->session;
         </div>
     </div>
 
+    <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class,
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата начала занятий',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]]) ?>
+
+    <?= $form->field($model, 'finish_date')->widget(\yii\jui\DatePicker::class,
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата окончания занятий',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]]) ?>
+
     <?= $form->field($model, 'photosFile[]')->fileInput(['multiple' => true]) ?>
     <?php
     if (strlen($model->photos) > 2)
@@ -569,35 +599,6 @@ $session = Yii::$app->session;
                 </div>
             </div>
         </div>
-        <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class,
-            [
-                'dateFormat' => 'php:Y-m-d',
-                'language' => 'ru',
-                'options' => [
-                    'placeholder' => 'Дата начала занятий',
-                    'class'=> 'form-control',
-                    'autocomplete'=>'off',
-                ],
-                'clientOptions' => [
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                    'yearRange' => '2000:2050',
-                ]]) ?>
-
-        <?= $form->field($model, 'finish_date')->widget(\yii\jui\DatePicker::class,
-            [
-                'dateFormat' => 'php:Y-m-d',
-                'language' => 'ru',
-                'options' => [
-                    'placeholder' => 'Дата окончания занятий',
-                    'class'=> 'form-control',
-                    'autocomplete'=>'off',
-                ],
-                'clientOptions' => [
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                    'yearRange' => '2000:2050',
-                ]]) ?>
 
         <?= $form->field($model, 'open')->checkbox() ?>
     </div>
