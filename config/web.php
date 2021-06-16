@@ -38,7 +38,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.mail.ru',
                 'username' => 'no-reply-schooltech@mail.ru',
-                'password' => '111_condor',
+                'password' => '123_condor',
                 'port' => 465,
                 'encryption' => 'ssl',
             ],
