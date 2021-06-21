@@ -47,7 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 else
                     return 'Нет';
             }],
-            ['attribute' => 'responsible_id', 'value' => $model->responsible->shortName],
+            ['attribute' => 'responsible_id', 'value' => $model->responsible2_id !== null ? $model->responsible->shortName.'<br>'.$model->responsible2->shortName : $model->responsible->shortName,
+                'format' => 'raw'],
             ['attribute' => 'eventDepartment', 'label' => 'Мероприятие проводит', 'value' => function($model){
                 $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
                 $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();

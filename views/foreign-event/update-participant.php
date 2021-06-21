@@ -23,7 +23,8 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     $params = [
         'prompt' => ''
     ];
-    echo $form->field($model, 'teacher_id')->dropDownList($items,$params)->label('ФИО педагога');
+    echo $form->field($model, 'teacher_id')->dropDownList($items,$params)->label('ФИО педагогов');
+    echo $form->field($model, 'teacher2_id')->dropDownList($items,$params)->label(false);
     ?>
 
     <?php

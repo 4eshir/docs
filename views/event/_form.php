@@ -97,6 +97,16 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'responsible_id')->dropDownList($items,$params)->label('Ответственный за мероприятие');
 
     ?>
+    <?php
+    $orders = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
+    $params = [
+        'prompt' => '--',
+    ];
+
+    echo $form->field($model, 'responsible2_id')->dropDownList($items,$params)->label('Второй ответственный (опционально)');
+
+    ?>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>Мероприятие проводит</h4></div>

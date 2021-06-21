@@ -20,6 +20,7 @@ use Yii;
  * @property int $participants_count
  * @property int $is_federal
  * @property int $responsible_id
+ * @property int|null $responsible2_id
  * @property string $key_words
  * @property string $comment
  * @property int $order_id
@@ -84,6 +85,7 @@ class Event extends \yii\db\ActiveRecord
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['responsible2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
             [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gi, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -106,7 +108,8 @@ class Event extends \yii\db\ActiveRecord
             'event_level_id' => 'Уровень мероприятия',
             'participants_count' => 'Кол-во участников',
             'is_federal' => 'Входит в ФП',
-            'responsible_id' => 'Ответственный работник',
+            'responsible_id' => 'Ответственный(-ые) работник(-и)',
+            'responsible2_id' => 'Ответственный работник',
             'key_words' => 'Ключевые слова',
             'comment' => 'Примечание',
             'order_id' => 'Приказ',
@@ -194,6 +197,11 @@ class Event extends \yii\db\ActiveRecord
     public function getResponsible()
     {
         return $this->hasOne(People::className(), ['id' => 'responsible_id']);
+    }
+
+    public function getResponsible2()
+    {
+        return $this->hasOne(People::className(), ['id' => 'responsible2_id']);
     }
 
     /**

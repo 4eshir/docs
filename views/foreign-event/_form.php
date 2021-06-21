@@ -136,9 +136,13 @@ use yii\widgets\ActiveForm;
                     $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
                     $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
                     $partOneTeacher = \app\models\common\People::find()->where(['id' => $partOne->teacher_id])->one();
+                    $partTwoTeacher = \app\models\common\People::find()->where(['id' => $partOne->teacher2_id])->one();
+                    $teachersStr = '';
+                    if ($partOneTeacher !== null) $teachersStr .= $partOneTeacher->shortName;
+                    if ($partTwoTeacher !== null) $teachersStr .= '<br>'.$partTwoTeacher->shortName;
                     $team = \app\models\common\Team::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.
-                            $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$partOneTeacher->shortName.'</h4></td>'.
+                            $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$teachersStr.'</h4></td>'.
                             '<td style="padding-left: 10px">'.$team->name.'</td>'.
                             '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
                             '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.
@@ -196,7 +200,8 @@ use yii\widgets\ActiveForm;
                                     $params = [
                                         'prompt' => ''
                                     ];
-                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагога');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагогов');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher2")->dropDownList($items,$params)->label(false);
                                     echo $form->field($modelParticipantsOne, "[{$i}]focus")->textInput()->label('Направленность');
                                     ?>
                                 </div>

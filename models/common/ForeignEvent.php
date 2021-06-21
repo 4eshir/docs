@@ -246,7 +246,9 @@ class ForeignEvent extends \yii\db\ActiveRecord
         foreach ($parts as $partOne)
         {
             $team = Team::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
-            $partsLink = $partsLink.Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог: '.Html::a($partOne->teacher->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id])).')';
+            $partsLink = $partsLink.Html::a($partOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacher->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
+            if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
+            $partsLink .= ')';
             if ($team !== null)
                 $partsLink = $partsLink.' - Команда '.$team->name;
             $partsLink .= '<br>';
@@ -398,6 +400,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
                 $part->foreign_event_id = $this->id;
                 $part->participant_id = $participantOne->fio;
                 $part->teacher_id = $participantOne->teacher;
+                $part->teacher2_id = $participantOne->teacher2;
                 $part->branch_id = $participantOne->branch;
                 $part->focus = $participantOne->focus;
                 $part->save();
