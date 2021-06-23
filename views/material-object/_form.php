@@ -16,18 +16,44 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'acceptance_date')->textInput() ?>
+    <?= $form->field($model, 'acceptance_date')->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'php:Y-m-d',
+        'language' => 'ru',
+        'options' => [
+            'placeholder' => '',
+            'class'=> 'form-control',
+            'autocomplete'=>'off'
+        ],
+        'clientOptions' => [
+            'changeMonth' => true,
+            'changeYear' => true,
+            'yearRange' => '2000:2050',
+        ]])?>
+
 
     <?= $form->field($model, 'balance_price')->textInput() ?>
 
     <?= $form->field($model, 'count')->textInput() ?>
 
-    <?= $form->field($model, 'main')->textInput() ?>
+    <?= $form->field($model, 'main')->checkbox() ?>
 
-    <?= $form->field($model, 'files')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'upFiles')->fileInput(['multiple' => true]) ?>
+    <?php
+    if (strlen($model->files) > 2)
+    {
+        $split = explode(" ", $model->files);
+        echo '<table>';
+        for ($i = 0; $i < count($split) - 1; $i++)
+        {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['material-object/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['material-object/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+        }
+        echo '</table>';
+    }
+
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
