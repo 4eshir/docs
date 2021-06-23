@@ -4,15 +4,7 @@ namespace app\models\common;
 
 use Yii;
 
-/**
- * This is the model class for table "access_level".
- *
- * @property int $id
- * @property int $user_id
- * @property int $access_id
- *
- * @property Access $access
- */
+
 class AccessLevel extends \yii\db\ActiveRecord
 {
     /**
