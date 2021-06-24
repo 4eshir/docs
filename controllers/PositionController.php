@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\Position;
+use app\models\work\PositionWork;
 use app\models\SearchPosition;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,7 +81,7 @@ class PositionController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new Position();
+        $model = new PositionWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена должность '.$model->name);
@@ -154,12 +154,12 @@ class PositionController extends Controller
      * Finds the Position model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Position the loaded model
+     * @return PositionWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Position::findOne($id)) !== null) {
+        if (($model = PositionWork::findOne($id)) !== null) {
             return $model;
         }
 

@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\common\TeacherParticipant;
+use app\models\work\TeacherParticipantWork;
 use app\models\SearchTeacherParticipant;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,7 +64,7 @@ class TeacherParticipantController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TeacherParticipant();
+        $model = new TeacherParticipantWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,12 +113,12 @@ class TeacherParticipantController extends Controller
      * Finds the TeacherParticipant model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TeacherParticipant the loaded model
+     * @return TeacherParticipantWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TeacherParticipant::findOne($id)) !== null) {
+        if (($model = TeacherParticipantWork::findOne($id)) !== null) {
             return $model;
         }
 

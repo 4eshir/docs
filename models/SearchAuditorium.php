@@ -2,15 +2,15 @@
 
 namespace app\models;
 
-use app\models\common\Branch;
+use app\models\work\BranchWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Auditorium;
+use app\models\work\AuditoriumWork;
 
 /**
  * SearchAuditorium represents the model behind the search form of `app\models\common\Auditorium`.
  */
-class SearchAuditorium extends Auditorium
+class SearchAuditorium extends AuditoriumWork
 {
     public $branchName;
     /**
@@ -43,7 +43,7 @@ class SearchAuditorium extends Auditorium
      */
     public function search($params)
     {
-        $query = Auditorium::find();
+        $query = AuditoriumWork::find();
         $query->joinWith(['branch branch']);
 
         // add conditions that should always apply here
@@ -53,8 +53,8 @@ class SearchAuditorium extends Auditorium
         ]);
 
         $dataProvider->sort->attributes['branchName'] = [
-            'asc' => [Branch::tableName().'.name' => SORT_ASC],
-            'desc' => [Branch::tableName().'.name' => SORT_DESC],
+            'asc' => [BranchWork::tableName().'.name' => SORT_ASC],
+            'desc' => [BranchWork::tableName().'.name' => SORT_DESC],
         ];
 
         $this->load($params);

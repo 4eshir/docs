@@ -1,35 +1,19 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\AuthorProgram;
+use app\models\common\BranchProgram;
+use app\models\common\Focus;
+use app\models\common\People;
+use app\models\common\ThematicDirection;
+use app\models\common\ThematicPlan;
+use app\models\common\TrainingProgram;
 use app\models\components\FileWizard;
 use Yii;
 
-/**
- * This is the model class for table "training_program".
- *
- * @property int $id
- * @property string $name
- * @property int $thematic_direction_id
- * @property int $level
- * @property string|null $ped_council_date
- * @property string|null $ped_council_number
- * @property int $author_id
- * @property int $capacity
- * @property int $student_left_age
- * @property int $student_right_age
- * @property int $focus_id
- * @property int $allow_remote
- * @property string|null $doc_file
- * @property string|null $edit_docs
- * @property string|null $key_words
- * @property int $hour_capacity
- *
- * @property BranchProgram[] $branchPrograms
- * @property People $author
- * @property ThematicDirection $thematicDirection
- */
-class TrainingProgram extends \yii\db\ActiveRecord
+
+class TrainingProgramWork extends TrainingProgram
 {
     public $isTechnopark;
     public $isQuantorium;
@@ -41,17 +25,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
 
     public $docFile;
     public $editDocs;
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'training_program';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -67,9 +41,6 @@ class TrainingProgram extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -100,26 +71,6 @@ class TrainingProgram extends \yii\db\ActiveRecord
             'branchs' => 'Отдел(-ы) - место реализации',
             'hour_capacity' => 'Длительность 1 академического часа в минутах',
         ];
-    }
-
-    /**
-     * Gets query for [[BranchPrograms]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBranchPrograms()
-    {
-        return $this->hasMany(BranchProgram::className(), ['training_program_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Author]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthor()
-    {
-        return $this->hasOne(People::className(), ['id' => 'author_id']);
     }
 
     public function getFocus()

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Event */
+/* @var $model app\models\work\EventWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
         ]])->label('Дата окончания мероприятия') ?>
 
     <?php
-    $orders = \app\models\common\EventType::find()->orderBy(['name' => SORT_ASC])->all();
+    $orders = \app\models\work\EventTypeWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\common\EventForm::find()->orderBy(['name' => SORT_ASC])->all();
+    $orders = \app\models\work\EventFormWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -64,7 +64,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\EventLevel::find()->orderBy(['name' => SORT_ASC])->all();
+    $orders = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -90,7 +90,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'is_federal')->checkbox() ?>
 
     <?php
-    $orders = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $orders = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
     $params = [];
 
@@ -98,7 +98,7 @@ use yii\widgets\ActiveForm;
 
     ?>
     <?php
-    $orders = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $orders = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
     $params = [
         'prompt' => '--',
@@ -113,10 +113,10 @@ use yii\widgets\ActiveForm;
             <div class="panel-body">
 
                 <?php
-                $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
-                $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
-                $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
-                $mobquant = \app\models\common\EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
+                $tech = \app\models\work\EventBranchWork::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+                $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+                $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
                 $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
@@ -139,7 +139,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\DocumentOrder::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => 'Нет'
@@ -150,7 +150,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\common\Regulation::find()->all();
+    $orders = \app\models\work\RegulationWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [
         'prompt' => 'Нет'
@@ -164,7 +164,7 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Отчетные мероприятия</h4></div>
             <?php
-            $extEvents = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
+            $extEvents = \app\models\work\EventsLinkWork::find()->where(['event_id' => $model->id])->all();
             if ($extEvents != null)
             {
                 echo '<table>';
@@ -211,7 +211,7 @@ use yii\widgets\ActiveForm;
                                 <div>
                                     <?php
 
-                                    $branch = \app\models\common\EventExternal::find()->all();
+                                    $branch = \app\models\work\EventExternalWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [
                                         'prompt' => '',

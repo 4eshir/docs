@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\common\Auditorium;
+use app\models\work\AuditoriumWork;
 use app\models\SearchAuditorium;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,7 +65,7 @@ class AuditoriumController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Auditorium();
+        $model = new AuditoriumWork();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->filesList = UploadedFile::getInstances($model, 'filesList');
@@ -133,12 +133,12 @@ class AuditoriumController extends Controller
      * Finds the Auditorium model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Auditorium the loaded model
+     * @return AuditoriumWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Auditorium::findOne($id)) !== null) {
+        if (($model = AuditoriumWork::findOne($id)) !== null) {
             return $model;
         }
 

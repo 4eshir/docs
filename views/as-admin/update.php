@@ -1,10 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use app\models\common\AsInstall;
+use app\models\work\AsInstallWork;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\AsAdmin */
+/* @var $model app\models\work\AsAdminWork */
 
 $this->title = 'Редактировать: ' . $model->as_name;
 $this->params['breadcrumbs'][] = ['label' => 'As Admins', 'url' => ['index']];
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstall] : $modelAsInstall,
+        'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstallWork] : $modelAsInstall,
     ]) ?>
 
 </div>

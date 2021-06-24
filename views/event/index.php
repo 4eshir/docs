@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'start_date'],
             ['attribute' => 'finish_date'],
             ['attribute' => 'event_type_id', 'value' => function($model){
-                return \app\models\common\EventType::find()->where(['id' => $model->event_type_id])->one()->name;
+                return \app\models\work\EventTypeWork::find()->where(['id' => $model->event_type_id])->one()->name;
             }],
             ['attribute' => 'address'],
             ['attribute' => 'event_level_id', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
-                return \app\models\common\EventLevel::find()->where(['id' => $model->event_level_id])->one()->name;
+                return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
             }, 'encodeLabel' => false],
             ['attribute' => 'participants_count'],
             ['attribute' => 'is_federal', 'value' => function($model){
@@ -49,16 +49,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Нет';
             }],
             ['attribute' => 'responsible_id', 'value' => function($model){
-                return \app\models\common\People::find()->where(['id' => $model->responsible_id])->one()->shortName;
+                return \app\models\work\PeopleWork::find()->where(['id' => $model->responsible_id])->one()->shortName;
             }],
             ['attribute' => 'order_id', 'value' => function($model){
-                $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 if ($order == null)
                     return 'Нет';
                 return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
             }, 'format' => 'raw'],
             ['attribute' => 'regulation_id', 'value' => function($model){
-                $reg = \app\models\common\Regulation::find()->where(['id' => $model->regulation_id])->one();
+                $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
                 if ($reg == null)
                     return 'Нет';
                 return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));

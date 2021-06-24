@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Auditorium */
+/* @var $model app\models\work\AuditoriumWork */
 
 $this->title = 'Добавить помещение';
 $this->params['breadcrumbs'][] = ['label' => 'Помещения', 'url' => ['index']];

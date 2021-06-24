@@ -1,7 +1,17 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Company;
+use app\models\common\DocumentOrder;
+use app\models\common\EventLevel;
+use app\models\common\EventWay;
+use app\models\common\ForeignEvent;
+use app\models\common\ParticipantAchievement;
+use app\models\common\ParticipantFiles;
+use app\models\common\People;
+use app\models\common\TeacherParticipant;
+use app\models\common\Team;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
@@ -27,6 +37,45 @@ class ForeignEventWork extends ForeignEvent
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_participation_id' => 'id']],
             [['order_business_trip_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_business_trip_id' => 'id']],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Название',
+            'company_id' => 'Организатор',
+            'companyString' => 'Организатор',
+            'start_date' => 'Дата начала',
+            'finish_date' => 'Дата окончания',
+            'city' => 'Город',
+            'event_way_id' => 'Формат проведения',
+            'eventWayString' => 'Формат проведения',
+            'event_level_id' => 'Уровень',
+            'eventLevelString' => 'Уровень',
+            'ageRange' => 'Возраст участников',
+            'min_participants_age' => 'Мин. возраст участников (лет)',
+            'max_participants_age' => 'Макс. возраст участников (лет)',
+            'business_trip' => 'Командировка',
+            'businessTrip' => 'Командировка',
+            'escort_id' => 'Сопровождающий',
+            'order_participation_id' => 'Приказ об участии',
+            'orderParticipationString' => 'Приказ об участии',
+            'order_business_trip_id' => 'Приказ о командировке',
+            'orderBusinessTripString' => 'Приказ о командировке',
+            'key_words' => 'Ключевые слова',
+            'docs_achievement' => 'Документы о достижениях',
+            'participantsLink' => 'Участники',
+            'achievementsLink' => 'Достижения',
+            'docString' => 'Документ о достижениях',
+            'docsAchievement' => 'Документ о достижениях',
+            'teachers' => 'Педагоги',
+            'winners' => 'Победители',
+            'prizes' => 'Призеры',
+            'businessTrips' => 'Командировка',
+            'participantCount' => 'Кол-во участников',
+            'participants' => 'Участники',
         ];
     }
 

@@ -5,7 +5,7 @@ use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingGroupParticipant */
+/* @var $model app\models\work\TrainingGroupParticipantWork */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
     <?php
 
-    $people = \app\models\common\ForeignEventParticipants::find()->all();
+    $people = \app\models\work\ForeignEventParticipantsWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
         'prompt' => '',
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'certificat_number')->textInput()->label('Номер сертификата') ?>
 
     <?php
-    $sendMethod= \app\models\common\SendMethod::find()->all();
+    $sendMethod= \app\models\work\SendMethodWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
     $params = [
         'prompt' => ''

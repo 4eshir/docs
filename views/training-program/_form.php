@@ -6,7 +6,7 @@ use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingProgram */
+/* @var $model app\models\work\TrainingProgramWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $themes = \app\models\common\ThematicDirection::find()->all();
+    $themes = \app\models\work\ThematicDirectionWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($themes,'id','trueName');
     $params = [
         'prompt' => ''
@@ -59,12 +59,12 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Составители</h4></div>
             <?php
-            $resp = \app\models\common\AuthorProgram::find()->where(['training_program_id' => $model->id])->all();
+            $resp = \app\models\work\AuthorProgramWork::find()->where(['training_program_id' => $model->id])->all();
             if ($resp != null)
             {
                 echo '<table>';
                 foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->author_id])->one();
+                    $respOnePeople = \app\models\work\PeopleWork::find()->where(['id' => $respOne->author_id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-program/delete-author', 'peopleId' => $respOnePeople->id, 'modelId' => $model->id])).'</td></tr>';
                 }
                 echo '</table>';
@@ -100,7 +100,7 @@ use yii\widgets\ActiveForm;
                             <div class="panel-body" id="scroll">
 
                                 <?php
-                                $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                 $params = [
                                     'prompt' => ''
@@ -123,7 +123,7 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Учебно-тематический план</h4></div>
             <?php
-            $resp = \app\models\common\ThematicPlan::find()->where(['training_program_id' => $model->id])->all();
+            $resp = \app\models\work\ThematicPlanWork::find()->where(['training_program_id' => $model->id])->all();
             if ($resp != null)
             {
                 echo '<table class="table table-bordered">';
@@ -167,7 +167,7 @@ use yii\widgets\ActiveForm;
                                 </div>
                                 <div class="col-xs-4">
                                     <?php
-                                    $ct = \app\models\common\ControlType::find()->all();
+                                    $ct = \app\models\work\ControlTypeWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($ct,'id','name');
                                     $params = [
                                         'prompt' => ''
@@ -197,7 +197,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $focus = \app\models\common\Focus::find()->all();
+    $focus = \app\models\work\FocusWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($focus,'id','name');
     $params = [
     ];
@@ -210,10 +210,10 @@ use yii\widgets\ActiveForm;
             <div class="panel-body">
 
                 <?php
-                $tech = \app\models\common\BranchProgram::find()->where(['branch_id' => 2])->andWhere(['training_program_id' => $model->id])->all();
-                $quant = \app\models\common\BranchProgram::find()->where(['branch_id' => 1])->andWhere(['training_program_id' => $model->id])->all();
-                $cdntt = \app\models\common\BranchProgram::find()->where(['branch_id' => 3])->andWhere(['training_program_id' => $model->id])->all();
-                $mobquant = \app\models\common\BranchProgram::find()->where(['branch_id' => 4])->andWhere(['training_program_id' => $model->id])->all();
+                $tech = \app\models\work\BranchProgramWork::find()->where(['branch_id' => 2])->andWhere(['training_program_id' => $model->id])->all();
+                $quant = \app\models\work\BranchProgramWork::find()->where(['branch_id' => 1])->andWhere(['training_program_id' => $model->id])->all();
+                $cdntt = \app\models\work\BranchProgramWork::find()->where(['branch_id' => 3])->andWhere(['training_program_id' => $model->id])->all();
+                $mobquant = \app\models\work\BranchProgramWork::find()->where(['branch_id' => 4])->andWhere(['training_program_id' => $model->id])->all();
                 $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
@@ -232,7 +232,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $prog = \app\models\common\TrainingProgram::find()->where(['id' => $model->id])->one();
+    $prog = \app\models\work\TrainingProgramWork::find()->where(['id' => $model->id])->one();
     $value = false;
     if ($prog !== null)
     {

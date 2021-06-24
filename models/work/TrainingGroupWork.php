@@ -1,34 +1,26 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Auditorium;
+use app\models\common\LessonTheme;
+use app\models\common\OrderGroup;
+use app\models\common\People;
+use app\models\common\TeacherGroup;
+use app\models\common\ThematicPlan;
+use app\models\common\TrainingGroup;
+use app\models\common\TrainingGroupLesson;
+use app\models\common\TrainingGroupParticipant;
+use app\models\common\TrainingProgram;
+use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\Html;
 
-/**
- * This is the model class for table "training_group".
- *
- * @property int $id
- * @property string $number
- * @property int|null $training_program_id
- * @property int $teacher_id
- * @property string $start_date
- * @property string $finish_date
- * @property string|null $photos
- * @property string|null $present_data
- * @property string|null $work_data
- * @property int $open
- * @property int $schedule_type
- * @property int $budget
- *
- * @property People $teacher
- * @property TrainingProgram $trainingProgram
- * @property TrainingProgramParticipant[] $trainingProgramParticipants
- */
-class TrainingGroup extends \yii\db\ActiveRecord
+
+class TrainingGroupWork extends TrainingGroup
 {
     public $photosFile;
     public $presentDataFile;
@@ -42,17 +34,6 @@ class TrainingGroup extends \yii\db\ActiveRecord
 
     public $fileParticipants;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'training_group';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -70,73 +51,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'number' => 'Номер',
-            'training_program_id' => 'Образовательная программа',
-            'programName' => 'Образовательная программа',
-            'teacher_id' => 'Педагог',
-            'teacherName' => 'Педагог',
-            'start_date' => 'Дата начала занятий',
-            'finish_date' => 'Дата окончания занятий',
-            'photos' => 'Фотоматериалы',
-            'photosFile' => 'Фотоматериалы',
-            'present_data' => 'Презентационные материалы',
-            'presentDataFile' => 'Презентационные материалы',
-            'work_data' => 'Рабочие материалы',
-            'workDataFile' => 'Рабочие материалы',
-            'open' => 'Утвердить расписание',
-            'openText' => 'Расписание утверждено',
-            'participantNames' => 'Состав',
-            'lessonDates' => 'Расписание',
-            'scheduleType' => 'Тип расписания',
-            'ordersName' => 'Приказы',
-            'budget' => 'Бюджет',
-            'fileParticipants' => 'Загрузить учащихся из файла',
-            'teachersList' => 'Педагог(-и)',
-        ];
-    }
 
-    /**
-     * Gets query for [[Teacher]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTeacher()
-    {
-        return $this->hasOne(People::className(), ['id' => 'teacher_Id']);
-    }
-
-    /**
-     * Gets query for [[TrainingProgram]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTrainingProgram()
-    {
-        return $this->hasOne(TrainingProgram::className(), ['id' => 'training_program_id']);
-    }
-
-    /**
-     * Gets query for [[TrainingProgramParticipants]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTrainingProgramParticipants()
-    {
-        return $this->hasMany(TrainingGroupParticipant::className(), ['training_group_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[TrainingProgramParticipants]].
-     *
-     * @return string
-     */
     public function getTeachersList()
     {
         $teachers = TeacherGroup::find()->where(['training_group_id' => $this->id])->all();
@@ -417,22 +332,6 @@ class TrainingGroup extends \yii\db\ActiveRecord
             }
         }
 
-
-        /*if (count($partsArr) > 0)
-        {
-            foreach ($partsArr as $participant)
-            {
-                $lessonsArr = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
-                foreach ($lessonsArr as $lesson)
-                {
-                    $visit = new Visit();
-                    $visit->foreign_event_participant_id = $participant;
-                    $visit->training_group_lesson_id = $lesson->id;
-                    $visit->status = 3;
-                    $visit->save(false);
-                }
-            }
-        }*/
 
         $participants = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
         $participantsId = [];

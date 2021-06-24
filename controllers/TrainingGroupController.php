@@ -2,18 +2,18 @@
 
 namespace app\controllers;
 
-use app\models\common\AccessLevel;
-use app\models\common\Auditorium;
-use app\models\common\Branch;
-use app\models\common\ForeignEventParticipants;
-use app\models\common\LessonTheme;
-use app\models\common\OrderGroup;
-use app\models\common\People;
-use app\models\common\TeacherGroup;
-use app\models\common\ThematicPlan;
-use app\models\common\TrainingGroupLesson;
-use app\models\common\TrainingGroupParticipant;
-use app\models\common\Visit;
+use app\models\work\AccessLevelWork;
+use app\models\work\AuditoriumWork;
+use app\models\work\BranchWork;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\LessonThemeWork;
+use app\models\work\OrderGroupWork;
+use app\models\work\PeopleWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\ThematicPlanWork;
+use app\models\work\TrainingGroupLessonWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\VisitWork;
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -105,31 +105,31 @@ class TrainingGroupController extends Controller
             return $this->render('/site/error');
         }
         $model = new TrainingGroup();
-        $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
-        $modelTrainingGroupLesson = [new TrainingGroupLesson];
+        $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
+        $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
-        $modelOrderGroup = [new OrderGroup];
-        $modelTeachers = [new TeacherGroup];
+        $modelOrderGroup = [new OrderGroupWork];
+        $modelTeachers = [new TeacherGroupWork];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
             $model->workDataFile = UploadedFile::getInstances($model, 'workDataFile');
-            $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipant::classname());
+            $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipantWork::classname());
             DynamicModel::loadMultiple($modelTrainingGroupParticipant, Yii::$app->request->post());
             $model->participants = $modelTrainingGroupParticipant;
-            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLesson::classname());
+            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLessonWork::classname());
             DynamicModel::loadMultiple($modelTrainingGroupLesson, Yii::$app->request->post());
             $model->lessons = $modelTrainingGroupLesson;
             $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
             DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
             $model->auto = $modelTrainingGroupAuto;
-            $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
+            $modelOrderGroup = DynamicModel::createMultiple(OrderGroupWork::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
 
-            $modelTeachers = DynamicModel::createMultiple(TeacherGroup::classname());
+            $modelTeachers = DynamicModel::createMultiple(TeacherGroupWork::classname());
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
             $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
@@ -176,11 +176,11 @@ class TrainingGroupController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
-        $modelTrainingGroupLesson = [new TrainingGroupLesson];
+        $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
+        $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
-        $modelOrderGroup = [new OrderGroup];
-        $modelTeachers = [new TeacherGroup];
+        $modelOrderGroup = [new OrderGroupWork];
+        $modelTeachers = [new TeacherGroupWork];
         $session = Yii::$app->session;
         if ($session->get("show") === null)
             $session->set("show", "common");
@@ -190,19 +190,19 @@ class TrainingGroupController extends Controller
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
             $model->workDataFile = UploadedFile::getInstances($model, 'workDataFile');
-            $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipant::classname());
+            $modelTrainingGroupParticipant = DynamicModel::createMultiple(TrainingGroupParticipantWork::classname());
             DynamicModel::loadMultiple($modelTrainingGroupParticipant, Yii::$app->request->post());
             $model->participants = $modelTrainingGroupParticipant;
-            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLesson::classname());
+            $modelTrainingGroupLesson = DynamicModel::createMultiple(TrainingGroupLessonWork::classname());
             DynamicModel::loadMultiple($modelTrainingGroupLesson, Yii::$app->request->post());
             $model->lessons = $modelTrainingGroupLesson;
             $modelTrainingGroupAuto = DynamicModel::createMultiple(TrainingGroupAuto::classname());
             DynamicModel::loadMultiple($modelTrainingGroupAuto, Yii::$app->request->post());
             $model->auto = $modelTrainingGroupAuto;
-            $modelOrderGroup = DynamicModel::createMultiple(OrderGroup::classname());
+            $modelOrderGroup = DynamicModel::createMultiple(OrderGroupWork::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
-            $modelTeachers = DynamicModel::createMultiple(TeacherGroup::classname());
+            $modelTeachers = DynamicModel::createMultiple(TeacherGroupWork::classname());
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
             $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
@@ -274,21 +274,21 @@ class TrainingGroupController extends Controller
 
     public function actionDeleteParticipant($id, $modelId)
     {
-        $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         $participant->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionDeleteTeacher($id, $modelId)
     {
-        $teacher = TeacherGroup::find()->where(['id' => $id])->one();
+        $teacher = TeacherGroupWork::find()->where(['id' => $id])->one();
         $teacher->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionRemandParticipant($id, $modelId)
     {
-        $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         $participant->status = 1;
         $participant->save();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
@@ -296,7 +296,7 @@ class TrainingGroupController extends Controller
 
     public function actionUnremandParticipant($id, $modelId)
     {
-        $participant = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         $participant->status = 0;
         $participant->save();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
@@ -304,15 +304,15 @@ class TrainingGroupController extends Controller
 
     public function actionUpdateParticipant($id)
     {
-        $model = TrainingGroupParticipant::find()->where(['id' => $id])->one();
+        $model = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
             $group = TrainingGroup::find()->where(['id' => $model->training_group_id])->one();
-            $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
-            $modelTrainingGroupLesson = [new TrainingGroupLesson];
+            $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
+            $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
-            $modelOrderGroup = [new OrderGroup];
-            $modelTeachers = [new TeacherGroup];
+            $modelOrderGroup = [new OrderGroupWork];
+            $modelTeachers = [new TeacherGroupWork];
             return $this->render('update', [
                 'model' => $group,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
@@ -329,15 +329,15 @@ class TrainingGroupController extends Controller
 
     public function actionUpdateLesson($lessonId, $modelId)
     {
-        $model = TrainingGroupLesson::find()->where(['id' => $lessonId])->one();
+        $model = TrainingGroupLessonWork::find()->where(['id' => $lessonId])->one();
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
             $group = TrainingGroup::find()->where(['id' => $modelId])->one();
-            $modelTrainingGroupParticipant = [new TrainingGroupParticipant];
-            $modelTrainingGroupLesson = [new TrainingGroupLesson];
+            $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
+            $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
-            $modelOrderGroup = [new OrderGroup];
-            $modelTeachers = [new TeacherGroup];
+            $modelOrderGroup = [new OrderGroupWork];
+            $modelTeachers = [new TeacherGroupWork];
             return $this->render('update', [
                 'model' => $group,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
@@ -354,9 +354,9 @@ class TrainingGroupController extends Controller
 
     public function actionDeleteLesson($id, $modelId)
     {
-        $participant = TrainingGroupLesson::find()->where(['id' => $id])->one();
-        $themes = LessonTheme::find()->where(['training_group_lesson_id' => $participant->id])->all();
-        $visits = Visit::find()->where(['training_group_lesson_id' => $participant->id])->all();
+        $participant = TrainingGroupLessonWork::find()->where(['id' => $id])->one();
+        $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $participant->id])->all();
+        $visits = VisitWork::find()->where(['training_group_lesson_id' => $participant->id])->all();
         foreach ($themes as $theme)
             $theme->delete();
         foreach ($visits as $visit)
@@ -367,7 +367,7 @@ class TrainingGroupController extends Controller
 
     public function actionDeleteOrder($id, $modelId)
     {
-        $order = OrderGroup::find()->where(['id' => $id])->one();
+        $order = OrderGroupWork::find()->where(['id' => $id])->one();
         $order->delete();
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
@@ -413,12 +413,12 @@ class TrainingGroupController extends Controller
     public function actionSubcat()
     {
         if ($id = Yii::$app->request->post('id')) {
-            $operationPosts = Branch::find()
+            $operationPosts = BranchWork::find()
                 ->where(['id' => $id])
                 ->count();
 
             if ($operationPosts > 0) {
-                $operations = Auditorium::find()
+                $operations = AuditoriumWork::find()
                     ->where(['branch_id' => $id])
                     ->all();
                 foreach ($operations as $operation)

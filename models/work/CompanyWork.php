@@ -1,7 +1,11 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\AsAdmin;
+use app\models\common\Company;
+use app\models\common\DocumentIn;
+use app\models\common\DocumentOut;
 use Yii;
 
 

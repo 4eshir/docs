@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOut */
+/* @var $model app\models\work\DocumentOutWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -36,7 +36,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
         'prompt' => 'Выберите корреспондента',
@@ -49,7 +49,7 @@ use yii\bootstrap\ActiveForm;
         if ($model->correspondent_id !== null)
         {
             echo '<div id="corr_div1" hidden="true">';
-                $position = \app\models\common\Position::find()->orderBy(['name' => SORT_ASC])->all();
+                $position = \app\models\work\PositionWork::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($position,'id','name');
                 $params = [
                     'id' => 'position',
@@ -58,7 +58,7 @@ use yii\bootstrap\ActiveForm;
             echo '</div>';
 
             echo '<div id="corr_div2" hidden="true">';
-                $company = \app\models\common\Company::find()->orderBy(['name' => SORT_ASC])->all();
+                $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
@@ -69,7 +69,7 @@ use yii\bootstrap\ActiveForm;
         else
         {
             echo '<div id="corr_div1">';
-                $position = \app\models\common\Position::find()->orderBy(['name' => SORT_ASC])->all();
+                $position = \app\models\work\PositionWork::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($position,'id','name');
                 $params = [
                     'id' => 'position',
@@ -78,7 +78,7 @@ use yii\bootstrap\ActiveForm;
             echo '</div>';
 
             echo '<div id="corr_div2">';
-                $company = \app\models\common\Company::find()->orderBy(['name' => SORT_ASC])->all();
+                $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
@@ -90,7 +90,7 @@ use yii\bootstrap\ActiveForm;
     
 
     <?php
-    $people = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -99,7 +99,7 @@ use yii\bootstrap\ActiveForm;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -108,7 +108,7 @@ use yii\bootstrap\ActiveForm;
     ?>
 
     <?php
-    $sendMethod= \app\models\common\SendMethod::find()->orderBy(['name' => SORT_ASC])->all();
+    $sendMethod= \app\models\work\SendMethodWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
     $params = [];
     echo $form->field($model, 'send_method_id')->dropDownList($items,$params)->label('Способ отправки');
@@ -141,7 +141,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
     <?php
-    $inoutdocs= \app\models\common\InOutDocs::find()->where(['document_out_id' => null])->orWhere(['document_out_id' => $model->id])->all();
+    $inoutdocs= \app\models\work\InOutDocsWork::find()->where(['document_out_id' => null])->orWhere(['document_out_id' => $model->id])->all();
     $items = \yii\helpers\ArrayHelper::map($inoutdocs,'id','docInName');
     $params = [];
     if ($model->isAnswer !== null)

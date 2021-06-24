@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\LocalResponsibility */
+/* @var $model app\models\work\LocalResponsibilityWork */
 
 $this->title = $model->people->secondname.' '.$model->responsibilityType->name;
 $this->params['breadcrumbs'][] = ['label' => 'Учет ответственности работников', 'url' => ['index']];

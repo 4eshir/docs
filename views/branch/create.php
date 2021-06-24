@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Branch */
+/* @var $model app\models\work\BranchWork */
 
 $this->title = 'Добавление отдела';
 $this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];

@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\EventExternal;
+use app\models\work\EventExternalWork;
 use app\models\SearchEventExternal;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,7 +81,7 @@ class EventExternalController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new EventExternal();
+        $model = new EventExternalWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлено отчетное меропиятие '.$model->name);
@@ -144,12 +144,12 @@ class EventExternalController extends Controller
      * Finds the EventExternal model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EventExternal the loaded model
+     * @return EventExternalWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EventExternal::findOne($id)) !== null) {
+        if (($model = EventExternalWork::findOne($id)) !== null) {
             return $model;
         }
 

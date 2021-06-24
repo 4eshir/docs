@@ -1,33 +1,17 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\DocumentOrder;
+use app\models\common\People;
+use app\models\common\Responsible;
 use Yii;
 
-/**
- * This is the model class for table "responsible".
- *
- * @property int $id
- * @property int $people_id
- * @property int $document_order_id
- *
- * @property DocumentOrder $documentOrder
- * @property People $people
- */
-class Responsible extends \yii\db\ActiveRecord
+
+class ResponsibleWork extends Responsible
 {
     public $fio;
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'responsible';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -39,35 +23,4 @@ class Responsible extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'people_id' => 'People ID',
-            'document_order_id' => 'Document Order ID',
-        ];
-    }
-
-    /**
-     * Gets query for [[DocumentOrder]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDocumentOrder()
-    {
-        return $this->hasOne(DocumentOrder::className(), ['id' => 'document_order_id']);
-    }
-
-    /**
-     * Gets query for [[People]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPeople()
-    {
-        return $this->hasOne(People::className(), ['id' => 'people_id']);
-    }
 }

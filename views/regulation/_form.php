@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Regulation */
+/* @var $model app\models\work\RegulationWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -34,7 +34,7 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'short_name')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [];
 

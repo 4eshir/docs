@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\ForeignEventParticipants */
+/* @var $model app\models\work\ForeignEventParticipantsWork */
 
 $this->title = $model->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Участники деятельности', 'url' => ['index']];

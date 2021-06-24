@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Auditorium */
+/* @var $model app\models\work\AuditoriumWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $branchs = \app\models\common\Branch::find()->all();
+    $branchs = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
     $params = [];
 

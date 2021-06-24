@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\ResponsibilityType */
+/* @var $model app\models\work\ResponsibilityTypeWork */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Виды ответственности', 'url' => ['index']];

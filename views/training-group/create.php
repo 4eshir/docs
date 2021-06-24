@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingGroup */
+/* @var $model app\models\work\TrainingGroupWork */
 
 $this->title = 'Добавить учебную группу';
 $this->params['breadcrumbs'][] = ['label' => 'Учебные группы', 'url' => ['index']];

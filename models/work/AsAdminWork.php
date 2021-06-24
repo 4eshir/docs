@@ -1,7 +1,10 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\AsAdmin;
+use app\models\common\AsInstall;
+use app\models\common\UseYears;
 use DateTime;
 use Yii;
 

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Event;
+use app\models\work\EventWork;
 
 /**
  * SearchEvent represents the model behind the search form of `app\models\common\Event`.
  */
-class SearchEvent extends Event
+class SearchEvent extends EventWork
 {
     public $eventBranchs;
     /**
@@ -41,11 +41,11 @@ class SearchEvent extends Event
      */
     public function search($params)
     {
-        $query = Event::find();
+        $query = EventWork::find();
         if ($params["SearchEvent"]["eventBranchs"] != null)
         {
             $str = 'SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = '.$params["SearchEvent"]["eventBranchs"].')';
-            $query = Event::findBySql($str);
+            $query = EventWork::findBySql($str);
         }
 
         //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)

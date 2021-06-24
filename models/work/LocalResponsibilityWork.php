@@ -1,46 +1,28 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Auditorium;
+use app\models\common\Branch;
+use app\models\common\DocumentOrder;
+use app\models\common\LegacyResponsible;
+use app\models\common\LocalResponsibility;
+use app\models\common\People;
+use app\models\common\Regulation;
+use app\models\common\ResponsibilityType;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
 
-/**
- * This is the model class for table "local_responsibility".
- *
- * @property int $id
- * @property int $responsibility_type_id
- * @property int|null $branch_id
- * @property int|null $auditorium_id
- * @property int|null $people_id
- * @property int|null $regulation_id
- * @property string|null $files
- *
- * @property Auditorium $auditorium
- * @property Branch $branch
- * @property People $people
- * @property Regulation $regulation
- * @property ResponsibilityType $responsibilityType
- */
-class LocalResponsibility extends \yii\db\ActiveRecord
+
+class LocalResponsibilityWork extends LocalResponsibility
 {
     public $filesStr;
 
     public $start_date;
     public $end_date;
     public $order_id;
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'local_responsibility';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -56,78 +38,6 @@ class LocalResponsibility extends \yii\db\ActiveRecord
             [['responsibility_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResponsibilityType::className(), 'targetAttribute' => ['responsibility_type_id' => 'id']],
             [['filesStr'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'responsibility_type_id' => 'Вид ответственности',
-            'responsibilityTypeStr' => 'Вид ответственности',
-            'branch_id' => 'Отдел',
-            'branchStr' => 'Отдел',
-            'auditorium_id' => 'Помещение',
-            'auditoriumStr' => 'Помещение',
-            'people_id' => 'Работник',
-            'peopleStr' => 'Работник',
-            'regulation_id' => 'Положение/инструкция',
-            'regulationStr' => 'Положение/инструкция',
-            'files' => 'Файлы',
-            'filesStr' => 'Файлы',
-        ];
-    }
-
-    /**
-     * Gets query for [[Auditorium]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuditorium()
-    {
-        return $this->hasOne(Auditorium::className(), ['id' => 'auditorium_id']);
-    }
-
-    /**
-     * Gets query for [[Branch]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBranch()
-    {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
-    }
-
-    /**
-     * Gets query for [[People]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPeople()
-    {
-        return $this->hasOne(People::className(), ['id' => 'people_id']);
-    }
-
-    /**
-     * Gets query for [[Regulation]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRegulation()
-    {
-        return $this->hasOne(Regulation::className(), ['id' => 'regulation_id']);
-    }
-
-    /**
-     * Gets query for [[ResponsibilityType]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponsibilityType()
-    {
-        return $this->hasOne(ResponsibilityType::className(), ['id' => 'responsibility_type_id']);
     }
 
     public function getResponsibilityTypeStr()

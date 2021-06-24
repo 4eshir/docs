@@ -55,8 +55,4 @@ class ThematicDirection extends \yii\db\ActiveRecord
         return $this->hasMany(TrainingProgram::className(), ['thematic_direction_id' => 'id']);
     }
 
-    public function getTrueName()
-    {
-        return $this->full_name . ' (' . $this->name . ')';
-    }
 }

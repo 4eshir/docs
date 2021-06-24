@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOut */
+/* @var $model app\models\work\DocumentOutWork */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Исходящая документация', 'url' => ['index']];
@@ -52,12 +52,12 @@ $this->params['breadcrumbs'][] = $model->document_theme;
             ['label' => 'Метод отправки', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Дата отправления', 'attribute' => 'sent_date'],
             ['attribute' => 'isAnswer', 'label' => 'Является ответом на', 'value' => function($model){
-                $links = \app\models\common\InOutDocs::find()->where(['document_out_id' => $model->id])->one();
+                $links = \app\models\work\InOutDocsWork::find()->where(['document_out_id' => $model->id])->one();
                 if ($links == null)
                     return '';
                 else
-                    return Html::a('Входящий документ "'.\app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
-                        \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\common\DocumentIn::find()->where(['id' => $links->document_in_id])->one()->id]));
+                    return Html::a('Входящий документ "'.\app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
+                        \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->id]));
             }, 'format' => 'raw'],
             ['label' => 'Скан документа', 'attribute' => 'Scan', 'value' => function ($model) {
                 return Html::a($model->Scan, \yii\helpers\Url::to(['docs-out/get-file', 'fileName' => $model->Scan, 'type' => 'scan']));

@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }],
         ['attribute' => 'responsiblies', 'label' => 'Ответственные', 'value' => function($model)
         {
-            $resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            $resp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
             $result = '';
             foreach ($resp as $respOne)
                 $result = $result.$respOne->people->secondname.' '.mb_substr($respOne->people->firstname, 0, 1).'. '.mb_substr($respOne->people->patronymic, 0, 1).'. ';
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             ['attribute' => 'responsibilities','label' => 'Ответственные', 'contentOptions' => ['encode' => 'false'], 'value' => function ($model) {
-                $tmp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+                $tmp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
                 $result = '';
                 for ($i = 0; $i < count($tmp); $i++)
                     $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($tmp[$i]->people->patronymic, 0, 1).'. <br>';
@@ -117,8 +117,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Актуален';
                 else
                 {
-                    $exp = \app\models\common\Expire::find()->where(['expire_order_id' => $model->id])->one();
-                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                    $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $model->id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;

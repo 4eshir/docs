@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Event */
+/* @var $model app\models\work\EventWork */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Мероприятия', 'url' => ['index']];
@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'responsible_id', 'value' => $model->responsible2_id !== null ? $model->responsible->shortName.'<br>'.$model->responsible2->shortName : $model->responsible->shortName,
                 'format' => 'raw'],
             ['attribute' => 'eventDepartment', 'label' => 'Мероприятие проводит', 'value' => function($model){
-                $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
-                $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
-                $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
-                $mobquant = \app\models\common\EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
+                $tech = \app\models\work\EventBranchWork::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+                $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+                $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
                 $result = '';
                 if (count($tech) > 0)
                     $result = $result.'Технопарк';
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'],
 
             ['attribute' => 'eventsLink', 'label' => 'Отчетные мероприятия', 'value' => function($model){
-                $events = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
+                $events = \app\models\work\EventsLinkWork::find()->where(['event_id' => $model->id])->all();
                 $result = '';
                 foreach ($events as $event)
                     $result = $result.$event->eventExternal->name.'<br>';

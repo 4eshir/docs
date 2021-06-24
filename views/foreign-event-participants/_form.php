@@ -5,7 +5,7 @@ use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\ForeignEventParticipants */
+/* @var $model app\models\work\ForeignEventParticipantsWork */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 

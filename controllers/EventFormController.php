@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\EventForm;
+use app\models\work\EventFormWork;
 use app\models\SearchEventForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,7 +81,7 @@ class EventFormController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new EventForm();
+        $model = new EventFormWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена форма мероприятия '.$model->name);
@@ -145,12 +145,12 @@ class EventFormController extends Controller
      * Finds the EventForm model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EventForm the loaded model
+     * @return EventFormWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = EventForm::findOne($id)) !== null) {
+        if (($model = EventFormWork::findOne($id)) !== null) {
             return $model;
         }
 

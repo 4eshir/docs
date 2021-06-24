@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TeacherParticipant */
+/* @var $model app\models\work\TeacherParticipantWork */
 
 $this->title = 'Редактировать: ' . $model->participant->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
         'prompt' => ''
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     ?>
 
     <?php
-    $branchs = \app\models\common\Branch::find()->all();
+    $branchs = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
     $params = [];
     echo $form->field($model, 'branch_id')->dropDownList($items,$params)->label('Отдел');
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <?= $form->field($model, 'file')->fileInput()->label('Представленные материалы') ?>
 
     <?php
-    $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $model->participant_id])->andWhere(['foreign_event_id' => $model->foreign_event_id])->one();
+    $partFiles = \app\models\work\ParticipantFilesWork::find()->where(['participant_id' => $model->participant_id])->andWhere(['foreign_event_id' => $model->foreign_event_id])->one();
     if ($partFiles !== null)
         echo '<h5>Загруженный файл: '.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['foreign-event/delete-file', 'fileName' => $partFiles->filename, 'modelId' => $partFiles->id, 'type' => 'participants'])).'</h5><br>';
     ?>

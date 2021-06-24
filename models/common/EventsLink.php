@@ -13,7 +13,6 @@ use Yii;
  */
 class EventsLink extends \yii\db\ActiveRecord
 {
-    public $eventExternalName;
     /**
      * {@inheritdoc}
      */
@@ -30,7 +29,6 @@ class EventsLink extends \yii\db\ActiveRecord
         return [
             [['event_external_id', 'event_id'], 'required'],
             [['event_external_id', 'event_id'], 'integer'],
-            [['eventExternalName'], 'string'],
         ];
     }
 

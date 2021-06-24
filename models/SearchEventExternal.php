@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\EventExternal;
+use app\models\work\EventExternalWork;
 
 /**
  * SearchEventExternal represents the model behind the search form of `app\models\common\EventExternal`.
  */
-class SearchEventExternal extends EventExternal
+class SearchEventExternal extends EventExternalWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchEventExternal extends EventExternal
      */
     public function search($params)
     {
-        $query = EventExternal::find();
+        $query = EventExternalWork::find();
 
         // add conditions that should always apply here
 

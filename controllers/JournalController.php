@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\common\TrainingGroupLesson;
-use app\models\common\Visit;
+use app\models\work\TrainingGroupLessonWork;
+use app\models\work\VisitWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\extended\AccessTrainingGroup;
 use app\models\extended\JournalModel;
 use Yii;
-use app\models\common\Company;
+use app\models\work\CompanyWork;
 use app\models\SearchCompany;
 use yii\db\Query;
 use yii\web\Controller;
@@ -46,10 +46,10 @@ class JournalController extends Controller
             return $this->redirect(['/site/login']);
         $model = new JournalModel($group_id);
 
-        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
         $newVisits = array();
         $newVisitsId = array();
@@ -62,10 +62,10 @@ class JournalController extends Controller
         {
             $model = new JournalModel($model->trainingGroup);
 
-            $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+            $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
             $newLessons = array();
             foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-            $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+            $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
             $newVisits = array();
             $newVisitsId = array();
@@ -91,10 +91,10 @@ class JournalController extends Controller
             return $this->render('/site/error');
         }
         $model = new JournalModel($group_id);
-        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = Visit::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
 
         $newVisits = array();
@@ -145,7 +145,7 @@ class JournalController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new Company();
+        $model = new CompanyWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена организация '.$model->name);
@@ -216,7 +216,7 @@ class JournalController extends Controller
 
     public function actionAllAppearance($training_group_lesson_id, $group_id)
     {
-        $visits = Visit::find()->where(['training_group_lesson_id' => $training_group_lesson_id])->all();
+        $visits = VisitWork::find()->where(['training_group_lesson_id' => $training_group_lesson_id])->all();
         foreach ($visits as $visit)
         {
             $visit->status = 0;
@@ -227,7 +227,7 @@ class JournalController extends Controller
 
     public function actionAllClear($training_group_lesson_id, $group_id)
     {
-        $visits = Visit::find()->where(['training_group_lesson_id' => $training_group_lesson_id])->all();
+        $visits = VisitWork::find()->where(['training_group_lesson_id' => $training_group_lesson_id])->all();
         foreach ($visits as $visit)
         {
             $visit->status = 3;
@@ -240,12 +240,12 @@ class JournalController extends Controller
      * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Company the loaded model
+     * @return CompanyWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Company::findOne($id)) !== null) {
+        if (($model = CompanyWork::findOne($id)) !== null) {
             return $model;
         }
 

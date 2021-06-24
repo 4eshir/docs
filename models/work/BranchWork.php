@@ -1,7 +1,10 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Auditorium;
+use app\models\common\Branch;
+use app\models\common\People;
 use Yii;
 use yii\helpers\Html;
 

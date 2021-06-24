@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?php
-    $branchs = \app\models\common\Branch::find()->all();
+    $branchs = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
     $params = [
         'prompt' => '---'

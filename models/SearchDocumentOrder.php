@@ -2,15 +2,15 @@
 
 namespace app\models;
 
-use app\models\common\People;
+use app\models\work\PeopleWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\DocumentOrder;
+use app\models\work\DocumentOrderWork;
 
 /**
  * SearchDocumentOrder represents the model behind the search form of `app\models\common\DocumentOrder`.
  */
-class SearchDocumentOrder extends DocumentOrder
+class SearchDocumentOrder extends DocumentOrderWork
 {
     public $signedName;
     public $executorName;
@@ -49,12 +49,12 @@ class SearchDocumentOrder extends DocumentOrder
      */
     public function search($params, $sort)
     {
-        $query = DocumentOrder::find();
+        $query = DocumentOrderWork::find();
 
         if ($sort == 1)
-            $query = DocumentOrder::find()->where(['type' => 1]);
+            $query = DocumentOrderWork::find()->where(['type' => 1]);
         else
-            $query = DocumentOrder::find()->where(['type' => 0]);
+            $query = DocumentOrderWork::find()->where(['type' => 0]);
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 

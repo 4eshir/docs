@@ -1,76 +1,12 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\ParticipantAchievement;
 use Yii;
 
-/**
- * This is the model class for table "participant_achievement".
- *
- * @property int $id
- * @property int $participant_id
- * @property int $foreign_event_id
- * @property string $achievment
- * @property int $winner
- *
- * @property ForeignEvent $foreignEvent
- * @property ForeignEventParticipants $participant
- */
-class ParticipantAchievement extends \yii\db\ActiveRecord
+
+class ParticipantAchievementWork extends ParticipantAchievement
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'participant_achievement';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['participant_id', 'foreign_event_id', 'achievment'], 'required'],
-            [['participant_id', 'foreign_event_id', 'winner'], 'integer'],
-            [['achievment'], 'string', 'max' => 1000],
-            [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
-            [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'participant_id' => 'Participant ID',
-            'foreign_event_id' => 'Foreign Event ID',
-            'achievment' => 'Достижение',
-            'winner' => 'Победитель',
-        ];
-    }
-
-    /**
-     * Gets query for [[ForeignEvent]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getForeignEvent()
-    {
-        return $this->hasOne(ForeignEvent::className(), ['id' => 'foreign_event_id']);
-    }
-
-    /**
-     * Gets query for [[Participant]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParticipant()
-    {
-        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'participant_id']);
-    }
 }

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Event */
+/* @var $model app\models\work\EventWork */
 
 $this->title = 'Редактировать мероприятие: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Мероприятие', 'url' => ['index']];

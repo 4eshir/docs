@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOrder */
+/* @var $model app\models\work\DocumentOrderWork */
 $session = Yii::$app->session;
 $this->title = 'Редактировать приказ: ' . $model->order_name;
 $this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index', 'c' => $session->get('type') == 1 ? 1 : 0]];
@@ -16,16 +16,16 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <br>
 
     <?php
-    $fioDb = \app\models\common\People::find()->where(['id' => $model->signed_id])->one();
+    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->signed_id])->one();
     $model->signedString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-    $fioDb = \app\models\common\People::find()->where(['id' => $model->executor_id])->one();
+    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->executor_id])->one();
     $model->executorString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-    $fioDb = \app\models\common\People::find()->where(['id' => $model->register_id])->one();
+    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->register_id])->one();
     $model->registerString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-    $fioDb = \app\models\common\People::find()->where(['id' => $model->bring_id])->one();
+    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->bring_id])->one();
     $model->bringString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
     ?>

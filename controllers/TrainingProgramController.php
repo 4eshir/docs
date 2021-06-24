@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\common\AuthorProgram;
-use app\models\common\ThematicPlan;
+use app\models\work\AuthorProgramWork;
+use app\models\work\ThematicPlanWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\Author;
 use Yii;
-use app\models\common\TrainingProgram;
+use app\models\work\TrainingProgramWork;
 use app\models\SearchTrainingProgram;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -86,14 +86,14 @@ class TrainingProgramController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new TrainingProgram();
-        $modelAuthor = [new AuthorProgram];
-        $modelThematicPlan = [new ThematicPlan];
+        $model = new TrainingProgramWork();
+        $modelAuthor = [new AuthorProgramWork];
+        $modelThematicPlan = [new ThematicPlanWork];
 
         if ($model->load(Yii::$app->request->post())) {
-            $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
+            $modelAuthor = DynamicModel::createMultiple(AuthorProgramWork::classname());
             DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
-            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlan::classname());
+            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlanWork::classname());
             DynamicModel::loadMultiple($modelThematicPlan, Yii::$app->request->post());
             $model->authors = $modelAuthor;
             $model->thematicPlan = $modelThematicPlan;
@@ -130,13 +130,13 @@ class TrainingProgramController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelAuthor = [new AuthorProgram];
-        $modelThematicPlan = [new ThematicPlan];
+        $modelAuthor = [new AuthorProgramWork];
+        $modelThematicPlan = [new ThematicPlanWork];
 
         if ($model->load(Yii::$app->request->post())) {
-            $modelAuthor = DynamicModel::createMultiple(AuthorProgram::classname());
+            $modelAuthor = DynamicModel::createMultiple(AuthorProgramWork::classname());
             DynamicModel::loadMultiple($modelAuthor, Yii::$app->request->post());
-            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlan::classname());
+            $modelThematicPlan = DynamicModel::createMultiple(ThematicPlanWork::classname());
             DynamicModel::loadMultiple($modelThematicPlan, Yii::$app->request->post());
             $model->authors = $modelAuthor;
             $model->thematicPlan = $modelThematicPlan;
@@ -180,12 +180,12 @@ class TrainingProgramController extends Controller
      * Finds the TrainingProgram model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TrainingProgram the loaded model
+     * @return TrainingProgramWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TrainingProgram::findOne($id)) !== null) {
+        if (($model = TrainingProgramWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -205,7 +205,7 @@ class TrainingProgramController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = TrainingProgram::find()->where(['id' => $modelId])->one();
+        $model = TrainingProgramWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'doc')
         {
@@ -235,7 +235,7 @@ class TrainingProgramController extends Controller
 
     public function actionDeleteAuthor($peopleId, $modelId)
     {
-        $resp = AuthorProgram::find()->where(['author_id' => $peopleId])->andWhere(['training_program_id' => $modelId])->one();
+        $resp = AuthorProgramWork::find()->where(['author_id' => $peopleId])->andWhere(['training_program_id' => $modelId])->one();
         if ($resp != null)
             $resp->delete();
         $model = $this->findModel($modelId);
@@ -244,7 +244,7 @@ class TrainingProgramController extends Controller
 
     public function actionDeletePlan($id, $modelId)
     {
-        $plan = ThematicPlan::find()->where(['id' => $id])->one();
+        $plan = ThematicPlanWork::find()->where(['id' => $id])->one();
         $plan->delete();
         return $this->redirect('index?r=training-program/update&id='.$modelId);
     }

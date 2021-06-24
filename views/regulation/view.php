@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Regulation */
+/* @var $model app\models\work\RegulationWork */
 
 $this->title = $model->name;
 $session = Yii::$app->session;
-$tmp = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
+$tmp = \app\models\work\RegulationTypeWork::find()->where(['id' => $session->get('type')])->one()->name;
 
 $this->params['breadcrumbs'][] = ['label' => $tmp, 'url' => ['index', 'c' => $session->get('type')]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             'name',
             ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
-                $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
             }, 'format' => 'raw'],
             ['attribute' => 'ped_council_number', 'visible' => $session->get('type') == 1],
@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'par_council_date', 'visible' => $session->get('type') == 1],
             ['label' => 'Состояние', 'attribute' => 'state', 'value' => function($model){
                 if ($model->state) return 'Актуально';
-                $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->order_id])->one();
-                $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                $exp = \app\models\work\ExpireWork::find()->where(['expire_regulation_id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                 $doc_num = 0;
                 if ($order->order_postfix == null)
                     $doc_num = $order->order_number.'/'.$order->order_copy_id;

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\ResponsibilityType;
+use app\models\work\ResponsibilityTypeWork;
 
 /**
  * SearchResponsibilityType represents the model behind the search form of `app\models\common\ResponsibilityType`.
  */
-class SearchResponsibilityType extends ResponsibilityType
+class SearchResponsibilityType extends ResponsibilityTypeWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchResponsibilityType extends ResponsibilityType
      */
     public function search($params)
     {
-        $query = ResponsibilityType::find();
+        $query = ResponsibilityTypeWork::find();
 
         // add conditions that should always apply here
 

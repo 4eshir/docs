@@ -1,11 +1,11 @@
 <?php
 
-use app\models\common\AsInstall;
-use app\models\common\UseYears;
+use app\models\work\AsInstallWork;
+use app\models\work\UseYearsWork;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\AsAdmin */
+/* @var $model app\models\work\AsAdminWork */
 
 $this->title = 'Добавить ПО';
 $this->params['breadcrumbs'][] = ['label' => 'ПО "Административный процесс"', 'url' => ['index']];
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstall] : $modelAsInstall,
+        'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstallWork] : $modelAsInstall,
     ]) ?>
 
 </div>

@@ -2,12 +2,12 @@
 
 namespace app\models;
 
-use app\models\common\InOutDocs;
-use app\models\common\SendMethod;
+use app\models\work\InOutDocsWork;
+use app\models\work\SendMethodWork;
 use phpDocumentor\Reflection\Types\Object_;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\DocumentIn;
+use app\models\work\DocumentInWork;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
 /**
  * SearchDocumentIn represents the model behind the search form of `app\models\common\DocumentIn`.
  */
-class SearchDocumentIn extends DocumentIn
+class SearchDocumentIn extends DocumentInWork
 {
     public $correspondentName;
     public $companyName;
@@ -53,34 +53,34 @@ class SearchDocumentIn extends DocumentIn
     public function search($params, $sort)
     {
 
-        $query = DocumentIn::find();
+        $query = DocumentInWork::find();
         if ($sort !== null)
         {
             if ($sort == 1)
             {
-                $subquery = InOutDocs::find()->where(['<', 'date', date('Y-m-d')])->andWhere(['document_out_id' => null])->all();
+                $subquery = InOutDocsWork::find()->where(['<', 'date', date('Y-m-d')])->andWhere(['document_out_id' => null])->all();
                 $in = '';
                 foreach ($subquery as $sq) {
                     $in .= $sq->document_in_id.',';
                 }
                 $in = substr($in,0,-1);
                 if (strlen($in) !== 0)
-                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
+                    $query = DocumentInWork::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
                 else
-                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
+                    $query = DocumentInWork::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
             }
             if ($sort == 2)
             {
-                $subquery = InOutDocs::find()->where(['document_out_id' => null])->all();
+                $subquery = InOutDocsWork::find()->where(['document_out_id' => null])->all();
                 $in = '';
                 foreach ($subquery as $sq) {
                     $in .= $sq->document_in_id.',';
                 }
                 $in = substr($in,0,-1);
                 if (strlen($in) !== 0)
-                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
+                    $query = DocumentInWork::findBySql('SELECT * FROM `document_in` WHERE `id` IN ('.$in.')');
                 else
-                    $query = DocumentIn::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
+                    $query = DocumentInWork::findBySql('SELECT * FROM `document_in` WHERE `id` = -1');
             }
         }
         $query->joinWith(['correspondent correspondent']);
@@ -111,8 +111,8 @@ class SearchDocumentIn extends DocumentIn
         ];
 
         $dataProvider->sort->attributes['sendMethodName'] = [
-            'asc' => [SendMethod::tableName().'.name' => SORT_ASC],
-            'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
+            'asc' => [SendMethodWork::tableName().'.name' => SORT_ASC],
+            'desc' => [SendMethodWork::tableName().'.name' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['fullNumber'] = [
@@ -149,7 +149,7 @@ class SearchDocumentIn extends DocumentIn
             ->andFilterWhere(['like', 'applications', $this->applications])
             ->andFilterWhere(['like', 'correspondent.secondname', $this->correspondentName])
             ->andFilterWhere(['like', 'company.name', $this->companyName])
-            ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
+            ->andFilterWhere(['like', SendMethodWork::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['=', 'local_number', $this->fullNumber])
             ->orFilterWhere(['=', 'local_postfix', $this->fullNumber])
             ->andFilterWhere(['like', 'key_words', $this->key_words]);

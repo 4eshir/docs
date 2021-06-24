@@ -5,10 +5,10 @@ use yii\helpers\Html;
 use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
-use app\models\common\Position;
+use app\models\work\PositionWork;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\People */
+/* @var $model app\models\work\PeopleWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -26,7 +26,7 @@ use app\models\common\Position;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-briefcase"></i> Должности</h4></div>
             <?php
-            $positions = \app\models\common\PeoplePositionBranch::find()->where(['people_id' => $model->id])->all();
+            $positions = \app\models\work\PeoplePositionBranchWork::find()->where(['people_id' => $model->id])->all();
             if ($positions != null)
             {
                 echo '<table class="table table-bordered">';
@@ -74,7 +74,7 @@ use app\models\common\Position;
                                 <div class="col-xs-4">
                                     <?php
 
-                                    $pos = \app\models\common\Position::find()->all();
+                                    $pos = \app\models\work\PositionWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($pos,'id','name');
                                     $params = [
                                         'prompt' => '',
@@ -86,7 +86,7 @@ use app\models\common\Position;
                                 <div class="col-xs-4">
                                     <?php
 
-                                    $branch = \app\models\common\Branch::find()->all();
+                                    $branch = \app\models\work\BranchWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [
                                         'prompt' => '',
@@ -116,7 +116,7 @@ use app\models\common\Position;
                                                 'class' => 'form-control',
                                             ]
                                         ])->label('Должность');
-    //$position = \app\models\common\Position::find()->all();
+    //$position = \app\models\work\PositionWork::find()->all();
     //$items = \yii\helpers\ArrayHelper::map($position,'id','name');
     //$params = [];
     //echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность');
@@ -124,7 +124,7 @@ use app\models\common\Position;
     ?>
 
     <?php
-    $company = \app\models\common\Company::find()->all();
+    $company = \app\models\work\CompanyWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [
         'id' => 'org'
@@ -145,7 +145,7 @@ use app\models\common\Position;
     ?>
         <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
         <?php
-        $branchs = \app\models\common\Branch::find()->all();
+        $branchs = \app\models\work\BranchWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
         $params = [
             'prompt' => '',

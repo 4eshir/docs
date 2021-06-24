@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\common\Auditorium;
+use app\models\work\AuditoriumWork;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\Branch;
+use app\models\work\BranchWork;
 use app\models\SearchBranch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,11 +66,11 @@ class BranchController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Branch();
-        $modelAuditorium = [new Auditorium];
+        $model = new BranchWork();
+        $modelAuditorium = [new AuditoriumWork];
 
         if ($model->load(Yii::$app->request->post())) {
-            $modelAuditorium = DynamicModel::createMultiple(Auditorium::classname());
+            $modelAuditorium = DynamicModel::createMultiple(AuditoriumWork::classname());
             DynamicModel::loadMultiple($modelAuditorium, Yii::$app->request->post());
             $model->auditoriums = $modelAuditorium;
             $model->save(false);
@@ -93,10 +93,10 @@ class BranchController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelAuditorium = [new Auditorium];
+        $modelAuditorium = [new AuditoriumWork];
 
         if ($model->load(Yii::$app->request->post())) {
-            $modelAuditorium = DynamicModel::createMultiple(Auditorium::classname());
+            $modelAuditorium = DynamicModel::createMultiple(AuditoriumWork::classname());
             DynamicModel::loadMultiple($modelAuditorium, Yii::$app->request->post());
             $model->auditoriums = $modelAuditorium;
             $model->save(false);
@@ -127,12 +127,12 @@ class BranchController extends Controller
      * Finds the Branch model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Branch the loaded model
+     * @return BranchWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Branch::findOne($id)) !== null) {
+        if (($model = BranchWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -141,7 +141,7 @@ class BranchController extends Controller
 
     public function actionDeleteAuditorium($id, $modelId)
     {
-        $participant = Auditorium::find()->where(['id' => $id])->one();
+        $participant = AuditoriumWork::find()->where(['id' => $id])->one();
         $participant->delete();
         return $this->redirect('index?r=branch/update&id='.$modelId);
     }

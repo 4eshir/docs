@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\common\ForeignEventParticipants;
-use app\models\common\ParticipantAchievement;
-use app\models\common\ParticipantFiles;
-use app\models\common\Responsible;
-use app\models\common\TeacherParticipant;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\ParticipantFilesWork;
+use app\models\work\ResponsibleWork;
+use app\models\work\TeacherParticipantWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
@@ -15,7 +15,7 @@ use app\models\extended\LoadParticipants;
 use app\models\extended\ParticipantsAchievementExtended;
 use app\models\extended\TeamModel;
 use Yii;
-use app\models\common\ForeignEvent;
+use app\models\work\ForeignEventWork;
 use app\models\SearchForeignEvent;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -92,7 +92,7 @@ class ForeignEventController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new ForeignEvent();
+        $model = new ForeignEventWork();
         $modelParticipants = [new ForeignEventParticipantsExtended];
         $modelAchievement = [new ParticipantsAchievementExtended];
 
@@ -185,7 +185,7 @@ class ForeignEventController extends Controller
 
     public function actionUpdateParticipant($id, $modelId)
     {
-        $model = TeacherParticipant::find()->where(['id' => $id])->one();
+        $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $model->getTeam();
         if ($model->load(Yii::$app->request->post()))
         {
@@ -193,7 +193,7 @@ class ForeignEventController extends Controller
             if ($model->file !== null)
                 $model->uploadParticipantFiles();
             $model->save(false);
-            $model = ForeignEvent::find()->where(['id' => $modelId])->one();
+            $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
             $modelParticipants = [new ForeignEventParticipantsExtended];
             $modelAchievement = [new ParticipantsAchievementExtended];
             return $this->render('update',[
@@ -214,10 +214,10 @@ class ForeignEventController extends Controller
 
     public function actionDeleteParticipant($id, $model_id)
     {
-        $part = TeacherParticipant::find()->where(['id' => $id])->one();
+        $part = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $p_id = $part->participant_id;
         $part->delete();
-        $files = ParticipantFiles::find()->where(['participant_id' => $p_id])->one();
+        $files = ParticipantFilesWork::find()->where(['participant_id' => $p_id])->one();
         if ($files !== null)
             $files->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
@@ -225,7 +225,7 @@ class ForeignEventController extends Controller
 
     public function actionDeleteAchievement($id, $model_id)
     {
-        $part = ParticipantAchievement::find()->where(['id' => $id])->one();
+        $part = ParticipantAchievementWork::find()->where(['id' => $id])->one();
         $part->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
@@ -263,7 +263,7 @@ class ForeignEventController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = ForeignEvent::find()->where(['id' => $modelId])->one();
+        $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'docs') {
             $model->docs_achievement = '';
@@ -272,8 +272,8 @@ class ForeignEventController extends Controller
         }
         if ($type == 'participants')
         {
-            $partFile = ParticipantFiles::find()->where(['id' => $modelId])->one();
-            $tp = TeacherParticipant::find()->where(['participant_id' => $partFile->participant_id])->andWhere(['foreign_event_id' => $partFile->foreign_event_id])->one();
+            $partFile = ParticipantFilesWork::find()->where(['id' => $modelId])->one();
+            $tp = TeacherParticipantWork::find()->where(['participant_id' => $partFile->participant_id])->andWhere(['foreign_event_id' => $partFile->foreign_event_id])->one();
             $tModelId = $partFile->foreign_event_id;
             $partFile->delete();
             return $this->redirect('index?r=foreign-event/update-participant&id=' . $tp->id.'&modelId='.$tModelId);
@@ -287,12 +287,12 @@ class ForeignEventController extends Controller
      * Finds the ForeignEvent model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ForeignEvent the loaded model
+     * @return ForeignEventWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ForeignEvent::findOne($id)) !== null) {
+        if (($model = ForeignEventWork::findOne($id)) !== null) {
             return $model;
         }
 

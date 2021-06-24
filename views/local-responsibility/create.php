@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\LocalResponsibility */
+/* @var $model app\models\work\LocalResponsibilityWork */
 
 $this->title = 'Добавление новой ответственности работника';
 $this->params['breadcrumbs'][] = ['label' => 'Учет ответственности работников', 'url' => ['index']];

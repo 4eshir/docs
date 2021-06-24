@@ -1,7 +1,19 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\DocumentOrder;
+use app\models\common\Event;
+use app\models\common\EventBranch;
+use app\models\common\EventExternal;
+use app\models\common\EventForm;
+use app\models\common\EventLevel;
+use app\models\common\EventParticipants;
+use app\models\common\EventsLink;
+use app\models\common\EventType;
+use app\models\common\ForeignEvent;
+use app\models\common\People;
+use app\models\common\Regulation;
 use app\models\components\FileWizard;
 use Yii;
 

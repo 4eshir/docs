@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\LocalResponsibility;
+use app\models\work\LocalResponsibilityWork;
 
 /**
  * SearchLocalResponsibility represents the model behind the search form of `app\models\common\LocalResponsibility`.
  */
-class SearchLocalResponsibility extends LocalResponsibility
+class SearchLocalResponsibility extends LocalResponsibilityWork
 {
     public $responsibilityTypeStr;
     public $branchStr;
@@ -46,7 +46,7 @@ class SearchLocalResponsibility extends LocalResponsibility
      */
     public function search($params)
     {
-        $query = LocalResponsibility::find();
+        $query = LocalResponsibilityWork::find();
 
         $query->joinWith(['responsibilityType responsibilityType', 'branch branch', 'auditorium auditorium', 'people people', 'regulation regulation']);
 

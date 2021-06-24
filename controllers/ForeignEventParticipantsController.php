@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\components\UserRBAC;
 use app\models\extended\LoadParticipants;
 use Yii;
-use app\models\common\ForeignEventParticipants;
+use app\models\work\ForeignEventParticipantsWork;
 use app\models\SearchForeignEventParticipants;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -82,7 +82,7 @@ class ForeignEventParticipantsController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new ForeignEventParticipants();
+        $model = new ForeignEventParticipantsWork();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
@@ -158,7 +158,7 @@ class ForeignEventParticipantsController extends Controller
 
     public function actionCheckCorrect()
     {
-        $model = new ForeignEventParticipants();
+        $model = new ForeignEventParticipantsWork();
         $model->checkCorrect();
         return $this->redirect(['index']);
     }
@@ -167,12 +167,12 @@ class ForeignEventParticipantsController extends Controller
      * Finds the ForeignEventParticipants model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ForeignEventParticipants the loaded model
+     * @return ForeignEventParticipantsWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ForeignEventParticipants::findOne($id)) !== null) {
+        if (($model = ForeignEventParticipantsWork::findOne($id)) !== null) {
             return $model;
         }
 

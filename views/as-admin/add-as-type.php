@@ -7,7 +7,7 @@ use wbraganca\dynamicform\DynamicFormAsset;
 use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\AsAdmin */
+/* @var $model app\models\work\AsAdminWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

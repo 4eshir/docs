@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\TrainingProgram;
+use app\models\work\TrainingProgramWork;
 
 /**
  * SearchTrainingProgram represents the model behind the search form of `app\models\common\TrainingProgram`.
  */
-class SearchTrainingProgram extends TrainingProgram
+class SearchTrainingProgram extends TrainingProgramWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchTrainingProgram extends TrainingProgram
      */
     public function search($params)
     {
-        $query = TrainingProgram::find();
+        $query = TrainingProgramWork::find();
 
         // add conditions that should always apply here
 

@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\common\DocumentOut;
-use app\models\common\InOutDocs;
+use app\models\work\DocumentOutWork;
+use app\models\work\InOutDocsWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\DocumentIn;
+use app\models\work\DocumentInWork;
 use app\models\SearchDocumentIn;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -83,7 +83,7 @@ class DocumentInController extends Controller
             return $this->redirect(['/site/login']);
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
-        $model = new DocumentIn();
+        $model = new DocumentInWork();
 
 
         if ($model->load(Yii::$app->request->post())) {
@@ -126,11 +126,11 @@ class DocumentInController extends Controller
     public function actionCreateReserve()
     {
 
-        $model = new DocumentIn();
+        $model = new DocumentInWork();
 
         $model->document_theme = 'Резерв';
 
-        $model->local_date = end(DocumentIn::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        $model->local_date = end(DocumentInWork::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
         $model->real_date = '1999-01-01';
         $model->scan = '';
         $model->applications = '';
@@ -159,7 +159,7 @@ class DocumentInController extends Controller
 
         $model->scanFile = $model->scan;
 
-        $links = InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+        $links = InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
         if ($links !== null)
             $model->needAnswer = 1;
 
@@ -211,12 +211,12 @@ class DocumentInController extends Controller
      * Finds the DocumentIn model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DocumentIn the loaded model
+     * @return DocumentInWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DocumentIn::findOne($id)) !== null) {
+        if (($model = DocumentInWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -237,7 +237,7 @@ class DocumentInController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = DocumentIn::find()->where(['id' => $modelId])->one();
+        $model = DocumentInWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
         {

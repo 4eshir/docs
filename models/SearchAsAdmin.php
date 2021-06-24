@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\AsAdmin;
+use app\models\work\AsAdminWork;
 
 /**
  * SearchAsAdmin represents the model behind the search form of `app\models\common\AsAdmin`.
  */
-class SearchAsAdmin extends AsAdmin
+class SearchAsAdmin extends AsAdminWork
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class SearchAsAdmin extends AsAdmin
      */
     public function search($params)
     {
-        $query = AsAdmin::find();
+        $query = AsAdminWork::find();
 
         // add conditions that should always apply here
 

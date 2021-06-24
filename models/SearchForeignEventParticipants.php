@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\ForeignEventParticipants;
+use app\models\work\ForeignEventParticipantsWork;
 
 /**
  * SearchForeignEventParticipants represents the model behind the search form of `app\models\common\ForeignEventParticipants`.
  */
-class SearchForeignEventParticipants extends ForeignEventParticipants
+class SearchForeignEventParticipants extends ForeignEventParticipantsWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
      */
     public function search($params, $sort)
     {
-        $query = ForeignEventParticipants::find();
+        $query = ForeignEventParticipantsWork::find();
         if ($sort == 1)
         {
             $str = "SELECT * FROM `foreign_event_participants` WHERE `is_true` <> 1 AND (`guaranted_true` IS NULL OR `guaranted_true` = 0) ORDER BY `secondname`";

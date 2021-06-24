@@ -1,7 +1,9 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Auditorium;
+use app\models\common\Branch;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;

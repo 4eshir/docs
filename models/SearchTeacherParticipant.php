@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\TeacherParticipant;
+use app\models\work\TeacherParticipantWork;
 
 /**
  * SearchTeacherParticipant represents the model behind the search form of `app\models\common\TeacherParticipant`.
  */
-class SearchTeacherParticipant extends TeacherParticipant
+class SearchTeacherParticipant extends TeacherParticipantWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchTeacherParticipant extends TeacherParticipant
      */
     public function search($params)
     {
-        $query = TeacherParticipant::find();
+        $query = TeacherParticipantWork::find();
 
         // add conditions that should always apply here
 

@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\common\Feedback */
+/* @var $model app\models\work\FeedbackWork */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     $feedback = '';
     if (Yii::$app->user->identity->getId() == 1 || Yii::$app->user->identity->getId() == 31)
-        $feedback = \app\models\common\Feedback::find()->all();
+        $feedback = \app\models\work\FeedbackWork::find()->all();
     else
-        $feedback = \app\models\common\Feedback::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
+        $feedback = \app\models\work\FeedbackWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
     ?>
     <br>
     <br>

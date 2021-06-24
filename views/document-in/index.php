@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'summary' => false,
             'rowOptions' => function($data) {
-                $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $data['id']])->one();
+                $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $data['id']])->one();
                 if ($links == null || $links->document_out_id !== null)
                     return ['class' => 'default'];
                 else if ($links->date !== null && $links->date < date("Y-m-d"))
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
                 ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
-                   $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+                   $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
 
 
                    if ($links == null)
@@ -72,8 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                     else
-                        return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
-                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+                        return Html::a('Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->id]));
 
 
                 }, 'format' => 'raw'],

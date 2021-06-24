@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Branch */
+/* @var $model app\models\work\BranchWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
             <div class="panel-heading"><h4>Список помещений</h4></div>
             <div>
                 <?php
-                $auds = \app\models\common\Auditorium::find()->where(['branch_id' => $model->id])->all();
+                $auds = \app\models\work\AuditoriumWork::find()->where(['branch_id' => $model->id])->all();
                 if ($auds != null)
                 {
                     echo '<table class="table table-bordered">';

@@ -76,9 +76,4 @@ class InOutDocs extends \yii\db\ActiveRecord
     {
         return $this->hasOne(DocumentOut::className(), ['id' => 'document_out_id']);
     }
-
-    public function getDocInName()
-    {
-        return 'Входящий документ "'.$this->documentIn->document_theme.'"';
-    }
 }

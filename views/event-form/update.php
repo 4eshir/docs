@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\EventForm */
+/* @var $model app\models\work\EventFormWork */
 
 $this->title = 'Редактировать форму мероприятий: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Формы мероприятий', 'url' => ['index']];

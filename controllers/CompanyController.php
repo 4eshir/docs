@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\Company;
+use app\models\work\CompanyWork;
 use app\models\SearchCompany;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,7 +81,7 @@ class CompanyController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new Company();
+        $model = new CompanyWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена организация '.$model->name);
@@ -154,12 +154,12 @@ class CompanyController extends Controller
      * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Company the loaded model
+     * @return CompanyWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Company::findOne($id)) !== null) {
+        if (($model = CompanyWork::findOne($id)) !== null) {
             return $model;
         }
 

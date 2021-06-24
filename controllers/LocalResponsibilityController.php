@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\common\Auditorium;
-use app\models\common\Branch;
-use app\models\common\LegacyResponsible;
+use app\models\work\AuditoriumWork;
+use app\models\work\BranchWork;
+use app\models\work\LegacyResponsibleWork;
 use app\models\components\Logger;
 use Yii;
-use app\models\common\LocalResponsibility;
+use app\models\work\LocalResponsibilityWork;
 use app\models\SearchLocalResponsibility;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -69,7 +69,7 @@ class LocalResponsibilityController extends Controller
      */
     public function actionCreate()
     {
-        $model = new LocalResponsibility();
+        $model = new LocalResponsibilityWork();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->filesStr = UploadedFile::getInstances($model, 'filesStr');
@@ -94,7 +94,7 @@ class LocalResponsibilityController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $subModel = LegacyResponsible::find()->where(['people_id' => $model->people_id])->andWhere(['responsibility_type_id' => $model->responsibility_type_id])
+        $subModel = LegacyResponsibleWork::find()->where(['people_id' => $model->people_id])->andWhere(['responsibility_type_id' => $model->responsibility_type_id])
             ->andWhere(['branch_id' => $model->branch_id])->andWhere(['auditorium_id' => $model->auditorium_id])->one();
 
         if ($subModel !== null)
@@ -145,7 +145,7 @@ class LocalResponsibilityController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null)
     {
 
-        $model = LocalResponsibility::find()->where(['id' => $modelId])->one();
+        $model = LocalResponsibilityWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
 
@@ -168,12 +168,12 @@ class LocalResponsibilityController extends Controller
     public function actionSubcat()
     {
         if ($id = Yii::$app->request->post('id')) {
-            $operationPosts = Branch::find()
+            $operationPosts = BranchWork::find()
                 ->where(['id' => $id])
                 ->count();
 
             if ($operationPosts > 0) {
-                $operations = Auditorium::find()
+                $operations = AuditoriumWork::find()
                     ->where(['branch_id' => $id])
                     ->all();
                 echo "<option value=>--</option>";
@@ -189,12 +189,12 @@ class LocalResponsibilityController extends Controller
      * Finds the LocalResponsibility model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return LocalResponsibility the loaded model
+     * @return LocalResponsibilityWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = LocalResponsibility::findOne($id)) !== null) {
+        if (($model = LocalResponsibilityWork::findOne($id)) !== null) {
             return $model;
         }
 

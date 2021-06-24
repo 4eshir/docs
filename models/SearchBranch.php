@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Branch;
+use app\models\work\BranchWork;
 
 /**
  * SearchBranch represents the model behind the search form of `app\models\common\Branch`.
  */
-class SearchBranch extends Branch
+class SearchBranch extends BranchWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchBranch extends Branch
      */
     public function search($params)
     {
-        $query = Branch::find();
+        $query = BranchWork::find();
 
         // add conditions that should always apply here
 

@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\common\DocumentOrder;
-use app\models\common\DocumentOut;
-use app\models\common\Feedback;
-use app\models\common\People;
-use app\models\common\PeoplePositionBranch;
-use app\models\common\User;
+use app\models\work\DocumentOrderWork;
+use app\models\work\DocumentOutWork;
+use app\models\work\FeedbackWork;
+use app\models\work\PeopleWork;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\UserWork;
 use app\models\components\Logger;
 use app\models\extended\FeedbackAnswer;
 use app\models\ForgotPassword;
@@ -22,7 +22,6 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\extended\UserExtended;
 use app\models\extended\DocumentOutExtended;
 
 
@@ -83,7 +82,7 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
 
-        $model = new Feedback();
+        $model = new FeedbackWork();
         if ($model->load(Yii::$app->request->post()))
         {
             $model->user_id = Yii::$app->user->identity->getId();
@@ -164,7 +163,7 @@ class SiteController extends Controller
                     ->setTextBody($string)
                     ->setHtmlBody('Ваш новый пароль: '.$string)
                     ->send();
-                $user = User::find()->where(['username' => $model->email])->one();
+                $user = UserWork::find()->where(['username' => $model->email])->one();
                 $user->password_hash = Yii::$app->security->generatePasswordHash($string);
                 $user->save();
                 Logger::WriteLog(1, 'Сброшен пароль для пользователя '.$model->email);
@@ -181,7 +180,7 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $orders = DocumentOrder::find()->all();
+        $orders = DocumentOrderWork::find()->all();
         foreach ($orders as $order)
         {
             $order->type = 1;

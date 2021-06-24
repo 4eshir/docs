@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\User */
+/* @var $model app\models\work\UserWork */
 
 ?>
 <div class="change-password">

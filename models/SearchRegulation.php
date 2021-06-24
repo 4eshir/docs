@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Regulation;
+use app\models\work\RegulationWork;
 
 /**
  * SearchRegulation represents the model behind the search form of `app\models\common\Regulation`.
  */
-class SearchRegulation extends Regulation
+class SearchRegulation extends RegulationWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchRegulation extends Regulation
      */
     public function search($params, $c)
     {
-        $query = Regulation::find()->where(['regulation_type_id' => $c]);
+        $query = RegulationWork::find()->where(['regulation_type_id' => $c]);
 
         // add conditions that should always apply here
 

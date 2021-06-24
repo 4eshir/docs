@@ -6,7 +6,7 @@ use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingGroupLesson */
+/* @var $model app\models\work\TrainingGroupLessonWork */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'lesson_start_time')->textInput(['class' => 'form-control def'])->label('Начало занятия') ?>
     
     <?php
-    $audits = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
+    $audits = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
     $params = [
         'onchange' => '

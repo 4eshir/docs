@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\People */
+/* @var $model app\models\work\PeopleWork */
 
 $this->title = 'Добавить человека';
 $this->params['breadcrumbs'][] = ['label' => 'Люди', 'url' => ['index']];

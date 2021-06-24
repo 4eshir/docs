@@ -1,11 +1,11 @@
 <?php
 
-use app\models\common\TrainingGroupParticipant;
+use app\models\work\TrainingGroupParticipantWork;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingGroup */
+/* @var $model app\models\work\TrainingGroupWork */
 
 $this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Учебные группы', 'url' => ['index']];

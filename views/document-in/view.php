@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentIn */
+/* @var $model app\models\work\DocumentInWork */
 
 $this->title = $model->document_theme;
 $this->params['breadcrumbs'][] = ['label' => 'Входящая документация', 'url' => ['index']];
@@ -69,14 +69,14 @@ $this->params['breadcrumbs'][] = $this->title;
             }, 'format' => 'raw'],
             ['label' => 'Ключевые слова', 'attribute' => 'key_words'],
             ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
-                $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+                $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
                 if ($links == null)
                     return '';
                 if ($links->document_out_id == null)
                     return 'Требуется ответ';
                 else
-                    return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
-                        \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+                    return Html::a('Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                        \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->id]));
             }, 'format' => 'raw'],
             ['label' => 'Регистратор документа', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
         ],

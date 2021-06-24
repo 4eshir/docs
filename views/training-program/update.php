@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingProgram */
+/* @var $model app\models\work\TrainingProgramWork */
 
 $this->title = 'Редактировать образовательную программу: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Образовательные программы', 'url' => ['index']];

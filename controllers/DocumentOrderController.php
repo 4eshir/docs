@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\common\Expire;
-use app\models\common\Regulation;
-use app\models\common\Responsible;
+use app\models\work\ExpireWork;
+use app\models\work\RegulationWork;
+use app\models\work\ResponsibleWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\DocumentOrder;
+use app\models\work\DocumentOrderWork;
 use app\models\SearchDocumentOrder;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -92,10 +92,10 @@ class DocumentOrderController extends Controller
             return $this->render('/site/error');
         }
         $session = Yii::$app->session;
-        $model = new DocumentOrder();
+        $model = new DocumentOrderWork();
         $model->order_number = "02-02";
-        $modelExpire = [new Expire];
-        $modelResponsible = [new Responsible];
+        $modelExpire = [new ExpireWork];
+        $modelResponsible = [new ResponsibleWork];
         if ($model->load(Yii::$app->request->post())) {
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
@@ -103,10 +103,10 @@ class DocumentOrderController extends Controller
             $model->scan = '';
             $model->state = true;
 
-            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
-            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 
@@ -125,18 +125,18 @@ class DocumentOrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
         ]);
     }
 
     public function actionCreateReserve()
     {
-        $model = new DocumentOrder();
+        $model = new DocumentOrderWork();
         $session = Yii::$app->session;
         $model->order_name = 'Резерв';
         $model->order_number = '02-02';
-        $model->order_date = DocumentOrder::find()->orderBy(['order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC])->one()->order_date;
+        $model->order_date = DocumentOrderWork::find()->orderBy(['order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC])->one()->order_date;
         $model->scan = '';
         $model->state = true;
         $model->type = $session->get('type') === '1' ? 1 : 0;
@@ -163,14 +163,14 @@ class DocumentOrderController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
-        $modelExpire = DynamicModel::createMultiple(Expire::classname());
+        $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
+        $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
-            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
@@ -192,24 +192,24 @@ class DocumentOrderController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
         ]);
     }
 
     public function actionDeleteExpire($expireId, $modelId)
     {
-        $expire = Expire::find()->where(['id' => $expireId])->one();
-        $order = DocumentOrder::find()->where(['id' => $expire->expire_order_id])->one();
+        $expire = ExpireWork::find()->where(['id' => $expireId])->one();
+        $order = DocumentOrderWork::find()->where(['id' => $expire->expire_order_id])->one();
         if ($order !== null)
         {
             $order->state = 1;
-            Regulation::CheckRegulationState($order->id, 1);
+            RegulationWork::CheckRegulationState($order->id, 1);
             $order->save(false);
-            $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+            $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
 
         }
-        $reg = Regulation::find()->where(['id' => $expire->expire_regulation_id])->one();
+        $reg = RegulationWork::find()->where(['id' => $expire->expire_regulation_id])->one();
         if ($reg !== null)
         {
             $reg->state = 'Утратило силу';
@@ -217,18 +217,18 @@ class DocumentOrderController extends Controller
         }
         $expire->delete();
 
-        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+        $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
         return $this->render('update', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire
         ]);
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+        $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
         {
@@ -268,7 +268,7 @@ class DocumentOrderController extends Controller
 
     public function actionDeleteResponsible($peopleId, $orderId)
     {
-        $resp = Responsible::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
+        $resp = ResponsibleWork::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
         if ($resp != null)
             $resp->delete();
         $model = $this->findModel($orderId);
@@ -307,12 +307,12 @@ class DocumentOrderController extends Controller
      * Finds the DocumentOrder model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DocumentOrder the loaded model
+     * @return DocumentOrderWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DocumentOrder::findOne($id)) !== null) {
+        if (($model = DocumentOrderWork::findOne($id)) !== null) {
             return $model;
         }
 

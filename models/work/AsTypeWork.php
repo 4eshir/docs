@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\AsType;
 use Yii;
 
 class AsTypeWork extends AsType

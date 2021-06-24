@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\User */
+/* @var $model app\models\work\UserWork */
 
 $this->title = 'Редактировать пользователя: ' . $model->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];

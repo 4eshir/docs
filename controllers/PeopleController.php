@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\common\PeoplePositionBranch;
+use app\models\work\PeoplePositionBranchWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\People;
+use app\models\work\PeopleWork;
 use app\models\SearchPeople;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -83,14 +83,14 @@ class PeopleController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
             return $this->render('/site/error');
         }
-        $model = new People();
-        $modelPeoplePositionBranch = [new PeoplePositionBranch];
+        $model = new PeopleWork();
+        $modelPeoplePositionBranch = [new PeoplePositionBranchWork];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->firstname = str_replace(' ', '', $model->firstname);
             $model->secondname = str_replace(' ', '', $model->secondname);
             $model->patronymic = str_replace(' ', '', $model->patronymic);
-            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranch::classname());
+            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranchWork::classname());
             DynamicModel::loadMultiple($modelPeoplePositionBranch, Yii::$app->request->post());
             $model->positions = $modelPeoplePositionBranch;
             $model->save(false);
@@ -120,11 +120,11 @@ class PeopleController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelPeoplePositionBranch = [new PeoplePositionBranch];
+        $modelPeoplePositionBranch = [new PeoplePositionBranchWork()];
         if ($model->position_id !== null)
             $model->stringPosition = $model->position->name;
         if ($model->load(Yii::$app->request->post())) {
-            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranch::classname());
+            $modelPeoplePositionBranch = DynamicModel::createMultiple(PeoplePositionBranchWork::classname());
             DynamicModel::loadMultiple($modelPeoplePositionBranch, Yii::$app->request->post());
             $model->positions = $modelPeoplePositionBranch;
             $model->save();
@@ -166,7 +166,7 @@ class PeopleController extends Controller
 
     public function actionDeletePosition($id, $modelId)
     {
-        $position = PeoplePositionBranch::find()->where(['id' => $id])->one();
+        $position = PeoplePositionBranchWork::find()->where(['id' => $id])->one();
         $position->delete();
         return $this->redirect('index?r=people/update&id='.$modelId);
     }
@@ -175,12 +175,12 @@ class PeopleController extends Controller
      * Finds the People model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return People the loaded model
+     * @return PeopleWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = People::findOne($id)) !== null) {
+        if (($model = PeopleWork::findOne($id)) !== null) {
             return $model;
         }
 

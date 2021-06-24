@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\common\ResponsibilityType;
+use app\models\work\ResponsibilityTypeWork;
 use app\models\SearchResponsibilityType;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,7 +64,7 @@ class ResponsibilityTypeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ResponsibilityType();
+        $model = new ResponsibilityTypeWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,12 +113,12 @@ class ResponsibilityTypeController extends Controller
      * Finds the ResponsibilityType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ResponsibilityType the loaded model
+     * @return ResponsibilityTypeWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ResponsibilityType::findOne($id)) !== null) {
+        if (($model = ResponsibilityTypeWork::findOne($id)) !== null) {
             return $model;
         }
 

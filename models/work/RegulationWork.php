@@ -1,45 +1,20 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\DocumentOrder;
+use app\models\common\Event;
+use app\models\common\Expire;
+use app\models\common\Regulation;
 use app\models\components\FileWizard;
 use Yii;
 
-/**
- * This is the model class for table "regulation".
- *
- * @property int $id
- * @property string $date
- * @property string $name
- * @property string $short_name
- * @property int $order_id
- * @property int $ped_council_number
- * @property string $ped_council_date
- * @property int $par_council_number
- * @property string $par_council_date
- * @property int regulation_type_id
- * @property int $state
- * @property string $scan
- *
- * @property Expire[] $expires
- * @property Expire[] $expires0
- * @property DocumentOrder $order
- */
-class Regulation extends \yii\db\ActiveRecord
+
+class RegulationWork extends Regulation
 {
     public $expires;
     public $scanFile;
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'regulation';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -49,66 +24,6 @@ class Regulation extends \yii\db\ActiveRecord
             [['name', 'scan', 'short_name'], 'string', 'max' => 1000],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'date' => 'Дата',
-            'name' => 'Наименование положения',
-            'short_name' => 'Краткое наименование положения',
-            'order_id' => 'Приказ',
-            'ped_council_number' => '№ педагогического совета',
-            'ped_council_date' => 'Дата педагогического совета',
-            'par_council_number' => '№ совета родителей',
-            'par_council_date' => 'Дата совета родителей',
-            'state' => 'Состояние',
-            'scan' => 'Скан',
-        ];
-    }
-
-    /**
-     * Gets query for [[Expires]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExpires()
-    {
-        return $this->hasMany(Expire::className(), ['active_regulation_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Expires0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExpires0()
-    {
-        return $this->hasMany(Expire::className(), ['expire_regulation_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Order]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOrder()
-    {
-        return $this->hasOne(DocumentOrder::className(), ['id' => 'order_id']);
-    }
-
-    /**
-     * Gets query for [[RegulationType]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRegulationType()
-    {
-        return $this->hasOne(RegulationType::className(), ['id' => 'regulation_type_id']);
     }
 
     //--------------------------

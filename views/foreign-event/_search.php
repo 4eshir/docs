@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
     <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="col-xs-5" style="padding-left: 0">
         <?php
-        $branchs = \app\models\common\Branch::find()->all();
+        $branchs = \app\models\work\BranchWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($branchs, 'name', 'name');
         $params = [
             'prompt' => ''

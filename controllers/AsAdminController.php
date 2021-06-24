@@ -2,20 +2,20 @@
 
 namespace app\controllers;
 
-use app\models\common\AsInstall;
-use app\models\common\AsType;
-use app\models\common\Company;
-use app\models\common\AsCompany;
-use app\models\common\Country;
-use app\models\common\Version;
-use app\models\common\License;
-use app\models\common\Responsible;
-use app\models\common\UseYears;
+use app\models\work\AsInstallWork;
+use app\models\work\AsTypeWork;
+use app\models\work\CompanyWork;
+use app\models\work\AsCompanyWork;
+use app\models\work\CountryWork;
+use app\models\work\VersionWork;
+use app\models\work\LicenseWork;
+use app\models\work\ResponsibleWork;
+use app\models\work\UseYearsWork;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use DateTime;
 use Yii;
-use app\models\common\AsAdmin;
+use app\models\work\AsAdminWork;
 use app\models\SearchAsAdmin;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -105,9 +105,9 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new AsAdmin();
-        $modelUseYears = [new UseYears];
-        $modelAsInstall = [new AsInstall];
+        $model = new AsAdminWork();
+        $modelUseYears = [new UseYearsWork()];
+        $modelAsInstall = [new AsInstallWork()];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->service_note = '';
@@ -123,7 +123,7 @@ class AsAdminController extends Controller
             //DynamicModel::loadMultiple($modelUseYears, Yii::$app->request->post());
             //$model->useYears = $modelUseYears;
 
-            $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
+            $modelAsInstall = DynamicModel::createMultiple(AsInstallWork::classname());
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
 
@@ -145,8 +145,8 @@ class AsAdminController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelUseYears' => (empty($modelUseYears)) ? [new UseYears] : $modelUseYears,
-            'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstall] : $modelAsInstall,
+            'modelUseYears' => (empty($modelUseYears)) ? [new UseYearsWork] : $modelUseYears,
+            'modelAsInstall' => (empty($modelAsInstall)) ? [new AsInstallWork] : $modelAsInstall,
         ]);
     }
 
@@ -165,14 +165,14 @@ class AsAdminController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelAsInstall = [new AsInstall];
+        $modelAsInstall = [new AsInstallWork];
         $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
         if ($res->start_date !== '1999-01-01') $model->useStartDate = $res->start_date;
         if ($res->end_date !== '1999-01-01') $model->useEndDate = $res->end_date;
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $modelAsInstall = DynamicModel::createMultiple(AsInstall::classname());
+            $modelAsInstall = DynamicModel::createMultiple(AsInstallWork::classname());
             DynamicModel::loadMultiple($modelAsInstall, Yii::$app->request->post());
             $model->asInstalls = $modelAsInstall;
 
@@ -230,12 +230,12 @@ class AsAdminController extends Controller
      * Finds the AsAdmin model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AsAdmin the loaded model
+     * @return AsAdminWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AsAdmin::findOne($id)) !== null) {
+        if (($model = AsAdminWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -269,7 +269,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = AsCompany::find()->all();
+        $model = AsCompanyWork::find()->all();
         return $this->render('index-company', ['model' => $model]);
     }
 
@@ -280,7 +280,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new AsCompany();
+        $model = new AsCompanyWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
@@ -299,8 +299,8 @@ class AsAdminController extends Controller
             var_dump('lol');
             return $this->render('/site/error');
         }
-        $model = AsCompany::find()->where(['id' => $model_id])->one();
-        if (count(AsAdmin::find()->where(['as_company_id' => $model_id])->all()) == 0)
+        $model = AsCompanyWork::find()->where(['id' => $model_id])->one();
+        if (count(AsAdminWork::find()->where(['as_company_id' => $model_id])->all()) == 0)
             $model->delete();
         else
             Yii::$app->session->addFlash('error', 'Невозможно удалить компанию! (используется в списке ПО)');
@@ -316,7 +316,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = Country::find()->all();
+        $model = CountryWork::find()->all();
         return $this->render('index-country', ['model' => $model]);
     }
 
@@ -327,7 +327,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new Country();
+        $model = new CountryWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
@@ -345,8 +345,8 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = Country::find()->where(['id' => $model_id])->one();
-        if (count(AsAdmin::find()->where(['country_prod_id' => $model_id])->all()) == 0)
+        $model = CountryWork::find()->where(['id' => $model_id])->one();
+        if (count(AsAdminWork::find()->where(['country_prod_id' => $model_id])->all()) == 0)
             $model->delete();
         else
             Yii::$app->session->addFlash('error', 'Невозможно удалить страну! (используется в списке ПО)');
@@ -362,7 +362,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = AsType::find()->all();
+        $model = AsTypeWork::find()->all();
         return $this->render('index-as-type', ['model' => $model]);
     }
 
@@ -373,7 +373,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new AsType();
+        $model = new AsTypeWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
@@ -386,8 +386,8 @@ class AsAdminController extends Controller
 
     public function actionDeleteAsType($model_id)
     {
-        $model = AsType::find()->where(['id' => $model_id])->one();
-        if (count(AsAdmin::find()->where(['as_type_id' => $model_id])->all()) == 0)
+        $model = AsTypeWork::find()->where(['id' => $model_id])->one();
+        if (count(AsAdminWork::find()->where(['as_type_id' => $model_id])->all()) == 0)
             $model->delete();
         else
             Yii::$app->session->addFlash('error', 'Невозможно удалить тип! (используется в списке ПО)');
@@ -403,7 +403,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = License::find()->all();
+        $model = LicenseWork::find()->all();
         return $this->render('index-license', ['model' => $model]);
     }
 
@@ -414,7 +414,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new License();
+        $model = new LicenseWork;
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
@@ -427,8 +427,8 @@ class AsAdminController extends Controller
 
     public function actionDeleteLicense($model_id)
     {
-        $model = License::find()->where(['id' => $model_id])->one();
-        if (count(AsAdmin::find()->where(['license_id' => $model_id])->all()) == 0)
+        $model = LicenseWork::find()->where(['id' => $model_id])->one();
+        if (count(AsAdminWork::find()->where(['license_id' => $model_id])->all()) == 0)
             $model->delete();
         else
             Yii::$app->session->addFlash('error', 'Невозможно удалить тип лицензии! (используется в списке ПО)');
@@ -441,7 +441,7 @@ class AsAdminController extends Controller
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
-        $inst = AsInstall::find()->where(['id' => $id])->one();
+        $inst = AsInstallWork::find()->where(['id' => $id])->one();
         $inst->delete();
         $model = $this->findModel($model_id);
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
@@ -449,7 +449,7 @@ class AsAdminController extends Controller
 
     public function actionDeleteFile($fileName = null, $modelId = null)
     {
-        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model = AsAdminWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
@@ -471,7 +471,7 @@ class AsAdminController extends Controller
 
     public function actionDeleteFileScan($modelId = null)
     {
-        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model = AsAdminWork::find()->where(['id' => $modelId])->one();
         $model->scan = '';
         $model->save(false);
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
@@ -479,7 +479,7 @@ class AsAdminController extends Controller
 
     public function actionDeleteFileLicense($modelId = null)
     {
-        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model = AsAdminWork::find()->where(['id' => $modelId])->one();
         $model->license_file = '';
         $model->save(false);
         return $this->redirect('index.php?r=as-admin/update&id='.$model->id);
@@ -488,7 +488,7 @@ class AsAdminController extends Controller
     public function actionDeleteFileCommercial($fileName = null, $modelId = null)
     {
 
-        $model = AsAdmin::find()->where(['id' => $modelId])->one();
+        $model = AsAdminWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
@@ -515,7 +515,7 @@ class AsAdminController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $as = AsAdmin::find()->all();
+        $as = AsAdminWork::find()->all();
         $date = new DateTime(date("Y-m-d"));
         foreach ($as as $asOne)
         {

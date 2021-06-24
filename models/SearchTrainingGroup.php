@@ -2,17 +2,17 @@
 
 namespace app\models;
 
-use app\models\common\User;
+use app\models\work\UserWork;
 use app\models\components\UserRBAC;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\TrainingGroup;
+use app\models\work\TrainingGroupWork;
 
 /**
  * SearchTrainingGroup represents the model behind the search form of `app\models\common\TrainingGroup`.
  */
-class SearchTrainingGroup extends TrainingGroup
+class SearchTrainingGroup extends TrainingGroupWork
 {
     /**
      * {@inheritdoc}
@@ -43,13 +43,13 @@ class SearchTrainingGroup extends TrainingGroup
      */
     public function search($params)
     {
-        $query = TrainingGroup::find();
+        $query = TrainingGroupWork::find();
 
-        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $groups = TrainingGroup::find()->where(['teacher_id' => $user->aka])->all();
+        $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
-            $groups = TrainingGroup::find();
+            $groups = TrainingGroupWork::find();
         }
         else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
         {
@@ -61,7 +61,7 @@ class SearchTrainingGroup extends TrainingGroup
                 $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
                 $newGroups_id = [];
                 foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->training_group_id;
-                $groups = TrainingGroup::find()->where(['in', 'id', $newGroups_id]);
+                $groups = TrainingGroupWork::find()->where(['in', 'id', $newGroups_id]);
             }
         }
         else
@@ -69,7 +69,7 @@ class SearchTrainingGroup extends TrainingGroup
             $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
             $teachers_id = [];
             foreach ($teachers as $teacher) $teachers_id[] = $teacher->training_group_id;
-            $groups = TrainingGroup::find()->where(['in', 'id', $teachers_id]);
+            $groups = TrainingGroupWork::find()->where(['in', 'id', $teachers_id]);
         }
 
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);

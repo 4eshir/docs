@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\common\InOutDocs;
-use app\models\common\Position;
+use app\models\work\InOutDocsWork;
+use app\models\work\PositionWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use Yii;
-use app\models\common\DocumentOut;
+use app\models\work\DocumentOutWork;
 use app\models\SearchDocumentOut;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -100,7 +100,7 @@ class DocsOutController extends Controller
             return $this->redirect(['/site/login']);
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
-        $model = new DocumentOut();
+        $model = new DocumentOutWork();
         $model->document_name = "default";
 
         if($model->load(Yii::$app->request->post()))
@@ -139,11 +139,11 @@ class DocsOutController extends Controller
 
     public function actionCreateReserve()
     {
-        $model = new DocumentOut();
+        $model = new DocumentOutWork();
 
         $model->document_theme = 'Резерв';
         $model->document_name = '';
-        $model->document_date = end(DocumentOut::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all())->document_date;
+        $model->document_date = end(DocumentOutWork::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all())->document_date;
         $model->sent_date = '1999-01-01';
         $model->Scan = '';
         $model->applications = '';
@@ -171,7 +171,7 @@ class DocsOutController extends Controller
         $model = $this->findModel($id);
 
         $model->scanFile = $model->Scan;
-        $inoutdocs = InOutDocs::find()->where(['document_out_id' => $model->id])->one();
+        $inoutdocs = InOutDocsWork::find()->where(['document_out_id' => $model->id])->one();
         if ($inoutdocs !== null)
             $model->isAnswer = $inoutdocs->id;
 
@@ -226,7 +226,7 @@ class DocsOutController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = DocumentOut::find()->where(['id' => $modelId])->one();
+        $model = DocumentOutWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
         {
@@ -273,7 +273,7 @@ class DocsOutController extends Controller
         $parents = Yii::$app->request->post('depdrop_parents', null);
         if ($parents != null) {
             $positions = $parents[0];
-            $arr = Position::find()->where(['id' => $positions->position_id])->one();
+            $arr = PositionWork::find()->where(['id' => $positions->position_id])->one();
             return Json::encode(array(
                 'output' => $arr,
                 'selected' => $positions
@@ -288,12 +288,12 @@ class DocsOutController extends Controller
      * Finds the DocumentOut model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DocumentOut the loaded model
+     * @return DocumentOutWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DocumentOut::findOne($id)) !== null) {
+        if (($model = DocumentOutWork::findOne($id)) !== null) {
             return $model;
         }
 

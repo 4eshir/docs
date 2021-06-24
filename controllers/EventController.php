@@ -2,15 +2,15 @@
 
 namespace app\controllers;
 
-use app\models\common\EventExternal;
-use app\models\common\EventParticipants;
-use app\models\common\EventsLink;
-use app\models\common\UseYears;
+use app\models\work\EventExternalWork;
+use app\models\work\EventParticipantsWork;
+use app\models\work\EventsLinkWork;
+use app\models\work\UseYearsWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\Event;
+use app\models\work\EventWork;
 use app\models\SearchEvent;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -73,7 +73,7 @@ class EventController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $eventP = EventParticipants::find()->where(['event_id' => $model->id])->one();
+        $eventP = EventParticipantsWork::find()->where(['event_id' => $model->id])->one();
         $model->childs = $eventP->child_participants;
         $model->teachers = $eventP->teacher_participants;
         $model->others = $eventP->other_participants;
@@ -96,8 +96,8 @@ class EventController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new Event();
-        $modelEventsLinks = [new EventsLink];
+        $model = new EventWork();
+        $modelEventsLinks = [new EventsLinkWork];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
@@ -111,7 +111,7 @@ class EventController extends Controller
             if ($model->order_id == '') $model->order_id = null;
             if ($model->regulation_id == '') $model->regulation_id = null;
 
-            $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
+            $modelEventsLinks = DynamicModel::createMultiple(EventsLinkWork::classname());
             DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
             $model->eventsLink = $modelEventsLinks;
 
@@ -137,7 +137,7 @@ class EventController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLink] : $modelEventsLinks,
+            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLinkWork] : $modelEventsLinks,
         ]);
     }
 
@@ -156,8 +156,8 @@ class EventController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-        $modelEventsLinks = [new EventsLink];
-        $eventP = EventParticipants::find()->where(['event_id' => $model->id])->one();
+        $modelEventsLinks = [new EventsLinkWork];
+        $eventP = EventParticipantsWork::find()->where(['event_id' => $model->id])->one();
         $model->childs = $eventP->child_participants;
         $model->childs_rst = $eventP->child_rst_participants;
         $model->teachers = $eventP->teacher_participants;
@@ -175,7 +175,7 @@ class EventController extends Controller
                 $model->photoFiles = UploadedFile::getInstances($model, 'photoFiles');
                 $model->otherFiles = UploadedFile::getInstances($model, 'otherFiles');
 
-                $modelEventsLinks = DynamicModel::createMultiple(EventsLink::classname());
+                $modelEventsLinks = DynamicModel::createMultiple(EventsLinkWork::classname());
                 DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
                 $model->eventsLink = $modelEventsLinks;
 
@@ -198,7 +198,7 @@ class EventController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLink] : $modelEventsLinks,
+            'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLinkWork] : $modelEventsLinks,
         ]);
     }
 
@@ -216,9 +216,9 @@ class EventController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $eventP = EventParticipants::find()->where(['event_id' => $id])->one();
+        $eventP = EventParticipantsWork::find()->where(['event_id' => $id])->one();
         $eventP->delete();
-        $links = EventsLink::find()->where(['event_id' => $id])->all();
+        $links = EventsLinkWork::find()->where(['event_id' => $id])->all();
         $name = $this->findModel($id)->name;
         foreach ($links as $link)
             $link->delete();
@@ -231,7 +231,7 @@ class EventController extends Controller
 
     public function actionDeleteExternalEvent($id, $modelId)
     {
-        $eventsLink = EventsLink::find()->where(['id' => $id])->one();
+        $eventsLink = EventsLinkWork::find()->where(['id' => $id])->one();
         $eventsLink->delete();
         return $this->redirect('index?r=event/update&id='.$modelId);
     }
@@ -239,7 +239,7 @@ class EventController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = Event::find()->where(['id' => $modelId])->one();
+        $model = EventWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
@@ -274,12 +274,12 @@ class EventController extends Controller
      * Finds the Event model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Event the loaded model
+     * @return EventWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Event::findOne($id)) !== null) {
+        if (($model = EventWork::findOne($id)) !== null) {
             return $model;
         }
 

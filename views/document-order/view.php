@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOrder */
+/* @var $model app\models\work\DocumentOrderWork */
 
 $this->title = $model->order_name;
 $session = Yii::$app->session;
@@ -41,25 +41,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Проект вносит', 'attribute' => 'bring_id', 'value' => $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1).'.'],
             ['label' => 'Исполнитель', 'attribute' => 'executor_id', 'value' => $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1).'.'],
             ['label' => 'Положения по приказу', 'value' => function ($model) {
-                $res = \app\models\common\Regulation::find()->where(['order_id' => $model->id])->all();
+                $res = \app\models\work\RegulationWork::find()->where(['order_id' => $model->id])->all();
                 $html = '';
                 for ($i = 0; $i != count($res); $i++)
                     $html = $html.Html::a('Положение "'.$res[$i]->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $res[$i]->id])).'<br>';
                 return $html;
             }, 'format' => 'raw'],
             ['label' => 'Ответственные по приказу', 'value' => function ($model) {
-                $res = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+                $res = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
                 $html = '';
                 for ($i = 0; $i != count($res); $i++)
                     $html = $html.$res[$i]->people->secondname.' '.mb_substr($res[$i]->people->firstname, 0, 1).'. '.mb_substr($res[$i]->people->patronymic, 0, 1).'.<br>';
                 return $html;
             }, 'format' => 'raw'],
             ['label' => 'Утратили силу приказы', 'attribute' => 'expires', 'value' => function($model){
-                $exp = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
+                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
                 $res = '';
                 foreach ($exp as $expOne)
                 {
-                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $expOne->expire_order_id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $expOne->expire_order_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;
@@ -72,11 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $res;
             }, 'format' => 'raw'],
             ['label' => 'Утратили силу положения', 'attribute' => 'expires', 'value' => function($model){
-                $exp = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
+                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
                 $res = '';
                 foreach ($exp as $expOne)
                 {
-                    $reg = \app\models\common\Regulation::find()->where(['id' => $expOne->expire_regulation_id])->one();
+                    $reg = \app\models\work\RegulationWork::find()->where(['id' => $expOne->expire_regulation_id])->one();
                     if ($expOne->expire_regulation_id !== null)
                         $res = $res . Html::a('Положение '.$reg->name, \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id])).'<br>';
 

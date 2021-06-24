@@ -1,7 +1,12 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\ForeignEventParticipants;
+use app\models\common\ParticipantAchievement;
+use app\models\common\ParticipantFiles;
+use app\models\common\TeacherParticipant;
+use app\models\common\TrainingGroupParticipant;
 use Yii;
 use yii\helpers\Html;
 

@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\TrainingGroup */
+/* @var $model app\models\work\TrainingGroupWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -39,7 +39,7 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'budget')->checkbox() ?>
 
     <?php
-    $progs = \app\models\common\TrainingProgram::find()->orderBy(['name' => SORT_ASC])->all();
+    $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($progs,'id','name');
     $params = [
     ];
@@ -52,7 +52,7 @@ $session = Yii::$app->session;
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Педагогический состав</h4></div>
             <div>
                 <?php
-                $teachers = \app\models\common\TeacherGroup::find()->where(['training_group_id' => $model->id])->all();
+                $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->id])->all();
                 if ($teachers != null)
                 {
                     echo '<table class="table table-bordered">';
@@ -100,7 +100,7 @@ $session = Yii::$app->session;
                                 ?>
                                 <div class="col-xs-4">
                                     <?php
-                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => '',
@@ -125,7 +125,7 @@ $session = Yii::$app->session;
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Приказы по группе</h4></div>
             <div>
                 <?php
-                $orders = \app\models\common\OrderGroup::find()->where(['training_group_id' => $model->id])->all();
+                $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $model->id])->all();
                 if ($orders != null)
                 {
                     echo '<table class="table table-bordered">';
@@ -177,7 +177,7 @@ $session = Yii::$app->session;
                                         'prompt' => '',
                                     ];
 
-                                    $orders = \app\models\common\DocumentOrder::find()->all();
+                                    $orders = \app\models\work\DocumentOrderWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
 
                                     echo $form->field($modelOrderGroupOne, "[{$i}]document_order_id")->dropDownList($items,$params);
@@ -284,7 +284,7 @@ $session = Yii::$app->session;
                 </div>
                 <div>
                     <?php
-                    $extEvents = \app\models\common\TrainingGroupParticipant::find()->where(['training_group_id' => $model->id])->all();
+                    $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->where(['training_group_id' => $model->id])->all();
                     if ($extEvents != null)
                     {
                         echo '<table class="table table-bordered">';
@@ -340,7 +340,7 @@ $session = Yii::$app->session;
                                     <div class="col-xs-4">
                                         <?php
 
-                                        $people = \app\models\common\ForeignEventParticipants::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                         $params = [
                                             'prompt' => '',
@@ -354,7 +354,7 @@ $session = Yii::$app->session;
                                     </div>
                                     <div class="col-xs-4">
                                         <?php
-                                        $sendMethod= \app\models\common\SendMethod::find()->orderBy(['name' => SORT_ASC])->all();
+                                        $sendMethod= \app\models\work\SendMethodWork::find()->orderBy(['name' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
                                         $params = [
                                             'prompt' => ''
@@ -385,7 +385,7 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ручное заполнение расписания</h4></div>
                     <div>
                         <?php
-                        $extEvents = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                        $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
@@ -442,7 +442,7 @@ $session = Yii::$app->session;
                                         </div>
                                         <div class="col-xs-2">
                                             <?php
-                                            //$branchs = \app\models\common\Branch::find()->all();
+                                            //$branchs = \app\models\work\BranchWork::find()->all();
                                             //$items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
                                             $params = [
                                                 'id' => $i,
@@ -461,7 +461,7 @@ $session = Yii::$app->session;
                                             ',
                                             ];
 
-                                            $audits = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
+                                            $audits = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
                                             $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
 
                                             echo $form->field($modelTrainingGroupLessonOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');
@@ -494,7 +494,7 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Автоматическое заполнение расписания</h4></div>
                     <div>
                         <?php
-                        $extEvents = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                        $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
@@ -554,7 +554,7 @@ $session = Yii::$app->session;
                                         </div>
                                         <div class="col-xs-2">
                                             <?php
-                                            //$branchs = \app\models\common\Branch::find()->all();
+                                            //$branchs = \app\models\work\BranchWork::find()->all();
                                             //$items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
                                             $params = [
                                                 'id' => $i,
@@ -573,7 +573,7 @@ $session = Yii::$app->session;
                                             ',
                                             ];
 
-                                            $audits = \app\models\common\Branch::find()->orderBy(['name' => SORT_ASC])->all();
+                                            $audits = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
                                             $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
 
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auditorium_id")->dropDownList($items,$params)->label('Отдел');

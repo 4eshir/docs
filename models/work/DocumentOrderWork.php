@@ -1,7 +1,12 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\DocumentOrder;
+use app\models\common\Expire;
+use app\models\common\People;
+use app\models\common\Regulation;
+use app\models\common\Responsible;
 use app\models\components\FileWizard;
 use Yii;
 

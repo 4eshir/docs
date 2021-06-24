@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\ResponsibilityType */
+/* @var $model app\models\work\ResponsibilityTypeWork */
 
 $this->title = 'Добавить вид ответственности';
 $this->params['breadcrumbs'][] = ['label' => 'Вид ответственности', 'url' => ['index']];

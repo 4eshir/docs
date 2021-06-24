@@ -6,7 +6,7 @@ use wbraganca\dynamicform\DynamicFormAsset;
 use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOrder */
+/* @var $model app\models\work\DocumentOrderWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,7 +17,7 @@ $session = Yii::$app->session;
 <div class="document-order-form">
 
     <?php
-    $model->people_arr = \app\models\common\People::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
+    $model->people_arr = \app\models\work\PeopleWork::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
     $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
@@ -39,7 +39,7 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -48,7 +48,7 @@ $session = Yii::$app->session;
     ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -68,12 +68,12 @@ $session = Yii::$app->session;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
             <?php
-            $resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            $resp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
             if ($resp != null)
             {
                 echo '<table>';
                 foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\common\People::find()->where(['id' => $respOne->people_id])->one();
+                    $respOnePeople = \app\models\work\PeopleWork::find()->where(['id' => $respOne->people_id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
                 }
                 echo '</table>';
@@ -114,7 +114,7 @@ $session = Yii::$app->session;
                                 }
                                 ?>
                                 <?php
-                                $people = \app\models\common\People::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
                                 $params = [
                                     'prompt' => ''
@@ -136,7 +136,7 @@ $session = Yii::$app->session;
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу документы</h4></div>
             <br>
             <?php
-            $order = \app\models\common\Expire::find()->where(['active_regulation_id' => $model->id])->all();
+            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
             if ($order != null)
             {
                 echo '<table>';
@@ -198,9 +198,9 @@ $session = Yii::$app->session;
                                 <?php
                                 $orders = [];
                                 if ($model->id == null)
-                                    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->all();
+                                    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
                                 else
-                                    $orders = \app\models\common\DocumentOrder::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
+                                    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
                                 $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
                                 $params = [
                                     'prompt' => '',
@@ -210,7 +210,7 @@ $session = Yii::$app->session;
                                 ?>
 
                                 <?php
-                                $orders = \app\models\common\Regulation::find()->all();
+                                $orders = \app\models\work\RegulationWork::find()->all();
                                 $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
                                 $params = [
                                     'prompt' => '',

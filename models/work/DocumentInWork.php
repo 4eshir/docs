@@ -1,7 +1,13 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\Company;
+use app\models\common\DocumentIn;
+use app\models\common\InOutDocs;
+use app\models\common\People;
+use app\models\common\Position;
+use app\models\common\User;
 use app\models\components\FileWizard;
 use Yii;
 use ZipStream\File;

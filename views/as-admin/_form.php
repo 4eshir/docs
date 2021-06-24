@@ -7,7 +7,7 @@ use wbraganca\dynamicform\DynamicFormAsset;
 use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\AsAdmin */
+/* @var $model app\models\work\AsAdminWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -16,7 +16,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?php
-    $company = \app\models\common\AsCompany::find()->all();
+    $company = \app\models\work\AsCompanyWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
     echo $form->field($model, 'as_company_id')->dropDownList($items,$params)->label('Контрагент');
@@ -49,7 +49,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'contract_subject')->textInput()->label('Предмет договора'); ?>
 
     <?php
-    $company = \app\models\common\AsCompany::find()->all();
+    $company = \app\models\work\AsCompanyWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [];
     echo $form->field($model, 'copyright_id')->dropDownList($items,$params)->label('Правообладатель');
@@ -99,7 +99,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         ]])->label('Дата окончания использования') ?>
 
     <?php
-    $country = \app\models\common\Country::find()->all();
+    $country = \app\models\work\CountryWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($country,'id','name');
     $params = [];
     echo $form->field($model, 'country_prod_id')->dropDownList($items,$params)->label('Страна производитель');
@@ -111,7 +111,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
     <?php
-    $lic = \app\models\common\LicenseType::find()->all();
+    $lic = \app\models\work\LicenseTypeWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'license_type_id')->dropDownList($items,$params)->label('Тип лицензии');
@@ -119,7 +119,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
     <?php
-    $lic = \app\models\common\LicenseTermType::find()->all();
+    $lic = \app\models\work\LicenseTermTypeWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'license_term_type_id')->dropDownList($items,$params)->label('Срок лицензии');
@@ -127,7 +127,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
     <?php
-    $lic = \app\models\common\License::find()->all();
+    $lic = \app\models\work\LicenseWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'license_id')->dropDownList($items,$params)->label('Вид лицензии');
@@ -141,7 +141,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true])->label('Примечание') ?>
 
     <?php
-    $peoples = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $peoples = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($peoples,'id','fullName');
     $params = [
         'prompt' => '',
@@ -152,7 +152,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php
     /*
-    $lic = \app\models\common\DistributionType::find()->all();
+    $lic = \app\models\work\DistributionTypeWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($lic,'id','name');
     $params = [];
     echo $form->field($model, 'distribution_type_id')->dropDownList($items,$params)->label('Способ распространения');
@@ -166,7 +166,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Установлено</h4></div>
             <?php
-            $asInstall = \app\models\common\AsInstall::find()->where(['as_admin_id' => $model->id])->all();
+            $asInstall = \app\models\work\AsInstallWork::find()->where(['as_admin_id' => $model->id])->all();
             if ($asInstall != null)
             {
                 echo '<table>';
@@ -215,7 +215,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                 <div style="display:inline-block">
                                     <?php
 
-                                    $branch = \app\models\common\InstallPlace::find()->all();
+                                    $branch = \app\models\work\InstallPlaceWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [];
                                     echo $form->field($modelAsInstallOne, "[{$i}]install_place_id", ['options' => ['class' => 'col-md-4', ]])->dropDownList($items,$params)->label('Место установки');

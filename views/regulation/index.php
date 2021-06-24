@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $session = Yii::$app->session;
-$this->title = \app\models\common\RegulationType::find()->where(['id' => $session->get('type')])->one()->name;
+$this->title = \app\models\work\RegulationTypeWork::find()->where(['id' => $session->get('type')])->one()->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="regulation-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'date', 'label' => 'Дата положения'],
             ['attribute' => 'name'],
             ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
-                $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 $doc_num = 0;
                 if ($order->order_postfix == null)
                     $doc_num = $order->order_number.'/'.$order->order_copy_id;
@@ -52,10 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Актуально';
                 else
                 {
-                    $exp = \app\models\common\Expire::find()->where(['expire_order_id' => $model->order_id])->one();
+                    $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $model->order_id])->one();
                     if ($exp == null)
-                        $exp = \app\models\common\Expire::find()->where(['expire_regulation_id' => $model->id])->one();
-                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                        $exp = \app\models\work\ExpireWork::find()->where(['expire_regulation_id' => $model->id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
 
                     if ($order->order_postfix == null)
