@@ -2,7 +2,9 @@
 
 namespace app\models\common;
 
+use Mpdf\Tag\P;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "people_material_object".
@@ -47,8 +49,11 @@ class PeopleMaterialObject extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'people_id' => 'Ответственный',
+            'peopleName' => 'Ответственный',
             'material_object_id' => 'Объект',
+            'materialObjectName' => 'Объект',
             'acceptance_date' => 'Дата',
+            'history' => 'История',
         ];
     }
 
@@ -72,6 +77,28 @@ class PeopleMaterialObject extends \yii\db\ActiveRecord
         return $this->hasOne(People::className(), ['id' => 'people_id']);
     }
 
+    public function getPeopleName()
+    {
+        $people = People::find()->where(['id' => $this->people_id])->one();
+        return Html::a($people->fullName, \yii\helpers\Url::to(['people/view', 'id' => $people->id]));
+    }
+
+    public function getMaterialObjectName()
+    {
+        $obj = MaterialObject::find()->where(['id' => $this->material_object_id])->one();
+        return Html::a($obj->name, \yii\helpers\Url::to(['material-object/view', 'id' => $obj->id]));
+    }
+
+    public function getHistory()
+    {
+        $history = LegacyMaterialResponsibility::find()->where(['material_object_id' => $this->material_object_id])->orderBy(['date' => SORT_ASC])->all();
+        foreach ($history as $historyOne)
+        {
+            $result .= Html::a($historyOne->peopleOut->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_out_id])).' &#10148; '.Html::a($historyOne->peopleIn->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_in_id])).' '.$historyOne->date.'<br>';
+        }
+        return $result;
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
         if ($changedAttributes["people_id"] != $this->people_id)
@@ -81,6 +108,7 @@ class PeopleMaterialObject extends \yii\db\ActiveRecord
              * От человека $changedAttributes["people_id"]
              * К человеку $this->people_id
              */
+
             $legacy = new LegacyMaterialResponsibility();
             $legacy->people_out_id = $changedAttributes["people_id"];
             $legacy->people_in_id = $this->people_id;
