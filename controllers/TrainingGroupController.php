@@ -13,6 +13,7 @@ use app\models\work\TeacherGroupWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
@@ -23,7 +24,6 @@ use app\models\extended\TrainingGroupAuto;
 use PHPExcel_Shared_Date;
 use stdClass;
 use Yii;
-use app\models\common\TrainingGroup;
 use app\models\SearchTrainingGroup;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -104,7 +104,7 @@ class TrainingGroupController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $model = new TrainingGroup();
+        $model = new TrainingGroupWork();
         $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
         $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
@@ -260,12 +260,12 @@ class TrainingGroupController extends Controller
      * Finds the TrainingGroup model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TrainingGroup the loaded model
+     * @return TrainingGroupWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TrainingGroup::findOne($id)) !== null) {
+        if (($model = TrainingGroupWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -307,7 +307,7 @@ class TrainingGroupController extends Controller
         $model = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
-            $group = TrainingGroup::find()->where(['id' => $model->training_group_id])->one();
+            $group = TrainingGroupWork::find()->where(['id' => $model->training_group_id])->one();
             $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
@@ -332,7 +332,7 @@ class TrainingGroupController extends Controller
         $model = TrainingGroupLessonWork::find()->where(['id' => $lessonId])->one();
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
-            $group = TrainingGroup::find()->where(['id' => $modelId])->one();
+            $group = TrainingGroupWork::find()->where(['id' => $modelId])->one();
             $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
@@ -385,7 +385,7 @@ class TrainingGroupController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = TrainingGroup::find()->where(['id' => $modelId])->one();
+        $model = TrainingGroupWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
 

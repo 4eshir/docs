@@ -67,6 +67,16 @@ class EventWork extends Event
         return $this->hasOne(People::className(), ['id' => 'responsible2_id']);
     }
 
+    public function getResponsibleWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'responsible_id']);
+    }
+
+    public function getResponsibleWork2()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'responsible2_id']);
+    }
+
     public function getEventBranchs()
     {
         $branchs = EventBranch::find()->where(['event_id' => $this->id])->all();
@@ -76,6 +86,11 @@ class EventWork extends Event
             $result .= $branch->branch->name.'<br>';
         }
         return $result;
+    }
+
+    public function getOrderWork()
+    {
+        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
     }
 
     //---------------------------------

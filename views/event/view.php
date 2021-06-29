@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 else
                     return 'Нет';
             }],
-            ['attribute' => 'responsible_id', 'value' => $model->responsible2_id !== null ? $model->responsible->shortName.'<br>'.$model->responsible2->shortName : $model->responsible->shortName,
+            ['attribute' => 'responsible_id', 'value' => $model->responsible2_id !== null ? $model->responsibleWork->shortName.'<br>'.$model->responsibleWork2->shortName : $model->responsibleWork->shortName,
                 'format' => 'raw'],
             ['attribute' => 'eventDepartment', 'label' => 'Мероприятие проводит', 'value' => function($model){
                 $tech = \app\models\work\EventBranchWork::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             'key_words',
             'comment',
-            ['attribute' => 'order_id', 'value' => Html::a($model->order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])),
+            ['attribute' => 'order_id', 'value' => Html::a($model->orderWork->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])),
                 'format' => 'raw'],
             ['attribute' => 'regulation_id', 'value' => Html::a($model->regulation->name, \yii\helpers\Url::to(['regulation/view', 'id' => $model->regulation_id])),
                 'format' => 'raw'],

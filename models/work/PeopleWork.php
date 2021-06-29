@@ -138,10 +138,10 @@ class PeopleWork extends People
     {
         if (strlen($this->short) > 2)
         {
-            $current = People::find()->where(['id' => $this->id])->one();
+            $current = PeopleWork::find()->where(['id' => $this->id])->one();
             if (strlen($current->short) < 7)
             {
-                $similar = People::find()->where(['like', 'short', $this->short.'%', false])->andWhere(['!=', 'id', $current->id])->all();
+                $similar = PeopleWork::find()->where(['like', 'short', $this->short.'%', false])->andWhere(['!=', 'id', $current->id])->all();
                 $this->short .= count($similar) + 1;
             }
             else

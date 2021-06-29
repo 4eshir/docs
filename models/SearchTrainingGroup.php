@@ -53,12 +53,12 @@ class SearchTrainingGroup extends TrainingGroupWork
         }
         else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
         {
-            $branchs = \app\models\common\PeoplePositionBranch::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+            $branchs = \app\models\work\PeoplePositionBranchWork::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
             if ($branchs !== null)
             {
                 $branchs_id = [];
                 foreach ($branchs as $branch) $branchs_id[] = $branch->branch_id;
-                $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
+                $groups_id = \app\models\work\TrainingGroupLessonWork::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
                 $newGroups_id = [];
                 foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->training_group_id;
                 $groups = TrainingGroupWork::find()->where(['in', 'id', $newGroups_id]);
@@ -66,7 +66,7 @@ class SearchTrainingGroup extends TrainingGroupWork
         }
         else
         {
-            $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+            $teachers = \app\models\work\TeacherGroupWork::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
             $teachers_id = [];
             foreach ($teachers as $teacher) $teachers_id[] = $teacher->training_group_id;
             $groups = TrainingGroupWork::find()->where(['in', 'id', $teachers_id]);

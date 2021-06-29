@@ -58,7 +58,7 @@ $session = Yii::$app->session;
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>ФИО педагога</b></td></tr>';
                     foreach ($teachers as $teacher) {
-                            echo '<tr><td><h5>'.$teacher->teacher->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            echo '<tr><td><h5>'.$teacher->teacherWork->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -131,7 +131,7 @@ $session = Yii::$app->session;
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>Номер и название приказа</b></td><td></td></tr>';
                     foreach ($orders as $order) {
-                        echo '<tr><td><h5>'.$order->documentOrder->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td><h5>'.$order->documentOrderWork->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -291,11 +291,11 @@ $session = Yii::$app->session;
                         echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
                         foreach ($extEvents  as $extEvent) {
                             if ($extEvent->status == 0)
-                                echo '<tr><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                             else
-                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participant->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }

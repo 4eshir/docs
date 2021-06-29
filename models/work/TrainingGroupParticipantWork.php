@@ -8,5 +8,13 @@ use Yii;
 
 class TrainingGroupParticipantWork extends TrainingGroupParticipant
 {
+    public function getParticipantWork()
+    {
+        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+    }
 
+    public function getTrainingGroupWork()
+    {
+        return $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+    }
 }

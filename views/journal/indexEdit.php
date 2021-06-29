@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 </div>
 <?php
-    $parts = \app\models\common\TrainingGroupParticipant::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
-    $lessons = \app\models\common\TrainingGroupLesson::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
+    $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
+    $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $form = ActiveForm::begin();
     $counter = 0;
 
@@ -49,12 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
         $tr = '<tr>';
         if ($part->status == 1)
             $tr = '<tr style="background:lightcoral">';
-        echo $tr.'<td style="padding: 5px 0 0 10px">'.$part->participant->shortName.'</td>';
+        echo $tr.'<td style="padding: 5px 0 0 10px">'.$part->participantWork->shortName.'</td>';
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
             //$visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
-            $visits = \app\models\common\Visit::find()->where(['id' => $model->visits_id[$counter]])->one();
+            $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
             $dis = false;
             $date = new DateTime(date("Y-m-d"));
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {
-        $teachers = \app\models\common\TeacherGroup::find()->where(['training_group_id' => $model->trainingGroup])->all();
+        $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
         $teachers_id = [];
         foreach ($teachers as $teacher)
             $teachers_id[] = $teacher->teacher_id;

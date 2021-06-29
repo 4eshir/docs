@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $tr = '<tr>';
         if ($part->status == 1)
             $tr = '<tr style="background:lightcoral">';
-        echo $tr.'<td>'.$part->participant->shortName.'</td>';
+        echo $tr.'<td>'.$part->participantWork->shortName.'</td>';
         foreach ($lessons as $lesson)
         {
             //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $result = '';
         if ($theme !== null) $result = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td>
-             <td>'.$result.'</td><td>'.$theme->teacher->shortName.'</td></tr>';
+             <td>'.$result.'</td><td>'.$theme->teacherWork->shortName.'</td></tr>';
     }
     echo '</table>';
 ?>

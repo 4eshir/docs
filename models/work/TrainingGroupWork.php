@@ -45,25 +45,29 @@ class TrainingGroupWork extends TrainingGroup
             [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'skipOnEmpty' => true],
-            [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
-            [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
-            [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgram::className(), 'targetAttribute' => ['training_program_id' => 'id']],
+            [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['teacher_id' => 'id']],
+            [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => AuditoriumWork::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
+            [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgramWork::className(), 'targetAttribute' => ['training_program_id' => 'id']],
         ];
     }
 
+    public function getTeacherWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_Id']);
+    }
 
     public function getTeachersList()
     {
-        $teachers = TeacherGroup::find()->where(['training_group_id' => $this->id])->all();
+        $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
         $result = "";
         foreach ($teachers as $teacher)
-            $result .= Html::a($teacher->teacher->shortName, \yii\helpers\Url::to(['people/view', 'id' => $teacher->teacher_id])) . '<br>';
+            $result .= Html::a($teacher->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $teacher->teacher_id])) . '<br>';
         return $result;
     }
 
     public function getProgramName()
     {
-        $prog = TrainingProgram::find()->where(['id' => $this->training_program_id])->one();
+        $prog = TrainingProgramWork::find()->where(['id' => $this->training_program_id])->one();
         return Html::a($prog->name, \yii\helpers\Url::to(['training-program/view', 'id' => $prog->id]));
     }
 
@@ -74,11 +78,11 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getParticipantNames()
     {
-        $parts = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
         $result = '';
         foreach ($parts as $part)
         {
-            $result .= Html::a($part->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+            $result .= Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
             if ($part->status == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
             $result .= '<br>';
@@ -88,7 +92,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getLessonDates()
     {
-        $parts = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
         $result = '';
         foreach ($parts as $part)
         {
@@ -109,7 +113,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getOrdersName()
     {
-        $orders = OrderGroup::find()->where(['training_group_id' => $this->id])->all();
+        $orders = OrderGroupWork::find()->where(['training_group_id' => $this->id])->all();
         $result = '';
         foreach ($orders as $order)
         {
@@ -231,14 +235,19 @@ class TrainingGroupWork extends TrainingGroup
         }
     }
 
+    public function getTrainingProgramWork()
+    {
+        return $this->hasOne(TrainingProgramWork::className(), ['id' => 'training_program_id']);
+    }
+
     public function GenerateNumber()
     {
-        $teacher = TeacherGroup::find()->where(['training_group_id' => $this->id])->orderBy(['id' => SORT_ASC])->one()->teacher_id;
-        $level = $this->trainingProgram->level;
+        $teacher = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->orderBy(['id' => SORT_ASC])->one()->teacher_id;
+        $level = $this->trainingProgramWork->level;
         $level++;
-        $this->number = $this->trainingProgram->thematicDirection->name.'.'.$level.'.'.People::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
-        $counter = count(TrainingGroup::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
-        $current = TrainingGroup::find()->where(['id' => $this->id])->one();
+        $this->number = $this->trainingProgramWork->thematicDirection->name.'.'.$level.'.'.PeopleWork::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
+        $counter = count(TrainingGroupWork::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
+        $current = TrainingGroupWork::find()->where(['id' => $this->id])->one();
         $counter++;
         if ($current !== null)
         {
@@ -278,7 +287,7 @@ class TrainingGroupWork extends TrainingGroup
                 $newLesson->lesson_start_time = $lesson->lesson_start_time;
                 $min = $this->trainingProgram->hour_capacity;
                 $newLesson->lesson_end_time = date("H:i", strtotime('+'.$min.' minutes', strtotime($lesson->lesson_start_time)));
-                $newLesson->duration = $lesson->duration;
+                $newLesson->duration = $this->trainingProgram->hour_capacity;
                 $aud = Auditorium::find()->where(['id' => $lesson->auds])->one();
                 $newLesson->branch_id = $lesson->auditorium_id;
                 $newLesson->auditorium_id = $aud->id;
@@ -298,7 +307,7 @@ class TrainingGroupWork extends TrainingGroup
                     $newLesson->lesson_start_time = $autoOne->start_time;
                     $min = $this->trainingProgram->hour_capacity;
                     $newLesson->lesson_end_time = date("H:i", strtotime('+'.$min.' minutes', strtotime($autoOne->start_time)));
-                    $newLesson->duration = $autoOne->duration;
+                    $newLesson->duration = $this->trainingProgram->hour_capacity;
                     $aud = Auditorium::find()->where(['id' => $autoOne->auds])->one();
                     $newLesson->branch_id = $autoOne->auditorium_id;
                     $newLesson->auditorium_id = $aud->id;
@@ -363,14 +372,14 @@ class TrainingGroupWork extends TrainingGroup
         if ($this->open === 1)
         {
 
-            $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
-            $tp = ThematicPlan::find()->where(['training_program_id' => $this->training_program_id])->orderBy(['id' => SORT_ASC])->all();
-            $teachers = TeacherGroup::find()->where(['training_group_id' => $this->id])->all();
+            $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+            $tp = ThematicPlanWork::find()->where(['training_program_id' => $this->training_program_id])->orderBy(['id' => SORT_ASC])->all();
+            $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
 
             $counter = 0;
             for ($i = 0; $i < count($lessons); $i++)
             {
-                $theme = LessonTheme::find()->where(['training_group_lesson_id' => $lessons[$i]->id])->andWhere(['teacher_id' => $teachers[0]->teacher_id])->one();
+                $theme = LessonThemeWork::find()->where(['training_group_lesson_id' => $lessons[$i]->id])->andWhere(['teacher_id' => $teachers[0]->teacher_id])->one();
                 if ($theme !== null) $counter++;
             }
 
@@ -398,14 +407,22 @@ class TrainingGroupWork extends TrainingGroup
 
     public function beforeDelete()
     {
-        $parts = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
-        $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
-        $teachers = TeacherGroup::find()->where(['training_group_id' => $this->id])->all();
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+        $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
+        $orders = OrderGroup::find()->where(['training_group_id' => $this->id])->all();
         $visits = Visit::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $this->id])->all();
         foreach ($visits as $visit) $visit->delete();
         foreach ($teachers as $teacher) $teacher->delete();
-        foreach ($lessons as $lesson) $lesson->delete();
+        foreach ($lessons as $lesson)
+        {
+            $themes = LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+            foreach ($themes as $theme)
+                $theme->delete();
+            $lesson->delete();
+        }
         foreach ($parts as $part) $part->delete();
+        foreach ($orders as $order) $order->delete();
 
         return parent::beforeDelete(); // TODO: Change the autogenerated stub
     }
