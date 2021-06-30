@@ -4,6 +4,7 @@ namespace app\models\common;
 
 use app\models\components\FileWizard;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "material_object".
@@ -60,6 +61,7 @@ class MaterialObject extends \yii\db\ActiveRecord
             'count' => 'Количество',
             'main' => 'Основной',
             'files' => 'Файлы',
+            'filesLink' => 'Файлы',
             'upFiles' => 'Файлы',
         ];
     }
@@ -82,6 +84,15 @@ class MaterialObject extends \yii\db\ActiveRecord
     public function getTemporaryJournals()
     {
         return $this->hasMany(TemporaryJournal::className(), ['material_object_id' => 'id']);
+    }
+
+    public function getFilesLink()
+    {
+        $split = explode(" ", $this->files);
+        $result = '';
+        for ($i = 0; $i < count($split) - 1; $i++)
+            $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['material-object/get-file', 'fileName' => $this->files])).'<br>';
+        return $result;
     }
 
     public function uploadUpFiles($upd = null)

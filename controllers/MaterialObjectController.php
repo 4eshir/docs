@@ -130,4 +130,15 @@ class MaterialObjectController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionGetFile($fileName = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/material-object/' . $fileName;
+        $file = substr($file, 0, -1);
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('File not found');
+        //return $this->redirect('index.php?r=docs-out/index');
+    }
 }
