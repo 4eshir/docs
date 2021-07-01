@@ -11,7 +11,8 @@ use Yii;
 
 class AsAdminWork extends AsAdmin
 {
-    public $useStarDate;
+    public $useStartDate;
+    public $useEndDate;
 
     public function rules()
     {
@@ -21,15 +22,15 @@ class AsAdminWork extends AsAdmin
             [['document_date', 'useStartDate', 'useEndDate'], 'safe'],
             [['price'], 'number'],
             [['as_name', 'document_number', 'unifed_register_number', 'comment', 'scan', 'license_file', 'commercial_offers', 'service_note', 'contract_subject'], 'string', 'max' => 1000],
-            [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['as_company_id' => 'id']],
-            [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompany::className(), 'targetAttribute' => ['copyright_id' => 'id']],
-            [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
-            [['distribution_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DistributionType::className(), 'targetAttribute' => ['distribution_type_id' => 'id']],
-            [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => License::className(), 'targetAttribute' => ['license_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
-            [['as_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsType::className(), 'targetAttribute' => ['as_type_id' => 'id']],
-            [['license_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseType::className(), 'targetAttribute' => ['license_type_id' => 'id']],
-            [['license_term_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseTermType::className(), 'targetAttribute' => ['license_term_type_id' => 'id']],
+            [['as_company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompanyWork::className(), 'targetAttribute' => ['as_company_id' => 'id']],
+            [['copyright_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsCompanyWork::className(), 'targetAttribute' => ['copyright_id' => 'id']],
+            [['country_prod_id'], 'exist', 'skipOnError' => true, 'targetClass' => CountryWork::className(), 'targetAttribute' => ['country_prod_id' => 'id']],
+            [['distribution_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DistributionTypeWork::className(), 'targetAttribute' => ['distribution_type_id' => 'id']],
+            [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseWork::className(), 'targetAttribute' => ['license_id' => 'id']],
+            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['as_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AsTypeWork::className(), 'targetAttribute' => ['as_type_id' => 'id']],
+            [['license_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseTypeWork::className(), 'targetAttribute' => ['license_type_id' => 'id']],
+            [['license_term_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseTermTypeWork::className(), 'targetAttribute' => ['license_term_type_id' => 'id']],
             [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true],
             [['licenseFile'], 'file', 'extensions' => 'png, jpg, pdf', 'skipOnEmpty' => true],
             [['serviceNoteFile'], 'file', 'extensions' => 'png, jpg, pdf, doc, docx', 'skipOnEmpty' => true, 'maxFiles' => 10],
