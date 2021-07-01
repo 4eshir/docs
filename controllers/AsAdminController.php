@@ -40,7 +40,8 @@ class AsAdminController extends Controller
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'add-company', 'add-country', 'add-license', 'delete-file', 'delete',
                             'add-as-type', 'index-company', 'index-country', 'index-license', 'index-as-type', 'delete-install', 'get-file',
-                            'delete-file-commercial', 'delete-file-scan', 'delete-file-license', 'delete-as-type', 'delete-company', 'refresh-license'],
+                            'delete-file-commercial', 'delete-file-scan', 'delete-file-license', 'delete-as-type', 'delete-company', 'refresh-license',
+                            'delete-country'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
