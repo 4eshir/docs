@@ -13,6 +13,7 @@ class AsAdminWork extends AsAdmin
 {
     public $useStartDate;
     public $useEndDate;
+    public $scanFile;
 
     public function rules()
     {
