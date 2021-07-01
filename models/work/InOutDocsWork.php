@@ -12,4 +12,9 @@ class InOutDocsWork extends InOutDocs
     {
         return 'Входящий документ "'.$this->documentIn->document_theme.'"';
     }
+
+    public function getPeopleWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
+    }
 }
