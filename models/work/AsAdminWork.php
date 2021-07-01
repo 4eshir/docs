@@ -17,6 +17,7 @@ class AsAdminWork extends AsAdmin
     public $licenseFile;
     public $commercialFiles;
     public $serviceNoteFile;
+    public $asInstalls;
 
     public function rules()
     {
