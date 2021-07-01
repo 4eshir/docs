@@ -58,6 +58,8 @@ class UserRBAC
                 'delete-as-type as-admin' => 15,
                 'add-company as-admin' => 15,
                 'delete-company as-admin' => 15,
+                'add-license as-admin' => 15,
+                'delete-license as-admin' => 15,
                 'add-country as-admin' => 15,
                 'delete-country as-admin' => 15,
                 'refresh-license as-admin' => 15,
