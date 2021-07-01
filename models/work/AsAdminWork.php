@@ -15,6 +15,7 @@ class AsAdminWork extends AsAdmin
     public $useEndDate;
     public $scanFile;
     public $licenseFile;
+    public $commercialFile;
 
     public function rules()
     {
