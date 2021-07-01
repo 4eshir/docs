@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             else
                                 return 'До '.$links->date;
                         }
-                        return 'До '.$links->date.' от '.$links->people->shortName;
+                        return 'До '.$links->date.' от '.$links->peopleWork->shortName;
                     }
 
                     else
