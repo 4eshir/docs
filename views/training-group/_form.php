@@ -40,7 +40,7 @@ $session = Yii::$app->session;
 
     <?php
     $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($progs,'id','name');
+    $items = \yii\helpers\ArrayHelper::map($progs,'id','fullName');
     $params = [
     ];
     echo $form->field($model, 'training_program_id')->dropDownList($items,$params);
