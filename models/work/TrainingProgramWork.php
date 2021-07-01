@@ -79,7 +79,7 @@ class TrainingProgramWork extends TrainingProgram
         $result = '';
         foreach ($authors as $author)
         {
-            $result .= $author->author->shortName.', ';
+            $result .= $author->authorWork->shortName.', ';
         }
         return $this->name.' ('.$result.')';
     }
