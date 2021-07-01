@@ -75,7 +75,13 @@ class TrainingProgramWork extends TrainingProgram
 
     public function getFullName()
     {
-        return $this->name.' ('.$this->authorWork->fullName.')';
+        $authors = AuthorProgram::find()->where(['training_program_id' => $this->id])->all();
+        $result = '';
+        foreach ($authors as $author)
+        {
+            $result .= $author->author->shortName.', ';
+        }
+        return $this->name.' ('.$result.')';
     }
 
     public function getAuthorWork()
