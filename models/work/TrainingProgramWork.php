@@ -73,6 +73,17 @@ class TrainingProgramWork extends TrainingProgram
         ];
     }
 
+    public function getFullName()
+    {
+        return $this->name.' ('.$this->authorWork->fullName.')';
+    }
+
+    public function getAuthorWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'author_id']);
+    }
+
+
     public function getFocus()
     {
         return $this->hasOne(Focus::className(), ['id' => 'author_id']);
