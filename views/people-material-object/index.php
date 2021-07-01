@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchPeopleMaterialObject */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'People Material Objects';
+$this->title = 'Список материально ответственных работников';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="people-material-object-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create People Material Object', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить новую ответственность', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,11 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'people_id',
-            'material_object_id',
+            ['attribute' => 'peopleName', 'format' => 'raw'],
+            ['attribute' => 'materialObjectName', 'format' => 'raw'],
+            'acceptance_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

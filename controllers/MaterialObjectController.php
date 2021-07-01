@@ -8,6 +8,7 @@ use app\models\SearchMaterialObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * MaterialObjectController implements the CRUD actions for MaterialObject model.
@@ -66,7 +67,12 @@ class MaterialObjectController extends Controller
     {
         $model = new MaterialObject();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->upFiles = UploadedFile::getInstances($model, 'upFiles');
+
+            if ($model->upFiles !== null)
+                $model->uploadUpFiles();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -123,5 +129,16 @@ class MaterialObjectController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetFile($fileName = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/material-object/' . $fileName;
+        $file = substr($file, 0, -1);
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('File not found');
+        //return $this->redirect('index.php?r=docs-out/index');
     }
 }
