@@ -81,6 +81,7 @@ class TrainingProgramWork extends TrainingProgram
         {
             $result .= $author->authorWork->shortName.', ';
         }
+        $result = substr($result, 0, -2);
         return $this->name.' ('.$result.')';
     }
 
