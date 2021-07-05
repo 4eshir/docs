@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\work\PeopleWork;
 use Mpdf\Tag\P;
 use Yii;
 use yii\helpers\Html;
@@ -97,6 +98,11 @@ class PeopleMaterialObject extends \yii\db\ActiveRecord
             $result .= Html::a($historyOne->peopleOut->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_out_id])).' &#10148; '.Html::a($historyOne->peopleIn->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_in_id])).' '.$historyOne->date.'<br>';
         }
         return $result;
+    }
+
+    public function getPeopleWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
     }
 
     public function afterSave($insert, $changedAttributes)

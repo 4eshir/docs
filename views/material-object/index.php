@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchMaterialObject */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Material Objects';
+$this->title = 'Материальные ценности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-object-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Material Object', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить мат. ценность', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,14 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'unique_id',
             'name',
             'acceptance_date',
             'balance_price',
-            //'count',
+            'count',
+            ['attribute' => 'currentResp', 'format' => 'raw'],
             //'main',
             //'files',
 

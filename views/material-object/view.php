@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'acceptance_date',
             'balance_price',
             'count',
-            'main',
+            ['attribute' => 'main', 'value' => function($model) { return $model->main === 1 ? 'Да' : 'Нет'; }],
+            ['attribute' => 'currentResp', 'format' => 'raw'],
             ['attribute' => 'filesLink', 'format' => 'raw'],
         ],
     ]) ?>
