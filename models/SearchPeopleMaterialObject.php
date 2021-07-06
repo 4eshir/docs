@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\work\PeopleMaterialObjectWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\PeopleMaterialObject;
@@ -9,7 +10,7 @@ use app\models\common\PeopleMaterialObject;
 /**
  * SearchPeopleMaterialObject represents the model behind the search form of `app\models\common\PeopleMaterialObject`.
  */
-class SearchPeopleMaterialObject extends PeopleMaterialObject
+class SearchPeopleMaterialObject extends PeopleMaterialObjectWork
 {
     /**
      * {@inheritdoc}
@@ -39,7 +40,7 @@ class SearchPeopleMaterialObject extends PeopleMaterialObject
      */
     public function search($params)
     {
-        $query = PeopleMaterialObject::find();
+        $query = PeopleMaterialObjectWork::find();
 
         // add conditions that should always apply here
 
