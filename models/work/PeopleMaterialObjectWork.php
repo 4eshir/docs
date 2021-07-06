@@ -44,19 +44,19 @@ class PeopleMaterialObjectWork extends PeopleMaterialObject
 
     public function getPeopleName()
     {
-        $people = People::find()->where(['id' => $this->people_id])->one();
+        $people = PeopleWork::find()->where(['id' => $this->people_id])->one();
         return Html::a($people->fullName, \yii\helpers\Url::to(['people/view', 'id' => $people->id]));
     }
 
     public function getMaterialObjectName()
     {
-        $obj = MaterialObject::find()->where(['id' => $this->material_object_id])->one();
+        $obj = MaterialObjectWork::find()->where(['id' => $this->material_object_id])->one();
         return Html::a($obj->name, \yii\helpers\Url::to(['material-object/view', 'id' => $obj->id]));
     }
 
     public function getHistory()
     {
-        $history = LegacyMaterialResponsibility::find()->where(['material_object_id' => $this->material_object_id])->orderBy(['date' => SORT_ASC])->all();
+        $history = LegacyMaterialResponsibilityWork::find()->where(['material_object_id' => $this->material_object_id])->orderBy(['date' => SORT_ASC])->all();
         foreach ($history as $historyOne)
         {
             $result .= Html::a($historyOne->peopleOutWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_out_id])).' &#10148; '.Html::a($historyOne->peopleInWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_in_id])).' '.$historyOne->date.'<br>';
@@ -79,7 +79,7 @@ class PeopleMaterialObjectWork extends PeopleMaterialObject
              * К человеку $this->people_id
              */
 
-            $legacy = new LegacyMaterialResponsibility();
+            $legacy = new LegacyMaterialResponsibilityWork();
             $legacy->people_out_id = $changedAttributes["people_id"];
             $legacy->people_in_id = $this->people_id;
             $legacy->material_object_id = $this->material_object_id;
