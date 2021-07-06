@@ -42,7 +42,7 @@ class SearchMaterialObject extends MaterialObjectWork
      */
     public function search($params)
     {
-        $query = MaterialObject::find();
+        $query = MaterialObjectWork::find();
 
         // add conditions that should always apply here
 
