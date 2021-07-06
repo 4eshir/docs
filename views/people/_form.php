@@ -166,7 +166,7 @@ use app\models\work\PositionWork;
             'clientOptions' => [
                 'changeMonth' => true,
                 'changeYear' => true,
-                'yearRange' => '1950:2050',
+                'yearRange' => '1940:2050',
                 //'showOn' => 'button',
                 //'buttonText' => 'Выбрать дату',
                 //'buttonImageOnly' => true,
