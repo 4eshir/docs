@@ -50,7 +50,7 @@ class MaterialObjectWork extends MaterialObject
 
     public function getCurrentResp()
     {
-        $pmo = PeopleMaterialObject::find()->where(['material_object_id' => $this->id])->one();
+        $pmo = PeopleMaterialObjectWork::find()->where(['material_object_id' => $this->id])->one();
         return Html::a($pmo->peopleWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $pmo->people_id]));
     }
 
