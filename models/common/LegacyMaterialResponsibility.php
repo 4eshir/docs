@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\work\PeopleWork;
 use Yii;
 
 /**
@@ -84,5 +85,15 @@ class LegacyMaterialResponsibility extends \yii\db\ActiveRecord
     public function getPeopleOut()
     {
         return $this->hasOne(People::className(), ['id' => 'people_out_id']);
+    }
+
+    public function getPeopleOutWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'people_out_id']);
+    }
+
+    public function getPeopleInWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'people_in_id']);
     }
 }

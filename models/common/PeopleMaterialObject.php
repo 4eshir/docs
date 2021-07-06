@@ -95,7 +95,7 @@ class PeopleMaterialObject extends \yii\db\ActiveRecord
         $history = LegacyMaterialResponsibility::find()->where(['material_object_id' => $this->material_object_id])->orderBy(['date' => SORT_ASC])->all();
         foreach ($history as $historyOne)
         {
-            $result .= Html::a($historyOne->peopleOut->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_out_id])).' &#10148; '.Html::a($historyOne->peopleIn->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_in_id])).' '.$historyOne->date.'<br>';
+            $result .= Html::a($historyOne->peopleOutWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_out_id])).' &#10148; '.Html::a($historyOne->peopleInWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $historyOne->people_in_id])).' '.$historyOne->date.'<br>';
         }
         return $result;
     }
