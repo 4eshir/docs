@@ -50,7 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'companyName', 'label' => 'Наименование<br>корреспондента', 'encodeLabel' => false, 'value' => function ($model) {
                     return $model->company->name;
                 }],
-                ['attribute' => 'correspondentName', 'label' => 'Кем подписан', 'value' => 'correspondent.shortName'],
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
                 ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
