@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\work\MaterialObjectWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\MaterialObject;
@@ -9,7 +10,7 @@ use app\models\common\MaterialObject;
 /**
  * SearchMaterialObject represents the model behind the search form of `app\models\common\MaterialObject`.
  */
-class SearchMaterialObject extends MaterialObject
+class SearchMaterialObject extends MaterialObjectWork
 {
     /**
      * {@inheritdoc}
