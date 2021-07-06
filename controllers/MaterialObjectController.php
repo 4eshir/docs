@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\common\MaterialObjectWork;
+use app\models\work\MaterialObjectWork;
 use Yii;
 use app\models\common\MaterialObject;
 use app\models\SearchMaterialObject;

@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\common\PeopleMaterialObjectWork;
+use app\models\work\PeopleMaterialObjectWork;
 use Yii;
 use app\models\common\PeopleMaterialObject;
 use app\models\SearchPeopleMaterialObject;
