@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\PeopleMaterialObject;
 use app\models\work\PeopleWork;
 use Mpdf\Tag\P;
 use Yii;

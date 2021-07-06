@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\PeopleMaterialObject */
+/* @var $model app\models\work\PeopleMaterialObjectWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
     ];
@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $objects = \app\models\common\MaterialObject::find()->all();
+    $objects = \app\models\work\MaterialObjectWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($objects,'id','name');
     $params = [
         'disabled'=> $model->material_object_id !== null ? 'disabled' : null,
@@ -46,7 +46,7 @@ use yii\widgets\ActiveForm;
         ]])?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

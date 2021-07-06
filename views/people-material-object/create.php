@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\PeopleMaterialObject */
+/* @var $model app\models\work\PeopleMaterialObjectWork */
 
 $this->title = 'Create People Material Object';
 $this->params['breadcrumbs'][] = ['label' => 'People Material Objects', 'url' => ['index']];

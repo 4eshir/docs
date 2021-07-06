@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\PeopleMaterialObjectWork;
 use Yii;
 use app\models\common\PeopleMaterialObject;
 use app\models\SearchPeopleMaterialObject;
@@ -64,7 +65,7 @@ class PeopleMaterialObjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new PeopleMaterialObject();
+        $model = new PeopleMaterialObjectWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -118,7 +119,7 @@ class PeopleMaterialObjectController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = PeopleMaterialObject::findOne($id)) !== null) {
+        if (($model = PeopleMaterialObjectWork::findOne($id)) !== null) {
             return $model;
         }
 

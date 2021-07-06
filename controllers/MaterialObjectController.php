@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\MaterialObjectWork;
 use Yii;
 use app\models\common\MaterialObject;
 use app\models\SearchMaterialObject;
@@ -65,7 +66,7 @@ class MaterialObjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MaterialObject();
+        $model = new MaterialObjectWork();
 
         if ($model->load(Yii::$app->request->post())) {
             $model->upFiles = UploadedFile::getInstances($model, 'upFiles');
@@ -124,7 +125,7 @@ class MaterialObjectController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = MaterialObject::findOne($id)) !== null) {
+        if (($model = MaterialObjectWork::findOne($id)) !== null) {
             return $model;
         }
 

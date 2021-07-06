@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models\common;
+namespace app\models\work;
 
+use app\models\common\MaterialObject;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;

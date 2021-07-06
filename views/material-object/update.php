@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\MaterialObject */
+/* @var $model app\models\work\MaterialObjectWork */
 
 $this->title = 'Update Material Object: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Material Objects', 'url' => ['index']];

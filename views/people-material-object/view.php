@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\PeopleMaterialObject */
+/* @var $model app\models\work\PeopleMaterialObjectWork */
 
 $this->title = $model->materialObject->name;
 $this->params['breadcrumbs'][] = ['label' => 'Список материально ответственных работников', 'url' => ['index']];
