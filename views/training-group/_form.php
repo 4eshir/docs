@@ -385,21 +385,14 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ручное заполнение расписания</h4></div>
                     <div>
                         <?php
-                        $cache = Yii::$app->cache;
-                        if ($cache->get('parts') === false)
-                        {
                             $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
-                            $cache->set('parts', $extEvents, 7200);
-                        }
-                        else
-                            $extEvents = $cache->get('parts');
+
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
                             echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
-                                if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
                                 echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                             }
@@ -508,7 +501,6 @@ $session = Yii::$app->session;
                             echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
-                                if (count($extEvent->checkValideTime($model->id)) > 0 || (strtotime($extEvent->lesson_end_time) - strtotime($extEvent->lesson_start_time)) / 60 < $extEvent->duration * 40 || $extEvent->lesson_date < $model->start_date || $extEvent->lesson_date > $model->finish_date) $class = 'danger';
                                 echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                             }
