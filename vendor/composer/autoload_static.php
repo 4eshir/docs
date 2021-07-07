@@ -7,20 +7,19 @@ namespace Composer\Autoload;
 class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
 {
     public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
         '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
         '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
@@ -79,6 +78,7 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'aa53dcba601214d17ad405b7c291b7e8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/multiply.php',
         '75c79eb1b25749b05a47976f32b0d8a2' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideby.php',
         '6ab8ad87a734f276a6bcd5a0fe1289be' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideinto.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
     );
@@ -87,17 +87,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
-            'yii\\queue\\sync\\' => 15,
-            'yii\\queue\\stomp\\' => 16,
-            'yii\\queue\\sqs\\' => 14,
-            'yii\\queue\\redis\\' => 16,
-            'yii\\queue\\gearman\\' => 18,
-            'yii\\queue\\file\\' => 15,
-            'yii\\queue\\db\\' => 13,
-            'yii\\queue\\beanstalk\\' => 20,
-            'yii\\queue\\amqp_interop\\' => 23,
-            'yii\\queue\\amqp\\' => 15,
-            'yii\\queue\\' => 10,
             'yii\\jui\\' => 8,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
@@ -159,7 +148,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Yaml\\' => 23,
-            'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DomCrawler\\' => 29,
@@ -218,50 +206,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer/src',
-        ),
-        'yii\\queue\\sync\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sync',
-        ),
-        'yii\\queue\\stomp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/stomp',
-        ),
-        'yii\\queue\\sqs\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sqs',
-        ),
-        'yii\\queue\\redis\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/redis',
-        ),
-        'yii\\queue\\gearman\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/gearman',
-        ),
-        'yii\\queue\\file\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/file',
-        ),
-        'yii\\queue\\db\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/db',
-        ),
-        'yii\\queue\\beanstalk\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/beanstalk',
-        ),
-        'yii\\queue\\amqp_interop\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
-        ),
-        'yii\\queue\\amqp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/amqp',
-        ),
-        'yii\\queue\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src',
         ),
         'yii\\jui\\' => 
         array (
@@ -412,10 +356,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
-        ),
-        'Symfony\\Component\\Process\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'Symfony\\Component\\Finder\\' => 
         array (
@@ -571,6 +511,7 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
     public static $classMap = array (
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Codeception\\Exception\\ExternalUrlException' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Exception/ExternalUrlException.php',
         'Codeception\\Lib\\Connector\\Yii2' => __DIR__ . '/..' . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php',
         'Codeception\\Lib\\Connector\\Yii2\\ConnectionWatcher' => __DIR__ . '/..' . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2/ConnectionWatcher.php',
@@ -587,7 +528,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Codeception\\Util\\HttpCode' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Util/HttpCode.php',
         'Codeception\\Util\\Shared\\Asserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/Asserts.php',
         'Codeception\\Util\\Shared\\InheritedAsserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/InheritedAsserts.php',
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',

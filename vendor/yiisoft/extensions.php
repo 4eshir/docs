@@ -159,29 +159,10 @@ return array (
   'kartik-v/yii2-widget-depdrop' => 
   array (
     'name' => 'kartik-v/yii2-widget-depdrop',
-    'version' => 'dev-master',
+    'version' => '9999999-dev',
     'alias' => 
     array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop/src',
-    ),
-  ),
-  'yiisoft/yii2-queue' => 
-  array (
-    'name' => 'yiisoft/yii2-queue',
-    'version' => '2.3.2.0',
-    'alias' => 
-    array (
-      '@yii/queue' => $vendorDir . '/yiisoft/yii2-queue/src',
-      '@yii/queue/amqp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp',
-      '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
-      '@yii/queue/beanstalk' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/beanstalk',
-      '@yii/queue/db' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/db',
-      '@yii/queue/file' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/file',
-      '@yii/queue/gearman' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/gearman',
-      '@yii/queue/redis' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/redis',
-      '@yii/queue/sync' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sync',
-      '@yii/queue/sqs' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sqs',
-      '@yii/queue/stomp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/stomp',
     ),
   ),
 );

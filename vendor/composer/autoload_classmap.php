@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Codeception\\Exception\\ExternalUrlException' => $vendorDir . '/codeception/lib-innerbrowser/src/Codeception/Exception/ExternalUrlException.php',
     'Codeception\\Lib\\Connector\\Yii2' => $vendorDir . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php',
     'Codeception\\Lib\\Connector\\Yii2\\ConnectionWatcher' => $vendorDir . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2/ConnectionWatcher.php',
@@ -24,7 +25,6 @@ return array(
     'Codeception\\Util\\HttpCode' => $vendorDir . '/codeception/lib-innerbrowser/src/Codeception/Util/HttpCode.php',
     'Codeception\\Util\\Shared\\Asserts' => $vendorDir . '/codeception/lib-asserts/src/Codeception/Util/Shared/Asserts.php',
     'Codeception\\Util\\Shared\\InheritedAsserts' => $vendorDir . '/codeception/lib-asserts/src/Codeception/Util/Shared/InheritedAsserts.php',
-    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'DivisionByZeroError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
     'Error' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/Error.php',
     'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
