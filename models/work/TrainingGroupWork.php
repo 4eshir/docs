@@ -96,15 +96,15 @@ class TrainingGroupWork extends TrainingGroup
     {
 
         $cache = Yii::$app->cache;
-        var_dump($cache->get('parts'));
-        if ($cache->get('parts') === false)
+        var_dump($cache->get('parts'.$this->id));
+        if ($cache->get('parts'.$this->id) === false)
         {
 
             $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
-            $cache->set('parts', $parts, 7200);
+            $cache->set('parts'.$this->id, $parts, 7200);
         }
         else
-            $parts = $cache->get('parts');
+            $parts = $cache->get('parts'.$this->id);
 
         $result = '';
         $counter = 0;
@@ -116,13 +116,13 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
             else if (count($part->checkValideTime($this->id)) > 0)
             {
-                if ($cache->get('numb'.$counter) === false)
+                if ($cache->get('numb'.$this->id.$counter) === false)
                 {
                     $number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
-                    $cache->set('numb'.$counter, $number, 7200);
+                    $cache->set('numb'.$this->id.$counter, $number, 7200);
                 }
                 else
-                    $number = $cache->get('numb'.$counter);
+                    $number = $cache->get('numb'.$this->id.$counter);
 
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.' <i>ОШИБКА: на данное время назначено занятие у Группы №'.$number->trainingGroup->number.'</i></font><br>';
             }
