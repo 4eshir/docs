@@ -7,16 +7,12 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
-    'bootstrap' => ['log', 'debug'],
+    'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        'debug' => [
-            'class' => 'yii\debug\Module',
-            'allowedIPs' => ['*']
-        ],
         'gridview' => ['class' => 'kartik\grid\Module']
     ],
 
