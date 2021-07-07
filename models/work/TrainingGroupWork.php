@@ -94,10 +94,11 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getLessonDates()
     {
-        /*
+
         $cache = Yii::$app->cache;
         if ($cache->get('parts') === false)
         {
+            var_dump('check');
             $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
             $cache->set('parts', $parts, 7200);
         }
@@ -128,7 +129,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.'<br>';
             $counter++;
         }
-        return $result;*/
+        return $result;
 
     }
 
