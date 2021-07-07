@@ -94,10 +94,8 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getLessonDates()
     {
-        $parts = Yii::$app->db->cache(function () {
-            return TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
-        });
 
+        $parts = TrainingGroupLessonWork::findBySql('SELECT * FROM `training_group_lesson` WHERE `training_group_id` = '.$this->id.' ORDER BY `lesson_date` ASC')->all();
         //$parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
 
 
