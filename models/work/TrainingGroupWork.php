@@ -109,7 +109,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
             else if (count($part->checkValideTime($this->id)) > 0)
             {
-                $number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
+                //$number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.' <i>ОШИБКА: на данное время назначено занятие у Группы №'.$number->trainingGroup->number.'</i></font><br>';
             }
             else
