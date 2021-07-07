@@ -96,9 +96,10 @@ class TrainingGroupWork extends TrainingGroup
     {
 
         $cache = Yii::$app->cache;
+        var_dump($cache->get('parts'));
         if ($cache->get('parts') === false)
         {
-            var_dump('check');
+
             $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
             $cache->set('parts', $parts, 7200);
         }
