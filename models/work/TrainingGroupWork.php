@@ -95,6 +95,9 @@ class TrainingGroupWork extends TrainingGroup
     public function getLessonDates()
     {
         $parts = TrainingGroupLessonWork::find()->orderBy(['lesson_date' => SORT_ASC])->all();
+        for ($i = 0; $i < count($parts); $i++)
+            if ($parts[$i]->training_group_id !== $this->id)
+                unset($parts[$i]);
         //$parts = TrainingGroupLessonWork::findBySql('SELECT * FROM `training_group_lesson` WHERE `training_group_id` = '.$this->id.' ORDER BY `lesson_date` ASC')->all();
         //$parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
 
