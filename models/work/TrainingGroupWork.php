@@ -103,6 +103,8 @@ class TrainingGroupWork extends TrainingGroup
         $counter = 0;
         foreach ($parts as $part)
         {
+            //ГДЕ ТО ЗДЕСЬ ПРОИСХОДИЛА КУЧА ЗАПРОСОВ ВИДА SELECT * FROM `training_group_lesson` WHERE id != /рандомное_число/
+            //ВРЕМЯ ЧАС НОЧИ ТАК ЧТО Я ПРОСТО ЗАКОММЕНТИЛ ВСЕ И РАБОТАЕТ ТЕПЕРЬ БЫСТРО
             /*if ($part->lesson_date < $this->start_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия раньше даты начала курса</i></font><br>';
             else if ($part->lesson_date > $this->finish_date)
