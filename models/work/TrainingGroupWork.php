@@ -94,6 +94,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getLessonDates()
     {
+        /*
         $cache = Yii::$app->cache;
         if ($cache->get('parts') === false)
         {
@@ -107,11 +108,11 @@ class TrainingGroupWork extends TrainingGroup
         $counter = 0;
         foreach ($parts as $part)
         {
-            /*if ($part->lesson_date < $this->start_date)
+            if ($part->lesson_date < $this->start_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия раньше даты начала курса</i></font><br>';
             else if ($part->lesson_date > $this->finish_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
-            else*/ if (count($part->checkValideTime($this->id)) > 0)
+            else if (count($part->checkValideTime($this->id)) > 0)
             {
                 if ($cache->get('numb'.$counter) === false)
                 {
@@ -127,7 +128,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.'<br>';
             $counter++;
         }
-        return $result;
+        return $result;*/
 
     }
 
