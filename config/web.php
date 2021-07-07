@@ -7,7 +7,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'queue'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -15,7 +15,15 @@ $config = [
     'modules' => [
         'gridview' => ['class' => 'kartik\grid\Module']
     ],
+
     'components' => [
+        'queue' => [
+            'class' => \yii\queue\db\Queue::class,
+            'db' => 'db', // компонент подключения к БД
+            'tableName' => '{{%queue}}', // Имя таблицы
+            'channel' => 'default', // Queue channel key
+            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'm8MGAOdi4yHnIPPGB2MadmTF-6gxwYCw',

@@ -15,9 +15,11 @@ use app\models\common\TrainingProgram;
 use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
+use app\models\components\LessonDatesJob;
 use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\Html;
+use yii\queue\db\Queue;
 
 
 class TrainingGroupWork extends TrainingGroup
@@ -92,23 +94,41 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getLessonDates()
     {
-        $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $cache = Yii::$app->cache;
+        if ($cache->get('parts') === false)
+        {
+            $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+            $cache->set('parts', $parts, 7200);
+        }
+        else
+            $parts = $cache->get('parts');
+
         $result = '';
+        $counter = 0;
         foreach ($parts as $part)
         {
-            if ($part->lesson_date < $this->start_date)
+            /*if ($part->lesson_date < $this->start_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия раньше даты начала курса</i></font><br>';
             else if ($part->lesson_date > $this->finish_date)
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->fullName.' <i>ОШИБКА: дата занятия позже даты окончания курса</i></font><br>';
-            else if (count($part->checkValideTime($this->id)) > 0)
+            else*/ if (count($part->checkValideTime($this->id)) > 0)
             {
-                $number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
+                if ($cache->get('numb'.$counter) === false)
+                {
+                    $number = TrainingGroupLesson::find()->where(['id' => $part->checkValideTime($this->id)[0]])->one();
+                    $cache->set('numb'.$counter, $number, 7200);
+                }
+                else
+                    $number = $cache->get('numb'.$counter);
+
                 $result .= '<font style="color: indianred">'.date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.' <i>ОШИБКА: на данное время назначено занятие у Группы №'.$number->trainingGroup->number.'</i></font><br>';
             }
             else
                 $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.'<br>';
+            $counter++;
         }
         return $result;
+
     }
 
     public function getOrdersName()

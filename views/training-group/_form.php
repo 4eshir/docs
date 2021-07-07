@@ -385,7 +385,14 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ручное заполнение расписания</h4></div>
                     <div>
                         <?php
-                        $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                        $cache = Yii::$app->cache;
+                        if ($cache->get('parts') === false)
+                        {
+                            $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                            $cache->set('parts', $extEvents, 7200);
+                        }
+                        else
+                            $extEvents = $cache->get('parts');
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
