@@ -2,15 +2,14 @@
 
 namespace app\models\common;
 
-use app\models\components\FileWizard;
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "material_object".
  *
  * @property int $id
  * @property string $unique_id
+ * @property int $material_object_type_id
  * @property string $name
  * @property string $acceptance_date
  * @property float $balance_price
@@ -18,6 +17,7 @@ use yii\helpers\Html;
  * @property int $main
  * @property string|null $files
  *
+ * @property MaterialObjectType $materialObjectType
  * @property PeopleMaterialObject[] $peopleMaterialObjects
  * @property TemporaryJournal[] $temporaryJournals
  */
@@ -37,11 +37,12 @@ class MaterialObject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['unique_id', 'name', 'acceptance_date', 'balance_price', 'count', 'main'], 'required'],
+            [['unique_id', 'material_object_type_id', 'name', 'acceptance_date', 'balance_price', 'count', 'main'], 'required'],
+            [['material_object_type_id', 'count', 'main'], 'integer'],
             [['acceptance_date'], 'safe'],
             [['balance_price'], 'number'],
-            [['count', 'main'], 'integer'],
             [['unique_id', 'name', 'files'], 'string', 'max' => 1000],
+            [['material_object_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectType::className(), 'targetAttribute' => ['material_object_type_id' => 'id']],
         ];
     }
 
@@ -52,16 +53,25 @@ class MaterialObject extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'unique_id' => 'Уникальный идентификатор',
-            'name' => 'Наименование',
-            'acceptance_date' => 'Дата постановки на учет',
-            'balance_price' => 'Балансовая стоимость',
-            'count' => 'Количество',
-            'main' => 'Основной',
-            'files' => 'Файлы',
-            'filesLink' => 'Файлы',
-            'currentResp' => 'Текущий ответственный',
+            'unique_id' => 'Unique ID',
+            'material_object_type_id' => 'Material Object Type ID',
+            'name' => 'Name',
+            'acceptance_date' => 'Acceptance Date',
+            'balance_price' => 'Balance Price',
+            'count' => 'Count',
+            'main' => 'Main',
+            'files' => 'Files',
         ];
+    }
+
+    /**
+     * Gets query for [[MaterialObjectType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterialObjectType()
+    {
+        return $this->hasOne(MaterialObjectType::className(), ['id' => 'material_object_type_id']);
     }
 
     /**

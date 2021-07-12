@@ -16,6 +16,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?php
+    $types = \app\models\work\MaterialObjectTypeWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($types,'id','name');
+    $params = [];
+    $params0 = [
+    ];
+    echo $form->field($model, 'event_level_id')->dropDownList($items,  $params);
+
+    ?>
+
     <?= $form->field($model, 'acceptance_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
         'language' => 'ru',
