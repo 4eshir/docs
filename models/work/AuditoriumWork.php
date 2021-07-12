@@ -26,6 +26,10 @@ class AuditoriumWork extends Auditorium
         ];
     }
 
+    public function GetFullName()
+    {
+        return $this->name. ' (' . $this->text. ')' ;
+    }
 
     public function GetIsEducation()
     {

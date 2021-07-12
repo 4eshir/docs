@@ -29,8 +29,11 @@ use yii\widgets\ActiveForm;
                 'yearRange' => '2000:2050',
             ]])->label('Дата занятия') ?>
 
-    <?= $form->field($model, 'lesson_start_time')->textInput(['class' => 'form-control def'])->label('Начало занятия') ?>
-    
+    <div class="col-xs-2" style="padding-left: 0;">
+        <?= $form->field($model, 'lesson_start_time')->textInput(['type' => 'time', 'class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+    </div>
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
+
     <?php
     $audits = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($audits,'id','name');
@@ -58,8 +61,8 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'auditorium_id')->dropDownList([], $params)->label('Помещение');
     else
     {
-        $auds = \app\models\common\Auditorium::find()->where(['branch_id' => $model->branch_id])->all();
-        $items = \yii\helpers\ArrayHelper::map($auds,'id','name');
+        $auds = \app\models\work\AuditoriumWork::find()->where(['branch_id' => $model->branch_id])->all();
+        $items = \yii\helpers\ArrayHelper::map($auds,'id','fullName');
         echo $form->field($model, 'auditorium_id')->dropDownList($items, $params)->label('Помещение');
     }
     ?>
