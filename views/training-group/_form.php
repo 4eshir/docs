@@ -385,21 +385,32 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ручное заполнение расписания</h4></div>
                     <div>
                         <?php
-                            $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                            $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC, 'lesson_start_time' => SORT_ASC])->all();
 
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
-                            echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
-                                echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                echo '<tr class='.$class.'>'.
+                                    '<td>'.$form->field($model, "delArr[]")->checkbox([], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+
                             }
                             echo '</table>';
                         }
                         ?>
                     </div>
+                    <?php
+                    if (count($extEvents) > 0)
+                    {
+                        echo '<div class="form-group" style="padding-left: 15px">';
+                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                        echo '</div>';
+                    }
+                    ?>
+
                     <div class="panel-body">
                         <?php DynamicFormWidget::begin([
                             'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -494,20 +505,31 @@ $session = Yii::$app->session;
                     <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Автоматическое заполнение расписания</h4></div>
                     <div>
                         <?php
-                        $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC])->all();
+                        $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->id])->orderBy(['lesson_date' => SORT_ASC, 'lesson_start_time' => SORT_ASC])->all();
+
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
-                            echo '<tr><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
-                                echo '<tr class='.$class.'><td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                echo '<tr class='.$class.'>'.
+                                    '<td>'.$form->field($model, "delArr[]")->checkbox([], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+
                             }
                             echo '</table>';
                         }
                         ?>
                     </div>
+                    <?php
+                    if (count($extEvents) > 0)
+                    {
+                        echo '<div class="form-group" style="padding-left: 15px">';
+                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                        echo '</div>';
+                    }
+                    ?>
                     <div class="panel-body">
                         <?php DynamicFormWidget::begin([
                             'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]

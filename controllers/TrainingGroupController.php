@@ -176,6 +176,7 @@ class TrainingGroupController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
+        $model->delArr = [];
         $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
         $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
@@ -222,7 +223,12 @@ class TrainingGroupController extends Controller
             $model->participants = null;
             $model->GenerateNumber();
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (array_key_exists('deleteChoose', $_POST))
+            {
+                return $this->redirect('index?r=training-group/update&id=' . $model->id);
+            }
+            else
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
