@@ -346,6 +346,7 @@ $session = Yii::$app->session;
                                             'prompt' => '',
                                         ];
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
+                                        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput($items,$params)->label('ФИО учащегося');
                                         ?>
 
                                     </div>
@@ -437,8 +438,8 @@ $session = Yii::$app->session;
                                         <div class="col-xs-4">
                                             <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])->label('Дата занятия') ?>
                                         </div>
-                                        <div class="col-xs-1">
-                                            <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['class' => 'form-control def', 'value' => '10:00'])->label('Начало занятия') ?>
+                                        <div class="col-xs-2">
+                                            <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['type' => 'time', 'class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
                                         </div>
                                         <div class="col-xs-2">
                                             <?php
@@ -548,8 +549,8 @@ $session = Yii::$app->session;
 
                                             ?>
                                         </div>
-                                        <div class="col-xs-1">
-                                            <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['class' => 'form-control def', 'value' => date('h:i')])->label('Начало занятия') ?>
+                                        <div class="col-xs-2">
+                                            <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['type' => 'time','class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
                                         </div>
                                         <div class="col-xs-2">
                                             <?php
