@@ -338,6 +338,7 @@ $session = Yii::$app->session;
                                     }
                                     ?>
                                     <div class="col-xs-4">
+
                                         <?php
 
                                         $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
@@ -346,7 +347,7 @@ $session = Yii::$app->session;
                                             'prompt' => '',
                                         ];
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
-                                        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput($items,$params)->label('ФИО учащегося');
+                                        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
                                         ?>
 
                                     </div>
@@ -374,6 +375,7 @@ $session = Yii::$app->session;
             </div>
         </div>
     </div>
+
 
     <div id="schedule" <?php echo $session->get("show") === "schedule" ? '' : 'hidden'; ?>>
 
@@ -635,7 +637,6 @@ $session = Yii::$app->session;
 
 
 <script>
-
     function checkSchedule()
     {
 
