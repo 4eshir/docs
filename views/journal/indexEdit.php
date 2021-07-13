@@ -19,10 +19,42 @@ $this->params['breadcrumbs'][] = $this->title;
         if (obj.value == 2) obj.style.background = "#183BD9";
         if (obj.value == 3) obj.style.background = "white";
     }
+
+    function topsclr() {
+        document.getElementById("content").scrollLeft = document.getElementById("topscrl").scrollLeft;
+    }
+
+    function bottomsclr() {
+        document.getElementById("topscrl").scrollLeft = document.getElementById("content").scrollLeft;
+    }
+    window.onload = function() {
+        document.getElementById("topfake").style.width = document.getElementById("content").scrollWidth + "px";
+        document.getElementById("topscrl").style.display = "block";
+        document.getElementById("topscrl").onscroll = topsclr;
+        document.getElementById("content").onscroll = bottomsclr;
+    };
 </script>
+
 
 <style>
     select:focus {outline:none;}
+    #content {
+        width: 100%;
+        overflow-x: scroll;
+    }
+    #container {
+        height: 100px;
+        width: 200px;
+    }
+    #topscrl  {
+        height: 20px;
+        width: 100%;
+        overflow-x: scroll;
+        display: none;
+    }
+    #topfake {
+        height: 1px;
+    }
 </style>
 
 <div>
@@ -36,8 +68,23 @@ $this->params['breadcrumbs'][] = $this->title;
     $form = ActiveForm::begin();
     $counter = 0;
 
-    echo '<br><h4>Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></h4><table class="table table-bordered">';
-    echo '<tr><td>ФИО ученика / Даты занятий</td>';
+    echo '<br><h4>Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></h4>';
+    echo '<div id="topscrl">';
+    echo '<div id="topfake"></div>';
+    echo '</div>';
+    echo '<div style="display:flex">';
+    echo '<div style="padding-top: 15px"><table class="table table-bordered">';
+    echo '<tr><td height="110">ФИО ученика / Даты занятий</td></tr>';
+    foreach ($parts as $part)
+    {
+        $tr = '<tr>';
+        if ($part->status == 1)
+            $tr = '<tr style="background:lightcoral">';
+        echo $tr . '<td style="padding: 5px 0 0 10px" height="40" nowrap>' . $part->participantWork->shortName . '</td></tr>';
+    }
+    echo '</table></div>';
+
+    echo '<div style="overflow: scroll; Width:100%" id="content"><table class="table table-bordered">';
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
@@ -49,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $tr = '<tr>';
         if ($part->status == 1)
             $tr = '<tr style="background:lightcoral">';
-        echo $tr.'<td style="padding: 5px 0 0 10px">'.$part->participantWork->shortName.'</td>';
+
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
@@ -88,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         echo '</tr>';
     }
-    echo '</table><br><br>';
+    echo '</table></div></div><br><br>';
     echo '<h4>Тематический план занятий</h4><br>';
     echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
