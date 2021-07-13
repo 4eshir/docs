@@ -41,11 +41,13 @@ class TrainingGroupWork extends TrainingGroup
 
     public $branchId;
 
+    public $participant_id;
+
     public function rules()
     {
         return [
             [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type'], 'safe'],
             [['delArr'], 'each', 'rule' => ['boolean']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],

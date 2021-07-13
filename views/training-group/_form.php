@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
+use yii\jui\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\TrainingGroupWork */
@@ -348,7 +349,19 @@ $session = Yii::$app->session;
                                         ];
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
                                         //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
+
+                                        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->widget(
+                                            AutoComplete::className(), [
+                                            'clientOptions' => [
+                                                'source' => $people,
+                                            ],
+                                            'options'=>[
+                                                'class'=>'form-control'
+                                            ]
+                                        ]);
+
                                         ?>
+
 
                                     </div>
                                     <div class="col-xs-4">
@@ -376,7 +389,35 @@ $session = Yii::$app->session;
         </div>
     </div>
 
+    <div class="col-xs-4">
 
+        <?php
+
+        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['id as value', 'secondname as label'])
+            ->asArray()
+            ->all();;
+        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+        $params = [
+            'prompt' => '',
+        ];
+        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
+        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
+
+        var_dump($people);
+        echo $form->field($model, "participant_id")->widget(
+            AutoComplete::className(), [
+            'clientOptions' => [
+                'source' => $people,
+            ],
+            'options'=>[
+                'class'=>'form-control'
+            ]
+        ]);
+
+        ?>
+
+
+    </div>
     <div id="schedule" <?php echo $session->get("show") === "schedule" ? '' : 'hidden'; ?>>
 
         <?= $form->field($model, 'schedule_type')->radioList(array('0' => 'Ручное заполнение расписания',

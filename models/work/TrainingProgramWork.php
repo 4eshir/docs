@@ -82,6 +82,7 @@ class TrainingProgramWork extends TrainingProgram
             $result .= $author->authorWork->shortName.', ';
         }
         $result = substr($result, 0, -2);
+        $result .= ' Дата утверждения: ' .$this->ped_council_date;
         return $this->name.' ('.$result.')';
     }
 
