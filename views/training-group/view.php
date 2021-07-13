@@ -32,13 +32,14 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         'attributes' => [
 
             'number',
-            ['attribute' => 'budget', 'value' => function($model) {return $model->budget ? 'Бюджет' : 'Внебюджет';}],
+            'budgetText',
             ['attribute' => 'programName', 'format' => 'html'],
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
             'finish_date',
             ['attribute' => 'participantNames', 'format' => 'html'],
             ['attribute' => 'lessonDates', 'format' => 'html'],
+            ['attribute' => 'journalLink', 'format' => 'raw', 'label' => 'Журнал'],
             ['attribute' => 'ordersName', 'format' => 'html'],
             ['attribute' => 'photos', 'value' => function ($model) {
                 $split = explode(" ", $model->photos);

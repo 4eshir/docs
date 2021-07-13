@@ -18,19 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить новую учебную группу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-                
+
             'number',
             ['attribute' => 'programName', 'format' => 'html'],
+            ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
             'finish_date',
-            'openText',
+            ['attribute' => 'budgetText', 'label' => 'Бюджет', 'filter' => [ 1 => "Бюджет", 0 => "Внебюджет"]],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

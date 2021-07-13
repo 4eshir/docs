@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\Auditorium;
+use app\models\common\BranchProgram;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
@@ -38,11 +39,13 @@ class TrainingGroupWork extends TrainingGroup
 
     public $delArr;
 
+    public $branchId;
+
     public function rules()
     {
         return [
             [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type'], 'safe'],
             [['delArr'], 'each', 'rule' => ['boolean']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
@@ -79,6 +82,25 @@ class TrainingGroupWork extends TrainingGroup
     public function getOpenText()
     {
         return $this->open ? 'Да' : 'Нет';
+    }
+
+    public function getBudgetText()
+    {
+        return $this->budget ? 'Бюджет' : 'Внебюджет';
+    }
+
+    public function getJournalLink()
+    {
+        return Html::a('Журнал группы '.$this->number, \yii\helpers\Url::to(['journal/index', 'group_id' => $this->id]));
+    }
+
+    public function getBranchName()
+    {
+        $branchs = BranchProgram::find()->where(['training_program_id' => $this->training_program_id])->all();
+        $result = '';
+        foreach ($branchs as $branch)
+            $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->id])).'<br>';
+        return $result;
     }
 
     public function getParticipantNames()

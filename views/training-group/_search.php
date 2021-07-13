@@ -15,28 +15,15 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'number') ?>
-
-    <?= $form->field($model, 'training_program_id') ?>
-
-    <?= $form->field($model, 'teacher_Id') ?>
-
-    <?= $form->field($model, 'start_date') ?>
-
-    <?php // echo $form->field($model, 'finish_date') ?>
-
-    <?php // echo $form->field($model, 'photos') ?>
-
-    <?php // echo $form->field($model, 'present_data') ?>
-
-    <?php // echo $form->field($model, 'work_data') ?>
-
-    <?php // echo $form->field($model, 'open') ?>
+    <?php
+    $branch = \app\models\work\BranchWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+    $params = [];
+    echo $form->field($model, 'branchId')->dropDownList($items, $params)->label('Отдел');
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
