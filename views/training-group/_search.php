@@ -18,8 +18,19 @@ use yii\widgets\ActiveForm;
     <?php
     $branch = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
-    $params = [];
+    $params = [
+        'prompt' => '--',
+    ];
     echo $form->field($model, 'branchId')->dropDownList($items, $params)->label('Отдел');
+    ?>
+
+    <?php
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+        'prompt' => '--',
+    ];
+    echo $form->field($model, 'teacherId')->dropDownList($items, $params)->label('Преподаватель');
     ?>
 
     <div class="form-group">

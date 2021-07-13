@@ -3,6 +3,10 @@
 namespace app\models;
 
 use app\models\common\BranchProgram;
+use app\models\common\TeacherGroup;
+use app\models\common\TeacherParticipant;
+use app\models\work\BranchProgramWork;
+use app\models\work\TeacherGroupWork;
 use app\models\work\UserWork;
 use app\models\components\UserRBAC;
 use Yii;
@@ -18,6 +22,7 @@ class SearchTrainingGroup extends TrainingGroupWork
     public $programName;
     public $budgetText;
     public $branchId;
+    public $teacherId;
     /**
      * {@inheritdoc}
      */
@@ -25,7 +30,7 @@ class SearchTrainingGroup extends TrainingGroupWork
     {
         return [
             [['id', 'number', 'training_program_id', 'teacher_id', 'open', 'budgetText'], 'integer'],
-            [['start_date', 'finish_date', 'photos', 'present_data', 'work_data', 'branchId'], 'safe'],
+            [['start_date', 'finish_date', 'photos', 'present_data', 'work_data', 'branchId', 'teacherId'], 'safe'],
             ['programName', 'string'],
         ];
     }
@@ -52,17 +57,30 @@ class SearchTrainingGroup extends TrainingGroupWork
         //var_dump($params ["SearchTrainingGroup"]["branchId"]);
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
-        $branchs = BranchProgram::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->all();
+        $branchs = BranchProgramWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->all();
+        $teachers = TeacherGroupWork::find()->where(['teacher_id' => $params ["SearchTrainingGroup"]["teacherId"]])->all();
         $idsB = [];
+        $idsTG = [];
         foreach ($branchs as $branch)
             $idsB[] = $branch->training_program_id;
+        foreach ($teachers as $teacher)
+            $idsTG[] = $teacher->training_group_id;
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
-            $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB]);
+            if (count($branchs) > 0 && count($teachers) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $idsTG]);
+            else if (count($teachers) > 0)
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG]);
+                else if (count($branchs) > 0)
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB]);
+                else
+                    $groups = TrainingGroupWork::find();
+
         }
         else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
         {
             $branchs = \app\models\work\PeoplePositionBranchWork::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+
             if ($branchs !== null)
             {
                 $branchs_id = [];
@@ -70,15 +88,37 @@ class SearchTrainingGroup extends TrainingGroupWork
                 $groups_id = \app\models\work\TrainingGroupLessonWork::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
                 $newGroups_id = [];
                 foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->training_group_id;
-                $groups = TrainingGroupWork::find()->where(['in', 'id', $newGroups_id])->andWhere(['in', 'training_program_id', $idsB]);
+
+                if (count($branchs) > 0 && count($teachers) > 0)
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $newGroups_id]);
+                else if (count($teachers) > 0)
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $newGroups_id]);
+                else if (count($branchs) > 0)
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $newGroups_id]);
+                else
+                {
+
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $newGroups_id]);
+
+                }
+
             }
         }
         else
         {
-            $teachers = \app\models\work\TeacherGroupWork::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+            $teachers2 = \app\models\work\TeacherGroupWork::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
             $teachers_id = [];
-            foreach ($teachers as $teacher) $teachers_id[] = $teacher->training_group_id;
-            $groups = TrainingGroupWork::find()->where(['in', 'id', $teachers_id])->andWhere(['in', 'training_program_id', $idsB]);
+            foreach ($teachers2 as $teacher) $teachers_id[] = $teacher->training_group_id;
+            if (count($branchs) > 0 && count($teachers) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id]);
+            else if (count($teachers) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id]);
+            else if (count($branchs) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $teachers_id]);
+            else {
+
+                $groups = TrainingGroupWork::find()->andWhere(['in', 'training_group.id', $teachers_id]);
+            }
         }
 
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
