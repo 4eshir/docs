@@ -137,10 +137,12 @@ class TrainingProgramWork extends TrainingProgram
     public function getThemesPlan()
     {
         $tp = ThematicPlan::find()->where(['training_program_id' => $this->id])->all();
-        $result = count($tp) === $this->capacity ? "" : "<font color=red><i>Несовпадение УТП с объемом программы!</i></font><br>";
+        $result = count($tp) === $this->capacity ? "" : "<p style='color: red'><i>Несовпадение УТП с объемом программы!</i></p><br>";
+        $counter = 1;
         foreach ($tp as $tpOne)
         {
-            $result .= $tpOne->theme.'<br>';
+            $result .= '<p>'.$counter.'. '.$tpOne->theme.'</p>';
+            $counter += 1;
         }
         return $result;
     }

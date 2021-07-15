@@ -127,9 +127,11 @@ use yii\widgets\ActiveForm;
             if ($resp != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td><b>Тема</b></td><td><b>Форма контроля</b></td><td></td></tr>';
+                echo '<tr><td><b>Тема</b></td><td><b>Форма контроля</b></td><td></td><td></td></tr>';
                 foreach ($resp as $respOne) {
-                    echo '<tr><td style="padding-left: 20px"><h5>'.$respOne->theme.'</h5></td><td style="padding-left: 20px"><h5>'.$respOne->controlType->name.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-program/delete-plan', 'id' => $respOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h5>'.$respOne->theme.'</h5></td><td style="padding-left: 20px"><h5>'.$respOne->controlType->name.'</h5></td>'.
+                        '<td>'.Html::a('Редактировать', \yii\helpers\Url::to(['training-program/update-plan', 'id' => $respOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.
+                        '<td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-program/delete-plan', 'id' => $respOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }

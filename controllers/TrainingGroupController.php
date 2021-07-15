@@ -312,7 +312,7 @@ class TrainingGroupController extends Controller
     {
         $model = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
-            $model->save();
+            $model->save(false);
             $group = TrainingGroupWork::find()->where(['id' => $model->training_group_id])->one();
             $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
@@ -337,7 +337,7 @@ class TrainingGroupController extends Controller
     {
         $model = TrainingGroupLessonWork::find()->where(['id' => $lessonId])->one();
         if ($model->load(Yii::$app->request->post())) {
-            $model->save();
+            $model->save(false);
             $group = TrainingGroupWork::find()->where(['id' => $modelId])->one();
             $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];

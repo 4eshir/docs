@@ -395,7 +395,7 @@ $session = Yii::$app->session;
 
         $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['id as value', 'secondname as label'])
             ->asArray()
-            ->all();;
+            ->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
             'prompt' => '',
@@ -403,7 +403,6 @@ $session = Yii::$app->session;
         //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
         //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
 
-        var_dump($people);
         echo $form->field($model, "participant_id")->widget(
             AutoComplete::className(), [
             'clientOptions' => [

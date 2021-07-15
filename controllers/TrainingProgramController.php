@@ -8,6 +8,7 @@ use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\Author;
+use app\models\work\TrainingGroupWork;
 use Yii;
 use app\models\work\TrainingProgramWork;
 use app\models\SearchTrainingProgram;
@@ -154,6 +155,25 @@ class TrainingProgramController extends Controller
             'model' => $model,
             'modelAuthor' => $modelAuthor,
             'modelThematicPlan' => $modelThematicPlan,
+        ]);
+    }
+
+    public function actionUpdatePlan($id, $modelId)
+    {
+        $model = ThematicPlanWork::find()->where(['id' => $id])->one();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save(false);
+            $group = TrainingProgramWork::find()->where(['id' => $modelId])->one();
+            $modelAuthor = [new AuthorProgramWork];
+            $modelThematicPlan = [new ThematicPlanWork];
+            return $this->render('update', [
+                'model' => $group,
+                'modelAuthor' => $modelAuthor,
+                'modelThematicPlan' => $modelThematicPlan,
+            ]);
+        }
+        return $this->render('update-plan', [
+            'model' => $model,
         ]);
     }
 
