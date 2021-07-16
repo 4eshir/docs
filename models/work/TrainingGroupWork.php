@@ -465,7 +465,7 @@ class TrainingGroupWork extends TrainingGroup
                 if ($theme !== null) $counter++;
             }
 
-            if (count($lessons) === count($tp) && $counter == 0)
+            if (count($lessons) === count($tp)/* && $counter == 0*/)
             {
                 for ($i = 0; $i < count($tp); $i++)
                 {
