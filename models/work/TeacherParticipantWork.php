@@ -32,14 +32,24 @@ class TeacherParticipantWork extends TeacherParticipant
         ];
     }
 
-    public function getTeacher2()
+    public function getParticipantWork()
     {
-        return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
+        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+    }
+
+    public function getTeacherWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
+    }
+
+    public function getTeacher2Work()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher2_id']);
     }
 
     public function getBranch()
     {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        return $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -50,13 +60,13 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function getTeam()
     {
-        $team = Team::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
+        $team = TeamWork::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
         $this->team = $team === null ? '' : $team->name;
     }
 
     public function checkTeam()
     {
-        $team = Team::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
+        $team = TeamWork::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
 
         if ($team === null)
             if ($this->team !== "" && $this->team !== null)
@@ -86,8 +96,8 @@ class TeacherParticipantWork extends TeacherParticipant
         $this->fileString = $res.'.'.$this->file->extension;
         $this->file->saveAs( $path.$this->fileString);
 
-        $partFile = ParticipantFiles::find()->where(['foreign_event_id' => $this->foreign_event_id])->andWhere(['participant_id' => $this->participant_id])->one();
-        if ($partFile === null) $partFile = new ParticipantFiles();
+        $partFile = ParticipantFilesWork::find()->where(['foreign_event_id' => $this->foreign_event_id])->andWhere(['participant_id' => $this->participant_id])->one();
+        if ($partFile === null) $partFile = new ParticipantFilesWork();
         $partFile->foreign_event_id = $this->foreign_event_id;
         $partFile->participant_id = $this->participant_id;
         $partFile->filename = $this->fileString;

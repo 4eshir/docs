@@ -11,6 +11,7 @@ use app\models\common\ThematicPlan;
 use app\models\common\TrainingProgram;
 use app\models\components\FileWizard;
 use Yii;
+use yii\helpers\Html;
 
 
 class TrainingProgramWork extends TrainingProgram
@@ -52,6 +53,7 @@ class TrainingProgramWork extends TrainingProgram
             'thematic_direction_id' => 'Тематическое направление',
             'level' => 'Уровень сложности',
             'authorsList' => 'Составители',
+            'compilers' => 'Составители',
             'capacity' => 'Объем, ак. час.',
             'student_left_age' => 'Мин. возраст учащихся, лет',
             'student_right_age' => 'Макс. возраст учащихся, лет',
@@ -84,6 +86,17 @@ class TrainingProgramWork extends TrainingProgram
         $result = substr($result, 0, -2);
         $result .= ' Дата утверждения: ' .$this->ped_council_date;
         return $this->name.' ('.$result.')';
+    }
+
+    public function getCompilers()
+    {
+        $authors = AuthorProgramWork::find()->where(['training_program_id' => $this->id])->all();
+        $result = '';
+        foreach ($authors as $author)
+        {
+            $result .= Html::a($author->authorWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $author->author_id])).'<br>';
+        }
+        return $result;
     }
 
     public function getAuthorWork()

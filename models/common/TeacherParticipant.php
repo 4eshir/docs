@@ -89,4 +89,9 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     {
         return $this->hasOne(People::className(), ['id' => 'teacher_id']);
     }
+
+    public function getTeacher2()
+    {
+        return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
+    }
 }
