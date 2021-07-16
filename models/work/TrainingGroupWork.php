@@ -458,7 +458,10 @@ class TrainingGroupWork extends TrainingGroup
             $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
             $tp = ThematicPlanWork::find()->where(['training_program_id' => $this->training_program_id])->orderBy(['id' => SORT_ASC])->all();
             $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
-
+            var_dump($tp[0]->theme);
+            var_dump($tp[1]->theme);
+            var_dump($tp[2]->theme);
+            var_dump($tp[3]->theme);
             $counter = 0;
             for ($i = 0; $i < count($lessons); $i++)
             {
