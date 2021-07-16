@@ -455,11 +455,8 @@ class TrainingGroupWork extends TrainingGroup
         if ($this->open === 1)
         {
 
-            $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+            $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
             $tp = ThematicPlanWork::find()->where(['training_program_id' => $this->training_program_id])->orderBy(['id' => SORT_ASC])->all();
-            var_dump($tp);
-            var_dump('<br><br>');
-            var_dump($lessons);
             $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
 
             $counter = 0;
