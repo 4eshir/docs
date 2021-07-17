@@ -29,11 +29,11 @@ class ExcelWizard
         $splitName = explode(".", $filename);
         $newFilename = $splitName[0].'_new'.'.xls';//.$splitName[1];
         $inputData = $writer->save(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$newFilename);
-
         $newReader = \PHPExcel_IOFactory::createReader('Excel2007');
         $inputData = $newReader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$newFilename);
 
         $startRow = 1;
+
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
         while ($startRow < 100 && strlen($tempValue) < 4)
         {
