@@ -43,6 +43,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public $participant_id;
 
+
     public function rules()
     {
         return [
@@ -116,6 +117,20 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
             $result .= '<br>';
         }
+        return $result;
+    }
+
+    public function getCountParticipants()
+    {
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $result = count($parts) . ' (включая отчисленных)';
+        return $result;
+    }
+
+    public function getCountLessons()
+    {
+        $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+        $result = count($parts) . ' академ.часа';
         return $result;
     }
 
