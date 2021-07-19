@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         'attributes' => [
 
             'number',
-            'budgetText',
+            ['attribute' => 'budgetText', 'label' => 'Форма обучения'],
             ['attribute' => 'programName', 'format' => 'html'],
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
