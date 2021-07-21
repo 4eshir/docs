@@ -19,42 +19,51 @@ $this->params['breadcrumbs'][] = $this->title;
         if (obj.value == 2) obj.style.background = "#183BD9";
         if (obj.value == 3) obj.style.background = "white";
     }
-
-    function topsclr() {
-        document.getElementById("content").scrollLeft = document.getElementById("topscrl").scrollLeft;
-    }
-
-    function bottomsclr() {
-        document.getElementById("topscrl").scrollLeft = document.getElementById("content").scrollLeft;
-    }
-    window.onload = function() {
-        document.getElementById("topfake").style.width = document.getElementById("content").scrollWidth + "px";
-        document.getElementById("topscrl").style.display = "block";
-        document.getElementById("topscrl").onscroll = topsclr;
-        document.getElementById("content").onscroll = bottomsclr;
-    };
 </script>
 
 
 <style>
     select:focus {outline:none;}
-    #content {
-        width: 100%;
-        overflow-x: scroll;
+
+    div.containerTable {
+        overflow: scroll;
+        max-width: 1200px;
+        max-height: 720px;
     }
-    #container {
-        height: 100px;
-        width: 200px;
+
+    th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
     }
-    #topscrl  {
-        height: 20px;
-        width: 100%;
-        overflow-x: scroll;
-        display: none;
+
+    tbody th {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
     }
-    #topfake {
-        height: 1px;
+
+    thead th:first-child {
+        left: 0;
+        z-index: 1;
     }
+
+    thead th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    td, th {
+        padding: 0.5em;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    thead th, tbody th {
+        background: #FFF;
+    }
+
 </style>
 
 <div>
@@ -67,48 +76,37 @@ $this->params['breadcrumbs'][] = $this->title;
     $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $form = ActiveForm::begin();
     $counter = 0;
-
+    //var_dump($model);
+//var_dump($lessons);
+//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[0]])->one()->status);
+//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[1]])->one()->status);
+//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[2]])->one()->status);
+//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[3]])->one()->status);
     echo '<br><h4>Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></h4>';
-    echo '<div id="topscrl">';
-    echo '<div id="topfake"></div>';
-    echo '</div>';
-    echo '<div style="display:flex">';
-    echo '<div style="padding-top: 15px"><table class="table table-bordered">';
-    echo '<tr><td height="110">ФИО ученика / Даты занятий</td></tr>';
-    foreach ($parts as $part)
-    {
-        $tr = '<tr>';
-        if ($part->status == 1)
-            $tr = '<tr style="background:lightcoral">';
-        echo $tr . '<td style="padding: 5px 0 0 10px" height="40" nowrap>' . $part->participantWork->shortName . '</td></tr>';
-    }
-    echo '</table></div>';
-
-    echo '<div style="overflow: scroll; Width:100%" id="content"><table class="table table-bordered">';
+    echo '<div class="containerTable">';
+    echo '<table class="table table-bordered"><thead><tr>';
+    echo '<th style="vertical-align: middle;">ФИО ученика / Даты занятий</th>';
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-        echo "<td>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success']).Html::a('Все --', \yii\helpers\Url::to(['journal/all-clear', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-default', 'style' => 'margin-top: 5px'])."</td>";
+        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to([]), ['class' => 'btn btn-success']);
+            //'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success'])
+            //.Html::a('Все --', \yii\helpers\Url::to(['journal/all-clear', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-default', 'style' => 'margin-top: 5px'])."</th>";
     }
-    echo '</tr>';
+    echo '</thead><tbody>';
     foreach ($parts as $part)
     {
-        $tr = '<tr>';
-        if ($part->status == 1)
-            $tr = '<tr style="background:lightcoral">';
-
+        echo '<tr>';
+        echo '<th style="text-align: left;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         foreach ($lessons as $lesson)
         {
-            //$visits = \app\models\common\Visit::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
             $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
             $dis = false;
             $date = new DateTime(date("Y-m-d"));
             $date->modify('-1 week');
             if (!($visits == null || $visits->status == 0)) $value = true;
-            //if ($lesson->lesson_date < $date->format('Y-m-d') || $lesson->lesson_date > date("Y-m-d")) $dis = true;
-            //if ($part->status == 1) $dis = true;
             if (\app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 23) || \app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 25)) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
@@ -119,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if ($visits->status == 1) $color = 'style="background: #DC143C; color: white; appearance: none;-webkit-appearance: none;"';
             if ($visits->status == 2) $color = 'style="background: #183BD9; color: white; appearance: none;-webkit-appearance: none;"';
             if ($visits->status == 3) $color = 'style="background: white; color: white; appearance: none;-webkit-appearance: none;"';
-            echo "<td style='padding: 5px 5px 0 5px'>";
+            echo "<td style='padding: 5px 5px 0 5px;'>";
             $disabledStr = $dis ? 'disabled' : '';
             if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);
             echo '<select '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
@@ -129,13 +127,12 @@ $this->params['breadcrumbs'][] = $this->title;
             echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
             echo '</select></td>';
 
-            //echo "<td style='padding: 5px 5px 0 5px'>".$form->field($model, 'visits[]', ['options' => ['display' => 'block']])->dropDownList([3 => '--', 0 => 'Я',
-            //        1 => 'Н', 2 => 'Д'], ['options' => [$model->visits[$counter] => ['Selected' => true]], 'disabled' => $dis ? true : false, 'style' => 'background: blue'])->label(false)."</td>";
             $counter++;
         }
         echo '</tr>';
     }
-    echo '</table></div></div><br><br>';
+    echo '</tbody></table></div><br>';
+
     echo '<h4>Тематический план занятий</h4><br>';
     echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
@@ -144,11 +141,11 @@ $this->params['breadcrumbs'][] = $this->title;
         $teachers_id = [];
         foreach ($teachers as $teacher)
             $teachers_id[] = $teacher->teacher_id;
-        $people = \app\models\common\People::find()->where(['in', 'id', $teachers_id])->all();
+        $people = \app\models\work\PeopleWork::find()->where(['in', 'id', $teachers_id])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
         ];
-        $theme = \app\models\common\LessonTheme::find()->where(['training_group_lesson_id' => $lesson->id])->one();
+        $theme = \app\models\work\LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $value = '';
         if ($theme !== null) $value = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.
