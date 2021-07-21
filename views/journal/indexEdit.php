@@ -76,12 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $form = ActiveForm::begin();
     $counter = 0;
-    //var_dump($model);
-//var_dump($lessons);
-//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[0]])->one()->status);
-//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[1]])->one()->status);
-//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[2]])->one()->status);
-//var_dump(\app\models\work\VisitWork::find()->where(['id' => $model->visits_id[3]])->one()->status);
     echo '<br><h4>Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></h4>';
     echo '<div class="containerTable">';
     echo '<table class="table table-bordered"><thead><tr>';
@@ -89,9 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to([]), ['class' => 'btn btn-success']);
-            //'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success'])
-            //.Html::a('Все --', \yii\helpers\Url::to(['journal/all-clear', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-default', 'style' => 'margin-top: 5px'])."</th>";
+        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success']) .Html::a('Все --', \yii\helpers\Url::to(['journal/all-clear', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-default', 'style' => 'margin-top: 5px'])."</th>";
     }
     echo '</thead><tbody>';
     foreach ($parts as $part)
