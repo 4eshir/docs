@@ -44,7 +44,7 @@ class BranchWork extends Branch
 
     public function getWorkerList()
     {
-        $workers = People::find()->where(['branch_id' => $this->id])->all();
+        $workers = PeopleWork::find()->where(['branch_id' => $this->id])->all();
         $result = '';
         foreach ($workers as $worker)
         {
