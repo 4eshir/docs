@@ -21,7 +21,7 @@ class AuditoriumWork extends Auditorium
             [['square'], 'number'],
             [['is_education', 'branch_id', 'capacity'], 'integer'],
             [['name', 'text', 'files'], 'string', 'max' => 1000],
-            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => BranchWork::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['filesList'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
     }

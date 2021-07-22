@@ -31,6 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             ['attribute' => 'name', 'label' => 'Наименование должности'],
         ],
-    ]) ?>
+    ])?>
 
 </div>

@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'text',
             ['attribute' => 'isEducation', 'label' => 'Предназначен для обр. деят.'],
             ['attribute' => 'capacity', 'visible' => $model->is_education === 1],
-            ['attribute' => 'branchLink', 'label' => 'Название отдела', 'format' => 'html'],
+            ['attribute' => 'branchName', 'label' => 'Название отдела', 'format' => 'html'],
             ['attribute' => 'files', 'value' => function ($model) {
                 $split = explode(" ", $model->files);
                 $result = '';
