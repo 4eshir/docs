@@ -300,9 +300,19 @@ class TrainingGroupWork extends TrainingGroup
         $level++;
         $this->number = $this->trainingProgramWork->thematicDirection->name.'.'.$level.'.'.PeopleWork::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
         $counter = count(TrainingGroupWork::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
-        $current = TrainingGroupWork::find()->where(['id' => $this->id])->one();
+        //$current = TrainingGroupWork::find()->where(['id' => $this->id])->one();
         $counter++;
-        if ($current !== null)
+        for($index = 1; $index <= $counter; $index++)
+        {
+            $twin = TrainingGroupWork::find()->where(['like', 'number', $this->number.'.'.$index, false])->andWhere(['!=', 'id', $this->id])->all();
+            if ($twin == null)
+            {
+                $this->number .= '.' . $index;
+                $index = $counter;
+            }
+        }
+
+        /*if ($current !== null)
         {
             if (!is_numeric(substr($current->number, -1)))
                 $this->number .= '.'.$counter;
@@ -310,7 +320,7 @@ class TrainingGroupWork extends TrainingGroup
                 $this->number = $current->number;
         }
         else
-            $this->number .= '.'.$counter;
+            $this->number .= '.'.$counter;*/
     }
 
 

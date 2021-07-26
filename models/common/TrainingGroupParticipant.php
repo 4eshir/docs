@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $participant_id
- * @property int|null $certificat_number
+ * @property string|null $certificat_number
  * @property int|null $send_method_id
  * @property int $training_group_id
  * @property int $status
@@ -35,7 +35,8 @@ class TrainingGroupParticipant extends \yii\db\ActiveRecord
     {
         return [
             [['training_group_id'], 'required'],
-            [['participant_id', 'certificat_number', 'send_method_id', 'training_group_id', 'status'], 'integer'],
+            [['participant_id', 'send_method_id', 'training_group_id', 'status'], 'integer'],
+            [['certificat_number'], 'string', 'max' => 11],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
