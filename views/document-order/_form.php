@@ -236,6 +236,7 @@ $session = Yii::$app->session;
     </div>
 
     <?php
+    /*
     $value = false;
     if ($session->get('type') === '1') $value = true;
 
@@ -243,7 +244,7 @@ $session = Yii::$app->session;
         echo $form->field($model, 'type')->checkbox(['checked' => $value ? '' : null]);
     else
         echo $form->field($model, 'type')->checkbox();
-
+    */
     ?>
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>

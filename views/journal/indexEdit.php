@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\extended\JournalModel */
 
-$this->title = 'Участники мероприятий';
+$this->title = 'Электронный журнал';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,6 +18,26 @@ $this->params['breadcrumbs'][] = $this->title;
         if (obj.value == 1) obj.style.background = "#DC143C";
         if (obj.value == 2) obj.style.background = "#183BD9";
         if (obj.value == 3) obj.style.background = "white";
+    }
+
+    function allAdd(obj)
+    {
+        var lessons = document.getElementsByClassName("class" + obj);
+
+        for (let i = 0; i < lessons.length; i++) {
+            lessons[i].value = "0";
+            lessons[i].style.background = "green";
+        }
+    }
+
+    function allClear(obj)
+    {
+        var lessons = document.getElementsByClassName("class" + obj);
+
+        for (let i = 0; i < lessons.length; i++) {
+            lessons[i].value = "3";
+            lessons[i].style.background = "white";
+        }
     }
 </script>
 
@@ -80,10 +100,12 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<div class="containerTable">';
     echo '<table class="table table-bordered"><thead><tr>';
     echo '<th style="vertical-align: middle;">ФИО ученика / Даты занятий</th>';
+    $c = 0;
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br>'.Html::a('Все Я', \yii\helpers\Url::to(['journal/all-appearance', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-success']) .Html::a('Все --', \yii\helpers\Url::to(['journal/all-clear', 'training_group_lesson_id' => $lesson->id, 'group_id' => $model->trainingGroup]), ['class' => 'btn btn-default', 'style' => 'margin-top: 5px'])."</th>";
+        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a href="#" onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a href="#" onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
+        $c++;
     }
     echo '</thead><tbody>';
     foreach ($parts as $part)
@@ -91,6 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<tr>';
         echo '<th style="text-align: left;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
+        $c = 0;
         foreach ($lessons as $lesson)
         {
             $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
@@ -112,13 +135,13 @@ $this->params['breadcrumbs'][] = $this->title;
             echo "<td style='padding: 5px 5px 0 5px;'>";
             $disabledStr = $dis ? 'disabled' : '';
             if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);
-            echo '<select '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
+            echo '<select class="form-control class'.$c.'" '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
             echo '<option value="3" '.$selected3.' style="background: white">--</option>';
             echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
             echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
             echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
             echo '</select></td>';
-
+            $c++;
             $counter++;
         }
         echo '</tr>';
