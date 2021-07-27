@@ -34,7 +34,14 @@ $session = Yii::$app->session;
             'yearRange' => '2000:2050',
         ]])->label('Дата приказа') ?>
 
-    <?= $form->field($model, 'order_number')->textInput()->label('Преамбула') ?>
+    <?php
+    $nomenclature = \app\models\work\NomenclatureWork::find()->where(['branch_id' => '1'])->orderBy(['number' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($nomenclature,'id','fullNameWork');
+    $params = [
+    ];
+    echo $form->field($model, 'order_name')->dropDownList($items,$params)->label('Преамбула');
+
+    ?>
 
     <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
@@ -150,7 +157,7 @@ $session = Yii::$app->session;
                                     'method' => 'post',
                                 ],]).'</td></tr>';
                     if ($orderOne->expireOrder !== null)
-                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Приказ №'.$orderOne->expireOrder->fullName.'"</h4></td><td style="padding-left: 10px">'
+                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Приказ №'.$orderOne->expireOrderWork->fullName.'"</h4></td><td style="padding-left: 10px">'
                             .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
                                 'class' => 'btn btn-danger',
                                 'data' => [

@@ -8,5 +8,8 @@ use Yii;
 
 class ExpireWork extends Expire
 {
-
+    public function getExpireOrderWork()
+    {
+        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'expire_order_id']);
+    }
 }
