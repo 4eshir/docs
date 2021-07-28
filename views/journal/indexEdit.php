@@ -150,43 +150,6 @@ echo '</tbody></table></div><br>';
 
 echo '<h4>Тематический план занятий</h4><br>';
 echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
-
-    foreach ($lessons as $lesson)
-    {
-        $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
-        $value = false;
-        $dis = false;
-        $date = new DateTime(date("Y-m-d"));
-        $date->modify('-1 week');
-        if (!($visits == null || $visits->status == 0)) $value = true;
-        if (\app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 23) || \app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 25)) $dis = false;
-        $selected0 = $visits->status == 0 ? 'selected' : '';
-        $selected1 = $visits->status == 1 ? 'selected' : '';
-        $selected2 = $visits->status == 2 ? 'selected' : '';
-        $selected3 = $visits->status == 3 ? 'selected' : '';
-        $color = 'style="background: white"';
-        if ($visits->status == 0) $color = 'style="background: green; color: white; appearance: none;-webkit-appearance: none;"';
-        if ($visits->status == 1) $color = 'style="background: #DC143C; color: white; appearance: none;-webkit-appearance: none;"';
-        if ($visits->status == 2) $color = 'style="background: #183BD9; color: white; appearance: none;-webkit-appearance: none;"';
-        if ($visits->status == 3) $color = 'style="background: white; color: white; appearance: none;-webkit-appearance: none;"';
-        echo "<td style='padding: 5px 5px 0 5px;'>";
-        $disabledStr = $dis ? 'disabled' : '';
-        if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);
-        echo '<select class="form-control class'.$c.'" '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
-        echo '<option value="3" '.$selected3.' style="background: white">--</option>';
-        echo '<option style="background: green; color: white" value="0" '.$selected0.'>Я</option>';
-        echo '<option style="background: #DC143C; color: white" value="1" '.$selected1.'>Н</option>';
-        echo '<option style="background: #183BD9; color: white" value="2" '.$selected2.'>Д</option>';
-        echo '</select></td>';
-        $c++;
-        $counter++;
-    }
-    echo '</tr>';
-
-echo '</tbody></table></div><br>';
-
-echo '<h4>Тематический план занятий</h4><br>';
-echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
 foreach ($lessons as $lesson)
 {
     $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
