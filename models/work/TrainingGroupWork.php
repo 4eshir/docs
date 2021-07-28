@@ -62,6 +62,36 @@ class TrainingGroupWork extends TrainingGroup
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'number' => 'Номер',
+            'training_program_id' => 'Образовательная программа',
+            'programName' => 'Образовательная программа',
+            'programNameNoLink' => 'Образовательная программа',
+            'teacher_id' => 'Педагог',
+            'teacherName' => 'Педагог',
+            'start_date' => 'Дата начала занятий',
+            'finish_date' => 'Дата окончания занятий',
+            'photos' => 'Фотоматериалы',
+            'photosFile' => 'Фотоматериалы',
+            'present_data' => 'Презентационные материалы',
+            'presentDataFile' => 'Презентационные материалы',
+            'work_data' => 'Рабочие материалы',
+            'workDataFile' => 'Рабочие материалы',
+            'open' => 'Утвердить расписание',
+            'openText' => 'Расписание утверждено',
+            'participantNames' => 'Состав',
+            'lessonDates' => 'Расписание',
+            'scheduleType' => 'Тип расписания',
+            'ordersName' => 'Приказы',
+            'budget' => 'Бюджет',
+            'fileParticipants' => 'Загрузить учащихся из файла',
+            'teachersList' => 'Педагог(-и)',
+        ];
+    }
+
     public function getTeacherWork()
     {
         return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_Id']);
