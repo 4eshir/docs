@@ -7,6 +7,7 @@ use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\LessonThemeWork;
+use app\models\work\NomenclatureWork;
 use app\models\work\OrderGroupWork;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
@@ -434,6 +435,8 @@ class TrainingGroupController extends Controller
 
         }
     }
+
+
 
     public function actionParse()
     {

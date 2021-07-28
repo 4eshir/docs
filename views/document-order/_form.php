@@ -1,9 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormAsset;
 use wbraganca\dynamicform\DynamicFormWidget;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\DocumentOrderWork */
@@ -34,14 +36,42 @@ $session = Yii::$app->session;
             'yearRange' => '2000:2050',
         ]])->label('Дата приказа') ?>
 
+
+    <!---      -->
     <?php
-    $nomenclature = \app\models\work\NomenclatureWork::find()->where(['branch_id' => '1'])->orderBy(['number' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($nomenclature,'id','fullNameWork');
     $params = [
+        'id' => 'r',
+        'onchange' => '
+                        $.post(
+                            "' . Url::toRoute('subattr') . '", 
+                            {id: $(this).val()},
+                            function(res){
+                                var elems = document.getElementsByClassName("nom");
+                                for (var c = 0; c !== elems.length; c++) {
+                                    if (elems[c].id == "rS")
+                                        elems[c].innerHTML = res;
+                                }
+                            }
+                        );
+                    ',
     ];
-    echo $form->field($model, 'order_name')->dropDownList($items,$params)->label('Преамбула');
+
+    $branch = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+
+    echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
 
     ?>
+
+    <?php
+    $params = [
+        'prompt' => '',
+        'id' => 'rS',
+        'class' => 'form-control nom',
+    ];
+    echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула'); ?>
+
+    <!---      -->
 
     <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
 
