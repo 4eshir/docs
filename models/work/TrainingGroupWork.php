@@ -138,7 +138,7 @@ class TrainingGroupWork extends TrainingGroup
         $branchs = BranchProgram::find()->where(['training_program_id' => $this->training_program_id])->all();
         $result = '';
         foreach ($branchs as $branch)
-            $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->id])).'<br>';
+            $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])).'<br>';
         return $result;
     }
 
