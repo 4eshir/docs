@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
 
             'number',
-            ['attribute' => 'programName', 'format' => 'html'],
+            ['attribute' => 'programNameNoLink', 'format' => 'html'],
             ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',

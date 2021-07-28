@@ -82,6 +82,12 @@ class TrainingGroupWork extends TrainingGroup
         return Html::a($prog->name, \yii\helpers\Url::to(['training-program/view', 'id' => $prog->id]));
     }
 
+    public function getProgramNameNoLink()
+    {
+        $prog = TrainingProgramWork::find()->where(['id' => $this->training_program_id])->one();
+        return $prog->name;
+    }
+
     public function getOpenText()
     {
         return $this->open ? 'Да' : 'Нет';
