@@ -182,7 +182,7 @@ echo '<table class="table table-responsive"><tr><td><b>Дата занятия</
         $counter++;
     }
     echo '</tr>';
-}
+
 echo '</tbody></table></div><br>';
 
 echo '<h4>Тематический план занятий</h4><br>';
