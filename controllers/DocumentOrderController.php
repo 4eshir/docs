@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\work\BranchWork;
 use app\models\work\ExpireWork;
+use app\models\work\NomenclatureWork;
 use app\models\work\RegulationWork;
 use app\models\work\ResponsibleWork;
 use app\models\components\Logger;
@@ -93,7 +95,7 @@ class DocumentOrderController extends Controller
         }
         $session = Yii::$app->session;
         $model = new DocumentOrderWork();
-        $model->order_number = "02-02";
+        //$model->order_number = NomenclatureWork::find()->where([]);
         $modelExpire = [new ExpireWork];
         $modelResponsible = [new ResponsibleWork];
         if ($model->load(Yii::$app->request->post())) {
@@ -301,6 +303,25 @@ class DocumentOrderController extends Controller
             Yii::$app->session->addFlash('error', 'Приказ "' . $name . '" невозможно удалить. Он упоминается в одном или нескольких положениях!');
 
         return $this->redirect(['index']);
+    }
+
+    public function actionSubattr()
+    {
+        if ($id = Yii::$app->request->post('id')) {
+            $operationPosts = BranchWork::find()
+                ->where(['id' => $id])
+                ->count();
+
+            if ($operationPosts > 0) {
+                $operations = NomenclatureWork::find()
+                    ->where(['branch_id' => $id])
+                    ->all();
+                foreach ($operations as $operation)
+                    echo "<option value='" . $operation->number . "'>" . $operation->fullNameWork . "</option>";
+            } else
+                echo "<option>-</option>";
+
+        }
     }
 
     /**

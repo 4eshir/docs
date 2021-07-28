@@ -26,6 +26,9 @@ class DocumentOrderWork extends DocumentOrder
 
     public $allResp;
 
+    public $nomenclature_id;
+    public $nomenclature_number;
+
 
     public function rules()
     {
@@ -35,10 +38,11 @@ class DocumentOrderWork extends DocumentOrder
             [['signedString', 'executorString', 'bringString', 'registerString', 'documentNumberString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
-            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type'], 'integer'],
+            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id'], 'integer'],
             [['order_date', 'allResp'], 'safe'],
             [['state'], 'boolean'],
             [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
+            [['nomenclature_number'], 'string'],
             [['order_number'], 'string', 'max' => 100],
             [['bring_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['bring_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],

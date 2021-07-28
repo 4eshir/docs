@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\common\Branch;
 use app\models\common\Nomenclature;
 use Yii;
 
