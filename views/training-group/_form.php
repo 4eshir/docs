@@ -290,15 +290,24 @@ $session = Yii::$app->session;
                     {
                         echo '<table class="table table-bordered">';
                         echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
+                        $c = 0;
                         foreach ($extEvents  as $extEvent) {
-                            if ($extEvent->status == 0)
-                                echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
-                                    '<td>&nbsp;'.Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']).'</td>'.
-                                    '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
-                            else
+                            if ($extEvent->status == 0) {
+                                $sm = \app\models\work\SendMethodWork::find()->all();
+                                $items = \yii\helpers\ArrayHelper::map($sm, 'id', 'name');
+                                $params = [
+                                    'prompt' => '--',
+                                    'value' => $model->sendMethodArr[$c],
+                                ];
+                                //echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>' . $form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) . $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' . $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' . Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']) . '</td>' .
+                                    '<td>&nbsp;' . Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']) . '</td>' .
+                                    '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']) . '</td></tr>';
+                            }else
                                 echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            $c++;
                         }
                         echo '</table>';
                     }

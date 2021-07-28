@@ -43,13 +43,17 @@ class TrainingGroupWork extends TrainingGroup
 
     public $participant_id;
 
+    public $certificatArr = [];
+    public $sendMethodArr = [];
+    public $idArr = [];
+
 
     public function rules()
     {
         return [
             [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
             [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id'], 'integer'],
-            [['start_date', 'finish_date', 'schedule_type'], 'safe'],
+            [['start_date', 'finish_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr'], 'safe'],
             [['delArr'], 'each', 'rule' => ['boolean']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -538,6 +542,18 @@ class TrainingGroupWork extends TrainingGroup
                     $theme->teacher_id = $teachers[0]->teacher_id;
                     $theme->save(false);
                 }
+            }
+        }
+
+        //блок сохранения сертификатов через внутреннюю подформу
+        for ($i = 0; $i < count($this->idArr); $i++)
+        {
+            $cert = TrainingGroupParticipantWork::find()->where(['id' => $this->idArr[$i]])->one();
+            if ($this->sendMethodArr[$i] !== null && strlen($this->certificatArr[$i]) > 0)
+            {
+                $cert->send_method_id = $this->sendMethodArr[$i];
+                $cert->certificat_number = $this->certificatArr[$i];
+                $cert->save();
             }
         }
 

@@ -183,6 +183,15 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroupWork];
         $modelTeachers = [new TeacherGroupWork];
+        $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->where(['training_group_id' => $model->id])->all();
+        if ($extEvents != null)
+        {
+            foreach ($extEvents  as $extEvent) {
+                $model->certificatArr[] = $extEvent->certificat_number;
+                $model->sendMethodArr[] = $extEvent->send_method_id;
+                $model->idArr[] = $extEvent->id;
+            }
+        }
         $session = Yii::$app->session;
         if ($session->get("show") === null)
             $session->set("show", "common");
@@ -320,14 +329,8 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroupWork];
             $modelTeachers = [new TeacherGroupWork];
-            return $this->render('update', [
-                'model' => $group,
-                'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
-                'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
-                'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
-                'modelOrderGroup' => $modelOrderGroup,
-                'modelTeachers' => $modelTeachers,
-            ]);
+            return $this->redirect('index?r=training-group/update&id='.$model->training_group_id);
+
         }
         return $this->render('update-participant', [
             'model' => $model,
