@@ -157,7 +157,7 @@ class SiteController extends Controller
             {
                 $string = Yii::$app->security->generateRandomString(8);
                 Yii::$app->mailer->compose()
-                    ->setFrom('no-reply-schooltech@mail.ru')
+                    ->setFrom('noreply@schooltech.ru')
                     ->setTo($model->email)
                     ->setSubject('Восстановление пароля')
                     ->setTextBody($string)
