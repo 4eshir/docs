@@ -110,6 +110,11 @@ use yii\widgets\ActiveForm;
         if ($tmp != null) $value = true; else $value = false;
         ?>
         <?= $form->field($model, 'editEvent')->checkbox(['checked' => $value]) ?>
+        <?php
+        $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 18])->one();
+        $value = 0;
+        if ($tmp != null) $value = true; else $value = false;
+        ?>
         <?= $form->field($model, 'viewForeign')->checkbox(['checked' => $value]) ?>
         <?php
         $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 19])->one();
@@ -117,11 +122,6 @@ use yii\widgets\ActiveForm;
         if ($tmp != null) $value = true; else $value = false;
         ?>
         <?= $form->field($model, 'editForeign')->checkbox(['checked' => $value]) ?>
-        <?php
-        $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 16])->one();
-        $value = 0;
-        if ($tmp != null) $value = true; else $value = false;
-        ?>
         <?php
         $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 20])->one();
         $value = 0;
@@ -134,6 +134,11 @@ use yii\widgets\ActiveForm;
         if ($tmp != null) $value = true; else $value = false;
         ?>
         <?= $form->field($model, 'editProgram')->checkbox(['checked' => $value]) ?>
+        <?php
+        $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 16])->one();
+        $value = 0;
+        if ($tmp != null) $value = true; else $value = false;
+        ?>
         <?= $form->field($model, 'viewAdd')->checkbox(['checked' => $value]) ?>
         <?php
         $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 17])->one();
