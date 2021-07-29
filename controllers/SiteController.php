@@ -161,7 +161,7 @@ class SiteController extends Controller
                     ->setTo($model->email)
                     ->setSubject('Восстановление пароля')
                     ->setTextBody($string)
-                    ->setHtmlBody('Ваш новый пароль: '.$string)
+                    ->setHtmlBody('Вы запросили восстановление пароля в системе электронного документооборота ЦСХД (https://index.schooltech.ru/)<br>Ваш новый пароль: '.$string.'<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.')
                     ->send();
                 $user = UserWork::find()->where(['username' => $model->email])->one();
                 $user->password_hash = Yii::$app->security->generatePasswordHash($string);
