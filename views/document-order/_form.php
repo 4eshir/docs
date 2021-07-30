@@ -265,17 +265,20 @@ $session = Yii::$app->session;
         </div>
     </div>
 
-    <?php
-    /*
-    $value = false;
-    if ($session->get('type') === '1') $value = true;
+    <div style="display: none">
+        <?php
 
-    if ($model->order_date === null)
-        echo $form->field($model, 'type')->checkbox(['checked' => $value ? '' : null]);
-    else
-        echo $form->field($model, 'type')->checkbox();
-    */
-    ?>
+        $value = false;
+        if ($session->get('type') === '1') $value = true;
+
+        if ($model->order_date === null)
+            echo $form->field($model, 'type')->checkbox(['checked' => $value ? '' : null]);
+        else
+            echo $form->field($model, 'type')->checkbox();
+
+        ?>
+    </div>
+
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true])->label('Ключевые слова') ?>
 
