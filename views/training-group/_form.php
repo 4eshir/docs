@@ -13,6 +13,19 @@ use yii\jui\AutoComplete;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<script>
+    let is_data_changed = true;
+    window.onbeforeunload = function () {
+        return (is_data_changed ? "Измененные данные не сохранены. Закрыть страницу?" : null);
+    }
+
+    function clickSubmit()
+    {
+        is_data_changed = false;
+    }
+
+</script>
+
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
@@ -59,7 +72,7 @@ $session = Yii::$app->session;
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>ФИО педагога</b></td></tr>';
                     foreach ($teachers as $teacher) {
-                            echo '<tr><td><h5>'.$teacher->teacherWork->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            echo '<tr><td><h5>'.$teacher->teacherWork->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -132,7 +145,7 @@ $session = Yii::$app->session;
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>Номер и название приказа</b></td><td></td></tr>';
                     foreach ($orders as $order) {
-                        echo '<tr><td><h5>'.$order->documentOrderWork->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td><h5>'.$order->documentOrderWork->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -300,13 +313,13 @@ $session = Yii::$app->session;
                                     'value' => $model->sendMethodArr[$c],
                                 ];
                                 //echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
-                                echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>' . $form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) . $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' . $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' . Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']) . '</td>' .
-                                    '<td>&nbsp;' . Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']) . '</td>' .
-                                    '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']) . '</td></tr>';
+                                echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>' . $form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) . $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' . $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' . Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']) . '</td>' .
+                                    '<td>&nbsp;' . Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning', 'onclick' => 'clickSubmit()']) . '</td>' .
+                                    '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']) . '</td></tr>';
                             }else
-                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
-                                    '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
-                                    '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']).'</td>'.
+                                    '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success', 'onclick' => 'clickSubmit()']).'</td>'.
+                                    '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                             $c++;
                         }
                         echo '</table>';
@@ -444,7 +457,7 @@ $session = Yii::$app->session;
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
                                     '<td>'.$form->field($model, "delArr[]")->checkbox([], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
-                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
 
                             }
                             echo '</table>';
@@ -455,7 +468,7 @@ $session = Yii::$app->session;
                     if (count($extEvents) > 0)
                     {
                         echo '<div class="form-group" style="padding-left: 15px">';
-                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose', 'onclick' => 'clickSubmit()']);
                         echo '</div>';
                     }
                     ?>
@@ -564,7 +577,7 @@ $session = Yii::$app->session;
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
                                     '<td>'.$form->field($model, "delArr[]")->checkbox([], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
-                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
 
                             }
                             echo '</table>';
@@ -575,7 +588,7 @@ $session = Yii::$app->session;
                     if (count($extEvents) > 0)
                     {
                         echo '<div class="form-group" style="padding-left: 15px">';
-                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose', 'onclick' => 'clickSubmit()']);
                         echo '</div>';
                     }
                     ?>
@@ -674,7 +687,7 @@ $session = Yii::$app->session;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success', 'onclick' => 'clickSubmit()']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
