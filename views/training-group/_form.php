@@ -4,6 +4,7 @@ use kartik\depdrop\DepDrop;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use yii\jui\AutoComplete;
@@ -14,6 +15,8 @@ use yii\jui\AutoComplete;
 ?>
 
 <script>
+    let counter = 0;
+
     let is_data_changed = true;
     window.onbeforeunload = function () {
         return (is_data_changed ? "Измененные данные не сохранены. Закрыть страницу?" : null);
@@ -33,6 +36,11 @@ $js =<<< JS
         var elems = document.getElementsByClassName('def');
         elems[elems.length - 1].value = '10:00';
     });
+    $(".dynamicform_wrapper1").on("afterInsert", function(e, item) {
+            counter = counter + 1;
+            var elems1 = document.getElementsByClassName('part');
+            elems1[elems1.length - 1].id = 'participant_id' + counter;
+        });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
@@ -53,6 +61,8 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'budget')->checkbox() ?>
 
     <?php
+    $counterPhp = 0;
+
     $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($progs,'id','fullName');
     $params = [
@@ -364,25 +374,38 @@ $session = Yii::$app->session;
 
                                         <?php
 
-                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                        /*$people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                         $params = [
                                             'prompt' => '',
                                         ];
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
-                                        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
+                                        */
 
-                                        /*echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->widget(
+                                        // вот-тут новое поле с детьми
+
+
+                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", 'id as id'])->asArray()->all();
+
+                                        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_name")->widget(
                                             AutoComplete::className(), [
                                             'clientOptions' => [
                                                 'source' => $people,
+                                                'select' => new JsExpression("function( event, ui ) {
+                                                    $('#participant_id' + counter).val(ui.item.id);//#memberssearch-family_name_id is the id of hiddenInput.
+                                                 }"),
                                             ],
                                             'options'=>[
+
                                                 'class'=>'form-control'
                                             ]
-                                        ]);*/
+                                        ])->label('ФИО учащегося');
+
+                                        //echo Html::activeHiddenInput($modelTrainingGroupParticipantOne, "[{$i}]participant_id", ['id' => 'participant_id']);
 
                                         ?>
+
+                                        <input class="part" type="hidden" id="participant_id0" name="TrainingGroupParticipantWork[<?php echo $i; ?>][participant_id]">
 
 
                                     </div>
@@ -410,31 +433,6 @@ $session = Yii::$app->session;
             </div>
         </div>
     </div>
-
-<!-- где-то тут дети под номерами вываливаются -->
-        <?php
-/*
-        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['id as value', 'secondname as label'])
-            ->asArray()
-            ->all();
-        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-        $params = [
-            'prompt' => '',
-        ];
-        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
-        //echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->textInput(['class' => 'form-control bs-autocomplete', 'id'=>'ac-demo', 'data-hidden_field_id'=>"city-code", 'data-item_id'=>'id', 'data-item_label'=>'cityName', 'autocomplete' => 'off'])->label('ФИО учащегося');
-
-        /*echo $form->field($model, "participant_id")->widget(
-            AutoComplete::className(), [
-            'clientOptions' => [
-                'source' => $people,
-            ],
-            'options'=>[
-                'class'=>'form-control'
-            ]
-        ]);*/
-
-        ?>
 
     <div id="schedule" <?php echo $session->get("show") === "schedule" ? '' : 'hidden'; ?>>
 
@@ -671,7 +669,6 @@ $session = Yii::$app->session;
                                             ];
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]auds")->dropDownList([], $params)->label('Помещение'); ?>
                                         </div>
-
 
                                     </div>
                                 </div>

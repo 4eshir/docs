@@ -25,6 +25,7 @@ use yii\queue\db\Queue;
 
 class TrainingGroupWork extends TrainingGroup
 {
+
     public $photosFile;
     public $presentDataFile;
     public $workDataFile;

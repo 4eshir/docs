@@ -15,6 +15,7 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
 {
     public $similar = [];
 
+
     public function rules()
     {
         return [
@@ -27,6 +28,11 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
     public function getFullName()
     {
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+    }
+
+    public function getFullNameAndBirthday()
+    {
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic . ' (Дата рождения: ' . $this->birthdate . ')';
     }
 
     public function getShortName()
