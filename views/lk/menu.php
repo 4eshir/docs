@@ -59,13 +59,17 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </style>
 
+<script>
+
+</script>
+
 <div class="local-responsibility-view col-xs-4">
     <div class="widget">
         <ul class="category-wrap">
-            <li><a href="<?php echo \yii\helpers\Url::to(['/lk/trouble']) ?>">Проблемы</a></li>
-            <?php
-            echo '<li><a href="/index.php?r=lk%2Fchange-password&id='.Yii::$app->user->identity->getId().' tabindex="-1">Сменить пароль</a></li>';
-            ?>
+            <?php $curIndex = Yii::$app->session->get('lk-index') ?>
+            <li <?php if($curIndex === 1) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]) ?>">Профиль</a></li>
+            <li <?php if($curIndex === 2) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/trouble', 'id' => Yii::$app->user->identity->getId()]) ?>">Проблемы</a></li>
+            <li <?php if($curIndex === 3) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/change-password', 'id' => Yii::$app->user->identity->getId()]) ?>">Проблемы</a></li>
         </ul>
     </div>
 </div>

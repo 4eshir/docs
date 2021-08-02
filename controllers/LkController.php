@@ -39,13 +39,24 @@ class LkController extends Controller
      * Lists all LocalResponsibility models.
      * @return mixed
      */
-    public function actionTrouble()
+    public function actionTrouble($id)
     {
+        Yii::$app->session->set('lk-index', 2);
         return $this->render('trouble');
+    }
+
+    public function actionInfo($id)
+    {
+        Yii::$app->session->set('lk-index', 1);
+        $model = UserWork::find()->where(['id' => $id])->one();
+        return $this->render('info', [
+            'model' => $model,
+        ]);
     }
 
     public function actionChangePassword($id)
     {
+        Yii::$app->session->set('lk-index', 3);
         $model = UserWork::find()->where(['id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validatePassword($model->oldPass)) {
