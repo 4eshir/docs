@@ -1,13 +1,5 @@
 <?php
-
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\work\LocalResponsibilityWork */
-
-//$this->title = $model->people->secondname.' '.$model->responsibilityType->name;
-$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => ['trouble']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -55,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
         transition: .3s linear;
     }
     .category-wrap a:after {
-        content:"\f18e";
         font-family: FontAwesome;
         position: absolute;
         right: 5px;
@@ -64,32 +55,17 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     .category-wrap a:hover {
         background: #ADD8E6;
-        color: white;
+        color: black;
     }
 </style>
 
-<div>
-    <div class="local-responsibility-view col-xs-4">
-        <div class="widget">
-            <ul class="category-wrap">
-                <li><a href="">Уведомления</a></li>
-                <?php
-                echo '<li><a href="/index.php?r=user%2Fchange-password&id='.Yii::$app->user->identity->getId().' tabindex="-1">Сменить пароль</a></li>';
-                ?>
-            </ul>
-        </div>
-    </div>
-    <div class="content-container col-xs-8">
-        <table class="table table-bordered">
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+<div class="local-responsibility-view col-xs-4">
+    <div class="widget">
+        <ul class="category-wrap">
+            <li><a href="/index.php?r=lk%2Ftrouble">Проблемы</a></li>
+            <?php
+            echo '<li><a href="/index.php?r=lk%2Fchange-password&id='.Yii::$app->user->identity->getId().' tabindex="-1">Сменить пароль</a></li>';
+            ?>
+        </ul>
     </div>
 </div>
-

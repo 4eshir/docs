@@ -8,10 +8,11 @@ use yii\widgets\ActiveForm;
 
 ?>
 <div class="change-password">
+    <?= $this->render('menu') ?>
+    <div class="content-container col-xs-8">
+        <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'oldPass')->textInput() ?>
         <?= $form->field($model, 'newPass')->textInput() ?>
@@ -20,5 +21,7 @@ use yii\widgets\ActiveForm;
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         </div>
 
-    <?php $form = ActiveForm::end(); ?>
+        <?php $form = ActiveForm::end(); ?>
+    </div>
+
 </div>

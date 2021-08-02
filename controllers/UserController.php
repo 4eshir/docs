@@ -169,25 +169,7 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionChangePassword($id)
-    {
-        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validatePassword($model->oldPass)) {
-            if (!$model->validatePassword($model->oldPass))
-                Yii::$app->session->addFlash('danger', 'Неверный старый пароль!');
-            else {
-
-                $model->setPassword($model->newPass);
-                $model->save();
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пароль пользователя '.$model->username);
-                Yii::$app->user->logout();
-                Yii::$app->session->addFlash('success', 'Пароль успешно изменен. Пожалуйста, войдите в систему с новым паролем.');
-                return $this->redirect(['/site/login']);
-            }
-        }
-        return $this->render('change-password', ['model' => $model]);
-    }
 
     /**
      * Finds the User model based on its primary key value.

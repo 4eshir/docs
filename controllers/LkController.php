@@ -6,6 +6,7 @@ use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\LegacyResponsibleWork;
 use app\models\components\Logger;
+use app\models\work\UserWork;
 use Yii;
 use app\models\work\LocalResponsibilityWork;
 use app\models\SearchLocalResponsibility;
@@ -38,9 +39,29 @@ class LkController extends Controller
      * Lists all LocalResponsibility models.
      * @return mixed
      */
-    public function actionLkMain()
+    public function actionTrouble()
     {
-        return $this->render('lk-main');
+        return $this->render('trouble');
+    }
+
+    public function actionChangePassword($id)
+    {
+        $model = UserWork::find()->where(['id' => $id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validatePassword($model->oldPass)) {
+            if (!$model->validatePassword($model->oldPass))
+                Yii::$app->session->addFlash('danger', 'Неверный старый пароль!');
+            else {
+
+                $model->setPassword($model->newPass);
+                $model->save();
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пароль пользователя '.$model->username);
+                Yii::$app->user->logout();
+                Yii::$app->session->addFlash('success', 'Пароль успешно изменен. Пожалуйста, войдите в систему с новым паролем.');
+                return $this->redirect(['/site/login']);
+            }
+        }
+        return $this->render('change-password', ['model' => $model]);
     }
 
     /**

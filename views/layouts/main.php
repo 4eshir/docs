@@ -114,7 +114,7 @@ AppAsset::register($this);
                 ) : (
                     '<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Личный кабинет<span class="caret"></span></a>'
                     .'<ul id="w10" class="dropdown-menu">'
-                    .'<li><a href="/index.php?r=lk%2Flk-main" tabindex="-1">Личный кабинет</a></li>'
+                    .'<li><a href="/index.php?r=lk%2Ftrouble" tabindex="-1">Личный кабинет</a></li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
                         'Выйти (' . Yii::$app->user->identity->username . ')',
