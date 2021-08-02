@@ -44,7 +44,7 @@ class SearchForeignEventParticipants extends ForeignEventParticipantsWork
         if ($sort == 1)
         {
             $str = "SELECT * FROM `foreign_event_participants` WHERE `is_true` <> 1 AND (`guaranted_true` IS NULL OR `guaranted_true` = 0) ORDER BY `secondname`";
-            $query = ForeignEventParticipants::findBySql($str);
+            $query = ForeignEventParticipantsWork::findBySql($str);
         }
 
         // add conditions that should always apply here

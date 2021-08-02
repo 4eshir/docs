@@ -30,7 +30,7 @@ class TrainingProgramWork extends TrainingProgram
     public function rules()
     {
         return [
-            [['name', 'author_id', 'focus', 'hour_capacity'], 'required'],
+            [['name', 'author_id', 'focus', 'hour_capacity', 'capacity'], 'required'],
             [['ped_council_date'], 'safe'],
             [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],

@@ -58,7 +58,6 @@ $session = Yii::$app->session;
 
     $branch = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
-
     echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
 
     ?>

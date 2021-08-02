@@ -26,7 +26,6 @@ class DocumentOrderWork extends DocumentOrder
 
     public $allResp;
 
-    public $nomenclature_id;
     public $nomenclature_number;
 
 
