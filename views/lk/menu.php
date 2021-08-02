@@ -41,8 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     .category-wrap a {
         text-decoration: none;
         display: block;
-        font-size: 18px;
-        font-family: "Helvetica Neue";
+        font-size: 15px;
         color: black;
         padding: 5px;
         position: relative;
@@ -71,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $curIndex = Yii::$app->session->get('lk-index') ?>
             <li <?php if($curIndex === 1) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]) ?>">Профиль</a></li>
             <li <?php if($curIndex === 2) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/trouble', 'id' => Yii::$app->user->identity->getId()]) ?>">Проблемы</a></li>
-            <li <?php if($curIndex === 3) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/change-password', 'id' => Yii::$app->user->identity->getId()]) ?>">Проблемы</a></li>
+            <li <?php if($curIndex === 3) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/change-password', 'id' => Yii::$app->user->identity->getId()]) ?>">Изменить пароль</a></li>
         </ul>
     </div>
 </div>
