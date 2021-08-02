@@ -102,10 +102,7 @@ AppAsset::register($this);
                     ['label' => 'Отделы', 'url' => ['/branch/index']],
                     ['label' => 'Помещения', 'url' => ['/auditorium/index']],
                     ['label' => 'Виды ответственности', 'url' => ['/responsibility-type/index']],
-                ]],
-                ['label' => 'Пользователи', 'items' => [
                     ['label' => 'Список пользователей', 'url' => ['/user/index']],
-                    ['label' => 'Сменить пароль', 'url' => ['/user/change-password', 'id' => Yii::$app->user->identity->getId()]]
                 ]],
                 Yii::$app->user->identity->getId() == 1 || Yii::$app->user->identity->getId() == 31 ? (
                 ['label' => 'Обратная связь', 'url' => ['/site/feedback-answer']]
@@ -115,14 +112,17 @@ AppAsset::register($this);
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (
-                    '<li>'
+                    '<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Личный кабинет<span class="caret"></span></a>'
+                    .'<ul id="w10" class="dropdown-menu">'
+                    .'<li><a href="/index.php?r=lk%2Flk-main" tabindex="-1">Личный кабинет</a></li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
                         'Выйти (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-link logout']
+                        ['class' => 'btn']
                     )
                     . Html::endForm()
-                    . '</li>'
+                    . '</ul>'
+                    .'</li>'
                 )
             ],
         ]);

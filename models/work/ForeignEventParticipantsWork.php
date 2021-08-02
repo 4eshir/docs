@@ -116,8 +116,10 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
         $parts = ForeignEventParticipants::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC, 'patronymic' => SORT_ASC])->all();
         for ($i = 0; $i !== count($parts) - 1; $i++)
         {
+
             if ($parts[$i]->secondname == $parts[$i + 1]->secondname && $parts[$i]->firstname == $parts[$i + 1]->firstname && $parts[$i]->patronymic == $parts[$i + 1]->patronymic)
             {
+                $parts[$i]->guaranted_true = 0;
                 $parts[$i]->is_true = 0;
                 $parts[$i + 1]->is_true = 0;
                 $parts[$i]->save();
