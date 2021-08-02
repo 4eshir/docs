@@ -1,4 +1,6 @@
 <?php
+$user = \app\models\work\UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+$this->title = $user->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => ['trouble']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

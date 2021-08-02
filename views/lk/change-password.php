@@ -10,7 +10,6 @@ use yii\widgets\ActiveForm;
 <div class="change-password">
     <?= $this->render('menu') ?>
     <div class="content-container col-xs-8">
-        <h1><?= Html::encode($this->title) ?></h1>
 
         <?php $form = ActiveForm::begin(); ?>
 
