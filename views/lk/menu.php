@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="local-responsibility-view col-xs-4">
     <div class="widget">
         <ul class="category-wrap">
-            <li><a href="/index.php?r=lk%2Ftrouble">Проблемы</a></li>
+            <li><a href="<?php echo \yii\helpers\Url::to(['/lk/trouble']) ?>">Проблемы</a></li>
             <?php
             echo '<li><a href="/index.php?r=lk%2Fchange-password&id='.Yii::$app->user->identity->getId().' tabindex="-1">Сменить пароль</a></li>';
             ?>
