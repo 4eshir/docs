@@ -386,18 +386,17 @@ $session = Yii::$app->session;
 
                                         <?php
 
-                                        /*$people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                         $params = [
                                             'prompt' => '',
                                         ];
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
-                                        */
+
 
                                         // вот-тут новое поле с детьми
 
-
-                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->asArray()->all();
+                                        /*$people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->asArray()->all();
 
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_name")->widget(
                                             AutoComplete::className(), [
@@ -408,17 +407,16 @@ $session = Yii::$app->session;
                                                  }"),
                                             ],
                                             'options'=>[
-
                                                 'class'=>'form-control'
                                             ]
                                         ])->label('ФИО учащегося');
-
+                                        */
                                         //echo Html::activeHiddenInput($modelTrainingGroupParticipantOne, "[{$i}]participant_id", ['id' => 'participant_id']);
 
+
+
+                                        /*<input class="part" type="hidden" id="participant_id0" name="TrainingGroupParticipantWork[ <?php echo $i; ?>][participant_id]">*/
                                         ?>
-
-                                        <input class="part" type="hidden" id="participant_id0" name="TrainingGroupParticipantWork[<?php echo $i; ?>][participant_id]">
-
 
                                     </div>
                                     <div class="col-xs-4">
@@ -734,4 +732,35 @@ $session = Yii::$app->session;
             $("#manualSchedule").attr("hidden", "true");
         }
     }
+</script>
+
+<script>
+    $(document).on("focus",".on",function(e) {
+        console.log($(this));
+        if ( !$(this).data("autocomplete") ) {
+            e.preventDefault();
+            $(this).autocomplete({
+                source: <?php echo $people; ?>
+            }).trigger("focus");
+            return false;
+        }
+    });
+
+    setTimeout(function() {
+        $("#target")
+            .append('<span>live:</span>')
+            .append('<input class="live"/>')
+            .append('<span>on:</span>')
+            .append('<input class="on"/>');
+    },1000);
+
+    var count = 0;
+    $("#clone").click(function() {
+        var newid = "cloned_" + (count++);
+        var clone = $(".on:eq(0)")
+            .clone()
+            .attr("id",newid) // Necessary with clone
+            .val("") // Clear the value
+            .appendTo(target);
+    });
 </script>

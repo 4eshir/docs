@@ -156,7 +156,7 @@ class ForeignEventWork extends ForeignEvent
 
     public function getEscort()
     {
-        return People::find()->where(['id' => $this->escort_id])->one();
+        return PeopleWork::find()->where(['id' => $this->escort_id])->one();
     }
 
     public function getParticipantCount()
