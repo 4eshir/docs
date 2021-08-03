@@ -385,7 +385,7 @@ $session = Yii::$app->session;
                                         // вот-тут новое поле с детьми
 
 
-                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label", 'id as id'])->asArray()->all();
+                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->asArray()->all();
 
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_name")->widget(
                                             AutoComplete::className(), [
