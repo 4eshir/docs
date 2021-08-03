@@ -376,6 +376,10 @@ class TrainingGroupWork extends TrainingGroup
                 if ($oneDel !== "0")
                 {
                     $lesson = TrainingGroupLessonWork::find()->where(['id' => $oneDel])->one();
+                    $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+                    $visits = Visit::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+                    foreach ($themes as $theme) $theme->delete();
+                    foreach ($visits as $visit) $visit->delete();
                     if ($lesson !== null)
                         $lesson->delete();
                 }
