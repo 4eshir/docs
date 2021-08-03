@@ -27,6 +27,18 @@ use yii\jui\AutoComplete;
         is_data_changed = false;
     }
 
+    function allCheck()
+    {
+        var elems = document.getElementsByClassName('check');
+        for (var c = 0; c !== elems.length; c++)
+        {
+            if (elems[c].checked === false)
+                elems[c].checked = true;
+            else
+                elems[c].checked = false;
+        }
+    }
+
 </script>
 
 <?php
@@ -450,13 +462,12 @@ $session = Yii::$app->session;
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
-                            echo '<tr><td></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td><input type="checkbox" id="checker0" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
-                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
-                                    //'<td>'.$form->field($model, 'delArr[]')->textInput([]).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'form-control check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                                 $counter++;
                             }
@@ -572,13 +583,14 @@ $session = Yii::$app->session;
                         if ($extEvents != null)
                         {
                             echo '<table class="table table-bordered">';
-                            echo '<tr><td></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td><input type="checkbox" id="checker1" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            $counter = 0;
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
-                                    '<td>'.$form->field($model, "delArr[]")->checkbox([], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'form-control check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickSubmit()']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
-
+                                $counter++;
                             }
                             echo '</table>';
                         }
