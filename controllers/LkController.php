@@ -63,7 +63,6 @@ class LkController extends Controller
             if (!$model->validatePassword($model->oldPass))
                 Yii::$app->session->addFlash('danger', 'Неверный старый пароль!');
             else {
-
                 $model->setPassword($model->newPass);
                 $model->save();
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пароль пользователя '.$model->username);

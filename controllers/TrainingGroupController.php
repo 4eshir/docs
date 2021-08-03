@@ -113,6 +113,7 @@ class TrainingGroupController extends Controller
         $modelTeachers = [new TeacherGroupWork];
 
         if ($model->load(Yii::$app->request->post())) {
+
             $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
