@@ -5,6 +5,8 @@ namespace app\models;
 use app\models\common\BranchProgram;
 use app\models\common\TeacherGroup;
 use app\models\common\TeacherParticipant;
+use app\models\common\TrainingGroup;
+use app\models\common\User;
 use app\models\work\BranchProgramWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\UserWork;
@@ -53,8 +55,7 @@ class SearchTrainingGroup extends TrainingGroupWork
      */
     public function search($params)
     {
-        $query = TrainingGroupWork::find();
-        //var_dump($params ["SearchTrainingGroup"]["branchId"]);
+        /*
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
         $branchs = BranchProgramWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->all();
@@ -119,10 +120,35 @@ class SearchTrainingGroup extends TrainingGroupWork
 
                 $groups = TrainingGroupWork::find()->andWhere(['in', 'training_group.id', $teachers_id]);
             }
+        } */
+
+        $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+        $newGroups_id = [];
+        if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 23)) //доступ на редактирование ВСЕХ групп
+        {
+            $groups = TrainingGroupWork::find()->all();
+            foreach ($groups as $group) $newGroups_id[] = $group->id;
+        }
+        else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 25)) //доступ на редактирование групп СВОЕГО ОТДЕЛА
+        {
+            $branchs = \app\models\common\PeoplePositionBranch::find()->select('branch_id')->distinct()->where(['people_id' => $user->aka])->all();
+            if ($branchs !== null)
+            {
+                $branchs_id = [];
+                foreach ($branchs as $branch) $branchs_id[] = $branch->branch_id;
+                $groups_id = \app\models\common\TrainingGroupLesson::find()->select('training_group_id')->distinct()->where(['in', 'branch_id', $branchs_id])->all();
+
+                $newGroups_id = [];
+                foreach ($groups_id as $group) $newGroups_id[] = $group->training_group_id;
+            }
         }
 
+        $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
+        foreach ($teachers as $teacher) $newGroups_id[] = $teacher->training_group_id;
+
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
-        $query = $groups;
+        $query = TrainingGroupWork::find()->where(['in', 'training_group.id', $newGroups_id]);
         $query->joinWith(['trainingProgram trainingProgram']);
 
         // add conditions that should always apply here

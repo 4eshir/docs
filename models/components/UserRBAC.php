@@ -129,7 +129,6 @@ class UserRBAC
         }
 
         $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
-
         foreach ($teachers as $teacher) $newGroups_id[] = $teacher->training_group_id;
 
         return in_array($group_id, $newGroups_id);
