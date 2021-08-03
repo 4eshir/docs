@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\work\TeacherParticipantWork */
 
-$this->title = 'Редактировать: ' . $model->participant->fullName;
+$this->title = 'Редактировать: ' . $model->participantWork->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->participant->fullName, 'url' => ['foreign-event-participants/view', 'id' => $model->participant_id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
