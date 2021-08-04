@@ -49,10 +49,10 @@ $js =<<< JS
         elems[elems.length - 1].value = '10:00';
     });
     $(".dynamicform_wrapper1").on("afterInsert", function(e, item) {
-            counter = counter + 1;
-            var elems1 = document.getElementsByClassName('part');
-            elems1[elems1.length - 1].id = 'participant_id' + counter;
-        });
+        counter = counter + 1;
+        var elems1 = document.getElementsByClassName('part');
+        elems1[elems1.length - 1].id = 'participant_id' + counter;
+    });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
@@ -407,7 +407,7 @@ $session = Yii::$app->session;
                                                  }"),
                                             ],
                                             'options'=>[
-                                                'class'=>'form-control on'
+                                                'class'=>'form-control on',
                                             ]
                                         ])->label('ФИО учащегося');
 
@@ -415,7 +415,7 @@ $session = Yii::$app->session;
 
                                         ?>
 
-                                        <input class="part" type="hidden" id="participant_id0" name="TrainingGroupParticipantWork[ <?php echo $i; ?>][participant_id]">
+                                        <input class="part" type="hidden" id="participant_id0" name="TrainingGroupParticipantWork[<?php echo $i; ?>][participant_id]">
 
 
                                     </div>
@@ -735,17 +735,21 @@ $session = Yii::$app->session;
 </script>
 
 <?php
-    $js =<<< JS
-        $(".dynamicform_wrapper1").on("click" ,function(e) {
-            alert("[eeeeeeeeeq");
-            console.log($(this));
-            if ( !$(this).data("autocomplete") ) {
-                e.preventDefault();
-                $(this).autocomplete({
-                    source: $people;
-                }).trigger("focus");
-                return false;
+
+    $children = json_encode($people);
+
+$js =<<< JS
+    $(".dynamicform_wrapper1").on("click", ".on", function(e) {
+      if ( !$(this).data("autocomplete") ) {
+          e.preventDefault();
+          $(this).autocomplete({
+            source: $children,
+            select: function( event, ui ) {
+                $('#participant_id' + counter).val(ui.item.id);
             }
-        });
+          });
+      }
+    })
 JS;
+$this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
