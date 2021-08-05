@@ -156,6 +156,8 @@ class TrainingGroupWork extends TrainingGroup
             $result .= Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
             if ($part->status == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
+            else
+                $result .= ' Сертификат № ' . $part->certificat_number;
             $result .= '<br>';
         }
         return $result;

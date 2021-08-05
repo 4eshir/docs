@@ -386,16 +386,6 @@ $session = Yii::$app->session;
 
                                         <?php
 
-                                        /*$people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
-                                        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-                                        $params = [
-                                            'prompt' => '',
-                                        ];
-                                        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_id")->dropDownList($items,$params)->label('ФИО учащегося');
-                                        */
-
-                                        // вот-тут новое поле с детьми
-
                                         $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->asArray()->all();
 
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_name")->widget(
@@ -410,8 +400,6 @@ $session = Yii::$app->session;
                                                 'class'=>'form-control on',
                                             ]
                                         ])->label('ФИО учащегося');
-
-                                        //echo Html::activeHiddenInput($modelTrainingGroupParticipantOne, "[{$i}]participant_id", ['id' => 'participant_id']);
 
                                         ?>
 
