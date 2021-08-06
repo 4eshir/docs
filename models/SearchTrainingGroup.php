@@ -55,7 +55,7 @@ class SearchTrainingGroup extends TrainingGroupWork
      */
     public function search($params)
     {
-        /*
+
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
         $branchs = BranchProgramWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->all();
@@ -66,6 +66,16 @@ class SearchTrainingGroup extends TrainingGroupWork
             $idsB[] = $branch->training_program_id;
         foreach ($teachers as $teacher)
             $idsTG[] = $teacher->training_group_id;
+
+        if (count($branchs) > 0 && count($teachers) > 0)
+            $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $idsTG]);
+        else if (count($teachers) > 0)
+            $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG]);
+        else if (count($branchs) > 0)
+            $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB]);
+
+        /*
+
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
             if (count($branchs) > 0 && count($teachers) > 0)
@@ -123,11 +133,19 @@ class SearchTrainingGroup extends TrainingGroupWork
         } */
 
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+        //$groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
         $newGroups_id = [];
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 23)) //доступ на редактирование ВСЕХ групп
         {
-            $groups = TrainingGroupWork::find()->all();
+            if (count($branchs) > 0 && count($teachers) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB])->andWhere(['in', 'training_group.id', $idsTG]);
+            else if (count($teachers) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG]);
+            else if (count($branchs) > 0)
+                $groups = TrainingGroupWork::find()->where(['in', 'training_program_id', $idsB]);
+            else
+                $groups = TrainingGroupWork::find()->all();
+
             foreach ($groups as $group) $newGroups_id[] = $group->id;
         }
         else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 25)) //доступ на редактирование групп СВОЕГО ОТДЕЛА
@@ -146,6 +164,7 @@ class SearchTrainingGroup extends TrainingGroupWork
 
         $teachers = \app\models\common\TeacherGroup::find()->select('training_group_id')->distinct()->where(['teacher_id' => $user->aka])->all();
         foreach ($teachers as $teacher) $newGroups_id[] = $teacher->training_group_id;
+
 
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
         $query = TrainingGroupWork::find()->where(['in', 'training_group.id', $newGroups_id]);

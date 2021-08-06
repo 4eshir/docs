@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchTrainingProgram */
@@ -19,12 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php $form = ActiveForm::begin(['action'=>['saver'], 'method'=>"post"]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            if ($data['actual'] === 1)
+                return ['class' => 'success'];
+            else
+                return ['class' => 'default'];
+        },
         'columns' => [
-
+            ['class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+                return $model->actual === 1 ? ['checked' => 'true'] : [];
+            },],
             'name',
             ['attribute' => 'ped_council_date', 'label' => 'Дата пед. сов.'],
             ['attribute' => 'ped_council_number', 'label' => '№ пед. сов.'],
@@ -37,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+    <?= Html::submitButton('Сохранить актуальность программ', ['class' => 'btn btn-primary']) ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

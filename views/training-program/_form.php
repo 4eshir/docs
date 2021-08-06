@@ -247,6 +247,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'actual')->checkbox(); ?>
+
     <?= $form->field($model, 'docFile')->fileInput() ?>
     <?php
     if (strlen($model->doc_file) > 2)

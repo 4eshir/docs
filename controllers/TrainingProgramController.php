@@ -196,6 +196,26 @@ class TrainingProgramController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionSaver()
+    {
+        $checks = Yii::$app->request->post('selection');
+        $allTps = TrainingProgramWork::find()->all();
+        foreach ($allTps as $allTp)
+        {
+            $allTp->actual = 0;
+            $allTp->save(false);
+        }
+        if ($checks !== null)
+            foreach ($checks as $check)
+            {
+                $tp = TrainingProgramWork::find()->where(['id' => $check])->one();
+                $tp->actual = 1;
+                $tp->save(false);
+
+            }
+        return $this->redirect(['/training-program/index']);
+    }
+
     /**
      * Finds the TrainingProgram model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

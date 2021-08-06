@@ -40,7 +40,7 @@ class SearchTrainingProgram extends TrainingProgramWork
      */
     public function search($params)
     {
-        $query = TrainingProgramWork::find();
+        $query = TrainingProgramWork::find()->orderBy(['actual' => SORT_DESC]);
 
         // add conditions that should always apply here
 
