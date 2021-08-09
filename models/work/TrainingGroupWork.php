@@ -53,7 +53,7 @@ class TrainingGroupWork extends TrainingGroup
     {
         return [
             [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
@@ -94,6 +94,8 @@ class TrainingGroupWork extends TrainingGroup
             'budget' => 'Бюджет',
             'fileParticipants' => 'Загрузить учащихся из файла',
             'teachersList' => 'Педагог(-и)',
+            'branch_id' => 'Отдел производящий учёт',
+            'order_status' => 'Статус добавления приказов',
         ];
     }
 
@@ -215,6 +217,13 @@ class TrainingGroupWork extends TrainingGroup
         {
             $result .= Html::a($order->documentOrder->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->documentOrder->id])).'<br>';
         }
+        return $result;
+    }
+
+    public function getBranchWork()
+    {
+        $branch =  BranchWork::find()->where(['id' => $this->branch_id])->one();
+        $result = Html::a($branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->id]));
         return $result;
     }
 

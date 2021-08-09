@@ -70,7 +70,16 @@ $session = Yii::$app->session;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div id="common" <?php echo $session->get("show") === "common" ? '' : 'hidden'; ?>>
-    <?= $form->field($model, 'budget')->checkbox() ?>
+
+        <?php
+        $branch = \app\models\work\BranchWork::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+        $params = [
+        ];
+        echo $form->field($model, 'branch_id')->dropDownList($items,$params);
+        ?>
+
+        <?= $form->field($model, 'budget')->checkbox() ?>
 
     <?php
     $counterPhp = 0;
