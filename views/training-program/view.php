@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             'key_words',
-            ['attribute' => function($model) {return $model->actual == 0 ? 'Нет' : 'Да';}, 'label' => 'Актуальность программы'],
+            ['attribute' => function($model) {return $model->actual == 0 ? 'Нет' : 'Да';}, 'label' => 'Образовательная программа актуальна'],
         ],
     ]) ?>
 
