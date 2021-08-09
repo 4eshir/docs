@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-
+            ['attribute' => 'branchWork', 'label' => 'Отдел производящий учет', 'format' => 'html'],
             'number',
             ['attribute' => 'budgetText', 'label' => 'Форма обучения'],
             ['attribute' => 'programName', 'format' => 'html'],
