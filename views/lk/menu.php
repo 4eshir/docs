@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </script>
 
-<div class="local-responsibility-view col-xs-3">
+<div class="local-responsibility-view col-xs-6">
     <div class="widget">
         <ul class="category-wrap">
             <?php $curIndex = Yii::$app->session->get('lk-index') ?>
