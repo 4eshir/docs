@@ -695,18 +695,21 @@ $session = Yii::$app->session;
 <script>
     function checkSchedule()
     {
+
         var elems = document.getElementsByClassName('check');
         for (var c = 0; c !== elems.length; c++)
         {
             elems[c].checked = false;
         }
+
         var checker = document.getElementById('checker0');
-        checker.checked = false;
+        if (checker !== null)
+            checker.checked = false;
         checker = document.getElementById('checker1');
-        checker.checked = false;
+        if (checker !== null)
+            checker.checked = false;
 
         var radioList = document.getElementsByName('scheduleType');
-
         if (radioList[1].checked)
         {
             document.getElementsByClassName("selectDayClass").value = null;

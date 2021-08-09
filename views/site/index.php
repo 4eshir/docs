@@ -7,14 +7,214 @@ use yii\helpers\Html;
 $this->title = 'ЦСХД';
 
 ?>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .portfolio-wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .portfolio-item {
+        padding: 10px;
+    }
+    .portfolio-item a {
+        display: block;
+        text-decoration: none;
+        color: white;
+    }
+    .portfolio-item-wrap {
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+        background: black;
+        color: white;
+    }
+    .portfolio-item img {
+        display: block;
+        width: 100%;
+        opacity: .75;
+        transition: .5s ease-in-out;
+    }
+    .portfolio-item-inner {
+        position: absolute;
+        top: 45%;
+        left: 7%;
+        right: 7%;
+        bottom: 45%;
+        border: 1px solid white;
+        border-width: 0 1px 1px;
+        transition: .4s ease-in-out;
+    }
+    .portfolio-heading {
+        overflow: hidden;
+        transform: translateY(-50%);
+    }
+    .portfolio-heading h3 {
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: normal;
+        display: table;
+        margin: 0 auto;
+        padding: 0 10px 20px 10px;
+        position: relative;
+    }
+    .portfolio-heading h3:before, .portfolio-heading h3:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 1px;
+        background: white;
+    }
+    .portfolio-heading h3:before {
+        left: -50px;
+    }
+    .portfolio-heading h3:after {
+        right: -50px;
+    }
+    .portfolio-item-inner ul {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+        padding: 0 20px;
+        opacity: 0;
+        list-style: none;
+        font-family: 'Raleway', sans-serif;
+        transition: .4s ease-in-out;
+    }
+    .portfolio-item-inner li {
+        position: relative;
+        font-size: 16px;
+        padding: 2px 0;
+        margin-bottom: 4px;
+    }
+
+    .portfolio-item-inner li:last-child:after {
+        content: none;
+    }
+    .portfolio-item:hover img {
+        opacity: 0.45;
+        transform: scale(1.1);
+    }
+    .portfolio-item:hover .portfolio-item-inner {
+        top: 7%;
+        bottom: 7%;
+    }
+    .portfolio-item:hover ul {
+        opacity: 1;
+        transition-delay: .5s;
+    }
+    @media (min-width: 530px) {
+        .portfolio-item {
+            flex-basis: 50%;
+            flex-shrink: 0;
+        }
+    }
+    @media (min-width: 768px) {
+        .portfolio-item {
+            flex-basis: 33.333333333%;
+        }
+    }
+</style>
+
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h2><b>Добро пожаловать в систему!</b></h2>
+    <div class="portfolio-wrap">
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Документооборот</b></h3>
+                        </div>
+                        <ul>
+                            <li><?php echo Html::a('Исходящая документация', \yii\helpers\Url::to(['docs-out/index'])) ?></li>
+                            <li><?php echo Html::a('Входящая документация', \yii\helpers\Url::to(['document-in/index'])) ?></li>
+                            <li><?php echo Html::a('Приказы по осн. деятельности', \yii\helpers\Url::to(['document-order/index', 'c' => 1])) ?></li>
+                            <li><?php echo Html::a('Приказы по обр. деятельности', \yii\helpers\Url::to(['document-order/index', 'c' => 2])) ?></li>
+                            <li><?php echo Html::a('Положения, инструкции, правила', \yii\helpers\Url::to(['regulation/index', 'c' => 1])) ?></li>
+                            <li><?php echo Html::a('Положения о мероприятиях', \yii\helpers\Url::to(['regulation/index', 'c' => 2])) ?></li>
+                            <li><?php echo Html::a('Мероприятия', \yii\helpers\Url::to(['event/index'])) ?></li>
+                            <li><?php echo Html::a('Учет достижений в мероприятиях', \yii\helpers\Url::to(['foreign-event/index'])) ?></li>
+                            <li><?php echo Html::a('Образовательные программы', \yii\helpers\Url::to(['training-program/index'])) ?></li>
+                            <li><?php echo Html::a('Учет ответственности работников', \yii\helpers\Url::to(['local-responsibility/index'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
 
-        <p class="lead">Используйте меню навигации в верхней части экрана для доступа к элементам системы</p>
-        <?php //echo Html::a('Тык сюда', \yii\helpers\Url::to(['training-group/parse']), ['class' => 'btn btn-success']) ?>
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Эл. журнал</b></h3>
+                        </div>
+                        <ul>
+                            <li><?php echo Html::a('Учебные группы', \yii\helpers\Url::to(['training-group/index'])) ?></li>
+                            <li><?php echo Html::a('Журнал', \yii\helpers\Url::to(['journal/index'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Справочники</b></h3>
+                        </div>
+                        <ul>
+                            <li><?php echo Html::a('Организации', \yii\helpers\Url::to(['company/index'])) ?></li>
+                            <li><?php echo Html::a('Должности', \yii\helpers\Url::to(['position/index'])) ?></li>
+                            <li><?php echo Html::a('Люди', \yii\helpers\Url::to(['people/index'])) ?></li>
+                            <li><?php echo Html::a('Участники деятельности', \yii\helpers\Url::to(['foreign-event-participants/index'])) ?></li>
+                            <li><?php echo Html::a('Формы мероприятий', \yii\helpers\Url::to(['event-form/index'])) ?></li>
+                            <li><?php echo Html::a('Отчетные мероприятия', \yii\helpers\Url::to(['event-external/index'])) ?></li>
+                            <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
+                            <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
+                            <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
+                            <li><?php echo Html::a('список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Реестр ПО</b></h3>
+                        </div>
+                        <ul>
+                            <li><?php echo Html::a('База ПО', \yii\helpers\Url::to(['as-admin/index'])) ?></li>
+                            <li><?php echo Html::a('Страны', \yii\helpers\Url::to(['as-admin/index-country'])) ?></li>
+                            <li><?php echo Html::a('Типы ПО', \yii\helpers\Url::to(['as-admin/index-as-type'])) ?></li>
+                            <li><?php echo Html::a('Компании', \yii\helpers\Url::to(['as-admin/index-company'])) ?></li>
+                            <li><?php echo Html::a('Виды лицензий', \yii\helpers\Url::to(['as-admin/index-license'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </div>
-
 
 </div>
