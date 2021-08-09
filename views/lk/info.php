@@ -26,3 +26,4 @@ use yii\widgets\DetailView;
     </div>
 </div>
 
+</div>

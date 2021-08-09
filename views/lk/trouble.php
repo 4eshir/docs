@@ -26,4 +26,4 @@ use yii\widgets\DetailView;
         </table>
     </div>
 </div>
-
+</div>

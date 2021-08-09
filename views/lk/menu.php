@@ -64,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </script>
 
+<div>
 <div class="local-responsibility-view col-xs-3">
     <div class="widget">
         <ul class="category-wrap">
