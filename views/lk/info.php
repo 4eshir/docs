@@ -13,7 +13,7 @@ use yii\widgets\DetailView;
 <div>
     <?= $this->render('menu') ?>
 
-    <div class="content-container col-xs-8">
+    <div class="content-container col-xs-9">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
