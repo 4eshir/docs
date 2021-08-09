@@ -188,7 +188,22 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
                             <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
                             <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
-                            <li><?php echo Html::a('список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                            <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div>
+                        <div>
+                        </div>
+                        <ul>
+
                         </ul>
                     </div>
                 </a>
@@ -209,6 +224,21 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Типы ПО', \yii\helpers\Url::to(['as-admin/index-as-type'])) ?></li>
                             <li><?php echo Html::a('Компании', \yii\helpers\Url::to(['as-admin/index-company'])) ?></li>
                             <li><?php echo Html::a('Виды лицензий', \yii\helpers\Url::to(['as-admin/index-license'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="/images/main-back.jpg">
+                    <div>
+                        <div>
+                        </div>
+                        <ul>
+
                         </ul>
                     </div>
                 </a>

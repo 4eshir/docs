@@ -33,6 +33,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
     NavBar::begin([
         'brandLabel' => 'Главная',
         'brandUrl' => Yii::$app->homeUrl,
@@ -64,6 +65,7 @@ AppAsset::register($this);
     }
     else
     {
+        /*
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
@@ -122,7 +124,28 @@ AppAsset::register($this);
             ],
         ]);
         NavBar::end();
-
+        */
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                Yii::$app->user->identity->getId() == 1 || Yii::$app->user->identity->getId() == 31 ? (
+                ['label' => 'Обратная связь', 'url' => ['/site/feedback-answer']]
+                ) : (
+                ['label' => 'Обратная связь', 'url' => ['/site/feedback']]
+                ),
+                Yii::$app->user->isGuest ? (
+                ['label' => 'Войти', 'url' => ['/site/login']]
+                ) : (
+                    '<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Личный кабинет<span class="caret"></span></a>'
+                    .'<ul id="w10" class="dropdown-menu">'
+                    .'<li><a href="'.Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]).'" tabindex="-1">Личный кабинет ('.Yii::$app->user->identity->username.')</a></li>'
+                    .'<li><a href="'.Url::to(['/site/logout']).'" tabindex="-1" data-method="POST">Выйти</a></li>'
+                    . '</ul>'
+                    .'</li>'
+                )
+            ],
+        ]);
+        NavBar::end();
     }
     ?>
 
