@@ -1,8 +1,10 @@
 <?php
 
+use yii\helpers\Url;
 use yii\jui\DatePicker;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\DocumentOutWork */
@@ -36,32 +38,53 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'document_theme')->textInput(['maxlength' => true])->label('Тема документа') ?>
 
     <?php
-    $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+
     $params = [
         'prompt' => 'Выберите корреспондента',
-        'id' => 'corr',
+        'onchange' => '
+        $.post(
+            "' . Url::toRoute('subcat') . '", 
+            {id: $(this).val()}, 
+            function(res){
+                var resArr = res.split("|split|");
+                var elem = document.getElementsByClassName("pos");
+                elem[0].innerHTML = resArr[0];
+                elem = document.getElementsByClassName("com");
+                elem[0].innerHTML = resArr[1];
+            }
+        );
+    ',
     ];
-    echo $form->field($model, 'correspondent_id')->dropDownList($items,$params)->label('ФИО корреспондента');
+
+    $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+
+    echo $form->field($model, "correspondent_id")->dropDownList($items,$params)->label('ФИО корреспондента');
 
     ?>
-    <?php 
+    <?php
         if ($model->correspondent_id !== null)
         {
-            echo '<div id="corr_div1" hidden="true">';
-                $position = \app\models\work\PositionWork::find()->orderBy(['name' => SORT_ASC])->all();
+            echo '<div id="corr_div1">';
+                $position = \app\models\work\PeoplePositionBranchWork::find()->where(['people_id' => $model->correspondent_id])->all();
+                $pos_id = [];
+                foreach ($position as $posOne)
+                    $pos_id[] = $posOne->position_id;
+                $position = \app\models\work\PositionWork::find()->where(['in', 'id', $pos_id])->all();
                 $items = \yii\helpers\ArrayHelper::map($position,'id','name');
                 $params = [
                     'id' => 'position',
+                    'class' => 'form-control pos',
                 ];
                 echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
             echo '</div>';
 
-            echo '<div id="corr_div2" hidden="true">';
-                $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
+            echo '<div id="corr_div2">';
+                $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->all();
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
+                    'class' => 'form-control com',
                 ];
                 echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
             echo '</div>';
@@ -69,10 +92,11 @@ use yii\bootstrap\ActiveForm;
         else
         {
             echo '<div id="corr_div1">';
-                $position = \app\models\work\PositionWork::find()->orderBy(['name' => SORT_ASC])->all();
-                $items = \yii\helpers\ArrayHelper::map($position,'id','name');
+                $positions = \app\models\work\PositionWork::find()->orderBy(['name' => SORT_ASC])->all();
+                $items = \yii\helpers\ArrayHelper::map($positions,'id','name');
                 $params = [
                     'id' => 'position',
+                    'class' => 'form-control pos',
                 ];
                 echo $form->field($model, 'position_id')->dropDownList($items,$params)->label('Должность корреспондента (при наличии)');
             echo '</div>';
@@ -82,6 +106,7 @@ use yii\bootstrap\ActiveForm;
                 $items = \yii\helpers\ArrayHelper::map($company,'id','name');
                 $params = [
                     'id' => 'company',
+                    'class' => 'form-control com',
                 ];
                 echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
             echo '</div>';
@@ -211,17 +236,3 @@ use yii\bootstrap\ActiveForm;
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<script>
-    $("#corr").change(function() {
-        if (this.value != '') {
-            $("#corr_div1").attr("hidden", "true");
-            $("#corr_div2").attr("hidden", "true");
-        }
-        else
-        {
-            $("#corr_div1").removeAttr("hidden");
-            $("#corr_div2").removeAttr("hidden");
-        }
-    });
-</script>

@@ -35,7 +35,7 @@ use yii\jui\AutoComplete;
             if (elems[c].checked === false)
                 elems[c].checked = true;
             else
-                elems[c].checked = false;
+                elems[c].removeAttribute("checked");
         }
     }
 

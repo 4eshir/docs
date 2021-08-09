@@ -8,6 +8,12 @@ $this->title = 'ЦСХД';
 
 ?>
 
+<script>
+    $(window).resize(function () {
+        alert("window.innerWidth");
+    });
+</script>
+
 <style>
     * {
         margin: 0;
@@ -112,13 +118,13 @@ $this->title = 'ЦСХД';
         opacity: 1;
         transition-delay: .5s;
     }
-    @media (min-width: 530px) {
+    @media (min-width: 700px) {
         .portfolio-item {
-            flex-basis: 50%;
+            flex-basis: 80%;
             flex-shrink: 0;
         }
     }
-    @media (min-width: 768px) {
+    @media (min-width: 1200px) {
         .portfolio-item {
             flex-basis: 33.333333333%;
         }
@@ -188,7 +194,7 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
                             <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
                             <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
-                            <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                            <li><?php echo Html::a('список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
                         </ul>
                     </div>
                 </a>
@@ -201,6 +207,7 @@ $this->title = 'ЦСХД';
                     <img src="/images/main-back.jpg">
                     <div>
                         <div>
+                            <h3><b></b></h3>
                         </div>
                         <ul>
 
@@ -236,6 +243,7 @@ $this->title = 'ЦСХД';
                     <img src="/images/main-back.jpg">
                     <div>
                         <div>
+                            <h3><b></b></h3>
                         </div>
                         <ul>
 

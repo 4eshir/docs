@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\work\CompanyWork;
 use app\models\work\InOutDocsWork;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\PeopleWork;
 use app\models\work\PositionWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -283,6 +286,61 @@ class DocsOutController extends Controller
         return Json::encode(['output'=>'', 'selected'=>'']);
     }
 
+
+
+    public function actionSubcat()
+    {
+
+        if (Yii::$app->request->post('id') === "")
+        {
+            $operations = PositionWork::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all();
+            foreach ($operations as $operation)
+                echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+            echo "|split|";
+            $operations = CompanyWork::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all();
+            foreach ($operations as $operation)
+                echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+        }
+        else
+        {
+            if ($id = Yii::$app->request->post('id')) {
+                Yii::trace('$id=' . $id, 'значение id=');
+                $operationPosts = PeoplePositionBranchWork::find()
+                    ->where(['people_id' => $id])
+                    ->count();
+
+                if ($operationPosts > 0) {
+                    $operations = PeoplePositionBranchWork::find()
+                        ->where(['people_id' => $id])
+                        ->all();
+                    foreach ($operations as $operation)
+                        echo "<option value='" . $operation->position_id . "'>" . $operation->position->name . "</option>";
+                } else
+                    echo "<option>-</option>";
+
+                echo "|split|";
+                $people = PeopleWork::find()->where(['id' => $id])->one();
+                $operationPosts = CompanyWork::find()
+                    ->where(['id' => $people->company_id])
+                    ->count();
+
+                if ($operationPosts > 0) {
+                    $operations = CompanyWork::find()
+                        ->where(['id' => $people->company_id])
+                        ->all();
+                    foreach ($operations as $operation)
+                        echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+                } else
+                    echo "<option>-</option>";
+            }
+        }
+
+
+    }
 
     /**
      * Finds the DocumentOut model based on its primary key value.
