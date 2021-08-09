@@ -9,11 +9,11 @@ use yii\widgets\DetailView;
 //$this->title = $model->people->secondname.' '.$model->responsibilityType->name;
 ?>
 
-
+<div style="width:100%; height:1px; clear:both;"></div>
 <div>
     <?= $this->render('menu') ?>
 
-    <div class="content-container col-xs-9">
+    <div class="content-container" style="float: left">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
@@ -25,5 +25,4 @@ use yii\widgets\DetailView;
         ]) ?>
     </div>
 </div>
-
-</div>
+<div style="width:100%; height:1px; clear:both;"></div>

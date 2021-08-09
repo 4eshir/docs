@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
     .category-wrap li {margin: 12px 0 0 0px; list-style-type: none;}
     .category-wrap a {
         text-decoration: none;
-        display: block;
+        display: flex;
         font-size: 15px;
         color: black;
         padding: 5px;
@@ -64,8 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </script>
 
-<div style="flex-wrap: wrap;">
-<div class="local-responsibility-view col-xs-3">
+<div class="local-responsibility-view" style="float: left; padding-right: 20px">
     <div class="widget">
         <ul class="category-wrap">
             <?php $curIndex = Yii::$app->session->get('lk-index') ?>
