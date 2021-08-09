@@ -194,7 +194,7 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
                             <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
                             <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
-                            <li><?php echo Html::a('список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                            <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
                         </ul>
                     </div>
                 </a>

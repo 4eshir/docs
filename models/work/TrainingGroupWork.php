@@ -142,11 +142,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getBranchName()
     {
-        $branchs = BranchProgram::find()->where(['training_program_id' => $this->training_program_id])->all();
-        $result = '';
-        foreach ($branchs as $branch)
-            $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])).'<br>';
-        return $result;
+        return Html::a($this->branchWork, \yii\helpers\Url::to(['training-program/view', 'id' => $this->branch_id]));;
     }
 
     public function getParticipantNames()
