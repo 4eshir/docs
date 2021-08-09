@@ -137,7 +137,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Документооборот</b></h3>
@@ -162,7 +162,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Эл. журнал</b></h3>
@@ -179,7 +179,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Справочники</b></h3>
@@ -204,7 +204,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div>
                         <div>
                             <h3><b></b></h3>
@@ -220,7 +220,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Реестр ПО</b></h3>
@@ -240,7 +240,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="/images/main-back.jpg">
+                    <img src="main-back.jpg">
                     <div>
                         <div>
                             <h3><b></b></h3>
