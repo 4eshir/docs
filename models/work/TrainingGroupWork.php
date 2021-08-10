@@ -4,6 +4,7 @@ namespace app\models\work;
 
 use app\models\common\Auditorium;
 use app\models\common\BranchProgram;
+use app\models\common\GroupErrors;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
 use app\models\common\People;
@@ -538,7 +539,6 @@ class TrainingGroupWork extends TrainingGroup
             }
         }
 
-
         if ($this->open === 1)
         {
 
@@ -579,6 +579,9 @@ class TrainingGroupWork extends TrainingGroup
             }
         }
 
+        // тут должны работать проверки на ошибки
+        $errorsCheck = new GroupErrorsWork();
+        $errorsCheck->CheckErrors($this);
     }
 
     public function beforeSave($insert)
