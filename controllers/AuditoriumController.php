@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
+use app\models\components\UserRBAC;
 use Yii;
 use app\models\work\AuditoriumWork;
 use app\models\SearchAuditorium;
@@ -36,6 +38,12 @@ class AuditoriumController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $searchModel = new SearchAuditorium();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,6 +61,12 @@ class AuditoriumController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,6 +79,12 @@ class AuditoriumController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = new AuditoriumWork();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -73,6 +93,7 @@ class AuditoriumController extends Controller
             if ($model->filesList !== null)
                 $model->uploadFiles();
             $model->save();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлено помещение '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -90,6 +111,12 @@ class AuditoriumController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -97,6 +124,7 @@ class AuditoriumController extends Controller
             if ($model->filesList !== null)
                 $model->uploadFiles(10);
             $model->save();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено помещение '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -114,13 +142,23 @@ class AuditoriumController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
+        $model = $this->findModel($id);
+        $name = $model->name;
+        $model->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено помещение '.$name);
 
         return $this->redirect(['index']);
     }
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
         //$path = \Yii::getAlias('@upload') ;
         $file = Yii::$app->basePath . '/upload/files/auds/' . $fileName;
         if (file_exists($file)) {

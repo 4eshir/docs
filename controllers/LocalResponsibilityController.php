@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\UserRBAC;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\LegacyResponsibleWork;
@@ -40,6 +41,12 @@ class LocalResponsibilityController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $searchModel = new SearchLocalResponsibility();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -57,6 +64,12 @@ class LocalResponsibilityController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -69,6 +82,12 @@ class LocalResponsibilityController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = new LocalResponsibilityWork();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -93,6 +112,12 @@ class LocalResponsibilityController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = $this->findModel($id);
         $subModel = LegacyResponsibleWork::find()->where(['people_id' => $model->people_id])->andWhere(['responsibility_type_id' => $model->responsibility_type_id])
             ->andWhere(['branch_id' => $model->branch_id])->andWhere(['auditorium_id' => $model->auditorium_id])->one();
@@ -127,6 +152,12 @@ class LocalResponsibilityController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

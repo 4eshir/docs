@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\work\TrainingGroupLessonWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -107,6 +108,8 @@ class JournalController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
             $model->save();
+            $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен журнал группы '.$group->number);
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }
         $model->trainingGroup = $group_id;

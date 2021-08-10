@@ -151,6 +151,7 @@ class TrainingGroupController extends Controller
             $model->teachers = null;
             $model->participants = null;
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена группа '.$model->number);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -240,6 +241,7 @@ class TrainingGroupController extends Controller
             $model->participants = null;
             $model->GenerateNumber();
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена группа '.$model->number);
             if (array_key_exists('deleteChoose', $_POST))
             {
                 return $this->redirect('index?r=training-group/update&id=' . $model->id);
@@ -272,7 +274,11 @@ class TrainingGroupController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $this->findModel($id)->delete();
+
+        $model = $this->findModel($id);
+        $model->delete();
+        $number = $model->number;
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена группа '.$number);
 
         return $this->redirect(['index']);
     }
@@ -298,30 +304,42 @@ class TrainingGroupController extends Controller
     public function actionDeleteParticipant($id, $modelId)
     {
         $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
+        $name = $participant->participantWork->secondname . ' ' . $participant->participantWork->firstname . ' ' . $participant->participantWork->patronymic;
+        $group = $participant->trainingGroupWork->number;
         $participant->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален обучающийся '.$name.' из группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionDeleteTeacher($id, $modelId)
     {
         $teacher = TeacherGroupWork::find()->where(['id' => $id])->one();
+        $name = $teacher->teacherWork->secondname . ' ' . $teacher->teacherWork->firstname . ' ' . $teacher->teacherWork->patronymic;
+        $group = $teacher->trainingGroupWork->number;
         $teacher->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален педагог '.$name.' из группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionRemandParticipant($id, $modelId)
     {
         $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
+        $name = $participant->participantWork->secondname . ' ' . $participant->participantWork->firstname . ' ' . $participant->participantWork->patronymic;
+        $group = $participant->trainingGroupWork->number;
         $participant->status = 1;
         $participant->save();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Отчислен обучающийся '.$name.' из группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionUnremandParticipant($id, $modelId)
     {
         $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
+        $name = $participant->participantWork->secondname . ' ' . $participant->participantWork->firstname . ' ' . $participant->participantWork->patronymic;
+        $group = $participant->trainingGroupWork->number;
         $participant->status = 0;
         $participant->save();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Восстановлен обучающийся '.$name.' группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
@@ -330,12 +348,14 @@ class TrainingGroupController extends Controller
         $model = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
             $model->save(false);
+            $name = $model->participantWork->secondname . ' ' . $model->participantWork->firstname . ' ' . $model->participantWork->patronymic;
             $group = TrainingGroupWork::find()->where(['id' => $model->training_group_id])->one();
             $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroupWork];
             $modelTeachers = [new TeacherGroupWork];
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен обучающийся '.$name.' группы '.$group->number);
             return $this->redirect('index?r=training-group/update&id='.$model->training_group_id);
 
         }
@@ -355,6 +375,7 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroupWork];
             $modelTeachers = [new TeacherGroupWork];
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено занятие '.$model->lesson_date.'('.$model->lesson_start_time.') группы '.$model->trainingGroup->number);
             return $this->render('update', [
                 'model' => $group,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
@@ -379,18 +400,23 @@ class TrainingGroupController extends Controller
         foreach ($visits as $visit)
             $visit->delete();
         $participant->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено занятие '.$participant->lesson_date.'('.$participant->lesson_start_time.') группы '.$participant->trainingGroup->number);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionDeleteOrder($id, $modelId)
     {
         $order = OrderGroupWork::find()->where(['id' => $id])->one();
+        $number = $order->documentOrderWork->documentNumberString;
+        $group = $order->trainingGroupWork->number;
         $order->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ '.$number.' группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
         //$path = \Yii::getAlias('@upload') ;
         $file = Yii::$app->basePath . '/upload/files/group/' . $type . '/' . $fileName;
         if (file_exists($file)) {

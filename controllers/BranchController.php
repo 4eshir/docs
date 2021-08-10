@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
+use app\models\components\UserRBAC;
 use app\models\work\AuditoriumWork;
 use app\models\DynamicModel;
 use Yii;
@@ -37,6 +39,12 @@ class BranchController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $searchModel = new SearchBranch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,6 +62,12 @@ class BranchController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,6 +80,12 @@ class BranchController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = new BranchWork();
         $modelAuditorium = [new AuditoriumWork];
 
@@ -74,6 +94,7 @@ class BranchController extends Controller
             DynamicModel::loadMultiple($modelAuditorium, Yii::$app->request->post());
             $model->auditoriums = $modelAuditorium;
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен отдел '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -92,6 +113,12 @@ class BranchController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
         $model = $this->findModel($id);
         $modelAuditorium = [new AuditoriumWork];
 
@@ -100,6 +127,7 @@ class BranchController extends Controller
             DynamicModel::loadMultiple($modelAuditorium, Yii::$app->request->post());
             $model->auditoriums = $modelAuditorium;
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен отдел '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -118,7 +146,16 @@ class BranchController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
+            return $this->render('/site/error');
+        }
+
+        $model = $this->findModel($id);
+        $name = $model->name;
+        $model->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален отдел '.$name);
 
         return $this->redirect(['index']);
     }

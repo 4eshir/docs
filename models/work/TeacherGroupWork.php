@@ -13,4 +13,9 @@ class TeacherGroupWork extends TeacherGroup
     {
         return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
     }
+
+    public function getTrainingGroupWork()
+    {
+        return $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+    }
 }

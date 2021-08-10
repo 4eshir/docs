@@ -106,6 +106,7 @@ class TrainingProgramController extends Controller
                 $model->uploadEditFiles();
 
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена образовательная программа '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -148,6 +149,7 @@ class TrainingProgramController extends Controller
             if ($model->editDocs !== null)
                 $model->uploadEditFiles(10);
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -166,6 +168,7 @@ class TrainingProgramController extends Controller
             $group = TrainingProgramWork::find()->where(['id' => $modelId])->one();
             $modelAuthor = [new AuthorProgramWork];
             $modelThematicPlan = [new ThematicPlanWork];
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен тематический план образовательно программы '.$model->trainingProgram->name);
             return $this->render('update', [
                 'model' => $group,
                 'modelAuthor' => $modelAuthor,
@@ -191,7 +194,11 @@ class TrainingProgramController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
-        $this->findModel($id)->delete();
+
+        $model = $this->findModel($id);
+        $name = $model->name;
+        $model->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена образовательная программа '.$name);
 
         return $this->redirect(['index']);
     }
@@ -234,6 +241,7 @@ class TrainingProgramController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
         //$path = \Yii::getAlias('@upload') ;
         $file = Yii::$app->basePath . '/upload/files/program/' . $type . '/' . $fileName;
         if (file_exists($file)) {
@@ -276,16 +284,23 @@ class TrainingProgramController extends Controller
     public function actionDeleteAuthor($peopleId, $modelId)
     {
         $resp = AuthorProgramWork::find()->where(['author_id' => $peopleId])->andWhere(['training_program_id' => $modelId])->one();
+        $name = $resp->authorWork->shortName;
+        $program = $resp->trainingProgram->name;
         if ($resp != null)
             $resp->delete();
         $model = $this->findModel($modelId);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален автор ' . $name . ' образовательной программы ' . $program);
+
         return $this->redirect('index.php?r=training-program/update&id='.$modelId);
     }
 
     public function actionDeletePlan($id, $modelId)
     {
         $plan = ThematicPlanWork::find()->where(['id' => $id])->one();
+        $name = $plan->trainingProgram->name;
         $plan->delete();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален тема УТП образовательной программы ' . $name);
+
         return $this->redirect('index?r=training-program/update&id='.$modelId);
     }
 }
