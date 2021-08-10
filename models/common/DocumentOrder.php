@@ -9,27 +9,26 @@ use Yii;
  *
  * @property int $id
  * @property int $order_copy_id
- * @property string|null $order_number
+ * @property string $order_number
  * @property int|null $order_postfix
  * @property string $order_name
- * @property string|null $order_date
+ * @property string $order_date
  * @property int|null $signed_id
  * @property int|null $bring_id
  * @property int|null $executor_id
- * @property string|null $key_words
  * @property string $scan
  * @property string|null $doc
  * @property int $register_id
  * @property int|null $type
- * @property int $state
- * @property int|null $nomenclature_id
+ * @property string|null $key_words
+ * @property int|null $state
+ * @property int $nomenclature_id
  *
  * @property People $bring
  * @property People $executor
+ * @property People $register
  * @property People $signed
- * @property User $register
  * @property Branch $nomenclature
- * @property Event[] $events
  * @property Expire[] $expires
  * @property Expire[] $expires0
  * @property ForeignEvent[] $foreignEvents
@@ -37,6 +36,7 @@ use Yii;
  * @property LegacyResponsible[] $legacyResponsibles
  * @property OrderGroup[] $orderGroups
  * @property Regulation[] $regulations
+ * @property Responsible[] $responsibles
  */
 class DocumentOrder extends \yii\db\ActiveRecord
 {
@@ -54,15 +54,15 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_copy_id', 'order_name', 'scan', 'register_id'], 'required'],
+            [['order_copy_id', 'order_number', 'order_name', 'order_date', 'scan', 'register_id'], 'required'],
             [['order_copy_id', 'order_postfix', 'signed_id', 'bring_id', 'executor_id', 'register_id', 'type', 'state', 'nomenclature_id'], 'integer'],
             [['order_date'], 'safe'],
             [['order_number'], 'string', 'max' => 100],
-            [['order_name', 'key_words', 'scan', 'doc'], 'string', 'max' => 1000],
+            [['order_name', 'scan', 'doc', 'key_words'], 'string', 'max' => 1000],
             [['bring_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['bring_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
+            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['register_id' => 'id']],
             [['nomenclature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['nomenclature_id' => 'id']],
         ];
     }
@@ -82,11 +82,11 @@ class DocumentOrder extends \yii\db\ActiveRecord
             'signed_id' => 'Signed ID',
             'bring_id' => 'Bring ID',
             'executor_id' => 'Executor ID',
-            'key_words' => 'Key Words',
             'scan' => 'Scan',
             'doc' => 'Doc',
             'register_id' => 'Register ID',
             'type' => 'Type',
+            'key_words' => 'Key Words',
             'state' => 'State',
             'nomenclature_id' => 'Nomenclature ID',
         ];
@@ -113,6 +113,16 @@ class DocumentOrder extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Register]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegister()
+    {
+        return $this->hasOne(People::className(), ['id' => 'register_id']);
+    }
+
+    /**
      * Gets query for [[Signed]].
      *
      * @return \yii\db\ActiveQuery
@@ -123,16 +133,6 @@ class DocumentOrder extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Register]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRegister()
-    {
-        return $this->hasOne(User::className(), ['id' => 'register_id']);
-    }
-
-    /**
      * Gets query for [[Nomenclature]].
      *
      * @return \yii\db\ActiveQuery
@@ -140,16 +140,6 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function getNomenclature()
     {
         return $this->hasOne(Branch::className(), ['id' => 'nomenclature_id']);
-    }
-
-    /**
-     * Gets query for [[Events]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEvents()
-    {
-        return $this->hasMany(Event::className(), ['order_id' => 'id']);
     }
 
     /**
@@ -179,7 +169,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
      */
     public function getForeignEvents()
     {
-        return $this->hasMany(ForeignEvent::className(), ['order_business_trip_id' => 'id']);
+        return $this->hasMany(ForeignEvent::className(), ['order_participation_id' => 'id']);
     }
 
     /**
@@ -189,7 +179,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
      */
     public function getForeignEvents0()
     {
-        return $this->hasMany(ForeignEvent::className(), ['order_participation_id' => 'id']);
+        return $this->hasMany(ForeignEvent::className(), ['order_business_trip_id' => 'id']);
     }
 
     /**
@@ -220,5 +210,15 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function getRegulations()
     {
         return $this->hasMany(Regulation::className(), ['order_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Responsibles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsibles()
+    {
+        return $this->hasMany(Responsible::className(), ['document_order_id' => 'id']);
     }
 }

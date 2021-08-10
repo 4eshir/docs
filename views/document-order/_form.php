@@ -62,6 +62,11 @@ $session = Yii::$app->session;
 
     ?>
 
+    <div <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
+        <?= $form->field($model, 'study_type')->radioList(array('2' => 'Приказ о зачислении',
+            '3' => 'Приказ об отчислении', '4' => 'Другое'))->label('') ?>
+    </div>
+
     <?php
     $params = [
         'prompt' => '',

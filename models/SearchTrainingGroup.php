@@ -57,8 +57,8 @@ class SearchTrainingGroup extends TrainingGroupWork
     {
 
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka]);
-        $branchs = TrainingGroupWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->all();
+        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->orderBy(['archive' => SORT_ASC]);
+        $branchs = TrainingGroupWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->orderBy(['archive' => SORT_ASC])->all();
         $teachers = TeacherGroupWork::find()->where(['teacher_id' => $params ["SearchTrainingGroup"]["teacherId"]])->all();
         $idsB = [];
         $idsTG = [];
@@ -75,13 +75,13 @@ class SearchTrainingGroup extends TrainingGroupWork
         {
 
             if (count($branchs) > 0 && count($teachers) > 0)
-                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG]);
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             else if (count($teachers) > 0)
-                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG]);
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
                 else if (count($branchs) > 0)
-                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB]);
+                    $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->orderBy(['archive' => SORT_ASC]);
                 else
-                    $groups = TrainingGroupWork::find();
+                    $groups = TrainingGroupWork::find()->orderBy(['archive' => SORT_ASC]);
 
         }
         else if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 24)) //доступ на просмотр групп СВОЕГО ОТДЕЛА
@@ -104,7 +104,7 @@ class SearchTrainingGroup extends TrainingGroupWork
                 $newGroups_id = [];
                 foreach ($groups_id as $group_id) $newGroups_id[] = $group_id->id;
 
-                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $newGroups_id]);
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $newGroups_id])->orderBy(['archive' => SORT_ASC]);
             }
         }
         else
@@ -113,14 +113,14 @@ class SearchTrainingGroup extends TrainingGroupWork
             $teachers_id = [];
             foreach ($teachers2 as $teacher) $teachers_id[] = $teacher->training_group_id;
             if (count($branchs) > 0 && count($teachers) > 0)
-                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id]);
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id])->orderBy(['archive' => SORT_ASC]);
             else if (count($teachers) > 0)
-                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id]);
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->andWhere(['in', 'training_group.id', $teachers_id])->orderBy(['archive' => SORT_ASC]);
             else if (count($branchs) > 0)
-                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $teachers_id]);
+                $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $teachers_id])->orderBy(['archive' => SORT_ASC]);
             else {
 
-                $groups = TrainingGroupWork::find()->andWhere(['in', 'training_group.id', $teachers_id]);
+                $groups = TrainingGroupWork::find()->andWhere(['in', 'training_group.id', $teachers_id])->orderBy(['archive' => SORT_ASC]);
             }
         }
 

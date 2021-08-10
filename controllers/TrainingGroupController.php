@@ -15,6 +15,7 @@ use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
+use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
@@ -178,6 +179,11 @@ class TrainingGroupController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
+        if ($model->archive === 1)
+        {
+            Yii::$app->session->addFlash('danger', 'Невозможно редактировать архивную группу!');
+            return $this->redirect(['/training-group/index']);
+        }
         $model->delArr = [];
         $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
         $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
@@ -440,7 +446,25 @@ class TrainingGroupController extends Controller
         }
     }
 
+    public function actionArchive()
+    {
+        $checks = Yii::$app->request->post('selection');
+        $allTps = TrainingGroupWork::find()->all();
+        foreach ($allTps as $allTp)
+        {
+            $allTp->archive = 0;
+            $allTp->save(false);
+        }
+        if ($checks !== null)
+            foreach ($checks as $check)
+            {
+                $tp = TrainingGroupWork::find()->where(['id' => $check])->one();
+                $tp->archive = 1;
+                $tp->save(false);
 
+            }
+        return $this->redirect(['/training-group/index']);
+    }
 
     public function actionParse()
     {

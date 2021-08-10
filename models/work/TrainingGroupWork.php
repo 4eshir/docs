@@ -96,6 +96,7 @@ class TrainingGroupWork extends TrainingGroup
             'teachersList' => 'Педагог(-и)',
             'branch_id' => 'Отдел производящий учёт',
             'order_status' => 'Статус добавления приказов',
+            'order_stop' => 'Завершить загрузку приказов о зачислении/отчислении',
         ];
     }
 

@@ -55,6 +55,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 $session = Yii::$app->session;
 ?>
 
+<?php
+$access = [23, 25];
+$isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'access_id', $access])->one();
+?>
+
 <div class="training-group-form">
 
     <?php echo Html::a('Показать общую информацию', \yii\helpers\Url::to(['training-group/show-common', 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickQuestion()']) ?>
@@ -159,6 +164,11 @@ $session = Yii::$app->session;
         </div>
     </div>
 
+
+    <div <?php echo $isMethodist === null ? 'hidden' : null ?>>
+        <?= $form->field($model, 'order_stop')->checkbox()->label(false); ?>
+    </div>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Приказы по группе</h4></div>
@@ -176,6 +186,7 @@ $session = Yii::$app->session;
                 }
                 ?>
             </div>
+            <?php /*
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -233,6 +244,7 @@ $session = Yii::$app->session;
                     <?php endforeach; ?>
                 </div>
                 <?php DynamicFormWidget::end(); ?>
+                */ ?>
             </div>
         </div>
     </div>

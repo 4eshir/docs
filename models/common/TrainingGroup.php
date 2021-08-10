@@ -11,23 +11,24 @@ use Yii;
  * @property string $number
  * @property int|null $training_program_id
  * @property int|null $teacher_id
- * @property string $start_date
- * @property string $finish_date
+ * @property string|null $start_date
+ * @property string|null $finish_date
  * @property string|null $photos
  * @property string|null $present_data
  * @property string|null $work_data
  * @property int $open
  * @property int|null $schedule_type
  * @property int $budget
- * @property int|null $branch_id
+ * @property int $branch_id
  * @property int $order_status
+ * @property int $order_stop
+ * @property int $archive
  *
  * @property GroupErrors[] $groupErrors
  * @property OrderGroup[] $orderGroups
  * @property TeacherGroup[] $teacherGroups
  * @property People $teacher
  * @property TrainingProgram $trainingProgram
- * @property Branch $branch
  * @property TrainingGroupLesson[] $trainingGroupLessons
  * @property TrainingGroupParticipant[] $trainingGroupParticipants
  */
@@ -47,14 +48,13 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'start_date', 'finish_date'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status'], 'integer'],
-            [['start_date', 'finish_date', 'schedule_type'], 'safe'],
+            [['number', 'branch_id', 'order_status'], 'required'],
+            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive'], 'integer'],
+            [['start_date', 'finish_date'], 'safe'],
             [['number'], 'string', 'max' => 100],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgram::className(), 'targetAttribute' => ['training_program_id' => 'id']],
-            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
         ];
     }
 
@@ -65,30 +65,21 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'number' => 'Номер',
-            'training_program_id' => 'Образовательная программа',
-            'programName' => 'Образовательная программа',
-            'teacher_id' => 'Педагог',
-            'teacherName' => 'Педагог',
-            'start_date' => 'Дата начала занятий',
-            'finish_date' => 'Дата окончания занятий',
-            'photos' => 'Фотоматериалы',
-            'photosFile' => 'Фотоматериалы',
-            'present_data' => 'Презентационные материалы',
-            'presentDataFile' => 'Презентационные материалы',
-            'work_data' => 'Рабочие материалы',
-            'workDataFile' => 'Рабочие материалы',
-            'open' => 'Утвердить расписание',
-            'openText' => 'Расписание утверждено',
-            'participantNames' => 'Состав',
-            'lessonDates' => 'Расписание',
-            'scheduleType' => 'Тип расписания',
-            'ordersName' => 'Приказы',
-            'budget' => 'Бюджет',
-            'fileParticipants' => 'Загрузить учащихся из файла',
-            'teachersList' => 'Педагог(-и)',
-            'branch_id' => 'Отдел производящий учёт',
-            'order_status' => 'Статус добавления приказов',
+            'number' => 'Number',
+            'training_program_id' => 'Training Program ID',
+            'teacher_id' => 'Teacher ID',
+            'start_date' => 'Start Date',
+            'finish_date' => 'Finish Date',
+            'photos' => 'Photos',
+            'present_data' => 'Present Data',
+            'work_data' => 'Work Data',
+            'open' => 'Open',
+            'schedule_type' => 'Schedule Type',
+            'budget' => 'Budget',
+            'branch_id' => 'Branch ID',
+            'order_status' => 'Order Status',
+            'order_stop' => 'Order Stop',
+            'archive' => 'Archive',
         ];
     }
 
@@ -143,16 +134,6 @@ class TrainingGroup extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Branch]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBranch()
-    {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
-    }
-
-    /**
      * Gets query for [[TrainingGroupLessons]].
      *
      * @return \yii\db\ActiveQuery
@@ -171,6 +152,4 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TrainingGroupParticipant::className(), ['training_group_id' => 'id']);
     }
-
-
 }
