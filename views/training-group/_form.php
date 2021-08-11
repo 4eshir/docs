@@ -244,10 +244,11 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     <?php endforeach; ?>
                 </div>
                 <?php DynamicFormWidget::end(); ?>
-                */ ?>
-            </div>
+
+            </div>*/?>
         </div>
     </div>
+
 
     <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class,
         [

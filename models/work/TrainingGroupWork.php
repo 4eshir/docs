@@ -225,6 +225,18 @@ class TrainingGroupWork extends TrainingGroup
         return $result;
     }
 
+    public function getErrorsWork()
+    {
+        $errorsList = GroupErrors::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL])->all();
+        $result = '';
+        foreach ($errorsList as $errors)
+        {
+            $error = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
+            $result .= 'Внимание, ошибка: ' . $error->number . ' ' . $error->name . '<br>';
+        }
+        return $result;
+    }
+
     public function uploadPhotosFile($upd = null)
     {
         $path = '@app/upload/files/group/photos/';
@@ -582,7 +594,7 @@ class TrainingGroupWork extends TrainingGroup
 
         // тут должны работать проверки на ошибки
         $errorsCheck = new GroupErrorsWork();
-        $errorsCheck->CheckErrors($this);
+        $errorsCheck->CheckErrorsTrainingGroup($this->id);
     }
 
     public function beforeSave($insert)

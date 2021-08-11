@@ -11,7 +11,7 @@ use Yii;
  * @property int $training_group_id
  * @property int $errors_id
  * @property string $time_start
- * @property string $time_the_end
+ * @property string|null $time_the_end
  *
  * @property Errors $errors0
  * @property TrainingGroup $trainingGroup
@@ -32,10 +32,9 @@ class GroupErrors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'training_group_id', 'errors_id', 'time_start', 'time_the_end'], 'required'],
-            [['id', 'training_group_id', 'errors_id'], 'integer'],
+            [['training_group_id', 'errors_id', 'time_start'], 'required'],
+            [['training_group_id', 'errors_id'], 'integer'],
             [['time_start', 'time_the_end'], 'safe'],
-            [['id'], 'unique'],
             [['errors_id'], 'exist', 'skipOnError' => true, 'targetClass' => Errors::className(), 'targetAttribute' => ['errors_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
         ];

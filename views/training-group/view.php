@@ -27,6 +27,18 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         ]) ?>
     </p>
 
+    <div class="content-container" style="color: #ff0000; font: 18px bold;">
+        <?=
+            $error = $model->getErrorsWork();
+            if ($error != '')
+            {
+                echo '<p style="">';
+                echo $error;
+                echo '</p>';
+            }
+        ?>
+    </div>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
