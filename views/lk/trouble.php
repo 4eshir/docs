@@ -42,7 +42,6 @@ use yii\widgets\DetailView;
                         {
                             echo '<tr>';
                             $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-                            var_dump($errorName);
                             echo '<th style="text-align: left;">' . $errorName->number . "</th>";
                             echo '<td>' . $errorName->name . '</td>';
                             echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
