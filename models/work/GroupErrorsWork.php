@@ -72,9 +72,9 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 3)
                 {
                     $checkList['photos'] = 1;
-                    if ($group->photos !== null)     // ошибка исправлена
+                    if ($group->photos != null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
-                    else if (date('Y-m-d', strtotime($end_time . '-7 day')) >= $now_time)
+                    else if (date('Y-m-d', strtotime($end_time . '-7 day')) <= $now_time)
                     {
                         // тут должно быть повторное оповещание на почту что фотоматериалы добвляются за неделю до последнего занятия
                     }
@@ -83,9 +83,9 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 4)
                 {
                     $checkList['present'] = 1;
-                    if ($group->present_data !== null)     // ошибка исправлена
+                    if ($group->present_data != null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
-                    else if (date('Y-m-d', strtotime($end_time . '1 day')) >= $now_time)
+                    else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                     {
                         // прошел день последнего занятия, а инфа не добавлена? на кол!
                     }
@@ -94,9 +94,9 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 5)
                 {
                     $checkList['work'] = 1;
-                    if ($group->work_data !== null)     // ошибка исправлена
+                    if ($group->work_data != null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
-                    else if (date('Y-m-d', strtotime($end_time . '1 day')) >= $now_time)
+                    else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                     {
                         // прошел день последнего занятия, а инфа не добавлена? на кол!
                     }
@@ -107,7 +107,7 @@ class GroupErrorsWork extends GroupErrors
                     $checkList['capacity'] = 1;
                     if ($lessonsCount == $capacity)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
-                    else if ($end_time >= $now_time)
+                    else if ($end_time <= $now_time)
                     {
                         // на кол!
                     }
@@ -142,7 +142,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['order'] == 0 && $ordersCount == 0 && $start_time >= $now_time)
+        if ($checkList['order'] == 0 && $ordersCount == 0 && $start_time <= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -151,7 +151,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['photos'] == 0 && $group->photos  === null && date('Y-m-d', strtotime($end_time . '-14 day')) >= $now_time)
+        if ($checkList['photos'] == 0 && $group->photos == null && date('Y-m-d', strtotime($end_time . '-14 day')) <= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -160,7 +160,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['present'] == 0 && $group->present_data  === null && $end_time >= $now_time)
+        if ($checkList['present'] == 0 && $group->present_data == null && $end_time <= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -169,7 +169,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['work'] == 0 && $group->work_data  === null && $end_time >= $now_time)
+        if ($checkList['work'] == 0 && $group->work_data == null && $end_time <= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -186,7 +186,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['certificat'] == 0 && $certificatCount != 0 && $end_time >= $now_time)
+        if ($checkList['certificat'] == 0 && $certificatCount != 0 && $end_time <= $now_time)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 8;
