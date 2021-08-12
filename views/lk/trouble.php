@@ -36,7 +36,7 @@ use yii\widgets\DetailView;
                 {
                     $trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
                     $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id])->all();
-
+                    echo (count($errorsList));
                     foreach ($errorsList as $error)
                     {
                         if ($error->time_the_end === null)
