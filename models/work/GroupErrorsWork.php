@@ -203,8 +203,30 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckErrorsTrainingCroupLessons ()
+    public function CheckErrorsTrainingProgram ($modelProgramID)
     {
+        $program = TrainingProgramWork::find()->where(['id' => $modelProgramID])->one();
+        $tp = count(ThematicPlanWork::find()->where(['training_program_id' => $modelProgramID])->all());
+
+        // не заполнено утп
+        if ($tp == 0)
+        {
+            //$this->training_group_id = $modelGroupID;
+            $this->errors_id = 7;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+
+        // не заполнено тематическое напрвление
+        if ($program->thematic_direction_id === null)
+        {
+            //$this->training_group_id = $modelGroupID;
+            $this->errors_id = 10;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+
+
 
     }
 }
