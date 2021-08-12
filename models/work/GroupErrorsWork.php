@@ -23,7 +23,7 @@ class GroupErrorsWork extends GroupErrors
 
         $certificatCount = 0;
         foreach ($certificats as $certificat)
-            if ($certificat->certificat_number == NULL)
+            if ($certificat->certificat_number  === null)
                 $certificatCount++;
 
         $audsEducation = 1;
@@ -45,7 +45,7 @@ class GroupErrorsWork extends GroupErrors
 
         // если ошибки есть - проверяем исправили ли их
         foreach ($oldErrors as $correctErrors) {
-            if ($correctErrors->time_the_end == NULL)
+            if ($correctErrors->time_the_end === null)
             {
                 if ($correctErrors->errors_id == 1)
                 {
@@ -72,7 +72,7 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 3)
                 {
                     $checkList['photos'] = 1;
-                    if ($group->photos != NULL)     // ошибка исправлена
+                    if ($group->photos !== null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
                     else if (date('Y-m-d', strtotime($end_time . '-7 day')) >= $now_time)
                     {
@@ -83,7 +83,7 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 4)
                 {
                     $checkList['present'] = 1;
-                    if ($group->present_data != NULL)     // ошибка исправлена
+                    if ($group->present_data !== null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
                     else if (date('Y-m-d', strtotime($end_time . '1 day')) >= $now_time)
                     {
@@ -94,7 +94,7 @@ class GroupErrorsWork extends GroupErrors
                 if ($correctErrors->errors_id == 5)
                 {
                     $checkList['work'] = 1;
-                    if ($group->work_data != NULL)     // ошибка исправлена
+                    if ($group->work_data !== null)     // ошибка исправлена
                         $correctErrors->time_the_end = date("Y.m.d H:i:s");
                     else if (date('Y-m-d', strtotime($end_time . '1 day')) >= $now_time)
                     {
@@ -151,7 +151,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['photos'] == 0 && $group->photos === NULL && date('Y-m-d', strtotime($end_time . '-14 day')) >= $now_time)
+        if ($checkList['photos'] == 0 && $group->photos  === null && date('Y-m-d', strtotime($end_time . '-14 day')) >= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -160,7 +160,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['present'] == 0 && $group->present_data === NULL && $end_time >= $now_time)
+        if ($checkList['present'] == 0 && $group->present_data  === null && $end_time >= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
@@ -169,7 +169,7 @@ class GroupErrorsWork extends GroupErrors
             $this->save();
         }
 
-        if ($checkList['work'] == 0 && $group->work_data == NULL && $end_time >= $now_time)
+        if ($checkList['work'] == 0 && $group->work_data  === null && $end_time >= $now_time)
         {
             // тут ещё должно быть 1 оповещение на почту
             $this->training_group_id = $modelGroupID;
