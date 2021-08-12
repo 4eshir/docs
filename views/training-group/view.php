@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
     </p>
 
     <div class="content-container" style="color: #ff0000; font: 18px bold;">
-        <?=
+        <?php
             $error = $model->getErrorsWork();
             if ($error != '')
             {
