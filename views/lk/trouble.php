@@ -35,7 +35,7 @@ use yii\widgets\DetailView;
                 foreach ($groups as $group)
                 {
                     $trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
-                    $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $group->id])->all();
+                    $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id])->all();
 
                     foreach ($errorsList as $error)
                     {
