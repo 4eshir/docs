@@ -39,7 +39,7 @@ use yii\widgets\DetailView;
 
                     foreach ($errorsList as $error)
                     {
-                        if ($error->time_the_end == NULL)
+                        if ($error->time_the_end === null)
                         {
                             echo '<tr>';
                             $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
