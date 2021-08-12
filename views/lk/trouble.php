@@ -1,5 +1,11 @@
 <?php
 
+use app\models\work\ErrorsWork;
+use app\models\work\GroupErrorsWork;
+use app\models\work\PeopleWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\TrainingGroupWork;
+use app\models\work\UserWork;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -15,14 +21,37 @@ use yii\widgets\DetailView;
 
     <div class="content-container col-xs-8" style="float: left">
         <table class="table table-bordered">
-            <tr>
-                <td><b>Код проблемы</b></td>
-                <td><b>Описание проблемы</b></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
+            <?php
+                $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+                $groups = TeacherGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+
+                echo '<thead>';
+                echo '<th style="vertical-align: middle;">Код проблемы</th>';
+                echo '<th style="vertical-align: middle;">Описание проблемы</th>';
+                echo '<th style="vertical-align: middle;">Место возникновения</th>';
+                echo '</thead>';
+
+                echo '<tbody>';
+                foreach ($groups as $group)
+                {
+                    $trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
+                    $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $group->id])->all();
+
+                    foreach ($errorsList as $error)
+                    {
+                        if ($error->time_the_end == NULL)
+                        {
+                            echo '<tr>';
+                            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                            echo '<th style="text-align: left;">' . $errorName->number . "</th>";
+                            echo '<td>' . $errorName->name . '</td>';
+                            echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                }
+                echo '</tbode>';
+            ?>
         </table>
     </div>
 </div>
