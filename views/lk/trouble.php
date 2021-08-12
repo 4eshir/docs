@@ -36,16 +36,18 @@ use yii\widgets\DetailView;
                 {
                     $trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
                     $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id])->all();
-                    var_dump($errorsList);
                     foreach ($errorsList as $error)
                     {
                         if ($error->time_the_end === null)
                         {
                             echo '<tr>';
                             $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-                            echo '<th style="text-align: left;">' . $errorName->number . "</th>";
-                            echo '<td>' . $errorName->name . '</td>';
-                            echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
+                            //echo '<th style="text-align: left;">' . $errorName->number . "</th>";
+                            //echo '<td>' . $errorName->name . '</td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            echo '<td></td>';
+                            //echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
                             echo '</tr>';
                         }
                     }
