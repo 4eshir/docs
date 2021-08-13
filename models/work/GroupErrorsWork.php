@@ -265,16 +265,15 @@ class GroupErrorsWork extends GroupErrors
             $this->time_start = date("Y.m.d H:i:s");
             //$this->save();
         }
-        else if ($checkList['capacity'] == 0 && $tpCount !== $program->capacity)
+
+        if ($checkList['capacity'] == 0 && $tpCount !== $program->capacity)
         {
-            // объем программы и утп не совпадают количество часов
             //$this->training_group_id = $modelGroupID;
             $this->errors_id = 12;
             $this->time_start = date("Y.m.d H:i:s");
             //$this->save();
         }
 
-        // в утп не указана форма контроля 11
         if ($checkList['controle'] == 0 && $controle > 0)
         {
             //$this->training_group_id = $modelGroupID;
@@ -283,8 +282,7 @@ class GroupErrorsWork extends GroupErrors
             //$this->save();
         }
 
-        // не заполнено тематическое напрвление
-        if ($checkList['thematicDirection'] == 0 && $program->thematic_direction_id === null)
+        if ($checkList['thematicDirection'] == 0 && $program->thematic_direction_id == NULL)
         {
             //$this->training_group_id = $modelGroupID;
             $this->errors_id = 10;
@@ -292,7 +290,6 @@ class GroupErrorsWork extends GroupErrors
             //$this->save();
         }
 
-        // не указаны составители 13
         if ($checkList['authors'] == 0 && $authorsCount == 0)
         {
             //$this->training_group_id = $modelGroupID;
@@ -300,6 +297,10 @@ class GroupErrorsWork extends GroupErrors
             $this->time_start = date("Y.m.d H:i:s");
             //$this->save();
         }
+    }
+
+    public function CheckErrorsTrainingGroupLesson ($modelGroupID)
+    {
 
     }
 }
