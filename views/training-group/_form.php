@@ -27,11 +27,16 @@ use yii\jui\AutoComplete;
         for (var c = 0; c !== elems.length; c++)
         {
             if (elems[c].checked === false)
+            {
                 elems[c].checked = true;
+            }
             else
-                elems[c].removeAttribute("checked");
+            {
+                elems[c].checked = false;
+            }
         }
     }
+
 
 </script>
 
@@ -83,7 +88,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <?php
     $counterPhp = 0;
 
-    $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->andWhere(['actual' => 1])->all();
     $items = \yii\helpers\ArrayHelper::map($progs,'id','fullName');
     $params = [
     ];
