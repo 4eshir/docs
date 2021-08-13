@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
     $params = [
         'prompt' => '--',
     ];
-    echo $form->field($model, 'teacherId')->dropDownList($items, $params)->label('Преподаватель');
+    echo $form->field($model, 'teacherId')->dropDownList($items, $params)->label('Педагог');
     ?>
 
     <div class="form-group">
