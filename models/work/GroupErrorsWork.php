@@ -317,10 +317,10 @@ class GroupErrorsWork extends GroupErrors
             $checkList[$name] = 0;
         }
 
-        foreach ($oldErrors as $error)
+        /*foreach ($oldErrors as $error)
         {
 
-        }
+        }*/
 
         foreach ($lessons as $lesson)
         {
@@ -344,4 +344,5 @@ class GroupErrorsWork extends GroupErrors
 
         //var_dump($lessonsDate);
     }
+
 }
