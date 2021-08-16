@@ -67,6 +67,26 @@ $session = Yii::$app->session;
             '3' => 'Приказ об отчислении', '4' => 'Другое'))->label('') ?>
     </div>
 
+    <div <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
+        <table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>
+            <?php
+            $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->all();
+            foreach ($groups as $group)
+            {
+                $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $model->id])->one();
+                echo '<tr><td style="width: 10px">';
+                if ($orders !== null)
+                    echo $form->field($model, 'groups_check[]')->checkbox(['value' => $group->id, 'checked' => 'true'], false)->label(false);
+                else
+                    echo $form->field($model, 'groups_check[]')->checkbox(['value' => $group->id], false)->label(false);
+                echo '</td><td style="width: auto">';
+                echo $group->number;
+                echo '</td></tr>';
+            }
+            ?>
+        </table>
+    </div>
+
     <?php
     $params = [
         'prompt' => '',

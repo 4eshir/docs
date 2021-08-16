@@ -103,4 +103,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <div <?php echo $model->type == 0 ? '' : 'hidden'; ?>>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['attribute' => 'groupsLink', 'format' => 'raw'],
+            ],
+        ]) ?>
+    </div>
+
 </div>

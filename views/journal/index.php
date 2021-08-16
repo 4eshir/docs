@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\extended\JournalModel */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Участники мероприятий';
+$this->title = 'Электронный журнал';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
     {
         $tr = '<tr>';
         if ($part->status == 1)
-            $tr = '<tr style="background:lightcoral">';
+            $tr = '<tr style="background:#f08080">';
         echo $tr.'<td>'.$part->participantWork->shortName.'</td>';
         foreach ($lessons as $lesson)
         {

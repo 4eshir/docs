@@ -74,6 +74,7 @@ class SearchTrainingProgram extends TrainingProgramWork
             ->andFilterWhere(['like', 'edit_docs', $this->edit_docs])
             ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
+        ;
         return $dataProvider;
     }
 }
