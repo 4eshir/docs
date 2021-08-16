@@ -203,7 +203,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckErrorsTrainingCroupLessons ()
+    public function CheckErrorsTrainingCroupLessons()
     {
 
     }
