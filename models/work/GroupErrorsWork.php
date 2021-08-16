@@ -301,6 +301,47 @@ class GroupErrorsWork extends GroupErrors
 
     public function CheckErrorsTrainingGroupLesson ($modelGroupID)
     {
+        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
 
+        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
+        $now_time = date("Y-m-d");
+        $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
+        $start_date = date('Y-m-d', strtotime($now_time . '-7 day'));
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['between', 'lesson_date', $start_date, $finish_date])->all();
+
+        $participantCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
+
+        foreach ($lessons as $lesson)
+        {
+            $name = $lesson->lesson_date . ' ' . $lessons->lesson_start_time;
+            $checkList[$name] = 0;
+        }
+
+        foreach ($oldErrors as $error)
+        {
+
+        }
+
+        foreach ($lessons as $lesson)
+        {
+            $visits = VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+            $count = 0;
+            foreach ($visits as $visit)
+            {
+                if ($visit->status == 3)
+                    $count++;
+            }
+            //var_dump($count);
+            if ($count == $participantCount)
+            {
+                // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
+                $this->training_group_id = $modelGroupID;
+                $this->errors_id = 9;
+                $this->time_start = $lesson->lesson_date;
+                $this->save();
+            }
+        }
+
+        //var_dump($lessonsDate);
     }
 }

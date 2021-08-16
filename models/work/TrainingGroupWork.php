@@ -574,6 +574,8 @@ class TrainingGroupWork extends TrainingGroup
             // тут должны работать проверки на ошибки
             $errorsCheck = new GroupErrorsWork();
             $errorsCheck->CheckErrorsTrainingGroup($this->id);
+
+            $errorsCheck->CheckErrorsTrainingGroupLesson($this->id);
         }
     }
 
