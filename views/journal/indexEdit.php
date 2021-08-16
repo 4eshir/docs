@@ -47,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     div.containerTable {
         overflow: scroll;
-        max-width: 1200px;
-        max-height: 720px;
+        max-width: 100%;
+        max-height: 600px;
     }
 
     th {
