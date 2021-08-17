@@ -149,7 +149,7 @@ foreach ($parts as $part)
 echo '</tbody></table></div><br>';
 
 echo '<h4>Тематический план занятий</h4><br>';
-echo '<table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
+echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
 foreach ($lessons as $lesson)
 {
     $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
@@ -168,7 +168,7 @@ foreach ($lessons as $lesson)
         $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
         '</td></tr>';
 }
-echo '</table>';
+echo '</table></div>';
 echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
 ActiveForm::end();
 ?>
