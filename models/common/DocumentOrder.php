@@ -119,7 +119,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
      */
     public function getRegister()
     {
-        return $this->hasOne(People::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'register_id']);
     }
 
     /**

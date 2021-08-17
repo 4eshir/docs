@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'summary' => false,
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-            'documentNumberString',
+            ['attribute' => 'documentNumberString', 'label' => 'Номер приказа'],
             ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
             ['attribute' => 'bringName','label' => 'Проект вносит', 'value' => function ($model) {
                 return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'.'.mb_substr($model->bring->patronymic, 0, 1).'.';
