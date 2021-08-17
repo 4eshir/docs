@@ -62,6 +62,22 @@ $session = Yii::$app->session;
 
     ?>
 
+    <?php
+    $params = [
+        'prompt' => '',
+        'id' => 'rS',
+        'class' => 'form-control nom',
+    ];
+    if ($model->nomenclature_id === null)
+        echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула');
+    else
+    {
+        $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->all();
+        $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
+        echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Преамбула');
+    }
+    ?>
+
     <div <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?= $form->field($model, 'study_type')->radioList(array('2' => 'Приказ о зачислении',
             '3' => 'Приказ об отчислении', '4' => 'Другое'))->label('') ?>
@@ -86,14 +102,6 @@ $session = Yii::$app->session;
             ?>
         </table>
     </div>
-
-    <?php
-    $params = [
-        'prompt' => '',
-        'id' => 'rS',
-        'class' => 'form-control nom',
-    ];
-    echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула'); ?>
 
     <!---      -->
 
