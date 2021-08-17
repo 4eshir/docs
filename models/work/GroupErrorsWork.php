@@ -317,6 +317,7 @@ class GroupErrorsWork extends GroupErrors
             $checkList[$name] = 0;
         }
 
+        //var_dump($checkList);
         /*foreach ($oldErrors as $error)
         {
 
@@ -332,14 +333,14 @@ class GroupErrorsWork extends GroupErrors
                     $count++;
             }
             //var_dump($count);
-            if ($count == $participantCount)
+            /*if ($count == $participantCount)
             {
                 // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
                 $this->training_group_id = $modelGroupID;
                 $this->errors_id = 9;
                 $this->time_start = $lesson->lesson_date;
                 $this->save();
-            }
+            }*/
         }
 
         //var_dump($lessonsDate);

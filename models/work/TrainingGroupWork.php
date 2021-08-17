@@ -412,14 +412,14 @@ class TrainingGroupWork extends TrainingGroup
 
 
                 foreach ($newDel as $oneDel) {
-                        $lesson = TrainingGroupLessonWork::find()->where(['id' => $oneDel])->one();
-                        $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
-                        $visits = Visit::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+                    $lesson = TrainingGroupLessonWork::find()->where(['id' => $oneDel])->one();
+                    $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+                    $visits = VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
 
-                        foreach ($themes as $theme) $theme->delete();
-                        foreach ($visits as $visit) $visit->delete();
-                        if ($lesson !== null)
-                           $lesson->delete();
+                    foreach ($themes as $theme) $theme->delete();
+                    foreach ($visits as $visit) $visit->delete();
+                    if ($lesson !== null)
+                       $lesson->delete();
                 }
                 /*
                             $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC, 'lesson_start_time' => SORT_ASC])->all();
