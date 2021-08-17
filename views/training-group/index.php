@@ -35,9 +35,12 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             'rowOptions' => function($data) {
                 if ($data['archive'] === 1)
                     return ['class' => 'danger'];
+                else if ($data['errorsWork'] != '')
+                    return ['class' => 'warning'];
                 else
                     return ['class' => 'default'];
             },
+
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив', 'checkboxOptions' => function($model) {
                 return $model->archive === 1 ? ['checked' => 'true'] : [];
@@ -60,6 +63,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'rowOptions' => function($data) {
+                if ($data['archive'] === 1)
+                    return ['class' => 'danger'];
+                else if ($data['errorsWork'] != '')
+                    return ['class' => 'warning'];
+                else
+                    return ['class' => 'default'];
+            },
             'columns' => [
                 'number',
                 ['attribute' => 'programNameNoLink', 'format' => 'html'],

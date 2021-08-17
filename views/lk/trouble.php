@@ -3,8 +3,10 @@
 use app\models\work\ErrorsWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\PeopleWork;
+use app\models\work\ProgramErrorsWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupWork;
+use app\models\work\TrainingProgramWork;
 use app\models\work\UserWork;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -47,6 +49,22 @@ use yii\widgets\DetailView;
                             echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
                             echo '</tr>';
                         }
+                    }
+                }
+
+                // отображение ошибок в образовательных программах
+                if ($user->id == 31)
+                {
+                    $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL])->all();
+                    foreach ($errorsList as $error)
+                    {
+                        $program = TrainingProgramWork::find()->where(['id' => $error->training_program_id])->one();
+                        echo '<tr>';
+                        $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                        echo '<th style="text-align: left;">' . $errorName->number . "</th>";
+                        echo '<td>' . $errorName->name . '</td>';
+                        echo '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
+                        echo '</tr>';
                     }
                 }
                 echo '</tbode>';

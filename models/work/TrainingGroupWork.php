@@ -227,7 +227,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getErrorsWork()
     {
-        $errorsList = GroupErrors::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL])->all();
+        $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL])->all();
         $result = '';
         foreach ($errorsList as $errors)
         {
@@ -591,8 +591,6 @@ class TrainingGroupWork extends TrainingGroup
             // тут должны работать проверки на ошибки
             $errorsCheck = new GroupErrorsWork();
             $errorsCheck->CheckErrorsTrainingGroup($this->id);
-
-            $errorsCheck->CheckErrorsTrainingGroupLesson($this->id);
         }
     }
 

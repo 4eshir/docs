@@ -200,110 +200,10 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckErrorsTrainingProgram ($modelProgramID)
-    {
-        //$oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null])->all();
-
-        $program = TrainingProgramWork::find()->where(['id' => $modelProgramID])->one();
-        $tp = ThematicPlanWork::find()->where(['training_program_id' => $modelProgramID])->all();
-        $tpCount = count($tp);
-        $controle = 0;
-        $authorsCount = count(AuthorProgramWork::find()->where(['training_program_id' => $modelProgramID])->all());
-
-        foreach ($tp as $plane)
-        {
-            if ($plane->control_type_id === null)
-                $controle++;
-        }
-
-        $checkList = ['tematicPlane' => 0, 'capacity' => 0, 'controle' => 0, 'thematicDirection' => 0, 'authors' => 0];
-
-        /*foreach ($oldErrors as $correctErrors)
-        {
-            if ($correctErrors->errors_id == 7)
-            {
-                $checkList['tematicPlane'] = 1;
-                if ($tpCount > 0)     // ошибка исправлена
-                    $correctErrors->time_the_end = date("Y.m.d H:i:s");
-            }
-
-            if ($correctErrors->errors_id == 10)
-            {
-                $checkList['thematicDirection'] = 1;
-                if ($program->thematic_direction_id !== null)     // ошибка исправлена
-                    $correctErrors->time_the_end = date("Y.m.d H:i:s");
-            }
-
-            if ($correctErrors->errors_id == 11)
-            {
-                $checkList['controle'] = 1;
-                if ($controle == 0)     // ошибка исправлена
-                    $correctErrors->time_the_end = date("Y.m.d H:i:s");
-            }
-
-            if ($correctErrors->errors_id == 12)
-            {
-                $checkList['capacity'] = 1;
-                if ($tpCount == $program->capacity)     // ошибка исправлена
-                    $correctErrors->time_the_end = date("Y.m.d H:i:s");
-            }
-
-            if ($correctErrors->errors_id == 13)
-            {
-                $checkList['authors'] = 1;
-                if ($authorsCount > 0)     // ошибка исправлена
-                    $correctErrors->time_the_end = date("Y.m.d H:i:s");
-            }
-
-            $correctErrors->save();
-        }*/
-
-        if ($checkList['tematicPlane'] == 0 && $tpCount == 0) // не заполнено утп
-        {
-            //$this->training_group_id = $modelGroupID;
-            $this->errors_id = 7;
-            $this->time_start = date("Y.m.d H:i:s");
-            //$this->save();
-        }
-
-        if ($checkList['capacity'] == 0 && $tpCount !== $program->capacity)
-        {
-            //$this->training_group_id = $modelGroupID;
-            $this->errors_id = 12;
-            $this->time_start = date("Y.m.d H:i:s");
-            //$this->save();
-        }
-
-        if ($checkList['controle'] == 0 && $controle > 0)
-        {
-            //$this->training_group_id = $modelGroupID;
-            $this->errors_id = 11;
-            $this->time_start = date("Y.m.d H:i:s");
-            //$this->save();
-        }
-
-        if ($checkList['thematicDirection'] == 0 && $program->thematic_direction_id == NULL)
-        {
-            //$this->training_group_id = $modelGroupID;
-            $this->errors_id = 10;
-            $this->time_start = date("Y.m.d H:i:s");
-            //$this->save();
-        }
-
-        if ($checkList['authors'] == 0 && $authorsCount == 0)
-        {
-            //$this->training_group_id = $modelGroupID;
-            $this->errors_id = 13;
-            $this->time_start = date("Y.m.d H:i:s");
-            //$this->save();
-        }
-    }
-
     public function CheckErrorsTrainingGroupLesson ($modelGroupID)
     {
-        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
+        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->one();
 
-        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
         $now_time = date("Y-m-d");
         $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
         $start_date = date('Y-m-d', strtotime($now_time . '-7 day'));
@@ -311,18 +211,7 @@ class GroupErrorsWork extends GroupErrors
 
         $participantCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
 
-        foreach ($lessons as $lesson)
-        {
-            $name = $lesson->lesson_date . ' ' . $lessons->lesson_start_time;
-            $checkList[$name] = 0;
-        }
-
-        //var_dump($checkList);
-        /*foreach ($oldErrors as $error)
-        {
-
-        }*/
-
+        $checkCount = 0;
         foreach ($lessons as $lesson)
         {
             $visits = VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
@@ -332,18 +221,28 @@ class GroupErrorsWork extends GroupErrors
                 if ($visit->status == 3)
                     $count++;
             }
-            //var_dump($count);
-            /*if ($count == $participantCount)
+
+            if ($count == $participantCount)
             {
-                // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
-                $this->training_group_id = $modelGroupID;
-                $this->errors_id = 9;
-                $this->time_start = $lesson->lesson_date;
-                $this->save();
-            }*/
+                $checkCount = 1;
+                break;
+            }
         }
 
-        //var_dump($lessonsDate);
+        if ($oldErrors !== null && $checkCount == 0)
+        {
+            $oldErrors->time_the_end = date("Y.m.d H:i:s");
+            $oldErrors->save();
+        }
+
+        if ($oldErrors === null && $checkCount != 0)
+        {
+            // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 9;
+            $this->time_start = $now_time;
+            $this->save();
+        }
     }
 
 }
