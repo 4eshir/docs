@@ -74,15 +74,13 @@ class SearchTrainingGroup extends TrainingGroupWork
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
 
-            if (count($branchs) > 0 && count($teachers) > 0) {
-                var_dump($branchs);
+            if ($params["SearchTrainingGroup"]["branchId"] !== "" && $params["SearchTrainingGroup"]["teacherId"] !== "") {
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             }
-            else if (count($teachers) > 0){
-                var_dump($idsTG);
+            else if ($params["SearchTrainingGroup"]["teacherId"] !== ""){
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             }
-            else if (count($branchs) > 0)
+            else if ($params["SearchTrainingGroup"]["branchId"] !== "")
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->orderBy(['archive' => SORT_ASC]);
             else{
                 $groups = TrainingGroupWork::find()->orderBy(['archive' => SORT_ASC]);
