@@ -224,6 +224,13 @@ class TrainingProgramController extends Controller
         return $this->redirect(['/training-program/index']);
     }
 
+    public function actionActual($id)
+    {
+        $tag = TrainingProgramWork::findOne($id);
+        $tag->actual === 1 ? $tag->actual = 0 : $tag->actual = 1;
+        $tag->save(false);
+    }
+
     /**
      * Finds the TrainingProgram model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
