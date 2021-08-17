@@ -58,7 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $url = Url::toRoute(['training-program/actual']);
     $this->registerJs(
     "function myStatus(id){
-        alert(id);
         $.ajax({
             type: 'GET',
             url: 'index.php?r=training-program/actual',

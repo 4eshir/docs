@@ -229,6 +229,11 @@ class TrainingProgramController extends Controller
         $tag = TrainingProgramWork::findOne($id);
         $tag->actual === 1 ? $tag->actual = 0 : $tag->actual = 1;
         $tag->save(false);
+        if ($tag->actual === 0)
+            Yii::$app->session->setFlash("warning", "Программа ".$tag->name." больше не актуальна");
+        else
+            Yii::$app->session->setFlash("success", "Программа ".$tag->name." теперь актуальна");
+        return $this->redirect(['/training-program/index']);
     }
 
     /**
