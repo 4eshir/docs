@@ -58,8 +58,12 @@ class SearchTrainingGroup extends TrainingGroupWork
 
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->orderBy(['archive' => SORT_ASC]);
-        $branchs = TrainingGroupWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->orderBy(['archive' => SORT_ASC])->all();
-        $teachers = TeacherGroupWork::find()->where(['teacher_id' => $params ["SearchTrainingGroup"]["teacherId"]])->all();
+        $branchs = [];
+        if ($params ["SearchTrainingGroup"]["branchId"] !== "")
+            $branchs = TrainingGroupWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->orderBy(['archive' => SORT_ASC])->all();
+        $teachers = [];
+        if ($params ["SearchTrainingGroup"]["teacherId"] !== "")
+            $teachers = TeacherGroupWork::find()->where(['teacher_id' => $params ["SearchTrainingGroup"]["teacherId"]])->all();
         $idsB = [];
         $idsTG = [];
         if (count($branchs) > 0)
@@ -74,13 +78,13 @@ class SearchTrainingGroup extends TrainingGroupWork
         if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
         {
 
-            if ($params["SearchTrainingGroup"]["branchId"] !== "" && $params["SearchTrainingGroup"]["teacherId"] !== "") {
+            if (count($branchs) > 0 && count($teachers) > 0) {
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             }
-            else if ($params["SearchTrainingGroup"]["teacherId"] !== ""){
+            else if (count($teachers) > 0){
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             }
-            else if ($params["SearchTrainingGroup"]["branchId"] !== "")
+            else if (count($branchs) > 0)
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->orderBy(['archive' => SORT_ASC]);
             else{
                 $groups = TrainingGroupWork::find()->orderBy(['archive' => SORT_ASC]);
