@@ -50,6 +50,7 @@ class TrainingProgramController extends Controller
         }
         $searchModel = new SearchTrainingProgram();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = false;
 
         return $this->render('index', [
             'searchModel' => $searchModel,

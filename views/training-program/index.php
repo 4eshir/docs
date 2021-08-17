@@ -20,9 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?php $form = ActiveForm::begin(['action'=>['saver'], 'method'=>"post"]); ?>
+    <?php $form = ActiveForm::begin(['action'=>['saver'], 'method'=>"post"]);
 
-    <?= GridView::widget([
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
-    <?= Html::submitButton('Сохранить актуальность программ', ['class' => 'btn btn-primary']) ?>
-    <?php ActiveForm::end(); ?>
+    ]);
+    echo Html::submitButton('Сохранить актуальность программ', ['class' => 'btn btn-primary']);
+    ActiveForm::end(); ?>
 
 </div>

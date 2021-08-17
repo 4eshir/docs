@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\models\common\Focus;
+use app\models\common\People;
+use app\models\common\ThematicDirection;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\TrainingProgramWork;
@@ -17,8 +20,7 @@ class SearchTrainingProgram extends TrainingProgramWork
     public function rules()
     {
         return [
-            [['id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus', 'allow_remote'], 'integer'],
-            [['name', 'ped_council_date', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'safe'],
+            [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote', 'name'], 'safe']
         ];
     }
 
@@ -64,15 +66,12 @@ class SearchTrainingProgram extends TrainingProgramWork
             'capacity' => $this->capacity,
             'student_left_age' => $this->student_left_age,
             'student_right_age' => $this->student_right_age,
-            'focus' => $this->focus,
+            'focus_id' => $this->focus_id,
             'allow_remote' => $this->allow_remote,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'ped_council_number', $this->ped_council_number])
-            ->andFilterWhere(['like', 'doc_file', $this->doc_file])
-            ->andFilterWhere(['like', 'edit_docs', $this->edit_docs])
-            ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
         ;
         return $dataProvider;
