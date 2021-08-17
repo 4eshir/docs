@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Очистить', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['training-group/index'])) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
