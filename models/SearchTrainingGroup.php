@@ -75,7 +75,7 @@ class SearchTrainingGroup extends TrainingGroupWork
         {
 
             if (count($branchs) > 0 && count($teachers) > 0) {
-                var_dump('check1');
+                var_dump($params ["SearchTrainingGroup"]["teacherId"]);
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->andWhere(['in', 'training_group.id', $idsTG])->orderBy(['archive' => SORT_ASC]);
             }
             else if (count($teachers) > 0){
