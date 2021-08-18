@@ -89,6 +89,15 @@ class PeopleWork extends People
         if ($this->sex === 2) return 'Другое';
     }
 
+    public function getPositionsWork()
+    {
+        $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
+        $result = '';
+        foreach ($pos as $posOne)
+            $result .= $posOne->position->name . '<br>';
+        return $result;
+    }
+
     public function getPositionsList()
     {
         $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
