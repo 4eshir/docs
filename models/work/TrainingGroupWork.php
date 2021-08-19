@@ -4,6 +4,7 @@ namespace app\models\work;
 
 use app\models\common\Auditorium;
 use app\models\common\BranchProgram;
+use app\models\common\ForeignEventParticipants;
 use app\models\common\GroupErrors;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
@@ -465,15 +466,31 @@ class TrainingGroupWork extends TrainingGroup
             }
 
             $partsArr = [];
+            $errArr = [];
             if ($this->participants !== null && $this->participants[0]->participant_id !== "") {
                 foreach ($this->participants as $participant) {
-                    $trainingParticipant = new TrainingGroupParticipant();
-                    $trainingParticipant->participant_id = $participant->participant_id;
-                    $trainingParticipant->certificat_number = $participant->certificat_number;
-                    $trainingParticipant->send_method_id = $participant->send_method_id;
-                    $trainingParticipant->training_group_id = $this->id;
-                    $trainingParticipant->save();
-                    $partsArr[] = $trainingParticipant->participant_id;
+                    if ($participant->participant_id !== "")
+                    {
+                        $trainingParticipant = new TrainingGroupParticipant();
+                        $trainingParticipant->participant_id = $participant->participant_id;
+                        $trainingParticipant->certificat_number = $participant->certificat_number;
+                        $trainingParticipant->send_method_id = $participant->send_method_id;
+                        $trainingParticipant->training_group_id = $this->id;
+                        $trainingParticipant->save();
+                        $partsArr[] = $trainingParticipant->participant_id;
+                    }
+                    else
+                    {
+                        $errArr[] = $participant->participant_name;
+                    }
+                }
+                if (count($errArr) > 0)
+                {
+                    $message = "Следующие обучающиеся не были найдены в базе:<br>";
+                    foreach ($errArr as $errOne)
+                        $message .= $errOne.'<br>';
+                    $message .= "<br>Для добавления обучающихся в базу, обратитесь к методисту";
+                    Yii::$app->session->setFlash("danger", $message);
                 }
             }
             if ($this->lessons[0]->lesson_date !== null && $this->lessons[0]->lesson_date !== "") {
