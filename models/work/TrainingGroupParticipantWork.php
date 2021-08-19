@@ -2,6 +2,9 @@
 
 namespace app\models\work;
 
+use app\models\common\ForeignEventParticipants;
+use app\models\common\SendMethod;
+use app\models\common\TrainingGroup;
 use app\models\common\TrainingGroupParticipant;
 use Yii;
 
@@ -9,6 +12,18 @@ use Yii;
 class TrainingGroupParticipantWork extends TrainingGroupParticipant
 {
     public $participant_name;
+
+    public function rules()
+    {
+        return [
+            [['training_group_id'], 'required'],
+            [['participant_id', 'send_method_id', 'training_group_id', 'status'], 'integer'],
+            [['certificat_number', 'participant_name'], 'string'],
+            [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
+            [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
+            [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
+        ];
+    }
 
     public function getParticipantWork()
     {

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\work\CompanyWork;
+use app\models\work\PeoplePositionBranchWork;
 use app\models\work\PositionWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
