@@ -341,10 +341,10 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 </div>
                 <div>
                     <?php
-                    $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->where(['training_group_id' => $model->id])->all();
+                    $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->id])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();
                     if ($extEvents != null)
                     {
-                        echo '<table class="table table-bordered">';
+                        echo '<div style="overflow-y: scroll; max-height: 300px;"><table class="table table-bordered">';
                         echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
                         $c = 0;
                         foreach ($extEvents  as $extEvent) {
@@ -365,7 +365,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                             $c++;
                         }
-                        echo '</table>';
+                        echo '</table></div>';
                     }
                     ?>
                 </div>
@@ -468,7 +468,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
                         if ($extEvents != null)
                         {
-                            echo '<table class="table table-bordered">';
+                            echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
                             echo '<tr><td><input type="checkbox" id="checker0" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
@@ -478,14 +478,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                                 $counter++;
                             }
-                            echo '</table>';
+                            echo '</table></div>';
                         }
                         ?>
                     </div>
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px">';
+                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
                                 echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }
@@ -589,7 +589,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
                         if ($extEvents != null)
                         {
-                            echo '<table class="table table-bordered">';
+                            echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
                             echo '<tr><td><input type="checkbox" id="checker1" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
@@ -599,14 +599,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                                 $counter++;
                             }
-                            echo '</table>';
+                            echo '</table></div>';
                         }
                         ?>
                     </div>
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px">';
+                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
                         echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }

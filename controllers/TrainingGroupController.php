@@ -472,25 +472,7 @@ class TrainingGroupController extends Controller
         }
     }
 
-    public function actionArchive()
-    {
-        $checks = Yii::$app->request->post('selection');
-        $allTps = TrainingGroupWork::find()->all();
-        foreach ($allTps as $allTp)
-        {
-            $allTp->archive = 0;
-            $allTp->save(false);
-        }
-        if ($checks !== null)
-            foreach ($checks as $check)
-            {
-                $tp = TrainingGroupWork::find()->where(['id' => $check])->one();
-                $tp->archive = 1;
-                $tp->save(false);
 
-            }
-        return $this->redirect(['/training-group/index']);
-    }
 
     public function actionParse()
     {
@@ -533,6 +515,18 @@ class TrainingGroupController extends Controller
         if ($modelId == null)
             return $this->redirect('index?r=training-group/create');
         return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
+    public function actionArchive($id)
+    {
+        $tag = TrainingGroupWork::findOne($id);
+        $tag->archive === 1 ? $tag->archive = 0 : $tag->archive = 1;
+        $tag->save(false);
+        if ($tag->archive === 0)
+            Yii::$app->session->setFlash("success", "Группа ".$tag->number." разархивирована");
+        else
+            Yii::$app->session->setFlash("warning", "Группа ".$tag->number." архивирована");
+        return $this->redirect(['/training-group/index']);
     }
 
 }
