@@ -42,7 +42,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             },
 
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn',
+            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив',
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     $options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->archive ? true : false;
