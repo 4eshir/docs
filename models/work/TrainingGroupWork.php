@@ -87,7 +87,7 @@ class TrainingGroupWork extends TrainingGroup
             'presentDataFile' => 'Презентационные материалы',
             'work_data' => 'Рабочие материалы',
             'workDataFile' => 'Рабочие материалы',
-            'open' => 'Утвердить расписание',
+            'open' => 'Перенести темы занятий из образовательной программы',
             'openText' => 'Расписание утверждено',
             'participantNames' => 'Состав',
             'lessonDates' => 'Расписание',

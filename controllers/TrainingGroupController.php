@@ -464,6 +464,7 @@ class TrainingGroupController extends Controller
                 $operations = AuditoriumWork::find()
                     ->where(['branch_id' => $id])
                     ->all();
+                echo "<option value=null>" . "Вне отдела" . "</option>";
                 foreach ($operations as $operation)
                     echo "<option value='" . $operation->id . "'>" . $operation->name . ' (' . $operation->text . ')' . "</option>";
             } else

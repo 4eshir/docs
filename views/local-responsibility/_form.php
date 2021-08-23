@@ -158,6 +158,7 @@ use yii\widgets\ActiveForm;
     $regs = \app\models\work\RegulationWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($regs,'id','name');
     $params = [
+        'prompt' => '',
     ];
     echo $form->field($model, 'regulation_id')->dropDownList($items,$params);
 
