@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return ['class' => 'default'];
         },
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn',
+            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Акт.',
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     $options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->actual ? true : false;

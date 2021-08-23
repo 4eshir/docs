@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -28,7 +29,6 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?php if ($isMethodist !== null){
-        $form = ActiveForm::begin(['action'=>['archive'], 'method'=>"post"]);
         echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -42,9 +42,12 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             },
 
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив', 'checkboxOptions' => function($model) {
-                return $model->archive === 1 ? ['checked' => 'true'] : [];
-            },],
+            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив',
+                'checkboxOptions' => function ($model, $key, $index, $column) {
+                    $options['onclick'] = 'myStatus('.$model->id.');';
+                    $options['checked'] = $model->archive ? true : false;
+                    return $options;
+                }],
             'number',
             ['attribute' => 'programNameNoLink', 'format' => 'html'],
             ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
@@ -56,8 +59,6 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);
-        echo Html::submitButton('Архивировать', ['class' => 'btn btn-danger']);
-        ActiveForm::end();
     }
     else {
         echo GridView::widget([
@@ -88,3 +89,18 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
 
 </div>
+
+<?php
+$url = Url::toRoute(['training-group/archive']);
+$this->registerJs(
+    "function myStatus(id){
+        $.ajax({
+            type: 'GET',
+            url: 'index.php?r=training-group/archive',
+            data: {id: id},
+            success: function(result){
+                console.log(result);
+            }
+        });
+    }", yii\web\View::POS_END);
+?>

@@ -5,7 +5,7 @@ use app\models\work\UserWork;
 use app\models\components\UserRBAC;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\extended\JournalModel */
@@ -15,6 +15,49 @@ $this->title = 'Электронный журнал';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<style>
+    select:focus {outline:none;}
+
+    div.containerTable {
+        overflow: scroll;
+        max-width: 100%;
+        max-height: 600px;
+    }
+
+    th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    tbody th {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+    }
+
+    thead th:first-child {
+        left: 0;
+        z-index: 1;
+    }
+
+    thead th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    td, th {
+        padding: 0.5em;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    thead th, tbody th {
+        background: #FFF;
+    }
+
+</style>
 
 <?php
     $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();

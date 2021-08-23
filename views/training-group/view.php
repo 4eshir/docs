@@ -12,6 +12,37 @@ $this->params['breadcrumbs'][] = ['label' => 'Учебные группы', 'url
 $this->params['breadcrumbs'][] = 'Группа '.$this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
+<style>
+    .accordion {
+        background-color: #3680b1;
+        color: white;
+        cursor: pointer;
+        padding: 8px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        border-radius: 5px;
+    }
+
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active, .accordion:hover {
+
+    }
+
+    /* Style the accordion panel. Note: hidden by default */
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        display: none;
+        overflow: hidden;
+    }
+</style>
+
+
+
 <div class="training-group-view">
 
     <h1><?= Html::encode('Группа '.$this->title) ?></h1>
@@ -38,7 +69,6 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             }
         ?>
     </div>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -50,9 +80,9 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             'start_date',
             'finish_date',
             ['attribute' => 'countParticipants', 'label' => 'Количество учеников', 'format' => 'html'],
-            ['attribute' => 'participantNames', 'format' => 'html'],
+            ['attribute' => 'participantNames', 'value' => '<button class="accordion">Показать состав группы</button><div class="panel">'.$model->participantNames.'</div>', 'format' => 'raw'],
             ['attribute' => 'countLessons', 'label' => 'Количество занятий в расписании', 'format' => 'html'],
-            ['attribute' => 'lessonDates', 'format' => 'html'],
+            ['attribute' => 'lessonDates', 'value' => '<button class="accordion">Показать расписание группы</button><div class="panel">'.$model->lessonDates.'</div>', 'format' => 'raw'],
             ['attribute' => 'journalLink', 'format' => 'raw', 'label' => 'Журнал'],
             ['attribute' => 'ordersName', 'format' => 'html'],
             ['attribute' => 'photos', 'value' => function ($model) {
@@ -84,3 +114,25 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
     ]) ?>
 
 </div>
+
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            /* Toggle between adding and removing the "active" class,
+            to highlight the button that controls the panel */
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>

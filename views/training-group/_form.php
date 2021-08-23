@@ -341,10 +341,10 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 </div>
                 <div>
                     <?php
-                    $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->where(['training_group_id' => $model->id])->all();
+                    $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->id])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();
                     if ($extEvents != null)
                     {
-                        echo '<table class="table table-bordered">';
+                        echo '<div style="overflow-y: scroll; max-height: 300px;"><table class="table table-bordered">';
                         echo '<tr><td><b>ФИО</b></td><td><b>Номер сертификата</b></td><td><b>Способ доставки</b></td></tr>';
                         $c = 0;
                         foreach ($extEvents  as $extEvent) {
@@ -365,7 +365,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                             $c++;
                         }
-                        echo '</table>';
+                        echo '</table></div>';
                     }
                     ?>
                 </div>
@@ -468,7 +468,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
                         if ($extEvents != null)
                         {
-                            echo '<table class="table table-bordered">';
+                            echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
                             echo '<tr><td><input type="checkbox" id="checker0" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
@@ -478,14 +478,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                                 $counter++;
                             }
-                            echo '</table>';
+                            echo '</table></div>';
                         }
                         ?>
                     </div>
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px">';
+                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
                                 echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }
@@ -589,7 +589,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
                         if ($extEvents != null)
                         {
-                            echo '<table class="table table-bordered">';
+                            echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
                             echo '<tr><td><input type="checkbox" id="checker1" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
@@ -599,14 +599,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                                 $counter++;
                             }
-                            echo '</table>';
+                            echo '</table></div>';
                         }
                         ?>
                     </div>
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px">';
+                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
                         echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }
@@ -641,14 +641,23 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     <div class="panel-body">
                                         <div class="col-xs-4">
                                             <?php
-                                            $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
+                                            echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
+                                                    ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'],
+                                                    ['item'=>function ($index, $label, $name, $checked, $value){
+                                                        if($checked)
+                                                            $checked = 'checked';
+                                                        return '<label class="checkbox-inline">
+                                                                <input type="checkbox" value="' . $value . '" name="' . $name . '" ' . $checked . ' />'.$label.'
+                                                                </label><br>';
+                                            }])->label('<div style="padding-bottom: 10px">Периодичность</div>');
+                                            /*$items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                             $params = [
                                                 'prompt' => '',
                                                 'id' => 'selectDay',
                                                 'class' => 'form-control selectDayClass'
                                             ];
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->dropDownList($items,$params)->label('Периодичность');
-
+                                            */
                                             ?>
                                         </div>
                                         <div class="col-xs-2">

@@ -40,6 +40,7 @@ $session = Yii::$app->session;
     <!---      -->
     <?php
     $params = [
+        'prompt' => '--',
         'id' => 'r',
         'onchange' => '
                         $.post(

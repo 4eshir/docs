@@ -22,9 +22,9 @@ class TrainingGroupAuto extends Model
     {
         return [
             [['start_time', 'end_time', 'auditorium'], 'required'],
-            [['day','start_time', 'end_time'], 'string'],
+            [['start_time', 'end_time'], 'string'],
             [['duration'], 'integer'],
-            [['auds'], 'safe'],
+            [['auds', 'day'], 'safe'],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
         ];
     }
@@ -32,6 +32,7 @@ class TrainingGroupAuto extends Model
     public function getDaysInRange($dateFromString, $dateToString)
     {
         $dateFrom = new \DateTime($dateFromString);
+        $dateFromT = new \DateTime($dateFromString);
         $dateTo = new \DateTime($dateToString);
         $dates = [];
 
@@ -44,20 +45,27 @@ class TrainingGroupAuto extends Model
             array_push($dates, $dateFrom->format('Y-m-d'));
         $day = 'next monday';
 
-        if ($this->day == 2) $day = 'next tuesday';
-        if ($this->day == 3) $day = 'next wednesday';
-        if ($this->day == 4) $day = 'next thursday';
-        if ($this->day == 5) $day = 'next friday';
-        if ($this->day == 6) $day = 'next saturday';
-        if ($this->day == 7) $day = 'next sunday';
-        $dateFrom->modify($day);
+        foreach ($this->day as $oneDay)
+        {
+            if ($oneDay === "0") $day = 'next monday';
+            if ($oneDay === "1") $day = 'next tuesday';
+            if ($oneDay === "2") $day = 'next wednesday';
+            if ($oneDay === "3") $day = 'next thursday';
+            if ($oneDay === "4") $day = 'next friday';
+            if ($oneDay === "5") $day = 'next saturday';
+            if ($oneDay === "6") $day = 'next sunday';
 
-        while ($dateFrom <= $dateTo) {
-            $dates[] = $dateFrom->format('Y-m-d');
-            $dateFrom->modify('+1 week');
+            $dateFrom->modify($day);
+
+            while ($dateFromT <= $dateTo) {
+                $dates[] = $dateFromT->format('Y-m-d');
+                $dateFromT->modify('+1 week');
+            }
+            if ($dates[0] == $dates[1])
+                unset($dates[0]);
+            $dateFromT = $dateFrom;
         }
-        if ($dates[0] == $dates[1])
-            unset($dates[0]);
+
         return $dates;
     }
 }
