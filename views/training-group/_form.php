@@ -544,7 +544,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                                     function(res){
                                                         var elems = document.getElementsByClassName("aud");
                                                         for (var c = 0; c !== elems.length; c++) {
-                                                            if (elems[c].id == "ra" + id)
+                                                            if (elems[c].id == "r" + id)
                                                                 elems[c].innerHTML = res;
                                                         }
                                                     }
