@@ -543,9 +543,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                                     {id: $(this).val()}, 
                                                     function(res){
                                                         var elems = document.getElementsByClassName("aud");
-                                                        for (var c = 0; c !== elems.length; c++) {
-                                                            if (elems[c].id == "r" + id)
-                                                                elems[c].innerHTML = res;
+                                                        elems[elems.length - 1].innerHTML = res;
                                                         }
                                                     }
                                                 );
@@ -641,14 +639,23 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                     <div class="panel-body">
                                         <div class="col-xs-4">
                                             <?php
-                                            $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
+                                            echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
+                                                    ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'],
+                                                    ['item'=>function ($index, $label, $name, $checked, $value){
+                                                        if($checked)
+                                                            $checked = 'checked';
+                                                        return '<label class="checkbox-inline">
+                                                                <input type="checkbox" value="' . $value . '" name="' . $name . '" ' . $checked . ' />'.$label.'
+                                                                </label><br>';
+                                            }])->label('<div style="padding-bottom: 10px">Периодичность</div>');
+                                            /*$items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                             $params = [
                                                 'prompt' => '',
                                                 'id' => 'selectDay',
                                                 'class' => 'form-control selectDayClass'
                                             ];
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->dropDownList($items,$params)->label('Периодичность');
-
+                                            */
                                             ?>
                                         </div>
                                         <div class="col-xs-2">
