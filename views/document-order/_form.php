@@ -16,6 +16,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
 $session = Yii::$app->session;
 ?>
 
+<script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+</script>
+
 <div class="document-order-form">
 
     <?php
@@ -45,13 +62,17 @@ $session = Yii::$app->session;
         'onchange' => '
                         $.post(
                             "' . Url::toRoute('subattr') . '", 
-                            {id: $(this).val()},
+                            {id: $(this).val(),
+                            idG: getUrlParameter("id")},
                             function(res){
+                                var resArr = res.split("|split|");
                                 var elems = document.getElementsByClassName("nom");
                                 for (var c = 0; c !== elems.length; c++) {
                                     if (elems[c].id == "rS")
-                                        elems[c].innerHTML = res;
+                                        elems[c].innerHTML = resArr[0];
                                 }
+                                var elem = document.getElementById("group_table");
+                                elem.innerHTML = resArr[1];
                             }
                         );
                     ',
@@ -84,24 +105,27 @@ $session = Yii::$app->session;
             '3' => 'Приказ об отчислении', '4' => 'Другое'))->label('') ?>
     </div>
 
-    <div <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
-        <table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>
-            <?php
-            $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->all();
-            foreach ($groups as $group)
-            {
+    <div id="group_table" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
+        <?php
+        if ($model->nomenclature_id !== null) {
+            echo '<table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
+
+            $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])->all();
+            foreach ($groups as $group) {
                 $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $model->id])->one();
                 echo '<tr><td style="width: 10px">';
                 if ($orders !== null)
-                    echo $form->field($model, 'groups_check[]')->checkbox(['value' => $group->id, 'checked' => 'true'], false)->label(false);
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="' . $group->id . '">';
                 else
-                    echo $form->field($model, 'groups_check[]')->checkbox(['value' => $group->id], false)->label(false);
+                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="' . $group->id . '">';
                 echo '</td><td style="width: auto">';
                 echo $group->number;
                 echo '</td></tr>';
             }
-            ?>
-        </table>
+        }
+
+        echo '</table>';
+        ?>
     </div>
 
     <!---      -->

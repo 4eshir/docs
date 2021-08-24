@@ -307,6 +307,7 @@ class DocumentOrderController extends Controller
 
     public function actionSubattr()
     {
+        $idG = Yii::$app->request->post('idG');
         if ($id = Yii::$app->request->post('id')) {
             $operationPosts = BranchWork::find()
                 ->where(['id' => $id])
@@ -320,7 +321,25 @@ class DocumentOrderController extends Controller
                     echo "<option value='" . $operation->number . "'>" . $operation->fullNameWork . "</option>";
             } else
                 echo "<option>-</option>";
+            echo '|split|';
 
+            echo '<table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
+
+            $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])->all();
+            foreach ($groups as $group)
+            {
+                $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $idG])->one();
+                echo '<tr><td style="width: 10px">';
+                if ($orders !== null)
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                else
+                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                echo '</td><td style="width: auto">';
+                echo $group->number;
+                echo '</td></tr>';
+            }
+
+            echo '</table>'.'|split|';
         }
     }
 
