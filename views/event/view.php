@@ -95,14 +95,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
             }, 'format' => 'raw'],
             ['label' => 'Протоколы мероприятия', 'attribute' => 'protocol', 'value' => function ($model) {
-                return Html::a($model->protocol, \yii\helpers\Url::to(['event/get-file', 'fileName' => 'protocol/'.$model->protocol]));
+                $split = explode(" ", $model->protocol);
+                $result = '';
+                for ($i = 0; $i < count($split) - 1; $i++)
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'protocol/'.$split[$i].'+'])).'<br>';
+                return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Фотоматериалы', 'attribute' => 'photoFiles', 'value' => function ($model) {
                 $split = explode(" ", $model->photos);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$model->photos])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$split[$i].'+'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
