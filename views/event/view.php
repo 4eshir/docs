@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->reporting_doc);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'reporting/'.$split[$i]])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'reporting/'.$split[$i].'+'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
