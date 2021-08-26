@@ -44,7 +44,6 @@ class TrainingGroupAuto extends Model
         if ($wint == $this->day)
             array_push($dates, $dateFrom->format('Y-m-d'));
         $day = 'next monday';
-
         foreach ($this->day as $oneDay)
         {
             if ($oneDay === "0") $day = 'next monday';
@@ -55,15 +54,15 @@ class TrainingGroupAuto extends Model
             if ($oneDay === "5") $day = 'next saturday';
             if ($oneDay === "6") $day = 'next sunday';
 
-            $dateFrom->modify($day);
-
+            $dateFromT->modify($day);
             while ($dateFromT <= $dateTo) {
                 $dates[] = $dateFromT->format('Y-m-d');
                 $dateFromT->modify('+1 week');
             }
             if ($dates[0] == $dates[1])
                 unset($dates[0]);
-            $dateFromT = $dateFrom;
+
+            $dateFromT = new \DateTime($dateFromString);
         }
 
         return $dates;

@@ -642,6 +642,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                         <div class="col-xs-4">
                                             <?php
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
+                                                ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'])->label('Периодичность');
+
+                                            /*echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
                                                     ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'],
                                                     ['item'=>function ($index, $label, $name, $checked, $value){
                                                         if($checked)
@@ -650,7 +653,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                                                 <input type="checkbox" value="' . $value . '" name="' . $name . '" ' . $checked . ' />'.$label.'
                                                                 </label><br>';
                                             }])->label('<div style="padding-bottom: 10px">Периодичность</div>');
-                                            /*$items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
+                                            $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                             $params = [
                                                 'prompt' => '',
                                                 'id' => 'selectDay',
