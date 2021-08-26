@@ -613,7 +613,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     ?>
                     <div class="panel-body">
                         <?php DynamicFormWidget::begin([
-                            'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                            'widgetContainer' => 'dynamicform_wrapper3', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                             'widgetBody' => '.container-items3', // required: css class selector
                             'widgetItem' => '.item3', // required: css class
                             'limit' => 100, // the maximum times, an element can be cloned (default 999)
@@ -642,18 +642,15 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                         <div class="col-xs-4">
                                             <?php
                                             echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
-                                                ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'])->label('Периодичность');
-
-                                            /*echo $form->field($modelTrainingGroupAutoOne, "[{$i}]day")->checkboxList(
                                                     ['0' => 'Каждый понедельник', '1' => 'Каждый вторник', '2' => 'Каждую среду', '3' => 'Каждый четверг', '4' => 'Каждую пятницу', '5' => 'Каждую субботу', '6' => 'Каждое воскресенье'],
                                                     ['item'=>function ($index, $label, $name, $checked, $value){
                                                         if($checked)
                                                             $checked = 'checked';
                                                         return '<label class="checkbox-inline">
-                                                                <input type="checkbox" value="' . $value . '" name="' . $name . '" ' . $checked . ' />'.$label.'
+                                                                <input class="'.$index.'" type="checkbox" value="' . $value . '" name="' . $name . '" ' . $checked . ' />'.$label.'
                                                                 </label><br>';
                                             }])->label('<div style="padding-bottom: 10px">Периодичность</div>');
-                                            $items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
+                                            /*$items = [1 => 'Каждый понедельник', 2 => 'Каждый вторник', 3 => 'Каждую среду', 4 => 'Каждый четверг', 5 => 'Каждую пятницу', 6 => 'Каждую субботу', 7 => 'Каждое воскресенье'];
                                             $params = [
                                                 'prompt' => '',
                                                 'id' => 'selectDay',
@@ -760,7 +757,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
 <?php
 
-    $children = json_encode($people);
+$children = json_encode($people);
 
 $js =<<< JS
     $(".dynamicform_wrapper1").on("click", ".on", function(e) {
@@ -775,5 +772,49 @@ $js =<<< JS
       }
     })
 JS;
+
+$js1 =<<< JS
+    $(".dynamicform_wrapper3").on("afterInsert", function(e, item) {
+      var elems = document.getElementsByClassName("0");
+      
+      for (var i = 0; i < elems.length; i++)
+      {
+          
+          elems[i].value = 0;
+      }
+      elems = document.getElementsByClassName("1");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 1;
+      }
+      elems = document.getElementsByClassName("2");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 2;
+      }
+      elems = document.getElementsByClassName("3");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 3;
+      }
+      elems = document.getElementsByClassName("4");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 4;
+      }
+      elems = document.getElementsByClassName("5");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 5;
+      }
+      elems = document.getElementsByClassName("6");
+      for (var i = 0; i < elems.length; i++)
+      {
+          elems[i].value = 6;
+      }
+    })
+JS;
+
 $this->registerJs($js, \yii\web\View::POS_LOAD);
+$this->registerJs($js1, \yii\web\View::POS_LOAD);
 ?>
