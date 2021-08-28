@@ -9,5 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="result-report-form">
-    <?php echo $model->result; ?>
+    <div style="font-family: Tahoma; font-size: 20px">
+        <?php echo $model->result; ?>
+    </div>
 </div>
