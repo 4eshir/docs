@@ -68,15 +68,15 @@ class LocalResponsibilityWork extends LocalResponsibility
 
     public function getLegacyResp()
     {
-        $legs = LegacyResponsible::find()->where(['responsibility_type_id' => $this->responsibility_type_id])
+        $legs = LegacyResponsibleWork::find()->where(['responsibility_type_id' => $this->responsibility_type_id])
             ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->all();
         $result = '';
         foreach ($legs as $leg)
         {
-            $result .= $leg->start_date.' - ';
+            $result .= $leg->start_date.' &#9658; ';
             if ($leg->end_date !== null) $result .= $leg->end_date.' '; else $result .= 'н.в. ';
-            $result .= Html::a($leg->people->shortName, \yii\helpers\Url::to(['people/view', 'id' => $leg->people_id]));
-            $result .= ' ('.Html::a('Приказ №'.$leg->order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id, 'c' => 1])).')<br>';
+            $result .= Html::a($leg->peopleWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $leg->people_id]));
+            $result .= ' ('.Html::a('Приказ №'.$leg->orderWork->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id, 'c' => 1])).')<br>';
         }
         return $result;
     }
