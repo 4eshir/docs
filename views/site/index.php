@@ -262,7 +262,7 @@ $this->title = 'ЦСХД';
                         <ul>
                             <?php
                             if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
-                                echo '<li>'.echo Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])).'</li>';
+                                echo '<li>'.Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])).'</li>';
                             ?>
                         </ul>
                     </div>
