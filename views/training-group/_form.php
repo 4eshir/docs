@@ -14,6 +14,125 @@ use yii\jui\AutoComplete;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<style>
+
+    .content-blocker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(136, 136, 204, 0.5);
+        z-index: 4444;
+        text-align: center;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    html, body {
+        min-height: 100%;
+    }
+
+    .md-modal {
+          margin: auto;
+          position: fixed;
+          top: 100px;
+          left: 0;
+          right: 0;
+          width: 50%;
+          max-width: 630px;
+          min-width: 320px;
+          height: auto;
+          z-index: 2000;
+          visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          -moz-backface-visibility: hidden;
+          backface-visibility: hidden;
+      }
+
+    .md-show {
+        visibility: visible;
+    }
+
+    .md-overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        opacity: 0;
+        background: rgba(#e4f0e3, 0.8);
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .md-show ~ .md-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .md-effect-12 .md-content {
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .md-show.md-effect-12 ~ .md-overlay {
+        background-color: #e4f0e3;
+    }
+
+    .md-effect-12 .md-content h3,
+    .md-effect-12 .md-content {
+        background: transparent;
+    }
+
+    .md-show.md-effect-12 .md-content {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    div.image-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        background-color: #fff;
+        z-index: 999999;
+        text-align: center;
+    }
+
+    .image-holder {
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        width: 100px;
+        height: 100px;
+    }
+
+    .image-holder img
+    {
+        width: 100%;
+        margin-left: -50%;
+        margin-top: -50%;
+    }
+</style>
+
 <script>
     let counter = 0;
 
@@ -185,7 +304,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>Номер и название приказа</b></td><td></td></tr>';
                     foreach ($orders as $order) {
-                        echo '<tr><td><h5>'.$order->documentOrderWork->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td><h5>'.$order->documentOrderWork->fullName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-order', 'id' => $order->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -358,11 +477,11 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                 //echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                 echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>' . $form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) . $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' . $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' . Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']) . '</td>' .
                                     '<td>&nbsp;' . Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']) . '</td>' .
-                                    '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']) . '</td></tr>';
+                                    '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']) . '</td></tr>';
                             }else
                                 echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
-                                    '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                    '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']).'</td></tr>';
                             $c++;
                         }
                         echo '</table></div>';
@@ -475,7 +594,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
                                     '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
-                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']).'</td></tr>';
                                 $counter++;
                             }
                             echo '</table></div>';
@@ -486,7 +605,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     if (count($extEvents) > 0)
                     {
                         echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
-                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }
                     ?>
@@ -596,7 +715,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
                                     '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
-                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']).'</td></tr>';
+                                    '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                                 $counter++;
                             }
                             echo '</table></div>';
@@ -607,7 +726,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     if (count($extEvents) > 0)
                     {
                         echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
-                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger', 'name' => 'deleteChoose']);
+                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']);
                         echo '</div>';
                     }
                     ?>
@@ -714,20 +833,25 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success', 'onclick' => 'blockFunc()']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success md-trigger', 'data-modal' => 'modal-12']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
+    <div class="md-modal md-effect-12">
+        <div class="content-blocker">
+            <div style="border-radius: 10px; margin-bottom: 200px; font-size: 24px; background: whitesmoke; padding: 5px 5px 5px 5px">
+                Пожалуйста, подождите. Данные обновляются...
+            </div>
+            <div class="image-holder">
+            <img src="load.gif"/>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script>
-    function blockFunc()
-    {
-        $.blockUI({ message: '<h1><img src="busy.gif" /> Just a moment...</h1>' });
-    }
-
     function checkSchedule()
     {
 
@@ -820,6 +944,17 @@ $js1 =<<< JS
     })
 JS;
 
+$js2 =<<< JS
+    $(".md-trigger").on('click', function() {
+        $(".md-modal").addClass('md-show');
+    });
+
+    $(".md-close").on('click', function() {
+        $(".md-modal").removeClass("md-show");
+    })
+JS;
+
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 $this->registerJs($js1, \yii\web\View::POS_LOAD);
+$this->registerJs($js2, \yii\web\View::POS_LOAD);
 ?>

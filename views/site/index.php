@@ -215,12 +215,12 @@ $this->title = 'ЦСХД';
             <div class="portfolio-item-wrap">
                 <a href="">
                     <img src="main-back.jpg">
-                    <div>
-                        <div>
-                            <h3><b></b></h3>
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Что нового?</b></h3>
                         </div>
                         <ul>
-
+                            <li><?php echo Html::a('Список изменений', \yii\helpers\Url::to(['patchnotes/index'])) ?></li>
                         </ul>
                     </div>
                 </a>
@@ -251,12 +251,12 @@ $this->title = 'ЦСХД';
             <div class="portfolio-item-wrap">
                 <a href="">
                     <img src="main-back.jpg">
-                    <div>
-                        <div>
-                            <h3><b></b></h3>
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Отчеты</b></h3>
                         </div>
                         <ul>
-
+                            <li><?php echo Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])) ?></li>
                         </ul>
                     </div>
                 </a>

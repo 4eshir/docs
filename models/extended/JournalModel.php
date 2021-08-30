@@ -65,18 +65,22 @@ class JournalModel extends \yii\base\Model
             $vis->save(false);*/
         }
 
-        for ($i = 0; $i !== count($this->themes); $i++)
+        if ($this->themes !== null)
         {
-            $theme = LessonTheme::find()->where(['training_group_lesson_id' => $this->lessons[$i]])->one();
-            if ($theme == null)
-                $theme = new LessonTheme();
-            if (strlen($this->themes[$i]) > 0)
+            for ($i = 0; $i !== count($this->themes); $i++)
             {
-                $theme->theme = $this->themes[$i];
-                $theme->training_group_lesson_id = $this->lessons[$i];
-                $theme->teacher_id = $this->teachers[$i];
-                $theme->save();
+                $theme = LessonTheme::find()->where(['training_group_lesson_id' => $this->lessons[$i]])->one();
+                if ($theme == null)
+                    $theme = new LessonTheme();
+                if (strlen($this->themes[$i]) > 0)
+                {
+                    $theme->theme = $this->themes[$i];
+                    $theme->training_group_lesson_id = $this->lessons[$i];
+                    $theme->teacher_id = $this->teachers[$i];
+                    $theme->save();
+                }
             }
         }
+
     }
 }

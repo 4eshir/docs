@@ -83,6 +83,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             ['attribute' => 'participantNames', 'value' => '<button class="accordion">Показать состав группы</button><div class="panel">'.$model->participantNames.'</div>', 'format' => 'raw'],
             ['attribute' => 'countLessons', 'label' => 'Количество занятий в расписании', 'format' => 'html'],
             ['attribute' => 'lessonDates', 'value' => '<button class="accordion">Показать расписание группы</button><div class="panel">'.$model->lessonDates.'</div>', 'format' => 'raw'],
+            ['attribute' => 'manHoursPercent', 'format' => 'raw', 'label' => 'Выработка человеко-часов'],
             ['attribute' => 'journalLink', 'format' => 'raw', 'label' => 'Журнал'],
             ['attribute' => 'ordersName', 'format' => 'html'],
             ['attribute' => 'photos', 'value' => function ($model) {

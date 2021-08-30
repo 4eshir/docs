@@ -238,6 +238,26 @@ class TrainingGroupWork extends TrainingGroup
         return $result;
     }
 
+    public function getManHoursPercent()
+    {
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+        $lessonsId = [];
+        foreach ($lessons as $lesson)
+            $lessonsId[] = $lesson->id;
+        $visits = count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['status' => 0])->all());
+        $maximum = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all()) * count(TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all());
+        $percent = (($visits * 1.0) / ($maximum * 1.0)) * 100;
+        $numbPercent = $percent;
+        if ($numbPercent > 75.0)
+            $percent = '<p style="color: #1e721e; display: inline">'.$percent.'%</p>';
+        else if ($numbPercent > 50.0)
+            $percent = '<p style="color: #d49939; display: inline">' .$percent.'%</p>';
+        else
+            $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
+        $result = $visits.' / '.$maximum.' (<b>'.$percent.'</b>)';
+        return $result;
+    }
+
     public function uploadPhotosFile($upd = null)
     {
         $path = '@app/upload/files/group/photos/';
