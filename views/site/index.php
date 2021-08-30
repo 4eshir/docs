@@ -221,6 +221,10 @@ $this->title = 'ЦСХД';
                         </div>
                         <ul>
                             <li><?php echo Html::a('Список изменений', \yii\helpers\Url::to(['patchnotes/index'])) ?></li>
+                            <?php
+                            if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
+                                echo '<li>'.Html::a('Добавить патчноут', \yii\helpers\Url::to(['patchnotes/add-note'])).'</li>';
+                            ?>
                         </ul>
                     </div>
                 </a>

@@ -158,9 +158,10 @@ foreach ($lessons as $lesson)
         $teachers_id[] = $teacher->teacher_id;
     $people = \app\models\work\PeopleWork::find()->where(['in', 'id', $teachers_id])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
-    $params = [
-    ];
     $theme = \app\models\work\LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
+    $params = [
+        'options' => [$theme->teacher_id => ['Selected' => true]],
+    ];
     $value = '';
     if ($theme !== null) $value = $theme->theme;
     echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.

@@ -43,6 +43,10 @@ class TrainingGroupAuto extends Model
         $wint = date("w", mktime(0, 0, 0, $date[1], $date[2], $date[0]));
         if ($wint == $this->day)
             array_push($dates, $dateFrom->format('Y-m-d'));
+
+
+        $dates[] = $dateFrom->format('Y-m-d');
+
         $day = 'next monday';
         foreach ($this->day as $oneDay)
         {
