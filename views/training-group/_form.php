@@ -714,7 +714,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success', 'onclick' => 'blockFunc()']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -723,6 +723,11 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
 
 <script>
+    function blockFunc()
+    {
+        $.blockUI({ message: '<h1><img src="busy.gif" /> Just a moment...</h1>' });
+    }
+
     function checkSchedule()
     {
 
