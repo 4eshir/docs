@@ -104,7 +104,7 @@ $c = 0;
 foreach ($lessons as $lesson)
 {
     echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-    echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a href="#" onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a href="#" onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
+    echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
     $c++;
 }
 echo '</thead><tbody>';
