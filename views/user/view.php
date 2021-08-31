@@ -87,6 +87,8 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
             ['attribute' => 'editRoles', 'value' => function($model) {if ($model->editRoles == 1) return '<span class="badge badge-success">Да</span>';
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
+            ['attribute' => 'report', 'value' => function($model) {if ($model->report == 1) return '<span class="badge badge-success">Да</span>';
+            else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
         ],
     ]) ?>
     <h4><u>Права доступа к системе документооборота</u></h4>

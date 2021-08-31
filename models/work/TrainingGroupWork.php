@@ -54,17 +54,16 @@ class TrainingGroupWork extends TrainingGroup
     public function rules()
     {
         return [
-            [['number', 'teacher_id', 'start_date', 'finish_date', 'budget'], 'required'],
+            [['start_date', 'finish_date', 'budget'], 'required'],
             [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
-            [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'skipOnEmpty' => true],
+            [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
+            [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
+            [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
+            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => 26214400, 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['teacher_id' => 'id']],
-            [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => AuditoriumWork::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgramWork::className(), 'targetAttribute' => ['training_program_id' => 'id']],
         ];
     }

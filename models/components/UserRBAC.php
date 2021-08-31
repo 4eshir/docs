@@ -82,6 +82,8 @@ class UserRBAC
                 'delete training-program' => 21,
                 'create training-group' => 26,
                 'delete training-group' => 27,
+                'man-hours-report report' => 28,
+                'report-result report' => 28,
             );
         }
 

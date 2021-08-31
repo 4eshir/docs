@@ -44,6 +44,7 @@ class UserWork extends User
     public $editGroupBranch;
     public $addGroup;
     public $deleteGroup;
+    public $report;
 
     public $oldPass;
     public $newPass;
@@ -59,7 +60,7 @@ class UserWork extends User
             [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
                 'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd',
                 'viewForeign', 'editForeign', 'viewProgram', 'editProgram', 'viewGroup', 'editGroup', 'viewGroupBranch', 'editGroupBranch',
-                'addGroup', 'deleteGroup'], 'safe'],
+                'addGroup', 'deleteGroup', 'report'], 'safe'],
         ];
     }
 
@@ -99,6 +100,7 @@ class UserWork extends User
             'editGroupBranch' => 'Разрешено редактировать все учебные группы своего отдела',
             'addGroup' => 'Разрешено добавлять учебные группы',
             'deleteGroup' => 'Разрешено удалять учебные группы',
+            'report' => 'Разрешено генерировать и просматривать отчеты',
             'oldPass' => 'Старый пароль',
             'newPass' => 'Новый пароль',
             'aka' => 'Также является',
@@ -130,7 +132,8 @@ class UserWork extends User
             $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
             $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
             $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign, $this->viewProgram, $this->editProgram,
-            $this->viewGroup, $this->editGroup, $this->viewGroupBranch, $this->editGroupBranch, $this->addGroup, $this->deleteGroup);
+            $this->viewGroup, $this->editGroup, $this->viewGroupBranch, $this->editGroupBranch, $this->addGroup, $this->deleteGroup,
+            $this->report);
         if ($changedAttributes['password_hash'] == null)
         {
             for ($i = 0; $i != count($arr); $i++)

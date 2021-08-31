@@ -106,6 +106,11 @@ class TrainingGroupController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
             return $this->render('/site/error');
         }
+
+        $session = Yii::$app->session;
+        if ($session->get("show") === null)
+            $session->set("show", "common");
+
         $model = new TrainingGroupWork();
         $modelTrainingGroupParticipant = [new TrainingGroupParticipantWork];
         $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
@@ -114,6 +119,7 @@ class TrainingGroupController extends Controller
         $modelTeachers = [new TeacherGroupWork];
 
         if ($model->load(Yii::$app->request->post())) {
+
 
             $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
@@ -225,6 +231,7 @@ class TrainingGroupController extends Controller
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
             $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
+            $model->save();
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)
@@ -233,7 +240,8 @@ class TrainingGroupController extends Controller
                 $model->uploadWorkDataFile(10);
             if ($model->fileParticipants !== null)
                 $model->uploadFileParticipants();
-            $model->save(false);
+            if (count($model->getErrors()) == 0)
+                $model->save(false);
             $model = $this->findModel($id);
             $model->auto = null;
             $model->lessons = null;

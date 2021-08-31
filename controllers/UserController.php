@@ -93,6 +93,7 @@ class UserController extends Controller
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 25])->one() !== null) $model->editGroupBranch = 1; else $model->editGroupBranch = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 26])->one() !== null) $model->addGroup = 1; else $model->addGroup = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 27])->one() !== null) $model->deleteGroup = 1; else $model->deleteGroup = 0;
+        if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 28])->one() !== null) $model->report = 1; else $model->report = 0;
         return $this->render('view', [
             'model' => $model,
         ]);

@@ -46,6 +46,12 @@ use yii\widgets\ActiveForm;
         if ($tmp != null) $value = true; else $value = false;
         ?>
         <?= $form->field($model, 'editRoles')->checkbox(['checked' => $value]) ?>
+        <?php
+        $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 28])->one();
+        $value = 0;
+        if ($tmp != null) $value = true; else $value = false;
+        ?>
+        <?= $form->field($model, 'report')->checkbox(['checked' => $value]) ?>
     </div>
 
     <h4><u>Права доступа к системе документооборота</u></h4>
