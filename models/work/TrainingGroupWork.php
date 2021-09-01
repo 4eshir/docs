@@ -541,7 +541,7 @@ class TrainingGroupWork extends TrainingGroup
             }
             if ($this->lessons[0]->lesson_date !== null && $this->lessons[0]->lesson_date !== "") {
                 foreach ($this->lessons as $lesson) {
-                    $newLesson = new TrainingGroupLesson();
+                    $newLesson = new TrainingGroupLessonWork();
                     $newLesson->lesson_date = $lesson->lesson_date;
                     $newLesson->lesson_start_time = $lesson->lesson_start_time;
                     $min = $this->trainingProgram->hour_capacity;
@@ -551,14 +551,15 @@ class TrainingGroupWork extends TrainingGroup
                     $newLesson->branch_id = $lesson->auditorium_id;
                     $newLesson->auditorium_id = $aud->id;
                     $newLesson->training_group_id = $this->id;
-                    $newLesson->save();
+                    if ($newLesson->checkCopyLesson())
+                        $newLesson->save(false);
                 }
             }
             if ($this->auto[0]->day !== null && $this->auto[0]->day !== '') {
                 foreach ($this->auto as $autoOne) {
                     $days = $autoOne->getDaysInRange($this->start_date, $this->finish_date);
                     foreach ($days as $day) {
-                        $newLesson = new TrainingGroupLesson();
+                        $newLesson = new TrainingGroupLessonWork();
                         $newLesson->lesson_date = $day;
                         $newLesson->lesson_start_time = $autoOne->start_time;
                         $min = $this->trainingProgram->hour_capacity;
@@ -568,7 +569,8 @@ class TrainingGroupWork extends TrainingGroup
                         $newLesson->branch_id = $autoOne->auditorium_id;
                         $newLesson->auditorium_id = $aud->id;
                         $newLesson->training_group_id = $this->id;
-                        $newLesson->save();
+                        if ($newLesson->checkCopyLesson())
+                            $newLesson->save(false);
                     }
                 }
             }

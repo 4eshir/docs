@@ -54,6 +54,16 @@ class TrainingGroupLessonWork extends TrainingGroupLesson
         return $result;
     }
 
+    public function checkCopyLesson()
+    {
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->training_group_id])->andWhere(['lesson_date' => $this->lesson_date])->all();
+        foreach ($lessons as $lesson) {
+            if (substr($lesson->lesson_start_time, 0, 5) == $this->lesson_start_time && substr($lesson->lesson_end_time, 0, 5) == $this->lesson_end_time)
+                return false;
+        }
+        return true;
+    }
+
     public function beforeSave($insert)
     {
         $str = '+'.$this->trainingGroup->trainingProgram->hour_capacity.' minutes';
