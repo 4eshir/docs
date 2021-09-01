@@ -45,7 +45,7 @@ class TrainingGroupAuto extends Model
             array_push($dates, $dateFrom->format('Y-m-d'));
 
 
-        $dates[] = $dateFrom->format('Y-m-d');
+        //$dates[] = $dateFrom->format('Y-m-d');
 
         $day = 'next monday';
         foreach ($this->day as $oneDay)

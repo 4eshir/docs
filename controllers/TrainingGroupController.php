@@ -197,7 +197,7 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroupWork];
         $modelTeachers = [new TeacherGroupWork];
-        $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->where(['training_group_id' => $model->id])->all();
+        $extEvents = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->id])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();
         if ($extEvents != null)
         {
             foreach ($extEvents  as $extEvent) {
