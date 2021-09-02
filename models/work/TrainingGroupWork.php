@@ -95,6 +95,7 @@ class TrainingGroupWork extends TrainingGroup
             'lessonDates' => 'Расписание',
             'scheduleType' => 'Тип расписания',
             'ordersName' => 'Приказы',
+            'certFile' => 'Файл сертификатов',
             'budget' => 'Бюджет',
             'fileParticipants' => 'Загрузить учащихся из файла',
             'teachersList' => 'Педагог(-и)',
