@@ -50,10 +50,6 @@ class ExcelWizard
                     $people->certificat_number = strval($inputData->getActiveSheet()->getCellByColumnAndRow(3, $index)->getValue());
                     $people->save();
                 }
-                else
-                {
-                    var_dump($fio);
-                }
                 $index++;
             }
         }
