@@ -6,6 +6,7 @@ namespace app\models\components;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
+use app\models\work\TrainingGroupParticipantWork;
 use Yii;
 
 class ExcelWizard
@@ -17,6 +18,41 @@ class ExcelWizard
             return "Другое";
         if ($searchName->Sex == "М") return "Мужской";
         else return "Женский";
+    }
+
+    static public function WriteAllCertNumbers($filename, $training_group_id)
+    {
+        ini_set('memory_limit', '512M');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$filename);
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/bitrix/groups/'.$filename);
+        $index = 2;
+        while ($index < $inputData->getActiveSheet()->getHighestRow() && strlen($inputData->getActiveSheet()->getCellByColumnAndRow(2, $index)->getValue()) > 5)
+        {
+            $fio = $inputData->getActiveSheet()->getCellByColumnAndRow(2, $index)->getValue();
+            $fio = explode(" ", $fio);
+            if (count($fio) > 1)
+            {
+                $people = null;
+                if (count($fio) == 2)
+                {
+                    $people = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $training_group_id])
+                        ->andWhere(['participant.secondname' => $fio[0]])->andWhere(['participant.firstname' => $fio[1]])->one();
+
+                }
+                if (count($fio) == 3)
+                {
+                    $people = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $training_group_id])
+                        ->andWhere(['participant.secondname' => $fio[0]])->andWhere(['participant.firstname' => $fio[1]])->andWhere(['participant.patronymic' => $fio[2]])->one();
+                }
+                if ($people !== null)
+                {
+                    $people->certificat_number = strval($inputData->getActiveSheet()->getCellByColumnAndRow(3, $index)->getValue());
+                    $people->save();
+                }
+                $index++;
+            }
+        }
     }
 
     static public function GetAllParticipants($filename)

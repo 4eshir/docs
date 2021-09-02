@@ -32,6 +32,8 @@ class TrainingGroupWork extends TrainingGroup
     public $presentDataFile;
     public $workDataFile;
 
+    public $certFile;
+
     public $participants;
     public $lessons;
     public $auto;
@@ -60,6 +62,7 @@ class TrainingGroupWork extends TrainingGroup
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
+            [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => 26214400],
             [['presentDataFile'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
             [['workDataFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
             [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => 26214400, 'skipOnEmpty' => true],
@@ -349,6 +352,12 @@ class TrainingGroupWork extends TrainingGroup
         $this->fileParticipants->saveAs('@app/upload/files/bitrix/groups/' . $this->fileParticipants->name);
         $parts = ExcelWizard::GetAllParticipants($this->fileParticipants->name);
         $this->addParticipants($parts);
+    }
+
+    public function uploadFileCert()
+    {
+        $this->certFile->saveAs('@app/upload/files/bitrix/groups/' . $this->certFile->name);
+        ExcelWizard::WriteAllCertNumbers($this->certFile->name, $this->id);
     }
 
     private function addParticipants($participants)

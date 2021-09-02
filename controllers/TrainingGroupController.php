@@ -231,6 +231,7 @@ class TrainingGroupController extends Controller
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
             $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
+            $model->certFile = UploadedFile::getInstance($model, 'certFile');
             $model->save();
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
@@ -240,6 +241,8 @@ class TrainingGroupController extends Controller
                 $model->uploadWorkDataFile(10);
             if ($model->fileParticipants !== null)
                 $model->uploadFileParticipants();
+            if ($model->certFile !== null)
+                $model->uploadFileCert();
             if (count($model->getErrors()) == 0)
                 $model->save(false);
             $model = $this->findModel($id);
@@ -537,5 +540,4 @@ class TrainingGroupController extends Controller
             Yii::$app->session->setFlash("warning", "Группа ".$tag->number." архивирована");
         return $this->redirect(['/training-group/index']);
     }
-
 }
