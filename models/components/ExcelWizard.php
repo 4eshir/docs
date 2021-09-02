@@ -45,11 +45,14 @@ class ExcelWizard
                     $people = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $training_group_id])
                         ->andWhere(['participant.secondname' => $fio[0]])->andWhere(['participant.firstname' => $fio[1]])->andWhere(['participant.patronymic' => $fio[2]])->one();
                 }
-                var_dump($people->id);
                 if ($people !== null)
                 {
                     $people->certificat_number = strval($inputData->getActiveSheet()->getCellByColumnAndRow(3, $index)->getValue());
                     $people->save();
+                }
+                else
+                {
+                    var_dump($fio);
                 }
                 $index++;
             }
