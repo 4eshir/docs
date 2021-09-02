@@ -301,7 +301,7 @@ class DocumentOrderWork extends DocumentOrder
 
             return;
         }
-        $docs = DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
+        $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
         if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
         {
             $tempId = 0;
