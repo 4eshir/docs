@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                ['attribute' => 'groupsLink', 'format' => 'raw'],
+                ['label' => 'Группы в приказе', 'attribute' => 'groupsLink', 'format' => 'raw'],
             ],
         ]) ?>
     </div>
