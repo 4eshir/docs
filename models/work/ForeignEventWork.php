@@ -144,7 +144,7 @@ class ForeignEventWork extends ForeignEvent
 
     public function getOrderBusinessTripString()
     {
-        $order = \app\models\common\DocumentOrder::find()->where(['id' => $this->order_business_trip_id])->one();
+        $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->order_business_trip_id])->one();
         return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
     }
 
