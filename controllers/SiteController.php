@@ -109,6 +109,8 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        Yii::$app->session->set('userSessionTimeout', time() + Yii::$app->params['sessionTimeoutSeconds']);
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -177,7 +179,6 @@ class SiteController extends Controller
         return $this->render('forgot-password', ['model' => $model]);
     }
 
-
     public function actionTemp()
     {
         $orders = DocumentOrderWork::find()->all();
@@ -188,5 +189,29 @@ class SiteController extends Controller
         }
     }
 
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action))
+        {
+            return false;
+        } // Check only when the user is logged in
+        if ( !Yii::$app->user->isGuest)
+        {
+            if (Yii::$app->session['userSessionTimeout'] < time())
+            {
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
+                Yii::$app->user->logout();
+
+                return $this->goHome();
+            }
+            else {
+                Yii::$app->session->set('userSessionTimeout', time() + Yii::$app->params['sessionTimeoutSeconds']);
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
 }
 
