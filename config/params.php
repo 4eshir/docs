@@ -4,5 +4,5 @@ return [
     'adminEmail' => 'admin@example.com',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
-    'sessionTimeoutSeconds' => '60', //43200
+    'sessionTimeoutSeconds' => '43200', //43200
 ];
