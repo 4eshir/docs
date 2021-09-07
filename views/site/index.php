@@ -222,8 +222,9 @@ $this->title = 'ЦСХД';
                         <ul>
                             <li><?php echo Html::a('Список изменений', \yii\helpers\Url::to(['patchnotes/index'])) ?></li>
                             <?php
-                            if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
-                                echo '<li>'.Html::a('Добавить патчноут', \yii\helpers\Url::to(['patchnotes/add-note'])).'</li>';
+                            if (Yii::$app->user->identity !== null)
+                                if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
+                                    echo '<li>'.Html::a('Добавить патчноут', \yii\helpers\Url::to(['patchnotes/add-note'])).'</li>';
                             ?>
                         </ul>
                     </div>
@@ -261,8 +262,9 @@ $this->title = 'ЦСХД';
                         </div>
                         <ul>
                             <?php
-                            if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
-                                echo '<li>'.Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])).'</li>';
+                            if (Yii::$app->user->identity !== null)
+                                if (Yii::$app->user->identity->getId() === 1 || Yii::$app->user->identity->getId() === 31)
+                                    echo '<li>'.Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])).'</li>';
                             ?>
                         </ul>
                     </div>
