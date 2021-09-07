@@ -19,12 +19,16 @@ class ManHoursReportModel extends \yii\base\Model
      * 1 - всего уникальных людей
      * 2 - всего людей
      */
+    public $branch;
+    public $budget;
+    public $teacher;
+
 
     public function rules()
     {
         return [
             [['start_date', 'end_date'], 'string'],
-            [['type'], 'safe'],
+            [['type', 'branch', 'budget', 'teacher'], 'safe'],
         ];
     }
 

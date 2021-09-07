@@ -92,9 +92,6 @@ class People extends \yii\db\ActiveRecord
      *
      * @return string
      */
-    public function getFullName()
-    {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
-    }
+
 
 }

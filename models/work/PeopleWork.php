@@ -143,6 +143,15 @@ class PeopleWork extends People
         return $achieveList;
     }
 
+    public function getFullName()
+    {
+        $positions = '';
+        $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
+        foreach ($pos as $posOne)
+            $positions .= $posOne->position->name . ', ';
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.substr($positions, 0, -2).')';
+    }
+
     public function beforeSave($insert)
     {
         if (strlen($this->short) > 2)

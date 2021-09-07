@@ -257,7 +257,7 @@ class TrainingGroupWork extends TrainingGroup
             $percent = '<p style="color: #d49939; display: inline">' .$percent.'%</p>';
         else
             $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
-        $result = $visits.' / '.$maximum.' (<b>'.$percent.'</b>)';
+        $result = $visits.' / '.$maximum.' (<b>'.round($percent, 2).'</b>)';
         return $result;
     }
 
