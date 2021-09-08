@@ -22,13 +22,14 @@ class ManHoursReportModel extends \yii\base\Model
     public $branch;
     public $budget;
     public $teacher;
+    public $focus;
 
 
     public function rules()
     {
         return [
             [['start_date', 'end_date'], 'string'],
-            [['type', 'branch', 'budget', 'teacher'], 'safe'],
+            [['type', 'branch', 'budget', 'teacher', 'focus'], 'safe'],
         ];
     }
 

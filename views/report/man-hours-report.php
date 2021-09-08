@@ -63,22 +63,43 @@ use yii\widgets\ActiveForm;
         <?php
         $branchs = \app\models\work\BranchWork::find()->all();
         $arr = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-        echo $form->field($model, 'branch')->checkboxList($arr, ['separator' => '<br>', 'item' => function ($index, $label, $name, $checked, $value) {
+        echo $form->field($model, 'branch')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return
-                "<label class='checkbox-label'>
-                    <input type='checkbox' name='{$name}' value='{$value}'><p style='display: inline; font-style: inherit; margin-left: 5px'>".$label."</p>
-                </label>";
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="branch-'. $index .'">
+                        <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
         }])->label('Отдел');
         ?>
     </div>
     <div class="col-xs-8 block-report">
         <?php
-        $arr = ['1' => 'Бюджет', '0' => 'Внебюджет'];
-        echo $form->field($model, 'budget')->checkboxList($arr, ['separator' => '<br>', 'item' => function ($index, $label, $name, $checked, $value) {
+        $focus = \app\models\work\FocusWork::find()->all();
+        $arr = \yii\helpers\ArrayHelper::map($focus, 'id', 'name');
+        echo $form->field($model, 'focus')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return
-                "<label class='checkbox-label'>
-                    <input type='checkbox' name='{$name}' value='{$value}'><p style='display: inline; font-style: inherit; margin-left: 5px'>".$label."</p>
-                </label>";
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="focus-'. $index .'">
+                        <input id="focus-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Направленность');
+        ?>
+    </div>
+    <div class="col-xs-8 block-report">
+        <?php
+        $arr = ['1' => 'Бюджет', '0' => 'Внебюджет'];
+        echo $form->field($model, 'budget')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="budget-'. $index .'">
+                        <input id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
         }])->label('Основа');
         ?>
     </div>
@@ -116,11 +137,14 @@ use yii\widgets\ActiveForm;
     <div class="col-xs-8 block-report" id="teachers" style="display: none">
         <?php
         $arr = ['0' => 'Реальный', '1' => 'Идеальный'];
-        echo $form->field($model, 'branch')->checkboxList($arr, ['separator' => '<br>', 'item' => function ($index, $label, $name, $checked, $value) {
+        echo $form->field($model, 'branch')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return
-                "<label class='checkbox-label'>
-                    <input type='checkbox' name='{$name}' value='{$value}'><p style='display: inline; font-style: inherit; margin-left: 5px'>".$label."</p>
-                </label>";
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="branch-'. $index .'">
+                        <input style="margin-left: -20px" id="branch-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
         }])->label('Метод подсчета человеко-часов');
         ?>
     </div>
