@@ -136,10 +136,6 @@ use yii\jui\AutoComplete;
 <script>
     let counter = 0;
 
-    function clickQuestion() {
-        confirm("Измененные данные не сохранены. Закрыть страницу?");
-    }
-
     function allCheck()
     {
         var elems = document.getElementsByClassName('check');
@@ -187,18 +183,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 <div class="training-group-form">
 
     <?php
-    $res = "enabled";
-    if ($model->branch_id === null || $model->budget === null || $model->training_program_id === null || $model->start_date === null || $model->finish_date === null)
-        $res = "disabled";
-    ?>
-
-    <?php echo Html::a('Показать общую информацию', \yii\helpers\Url::to(['training-group/show-common', 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickQuestion()']) ?>
-    <?php
-    if ($res == "enabled")
-    { ?>
-        <?php echo Html::a('Показать список учеников', \yii\helpers\Url::to(['training-group/show-parts', 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickQuestion()', $res => 'true']); ?>
-        <?php echo Html::a('Показать расписание', \yii\helpers\Url::to(['training-group/show-schedule', 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'onclick' => 'clickQuestion()', $res => 'true']);
-    } ?>
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("common")']);
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("parts")']);
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("schedule")']); ?>
     <div style="height: 20px"></div>
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
@@ -866,7 +853,13 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
 <script>
 
-
+    function switchBlock(idBlock) {
+        document.querySelector('#common').hidden = true;
+        document.querySelector('#parts').hidden = true;
+        document.querySelector('#schedule').hidden = true;
+        block = '#' + idBlock;
+        document.querySelector(block).hidden = false;
+    }
 
     function checkSchedule()
     {
@@ -898,8 +891,6 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             $("#manualSchedule").attr("hidden", "true");
         }
     }
-
-
 
 </script>
 
