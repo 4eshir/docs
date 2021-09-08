@@ -23,6 +23,7 @@ class ManHoursReportModel extends \yii\base\Model
     public $budget;
     public $teacher;
     public $focus;
+    public $method;
 
 
     public function rules()
@@ -30,6 +31,7 @@ class ManHoursReportModel extends \yii\base\Model
         return [
             [['start_date', 'end_date'], 'string'],
             [['type', 'branch', 'budget', 'teacher', 'focus'], 'safe'],
+            [['method'], 'integer']
         ];
     }
 
@@ -40,7 +42,12 @@ class ManHoursReportModel extends \yii\base\Model
         {
             if ($oneType === '0')
             {
-                $lessons = TrainingGroupLessonWork::find()->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+                $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup', 'trainingGroup.trainingProgram trainingGroup.trainingProgram'])
+                    ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
+                                                                                                                        //попадающие в промежуток
+                $lessons = $lessons->andWhere(['IN', 'trainingGroup.branch_id', $this->branch]);
+                $lessons = $lessons->all();
+
                 $lessonsId = [];
                 foreach ($lessons as $lesson) $lessonsId[] = $lesson->id;
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['status' => 0])->all();

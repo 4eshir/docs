@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\ArraySqlConstructor;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
@@ -181,12 +182,12 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $orders = DocumentOrderWork::find()->all();
-        foreach ($orders as $order)
-        {
-            $order->type = 1;
-            $order->save(false);
-        }
+        $arr = ['1', '2'];
+        $table = 'focus';
+        $q = new ArraySqlConstructor();
+        $q->table($table);
+        $q->oneWhereAnd($table, 'id', $arr);
+        var_dump($q->getQuery());
     }
 
     public function beforeAction($action)

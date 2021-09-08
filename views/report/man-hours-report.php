@@ -120,7 +120,7 @@ use yii\widgets\ActiveForm;
             ])->label('Сгенерировать отчет по'); ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report" id="hours" style="display: none">
+    <div class="col-xs-8 block-report" id="teachers" style="display: none">
         <?php
         $teachers = \app\models\work\TeacherGroupWork::find()->select('teacher_id')->distinct()->all();
         $tId = [];
@@ -134,14 +134,14 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report" id="teachers" style="display: none">
+    <div class="col-xs-8 block-report" id="hours" style="display: none">
         <?php
         $arr = ['0' => 'Реальный', '1' => 'Идеальный'];
-        echo $form->field($model, 'branch')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+        echo $form->field($model, 'method')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return
                 '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="branch-'. $index .'">
-                        <input style="margin-left: -20px" id="branch-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
+                    <label for="methods-'. $index .'">
+                        <input style="margin-left: -20px" id="methods-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
                         '. $label .'
                     </label>
                 </div>';
