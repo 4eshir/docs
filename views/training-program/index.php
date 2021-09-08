@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
+    $acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
+    $visible = $acc !== null;
 
     echo GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return ['class' => 'default'];
         },
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Акт.',
+            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Акт.', 'visible' => $visible,
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     $options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->actual ? true : false;
