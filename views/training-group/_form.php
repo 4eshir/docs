@@ -197,7 +197,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <div style="height: 20px"></div>
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <div id="common" <?php echo $session->get("show") === "common" ? '' : 'hidden'; ?>>
+    <div id="common">
 
         <?php
         $branch = \app\models\work\BranchWork::find()->all();
@@ -456,7 +456,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     ?>
     </div>
 
-    <div id="parts" <?php echo $session->get("show") === "parts" ? '' : 'hidden'; ?>>
+    <div id="parts">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Состав</h4></div>
@@ -580,7 +580,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         </div>
     </div>
 
-    <div id="schedule" <?php echo $session->get("show") === "schedule" ? '' : 'hidden'; ?>>
+    <div id="schedule">
 
         <?= $form->field($model, 'schedule_type')->radioList(array('0' => 'Ручное заполнение расписания',
             '1' => 'Автоматическое расписание по дням'), ['value' => '0', 'name' => 'scheduleType', 'onchange' => 'checkSchedule()'])->label('') ?>
