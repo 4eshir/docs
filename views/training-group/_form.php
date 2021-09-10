@@ -131,6 +131,10 @@ use yii\jui\AutoComplete;
         margin-left: -50%;
         margin-top: -50%;
     }
+
+    .training-btn {
+        margin-right: 10px;
+    }
 </style>
 
 <script>
@@ -183,9 +187,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 <div class="training-group-form">
 
     <?php
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("common")']);
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("parts")']);
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary', 'onclick' => 'switchBlock("schedule")']); ?>
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("common")']);
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("parts")']);
+        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("schedule")']); ?>
     <div style="height: 20px"></div>
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
