@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'branch_id')->dropDownList($items,$params)->label('Отдел');
 
     $params = [
-        'prompt' => '',
+        'prompt' => 'Вне отдела',
         'class' => 'form-control aud',
     ];
 
