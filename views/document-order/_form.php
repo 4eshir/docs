@@ -100,10 +100,6 @@ $session = Yii::$app->session;
     }
     ?>
 
-    <div <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
-        <?= $form->field($model, 'study_type')->radioList(array('2' => 'Приказ о зачислении',
-            '3' => 'Приказ об отчислении', '4' => 'Другое'))->label('') ?>
-    </div>
 
     <div id="group_table" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?php
@@ -225,7 +221,7 @@ $session = Yii::$app->session;
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row" <?php echo $session->get('type') !== '1' ? 'hidden' : null ?>>
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу документы</h4></div>
             <br>

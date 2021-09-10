@@ -188,7 +188,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     <?php
         echo Html::button('Показать общую информацию', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("common")']);
-        if ($model->branch_id === null || $model->budget === null || $model->training_program_id === null || $model->start_date === null || $model->finish_date === null)
+        if (!($model->branch_id === null || $model->budget === null || $model->training_program_id === null || $model->start_date === null || $model->finish_date === null))
         {
             echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("parts")']);
             echo Html::button('Показать расписание', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("schedule")']);
