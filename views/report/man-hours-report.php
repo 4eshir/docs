@@ -120,6 +120,7 @@ use yii\widgets\ActiveForm;
             ])->label('Сгенерировать отчет по'); ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
+    <div>
     <div class="col-xs-8 block-report" id="teachers" style="display: none">
         <?php
         $teachers = \app\models\work\TeacherGroupWork::find()->select('teacher_id')->distinct()->all();
@@ -132,6 +133,7 @@ use yii\widgets\ActiveForm;
         ];
         echo $form->field($model, 'teacher')->dropDownList($items,$params)->label('Педагог');
         ?>
+    </div>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="col-xs-8 block-report" id="hours" style="display: none">
