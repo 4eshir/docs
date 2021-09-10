@@ -212,7 +212,11 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <?php
     $counterPhp = 0;
 
-    $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->andWhere(['actual' => 1])->all();
+    if ($model->training_program_id !== null)
+        $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->andWhere(['actual' => 1])->orWhere(['id' => $model->training_program_id])->all();
+    else
+        $progs = \app\models\work\TrainingProgramWork::find()->orderBy(['name' => SORT_ASC])->andWhere(['actual' => 1])->all();
+
     $items = \yii\helpers\ArrayHelper::map($progs,'id','fullName');
     $params = [
     ];
