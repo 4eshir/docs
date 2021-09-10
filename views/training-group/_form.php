@@ -534,7 +534,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
                                         <?php
 
-                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->asArray()->all();
+                                        $people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->where(['is_true' => 1])->orWhere(['guaranted_true' => 1])->asArray()->all();
 
                                         echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]participant_name")->widget(
                                             AutoComplete::className(), [

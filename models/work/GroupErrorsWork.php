@@ -30,7 +30,7 @@ class GroupErrorsWork extends GroupErrors
         foreach ($lessons as $lesson) {
             $audsLessons = $lesson->auditorium_id;
             $auditorium = AuditoriumWork::find()->where(['id' => $audsLessons])->one();
-            if ($auditorium->is_education == 0)
+            if ($auditorium->is_education !== null && $auditorium->is_education == 0)
             {
                 $audsEducation = 0;
                 break;
