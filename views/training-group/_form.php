@@ -187,9 +187,13 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 <div class="training-group-form">
 
     <?php
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("common")']);
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("parts")']);
-        echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("schedule")']); ?>
+        echo Html::button('Показать общую информацию', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("common")']);
+        if ($model->branch_id === null || $model->budget === null || $model->training_program_id === null || $model->start_date === null || $model->finish_date === null)
+        {
+            echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("parts")']);
+            echo Html::button('Показать расписание', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("schedule")']);
+        }
+    ?>
     <div style="height: 20px"></div>
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
