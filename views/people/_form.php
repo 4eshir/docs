@@ -124,7 +124,7 @@ use app\models\work\PositionWork;
     ?>
 
     <?php
-    $company = \app\models\work\CompanyWork::find()->all();
+    $company = \app\models\work\CompanyWork::find()->orderBy('name')->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [
         'id' => 'org'
