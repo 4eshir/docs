@@ -87,7 +87,7 @@ class SearchTrainingGroup extends TrainingGroupWork
             else if (count($branchs) > 0)
                 $groups = TrainingGroupWork::find()->where(['in', 'training_group.id', $idsB])->orderBy(['archive' => SORT_ASC, 'start_date' => SORT_DESC]);
             else{
-                $groups = TrainingGroupWork::find()->orderBy(['archive' => SORT_ASC]);
+                $groups = TrainingGroupWork::find()->orderBy(['archive' => SORT_ASC, 'start_date' => SORT_DESC]);
             }
 
         }
