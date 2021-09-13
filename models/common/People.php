@@ -87,6 +87,7 @@ class People extends \yii\db\ActiveRecord
         return $this->hasOne(Position::className(), ['id' => 'position_id']);
     }
 
+
     /**
      * Gets query for [[TrainingProgramParticipants]].
      *

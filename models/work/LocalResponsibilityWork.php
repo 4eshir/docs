@@ -7,7 +7,7 @@ use app\models\common\Branch;
 use app\models\common\DocumentOrder;
 use app\models\common\LegacyResponsible;
 use app\models\common\LocalResponsibility;
-use app\models\common\People;
+use app\models\work\PeopleWork;
 use app\models\common\Regulation;
 use app\models\common\ResponsibilityType;
 use app\models\components\FileWizard;
@@ -33,7 +33,7 @@ class LocalResponsibilityWork extends LocalResponsibility
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
-            [['people_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['people_id' => 'id']],
+            [['people_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['people_id' => 'id']],
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
             [['responsibility_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResponsibilityType::className(), 'targetAttribute' => ['responsibility_type_id' => 'id']],
             [['filesStr'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -57,7 +57,8 @@ class LocalResponsibilityWork extends LocalResponsibility
 
     public function getPeopleStr()
     {
-        return Html::a($this->people->fullName, \yii\helpers\Url::to(['people/view', 'id' => $this->people_id]));
+        $fullName = $this->people->secondname.' '.$this->people->firstname.' '.$this->people->patronymic;
+        return Html::a($fullName, \yii\helpers\Url::to(['people/view', 'id' => $this->people_id]));
     }
 
 
