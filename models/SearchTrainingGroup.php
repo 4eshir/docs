@@ -57,7 +57,7 @@ class SearchTrainingGroup extends TrainingGroupWork
     {
 
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->orderBy(['archive' => SORT_ASC]);
+        $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->orderBy(['archive' => SORT_ASC, 'start_date' => SORT_DESC]);
         $branchs = [];
         if ($params ["SearchTrainingGroup"]["branchId"] !== "")
             $branchs = TrainingGroupWork::find()->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])->orderBy(['archive' => SORT_ASC])->all();
