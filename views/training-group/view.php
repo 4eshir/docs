@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             ['attribute' => 'lessonDates', 'value' => '<button class="accordion">Показать расписание группы</button><div class="panel">'.$model->lessonDates.'</div>', 'format' => 'raw'],
             ['attribute' => 'manHoursPercent', 'format' => 'raw', 'label' => 'Выработка человеко-часов'],
             ['attribute' => 'journalLink', 'format' => 'raw', 'label' => 'Журнал'],
-            ['attribute' => 'ordersName', 'format' => 'html'],
+            ['attribute' => 'ordersName', 'format' => 'raw'],
             ['attribute' => 'photos', 'value' => function ($model) {
                 $split = explode(" ", $model->photos);
                 $result = '';

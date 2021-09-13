@@ -217,7 +217,7 @@ class TrainingGroupWork extends TrainingGroup
         $result = '';
         foreach ($orders as $order)
         {
-            $result .= Html::a($order->documentOrder->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->documentOrder->id])).'<br>';
+            $result .= Html::a($order->documentOrderWork->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->documentOrderWork->id])).'<br>';
         }
         return $result;
     }
@@ -257,6 +257,7 @@ class TrainingGroupWork extends TrainingGroup
         else if ($numbPercent > 50.0)
             $percent = '<p style="color: #d49939; display: inline">' .$percent.'%</p>';
         else
+            $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
             $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
         $result = $visits.' / '.$maximum.' (<b>'.$percent.'</b>)';
         return $result;
