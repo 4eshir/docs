@@ -138,7 +138,7 @@ class DocumentOrderController extends Controller
         $session = Yii::$app->session;
         $model->order_name = 'Резерв';
         $model->order_number = '02-02';
-        $model->order_date = DocumentOrderWork::find()->orderBy(['order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC])->one()->order_date;
+        $model->order_date = date("Y-m-d");
         $model->scan = '';
         $model->state = true;
         $model->type = $session->get('type') === '1' ? 1 : 0;
@@ -180,6 +180,7 @@ class DocumentOrderController extends Controller
 
 
             if ($model->validate(false)) {
+                $model->getDocumentNumber();
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
