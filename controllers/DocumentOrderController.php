@@ -180,7 +180,9 @@ class DocumentOrderController extends Controller
 
 
             if ($model->validate(false)) {
-                $model->getDocumentNumber();
+                $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
+                if ($cur->order_number !== $model->order_number)
+                    $model->getDocumentNumber();
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
