@@ -113,7 +113,14 @@ class DocumentOrderController extends Controller
             $model->expires = $modelExpire;
 
             if ($model->validate(false)) {
-                $model->getDocumentNumber();
+                if ($model->archive_number !== null)
+                    $model->getDocumentNumber();
+                else
+                {
+                    $model->order_copy_id = $model->archive_number;
+                    $model->type = 10;
+                }
+
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
@@ -167,6 +174,8 @@ class DocumentOrderController extends Controller
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
+        if ($model->type === 10)
+            $model->archive_number = $model->order_copy_id;
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
@@ -181,8 +190,14 @@ class DocumentOrderController extends Controller
 
             if ($model->validate(false)) {
                 $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
-                if ($cur->order_number !== $model->order_number)
-                    $model->getDocumentNumber();
+                if ($model->archive_number !== null)
+                    if ($cur->order_number !== $model->order_number)
+                        $model->getDocumentNumber();
+                else
+                {
+                    $model->order_copy_id = $model->archive_number;
+                    $model->type = 10;
+                }
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)

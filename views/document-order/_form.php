@@ -31,6 +31,14 @@ $session = Yii::$app->session;
             }
         }
     };
+
+    function showArchive()
+    {
+        var elem = document.getElementById('archive-0');
+        var arch = document.getElementById('archive-number');
+        if (elem.checked) { arch.style.display = "block"; }
+        else { arch.style.display = "none"; }
+    }
 </script>
 
 <div class="document-order-form">
@@ -100,6 +108,19 @@ $session = Yii::$app->session;
     }
     ?>
 
+    <?= $form->field($model, 'archive_check')
+        ->checkbox([
+            'id' => 'archive-0',
+            'label' => 'Архивный приказ',
+            'onchange' => 'showArchive()',
+            'checked' => $model->type === 10,
+            'labelOptions' => [
+            ],
+        ]); ?>
+
+    <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
+        <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
+    </div>
 
     <div id="group_table" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?php

@@ -31,6 +31,10 @@ class DocumentOrderWork extends DocumentOrder
 
     public $groups_check;
 
+    public $archive_check;
+
+    public $archive_number;
+
 
     public function rules()
     {
@@ -40,7 +44,7 @@ class DocumentOrderWork extends DocumentOrder
             [['signedString', 'executorString', 'bringString', 'registerString', 'documentNumberString'], 'string'],
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
-            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'study_type'], 'integer'],
+            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'study_type', 'archive_check', 'archive_number'], 'integer'],
             [['order_date', 'allResp', 'groups_check'], 'safe'],
             [['state'], 'boolean'],
             [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
@@ -301,7 +305,7 @@ class DocumentOrderWork extends DocumentOrder
 
             return;
         }
-        $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
+        $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->andWhere(['!=', 'type', '10'])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
         if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
         {
             $tempId = 0;
