@@ -76,6 +76,7 @@ class TrainingGroupWork extends TrainingGroup
         return [
             'id' => 'ID',
             'number' => 'Номер',
+            'numberView' => 'Номер',
             'training_program_id' => 'Образовательная программа',
             'programName' => 'Образовательная программа',
             'programNameNoLink' => 'Образовательная программа',
@@ -117,6 +118,11 @@ class TrainingGroupWork extends TrainingGroup
         foreach ($teachers as $teacher)
             $result .= Html::a($teacher->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $teacher->teacher_id])) . '<br>';
         return $result;
+    }
+
+    public function getNumberView()
+    {
+        return Html::a($this->number, \yii\helpers\Url::to(['training-group/view', 'id' => $this->id]));
     }
 
     public function getProgramName()

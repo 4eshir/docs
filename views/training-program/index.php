@@ -42,6 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $options;
                 }],
             'name',
+            ['attribute' => 'level', 'label' => 'Ур. сложности','value' => function ($model) {return $model->level+1;}],
+            ['attribute' => 'branchs', 'label' => 'Место реализации', 'format' => 'html'],
             ['attribute' => 'ped_council_date', 'label' => 'Дата пед. сов.'],
             ['attribute' => 'ped_council_number', 'label' => '№ пед. сов.'],
             ['attribute' => 'compilers', 'format' => 'html'],

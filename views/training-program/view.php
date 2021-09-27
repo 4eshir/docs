@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'name',
+            ['attribute' => 'level', 'value' => function ($model) {return $model->level+1;}],
             'ped_council_date',
             'ped_council_number',
             ['attribute' => 'compilers', 'format' => 'html'],

@@ -48,8 +48,8 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     $options['checked'] = $model->archive ? true : false;
                     return $options;
                 }],
-            'number',
-            ['attribute' => 'programNameNoLink', 'format' => 'html'],
+            ['attribute' => 'numberView', 'format' => 'html'],
+            ['attribute' => 'programName', 'format' => 'html'],
             ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
@@ -73,8 +73,8 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     return ['class' => 'default'];
             },
             'columns' => [
-                'number',
-                ['attribute' => 'programNameNoLink', 'format' => 'html'],
+                ['attribute' => 'numberView', 'format' => 'html'],
+                ['attribute' => 'programName', 'format' => 'html'],
                 ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
                 ['attribute' => 'teachersList', 'format' => 'html'],
                 'start_date',
