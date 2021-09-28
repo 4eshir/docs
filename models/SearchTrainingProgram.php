@@ -14,13 +14,15 @@ use app\models\work\TrainingProgramWork;
  */
 class SearchTrainingProgram extends TrainingProgramWork
 {
+    public $authorSearch;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote', 'name'], 'safe']
+            [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote', 'name'], 'safe'],
+            [['authorSearch'], 'integer'],
         ];
     }
 
@@ -43,6 +45,12 @@ class SearchTrainingProgram extends TrainingProgramWork
     public function search($params)
     {
         $query = TrainingProgramWork::find()->orderBy(['actual' => SORT_DESC]);
+
+        if ($params["SearchTrainingProgram"]["authorSearch"] != null)
+        {
+            $str = 'SELECT * FROM `training_program` WHERE `id` IN (SELECT `training_program_id` FROM `author_program` WHERE `author_id` = '.$params["SearchTrainingProgram"]["authorSearch"].')';
+            $query = TrainingProgramWork::findBySql($str);
+        }
 
         // add conditions that should always apply here
 

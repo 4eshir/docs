@@ -9,6 +9,7 @@ use app\models\common\People;
 use app\models\common\ThematicDirection;
 use app\models\common\ThematicPlan;
 use app\models\common\TrainingProgram;
+use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
@@ -27,6 +28,8 @@ class TrainingProgramWork extends TrainingProgram
     public $docFile;
     public $editDocs;
 
+    public $fileUtp;
+
     public function rules()
     {
         return [
@@ -38,6 +41,7 @@ class TrainingProgramWork extends TrainingProgram
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
             [['docFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['editDocs'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['fileUtp'], 'file', 'extensions' => 'xls, xlsx', 'skipOnEmpty' => true],
 
         ];
     }
@@ -73,6 +77,7 @@ class TrainingProgramWork extends TrainingProgram
             'branchs' => 'Отдел(-ы) - место реализации',
             'hour_capacity' => 'Длительность 1 академического часа в минутах',
             'actual' => 'Образовательная программа актуальна',
+            'fileUtp' => 'Файл УТП',
         ];
     }
 
@@ -345,5 +350,11 @@ class TrainingProgramWork extends TrainingProgram
             return true;
         }
         return false;
+    }
+
+    public function uploadExcelUtp()
+    {
+        $this->fileUtp->saveAs('@app/upload/files/program/temp/' . $this->fileUtp->name);
+        ExcelWizard::WriteUtp($this->fileUtp->name, $this->id);
     }
 }

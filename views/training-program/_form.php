@@ -122,6 +122,9 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Учебно-тематический план</h4></div>
+            <div style="padding-left: 1.5%; padding-top: 1%">
+                <?= $form->field($model, 'fileUtp')->fileInput() ?>
+            </div>
             <?php
             $resp = \app\models\work\ThematicPlanWork::find()->where(['training_program_id' => $model->id])->all();
             if ($resp != null)

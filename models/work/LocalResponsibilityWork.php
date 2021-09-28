@@ -26,7 +26,7 @@ class LocalResponsibilityWork extends LocalResponsibility
     public function rules()
     {
         return [
-            [['responsibility_type_id'], 'required'],
+            [['responsibility_type_id', 'order_id'], 'required'],
             [['start_date', 'end_date'], 'safe'],
             [['responsibility_type_id', 'branch_id', 'auditorium_id', 'people_id', 'regulation_id', 'order_id'], 'integer'],
             [['files'], 'string', 'max' => 1000],

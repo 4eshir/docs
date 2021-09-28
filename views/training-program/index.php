@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить программу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
     $acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
     $visible = $acc !== null;

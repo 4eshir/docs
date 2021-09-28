@@ -101,10 +101,13 @@ class TrainingProgramController extends Controller
             $model->thematicPlan = $modelThematicPlan;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
+            $model->fileUtp = UploadedFile::getInstance($model, 'fileUtp');
             if ($model->docFile !== null)
                 $model->uploadDocFile();
             if ($model->editDocs !== null)
                 $model->uploadEditFiles();
+            if ($model->fileUtp !== null)
+                $model->uploadExcelUtp();
 
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена образовательная программа '.$model->name);
@@ -145,10 +148,14 @@ class TrainingProgramController extends Controller
             $model->thematicPlan = $modelThematicPlan;
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
+            $model->fileUtp = UploadedFile::getInstance($model, 'fileUtp');
             if ($model->docFile !== null)
                 $model->uploadDocFile();
             if ($model->editDocs !== null)
                 $model->uploadEditFiles(10);
+            if ($model->fileUtp !== null)
+                $model->uploadExcelUtp();
+
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);

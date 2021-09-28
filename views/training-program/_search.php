@@ -15,35 +15,19 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'ped_council_date') ?>
-
-    <?= $form->field($model, 'ped_council_number') ?>
-
-    <?= $form->field($model, 'author_id') ?>
-
-    <?php // echo $form->field($model, 'capacity') ?>
-
-    <?php // echo $form->field($model, 'student_left_age') ?>
-
-    <?php // echo $form->field($model, 'student_right_age') ?>
-
-    <?php // echo $form->field($model, 'focus') ?>
-
-    <?php // echo $form->field($model, 'allow_remote') ?>
-
-    <?php // echo $form->field($model, 'doc_file') ?>
-
-    <?php // echo $form->field($model, 'edit_docs') ?>
-
-    <?php // echo $form->field($model, 'key_words') ?>
+    <?php
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, 'authorSearch')->dropDownList($items, $params)->label('Педагог');
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Сбросить фильтры', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

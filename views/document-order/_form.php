@@ -125,7 +125,7 @@ $session = Yii::$app->session;
     <div id="group_table" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?php
         if ($model->nomenclature_id !== null) {
-            echo '<table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
+            echo '<div style="max-height: 400px; overflow-y: scroll"><table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
 
             $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])->all();
             foreach ($groups as $group) {
@@ -141,7 +141,7 @@ $session = Yii::$app->session;
             }
         }
 
-        echo '</table>';
+        echo '</table></div>';
         ?>
     </div>
 
