@@ -22,6 +22,7 @@ use app\models\work\TrainingGroupWork;
 class SearchTrainingGroup extends TrainingGroupWork
 {
     public $programName;
+    public $numberView;
     public $budgetText;
     public $branchId;
     public $teacherId;
@@ -33,7 +34,7 @@ class SearchTrainingGroup extends TrainingGroupWork
         return [
             [['id', 'number', 'training_program_id', 'teacher_id', 'open', 'budgetText'], 'integer'],
             [['start_date', 'finish_date', 'photos', 'present_data', 'work_data', 'branchId', 'teacherId'], 'safe'],
-            ['programName', 'string'],
+            [['programName', 'numberView'], 'string'],
         ];
     }
 
@@ -169,6 +170,7 @@ class SearchTrainingGroup extends TrainingGroupWork
 
         $query->andFilterWhere(['like', 'photos', $this->photos])
             ->andFilterWhere(['like', 'present_data', $this->present_data])
+            ->andFilterWhere(['like', 'number', $this->numberView])
             ->andFilterWhere(['like', 'budget', $this->budgetText])
             ->andFilterWhere(['like', 'trainingProgram.name', $this->programName])
             ->andFilterWhere(['like', 'work_data', $this->work_data]);
