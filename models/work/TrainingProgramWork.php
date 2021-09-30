@@ -35,7 +35,8 @@ class TrainingProgramWork extends TrainingProgram
         return [
             [['name', 'author_id', 'focus', 'hour_capacity', 'capacity'], 'required'],
             [['ped_council_date'], 'safe'],
-            [['focus_id', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual'], 'integer'],
+            [['student_left_age'], 'double'],
+            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
@@ -354,6 +355,9 @@ class TrainingProgramWork extends TrainingProgram
 
     public function uploadExcelUtp()
     {
+        $tps = ThematicPlanWork::find()->where(['training_program_id' => $this->id])->all();
+        foreach ($tps as $tp)
+            $tp->delete();
         $this->fileUtp->saveAs('@app/upload/files/program/temp/' . $this->fileUtp->name);
         ExcelWizard::WriteUtp($this->fileUtp->name, $this->id);
     }
