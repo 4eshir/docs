@@ -18,6 +18,7 @@ class DocumentOrderWork extends DocumentOrder
     public $docFiles;
     public $responsibles;
     public $expires;
+    public $expires2;
     public $people_arr;
 
     public $signedString;
@@ -79,7 +80,47 @@ class DocumentOrderWork extends DocumentOrder
             return $this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix;
     }
 
-    public function  beforeSave($insert)
+    public function getExpireOrders2()
+    {
+        $changes = ExpireWork::find()->where(['expire_type' => 2])->andWhere(['active_regulation_id' => $this->id])->andWhere(['not', ['expire_order_id' => null]])->all();
+        $result = "";
+        foreach ($changes as $change)
+        {
+            $doc_num = 0;
+            if ($change->expireOrderWork->order_postfix == null)
+                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id;
+            else
+                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id.'/'.$change->expireOrderWork->order_postfix;
+            $result .= Html::a('Приказ №' . $doc_num . ' ' . $change->expireOrderWork->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $change->expire_order_id])) . '<br>';
+        }
+
+        $changes = ExpireWork::find()->where(['expire_type' => 2])->andWhere(['active_regulation_id' => $this->id])->andWhere(['not', ['expire_regulation_id' => null]])->all();
+        foreach ($changes as $change)
+        {
+            $result .= Html::a('Положение ' . $change->expireRegulationWork->name, \yii\helpers\Url::to(['regulation/view', 'id' => $change->expire_regulation_id])) . '<br>';
+        }
+
+        return $result;
+    }
+
+
+    public function getChangeDocs()
+    {
+        $changes = ExpireWork::find()->where(['expire_type' => 2])->andWhere(['expire_order_id' => $this->id])->all();
+        $result = "";
+        foreach ($changes as $change)
+        {
+            $doc_num = 0;
+            if ($change->expireOrderWork->order_postfix == null)
+                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id;
+            else
+                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id.'/'.$change->expireOrderWork->order_postfix;
+            $result .= Html::a('Приказ №' . $doc_num . ' ' . $change->expireOrderWork->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $change->active_regulation_id])) . '<br>';
+        }
+        return $result;
+    }
+
+    public function beforeSave($insert)
     {
 
         $fioSigned = explode(" ", $this->signedString);

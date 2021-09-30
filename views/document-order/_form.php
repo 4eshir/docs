@@ -244,16 +244,16 @@ $session = Yii::$app->session;
     <br>
     <div class="row" <?php echo $session->get('type') !== '1' ? 'hidden' : null ?>>
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Утратили силу документы</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Изменение документов</h4></div>
             <br>
             <?php
-            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
+            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
             if ($order != null)
             {
                 echo '<table>';
                 foreach ($order as $orderOne) {
                     if ($orderOne->expireRegulation !== null)
-                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Положение "'.$orderOne->expireRegulation->name.'"</h4></td><td style="padding-left: 10px">'
+                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Положение "'.$orderOne->expireRegulationWork->name.'"</h4></td><td style="padding-left: 10px">'
                             .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
                                 'class' => 'btn btn-danger',
                                 'data' => [
@@ -269,6 +269,30 @@ $session = Yii::$app->session;
                                     'method' => 'post',
                                 ],]).'</td></tr>';
                 }
+
+                $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 2])->all();
+                if ($order != null) {
+                    foreach ($order as $orderOne) {
+                        if ($orderOne->expireRegulation !== null)
+                            echo '<tr><td style="padding-left: 20px"><h4><b>Изменен документ: </b> Положение "' . $orderOne->expireRegulationWork->name . '"</h4></td><td style="padding-left: 10px">'
+                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены?',
+                                        'method' => 'post',
+                                    ],]) . '</td></tr>';
+                        if ($orderOne->expireOrder !== null)
+                            echo '<tr><td style="padding-left: 20px"><h4><b>Изменен документ: </b> Приказ №' . $orderOne->expireOrderWork->fullName . '"</h4></td><td style="padding-left: 10px">'
+                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены?',
+                                        'method' => 'post',
+                                    ],]) . '</td></tr>';
+                    }
+                }
+
+
                 echo '</table>';
             }
             ?>
@@ -300,36 +324,47 @@ $session = Yii::$app->session;
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                <?php
-                                // necessary for update action.
-                                if (! $modelExpireOne->isNewRecord) {
-                                    echo Html::activeHiddenInput($modelExpireOne, "[{$i}]id");
-                                }
-                                ?>
-                                <?php
-                                $orders = [];
-                                if ($model->id == null)
-                                    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
-                                else
-                                    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
-                                $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
-                                $params = [
-                                    'prompt' => '',
-                                ];
+                                <div class="col-xs-5">
+                                    <?php
+                                    // necessary for update action.
+                                    if (! $modelExpireOne->isNewRecord) {
+                                        echo Html::activeHiddenInput($modelExpireOne, "[{$i}]id");
+                                    }
+                                    ?>
+                                    <?php
+                                    $orders = [];
+                                    if ($model->id == null)
+                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
+                                    else
+                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
 
-                                echo $form->field($modelExpireOne, "[{$i}]expire_order_id")->dropDownList($items,$params)->label('Приказ');
-                                ?>
+                                    echo $form->field($modelExpireOne, "[{$i}]expire_order_id")->dropDownList($items,$params)->label('Приказ');
+                                    ?>
+                                </div>
+                                <div class="col-xs-5">
+                                    <?php
+                                    $orders = \app\models\work\RegulationWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
 
-                                <?php
-                                $orders = \app\models\work\RegulationWork::find()->all();
-                                $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
-                                $params = [
-                                    'prompt' => '',
-                                ];
+                                    echo $form->field($modelExpireOne, "[{$i}]expire_regulation_id")->dropDownList($items,$params)->label('Положение');
 
-                                echo $form->field($modelExpireOne, "[{$i}]expire_regulation_id")->dropDownList($items,$params)->label('Положение');
-
-                                ?>
+                                    ?>
+                                </div>
+                                <div class="col-xs-2">
+                                    <?php
+                                    $arr = ['1' => 'Отмена', '2' => 'Изменение'];
+                                    if ($modelExpireOne->expire_type === null)
+                                        $modelExpireOne->expire_type = 1;
+                                    echo $form->field($modelExpireOne, "[{$i}]expire_type")->radioList($arr,[])->label(false);
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>

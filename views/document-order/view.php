@@ -54,8 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     $html = $html.$res[$i]->people->secondname.' '.mb_substr($res[$i]->people->firstname, 0, 1).'. '.mb_substr($res[$i]->people->patronymic, 0, 1).'.<br>';
                 return $html;
             }, 'format' => 'raw'],
-            ['label' => 'Утратили силу приказы', 'attribute' => 'expires', 'value' => function($model){
-                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
+            ['label' => 'Утратили силу документы', 'attribute' => 'expires', 'value' => function($model){
+                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
                 $res = '';
                 foreach ($exp as $expOne)
                 {
@@ -69,11 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $res = $res . Html::a('Приказ №'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
 
                 }
-                return $res;
-            }, 'format' => 'raw'],
-            ['label' => 'Утратили силу положения', 'attribute' => 'expires', 'value' => function($model){
-                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
-                $res = '';
+
+                $exp = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
                 foreach ($exp as $expOne)
                 {
                     $reg = \app\models\work\RegulationWork::find()->where(['id' => $expOne->expire_regulation_id])->one();
@@ -81,8 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $res = $res . Html::a('Положение '.$reg->name, \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id])).'<br>';
 
                 }
+
                 return $res;
             }, 'format' => 'raw'],
+            ['label' => 'Внесены изменения в документы', 'attribute' => 'expireOrders2', 'format' => 'raw'],
+            ['label' => 'Был изменен документами', 'attribute' => 'changeDocs', 'format' => 'raw'],
             ['label' => 'Скан приказа', 'attribute' => 'Scan', 'value' => function ($model) {
                 return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan']));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);

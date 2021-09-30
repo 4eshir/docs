@@ -97,6 +97,7 @@ class DocumentOrderController extends Controller
         $model = new DocumentOrderWork();
         //$model->order_number = NomenclatureWork::find()->where([]);
         $modelExpire = [new ExpireWork];
+        $modelExpire2 = [new ExpireWork];
         $modelResponsible = [new ResponsibleWork];
         if ($model->load(Yii::$app->request->post())) {
             $model->signed_id = null;
@@ -136,6 +137,7 @@ class DocumentOrderController extends Controller
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
             'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+            'modelExpire2' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire2,
         ]);
     }
 
@@ -184,6 +186,7 @@ class DocumentOrderController extends Controller
             $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 

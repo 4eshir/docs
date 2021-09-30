@@ -12,4 +12,9 @@ class ExpireWork extends Expire
     {
         return $this->hasOne(DocumentOrderWork::className(), ['id' => 'expire_order_id']);
     }
+
+    public function getExpireRegulationWork()
+    {
+        return $this->hasOne(RegulationWork::className(), ['id' => 'expire_regulation_id']);
+    }
 }
