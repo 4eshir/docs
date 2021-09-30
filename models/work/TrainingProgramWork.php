@@ -354,6 +354,9 @@ class TrainingProgramWork extends TrainingProgram
 
     public function uploadExcelUtp()
     {
+        $tps = ThematicPlanWork::find()->where(['training_program_id' => $this->id])->all();
+        foreach ($tps as $tp)
+            $tp->delete();
         $this->fileUtp->saveAs('@app/upload/files/program/temp/' . $this->fileUtp->name);
         ExcelWizard::WriteUtp($this->fileUtp->name, $this->id);
     }
