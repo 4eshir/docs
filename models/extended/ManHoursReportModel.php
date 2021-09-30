@@ -4,6 +4,7 @@
 namespace app\models\extended;
 
 
+use app\models\work\LessonThemeWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -61,7 +62,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $teachers = TeacherGroupWork::find()->where(['teacher_id' => $this->teacher])->all();
                     $tId = [];
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
-                    $lessons = $lessons->andWhere(['IN', 'training_group_id', $tId]);
+                    $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_id', $tId]);
                 }
 
                 $lessons = $lessons->all();
