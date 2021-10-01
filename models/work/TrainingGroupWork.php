@@ -259,13 +259,13 @@ class TrainingGroupWork extends TrainingGroup
         $numbPercent = $percent;
         $percent = round($percent, 2);
         if ($numbPercent > 75.0)
-            $percent = '<p style="color: #1e721e; display: inline">'.$percent.'%</p>';
+            $percent = '<p style="color: #1e721e; display: inline">'.$percent;
         else if ($numbPercent > 50.0)
-            $percent = '<p style="color: #d49939; display: inline">' .$percent.'%</p>';
+            $percent = '<p style="color: #d49939; display: inline">' .$percent;
         else
-            $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
-            $percent = '<p style="color: #c34444; display: inline">' .$percent.'%</p>';
-        $result = $visits.' / '.$maximum.' (<b>'.$percent.'</b>)';
+            $percent = '<p style="color: #c34444; display: inline">' .$percent;
+            $percent = '<p style="color: #c34444; display: inline">' .$percent;
+        $result = $visits.' / '.$maximum.' (<b>'.$percent.'%</b></p>)';
         return $result;
     }
 
