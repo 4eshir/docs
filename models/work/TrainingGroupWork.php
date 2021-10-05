@@ -19,10 +19,15 @@ use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use app\models\components\LessonDatesJob;
+use app\models\work\PeopleWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingProgramWork;
 use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\Html;
 use yii\queue\db\Queue;
+use app\models\common;
 
 
 class TrainingGroupWork extends TrainingGroup
@@ -154,7 +159,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getBranchName()
     {
-        return Html::a($this->branchWork, \yii\helpers\Url::to(['training-program/view', 'id' => $this->branch_id]));;
+        return Html::a($this->branchWork, \yii\helpers\Url::to(['training-program/view', 'id' => $this->branch_id]));
     }
 
     public function getParticipantNames()
@@ -163,6 +168,19 @@ class TrainingGroupWork extends TrainingGroup
         $result = '';
         foreach ($parts as $part)
         {
+            $pdDatabase = PersonalDataTrainingParticipantGroupWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->where(['trainingGroupParticipant.participant_id' => $part->participant_id])->andWhere(['personal_data_training_group_participant.status' => 1])->all();
+            if (count($pdDatabase) > 0)
+            {
+                $text = 'Запрещено разглашение следующих ПД:&#10;';
+                $i = 1;
+                foreach ($pdDatabase as $one) {
+                    $text .= $i.'. '.$one->personalData->name.'&#10;';
+                    $i++;
+                }
+                $result .= '<div class="hoverless" data-html="true" id="tooltip'.$part->participant_id.'" style="width: 20px; height: 20px; padding: 0; margin-right: 5px; margin-top: 2px; background: #fd5e53; color: white; text-align: center; display: inline-block; border-radius: 4px" title="'.$text.'">!</div>';
+            }
+            else
+                $result .= '<div class="hoverless" data-html="true" id="tooltip'.$part->participant_id.'" style="width: 20px; height: 20px; padding: 0; margin-right: 5px; margin-top: 2px; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px" title="Ограничений нет">&#10004;</div>';
             $result .= Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
             if ($part->status == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';

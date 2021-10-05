@@ -10,6 +10,7 @@ use app\models\work\LessonThemeWork;
 use app\models\work\NomenclatureWork;
 use app\models\work\OrderGroupWork;
 use app\models\work\PeopleWork;
+use app\models\work\PersonalDataTrainingParticipantGroupWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupLessonWork;
@@ -357,6 +358,15 @@ class TrainingGroupController extends Controller
     public function actionUpdateParticipant($id)
     {
         $model = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
+        $pdDatabase = PersonalDataTrainingParticipantGroupWork::find()->where(['training_group_participant_id' => $model->id])->all();
+        if ($pdDatabase !== null)
+        {
+            $pdIds = [];
+            foreach ($pdDatabase as $one)
+                if ($one->status === 1)
+                    $pdIds[] = $one->id;
+        }
+        $model->pd = $pdIds;
         if ($model->load(Yii::$app->request->post())) {
             $model->save(false);
             $name = $model->participantWork->secondname . ' ' . $model->participantWork->firstname . ' ' . $model->participantWork->patronymic;

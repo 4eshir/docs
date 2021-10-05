@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
 ?>
 
 <style>
+
     .accordion {
         background-color: #3680b1;
         color: white;
@@ -38,6 +39,10 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         background-color: white;
         display: none;
         overflow: hidden;
+    }
+
+    .hoverless:hover {
+        cursor: default;
     }
 </style>
 

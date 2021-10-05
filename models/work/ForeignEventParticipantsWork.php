@@ -16,6 +16,8 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
     public $similar = [];
 
 
+
+
     public function rules()
     {
         return [
