@@ -260,7 +260,24 @@ class TrainingGroupWork extends TrainingGroup
         foreach ($errorsList as $errors)
         {
             $error = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
-            $result .= 'Внимание, ошибка: ' . $error->number . ' ' . $error->name . '<br>';
+            if ($errors->сritical === 1)
+                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $error->number . ' ' . $error->name . '<br>';
+            else $result .= 'Внимание, ошибка: ' . $error->number . ' ' . $error->name . '<br>';
+        }
+        return $result;
+    }
+
+    public function getColorErrors()
+    {
+        $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+        $result = 'default';
+        foreach ($errorsList as $errors)
+        {
+            if ($errors->сritical === 1) {
+                $result = 'danger';
+                break;
+            } else
+                $result = 'warning';
         }
         return $result;
     }

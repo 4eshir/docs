@@ -35,10 +35,8 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             'rowOptions' => function($data) {
                 if ($data['archive'] === 1)
                     return ['style' => 'background: #c0c0c0'];
-                else if ($data['errorsWork'] != '')
-                    return ['class' => 'warning'];
                 else
-                    return ['class' => 'default'];
+                    return ['class' => $data['colorErrors']];
             },
 
         'columns' => [
@@ -66,11 +64,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             'filterModel' => $searchModel,
             'rowOptions' => function($data) {
                 if ($data['archive'] === 1)
-                    return ['class' => 'danger'];
-                else if ($data['errorsWork'] != '')
-                    return ['class' => 'warning'];
+                    return ['style' => 'background: #c0c0c0'];
                 else
-                    return ['class' => 'default'];
+                    return ['class' => $data['colorErrors']];
             },
             'columns' => [
                 ['attribute' => 'numberView', 'format' => 'html'],

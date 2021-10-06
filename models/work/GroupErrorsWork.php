@@ -9,9 +9,10 @@ use Yii;
 
 class GroupErrorsWork extends GroupErrors
 {
+
     public function CheckErrorsTrainingGroup ($modelGroupID)
     {
-        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null])->all();
+        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'amnesty' => null])->all();
 
         $teacherCount = count(TeacherGroupWork::find()->where(['training_group_id' => $modelGroupID])->all());
         $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
@@ -54,6 +55,8 @@ class GroupErrorsWork extends GroupErrors
                 else if ($start_time <= $now_time)
                 {
                     // в первого день занятия ещё нет препода? на кол!
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
@@ -65,6 +68,8 @@ class GroupErrorsWork extends GroupErrors
                 else if ($end_time <= $now_time)
                 {
                     // тут должно быть повторное оповещание на почту что приказ должен быть добавлен в день последнего занятия
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
@@ -76,6 +81,8 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '-7 day')) <= $now_time)
                 {
                     // тут должно быть повторное оповещание на почту что фотоматериалы добвляются за неделю до последнего занятия
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
@@ -87,6 +94,8 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
@@ -98,6 +107,8 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
@@ -109,6 +120,8 @@ class GroupErrorsWork extends GroupErrors
                 else if ($end_time <= $now_time)
                 {
                     // на кол!
+                    $this->сritical = 1;
+                    //$this->save();
                 }
             }
 
