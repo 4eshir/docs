@@ -93,6 +93,8 @@ class SearchForeignEvent extends ForeignEventWork
             $query = ForeignEventWork::findBySql($str);
         }
 
+
+
         $query->joinWith(['company company']);
         $query->joinWith(['eventLevel']);
         $query->joinWith(['eventWay']);

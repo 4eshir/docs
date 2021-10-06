@@ -545,7 +545,7 @@ class TrainingGroupWork extends TrainingGroup
 
             $partsArr = [];
             $errArr = [];
-            if ($this->participants !== null && $this->participants[0]->participant_id !== "") {
+            if ($this->participants !== null && $this->participants[0]->participant_name !== "") {
                 usort($this->participants, array($this, "cmp"));
                 $tempParts = [];
                 $copyMessage = "";
@@ -555,7 +555,7 @@ class TrainingGroupWork extends TrainingGroup
                     $copyMessage .= $this->participants[0]->participantWork->shortName.'<br>';
                 for ($i = 1; $i < count($this->participants); $i++)
                 {
-                    if ($this->participants[$i]->participant_id !== $this->participants[$i - 1]->participant_id && $this->checkOldParticipant($this->participants[$i]->participant_id))
+                    if ($this->participants[$i - 1]->participant_id !== null && $this->participants[$i]->participant_id !== $this->participants[$i - 1]->participant_id && $this->checkOldParticipant($this->participants[$i]->participant_id))
                         $tempParts[] = $this->participants[$i];
                     else
                         $copyMessage .= $this->participants[$i]->participantWork->shortName.'<br>';
@@ -639,7 +639,7 @@ class TrainingGroupWork extends TrainingGroup
             }
             if ($this->teachers !== null && $this->teachers[0]->teacher_id !== "") {
                 foreach ($this->teachers as $teacher) {
-                    $teacherGroup = TeacherGroup::find()->where(['teacher_id' => $this->teachers[0]->teacher_id])->andWhere(['training_group_id' => $this->id])->one();
+                    $teacherGroup = TeacherGroup::find()->where(['teacher_id' => $teacher->teacher_id])->andWhere(['training_group_id' => $this->id])->one();
                     if ($teacherGroup === null)
                         $teacherGroup = new TeacherGroup();
                     $teacherGroup->teacher_id = $teacher->teacher_id;
