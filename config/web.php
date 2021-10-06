@@ -27,6 +27,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\extended\UserExtended',
+            'authTimeout' => 60 * 60 * 24 * 100,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
