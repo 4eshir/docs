@@ -56,7 +56,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // в первого день занятия ещё нет препода? на кол!
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
@@ -69,7 +69,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // тут должно быть повторное оповещание на почту что приказ должен быть добавлен в день последнего занятия
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
@@ -82,7 +82,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // тут должно быть повторное оповещание на почту что фотоматериалы добвляются за неделю до последнего занятия
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
@@ -95,7 +95,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
@@ -108,7 +108,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
@@ -121,7 +121,7 @@ class GroupErrorsWork extends GroupErrors
                 {
                     // на кол!
                     $this->сritical = 1;
-                    //$this->save();
+                    $this->save();
                 }
             }
 
