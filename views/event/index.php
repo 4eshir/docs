@@ -48,9 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 else
                     return 'Нет';
             }],
-            ['attribute' => 'responsible_id', 'value' => function($model){
-                return \app\models\work\PeopleWork::find()->where(['id' => $model->responsible_id])->one()->shortName;
-            }],
+            ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
             ['attribute' => 'order_id', 'value' => function($model){
                 $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 if ($order == null)

@@ -46,6 +46,7 @@ class EventWork extends Event
         return [
             [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
+            [['responsibleString'], 'string'],
             [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'old_name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
@@ -91,6 +92,11 @@ class EventWork extends Event
     public function getOrderWork()
     {
         return $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
+    }
+
+    public function getResponsibleString()
+    {
+        return PeopleWork::find()->where(['id' => $this->responsible_id])->one()->shortName;
     }
 
     //---------------------------------

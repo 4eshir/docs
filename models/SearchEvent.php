@@ -12,6 +12,8 @@ use app\models\work\EventWork;
 class SearchEvent extends EventWork
 {
     public $eventBranchs;
+
+    public $responsibleString;
     /**
      * {@inheritdoc}
      */
@@ -20,6 +22,7 @@ class SearchEvent extends EventWork
         return [
             [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
             [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
+            [['responsibleString'], 'string']
         ];
     }
 
@@ -52,9 +55,16 @@ class SearchEvent extends EventWork
 
         // add conditions that should always apply here
 
+        $query->joinWith(['responsible responsible']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['responsibleString'] = [
+            'asc' => ['responsible.shortName' => SORT_ASC],
+            'desc' => ['responsible.shortName' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -85,6 +95,7 @@ class SearchEvent extends EventWork
             ->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'protocol', $this->protocol])
             ->andFilterWhere(['like', 'photos', $this->photos])
+            ->andFilterWhere(['like', 'responsible.Secondname', $this->responsibleString])
             ->andFilterWhere(['like', 'reporting_doc', $this->reporting_doc])
             ->andFilterWhere(['like', 'other_files', $this->other_files]);
 
