@@ -37,18 +37,15 @@ use yii\widgets\DetailView;
                 foreach ($groups as $group)
                 {
                     $trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
-                    $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id])->all();
+                    $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
                     {
-                        if ($error->time_the_end === null)
-                        {
-                            echo '<tr>';
-                            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-                            echo '<th style="text-align: left;">' . $errorName->number . "</th>";
-                            echo '<td>' . $errorName->name . '</td>';
-                            echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
-                            echo '</tr>';
-                        }
+                        echo '<tr>';
+                        $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                        echo '<th style="text-align: left;">' . $errorName->number . "</th>";
+                        echo '<td>' . $errorName->name . '</td>';
+                        echo '<td>' . Html::a($trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $trainingGroup->id])) . '</td>';
+                        echo '</tr>';
                     }
                 }
 
