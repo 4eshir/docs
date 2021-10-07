@@ -132,12 +132,16 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionLogout()
+    public function actionLogout($from = null)
     {
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
-        Yii::$app->user->logout();
+        if ($from == 1)
+        {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
+            Yii::$app->user->logout();
 
-        return $this->goHome();
+            return $this->goHome();
+        }
+        return $this;
     }
 
     public function actionIndexDocsOut()

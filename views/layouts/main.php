@@ -62,7 +62,7 @@ AppAsset::register($this);
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/site/logout', 'from' => '1'], 'post')
                     . Html::submitButton(
                         'Выйти (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']

@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'finish_date'],
             ['attribute' => 'event_type_id', 'value' => function($model){
                 return \app\models\work\EventTypeWork::find()->where(['id' => $model->event_type_id])->one()->name;
-            }],
+            }, 'filter' => [ 1 => "Соревновательный", 2 => "Несоревновательный"]],
             ['attribute' => 'address'],
             ['attribute' => 'event_level_id', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
                 return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;

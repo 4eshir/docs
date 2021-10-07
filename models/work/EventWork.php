@@ -63,6 +63,11 @@ class EventWork extends Event
         ];
     }
 
+    public function getEventTypeString()
+    {
+        return EventTypeWork::find()->where(['id' => $this->event_type_id])->one()->name;
+    }
+
     public function getResponsible2()
     {
         return $this->hasOne(People::className(), ['id' => 'responsible2_id']);
