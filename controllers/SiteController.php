@@ -134,14 +134,14 @@ class SiteController extends Controller
      */
     public function actionLogout($from = null)
     {
-        if ($from == 1)
+        if ($from == '1')
         {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
             Yii::$app->user->logout();
 
             return $this->goHome();
         }
-        return $this;
+        return "";
     }
 
     public function actionIndexDocsOut()
