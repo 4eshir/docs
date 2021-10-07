@@ -62,7 +62,7 @@ AppAsset::register($this);
                 ['label' => 'Войти', 'url' => ['/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout', 'from' => '1'], 'post')
+                    . Html::beginForm(['/site/logout'], 'post', ['from' => '1'])
                     . Html::submitButton(
                         'Выйти (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']
@@ -129,7 +129,7 @@ AppAsset::register($this);
                         '<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Личный кабинет<span class="caret"></span></a>'
                         .'<ul id="w10" class="dropdown-menu">'
                         .'<li><a href="'.Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]).'" tabindex="-1">Личный кабинет ('.Yii::$app->user->identity->username.')</a></li>'
-                        .'<li><a href="'.Url::to(['/site/logout']).'" tabindex="-1" data-method="POST">Выйти</a></li>'
+                        .'<li><a href="'.Url::to(['/site/logout', 'from' => '1']).'" tabindex="-1" data-method="POST">Выйти</a></li>'
                         . '</ul>'
                         .'</li>'
                     )
@@ -153,7 +153,7 @@ AppAsset::register($this);
                         '<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Личный кабинет<span class="caret"></span></a>'
                         .'<ul id="w10" class="dropdown-menu">'
                         .'<li><a href="'.Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]).'" tabindex="-1">Личный кабинет ('.Yii::$app->user->identity->username.')</a></li>'
-                        .'<li><a href="'.Url::to(['/site/logout']).'" tabindex="-1" data-method="POST">Выйти</a></li>'
+                        .'<li><a href="'.Url::to(['/site/logout', 'from' => '1']).'" tabindex="-1" data-method="POST">Выйти</a></li>'
                         . '</ul>'
                         .'</li>'
                     )
