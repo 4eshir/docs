@@ -335,9 +335,14 @@ class User extends Component
      * This parameter is ignored if [[enableSession]] is false.
      * @return bool whether the user is logged out
      */
-    public function logout($destroySession = true)
+    public function logout($destroySession = true, $from = null)
     {
         $identity = $this->getIdentity();
+        $event = new UserEvent([
+            'identity' => $identity,
+        ]);
+        if ($from !== 1)
+            $event->isValid = false;
         if ($identity !== null && $this->beforeLogout($identity)) {
             $this->switchIdentity(null);
             $id = $identity->getId();
