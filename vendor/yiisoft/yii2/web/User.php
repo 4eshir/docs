@@ -338,21 +338,21 @@ class User extends Component
     public function logout($destroySession = true, $from = null)
     {
         $identity = $this->getIdentity();
-        $event = new UserEvent([
-            'identity' => $identity,
-        ]);
-        if ($from !== 1)
-            $event->isValid = false;
-        if ($identity !== null && $this->beforeLogout($identity)) {
-            $this->switchIdentity(null);
-            $id = $identity->getId();
-            $ip = Yii::$app->getRequest()->getUserIP();
-            Yii::info("User '$id' logged out from $ip.", __METHOD__);
-            if ($destroySession && $this->enableSession) {
-                Yii::$app->getSession()->destroy();
+
+        if ($from === 1)
+        {
+            if ($identity !== null && $this->beforeLogout($identity)) {
+                $this->switchIdentity(null);
+                $id = $identity->getId();
+                $ip = Yii::$app->getRequest()->getUserIP();
+                Yii::info("User '$id' logged out from $ip.", __METHOD__);
+                if ($destroySession && $this->enableSession) {
+                    Yii::$app->getSession()->destroy();
+                }
+                $this->afterLogout($identity);
             }
-            $this->afterLogout($identity);
         }
+
 
         return $this->getIsGuest();
     }
