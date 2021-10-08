@@ -137,7 +137,7 @@ class SiteController extends Controller
         if ($from == '1')
         {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
-            Yii::$app->user->logout(true, 1);
+            Yii::$app->user->logout();
 
             return $this->goHome();
         }
