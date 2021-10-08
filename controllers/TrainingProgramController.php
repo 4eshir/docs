@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\work\AuthorProgramWork;
+use app\models\work\ProgramErrorsWork;
 use app\models\work\ThematicPlanWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -322,5 +323,12 @@ class TrainingProgramController extends Controller
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален тема УТП образовательной программы ' . $name);
 
         return $this->redirect('index?r=training-program/update&id='.$modelId);
+    }
+
+    public function actionAmnesty ($id)
+    {
+        $errorsAmnesty = new ProgramErrorsWork();
+        $errorsAmnesty->ProgramAmnesty($id);
+        return $this->redirect('index?r=training-program/view&id='.$id);
     }
 }

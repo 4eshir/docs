@@ -24,6 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php
+        $isGod = \app\models\work\UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $error = $model->getErrorsWork();
+        if ($error !== '')
+            if ($isGod->id == 31 || $isGod->id == 1)
+            {
+                echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
+                    'data' => [
+                        'confirm' => 'Вы действительно хотите простить все ошибки в данной образовательной программе?',
+                        'method' => 'post',
+                    ],]);
+            }
+        ?>
     </p>
 
     <div class="content-container" style="color: #ff0000; font: 18px bold;">

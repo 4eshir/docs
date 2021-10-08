@@ -6,6 +6,7 @@ use app\models\work\AccessLevelWork;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\GroupErrorsWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\NomenclatureWork;
 use app\models\work\OrderGroupWork;
@@ -309,7 +310,6 @@ class TrainingGroupController extends Controller
         if (($model = TrainingGroupWork::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
@@ -448,7 +448,6 @@ class TrainingGroupController extends Controller
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
-
         $model = TrainingGroupWork::find()->where(['id' => $modelId])->one();
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
@@ -493,8 +492,6 @@ class TrainingGroupController extends Controller
 
         }
     }
-
-
 
     public function actionParse()
     {
@@ -549,5 +546,12 @@ class TrainingGroupController extends Controller
         else
             Yii::$app->session->setFlash("warning", "Группа ".$tag->number." архивирована");
         return $this->redirect(['/training-group/index']);
+    }
+
+    public function actionAmnesty ($id)
+    {
+        $errorsAmnesty = new GroupErrorsWork();
+        $errorsAmnesty->GroupAmnesty($id);
+        return $this->redirect('index?r=training-group/view&id='.$id);
     }
 }
