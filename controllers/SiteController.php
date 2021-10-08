@@ -110,7 +110,7 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        Yii::$app->session->set('userSessionTimeout', time() + Yii::$app->params['sessionTimeoutSeconds']);
+        Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
 
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();

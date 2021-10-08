@@ -17,6 +17,7 @@ class SearchDocumentOrder extends DocumentOrderWork
     public $registerName;
     public $bringName;
     public $stateName;
+    public $branchString;
 
     public $documentNumberString;
     /**
@@ -25,7 +26,7 @@ class SearchDocumentOrder extends DocumentOrderWork
     public function rules()
     {
         return [
-            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
+            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id', 'branchString', 'nomenclature_id'], 'integer'],
             [['signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'documentNumberString'], 'string'],
             [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'key_words'], 'safe'],
         ];
@@ -100,7 +101,6 @@ class SearchDocumentOrder extends DocumentOrderWork
             // $query->where('0=1');
             return $dataProvider;
         }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -122,7 +122,8 @@ class SearchDocumentOrder extends DocumentOrderWork
             ->andFilterWhere(['=', 'order_copy_id', $this->documentNumberString])
             ->orFilterWhere(['=', 'order_number', $this->documentNumberString])
             ->orFilterWhere(['=', 'order_postfix', $this->documentNumberString])
-            ->andFilterWhere(['like', 'key_words', $this->key_words]);
+            ->andFilterWhere(['like', 'key_words', $this->key_words])
+            ->andFilterWhere(['like', 'nomenclature_id', $this->nomenclature_id]);
 
 
 

@@ -16,7 +16,14 @@ use yii\widgets\ActiveForm;
         'action' => ['index', 'c' => $session->get('type')],
         'method' => 'get',
     ]); ?>
+    <?php
+    $branchs = \app\models\work\BranchWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
+    $params = [
+    ];
+    echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
 
+    ?>
     <?= $form->field($model, 'key_words')->label('Поиск по ключевым словам') ?>
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
