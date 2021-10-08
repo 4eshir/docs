@@ -29,8 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
-            if ($data['actual'] === 1)
+            $err = $data['errorsWork'] !== '';
+            $actual = $data['actual'] === 1;
+            if ($actual & !$err)
                 return ['class' => 'success'];
+            if ($err)
+                return ['class' => 'warning'];
             else
                 return ['class' => 'default'];
         },

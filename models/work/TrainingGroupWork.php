@@ -255,7 +255,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getErrorsWork()
     {
-        $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL])->all();
+        $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
         $result = '';
         foreach ($errorsList as $errors)
         {

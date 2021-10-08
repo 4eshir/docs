@@ -40,7 +40,10 @@ use yii\widgets\DetailView;
                     $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
                     {
-                        echo '<tr>';
+                        if ($error->сritical == 1)
+                            echo '<tr style="background-color: #FCF8E3;">';
+                        else
+                            echo '<tr>';
                         $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
                         echo '<th style="text-align: left;">' . $errorName->number . "</th>";
                         echo '<td>' . $errorName->name . '</td>';
@@ -52,7 +55,7 @@ use yii\widgets\DetailView;
                 // отображение ошибок в образовательных программах
                 if ($user->id == 31)
                 {
-                    $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL])->all();
+                    $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
                     {
                         $program = TrainingProgramWork::find()->where(['id' => $error->training_program_id])->one();
