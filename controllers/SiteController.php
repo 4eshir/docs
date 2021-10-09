@@ -110,11 +110,12 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
+        if (Yii::$app->session->get('userSessionTimeout') !== 60 * 60 * 24 * 100)
+            Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
 
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        //if (!Yii::$app->user->isGuest) {
+        //    return $this->goHome();
+        //}
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -202,7 +203,7 @@ class SiteController extends Controller
         } // Check only when the user is logged in
         if ( !Yii::$app->user->isGuest)
         {
-            if (Yii::$app->session['userSessionTimeout'] < time())
+            if (Yii::$app->session['userSessionTimeout'] < 60 * 60 * 24 * 100)
             {
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
                 Yii::$app->user->logout();
@@ -210,7 +211,7 @@ class SiteController extends Controller
                 return $this->goHome();
             }
             else {
-                Yii::$app->session->set('userSessionTimeout', time() + Yii::$app->params['sessionTimeoutSeconds']);
+                Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
                 return true;
             }
         }

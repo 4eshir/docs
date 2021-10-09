@@ -47,7 +47,7 @@ AppAsset::register($this);
 
     NavBar::begin([
         'brandLabel' => 'Главная',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => ['/site/index'],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
