@@ -56,7 +56,7 @@ class ProgramErrorsWork extends ProgramErrors
         {
             if ($oneErr->amnesty === null) // если она не прощена стоит посмотрить исправили её или стало только хуже
             {
-                if ($program->thematic_direction_id !== null)     // ошибка исправлена
+                if ($tpCount === $program->capacity)     // ошибка исправлена
                 {
                     $oneErr->time_the_end = date("Y.m.d H:i:s");
                     $oneErr->save();
@@ -124,7 +124,7 @@ class ProgramErrorsWork extends ProgramErrors
             else $amnesty++;
         }
 
-        if ((count($err) == 0 || count($err) == $amnesty) && $program->thematic_direction_id == NULL) // не заполнено утп
+        if ((count($err) == 0 || count($err) == $amnesty) && $program->thematic_direction_id === NULL) // не заполнено утп
         {
             $this->training_program_id = $modelProgramID;
             $this->errors_id = 10;
