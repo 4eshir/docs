@@ -205,10 +205,10 @@ class SiteController extends Controller
         {
             if (Yii::$app->session['userSessionTimeout'] < 60 * 60 * 24 * 100)
             {
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
-                Yii::$app->user->logout();
+                //Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
+                //Yii::$app->user->logout();
 
-                return $this->goHome();
+                //return $this->goHome();
             }
             else {
                 Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
