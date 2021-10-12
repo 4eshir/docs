@@ -91,7 +91,7 @@ class ProgramErrorsWork extends ProgramErrors
                 if ($controle == 0)     // ошибка исправлена
                 {
                     $oneErr->time_the_end = date("Y.m.d H:i:s");
-                    var_dump($oneErr->critical);
+                    var_dump($oneErr);
                     $oneErr->save();
                 }
             }
