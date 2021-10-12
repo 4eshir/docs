@@ -84,18 +84,16 @@ class ProgramErrorsWork extends ProgramErrors
                 $controle++;
         }
 
-        foreach ($err as $oneErr)
-        {
+        foreach ($err as $oneErr) {
             if ($oneErr->amnesty === null) // если она не прощена стоит посмотрить исправили её или стало только хуже
             {
                 if ($controle == 0)     // ошибка исправлена
                 {
                     $oneErr->time_the_end = date("Y.m.d H:i:s");
-                    var_dump($oneErr);
+                    var_dump($oneErr->сritical);
                     $oneErr->save();
                 }
-            }
-            else $amnesty++;
+            } else $amnesty++;
         }
 
         if ((count($err) == 0 || count($err) == $amnesty) && $controle > 0) // не заполнено утп

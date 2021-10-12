@@ -77,4 +77,9 @@ class ProgramErrors extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Errors::className(), ['id' => 'errors_id']);
     }
+
+    public function getCritical()
+    {
+        return $this->critical;
+    }
 }
