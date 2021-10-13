@@ -195,7 +195,7 @@ class SiteController extends Controller
         var_dump($q->getQuery());
     }
 
-    public function beforeAction($action)
+    /*public function beforeAction($action)
     {
         if (!parent::beforeAction($action))
         {
@@ -218,6 +218,6 @@ class SiteController extends Controller
         else {
             return true;
         }
-    }
+    }*/
 }
 
