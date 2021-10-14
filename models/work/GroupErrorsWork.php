@@ -338,15 +338,15 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckAuditorium($modelGroupID);
     }
 
-    public function CheckErrorsTrainingGroupLesson ($modelGroupID)
+    public function CheckLesson ($modelGroupID)
     {
-        $oldErrors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->one();
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
+        $amnesty = 0;
 
         $now_time = date("Y-m-d");
         $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
         $start_date = date('Y-m-d', strtotime($now_time . '-7 day'));
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['between', 'lesson_date', $start_date, $finish_date])->all();
-
         $participantCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
 
         $checkCount = 0;
@@ -363,24 +363,50 @@ class GroupErrorsWork extends GroupErrors
             if ($count == $participantCount)
             {
                 $checkCount = 1;
+                if ($lesson->lesson_date < strtotime($now_time . '-3 day'))
+                    $checkCount = 2;
                 break;
             }
         }
 
-        if ($oldErrors !== null && $checkCount == 0)
+        foreach ($err as $oneErr)
         {
-            $oldErrors->time_the_end = date("Y.m.d H:i:s");
-            $oldErrors->save();
+            if ($oneErr->amnesty === null) // если она не прощена стоит посмотрить исправили её или стало только хуже
+            {
+                if ($checkCount == 0)     // ошибка исправлена
+                {
+                    $oneErr->time_the_end = date("Y.m.d H:i:s");
+                    $oneErr->save();
+                }
+                else if ($checkCount == 2)  // осталось мало времени для исправления
+                {
+                    $oneErr->сritical = 1;
+                    $oneErr->save();
+                }
+            }
+            else $amnesty++;
         }
 
-        if ($oldErrors === null && $checkCount != 0)
+        if ((count($err) == 0 || count($err) == $amnesty) &&  $checkCount != 0)
         {
             // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 9;
             $this->time_start = $now_time;
+            if ($checkCount == 2)
+                $this->сritical = 1;
             $this->save();
         }
+    }
+
+    public function CheckTheme ($modelGroupID)
+    {
+            //LessonThemeWork::
+    }
+
+    public function CheckErrorsJournal ($modelGroupID)
+    {
+        $this->CheckLesson($modelGroupID);
     }
 
 }
