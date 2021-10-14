@@ -40,7 +40,7 @@ use yii\widgets\DetailView;
                     $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $trainingGroup->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
                     {
-                        if ($error->сritical == 1)
+                        if ($error->critical == 1)
                             echo '<tr style="background-color: #FCF8E3;">';
                         else
                             echo '<tr>';
