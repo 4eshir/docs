@@ -176,7 +176,7 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
                 $partData->foreign_event_participant_id = $this->id;
                 $partData->personal_data_id = $one->id;
             }
-            if (array_search($one->id, $this->pd) !== false)
+            if ($this->pd !== "" && array_search($one->id, $this->pd) !== false)
                 $partData->status = 1;
             else
                 $partData->status = 0;
