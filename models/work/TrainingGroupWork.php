@@ -259,10 +259,10 @@ class TrainingGroupWork extends TrainingGroup
         $result = '';
         foreach ($errorsList as $errors)
         {
-            $error = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
+            $errorName = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
             if ($errors->getCritical() == 1)
-                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $error->number . ' ' . $error->name . '<br>';
-            else $result .= 'Внимание, ошибка: ' . $error->number . ' ' . $error->name . '<br>';
+                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+            else $result .= 'Внимание, ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
         }
         return $result;
     }
@@ -273,7 +273,7 @@ class TrainingGroupWork extends TrainingGroup
         $result = 'default';
         foreach ($errorsList as $errors)
         {
-            if ($errors->сritical === 1) {
+            if ($errors->critical === 1) {
                 $result = 'danger';
                 break;
             } else
