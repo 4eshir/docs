@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\common\TrainingGroup;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\work\AuditoriumWork;
 use app\models\DynamicModel;
+use app\models\work\GroupErrorsWork;
 use app\models\work\ProgramErrorsWork;
 use app\models\work\TrainingProgramWork;
 use Yii;
@@ -28,7 +30,18 @@ class DaemonController extends Controller
             $errorsProgramCheck->CheckErrorsTrainingProgram($program->id);
         }
 
-        Logger::WriteLog(1, $programs[0]->name);
+        //Logger::WriteLog(1, '$programs[0]->name');
+    }
+
+    public function actionTrainingGroup()
+    {
+        $groups = TrainingGroup::find()->where(['archive' => 0])->all();
+        foreach ($groups as $group)
+        {
+            $errorsGroupCheck = new GroupErrorsWork();
+            $errorsGroupCheck->CheckErrorsTrainingGroup($group->id);
+        }
+        Logger::WriteLog(1, 'Проверили все группы');
     }
 
 }
