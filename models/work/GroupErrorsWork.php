@@ -40,7 +40,7 @@ class GroupErrorsWork extends GroupErrors
                 else if ($start_time <= $now_time)
                 {
                     // в первого день занятия ещё нет препода? на кол!
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -54,7 +54,7 @@ class GroupErrorsWork extends GroupErrors
             $this->time_start = date("Y.m.d H:i:s");
 
             if ($start_time <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -79,7 +79,7 @@ class GroupErrorsWork extends GroupErrors
                 else if ($end_time <= $now_time)
                 {
                     // тут должно быть повторное оповещание на почту что приказ должен быть добавлен в день последнего занятия
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -95,7 +95,7 @@ class GroupErrorsWork extends GroupErrors
             $this->time_start = date("Y.m.d H:i:s");
             //var_dump($this);
             if ($end_time <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -125,7 +125,7 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '-7 day')) <= $now_time)
                 {
                     // тут должно быть повторное оповещание на почту что фотоматериалы добвляются за неделю до последнего занятия
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -140,7 +140,7 @@ class GroupErrorsWork extends GroupErrors
             $this->errors_id = 3;
             $this->time_start = date("Y.m.d H:i:s");
             if (date('Y-m-d', strtotime($end_time . '-7 day')) <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -163,7 +163,7 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -178,7 +178,7 @@ class GroupErrorsWork extends GroupErrors
             $this->errors_id = 4;
             $this->time_start = date("Y.m.d H:i:s");
             if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -201,7 +201,7 @@ class GroupErrorsWork extends GroupErrors
                 else if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
                 {
                     // прошел день последнего занятия, а инфа не добавлена? на кол!
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -216,7 +216,7 @@ class GroupErrorsWork extends GroupErrors
             $this->errors_id = 5;
             $this->time_start = date("Y.m.d H:i:s");
             if (date('Y-m-d', strtotime($end_time . '1 day')) <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -242,7 +242,7 @@ class GroupErrorsWork extends GroupErrors
                 else if ($end_time <= $now_time)
                 {
                     // на кол!
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -256,7 +256,7 @@ class GroupErrorsWork extends GroupErrors
             $this->errors_id = 6;
             $this->time_start = date("Y.m.d H:i:s");
             if ($end_time <= $now_time)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
@@ -390,7 +390,7 @@ class GroupErrorsWork extends GroupErrors
                 }
                 else if ($checkCount == 2)  // осталось мало времени для исправления
                 {
-                    $oneErr->сritical = 1;
+                    $oneErr->critical = 1;
                     $oneErr->save();
                 }
             }
@@ -404,7 +404,7 @@ class GroupErrorsWork extends GroupErrors
             $this->errors_id = 9;
             $this->time_start = $now_time;
             if ($checkCount == 2)
-                $this->сritical = 1;
+                $this->critical = 1;
             $this->save();
         }
     }
