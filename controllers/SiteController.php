@@ -195,6 +195,11 @@ class SiteController extends Controller
         var_dump($q->getQuery());
     }
 
+    public function beforeAction($action)
+    {
+        return parent::beforeAction($action);
+    }
+
     /*public function beforeAction($action)
     {
         if (!parent::beforeAction($action))

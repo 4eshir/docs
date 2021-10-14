@@ -12,7 +12,7 @@ use Yii;
  * @property int $errors_id
  * @property string $time_start
  * @property string|null $time_the_end
- * @property int|null $сritical
+ * @property int|null $critical
  * @property int|null $amnesty
  *
  * @property Errors $errors0
@@ -35,7 +35,7 @@ class GroupErrors extends \yii\db\ActiveRecord
     {
         return [
             [['training_group_id', 'errors_id', 'time_start'], 'required'],
-            [['training_group_id', 'errors_id', 'сritical', 'amnesty'], 'integer'],
+            [['training_group_id', 'errors_id', 'critical', 'amnesty'], 'integer'],
             [['time_start', 'time_the_end'], 'safe'],
             [['errors_id'], 'exist', 'skipOnError' => true, 'targetClass' => Errors::className(), 'targetAttribute' => ['errors_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
@@ -53,7 +53,7 @@ class GroupErrors extends \yii\db\ActiveRecord
             'errors_id' => 'Errors ID',
             'time_start' => 'Time Start',
             'time_the_end' => 'Time The End',
-            'сritical' => 'Сritical',
+            'critical' => 'Critical',
             'amnesty' => 'Amnesty',
         ];
     }
@@ -76,5 +76,15 @@ class GroupErrors extends \yii\db\ActiveRecord
     public function getTrainingGroup()
     {
         return $this->hasOne(TrainingGroup::className(), ['id' => 'training_group_id']);
+    }
+
+    /**
+     * Gets query for [[critical]].
+     *
+     * @return int|null
+     */
+    public function getCritical()
+    {
+        return $this->critical;
     }
 }

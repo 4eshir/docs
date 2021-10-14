@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\components\UserRBAC;
 use app\models\extended\LoadParticipants;
+use app\models\work\PersonalDataForeignEventParticipantWork;
 use Yii;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\SearchForeignEventParticipants;
@@ -110,7 +111,15 @@ class ForeignEventParticipantsController extends Controller
             return $this->render('/site/error');
         }
         $model = $this->findModel($id);
-
+        $pdDatabase = PersonalDataForeignEventParticipantWork::find()->where(['foreign_event_participant_id' => $id])->all();
+        if ($pdDatabase !== null)
+        {
+            $pdIds = [];
+            foreach ($pdDatabase as $one)
+                if ($one->status === 1)
+                    $pdIds[] = $one->personal_data_id;
+        }
+        $model->pd = $pdIds;
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
             $model->checkOther();

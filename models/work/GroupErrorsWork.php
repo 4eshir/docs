@@ -10,6 +10,8 @@ use yii\helpers\Console;
 
 class GroupErrorsWork extends GroupErrors
 {
+
+
     public function GroupAmnesty ($modelGroupID)
     {
         $errors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'amnesty' => null])->all();
@@ -51,6 +53,7 @@ class GroupErrorsWork extends GroupErrors
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 1;
             $this->time_start = date("Y.m.d H:i:s");
+
             if ($start_time <= $now_time)
                 $this->сritical = 1;
             $this->save();
@@ -91,6 +94,7 @@ class GroupErrorsWork extends GroupErrors
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 2;
             $this->time_start = date("Y.m.d H:i:s");
+            //var_dump($this);
             if ($end_time <= $now_time)
                 $this->сritical = 1;
             $this->save();
