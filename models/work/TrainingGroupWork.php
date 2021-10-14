@@ -168,7 +168,7 @@ class TrainingGroupWork extends TrainingGroup
         $result = '';
         foreach ($parts as $part)
         {
-            $pdDatabase = PersonalDataTrainingParticipantGroupWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->where(['trainingGroupParticipant.participant_id' => $part->participant_id])->andWhere(['personal_data_training_group_participant.status' => 1])->all();
+            $pdDatabase = PersonalDataForeignEventParticipantWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->where(['foreignEventParticipant.id' => $part->participant_id])->andWhere(['personal_data_foreign_event_participant.status' => 1])->all();
             if (count($pdDatabase) > 0)
             {
                 $text = 'Запрещено разглашение следующих ПД:&#10;';
@@ -260,7 +260,7 @@ class TrainingGroupWork extends TrainingGroup
         foreach ($errorsList as $errors)
         {
             $error = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
-            if ($errors->сritical === 1)
+            if ($errors->getCritical() == 1)
                 $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $error->number . ' ' . $error->name . '<br>';
             else $result .= 'Внимание, ошибка: ' . $error->number . ' ' . $error->name . '<br>';
         }

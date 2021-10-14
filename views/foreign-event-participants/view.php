@@ -11,6 +11,39 @@ $this->params['breadcrumbs'][] = ['label' => 'Участники деятель�
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<style>
+
+    .badge {
+        padding: 3px 9px 4px;
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+        color: #ffffff;
+        background-color: #999999;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+    }
+    .badge:hover {
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .badge-error {
+        background-color: #b94a48;
+    }
+    .badge-error:hover {
+        background-color: #953b39;
+    }
+    .badge-success {
+        background-color: #468847;
+    }
+    .badge-success:hover {
+        background-color: #356635;
+    }
+
+</style>
+
 <div class="foreign-event-participants-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -54,6 +87,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             ['attribute' => 'studies', 'format' => 'raw'],
+        ],
+    ]) ?>
+
+    <h4><u>Разглашение персональных данных</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'personalData', 'format' => 'html', 'label' => false],
         ],
     ]) ?>
 
