@@ -22,18 +22,25 @@ class DaemonController extends Controller
 
     public function actionProgramErrors()
     {
-
         $programs = TrainingProgramWork::find()->all();
         foreach ($programs as $program)
         {
             $errorsProgramCheck = new ProgramErrorsWork();
             $errorsProgramCheck->CheckErrorsTrainingProgram($program->id);
         }
-
-        //Logger::WriteLog(1, '$programs[0]->name');
     }
 
-    public function actionTrainingGroup()
+    public function actionJournalErrors()
+    {
+        $groups = TrainingGroup::find()->where(['archive' => 0])->all();
+        foreach ($groups as $group)
+        {
+            $errorsGroupCheck = new GroupErrorsWork();
+            $errorsGroupCheck->CheckErrorsJournal($group->id);
+        }
+    }
+
+    public function actionTrainingGroupErrors()
     {
         $groups = TrainingGroup::find()->where(['archive' => 0])->all();
         foreach ($groups as $group)
@@ -41,7 +48,8 @@ class DaemonController extends Controller
             $errorsGroupCheck = new GroupErrorsWork();
             $errorsGroupCheck->CheckErrorsTrainingGroup($group->id);
         }
-        Logger::WriteLog(1, 'Проверили все группы');
     }
 
+
+    /*Отсылать письма sitecontroller 159 строка*/
 }

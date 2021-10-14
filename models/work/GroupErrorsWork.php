@@ -22,7 +22,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckTeacher ($modelGroupID, $group, $now_time)
+    private function CheckTeacher ($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 1])->all();
         $teacherCount = count(TeacherGroupWork::find()->where(['training_group_id' => $modelGroupID])->all());
@@ -60,7 +60,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckOrder ($modelGroupID, $group, $now_time)
+    private function CheckOrder ($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 2])->all();
         $ordersCount = count(OrderGroupWork::find()->where(['training_group_id' => $modelGroupID])->all());
@@ -101,7 +101,14 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckPhotos ($modelGroupID, $group, $now_time)
+    public function CheckOrderTrainingGroup ($modelGroupID)
+    {
+        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
+        $now_time = date("Y-m-d");
+        $this->CheckOrder($modelGroupID, $group, $now_time);
+    }
+
+    private function CheckPhotos ($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 3])->all();
         $end_time = $group->finish_date;
@@ -139,7 +146,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckPresent($modelGroupID, $group, $now_time)
+    private function CheckPresent($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 4])->all();
         $end_time = $group->finish_date;
@@ -177,7 +184,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckWork($modelGroupID, $group, $now_time)
+    private function CheckWork($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 5])->all();
         $end_time = $group->finish_date;
@@ -215,7 +222,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckCapacity($modelGroupID, $group, $now_time)
+    private function CheckCapacity($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 6])->all();
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->all();
@@ -255,7 +262,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckCertificat ($modelGroupID, $group, $now_time)
+    private function CheckCertificate ($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 8])->all();
         $end_time = $group->finish_date;
@@ -289,7 +296,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckAuditorium ($modelGroupID)
+    private function CheckAuditorium ($modelGroupID)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 14])->all();
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->all();
@@ -338,11 +345,11 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckPresent($modelGroupID, $group, $now_time);
         $this->CheckWork($modelGroupID, $group, $now_time);
         $this->CheckCapacity($modelGroupID, $group, $now_time);
-        $this->CheckCertificat($modelGroupID, $group, $now_time);
+        $this->CheckCertificate($modelGroupID, $group, $now_time);
         $this->CheckAuditorium($modelGroupID);
     }
 
-    public function CheckLesson ($modelGroupID)
+    private function CheckLesson ($modelGroupID)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
         $amnesty = 0;
@@ -403,7 +410,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckTheme ($modelGroupID)
+    private function CheckTheme ($modelGroupID)
     {
             //LessonThemeWork::
     }
@@ -411,6 +418,7 @@ class GroupErrorsWork extends GroupErrors
     public function CheckErrorsJournal ($modelGroupID)
     {
         $this->CheckLesson($modelGroupID);
+        $this->CheckTheme($modelGroupID);
     }
 
 }
