@@ -11,7 +11,6 @@ use yii\helpers\Console;
 class GroupErrorsWork extends GroupErrors
 {
 
-
     public function GroupAmnesty ($modelGroupID)
     {
         $errors = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'amnesty' => null])->all();

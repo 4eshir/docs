@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
         <table class="table table-bordered">
             <?php
                 $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-                $groups = TeacherGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+                $groups = TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['teacher_group.teacher_id' => $user->aka])->andWhere(['trainingGroup.archive' => 0])->all();
 
                 echo '<thead>';
                 echo '<th style="vertical-align: middle;">Код проблемы</th>';
