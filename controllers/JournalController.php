@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\work\GroupErrorsWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
@@ -110,6 +111,10 @@ class JournalController extends Controller
             $model->save();
             $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен журнал группы '.$group->number);
+            // тут должны работать проверки на ошибки
+            $errorsCheck = new GroupErrorsWork();
+            $errorsCheck->CheckErrorsJournal($group_id);
+            //
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }
         $model->trainingGroup = $group_id;
