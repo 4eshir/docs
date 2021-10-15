@@ -62,7 +62,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $teachers = TeacherGroupWork::find()->where(['teacher_id' => $this->teacher])->all();
                     $tId = [];
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
-                    $lessons = TrainingGroupLessonWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_id', $tId])->all();
+                    $lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->all();
                     $tId = [];
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
