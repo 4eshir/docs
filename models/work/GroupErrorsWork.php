@@ -100,11 +100,14 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckOrderTrainingGroup ($modelGroupID)
+    public function CheckOrderTrainingGroup ($groupsID)
     {
-        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
         $now_time = date("Y-m-d");
-        $this->CheckOrder($modelGroupID, $group, $now_time);
+        foreach ($groupsID as $groupID)
+        {
+            $group = TrainingGroupWork::find()->where(['id' => $groupID])->one();
+            $this->CheckOrder($groupID, $group, $now_time);
+        }
     }
 
     private function CheckPhotos ($modelGroupID, $group, $now_time)
@@ -333,6 +336,17 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
+    public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)
+    {
+        $lessons = TrainingGroupLessonWork::find()->where(['auditorium_id' => $modelAuditoriumID])->groupBy(['training_group_id'])->all();
+        $groupsId = [];
+        foreach ($lessons as $lesson)
+            $groupsId[] = $lesson->training_group_id;
+
+        foreach ($groupsId as $groupId)
+            $this->CheckAuditorium($groupId);
+    }
+
     public function CheckErrorsTrainingGroup ($modelGroupID)
     {
         $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
@@ -348,15 +362,11 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckAuditorium($modelGroupID);
     }
 
-    private function CheckLesson ($modelGroupID)
+    private function CheckLesson ($modelGroupID, $lessons)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
         $amnesty = 0;
 
-        $now_time = date("Y-m-d");
-        $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
-        $start_date = date('Y-m-d', strtotime($now_time . '-7 day'));
-        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['between', 'lesson_date', $start_date, $finish_date])->all();
         $participantCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
 
         $checkCount = 0;
@@ -373,7 +383,7 @@ class GroupErrorsWork extends GroupErrors
             if ($count == $participantCount)
             {
                 $checkCount = 1;
-                if ($lesson->lesson_date < strtotime($now_time . '-3 day'))
+                if ($lesson->lesson_date < strtotime(date("Y-m-d") . '-3 day'))
                     $checkCount = 2;
                 break;
             }
@@ -397,27 +407,74 @@ class GroupErrorsWork extends GroupErrors
             else $amnesty++;
         }
 
-        if ((count($err) == 0 || count($err) == $amnesty) &&  $checkCount != 0)
+        if ((count($err) == 0 || count($err) == $amnesty) && $checkCount != 0)
         {
             // значит кто-то детей не отмечал и на кол его посадить и письмо выслать
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 9;
-            $this->time_start = $now_time;
+            $this->time_start = date("Y.m.d H:i:s");
             if ($checkCount == 2)
                 $this->critical = 1;
             $this->save();
         }
     }
 
-    private function CheckTheme ($modelGroupID)
+    private function CheckTheme ($modelGroupID, $lessons)
     {
-            //LessonThemeWork::
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 15])->all();
+        $amnesty = 0;
+
+        $checkCount = 0;
+        foreach ($lessons as $lesson)
+        {
+            $theme = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
+            if ($theme === null || $theme->teacher_id === null)  // тут условие что или темы нет или поле препода пустое
+            {
+                $checkCount = 1;
+                if ($lesson->lesson_date < strtotime(date("Y-m-d") . '-3 day'))
+                    $checkCount = 2;
+                break;
+            }
+        }
+
+        foreach ($err as $oneErr)
+        {
+            if ($oneErr->amnesty === null)
+            {
+                if ($checkCount == 0)
+                {
+                    $oneErr->time_the_end = date("Y.m.d H:i:s");
+                    $oneErr->save();
+                }
+                else if ($checkCount == 2)
+                {
+                    $oneErr->critical = 1;
+                    $oneErr->save();
+                }
+            }
+            else $amnesty++;
+        }
+
+        if ((count($err) == 0 || count($err) == $amnesty) && $checkCount != 0)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 15;
+            $this->time_start = date("Y.m.d H:i:s");
+            if ($checkCount == 2)
+                $this->critical = 1;
+            $this->save();
+        }
     }
 
     public function CheckErrorsJournal ($modelGroupID)
     {
-        $this->CheckLesson($modelGroupID);
-        $this->CheckTheme($modelGroupID);
+        $now_time = date("Y-m-d");
+        $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
+        $start_date = date('Y-m-d', strtotime($now_time . '-7 day'));
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['between', 'lesson_date', $start_date, $finish_date])->all();
+
+        $this->CheckLesson($modelGroupID, $lessons);
+        $this->CheckTheme($modelGroupID, $lessons);
     }
 
 }
