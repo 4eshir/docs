@@ -205,6 +205,7 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
                             <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
                             <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                            <li><?php echo Html::a('Роли', \yii\helpers\Url::to(['role/index'])) ?></li>
                         </ul>
                     </div>
                 </a>

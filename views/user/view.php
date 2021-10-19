@@ -75,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'email',
             'akaName',
+            ['attribute' => 'rolesString', 'format' => 'raw'],
         ],
     ]) ?>
     <h4><u>Административные права</u></h4>

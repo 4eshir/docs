@@ -2,10 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\DynamicModel;
 use app\models\work\AccessLevelWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\Password;
+use app\models\work\AuthorProgramWork;
+use app\models\work\RoleWork;
+use app\models\work\UserRoleWork;
 use Yii;
 use app\models\work\UserWork;
 use app\models\UserSearch;
@@ -111,7 +115,7 @@ class UserController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
         $model = new UserWork();
-
+        $modelRole = [new RoleWork];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model->password_hash);
@@ -123,6 +127,7 @@ class UserController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelRole' => $modelRole,
         ]);
     }
 
@@ -140,14 +145,20 @@ class UserController extends Controller
         if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
             return $this->render('/site/error');
         $model = $this->findModel($id);
+        $modelRole = [new RoleWork];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelRole = DynamicModel::createMultiple(RoleWork::classname());
+            DynamicModel::loadMultiple($modelRole, Yii::$app->request->post());
+            $model->roles = $modelRole;
+            $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пользователь '.$model->username);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelRole' => $modelRole,
         ]);
     }
 
@@ -170,6 +181,16 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteRole($roleId, $modelId)
+    {
+        $role = UserRoleWork::find()->where(['id' => $roleId])->one();
+        $name = $role->role->name;
+        $role->delete();
+        $user = UserWork::find()->where(['id' => $modelId])->one();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Откреплена роль ' . $name . ' от пользователя '. $user->secondname . ' ' . $user->firstname);
+
+        return $this->redirect('index?r=user/update&id='.$modelId);
+    }
 
 
     /**
