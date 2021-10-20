@@ -42,7 +42,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer', 'temp'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer', 'temp', 'error-access'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -126,6 +126,11 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionErrorAccess()
+    {
+        return $this->render('error-access');
     }
 
     /**

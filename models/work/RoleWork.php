@@ -50,7 +50,7 @@ class RoleWork extends \app\models\common\Role
         for ($i = 0; $i < count($functions); $i++)
         {
             for ($j = 0; $j < count($allows); $j++)
-                if ($functions[$i]->id == $allows[$j]->role_id)
+                if ($functions[$i]->id == $allows[$j]->role_function_id)
                     $flag = true;
             if (!$flag)
                 $result .= '&#10060; '.$functions[$i]->name.'<br>';

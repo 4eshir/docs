@@ -58,7 +58,7 @@ class DaemonController extends Controller
         foreach ($users as $user)
         {
             /*вот тут функция сбора всех ошибок по таблицам связкам*/
-            $string = '';   // тут будет лежать всё то, что отправится пользоватею
+            $string = '';   // тут будет лежать всё то, что отправится пользователю
             Yii::$app->mailer->compose()
                 ->setFrom('noreply@schooltech.ru')
                 ->setTo($user->username)
