@@ -116,8 +116,7 @@ class JournalController extends Controller
             $errorsCheck->CheckErrorsJournal($group_id);
             //
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
-        }
-        $model->trainingGroup = $group_id;
+        }        $model->trainingGroup = $group_id;
         return $this->render('indexEdit', [
             'model' => $model,
         ]);

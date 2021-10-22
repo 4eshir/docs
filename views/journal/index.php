@@ -108,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <div class="form-group col-xs-4">
         <?= Html::submitButton('Показать расписание', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Вернуться в карточку группы', \yii\helpers\Url::to(['training-group/view', 'id' => $model->trainingGroup]), ['class' => 'btn btn-warning']) ?>
     </div>
 <?php ActiveForm::end(); ?>
 <div>
