@@ -280,7 +280,7 @@ class RoleBaseAccess
 
     //----------------------------------------------------
 
-    //Проверка одиночного права доступа
+    //Проверка одиночного права доступа (без привязки к экшну и контроллеру)
     public static function CheckSingleAccess($userId, $accessId)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
@@ -295,7 +295,7 @@ class RoleBaseAccess
         return false;
     }
 
-    //Проверка прав доступа для совершения CRUD-операции
+    //Проверка прав доступа для совершения CRUD-операции (с учетом экшна и контроллера)
     public static function CheckAccess($controllerName, $actionName, $userId, $special = -1)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
@@ -307,20 +307,19 @@ class RoleBaseAccess
                 $accessArray[] = $function->role_function_id;
         }
         $allow = false;
-        //var_dump(RoleBaseAccess::$access[$controllerName][$actionName]);
         for ($i = 0; $i < count($accessArray); $i++)
-            if ($special == 1 || $special == 2)
+            if ($special == 1 || $special == 2) //специальный раздел для приказов и мероприятий (основные/учебные...)
             {
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special])
                     $allow = true;
             }
-            else if ($special == "group")
+            else if ($special == "group") //специальный раздел для групп (подробнее см. в массиве $access)
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
                     if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])
                         $allow = true;
             }
-            else
+            else //обычный режим
             {
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName])
                     $allow = true;
