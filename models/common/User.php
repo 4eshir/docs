@@ -129,6 +129,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
+    public function getAka()
+    {
+        return $this->hasOne(People::className(), ['aka' => 'id']);
+    }
+
     /**
      * Validates password
      *

@@ -65,7 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
     $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
     $form = ActiveForm::begin(); ?>
     <?php
-    $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+    $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
+    /*$groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
     if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
     {
         $groups = TrainingGroupWork::find()->all();
@@ -98,7 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
         $tgroups = \yii\helpers\ArrayHelper::map($tgroups, 'id', 'training_group_id');
         $groups = TrainingGroupWork::find()->where(['in', 'id', $tgroups])->all();
         $items = \yii\helpers\ArrayHelper::map($groups, 'id', 'number');
-    }
+    }*/
+    $items =  \yii\helpers\ArrayHelper::map($groups->all(),'id','number');
     $params = [
         'prompt' => '',
     ];
