@@ -192,28 +192,28 @@ $session = Yii::$app->session;
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
-                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                    'widgetBody' => '.container-items', // required: css class selector
-                    'widgetItem' => '.item', // required: css class
+                    'widgetContainer' => 'dynamicform_wrapper5', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items5', // required: css class selector
+                    'widgetItem' => '.item5', // required: css class
                     'limit' => 40, // the maximum times, an element can be cloned (default 999)
                     'min' => 1, // 0 or 1 (default 1)
-                    'insertButton' => '.add-item', // css class
-                    'deleteButton' => '.remove-item', // css class
+                    'insertButton' => '.add-item5', // css class
+                    'deleteButton' => '.remove-item5', // css class
                     'model' => $modelResponsible[0],
-                    'formId' => 'dynamic-form',
+                    'formId' => 'dynamic-form5',
                     'formFields' => [
                         'people_id',
                     ],
                 ]); ?>
 
-                <div class="container-items"><!-- widgetContainer -->
+                <div class="container-items5"><!-- widgetContainer -->
                     <?php foreach ($modelResponsible as $i => $modelResponsibleOne): ?>
-                        <div class="item panel panel-default"><!-- widgetBody -->
+                        <div class="item5 panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading" onload="scrolling()">
                                 <h3 class="panel-title pull-left">Ответственный</h3>
                                 <div class="pull-right">
-                                    <button type="button" name="add" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                    <button type="button" name="add" class="add-item5 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item5 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -298,7 +298,7 @@ $session = Yii::$app->session;
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
-                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                     'widgetBody' => '.container-items1', // required: css class selector
                     'widgetItem' => '.item1', // required: css class
                     'limit' => 10, // the maximum times, an element can be cloned (default 999)

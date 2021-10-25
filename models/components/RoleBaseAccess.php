@@ -4,6 +4,7 @@
 namespace app\models\components;
 
 
+use app\models\work\PeopleWork;
 use app\models\work\RoleFunctionRoleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupWork;
@@ -308,9 +309,11 @@ class RoleBaseAccess
         }
         $allow = false;
         for ($i = 0; $i < count($accessArray); $i++)
+        {
             if ($special == 1 || $special == 2) //специальный раздел для приказов и мероприятий (основные/учебные...)
             {
-                if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special])
+
+                if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
                     $allow = true;
             }
             else if ($special == "group") //специальный раздел для групп (подробнее см. в массиве $access)
@@ -324,7 +327,7 @@ class RoleBaseAccess
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName])
                     $allow = true;
             }
-
+        }
         return $allow;
     }
 
@@ -351,7 +354,8 @@ class RoleBaseAccess
         }
         if (array_search(3, $accessArray) || array_search(6, $accessArray)) //учебные группы своего отдела
         {
-            $groupArray = TrainingGroupWork::find()->where(['branch_id' => $user->aka->branch_id]);
+            $aka = PeopleWork::find()->where(['id' => $user->aka])->one();
+            $groupArray = TrainingGroupWork::find()->where(['branch_id' => $aka->branch_id]);
         }
         if (array_search(4, $accessArray) || array_search(7, $accessArray)) //все учебные группы
         {

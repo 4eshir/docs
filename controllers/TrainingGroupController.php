@@ -65,11 +65,6 @@ class TrainingGroupController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        //if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !AccessTrainingGroup::CheckAccess(Yii::$app->user->identity->getId(), -1)) {
-        //    return $this->render('/site/error');
-        //}
         $searchModel = new SearchTrainingGroup();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -104,11 +99,6 @@ class TrainingGroupController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
 
         $session = Yii::$app->session;
         if ($session->get("show") === null)
@@ -183,11 +173,6 @@ class TrainingGroupController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !UserRBAC::CheckAccessGroupListEdit(Yii::$app->user->identity->getId(), $id)) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
         if ($model->archive === 1)
         {
@@ -283,12 +268,6 @@ class TrainingGroupController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
-
         $model = $this->findModel($id);
         $model->delete();
         $number = $model->number;
