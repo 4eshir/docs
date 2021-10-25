@@ -118,7 +118,7 @@ class UserWork extends User
 
     public function getAkaName()
     {
-        return People::find()->where(['id' => $this->aka])->one()->fullName;
+        return PeopleWork::find()->where(['id' => $this->aka])->one()->fullName;
     }
 
     public function getFullName()

@@ -4,7 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\UserWork */
+/* @var $model app\models\work\UserWork
+ * @var $modelRole \app\models\work\RoleWork
+ */
 
 $this->title = 'Добавить пользователя';
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
@@ -14,15 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?= $this->render('_form', [
+        'model' => $model,
+        'modelRole' => $modelRole,
+    ]) ?>
 
-    <?= $form->field($model, 'firstname')->textInput() ?>
-    <?= $form->field($model, 'secondname')->textInput() ?>
-    <?= $form->field($model, 'patronymic')->textInput() ?>
-    <?= $form->field($model, 'username')->textInput() ?>
-    <?= $form->field($model, 'password_hash')->textInput()->label('Пароль') ?>
-
-    <?php
+    <?php /*
     $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 1])->one();
     $value = 0;
     if ($tmp != null) $value = true; else $value = false;
@@ -123,12 +122,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $value = 0;
     if ($tmp != null) $value = true; else $value = false;
     ?>
-    <?= $form->field($model, 'editAdd')->checkbox(['checked' => $value]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+    <?= $form->field($model, 'editAdd')->checkbox(['checked' => $value])*/ ?>
 
 </div>

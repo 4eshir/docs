@@ -88,9 +88,9 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <h4><u>Административные права</u></h4>
+    <!-- <h4><u>Административные права</u></h4>
     <div class="panel-default panel-body panel">
-        <?php
+        <?php /*
         $tmp = \app\models\work\AccessLevelWork::find()->where(['user_id' => $model->id])->andWhere(['access_id' => 1])->one();
         $value = 0;
         if ($tmp != null) $value = true; else $value = false;
@@ -268,8 +268,8 @@ use yii\widgets\ActiveForm;
         $value = 0;
         if ($tmp != null) $value = true; else $value = false;
         ?>
-        <?= $form->field($model, 'deleteGroup')->checkbox(['checked' => $value]) ?>
-
+        <?= $form->field($model, 'deleteGroup')->checkbox(['checked' => $value]) */?>
+ -->
     </div>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

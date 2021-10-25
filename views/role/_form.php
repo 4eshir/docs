@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Наименование роли') ?>
 
     <?php
     $data = \app\models\work\RoleFunctionWork::find()->all();
@@ -20,8 +20,8 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'functions')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
         if ($checked == 1) $checked = 'checked';
         return
-            '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="branch-'. $index .'">
+            '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: #000000;">
+                    <label for="branch-' . $index .'">
                         <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
                         '. $label .'
                     </label>
