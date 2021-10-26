@@ -288,7 +288,7 @@ class RoleBaseAccess
         }
         $allow = false;
         for ($i = 0; $i < count($accessArray); $i++)
-            if ($special !== null)
+            if ($special == 0 || $special == 1)
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special])
                     $allow = true;
             else
