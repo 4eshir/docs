@@ -73,13 +73,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'firstname',
             'patronymic',
             'username',
-            'email',
+            //'email',
             'akaName',
-            ['attribute' => 'rolesString', 'format' => 'raw'],
+            ['attribute' => 'rolesString', 'label' => 'Роль в системе', 'format' => 'raw'],
         ],
     ]) ?>
+    <!--
     <h4><u>Административные права</u></h4>
-    <?= DetailView::widget([
+    <?php /*DetailView::widget([
         'model' => $model,
         'attributes' => [
             ['attribute' => 'addUsers', 'value' => function($model) {if ($model->addUsers == 1) return '<span class="badge badge-success">Да</span>';
@@ -93,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <h4><u>Права доступа к системе документооборота</u></h4>
-    <?= DetailView::widget([
+    <?= /*DetailView::widget([
         'model' => $model,
         'attributes' => [
             ['attribute' => 'viewOut', 'value' => function($model) {if ($model->viewOut == 1) return '<span class="badge badge-success">Да</span>';
@@ -131,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <h4><u>Права доступа к реестру ПО</u></h4>
-    <?= DetailView::widget([
+    <?= /*DetailView::widget([
         'model' => $model,
         'attributes' => [
             ['attribute' => 'viewAS', 'value' => function($model) {if ($model->viewAS == 1) return '<span class="badge badge-success">Да</span>';
@@ -141,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <h4><u>Права доступа к электронному журналу</u></h4>
-    <?= DetailView::widget([
+    <?= /*DetailView::widget([
         'model' => $model,
         'attributes' => [
             ['attribute' => 'viewGroup', 'value' => function($model) {if ($model->viewGroup == 1) return '<span class="badge badge-success">Да</span>';
@@ -158,4 +159,6 @@ $this->params['breadcrumbs'][] = $this->title;
             else return '<span class="badge badge-error">Нет</span>';}, 'format' => 'html'],
         ],
     ]) ?>
-</div>
+    */
+    ?>
+--></div>

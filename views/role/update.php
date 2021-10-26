@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Role */
+/* @var $model app\models\work\RoleWork */
 
-$this->title = 'Update Role: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Roles', 'url' => ['index']];
+$this->title = 'Изменение роли: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Роли', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменение';
 ?>
 <div class="role-update">
 

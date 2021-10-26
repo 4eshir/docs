@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\UserWork */
+/* @var $model app\models\work\UserWork
+ * @var $modelRole \app\models\work\RoleWork
+ */
 
 $this->title = 'Редактировать пользователя: ' . $model->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];

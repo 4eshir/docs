@@ -4,8 +4,13 @@
 namespace app\models\components;
 
 
+use app\models\work\PeopleWork;
 use app\models\work\RoleFunctionRoleWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\UserRoleWork;
+use app\models\work\UserWork;
+use yii\db\ActiveQuery;
 
 class RoleBaseAccess
 {
@@ -167,13 +172,13 @@ class RoleBaseAccess
         //----------------------
 
         //Участники образовательной деятельности
-        "foreign-event-participant" => [
+        "foreign-event-participants" => [
             "index" => 17,
             "create" => 18,
             "update" => 18,
             "file-load" => 18,
             "check-correct" => 18,
-            "delete" => 20,
+            "delete" => 19,
             "view" => 17,
             "find-model" => 17,
         ],
@@ -207,6 +212,13 @@ class RoleBaseAccess
         ],
         //------------------------------------------------------
 
+        //Отчеты
+        "report" => [
+            "man-hours-report" => [25, 26],
+            "report-result" => [25, 26],
+        ],
+        //------
+
         //Роли
         "role" => [
             "index" => 48,
@@ -218,33 +230,35 @@ class RoleBaseAccess
         ],
         //----
 
-        //Учебные группы НЕ ГОТОВО
+        //Учебные группы
+        //$special = "group", каждому экшну соответствует массив прав доступа, для доступа достаточно одного совпадения
         "training-group" => [
-            "index" => 41,
-            "create" => 42,
-            "update" => 42,
-            "delete" => 42,
-            "delete-participant" => 42,
-            "remand-participant" => 42,
-            "unremand-participant" => 42,
-            "update-participant" => 42,
-            "update-lesson" => 42,
-            "delete-lesson" => 42,
-            "delete-order" => 42,
-            "delete-teacher" => 42,
-            "view" => 41,
-            "delete-file" => 41,
-            "get-file" => 41,
-            "subcat" => 41,
-            "parse" => 41,
-            "archive" => 41,
-            "amnesty" => 41,
+            "index" => [2, 3, 4],
+            "create" => [1],
+            "update" => [5, 6, 7],
+            "delete" => [8, 9],
+            "delete-participant" => [5, 6, 7],
+            "remand-participant" => [5, 6, 7],
+            "unremand-participant" => [5, 6, 7],
+            "update-participant" => [5, 6, 7],
+            "update-lesson" => [5, 6, 7],
+            "delete-lesson" => [5, 6, 7],
+            "delete-order" => [5, 6, 7],
+            "delete-teacher" => [5, 6, 7],
+            "view" => [2, 3, 4],
+            "delete-file" => [5, 6, 7],
+            "get-file" => [2, 3, 4],
+            "subcat" => [2, 3, 4],
+            "parse" => [5, 6, 7],
+            "archive" => [8, 9], //пока что архивировать может тот же, кто и удаляет
+            "amnesty" => [8, 9], //пока амнистию может давать тот же, кто и удаляет
         ],
         //--------------
 
         //Учебные программы
         "training-program" => [
             "index" => 20,
+            "view" => 20,
             "create" => 21,
             "update" => 21,
             "update-plan" => 21,
@@ -262,21 +276,36 @@ class RoleBaseAccess
 
         //Пользователи
         "user" => [
-            "index" => 47,
+            "index" => 45,
             "create" => 45,
-            "update" => 47,
+            "update" => 46,
             "delete" => 46,
-            "delete-role" => 47,
-            "view" => 47,
-            "find-model" => 47,
+            "delete-role" => 46,
+            "view" => 45,
+            "find-model" => 45,
         ],
         //------------
     ];
 
     //----------------------------------------------------
 
-    //Проверка прав доступа для совершения CRUD-операции
-    public static function CheckAccess($controllerName, $actionName, $userId, $special = null)
+    //Проверка одиночного права доступа (без привязки к экшну и контроллеру)
+    public static function CheckSingleAccess($userId, $accessId)
+    {
+        $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
+        $accessArray = [];
+        foreach ($userAccess as $access)
+        {
+            $functions = RoleFunctionRoleWork::find()->where(['role_id' => $access->role_id])->all();
+            foreach ($functions as $function)
+                if ($function->role_function_id == $accessId)
+                    return true;
+        }
+        return false;
+    }
+
+    //Проверка прав доступа для совершения CRUD-операции (с учетом экшна и контроллера)
+    public static function CheckAccess($controllerName, $actionName, $userId, $special = -1)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
         $accessArray = [];
@@ -288,13 +317,63 @@ class RoleBaseAccess
         }
         $allow = false;
         for ($i = 0; $i < count($accessArray); $i++)
+<<<<<<< HEAD
             if ($special == 0 || $special == 1)
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special])
+=======
+        {
+            if ($special == 1 || $special == 2) //специальный раздел для приказов и мероприятий (основные/учебные...)
+            {
+                if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
+>>>>>>> 1b9ec38157376597ed87fc89cb279d01fb6ea854
                     $allow = true;
-            else
+            }
+            else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
+            {
+                for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
+                    if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])
+                        $allow = true;
+            }
+            else //обычный режим
+            {
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName])
                     $allow = true;
-
+            }
+        }
         return $allow;
+    }
+
+    //Выгрузка групп по роли пользователя
+    public static function getGroupsByRole($userId)
+    {
+        $user = UserWork::find()->where(['id' => $userId])->one();
+        $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
+        $accessArray = [];
+        foreach ($userAccess as $access)
+        {
+            $functions = RoleFunctionRoleWork::find()->where(['role_id' => $access->role_id])->all();
+            foreach ($functions as $function)
+                $accessArray[] = $function->role_function_id;
+        }
+
+        $groupArray = TrainingGroupWork::find()->where(['training_group.id' => -1]);
+        if (array_search(2, $accessArray) || array_search(5, $accessArray)) //свои учебные группы
+        {
+            $teachers = TeacherGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+            $tempId = [];
+            foreach ($teachers as $teacher) $tempId[] = $teacher->training_group_id;
+            $groupArray = TrainingGroupWork::find()->where(['IN', 'training_group.id', $tempId]);
+        }
+        if (array_search(3, $accessArray) || array_search(6, $accessArray)) //учебные группы своего отдела
+        {
+            $aka = PeopleWork::find()->where(['id' => $user->aka])->one();
+            $groupArray = TrainingGroupWork::find()->where(['branch_id' => $aka->branch_id]);
+        }
+        if (array_search(4, $accessArray) || array_search(7, $accessArray)) //все учебные группы
+        {
+            $groupArray = TrainingGroupWork::find();
+        }
+
+        return $groupArray;
     }
 }

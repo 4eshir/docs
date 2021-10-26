@@ -44,8 +44,6 @@ class JournalController extends Controller
      */
     public function actionIndex($group_id = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
         $model = new JournalModel($group_id);
 
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
@@ -87,11 +85,6 @@ class JournalController extends Controller
 
     public function actionIndexEdit($group_id = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id) && !UserRBAC::CheckAccessGroupListEdit(Yii::$app->user->identity->getId(), $group_id)) {
-            return $this->render('/site/error');
-        }
         $model = new JournalModel($group_id);
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
@@ -116,8 +109,7 @@ class JournalController extends Controller
             $errorsCheck->CheckErrorsJournal($group_id);
             //
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
-        }
-        $model->trainingGroup = $group_id;
+        }        $model->trainingGroup = $group_id;
         return $this->render('indexEdit', [
             'model' => $model,
         ]);
@@ -131,11 +123,6 @@ class JournalController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -148,11 +135,6 @@ class JournalController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $model = new CompanyWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -175,11 +157,6 @@ class JournalController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -201,11 +178,6 @@ class JournalController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
 
         if ($model->checkForeignKeys()) {

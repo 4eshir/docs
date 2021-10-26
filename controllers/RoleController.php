@@ -5,7 +5,6 @@ namespace app\controllers;
 use app\models\components\RoleBaseAccess;
 use app\models\work\RoleWork;
 use Yii;
-use app\models\common\Role;
 use app\models\SearchRole;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,7 +65,7 @@ class RoleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Role();
+        $model = new RoleWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

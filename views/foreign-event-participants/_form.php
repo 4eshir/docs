@@ -54,16 +54,17 @@ use yii\widgets\ActiveForm;
     <?php
     $data = \app\models\work\PersonalDataWork::find()->all();
     $arr = \yii\helpers\ArrayHelper::map($data, 'id', 'name');
-    echo $form->field($model, 'pd')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
-        if ($checked == 1) $checked = 'checked';
-        return
-            '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="branch-'. $index .'">
-                        <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
-                        '. $label .'
-                    </label>
-                </div>';
-    }])->label('Запретить разглашение персональных данных:');
+    if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 22))
+        echo $form->field($model, 'pd')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            if ($checked == 1) $checked = 'checked';
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="branch-'. $index .'">
+                            <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+        }])->label('Запретить разглашение персональных данных:');
     ?>
 
 

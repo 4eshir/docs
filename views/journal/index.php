@@ -65,7 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
     $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
     $form = ActiveForm::begin(); ?>
     <?php
-    $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
+    $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
+    /*$groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->all();
     if (UserRBAC::IsAccess(Yii::$app->user->identity->getId(), 22)) //доступ на просмотр ВСЕХ групп
     {
         $groups = TrainingGroupWork::find()->all();
@@ -98,7 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
         $tgroups = \yii\helpers\ArrayHelper::map($tgroups, 'id', 'training_group_id');
         $groups = TrainingGroupWork::find()->where(['in', 'id', $tgroups])->all();
         $items = \yii\helpers\ArrayHelper::map($groups, 'id', 'number');
-    }
+    }*/
+    $items =  \yii\helpers\ArrayHelper::map($groups->all(),'id','number');
     $params = [
         'prompt' => '',
     ];
@@ -106,11 +108,12 @@ $this->params['breadcrumbs'][] = $this->title;
     echo $form->field($model, 'trainingGroup')->dropDownList($items,$params)->label('Группа №');
     echo '</div>';
     ?>
-    <div class="form-group col-xs-4">
+    <div class="form-group col-xs-5" style="padding-top: 1.75em;">
         <?= Html::submitButton('Показать расписание', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Вернуться в карточку группы', \yii\helpers\Url::to(['training-group/view', 'id' => $model->trainingGroup]), ['class' => 'btn btn-warning']) ?>
     </div>
 <?php ActiveForm::end(); ?>
-<div>
+<div  style="padding-top: 1.75em;">
     <?php
     echo Html::a("Переключиться в режим редактирования", \yii\helpers\Url::to(['journal/index-edit', 'group_id' => $model->trainingGroup]), ['class'=>'btn btn-success'])
     ?>

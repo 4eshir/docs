@@ -3,10 +3,12 @@
 namespace app\models;
 
 use app\models\common\BranchProgram;
+use app\models\common\Role;
 use app\models\common\TeacherGroup;
 use app\models\common\TeacherParticipant;
 use app\models\common\TrainingGroup;
 use app\models\common\User;
+use app\models\components\RoleBaseAccess;
 use app\models\work\BranchProgramWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\UserWork;
@@ -56,7 +58,7 @@ class SearchTrainingGroup extends TrainingGroupWork
      */
     public function search($params)
     {
-
+        /*
         $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
         $groups = TrainingGroupWork::find()->where(['teacher_id' => $user->aka])->orderBy(['archive' => SORT_ASC, 'start_date' => SORT_DESC]);
         $branchs = [];
@@ -130,7 +132,8 @@ class SearchTrainingGroup extends TrainingGroupWork
 
                 $groups = TrainingGroupWork::find()->andWhere(['in', 'training_group.id', $teachers_id])->orderBy(['archive' => SORT_ASC, 'start_date' => SORT_DESC]);
             }
-        }
+        }*/
+        $groups = RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
 
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
         $query = $groups;
@@ -158,7 +161,6 @@ class SearchTrainingGroup extends TrainingGroupWork
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'number' => $this->number,
             'training_program_id' => $this->training_program_id,
             'teacher_id' => $this->teacher_id,

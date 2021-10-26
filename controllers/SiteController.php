@@ -38,7 +38,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'forgot-password'],
+                        'actions' => ['login', 'error', 'forgot-password', 'error-access'],
                         'allow' => true,
                     ],
                     [
@@ -200,10 +200,6 @@ class SiteController extends Controller
         var_dump($q->getQuery());
     }
 
-    public function beforeAction($action)
-    {
-        return parent::beforeAction($action);
-    }
 
     /*public function beforeAction($action)
     {

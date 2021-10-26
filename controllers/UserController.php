@@ -9,6 +9,7 @@ use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\Password;
 use app\models\work\AuthorProgramWork;
+use app\models\work\RoleFunctionRoleWork;
 use app\models\work\RoleWork;
 use app\models\work\UserRoleWork;
 use Yii;
