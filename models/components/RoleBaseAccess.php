@@ -212,6 +212,13 @@ class RoleBaseAccess
         ],
         //------------------------------------------------------
 
+        //Отчеты
+        "report" => [
+            "man-hours-report" => [25, 26],
+            "report-result" => [25, 26],
+        ],
+        //------
+
         //Роли
         "role" => [
             "index" => 48,
@@ -251,6 +258,7 @@ class RoleBaseAccess
         //Учебные программы
         "training-program" => [
             "index" => 20,
+            "view" => 20,
             "create" => 21,
             "update" => 21,
             "update-plan" => 21,
@@ -268,13 +276,13 @@ class RoleBaseAccess
 
         //Пользователи
         "user" => [
-            "index" => 47,
+            "index" => 45,
             "create" => 45,
-            "update" => 47,
+            "update" => 46,
             "delete" => 46,
-            "delete-role" => 47,
-            "view" => 47,
-            "find-model" => 47,
+            "delete-role" => 46,
+            "view" => 45,
+            "find-model" => 45,
         ],
         //------------
     ];
@@ -312,11 +320,10 @@ class RoleBaseAccess
         {
             if ($special == 1 || $special == 2) //специальный раздел для приказов и мероприятий (основные/учебные...)
             {
-
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
                     $allow = true;
             }
-            else if ($special == "group") //специальный раздел для групп (подробнее см. в массиве $access)
+            else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
                     if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])

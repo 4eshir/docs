@@ -28,7 +28,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if ($isMethodist !== null){
+    <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 10) || \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)){
         echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
