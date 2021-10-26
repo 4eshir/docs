@@ -316,16 +316,10 @@ class RoleBaseAccess
                 $accessArray[] = $function->role_function_id;
         }
         $allow = false;
-        for ($i = 0; $i < count($accessArray); $i++)
-<<<<<<< HEAD
-            if ($special == 0 || $special == 1)
-                if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special])
-=======
-        {
+        for ($i = 0; $i < count($accessArray); $i++){
             if ($special == 1 || $special == 2) //специальный раздел для приказов и мероприятий (основные/учебные...)
             {
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
->>>>>>> 1b9ec38157376597ed87fc89cb279d01fb6ea854
                     $allow = true;
             }
             else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
