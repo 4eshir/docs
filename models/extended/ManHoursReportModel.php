@@ -67,6 +67,8 @@ class ManHoursReportModel extends \yii\base\Model
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
                     var_dump(count($lessons->all()));
+                    var_dump($this->start_date);
+                    var_dump($this->end_date);
                 }
 
                 $lessons = $lessons->all();
