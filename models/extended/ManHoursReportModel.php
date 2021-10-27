@@ -66,7 +66,6 @@ class ManHoursReportModel extends \yii\base\Model
                     $tId = [];
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
-                    var_dump(count($lessons->all()));
                 }
 
                 $lessons = $lessons->all();
@@ -76,7 +75,8 @@ class ManHoursReportModel extends \yii\base\Model
                 $statusArr = [];
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
-                $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
+                $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr]);
+                var_dump($visit->createCommand()->getRawSql());
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
             }
             if ($oneType === '1')
