@@ -47,7 +47,7 @@ class ManHoursReportModel extends \yii\base\Model
             {
                 $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
                     ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
-                                                                                                                        //попадающие в промежуток
+                var_dump($lessons);                                                                                                        //попадающие в промежуток
                 $lessons = $lessons->andWhere(['IN', 'trainingGroup.branch_id', $this->branch]);
 
                 $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->all();
