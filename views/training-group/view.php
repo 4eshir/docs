@@ -62,17 +62,14 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             ],
         ]) ?>
         <?php
-            $isGod = \app\models\work\UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             $error = $model->getErrorsWork();
-            if ($error !== '')
-                if ($isGod->id == 31 || $isGod->id == 1)
-                {
-                    echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
-                        'data' => [
-                            'confirm' => 'Вы действительно хотите простить группе все ошибки?',
-                            'method' => 'post',
-                        ],]);
-                }
+            //$isGod = \app\models\work\UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+            if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)))
+                echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
+                    'data' => [
+                        'confirm' => 'Вы действительно хотите простить группе все ошибки?',
+                        'method' => 'post',
+                    ],]);
         ?>
     </p>
 
