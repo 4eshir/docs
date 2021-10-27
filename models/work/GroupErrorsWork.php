@@ -303,12 +303,12 @@ class GroupErrorsWork extends GroupErrors
 
     private function TwoTeachersOnePlace()
     {
-
+        //$auditorium = TrainingGroupLessonWork::find()->select(['lesson_date', 'lesson_start_time', 'lesson_end_time', 'auditorium_id', 'training_group_id'])->
     }
 
     private function TwoPlacesOneTeacher()
     {
-        
+
     }
 
     /*-------------------------------------------------*/

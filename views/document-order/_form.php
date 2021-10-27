@@ -139,9 +139,8 @@ $session = Yii::$app->session;
                 echo $group->number;
                 echo '</td></tr>';
             }
+            echo '</table></div>';
         }
-
-        echo '</table></div>';
         ?>
     </div>
 
@@ -178,18 +177,20 @@ $session = Yii::$app->session;
     <div class="row" style="overflow-y: scroll; height: 250px">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
-            <?php
-            $resp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
-            if ($resp != null)
-            {
-                echo '<table>';
-                foreach ($resp as $respOne) {
-                    $respOnePeople = \app\models\work\PeopleWork::find()->where(['id' => $respOne->people_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+            <div>
+                <?php
+                $resp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
+                if ($resp != null)
+                {
+                    echo '<table>';
+                    foreach ($resp as $respOne) {
+                        $respOnePeople = \app\models\work\PeopleWork::find()->where(['id' => $respOne->people_id])->one();
+                        echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                    }
+                    echo '</table>';
                 }
-                echo '</table>';
-            }
-            ?>
+                ?>
+            </div>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper5', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -200,7 +201,7 @@ $session = Yii::$app->session;
                     'insertButton' => '.add-item5', // css class
                     'deleteButton' => '.remove-item5', // css class
                     'model' => $modelResponsible[0],
-                    'formId' => 'dynamic-form5',
+                    'formId' => 'dynamic-form',
                     'formFields' => [
                         'people_id',
                     ],
@@ -220,7 +221,7 @@ $session = Yii::$app->session;
                             <div class="panel-body" id="scroll">
                                 <?php
                                 // necessary for update action.
-                                if (! $modelResponsibleOne->isNewRecord) {
+                                if (!$modelResponsibleOne->isNewRecord) {
                                     echo Html::activeHiddenInput($modelResponsibleOne, "[{$i}]id");
                                 }
                                 ?>
