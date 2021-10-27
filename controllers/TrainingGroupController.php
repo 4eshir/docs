@@ -220,7 +220,7 @@ class TrainingGroupController extends Controller
             $model->teachers = $modelTeachers;
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             $model->certFile = UploadedFile::getInstance($model, 'certFile');
-            $model->save();
+            //$model->save();
             if ($model->photosFile !== null)
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)

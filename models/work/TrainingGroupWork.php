@@ -435,7 +435,6 @@ class TrainingGroupWork extends TrainingGroup
         $level++;
         $this->number = $this->trainingProgramWork->thematicDirection->name.'.'.$level.'.'.PeopleWork::find()->where(['id' => $teacher])->one()->short.'.'.str_replace('-', '', $this->start_date);
         $counter = count(TrainingGroupWork::find()->where(['like', 'number', $this->number.'%', false])->andWhere(['!=', 'id', $this->id])->all());
-        //$current = TrainingGroupWork::find()->where(['id' => $this->id])->one();
         $counter++;
         for($index = 1; $index <= $counter; $index++)
         {
@@ -446,16 +445,6 @@ class TrainingGroupWork extends TrainingGroup
                 $index = $counter;
             }
         }
-
-        /*if ($current !== null)
-        {
-            if (!is_numeric(substr($current->number, -1)))
-                $this->number .= '.'.$counter;
-            else
-                $this->number = $current->number;
-        }
-        else
-            $this->number .= '.'.$counter;*/
     }
 
     public function cmp($a, $b)
@@ -707,8 +696,7 @@ class TrainingGroupWork extends TrainingGroup
 
             // тут должны работать проверки на ошибки
             $errorsCheck = new GroupErrorsWork();
-            $errorsCheck->CheckErrorsTrainingGroup($this->id);
-            $errorsCheck->CheckErrorsJournal($this->id);
+            $errorsCheck->CheckErrorsTrainingGroupWithoutAmnesty($this->id);
         }
     }
 

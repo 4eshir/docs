@@ -106,7 +106,7 @@ class JournalController extends Controller
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен журнал группы '.$group->number);
             // тут должны работать проверки на ошибки
             $errorsCheck = new GroupErrorsWork();
-            $errorsCheck->CheckErrorsJournal($group_id);
+            $errorsCheck->CheckErrorsTrainingGroupWithoutAmnesty($group_id);
             //
             return $this->redirect('index?r=journal/index&group_id='.$model->trainingGroup);
         }        $model->trainingGroup = $group_id;
