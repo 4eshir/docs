@@ -18,7 +18,7 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
-    public function CheckThematicPlane ($modelProgramID, $tp)
+    private function CheckThematicPlane ($modelProgramID, $tp)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 7])->all();
         $amnesty = 0;
@@ -46,7 +46,7 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
-    public function CheckCapacity ($modelProgramID, $program, $tp)
+    private function CheckCapacity ($modelProgramID, $program, $tp)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 12])->all();
         $amnesty = 0;
@@ -74,7 +74,7 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
-    public function CheckControl ($modelProgramID, $tp)
+    private function CheckControl ($modelProgramID, $tp)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 11])->all();
         $amnesty = 0;
@@ -104,7 +104,7 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
-    public function CheckThematicDirection ($modelProgramID, $program)
+    private function CheckThematicDirection ($modelProgramID, $program)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 10])->all();
         $amnesty = 0;
@@ -131,7 +131,7 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
-    public function CheckAuthors ($modelProgramID)
+    private function CheckAuthors ($modelProgramID)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 13])->all();
         $amnesty = 0;
