@@ -152,7 +152,8 @@ class SearchTrainingGroup extends TrainingGroupWork
         if ($params["SearchTrainingGroup"]["startDateSearch"] !== null && $params["SearchTrainingGroup"]["finishDateSearch"] !== null &&
             $params["SearchTrainingGroup"]["startDateSearch"] !== "" && $params["SearchTrainingGroup"]["finishDateSearch"] !== "")
         {
-            $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])->andWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])
+            $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                ->where(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])->andWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])
                 ->orWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])->andWhere(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])]);
 
         }
