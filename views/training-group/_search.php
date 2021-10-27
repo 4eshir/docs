@@ -14,7 +14,44 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
+    <div>
+        <div style="float: left; margin-right: 10px">
+            <?= $form->field($model, 'startDateSearch', ['template' => '{label}&nbsp;{input}',
+                'options' => ['class' => 'form-group form-inline']])->widget(\yii\jui\DatePicker::class, [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'placeholder' => '',
+                    'class'=> 'form-control',
+                    'style' => 'width: 100px',
+                    'autocomplete'=>'off'
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2050',
+                ]])->label('С') ?>
+        </div>
+        <div style="float: left">
+            <?= $form->field($model, 'finishDateSearch', [ 'template' => '{label}&nbsp;{input}',
+                'options' => ['class' => 'form-group form-inline']])->widget(\yii\jui\DatePicker::class, [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'placeholder' => '',
+                    'class'=> 'form-control',
+                    'style' => 'width: 100px',
+                    'autocomplete'=>'off'
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2050',
+                ]])->label('По') ?>
+        </div>
+    </div>
 
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
     <?php
     $branch = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
