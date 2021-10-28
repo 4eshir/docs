@@ -16,29 +16,4 @@ class ErrorsWork extends Errors
             'name' => 'Наименование ошибки',
         ];
     }
-
-    public function ErrorsTeacher()
-    {
-
-    }
-
-    public function ErrorsEducationalInformant()
-    {
-
-    }
-
-    public function ErrorsControler(){
-
-    }
-
-    public function ErrorsSuperControler()
-    {
-
-    }
-
-    public function ErrorsAdmin()
-    {
-
-    }
-
 }
