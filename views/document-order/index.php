@@ -26,7 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
         <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
-    <?= $this->render('_search', ['model' => $searchModel]) ?>
+    <?php
+        if ($session->get('type') != 1)
+            echo $this->render('_search', ['model' => $searchModel])
+    ?>
     <?php
 
     $gridColumns = [
