@@ -10,9 +10,12 @@ use app\models\work\TrainingProgramWork;
 use app\models\work\UserWork;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\LocalResponsibilityWork */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 //$this->title = $model->people->secondname.' '.$model->responsibilityType->name;
 ?>
@@ -68,6 +71,7 @@ use yii\widgets\DetailView;
                     }
                 }*/
                 echo '</tbode>';
+
             ?>
         </table>
     </div>
