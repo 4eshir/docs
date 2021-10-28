@@ -464,12 +464,18 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Состав</h4></div>
-                <div style="padding-left: 1.5%; padding-top: 1%">
-                    <?= $form->field($model, 'fileParticipants')->fileInput() ?>
-                </div>
-                <div style="padding-left: 1.5%; padding-top: 1%">
-                    <?= $form->field($model, 'certFile')->fileInput() ?>
-                </div>
+                <?php
+                    if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 10) || (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)))
+                    {
+                        echo '<div style="padding-left: 1.5%; padding-top: 1%">';
+                        echo $form->field($model, 'fileParticipants')->fileInput();
+                        echo '</div>';
+                        echo '<div style="padding-left: 1.5%; padding-top: 1%">';
+                        echo $form->field($model, 'certFile')->fileInput();
+                        echo '</div>';
+                    }
+                ?>
+
                 <div>
                     <?php
                     $extEvents = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->id])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();

@@ -53,7 +53,7 @@ use yii\widgets\DetailView;
                 }
 
                 // отображение ошибок в образовательных программах
-                if ($user->id == 31)
+                /*if ($user->id == 31)
                 {
                     $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
@@ -66,7 +66,7 @@ use yii\widgets\DetailView;
                         echo '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
                         echo '</tr>';
                     }
-                }
+                }*/
                 echo '</tbode>';
             ?>
         </table>
