@@ -17,4 +17,28 @@ class ErrorsWork extends Errors
         ];
     }
 
+    public function ErrorsTeacher()
+    {
+
+    }
+
+    public function ErrorsEducationalInformant()
+    {
+
+    }
+
+    public function ErrorsControler(){
+
+    }
+
+    public function ErrorsSuperControler()
+    {
+
+    }
+
+    public function ErrorsAdmin()
+    {
+
+    }
+
 }
