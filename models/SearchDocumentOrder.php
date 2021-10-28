@@ -51,7 +51,6 @@ class SearchDocumentOrder extends DocumentOrderWork
     public function search($params, $sort)
     {
         $query = DocumentOrderWork::find();
-
         if ($sort == 1)
             $query = DocumentOrderWork::find()->where(['type' => 1]);
         else

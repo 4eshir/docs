@@ -2,11 +2,14 @@
 
 namespace app\models;
 
+use app\models\work\EventBranchWork;
+use app\models\work\TeacherParticipantWork;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\ForeignEventWork;
 use yii\db\ActiveQuery;
+use yii\db\Query;
 
 /**
  * SearchForeignEvent represents the model behind the search form of `app\models\common\ForeignEvent`.
@@ -51,13 +54,35 @@ class SearchForeignEvent extends ForeignEventWork
     public function search($params)
     {
         $query = ForeignEventWork::find();
-        $str = "SELECT *  FROM (SELECT *, (SELECT GROUP_CONCAT(CONCAT(`secondname`,' '), CONCAT(LEFT(`firstname`, 1), '.'), CONCAT(LEFT(`patronymic`, 1), '.') SEPARATOR ' ') FROM `foreign_event_participants` WHERE `id` IN 
-                    (SELECT `participant_id` FROM `teacher_participant` WHERE `foreign_event_id` = `foreign_event`.`id`)) as `participants`,
-                    (SELECT GROUP_CONCAT(CONCAT(`secondname`,' '), CONCAT(LEFT(`firstname`, 1), '.'), CONCAT(LEFT(`patronymic`, 1), '.') SEPARATOR ' ') FROM `people` WHERE `id` IN 
-                    (SELECT `teacher_id` FROM `teacher_participant` WHERE `foreign_event_id` = `foreign_event`.`id`)) as `teachers`,
-                    (SELECT GROUP_CONCAT(`name` SEPARATOR ' ') FROM `branch` WHERE `id` IN 
-                    (SELECT `branch_id` FROM `teacher_participant` WHERE `foreign_event_id` = `foreign_event`.`id`)) as `branchs`
-                    FROM `foreign_event` WHERE 1) as t1 WHERE `t1`.`participants` IS NOT NULL";
+        if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)
+        {
+            $tps = TeacherParticipantWork::find()->joinWith(['participant participant'])->where(['LIKE', 'participant.secondname', $params["SearchForeignEvent"]["secondnameParticipant"]])->all();
+            $tpIds = [];
+            foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
+            $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
+        }
+        if (strlen($params["SearchForeignEvent"]["start_date_search"]) > 9 && strlen($params["SearchForeignEvent"]["finish_date_search"]) > 9)
+        {
+            $query = $query->andWhere(['IN', 'foreign_event.id',
+                                        (new Query())->select('foreign_event.id')->from('foreign_event')->where(['>=', 'start_date', $params["SearchForeignEvent"]["start_date_search"]])
+                                            ->andWhere(['<=', 'finish_date', $params["SearchForeignEvent"]["finish_date_search"]])]);
+
+        }
+        if (strlen($params["SearchForeignEvent"]["secondnameTeacher"]) > 1)
+        {
+            $tps = TeacherParticipantWork::find()->joinWith(['teacher teacher'])->where(['LIKE', 'teacher.secondname', $params["SearchForeignEvent"]["secondnameTeacher"]])->all();
+            $tpIds = [];
+            foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
+            $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
+        }
+        if (strlen($params["SearchForeignEvent"]["nameBranch"]) > 0)
+        {
+            $branchs = TeacherParticipantWork::find()->where(['branch_id' => $params["SearchForeignEvent"]["nameBranch"]])->all();
+            $bIds = [];
+            foreach ($branchs as $branch) $bIds[] = $branch->foreign_event_id;
+            $query = $query->andWhere(['IN', 'foreign_event.id', $bIds]);
+        }
+        /*
         $qc = 1;
         if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)
         {
@@ -91,7 +116,7 @@ class SearchForeignEvent extends ForeignEventWork
             $strAddRight = ") as t".$qc." WHERE `t".$qc."`.`branchs` LIKE '%".$params["SearchForeignEvent"]["nameBranch"]."%'";
             $str = $strAddLeft.$str.$strAddRight;
             $query = ForeignEventWork::findBySql($str);
-        }
+        }*/
 
 
 

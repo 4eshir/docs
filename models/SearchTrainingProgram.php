@@ -5,6 +5,7 @@ namespace app\models;
 use app\models\common\Focus;
 use app\models\common\People;
 use app\models\common\ThematicDirection;
+use app\models\work\AuthorProgramWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\TrainingProgramWork;
@@ -48,8 +49,10 @@ class SearchTrainingProgram extends TrainingProgramWork
 
         if ($params["SearchTrainingProgram"]["authorSearch"] != null)
         {
-            $str = 'SELECT * FROM `training_program` WHERE `id` IN (SELECT `training_program_id` FROM `author_program` WHERE `author_id` = '.$params["SearchTrainingProgram"]["authorSearch"].')';
-            $query = TrainingProgramWork::findBySql($str);
+            $authors = AuthorProgramWork::find()->where(['author_id' => $params["SearchTrainingProgram"]["authorSearch"]])->all();
+            $aIds = [];
+            foreach ($authors as $author) $aIds[] = $author->training_program_id;
+            $query = TrainingProgramWork::find()->where(['IN', 'training_program.id', $aIds]);
         }
 
         // add conditions that should always apply here

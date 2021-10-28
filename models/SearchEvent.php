@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\work\EventBranchWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\EventWork;
@@ -47,8 +48,10 @@ class SearchEvent extends EventWork
         $query = EventWork::find();
         if ($params["SearchEvent"]["eventBranchs"] != null)
         {
-            $str = 'SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = '.$params["SearchEvent"]["eventBranchs"].')';
-            $query = EventWork::findBySql($str);
+            $ebs = EventBranchWork::find()->where(['branch_id' => $params["SearchEvent"]["eventBranchs"]])->all();
+            $eIds = [];
+            foreach ($ebs as $eb) $eIds[] = $eb->event_id;
+            $query = EventWork::find()->where(['IN', 'event.id', $eIds]);
         }
 
         //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)
