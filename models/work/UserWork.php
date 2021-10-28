@@ -51,11 +51,13 @@ class UserWork extends User
 
     public $roles;
 
+    public $password;
+
 
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass'], 'string'],
+            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass', 'password_hash'], 'string'],
             [['aka'], 'integer'],
             ['roles', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -74,6 +76,7 @@ class UserWork extends User
             'firstname' => 'Имя',
             'secondname' => 'Фамилия',
             'patronymic' => 'Отчество',
+            'password_hash' => 'Пароль',
             'email' => 'E-mail',
             'username' => 'Логин (e-mail)',
             'addUsers' => 'Разрешено добавлять новых пользователей',

@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'secondname')->textInput() ?>
     <?= $form->field($model, 'patronymic')->textInput() ?>
     <?= $form->field($model, 'username')->textInput() ?>
+    <?= $form->field($model, 'password_hash')->textInput() ?>
     <?php
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
