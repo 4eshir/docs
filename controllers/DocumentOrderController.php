@@ -100,7 +100,7 @@ class DocumentOrderController extends Controller
             $model->expires = $modelExpire;
 
             if ($model->validate(false)) {
-                if ($model->archive_number !== null)
+                if ($model->archive_number === null)
                     $model->getDocumentNumber();
                 else
                 {
@@ -187,7 +187,12 @@ class DocumentOrderController extends Controller
                         $model->getDocumentNumber();
                 else
                 {
-                    $model->order_copy_id = $model->archive_number;
+                    $number = explode( '/',  $model->archive_number);
+                    $model->order_number = $number[0];
+                    $model->order_copy_id = $number[1];
+                    if (count($number) > 2)
+                        $model->order_postfix = $number[2];
+                    //$model->order_copy_id = $model->archive_number;
                     $model->type = 10;
                 }
                 if ($model->scanFile !== null)
