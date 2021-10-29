@@ -324,9 +324,13 @@ class DocumentOrderWork extends DocumentOrder
 
     public function beforeDelete()
     {
-        $resp = Responsible::find()->where(['document_order_id' => $this->id])->all();
+        $resp = ResponsibleWork::find()->where(['document_order_id' => $this->id])->all();
         foreach ($resp as $respOne)
             $respOne->delete();
+
+        $groups = OrderGroupWork::find()->where(['document_order_id' => $this->id])->all();
+        foreach ($groups as $group)
+            $group->delete();
 
         if ($this->groups_check !== null && count($this->groups_check) > 0)
         {
