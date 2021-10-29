@@ -32,7 +32,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <div class="content-container col-xs-8" style="float: left">
         <table class="table table-bordered">
             <?php
-                /*$user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+                $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
                 $groups = '';
                 if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 14))
                 {
@@ -45,19 +45,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 }
                 else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 12))
                 {
-                    /*$teacherGroups = TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['teacher_group.teacher_id' => $user->aka])->andWhere(['trainingGroup.archive' => 0])->all();
-                    //$trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
-                    foreach ($teacherGroups as $group) {
-                       $groups += TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
-                    }*/
-                    //var_dump($groups);
-
+                    // тут должна быть выборка только учебных групп одного конкретного препода
                     //$trainingGroup = TrainingGroupWork::find()->joinWith(['teacherGroup teacherGroup'])->where(['teacherGroup.teacher_id' => $user->aka])->all();
-                    //var_dump($trainingGroup);
-                /*}
-
-                //var_dump($groups);
-                //var_dump(count ($groups));
+                }
 
                 if ($groups !== '')
                 {
@@ -71,7 +61,6 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     echo '<tbody>';
                     foreach ($groups as $group)
                     {
-                        //$trainingGroup = TrainingGroupWork::find()->where(['id' => $group->training_group_id])->one();
                         $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
                         foreach ($errorsList as $error)
                         {
@@ -88,28 +77,49 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                     }
                     echo '</tbode>';
                 }
+            ?>
+        </table>
+        <table class="table table-bordered">
+            <?php
+            $programs = '';
+            if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 16))
+            {
+                $programs = TrainingProgramWork::find()->all();
+            }
+            else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 15))
+            {
+                // выборка программ только по своему отделу
+            }
 
+            if ($programs !== '')
+            {
 
+                echo '<h4 style="text-align: center;"><u>Ошибки в образовательных программах</u></h4>';
+                echo '<thead>';
+                echo '<th style="vertical-align: middle;">Код проблемы</th>';
+                echo '<th style="vertical-align: middle;">Описание проблемы</th>';
+                echo '<th style="vertical-align: middle;">Место возникновения</th>';
+                echo '</thead>';
 
-
-
-                // отображение ошибок в образовательных программах
-                /*if ($user->id == 31)
+                echo '<tbody>';
+                foreach ($programs as $program)
                 {
-                    $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->all();
+                    $errorsList = ProgramErrorsWork::find()->where(['training_program_id' => $program->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
                     foreach ($errorsList as $error)
                     {
-                        $program = TrainingProgramWork::find()->where(['id' => $error->training_program_id])->one();
-                        echo '<tr>';
+                        if ($error->critical == 1)
+                            echo '<tr style="background-color: #FCF8E3;">';
+                        else
+                            echo '<tr>';
                         $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
                         echo '<th style="text-align: left;">' . $errorName->number . "</th>";
                         echo '<td>' . $errorName->name . '</td>';
                         echo '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
                         echo '</tr>';
                     }
-                }*/
-
-
+                }
+                echo '</tbody>';
+            }
             ?>
         </table>
     </div>
