@@ -36,8 +36,9 @@ $session = Yii::$app->session;
     {
         var elem = document.getElementById('archive-0');
         var arch = document.getElementById('archive-number');
-        if (elem.checked) { arch.style.display = "block"; }
-        else { arch.style.display = "none"; }
+        var ord = document.getElementById('order-number-1');
+        if (elem.checked) { arch.style.display = "block"; ord.style.display = "none"; }
+        else { arch.style.display = "none"; ord.style.display = "block"; }
     }
 </script>
 
@@ -88,16 +89,19 @@ $session = Yii::$app->session;
 
     $branch = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
-    echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
-
+    if ($session->get('type') != 1)
+        echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
+    else
+        $model->nomenclature_id = '5';  // по просьбе особ упоротых людителей делать "случайно" основные приказы вне отдела Администрация - по умолчанию делаем как надо
     ?>
 
     <?php
     $params = [
-        'prompt' => '',
+        //'prompt' => '',
         'id' => 'rS',
         'class' => 'form-control nom',
     ];
+    echo '<div id="order-number-1">';
     if ($model->nomenclature_id === null)
         echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула');
     else
@@ -106,6 +110,7 @@ $session = Yii::$app->session;
         $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
         echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Преамбула');
     }
+    echo '</div>';
     ?>
 
     <?= $form->field($model, 'archive_check')

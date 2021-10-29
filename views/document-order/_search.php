@@ -21,9 +21,12 @@ use yii\widgets\ActiveForm;
     $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
     $params = [
     ];
-    echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
+
+    if ($session->get('type') != 1)
+        echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
 
     ?>
+
     <?= $form->field($model, 'key_words')->label('Поиск по ключевым словам') ?>
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>

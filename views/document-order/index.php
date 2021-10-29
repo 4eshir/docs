@@ -14,7 +14,7 @@ use kartik\export\ExportMenu;
 <?php
 $session = Yii::$app->session;
 
-$this->title = $session->get('type') == 1 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
+$this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,8 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?php
-        if ($session->get('type') != 1)
-            echo $this->render('_search', ['model' => $searchModel])
+        echo $this->render('_search', ['model' => $searchModel])
     ?>
     <?php
 
