@@ -100,7 +100,7 @@ class DocumentOrderController extends Controller
             $model->expires = $modelExpire;
 
             if ($model->validate(false)) {
-                if ($model->archive_number === null)
+                if ($model->archive_number === '')
                     $model->getDocumentNumber();
                 else
                 {

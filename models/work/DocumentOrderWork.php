@@ -122,7 +122,6 @@ class DocumentOrderWork extends DocumentOrder
 
     public function beforeSave($insert)
     {
-        //var_dump($this->archive_number !== null);
         $fioSigned = explode(" ", $this->signedString);
         $fioExecutor = explode(" ", $this->executorString);
         $fioRegister = explode(" ", $this->registerString);
