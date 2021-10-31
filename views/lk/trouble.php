@@ -46,7 +46,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 12))
                 {
                     // тут должна быть выборка только учебных групп одного конкретного препода
-                    //$trainingGroup = TrainingGroupWork::find()->joinWith(['teacherGroup teacherGroup'])->where(['teacherGroup.teacher_id' => $user->aka])->all();
+                    $trainingGroup = TrainingGroupWork::find()->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
                 }
 
                 if ($groups !== '')
