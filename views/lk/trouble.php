@@ -47,6 +47,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 {
                     // тут должна быть выборка только учебных групп одного конкретного препода
                     $trainingGroup = TrainingGroupWork::find()->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+                    var_dump(count($trainingGroup));
                 }
 
                 if ($groups !== '')
