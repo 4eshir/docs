@@ -180,8 +180,8 @@ $session = Yii::$app->session;
 ?>
 
 <?php
-$access = [23, 25];
-$isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'access_id', $access])->one();
+$roles = [5, 6, 7];
+$isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
 ?>
 
 <div class="training-group-form">
