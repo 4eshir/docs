@@ -82,7 +82,6 @@ class ManHoursReportModel extends \yii\base\Model
             }
             if ($oneType === '1')
             {
-                var_dump('lol');
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
@@ -111,7 +110,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество уникальных обучающися, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающися, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
             if ($oneType == '3')
             {
