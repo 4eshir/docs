@@ -117,9 +117,9 @@ class ManHoursReportModel extends \yii\base\Model
                 else $statusArr = [0, 1, 2];
 
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
-                    ->where(['IN', 'id', (new Query())->select('id')->from('training_group')
-                        ->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
-                        ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->start_date])])])
+                    ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                        ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
+                        ->orWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->start_date])])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
