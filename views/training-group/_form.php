@@ -177,7 +177,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 <?php
 $session = Yii::$app->session;
-?>
+?>fпедагог
 
 <?php
 $roles = [5, 6, 7];

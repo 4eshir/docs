@@ -30,7 +30,7 @@ class TeacherGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['teacher_id', 'training_group_id'], 'required'],
+            [['training_group_id'], 'required'],
             [['teacher_id', 'training_group_id'], 'integer'],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],

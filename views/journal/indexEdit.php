@@ -235,18 +235,19 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<th style="text-align: left;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         $c = 0;
+
         foreach ($lessons as $lesson)
         {
             $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
             $dis = true;
             $date = new DateTime(date("Y-m-d"));
-            $date->modify('-10 day');
+            $date->modify('-10 days');
             $roles = [5, 6, 7];
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if ($isMethodist || date('Y-m-d') > $date->format('Y-m-d')) $dis = false;
+            if ($isMethodist || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
