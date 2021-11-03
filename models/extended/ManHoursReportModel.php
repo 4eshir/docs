@@ -11,6 +11,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
+use yii\db\Query;
 
 class ManHoursReportModel extends \yii\base\Model
 {
@@ -115,7 +116,10 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])
+                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+                    ->where(['IN', 'id', (new Query())->select('id')->from('training_group')
+                        ->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
+                        ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->start_date])])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
