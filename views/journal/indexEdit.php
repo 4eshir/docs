@@ -241,7 +241,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $value = false;
             $dis = true;
             $date = new DateTime(date("Y-m-d"));
-            $date->modify('-10 day');
+            $date->modify('-10 days');
             $roles = [5, 6, 7];
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             if (!($visits == null || $visits->status == 0)) $value = true;
