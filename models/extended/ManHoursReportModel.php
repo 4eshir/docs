@@ -82,6 +82,7 @@ class ManHoursReportModel extends \yii\base\Model
             }
             if ($oneType === '1')
             {
+                var_dump('lol');
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
