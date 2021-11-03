@@ -239,12 +239,14 @@ $this->params['breadcrumbs'][] = $this->title;
         {
             $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
-            $dis = false;
+            $dis = true;
             $date = new DateTime(date("Y-m-d"));
-            $date->modify('-1 week');
+            $date->modify('-10 day');
+            $roles = [5, 6, 7];
+            $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if (\app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 23) || \app\models\components\UserRBAC::IsAccess(Yii::$app->user->getId(), 25)) $dis = false;
+            if ($isMethodist) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
