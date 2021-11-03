@@ -100,13 +100,15 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])
+                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+                    ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                        ->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
 
                 $result .= '<tr><td>Количество уникальных обучающися, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
