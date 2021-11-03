@@ -225,7 +225,16 @@ $this->params['breadcrumbs'][] = $this->title;
     foreach ($lessons as $lesson)
     {
         echo $form->field($model, 'lessons[]')->hiddenInput(['value'=> $lesson->id])->label(false);
-        echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
+        $dis = true;
+        $date = new DateTime(date("Y-m-d"));
+        $date->modify('-10 days');
+        $roles = [5, 6, 7];
+        $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
+        if ($isMethodist || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
+        if (!$dis)
+            echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
+        else
+            echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a disabled class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a disabled class="btn btn-default">Все --</a>'."</th>";
         $c++;
     }
     echo '</thead><tbody>';
