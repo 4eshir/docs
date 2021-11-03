@@ -115,7 +115,7 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->end_date])
+                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
