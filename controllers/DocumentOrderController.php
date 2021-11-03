@@ -333,8 +333,14 @@ class DocumentOrderController extends Controller
                 echo "<option>-</option>";
             echo '|split|';
 
-            echo '<table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
+            echo '<b>Фильтры для учебных групп: </b>';
+            echo '<input type="text" id="nameSearch" onchange="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
+            echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+            echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
 
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="sortable" class="table table-bordered"><thead><tr><th></th><th><a onclick="sortColumn(1)"><b>Учебная группа</b></a></th><th><a onclick="sortColumn(2)"><b>Дата начала занятий</b></a></th><th><a onclick="sortColumn(3)"><b>Дата окончания занятий</b></a></th></tr></thead>';
+            echo '';
+            echo '<tbody>';
             $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])->all();
             foreach ($groups as $group)
             {
@@ -346,10 +352,16 @@ class DocumentOrderController extends Controller
                     echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
                 echo '</td><td style="width: auto">';
                 echo $group->number;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->start_date;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->finish_date;
                 echo '</td></tr>';
             }
 
-            echo '</table>'.'|split|';
+            echo '</tbody></table></div>'.'|split|';
         }
     }
 

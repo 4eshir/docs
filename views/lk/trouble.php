@@ -89,7 +89,8 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             }
             else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 15))
             {
-                // выборка программ только по своему отделу
+                $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+                $programs = TrainingProgramWork::find()->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->all();
             }
 
             if ($programs !== '')

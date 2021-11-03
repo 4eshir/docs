@@ -17,6 +17,10 @@ $session = Yii::$app->session;
 ?>
 
 <script>
+    window.onload = function() {
+        initData();
+    }
+
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -39,6 +43,109 @@ $session = Yii::$app->session;
         var ord = document.getElementById('order-number-1');
         if (elem.checked) { arch.style.display = "block"; ord.style.display = "none"; }
         else { arch.style.display = "none"; ord.style.display = "block"; }
+    }
+
+    const initData = () => {
+        table = document.getElementById('sortable');
+        headers = table.querySelectorAll('th');
+        tableBody = table.querySelector('tbody');
+        rows = tableBody.querySelectorAll('tr');
+
+        // Направление сортировки
+        directions = Array.from(headers).map(function(header) {
+            return '';
+        });
+
+        // Преобразовать содержимое данной ячейки в заданном столбце
+        transform = function(index, content) {
+            // Получить тип данных столбца
+            const type = headers[index].getAttribute('data-type');
+            switch (type) {
+                case 'number':
+                    return parseFloat(content);
+                case 'string':
+                default:
+                    return content;
+            }
+        };
+    }
+
+    let table = '';
+    let headers = '';
+    let tableBody = '';
+    let rows = '';
+    let directions = '';
+    let transform = '';
+
+    function sortColumn(index) {
+        // Получить текущее направление
+        const direction = directions[index] || 'asc';
+
+        // Фактор по направлению
+        const multiplier = (direction === 'asc') ? 1 : -1;
+
+        const newRows = Array.from(rows);
+
+        newRows.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            const a = transform(index, cellA);
+            const b = transform(index, cellB);
+
+            switch (true) {
+                case a > b: return 1 * multiplier;
+                case a < b: return -1 * multiplier;
+                case a === b: return 0;
+            }
+        });
+
+        // Удалить старые строки
+        [].forEach.call(rows, function(row) {
+            tableBody.removeChild(row);
+        });
+
+        // Поменять направление
+        directions[index] = direction === 'asc' ? 'desc' : 'asc';
+
+        // Добавить новую строку
+        newRows.forEach(function(newRow) {
+            tableBody.appendChild(newRow);
+        });
+
+    }
+
+    function searchColumn() {
+        var inputName, filterName, inputLeftDate, filterLeftDate, inputRightDate, filterRightDate, td, tdName, tdLeftDate, tdRightDate, i, txtValueName, txtValueLeftDate, txtValueRightDate;
+
+        inputName = document.getElementById('nameSearch');
+        filterName = inputName.value.toUpperCase();
+        inputLeftDate = document.getElementById('nameLeftDate');
+        filterLeftDate = inputLeftDate.value.toUpperCase();
+        inputRightDate = document.getElementById('nameRightDate');
+        filterRightDate = inputRightDate.value.toUpperCase();
+
+        for (i = 0; i < rows.length; i++)
+        {
+            td = rows[i].getElementsByTagName("td");
+            tdName = td[1];
+            tdLeftDate = td[2];
+            tdRightDate = td[3];
+
+            if (td) {
+                txtValueName = tdName.textContent || tdName.innerText;
+                txtValueLeftDate = tdLeftDate.textContent || tdLeftDate.innerText;
+                txtValueRightDate = tdRightDate.textContent || tdRightDate.innerText;
+
+                if (filterRightDate == '')
+                    filterRightDate = '2100-12-12';
+
+                if (txtValueName.toUpperCase().indexOf(filterName) > -1 && txtValueLeftDate.toUpperCase() >= filterLeftDate && txtValueRightDate.toUpperCase() <= filterRightDate)
+                    rows[i].style.display = "";
+                else
+                    rows[i].style.display = "none";
+            }
+        }
     }
 </script>
 
@@ -82,6 +189,7 @@ $session = Yii::$app->session;
                                 }
                                 var elem = document.getElementById("group_table");
                                 elem.innerHTML = resArr[1];
+                                initData();
                             }
                         );
                     ',
@@ -127,24 +235,38 @@ $session = Yii::$app->session;
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
     </div>
 
-    <div id="group_table" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
+    <div id="group_table" style="margin-bottom: 1em;" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?php
-        if ($model->nomenclature_id !== null) {
-            echo '<div style="max-height: 400px; overflow-y: scroll"><table class="table table-bordered"><td></td><td><b>Учебная группа</b></td>';
+        echo '<b>Фильтры для учебных групп: </b>';
+        echo '<input type="text" id="nameSearch" onchange="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
+        echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+        echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
 
+        if ($model->nomenclature_id !== null) {
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="sortable" class="table table-bordered"><thead><tr><th></th><th><a onclick="sortColumn(1)"><b>Учебная группа</b></a></th><th><a onclick="sortColumn(2)"><b>Дата начала занятий</b></a></th><th><a onclick="sortColumn(3)"><b>Дата окончания занятий</b></a></th></tr></thead>';
+            echo '';
+            echo '<tbody>';
             $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])->all();
-            foreach ($groups as $group) {
+            foreach ($groups as $group)
+            {
                 $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $model->id])->one();
                 echo '<tr><td style="width: 10px">';
                 if ($orders !== null)
-                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="' . $group->id . '">';
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
                 else
-                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="' . $group->id . '">';
+                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
                 echo '</td><td style="width: auto">';
                 echo $group->number;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->start_date;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->finish_date;
                 echo '</td></tr>';
             }
-            echo '</table></div>';
+
+            echo '</tbody></table></div>';
         }
         ?>
     </div>
