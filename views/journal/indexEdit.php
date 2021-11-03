@@ -246,7 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if ($isMethodist || date('Y-m-d') < $date->format('Y-m-d')) $dis = false;
+            if ($isMethodist || date('Y-m-d') > $date->format('Y-m-d')) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
