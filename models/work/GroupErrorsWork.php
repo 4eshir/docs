@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\GroupErrors;
+use app\models\common\LessonTheme;
 use app\models\work\ErrorsWork;
 use Yii;
 use yii\helpers\Console;
@@ -99,7 +100,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckOrderTrainingGroup ($groupsID)
+    public function CheckOrderTrainingGroup ($groupsID)     // проверка всех групп которые были отмечены в образовательном приказе при его создании/редактировании
     {
         $now_time = date("Y-m-d");
         foreach ($groupsID as $groupID)
@@ -306,14 +307,73 @@ class GroupErrorsWork extends GroupErrors
         //$auditorium = TrainingGroupLessonWork::find()->select(['lesson_date', 'lesson_start_time', 'lesson_end_time', 'auditorium_id', 'training_group_id'])->
     }
 
-    private function TwoPlacesOneTeacher()
+    private function TwoPlacesOneTeacher($modelGroupID)
     {
+        $teachers = TeacherGroupWork::find()->where(['training_group_id' => $modelGroupID])->all();
+        foreach ($teachers as $teacher)
+        {
+            $lessons = TrainingGroupLessonWork::find()->joinWith(['lessonThemes lessonThemes'])->where(['lessonThemes.teacher_id' => $teacher])->all();
+            $countLessons = count($lessons);
+            $errorsGroup[] = '';
+            for ($i = 0; $i < $countLessons - 1; $i++)
+            {
+                if (array_search($i, $errorsGroup) == false)
+                    for ($j = $i+1; $j < $countLessons; $j++)
+                    {
+                        if ($lessons[$i]->lesson_date == $lessons[$j]->lesson_date && $lessons[$i]->auditorium_id == $lessons[$j]->auditorium_id)   // если дата и помещение совпали, то вероятно стоит время посмотреть
+                        {
+                            if (!($lessons[$i]->lesson_start_time > $lessons[$j]->lesson_end_time || $lessons[$j]->lesson_start_time > $lessons[$i]->lesson_end_time))
+                            {
+                                // если попали сюда, значит произошло наложение занятий
+                                $errorsGroup += $i;
+                                $errorsGroup += $j;
+                            }
+                        }
+                    }
+            }
+        }
 
+
+    }
+
+    private function IncorrectDates($modelGroupID, $group)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 16])->all();
+        $finishDate = $group->finish_date;
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->all();
+        $check = 0;
+
+        foreach ($lessons as $lesson)
+        {
+            if ($lesson->lesson_date > $finishDate)
+            {
+                $check = 1;
+                break;
+            }
+        }
+
+        foreach ($err as $oneErr)
+        {
+            if ($check == 0)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $check != 0)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 16;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->critical = 1;
+            $this->save();
+        }
     }
 
     /*-------------------------------------------------*/
 
-    public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)
+    public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)   // для проверки при изменении типа помещения
     {
         $lessons = TrainingGroupLessonWork::find()->where(['auditorium_id' => $modelAuditoriumID])->groupBy(['training_group_id'])->all();
         $groupsId = [];
@@ -324,7 +384,16 @@ class GroupErrorsWork extends GroupErrors
             $this->CheckAuditorium($groupId);
     }
 
-    public function CheckErrorsTrainingGroup ($modelGroupID)
+    /*public function CheckSchedule ($modelGroupID)   // проверка всего что связано с расписанием учбеной группы
+    {
+        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
+        $this->CheckAuditorium($modelGroupID);
+        $this->IncorrectDates($modelGroupID, $group);
+        $this->TwoPlacesOneTeacher($modelGroupID);
+        $this->TwoTeachersOnePlace();
+    }*/
+
+    public function CheckErrorsTrainingGroup ($modelGroupID)    // проверка учебной группы на все ошибки (используется демоном)
     {
         $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
         $now_time = date("Y-m-d");
@@ -337,9 +406,11 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckCapacity($modelGroupID, $group, $now_time);
         $this->CheckCertificate($modelGroupID, $group, $now_time);
         $this->CheckAuditorium($modelGroupID);
+        $this->IncorrectDates($modelGroupID, $group);
+        //$this->TwoPlacesOneTeacher($modelGroupID);
     }
 
-    public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)
+    public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
     {
         $this->NoAmnesty($modelGroupID);
         $this->CheckErrorsTrainingGroup($modelGroupID);
@@ -348,7 +419,7 @@ class GroupErrorsWork extends GroupErrors
 
     /*-------------------------------------------------*/
 
-    private function CheckLesson ($modelGroupID, $lessons)
+    private function CheckLesson ($modelGroupID, $lessons)  // проверка посещяемости
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 9])->all();
 
@@ -400,7 +471,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    private function CheckTheme ($modelGroupID, $lessons)
+    private function CheckTheme ($modelGroupID, $lessons)   // проверка заполненности тематического плана
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 15])->all();
 
@@ -442,7 +513,7 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    public function CheckErrorsJournal ($modelGroupID)
+    public function CheckErrorsJournal ($modelGroupID)  // проверка ошибок связанных с электронным журналом
     {
         $now_time = date("Y-m-d");
         $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
