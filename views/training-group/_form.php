@@ -177,7 +177,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 <?php
 $session = Yii::$app->session;
-?>fпедагог
+?>
 
 <?php
 $roles = [5, 6, 7];
@@ -299,7 +299,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
 
     <div <?php echo $isMethodist === null ? 'hidden' : null ?>>
-        <?= $form->field($model, 'order_stop')->checkbox()->label(false); ?>
+        <?= //$form->field($model, 'order_stop')->checkbox()->label(false);
+        $form->field($model, 'order_stop')->checkbox() ?>
     </div>
 
     <div class="row">
