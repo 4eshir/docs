@@ -335,8 +335,8 @@ class DocumentOrderController extends Controller
 
             echo '<b>Фильтры для учебных групп: </b>';
             echo '<input type="text" id="nameSearch" onchange="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
-            echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
-            echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+            echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+            echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
 
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="sortable" class="table table-bordered"><thead><tr><th></th><th><a onclick="sortColumn(1)"><b>Учебная группа</b></a></th><th><a onclick="sortColumn(2)"><b>Дата начала занятий</b></a></th><th><a onclick="sortColumn(3)"><b>Дата окончания занятий</b></a></th></tr></thead>';
             echo '';
