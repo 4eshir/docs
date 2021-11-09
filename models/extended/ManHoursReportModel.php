@@ -4,6 +4,7 @@
 namespace app\models\extended;
 
 
+use app\models\common\TrainingGroup;
 use app\models\work\LessonThemeWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupLessonWork;
@@ -11,6 +12,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
+use Mpdf\Tag\P;
 use yii\db\Query;
 
 class ManHoursReportModel extends \yii\base\Model
@@ -41,6 +43,8 @@ class ManHoursReportModel extends \yii\base\Model
 
     public function generateReport()
     {
+        $debug = '<table class="table table-bordered">';
+        $debug .= '<tr><td>Группа</td><td>Кол-во занятий (по УТП)</td><td>Кол-во занятий (по расписанию)</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
         {
@@ -49,6 +53,7 @@ class ManHoursReportModel extends \yii\base\Model
                 $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
                     ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
                                                                                                                        //попадающие в промежуток
+
                 $lessons = $lessons->andWhere(['IN', 'trainingGroup.branch_id', $this->branch]);
 
                 $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->all();
@@ -63,10 +68,66 @@ class ManHoursReportModel extends \yii\base\Model
                     $tId = [];
                     $lessons = $lessons->all();
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
-                    //$lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+
+                    //ОТЛАДОЧНЫЙ ВЫВОД
+                    $tgs = TrainingGroupWork::find()->where(['IN', 'id', $tId])->all();
+                    //----------------
+
+                    $lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                     $tId = [];
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
+
+                    //ОТЛАДОЧНЫЙ ВЫВОД
+                    $dTeacherId = $this->teacher;
+                    foreach ($tgs as $tg)
+                    {
+                        $debug .= '<tr><td>'.$tg->number.'</td>';
+                        $dLessons = LessonThemeWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
+                            ->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])
+                            ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all();
+                        $debug .= '<td>'.count($dLessons).'</td>';
+                        $debug .= '<td>'.count(TrainingGroupLessonWork::find()->where(['training_group_id' => $tg->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all()).'</td>';
+                        $debug .= '<td>'.count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $tg->id])->all()).'</td>';
+                        $statusArr = [];
+                        if ($this->method == 0) $statusArr = [0, 2];
+                        else $statusArr = [0, 1, 2, 3];
+                        $dlessonsId = [];
+                        $dlessons = $lessons;
+                        $dlessons = $dlessons->all();
+                        foreach ($dlessons as $dlesson) $dlessonsId[] = $this->teacher = $dlesson->training_group_lesson_id;
+                        $debug .= '<td>'.count(VisitWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
+                                ->where(['IN', 'training_group_lesson_id', $dlessonsId])->andWhere(['IN', 'status', $statusArr])
+                                ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all()).'</td>';
+                        $debug .= '</tr>';
+                    }
+                    //----------------
+                }
+                else
+                {
+                    //ОТЛАДОЧНЫЙ ВЫВОД
+                    $dGroups = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])->select('training_group_id')->distinct()
+                        ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])
+                        ->andWhere(['IN', 'trainingGroup.branch_id', $this->branch])
+                        ->andWhere(['IN', 'trainingGroup.training_program_id', $progsId])
+                        ->andWhere(['IN', 'trainingGroup.budget', $this->budget])
+                        ->all();
+                    foreach ($dGroups as $dGroup)
+                    {
+                        $debug .= '<tr><td>'.$dGroup->trainingGroup->number.'</td>';
+                        $newGroupsLessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $dGroup->training_group_id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+                        $nglIds = [];
+                        foreach ($newGroupsLessons as $lesson) $nglIds[] = $lesson->id;
+                        $debug .= '<td>'.count(LessonThemeWork::find()->where(['IN', 'id', $nglIds])->all()).'</td>';
+                        $debug .= '<td>'.count($newGroupsLessons).'</td>';
+                        $debug .= '<td>'.count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $dGroup->training_group_id])->all()).'</td>';
+                        $statusArr = [];
+                        if ($this->method == 0) $statusArr = [0, 2];
+                        else $statusArr = [0, 1, 2, 3];
+                        $debug .= '<td>'.count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $nglIds])->andWhere(['IN', 'status', $statusArr])->all()).'</td>';
+                        $debug .= '</tr>';
+                    }
+                    //----------------
                 }
 
                 $lessons = $lessons->all();
@@ -77,8 +138,9 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2, 3];
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
-                //var_dump($visit->createCommand()->getRawSql());
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
+
+
             }
             if ($oneType === '1')
             {
@@ -154,7 +216,9 @@ class ManHoursReportModel extends \yii\base\Model
             }
         }
         $result = $result.'</table>';
-        return $result;
+        $debug = $debug.'</table>';
+
+        return [$result, $debug];
     }
 
     public function save()

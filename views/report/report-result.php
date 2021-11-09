@@ -11,5 +11,6 @@ use yii\widgets\ActiveForm;
 <div class="result-report-form">
     <div style="font-family: Tahoma; font-size: 20px">
         <?php echo $model->result; ?>
+        <?php echo $model->debugInfo; ?>
     </div>
 </div>

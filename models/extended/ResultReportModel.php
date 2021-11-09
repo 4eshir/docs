@@ -10,10 +10,12 @@ class ResultReportModel extends Model
 {
     public $result;
 
+    public $debugInfo;
+
     public function rules()
     {
         return [
-            [['result'], 'string'],
+            [['result', 'debugInfo'], 'string'],
         ];
     }
 
