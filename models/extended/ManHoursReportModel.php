@@ -70,7 +70,7 @@ class ManHoursReportModel extends \yii\base\Model
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
-                    $tgs = TrainingGroupWork::find()->where(['IN', 'id', $tId])->all();
+                    $tgs = TrainingGroupWork::find()->where(['IN', 'id', $tId])->andWhere(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->start_date])->all();
                     //----------------
 
                     $lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
