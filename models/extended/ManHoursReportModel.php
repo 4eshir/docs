@@ -44,7 +44,7 @@ class ManHoursReportModel extends \yii\base\Model
     public function generateReport()
     {
         $debug = '<table class="table table-bordered">';
-        $debug .= '<tr><td>Группа</td><td>Кол-во занятий (по УТП)</td><td>Кол-во занятий (по расписанию)</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
+        $debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
         {
