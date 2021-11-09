@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\work\GroupErrorsWork;
+use app\models\work\LessonThemeWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
@@ -212,6 +213,20 @@ class JournalController extends Controller
         {
             $visit->status = 3;
             $visit->save(false);
+        }
+        return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
+    }
+
+    public function actionLessonThemeClear($group_id)
+    {
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $group_id])->all();
+        foreach ($lessons as $lesson)
+        {
+            $lessonsTheme = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+            foreach ($lessonsTheme as $theme)
+            {
+                $theme->delete();
+            }
         }
         return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
     }

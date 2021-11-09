@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             table.style.height = wdt + "px";
         }
     }
+
 </script>
 
 
@@ -199,6 +200,10 @@ $this->params['breadcrumbs'][] = $this->title;
         margin-top: -50%;
     }
 
+    #button-design .b-green,#button-design .b-green:before{background:#499bea;background:-moz-linear-gradient(45deg,#499bea 0,#1abc9c 100%);background:-webkit-gradient(left bottom,right top,color-stop(0,#499bea),color-stop(100%,#1abc9c));background:-webkit-linear-gradient(45deg,#499bea 0,#1abc9c 100%);background:-o-linear-gradient(45deg,#499bea 0,#1abc9c 100%);background:-ms-linear-gradient(45deg,#499bea 0,#1abc9c 100%);background:linear-gradient(45deg,#499bea 0,#1abc9c 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#499bea',endColorstr='#1abc9c',GradientType=1)}
+    #button-design .button2{display:inline-block;font-size:16px;margin:2px;padding:.5em;border-radius:5px;transition:all .5s;filter:hue-rotate(0);color:#FFF;text-decoration:none}
+    #button-design .rot-135:hover{filter:hue-rotate(135deg)}
+
 </style>
 
 <div>
@@ -282,7 +287,12 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     echo '</tbody></table></div><br>';
 
-    echo '<h4>Тематический план занятий</h4><br>';
+    //echo '<h4>Тематический план занятий</h4><br>';
+    echo '<table>';
+    echo '<tr>';
+    echo '<td align="left" style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Тематический план занятий</td>';
+    echo '<td align="right" style="text-align: right; font-family: Tahoma;  font-size: 20px; "><div id="button-design" style="margin: 0 0 0 auto;">'.Html::a('Очистить тематический план', \yii\helpers\Url::to(['journal/lesson-theme-clear', 'group_id' => $model->trainingGroup]), ['class' => 'button2 b-green rot-135']).'</div></td>';
+    echo '</tr></table>';
     echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {

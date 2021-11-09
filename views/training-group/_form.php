@@ -848,7 +848,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             </div>
         </div>
 
-        <?= $form->field($model, 'open')->checkbox() ?>
+        <?php echo $form->field($model, 'open')->checkbox() ?>
     </div>
 
     <div class="form-group">
