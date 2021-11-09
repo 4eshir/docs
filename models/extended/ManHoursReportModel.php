@@ -98,7 +98,9 @@ class ManHoursReportModel extends \yii\base\Model
                     foreach ($tgs as $tg)
                     {
                         $debug .= '<tr><td>'.$tg->number.'</td>';
-                        $dLessons = LessonThemeWork::find()->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])->all();
+                        $dLessons = LessonThemeWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
+                            ->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])
+                            ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all();
                         $debug .= '<td>'.count($dLessons).'</td>';
                         $debug .= '<td>'.count(TrainingGroupLessonWork::find()->where(['training_group_id' => $tg->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all()).'</td>';
                         $debug .= '<td>'.count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $tg->id])->all()).'</td>';
