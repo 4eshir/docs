@@ -68,14 +68,14 @@ class ManHoursReportModel extends \yii\base\Model
                     $tId = [];
                     $lessons = $lessons->all();
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
-
+                    $tIdCopy = $tId;
                     $lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                     $tId = [];
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
-                    $newLessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+                    $newLessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tIdCopy])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                     $nlIds = [];
                     var_dump($newLessons);
                     foreach ($newLessons as $lesson) $nlIds[] = $lesson->training_group_id;
