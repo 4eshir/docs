@@ -75,7 +75,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
-                    $newLessons = TrainingGroupLessonWork::find()->select('training_group_id')->distinct()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+                    $newLessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                     $nlIds = [];
                     var_dump($newLessons);
                     foreach ($newLessons as $lesson) $nlIds[] = $lesson->training_group_id;
