@@ -69,14 +69,17 @@ class ManHoursReportModel extends \yii\base\Model
                     $lessons = $lessons->all();
                     foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
 
-                    //ОТЛАДОЧНЫЙ ВЫВОД
-                    $tgs = TrainingGroupWork::find()->where(['IN', 'id', $tId])->andWhere(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->start_date])->all();
-                    //----------------
-
                     $lessons = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                     $tId = [];
                     foreach ($lessons as $lesson) $tId[] = $lesson->id;
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
+
+                    //ОТЛАДОЧНЫЙ ВЫВОД
+                    $newLessons = TrainingGroupLessonWork::find()->select('training_group_id')->distinct()->where(['IN', 'training_group_id', $tId])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
+                    $nlIds = [];
+                    foreach ($newLessons as $lesson) $nlIds[] = $lesson->training_group_id;
+                    $tgs = TrainingGroupWork::find()->where(['IN', 'id', $nlIds])->all();
+                    //----------------
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
                     $dTeacherId = $this->teacher;
