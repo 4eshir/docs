@@ -22,7 +22,7 @@ $session = Yii::$app->session;
     }
 
     $(document).ready(function() {
-        $(nameSearch).keydown(function(event){
+        $('dynamic-form').keydown(function(event){
             if(event.keyCode == 13) {
                 event.preventDefault();
                 return false;
