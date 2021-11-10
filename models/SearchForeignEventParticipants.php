@@ -49,7 +49,7 @@ class SearchForeignEventParticipants extends ForeignEventParticipantsWork
                 (new Query())->select('id')->from('foreign_event_participants')->where(['!=', 'is_true', 1])->andWhere(['IN', 'id',
                     (new Query())->select('id')->from('foreign_event_participants')->where(['guaranted_true' => null])->orWhere(['guaranted_true' => 0])])])
                 ->orWhere(['IN', 'id',
-                    (new Query())->select('id')->from('foreign_event_participants')->where(['sex', 'Другое'])->andWhere(['IN', 'id',
+                    (new Query())->select('id')->from('foreign_event_participants')->where(['sex' => 'Другое'])->andWhere(['IN', 'id',
                         (new Query())->select('id')->from('foreign_event_participants')->where(['guaranted_true' => null])->orWhere(['guaranted_true' => 0])])]);
             //$query = ForeignEventParticipantsWork::findBySql($str);
         }
