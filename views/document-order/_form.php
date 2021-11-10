@@ -21,6 +21,15 @@ $session = Yii::$app->session;
         initData();
     }
 
+    $(document).ready(function() {
+        $(nameSearch).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
