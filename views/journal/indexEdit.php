@@ -291,8 +291,20 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<table>';
     echo '<tr>';
     echo '<td align="left" style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Тематический план занятий</td>';
-    echo '<td align="right" style="text-align: right; font-family: Tahoma;  font-size: 20px; "><div id="button-design" style="margin: 0 0 0 auto;">'.Html::a('Очистить тематический план', \yii\helpers\Url::to(['journal/lesson-theme-clear', 'group_id' => $model->trainingGroup]), ['class' => 'button2 b-green rot-135']).'</div></td>';
-    echo '</tr></table>';
+    //echo '<td align="right" style="text-align: right; font-family: Tahoma;  font-size: 20px; "><div id="button-design" style="margin: 0 0 0 auto;">'.Html::a('Очистить тематический план', \yii\helpers\Url::to(['journal/lesson-theme-clear', 'group_id' => $model->trainingGroup]), ['class' => 'button2 b-green rot-135']).'</div></td>';
+    echo '<td align="right" style="text-align: right; font-family: Tahoma;  font-size: 20px; "><div id="button-design" style="margin: 0 0 0 auto;">';
+    \yii\bootstrap\Modal::begin([
+        'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e;">Предупреждение</p>',
+        'toggleButton' => ['label' => 'Очистить тематический план', 'class' => 'btn btn-secondary'],
+    ]);
+    echo '<p style="text-align: left">Внимание, очистка тематического плана приведет к ПОЛНОЙ очистке внесенных тем и ФИО педагога!</p>';
+    echo '<table><tr><td style="text-align: right; width: 50%;>"';
+    echo '<div id="button-design" style="margin: 0 0 0 auto;">'.Html::a('Очистить тематический план', \yii\helpers\Url::to(['journal/lesson-theme-clear', 'group_id' => $model->trainingGroup]), ['class' => 'button2 b-green rot-135']).'</div>';
+    echo '</td><td style="text-align: left;">';
+    echo '<button style="border: 3px solid red; padding: 7px 7px 7px 7px; border-radius: 8px; color: red" type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ban-circle"></span> Отмена</button>';
+    echo '</td></tr></table>';
+    \yii\bootstrap\Modal::end();
+    echo '</div></td></tr></table>';
     echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {

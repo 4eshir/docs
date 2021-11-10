@@ -231,6 +231,7 @@ class JournalController extends Controller
         return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
     }
 
+
     /**
      * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
