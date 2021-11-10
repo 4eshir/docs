@@ -120,6 +120,8 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
+    echo '<br>';
+    echo '<div class="containerTable" id="tableId">';
     echo '<table class="table table-bordered">';
     echo '<tr><td>ФИО ученика / Даты занятий</td>';
     foreach ($lessons as $lesson)
@@ -144,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         echo '</tr>';
     }
-    echo '</table><br><br>';
+    echo '</table></div><br><br>';
     echo '<h4>Тематический план занятий</h4><br>';
     echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)

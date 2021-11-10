@@ -52,7 +52,7 @@ class SearchDocumentOrder extends DocumentOrderWork
     {
         $query = DocumentOrderWork::find();
         if ($sort == 1)
-            $query = DocumentOrderWork::find()->where(['type' => 1]);
+            $query = DocumentOrderWork::find()->where(['type' => 1])->orWhere(['type' => 10]);
         else
             $query = DocumentOrderWork::find()->where(['type' => 0]);
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
