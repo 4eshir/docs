@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить нового участника деятельности', ['create'], ['class' => 'btn btn-success']) ?> <?= Html::a('Загрузить участников из файла', ['file-load'], ['class' => 'btn btn-primary']) ?> <?= Html::a('Проверить участников на некорректные данные', ['check-correct'], ['class' => 'btn btn-warning']) ?>
     </p>
     <?php
-    echo '<div style="margin-bottom: 10px">'.Html::a('Показать участников с некорректными данными', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '1']), ['style' => 'margin-right: 10px']);
-    echo Html::a('Показать участников с ограничениями на разглашение ПД', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '2'])).'</div>';
+    echo '<div style="margin-bottom: 10px">'.Html::a('Показать участников с некорректными данными', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '1']), ['class' => 'btn btn-danger', 'style' => 'margin-right: 5px;']);
+    echo Html::a('Показать участников с ограничениями на разглашение ПД', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '2']), ['class' => 'btn btn-info']).'</div>';
     ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
