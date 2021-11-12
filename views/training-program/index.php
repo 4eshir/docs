@@ -22,8 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
-    $acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
-    $visible = $acc !== null;
+    //$acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
+    //$visible = $acc !== null;
+    $visible = false;
+    if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 21))
+        $visible = true;
 
     echo GridView::widget([
         'dataProvider' => $dataProvider,
