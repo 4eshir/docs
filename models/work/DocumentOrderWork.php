@@ -421,4 +421,31 @@ class DocumentOrderWork extends DocumentOrder
         else
             return false;
     }
+
+    public function getStateAndColor()
+    {
+        if ($this->state == 1)
+        {
+            $change = $this->getChangeDocs();
+            if ($change != '')
+                return 'Был изменен документами: ' . $change;
+
+            $change2 = $this->getExpireOrders2();
+            if ($change2 != '')
+                return 'Вносит изменения в документы: ' . $change2;
+
+            return 'Актуален';
+        }
+        else
+        {
+            $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $this->id])->one();
+            $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
+            $doc_num = 0;
+            if ($order->order_postfix == null)
+                $doc_num = $order->order_number.'/'.$order->order_copy_id;
+            else
+                $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
+            return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+        }
+    }
 }

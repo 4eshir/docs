@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
             }, 'format' => 'html'
             ],
-            ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
+            /*['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
                 if ($model->state == 1)
                     return 'Актуален';
                 else
@@ -128,8 +128,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
                     return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
                 }
-            }, 'format' => 'raw'],
-
+            }, 'format' => 'raw'],*/
+            ['attribute' => 'stateAndColor', 'label' => 'Состояние', 'format' => 'raw'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
