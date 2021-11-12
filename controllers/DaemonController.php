@@ -54,7 +54,7 @@ class DaemonController extends Controller
             $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
             if ($errorsTraining !== '')
             {
-                $string = 'Ежедневная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
+                $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
                 $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
                 $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                 $string .= '<br>---------------------------------------------------------------------------';

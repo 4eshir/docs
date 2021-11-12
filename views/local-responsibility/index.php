@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'branchStr', 'format' => 'raw'],
             ['attribute' => 'auditoriumStr', 'format' => 'raw'],
             ['attribute' => 'peopleStr', 'format' => 'raw'],
+            ['attribute' => 'orderStr', 'format' => 'raw', 'label' => 'Приказ'],
             ['attribute' => 'regulationStr', 'format' => 'raw'],
 
 

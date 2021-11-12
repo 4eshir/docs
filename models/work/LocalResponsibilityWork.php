@@ -82,6 +82,13 @@ class LocalResponsibilityWork extends LocalResponsibility
         return $result;
     }
 
+    public function getOrderStr()
+    {
+        $leg = LegacyResponsible::find()->where(['people_id' => $this->people_id])->andWhere(['responsibility_type_id' => $this->responsibility_type_id])->andWhere(['IS', 'end_date', null])
+            ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->one();
+        return Html::a(\app\models\work\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id]));
+    }
+
     public function uploadFiles($upd = null)
     {
         $path = '@app/upload/files/responsibility/';
