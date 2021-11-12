@@ -426,18 +426,18 @@ class DocumentOrderWork extends DocumentOrder
     {
         if ($this->state == 1)
         {
-            $change = $this->getChangeDocs();
-            if ($change != '')
-                return 'Был изменен документами: ' . $change;
-
             $change2 = $this->getExpireOrders2();
-            if ($change2 != '')
+            if ($change2 !== "")
                 return 'Вносит изменения в документы: ' . $change2;
 
             return 'Актуален';
         }
         else
         {
+            $change = $this->getChangeDocs();
+            if ($change !== "")
+                return 'Был изменен документами: ' . $change;
+
             $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $this->id])->one();
             $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
             $doc_num = 0;

@@ -88,6 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 return ['class' => 'warning'];
             else if ($data['state'] == 0)
                 return ['class' => 'danger'];
+            else if ($data['changeDocs'] != '')
+                return ['class' => 'warning'];
             else
                 return ['class' => 'default'];
         },
@@ -129,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
                 }
             }, 'format' => 'raw'],*/
-            ['attribute' => 'stateAndColor', 'label' => 'Состояние', 'format' => 'raw'],
+            ['attribute' => 'state', 'label' => 'Состояние', 'format' => 'raw', 'value' => 'stateAndColor'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
