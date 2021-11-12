@@ -859,11 +859,15 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
     <div class="md-modal md-effect-12">
         <div class="content-blocker">
-            <div style="border-radius: 10px; margin-bottom: 200px; font-size: 24px; background: whitesmoke; padding: 5px 5px 5px 5px">
+            <div style="border-radius: 10px; margin-bottom: 200px; font-size: 24px; background: whitesmoke; padding: 5px 5px 5px 5px; margin-left: 5%;">
                 Пожалуйста, подождите. Данные обновляются...
             </div>
             <div class="image-holder">
             <img src="load.gif"/>
+            </div>
+            <div style="border-radius: 10px; font-size: 24px; background: whitesmoke; padding: 5px 5px 5px 5px; margin-bottom: 2%;">
+                Если данное окно зависло: проверьте корректность заполненных полей и повторите попытку сохранения.
+                <button class="btn btn-flat md-close">Закрыть окно</button>
             </div>
         </div>
     </div>
