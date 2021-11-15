@@ -313,7 +313,13 @@ $session = Yii::$app->session;
                     echo '<table>';
                     foreach ($resp as $respOne) {
                         $respOnePeople = \app\models\work\PeopleWork::find()->where(['id' => $respOne->people_id])->one();
-                        echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id])).'</td></tr>';
+                        echo '<tr><td style="padding-left: 20px"><h4>'.$respOnePeople->secondname.' '.$respOnePeople->firstname.' '.$respOnePeople->patronymic.'</h4></td><td style="padding-left: 10px">'
+                            .Html::a('Удалить', \yii\helpers\Url::to(['document-order/delete-responsible', 'peopleId' => $respOnePeople->id, 'orderId' => $model->id]), [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => 'Вы уверены?',
+                                    'method' => 'post',
+                                ],]).'</td></tr>';
                     }
                     echo '</table>';
                 }

@@ -160,7 +160,7 @@ class DocumentOrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $sideCall = null)
     {
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
@@ -170,6 +170,7 @@ class DocumentOrderController extends Controller
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
+            //var_dump('kek');
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
@@ -178,7 +179,6 @@ class DocumentOrderController extends Controller
             $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
-
 
             if ($model->validate(false)) {
                 $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
@@ -203,8 +203,14 @@ class DocumentOrderController extends Controller
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
             }
-
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($sideCall === null)
+                return $this->redirect(['view', 'id' => $model->id]);
+            else
+                return $this->render('update', [
+                    'model' => $model,
+                    'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+                    'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+                ]);
         }
 
         return $this->render('update', [
@@ -235,16 +241,16 @@ class DocumentOrderController extends Controller
         $expire->delete();
 
         $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
-        return $this->render('update', [
+        return $this->actionUpdate($modelId, 1);
+        /*return $this->render('update', [
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
             'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire
-        ]);
+        ]);*/
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
-
         $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
@@ -288,8 +294,10 @@ class DocumentOrderController extends Controller
         $resp = ResponsibleWork::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
         if ($resp != null)
             $resp->delete();
-        $model = $this->findModel($orderId);
-        return $this->redirect('index.php?r=document-order/update&id='.$orderId);
+
+        return $this->actionUpdate($orderId, 1);
+
+        //return $this->redirect('index.php?r=document-order/update&id='.$orderId);
     }
 
     /**

@@ -63,11 +63,33 @@ class TrainingGroupController extends Controller
      * Lists all TrainingGroup models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($archive = null)
     {
         $searchModel = new SearchTrainingGroup();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if ($archive == '1')
+        {
+            $flashStr = "";
+            $allGroups = TrainingGroupWork::find()->all();
+            foreach ($allGroups as $group) {
+                $group->archive = 0;
+                $group->save();
+            }
+            if (Yii::$app->request->post('selection') !== null)
+                for ($i = 0; $i < count(Yii::$app->request->post('selection')); $i++)
+                {
+                    $tag = TrainingGroupWork::findOne(Yii::$app->request->post('selection')[$i]);
+                    $tag->archive === 1 ? $tag->archive = 0 : $tag->archive = 1;
+                    $tag->save(false);
+                    if ($tag->archive === 0)
+                        $flashStr .= "Группа ".$tag->number." разархивирована\n";
+                    else
+                        $flashStr .= "Группа ".$tag->number." архивирована\n";
+                }
+            Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
+            return $this->redirect(['/training-group/index']);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

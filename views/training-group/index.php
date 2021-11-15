@@ -28,6 +28,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php $form = ActiveForm::begin(['action' => Url::to(['/training-group/index', 'archive' => '1'])]); ?>
     <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 10) || \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)){
         echo GridView::widget([
         'dataProvider' => $dataProvider,
@@ -42,7 +43,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив',
                 'checkboxOptions' => function ($model, $key, $index, $column) {
-                    $options['onclick'] = 'myStatus('.$model->id.');';
+                    //$options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->archive ? true : false;
                     return $options;
                 }],
@@ -82,6 +83,12 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         ]);
     }
     ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Сохранить архив', ['class' => 'btn btn-success md-trigger', 'data-modal' => 'modal-12']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 
 
 </div>

@@ -273,7 +273,7 @@ class DocumentOrderWork extends DocumentOrder
                     }
                 }
 
-
+                //var_dump($expireOrder[$i]->expire_type);
                 $expireOrder[$i]->save(false);
             }
         }
