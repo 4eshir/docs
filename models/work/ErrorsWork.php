@@ -79,7 +79,7 @@ class ErrorsWork extends Errors
         $programs = '';
         if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 16))
         {
-            if ($actual == 0)
+            if ($actual === 0)
                 $programs = TrainingProgramWork::find()->all();
             else
                 $programs = TrainingProgramWork::find()->where(['actual' => 1])->all();
@@ -92,6 +92,8 @@ class ErrorsWork extends Errors
             else
                 $programs = TrainingProgramWork::find()->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
         }
+        if (count($programs) === 0)
+            $programs = '';
 
         if ($programs !== '')
         {
@@ -127,7 +129,8 @@ class ErrorsWork extends Errors
     public function ErrorsElectronicJournalSubsystem($user, $critical)
     {
         $result = $this->ErrorsToGroupAndJournal($user, $critical);
-        $result .= '<br><br>';
+        if ($result !== '')
+            $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
         return $result;
     }
