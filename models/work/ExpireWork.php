@@ -17,4 +17,9 @@ class ExpireWork extends Expire
     {
         return $this->hasOne(RegulationWork::className(), ['id' => 'expire_regulation_id']);
     }
+
+    public function getActiveRegulationWork()
+    {
+        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'active_regulation_id']);
+    }
 }

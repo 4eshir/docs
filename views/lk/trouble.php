@@ -23,7 +23,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         <?php
             $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             $erros = new ErrorsWork();
-            echo $erros->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+            echo $erros->ErrorsElectronicJournalSubsystem($user, 1);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
         ?>
     </div>
 </div>

@@ -166,7 +166,11 @@ class DocumentOrderController extends Controller
         $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
         if ($model->type === 10)
-            $model->archive_number = $model->order_copy_id;
+        {
+            $model->archive_number = $model->order_number . '/' . $model->order_copy_id;
+            if ($model->order_postfix !== null)
+                $model->archive_number .= '/' . $model->order_postfix;
+        }
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {

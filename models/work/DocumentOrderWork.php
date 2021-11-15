@@ -111,11 +111,11 @@ class DocumentOrderWork extends DocumentOrder
         foreach ($changes as $change)
         {
             $doc_num = 0;
-            if ($change->expireOrderWork->order_postfix == null)
-                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id;
+            if ($change->activeRegulationWork->order_postfix == null)
+                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->expireOrderWork->order_copy_id;
             else
-                $doc_num = $change->expireOrderWork->order_number.'/'.$change->expireOrderWork->order_copy_id.'/'.$change->expireOrderWork->order_postfix;
-            $result .= Html::a('Приказ №' . $doc_num . ' ' . $change->expireOrderWork->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $change->active_regulation_id])) . '<br>';
+                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->expireOrderWork->order_copy_id.'/'.$change->expireOrderWork->order_postfix;
+            $result .= Html::a('Приказ №' . $doc_num . ' ' . $change->activeRegulationWork->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $change->active_regulation_id])) . '<br>';
         }
         return $result;
     }

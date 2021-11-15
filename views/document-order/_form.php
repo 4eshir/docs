@@ -210,16 +210,19 @@ $session = Yii::$app->session;
         'id' => 'rS',
         'class' => 'form-control nom',
     ];
-    echo '<div id="order-number-1">';
-    if ($model->nomenclature_id === null)
-        echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула');
-    else
+    if ($model->type !== 10)
     {
-        $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->all();
-        $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
-        echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Преамбула');
+        echo '<div id="order-number-1">';
+        if ($model->nomenclature_id === null)
+            echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула');
+        else
+        {
+            $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->all();
+            $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
+            echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Преамбула');
+        }
+        echo '</div>';
     }
-    echo '</div>';
     ?>
 
     <?= $form->field($model, 'archive_check')
@@ -233,6 +236,7 @@ $session = Yii::$app->session;
         ]); ?>
 
     <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
+
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
     </div>
 
