@@ -69,33 +69,34 @@ class TrainingGroupController extends Controller
         $searchModel = new SearchTrainingGroup();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($archive == '1')
-        {
-            var_dump($archive);
-            $flashStr = "";
-            $allGroups = TrainingGroupWork::find()->all();
-            foreach ($allGroups as $group) {
-                $group->archive = 0;
-                $group->save();
-            }
-            if (Yii::$app->request->post('selection') !== null)
-                for ($i = 0; $i < count(Yii::$app->request->post('selection')); $i++)
-                {
-                    $tag = TrainingGroupWork::findOne(Yii::$app->request->post('selection')[$i]);
-                    $tag->archive === 1 ? $tag->archive = 0 : $tag->archive = 1;
-                    $tag->save(false);
-                    if ($tag->archive === 0)
-                        $flashStr .= "Группа ".$tag->number." разархивирована\n";
-                    else
-                        $flashStr .= "Группа ".$tag->number." архивирована\n";
-                }
-            Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
-            return $this->redirect(['/training-group/index']);
-        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionArchive($ids)
+    {
+        $selections = explode(',', $ids);
+        $flashStr = "";
+        $allGroups = TrainingGroupWork::find()->all();
+        foreach ($allGroups as $group) {
+            $group->archive = 0;
+            $group->save();
+        }
+        if ($ids !== "")
+            for ($i = 0; $i < count($selections); $i++)
+            {
+                $tag = TrainingGroupWork::findOne($selections[$i]);
+                $tag->archive === 1 ? $tag->archive = 0 : $tag->archive = 1;
+                $tag->save(false);
+                if ($tag->archive === 0)
+                    $flashStr .= "Группа ".$tag->number." разархивирована\n";
+                else
+                    $flashStr .= "Группа ".$tag->number." архивирована\n";
+            }
+        Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
+        return $this->redirect(['/training-group/index']);
     }
 
     /**
@@ -530,18 +531,6 @@ class TrainingGroupController extends Controller
         if ($modelId == null)
             return $this->redirect('index?r=training-group/create');
         return $this->redirect('index?r=training-group/update&id='.$modelId);
-    }
-
-    public function actionArchive($id)
-    {
-        $tag = TrainingGroupWork::findOne($id);
-        $tag->archive === 1 ? $tag->archive = 0 : $tag->archive = 1;
-        $tag->save(false);
-        if ($tag->archive === 0)
-            Yii::$app->session->setFlash("success", "Группа ".$tag->number." разархивирована");
-        else
-            Yii::$app->session->setFlash("warning", "Группа ".$tag->number." архивирована");
-        return $this->redirect(['/training-group/index']);
     }
 
     public function actionAmnesty ($id)

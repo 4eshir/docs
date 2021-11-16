@@ -20,7 +20,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
 <script>
     function archive() {
-        return 0;
+        var keys = $('#grid').yiiGridView('getSelectedRows');
+        window.location.href='<?php echo Url::to(['training-group/archive']); ?>&ids='+keys.join();
+        //$('#grid').yiiGridView('getSelectedRows')
     }
 </script>
 
@@ -34,9 +36,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php $form = ActiveForm::begin(['action' => Url::to(['/training-group/index', 'archive' => '1'])]); ?>
     <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 10) || \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)){
         echo GridView::widget([
+        'id'=>'grid',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
             'rowOptions' => function($data) {
@@ -92,11 +94,10 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     <div class="form-group">
         <!--<a class="btn btn-danger" href="/index.php?r=training-group%2Findex&archive=">Сохранить архив</a>-->
-        <?php //echo Html::a('Сохранить архив', Url::to(['index' , 'archive' => 1]), ['class' => 'btn btn-primary', 'onclick' => 'archive()']) ?>
-        <?php echo Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
+        <?php echo Html::button('Сохранить архив', ['class' => 'btn btn-success', 'onclick' => 'archive()']) ?>
+        <?php //echo Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
 
 
 </div>
