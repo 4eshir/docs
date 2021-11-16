@@ -162,21 +162,6 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])
-                    ->andWhere(['IN', 'branch_id', $this->branch])
-                    ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
-                $groupsId = [];
-                foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
-
-                $result .= '<tr><td>Количество уникальных обучающися, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
-            }
-            if ($oneType === '2')
-            {
-                if ($this->method == 0) $statusArr = [0, 2];
-                else $statusArr = [0, 1, 2];
-
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
@@ -187,9 +172,9 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающися, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
-            if ($oneType == '3')
+            if ($oneType == '2')
             {
                 
                 if ($this->method == 0) $statusArr = [0, 2];
@@ -197,8 +182,7 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
-                        ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
-                        ->orWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->start_date])])])
+                        ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
@@ -206,27 +190,36 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, проходящих обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+            }
+            if ($oneType == '3')
+            {
+                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+                    ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                        ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
+                    ->andWhere(['IN', 'branch_id', $this->branch])
+                    ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
+                    ->andWhere(['IN', 'budget', $this->budget])->all();
+                $groupsId = [];
+                foreach ($groups as $group) $groupsId[] = $group->id;
+                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+
+                $result .= '<tr><td>Количество обучающихся, начавших обучение после начала периода и завершивших до окончания периода  '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+
             }
             if ($oneType == '4')
             {
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->end_date])
+                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+                    ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                        ->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts1 = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])
-                    ->andWhere(['IN', 'branch_id', $this->branch])
-                    ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
-                $groupsId = [];
-                foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts2 = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
-
-                $result .= '<tr><td>Количество всех обучающися в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.(count($parts1) + count($parts2)). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение до начала периода и завершивших после окончания периода  '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
             }
         }
