@@ -156,6 +156,12 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
 
     public function beforeDelete()
     {
+        $partsData = PersonalDataForeignEventParticipantWork::find()->where(['foreign_event_participant_id' => $this->id])->all();
+        foreach ($partsData as $pd)
+        {
+            $pd->delete();
+        }
+
         $teams = TeamWork::find()->where(['participant_id' => $this->id])->all();
         foreach ($teams as $team) {
             $team->delete();

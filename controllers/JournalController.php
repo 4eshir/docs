@@ -99,7 +99,6 @@ class JournalController extends Controller
         foreach ($visits as $visit) $newVisitsId[] = $visit->id;
         $model->visits = $newVisits;
         $model->visits_id = $newVisitsId;
-        //var_dump($model->visits);
         if ($model->load(Yii::$app->request->post()))
         {
             $model->save();
