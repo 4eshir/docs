@@ -71,7 +71,7 @@ class TrainingGroupController extends Controller
 
         if ($archive == '1')
         {
-            //var_dump($archive);
+            var_dump($archive);
             $flashStr = "";
             $allGroups = TrainingGroupWork::find()->all();
             foreach ($allGroups as $group) {
