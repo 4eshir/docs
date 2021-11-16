@@ -130,7 +130,6 @@ class ManHoursReportModel extends \yii\base\Model
                     $dgIds = [];
                     foreach ($dGroups as $dGroup) $dgIds[] = $dGroup->training_group_id;
                     $dGroups = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $dgIds])->all();
-                    var_dump($dgIds);
                     foreach ($dGroups as $dGroup)
                     {
                         $debug .= '<tr><td>'.$dGroup->training_group_id.' |'.$dGroup->id.'| '.$dGroup->trainingGroup->number.'</td>';
