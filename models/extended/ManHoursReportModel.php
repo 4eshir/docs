@@ -127,9 +127,12 @@ class ManHoursReportModel extends \yii\base\Model
                         ->andWhere(['IN', 'trainingGroup.training_program_id', $progsId])
                         ->andWhere(['IN', 'trainingGroup.budget', $this->budget])
                         ->all();
+                    $dgIds = [];
+                    foreach ($dGroups as $dGroup) $dgIds[] = $dGroup->training_group_id;
+                    $dGroups = TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $dgIds])->all();
                     foreach ($dGroups as $dGroup)
                     {
-                        $debug .= '<tr><td>'.$dGroup->training_group_id.' '.$dGroup->id.' '.$dGroup->trainingGroup->number.'</td>';
+                        $debug .= '<tr><td>'.$dGroup->training_group_id.' |'.$dGroup->id.'| '.$dGroup->trainingGroup->number.'</td>';
                         $newGroupsLessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $dGroup->training_group_id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                         $nglIds = [];
                         foreach ($newGroupsLessons as $lesson) $nglIds[] = $lesson->id;
