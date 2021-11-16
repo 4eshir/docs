@@ -85,7 +85,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     ?>
 
     <div class="form-group">
-        <?php Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
