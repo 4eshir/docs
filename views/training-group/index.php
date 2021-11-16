@@ -47,12 +47,12 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             },
 
         'columns' => [
-            /*['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив',
+            ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Архив',
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     //$options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->archive ? true : false;
                     return $options;
-                }],*/
+                }],
             ['attribute' => 'numberView', 'format' => 'html'],
             ['attribute' => 'programName', 'format' => 'html'],
             ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
@@ -91,9 +91,9 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     ?>
 
     <div class="form-group">
-        <a class="btn btn-danger" href="/index.php?r=training-group%2Findex&archive=">Сохранить архив</a>
-        <?= Html::a('Сохранить архив', Url::to(['index' , 'archive' => 1]), ['class' => 'btn btn-primary', 'onclick' => 'archive()']) ?>
-        <?php //Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
+        <!--<a class="btn btn-danger" href="/index.php?r=training-group%2Findex&archive=">Сохранить архив</a>-->
+        <?php //echo Html::a('Сохранить архив', Url::to(['index' , 'archive' => 1]), ['class' => 'btn btn-primary', 'onclick' => 'archive()']) ?>
+        <?php Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
