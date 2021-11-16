@@ -63,6 +63,7 @@ class TrainingGroupController extends Controller
      * Lists all TrainingGroup models.
      * @return mixed
      */
+
     public function actionIndex($archive = null)
     {
         $searchModel = new SearchTrainingGroup();
@@ -70,6 +71,7 @@ class TrainingGroupController extends Controller
 
         if ($archive == '1')
         {
+            //var_dump($archive);
             $flashStr = "";
             $allGroups = TrainingGroupWork::find()->all();
             foreach ($allGroups as $group) {
