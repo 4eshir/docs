@@ -97,7 +97,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $dTeacherId = $this->teacher;
                     foreach ($tgs as $tg)
                     {
-                        $debug .= '<tr><td>'. $tg->id . " | " .$tg->number.'</td>';
+                        $debug .= '<tr><td>'.$tg->number.'</td>';
                         $dLessons = LessonThemeWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
                             ->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])
                             ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all();
@@ -132,7 +132,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $dGroups = TrainingGroupWork::find()->where(['IN', 'id', $dgIds])->all();
                     foreach ($dGroups as $dGroup)
                     {
-                        $debug .= '<tr><td>'. $dGroup->id . " | " .$dGroup->number.'</td>';
+                        $debug .= '<tr><td>'.$dGroup->number.'</td>';
                         $newGroupsLessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $dGroup->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                         $nglIds = [];
                         foreach ($newGroupsLessons as $lesson) $nglIds[] = $lesson->id;
