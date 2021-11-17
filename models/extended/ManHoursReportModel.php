@@ -97,7 +97,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $dTeacherId = $this->teacher;
                     foreach ($tgs as $tg)
                     {
-                        $debug .= '<tr><td>'.$tg->number.'</td>';
+                        $debug .= '<tr><td>'. $tg->id . " | " .$tg->number.'</td>';
                         $dLessons = LessonThemeWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
                             ->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])
                             ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all();
