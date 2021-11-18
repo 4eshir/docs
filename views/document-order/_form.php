@@ -117,13 +117,15 @@ $session = Yii::$app->session;
     }
 
     function searchColumn() {
+        alert('lllll');
+
         var inputName, filterName, inputLeftDate, filterLeftDate, inputRightDate, filterRightDate, td, tdName, tdLeftDate, tdRightDate, i, txtValueName, txtValueLeftDate, txtValueRightDate;
 
-        inputName = document.getElementById('nameSearch');
+        inputName = document.getElementById('documentorderwork-namesearch');
         filterName = inputName.value.toUpperCase();
-        inputLeftDate = document.getElementById('nameLeftDate');
+        inputLeftDate = document.getElementById('documentorderwork-nameleftdate');
         filterLeftDate = inputLeftDate.value.toUpperCase();
-        inputRightDate = document.getElementById('nameRightDate');
+        inputRightDate = document.getElementById('documentorderwork-namerightdate');
         filterRightDate = inputRightDate.value.toUpperCase();
 
         for (i = 0; i < rows.length; i++)
@@ -236,16 +238,35 @@ $session = Yii::$app->session;
         ]); ?>
 
     <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
-
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
     </div>
 
     <div id="group_table" style="margin-bottom: 1em;" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
         <?php
         echo '<b>Фильтры для учебных групп: </b>';
-        echo '<input type="text" id="nameSearch" onchange="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
-        echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
-        echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+        echo $form->field($model, 'nameSearch', ['inputOptions' => ['onchange' => 'searchColumn()', 'placeholder' => 'Поиск по части имени...']])->textInput()->label("Поиск по части имени: ");
+        echo $form->field($model, 'nameLeftDate', ['inputOptions' => ['onchange' => 'searchColumn()', 'pattern'=>'[0-9]{4}-[0-9]{2}-[0-9]{2}']])->input('date')->label('Поиск по дате начала занятий: ');
+        /*widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+                ['onchange' => 'searchColumn'],
+            ]])->label('Поиск по дате начала занятий: ');*/
+        echo $form->field($model, 'nameRightDate', ['inputOptions' => ['onchange' => 'searchColumn']])->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]])->label('Поиск по дате окончания занятий: ');
+
+        //echo '<input type="text" id="nameSearch" onkeypress="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
+        //echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+        //echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
 
         if ($model->nomenclature_id !== null) {
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="sortable" class="table table-bordered"><thead><tr><th></th><th><a onclick="sortColumn(1)"><b>Учебная группа</b></a></th><th><a onclick="sortColumn(2)"><b>Дата начала занятий</b></a></th><th><a onclick="sortColumn(3)"><b>Дата окончания занятий</b></a></th></tr></thead>';
