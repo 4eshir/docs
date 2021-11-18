@@ -175,7 +175,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
             if ($oneType == '2')
             {
@@ -193,7 +193,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
             if ($oneType == '3')
             {
@@ -207,7 +207,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение после начала периода и завершивших до окончания периода  '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
             }
             if ($oneType == '4')
@@ -222,7 +222,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение до начала периода и завершивших после окончания периода  '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
             }
         }
