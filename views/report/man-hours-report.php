@@ -8,6 +8,10 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
+<?php
+$this->title = 'Генерация отчета по обучающимся';
+?>
+
 <style>
     .block-report{
         background: #e9e9e9;
