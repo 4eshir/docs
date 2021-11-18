@@ -150,6 +150,8 @@ $session = Yii::$app->session;
             }
         }
     }
+    
+
 </script>
 
 <div class="document-order-form">
