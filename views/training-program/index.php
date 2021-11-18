@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить программу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <div style="margin: 0 118%;">
+        <div class="" data-html="true" style="position: fixed; z-index: 101; width: 30px; height: 30px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Зеленый цвет - образовательная программа актуальная и не имеет ошибок&#10Желтый цвет - образовательная программа имеет ошибку&#10Белый цвет - образовательная программа не актуальная и не имеет ошибок">❔</div>
+    </div>
+
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php
     //$acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
