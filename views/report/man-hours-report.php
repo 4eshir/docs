@@ -107,6 +107,7 @@ $this->title = 'Генерация отчета по обучающимся';
         }])->label('Основа');
         ?>
     </div>
+
     <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="col-xs-8 block-report">
         <?= $form->field($model, 'type')->checkboxList(['0' => 'Кол-ву человеко-часов', '1' => 'Кол-ву обучающихся, начавших обучение до начала заданного периода и завершивших обучение в заданный период', '2' => 'Кол-ву обучающихся, начавших обучение в заданный период и заверших обучение после окончания заданного периода',
@@ -125,6 +126,22 @@ $this->title = 'Генерация отчета по обучающимся';
             ])->label('Сгенерировать отчет по'); ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
+    <div class="col-xs-8 block-report">
+        <?php
+        $arr = ['0' => 'Все обучающиеся', '1' => 'Уникальные обучающиеся'];
+        echo $form->field($model, 'unic')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="unic-'. $index .'">
+                        <input style="margin-left: -20px" id="unic-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Метод подсчета обучающихся');
+        ?>
+    </div>
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
+
 
     <div class="col-xs-8 block-report" id="teachers" style="display: none">
         <?php

@@ -20,6 +20,7 @@ class ManHoursReportModel extends \yii\base\Model
     public $start_date;
     public $end_date;
     public $type;
+    public $unic;
     /*
      * 0 - человеко-часы
      * 1 - всего уникальных людей
@@ -37,7 +38,7 @@ class ManHoursReportModel extends \yii\base\Model
         return [
             [['start_date', 'end_date'], 'string'],
             [['type', 'branch', 'budget', 'focus'], 'safe'],
-            [['method', 'teacher'], 'integer']
+            [['method', 'teacher', 'unic'], 'integer']
         ];
     }
 
@@ -173,7 +174,10 @@ class ManHoursReportModel extends \yii\base\Model
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                if ($this->unic == 1)
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                else
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
                 $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
@@ -191,7 +195,10 @@ class ManHoursReportModel extends \yii\base\Model
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                if ($this->unic == 1)
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                else
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
                 $result .= '<tr><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
             }
@@ -205,7 +212,10 @@ class ManHoursReportModel extends \yii\base\Model
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                if ($this->unic == 1)
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                else
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
                 $result .= '<tr><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
@@ -220,7 +230,10 @@ class ManHoursReportModel extends \yii\base\Model
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                if ($this->unic == 1)
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                else
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
                 $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
