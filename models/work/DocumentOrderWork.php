@@ -36,10 +36,6 @@ class DocumentOrderWork extends DocumentOrder
 
     public $archive_number;
 
-    public $nameSearch;
-    public $nameLeftDate;
-    public $nameRightDate;
-
 
     public function rules()
     {

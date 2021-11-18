@@ -8,40 +8,6 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<script>
-    $('#some-form').on('submit', function (e) {
-        if (!confirm("Everything is correct. Submit?")) {
-            return false;
-        }
-        return true;
-    });
-
-    var enter_press = false
-    function preventEnter(key)
-    {
-        if (key === 'Enter')
-            enter_press = true;
-        else
-            enter_press = false;
-        return !enter_press;
-    }
-
-    function test()
-    {
-        console.log(enter_press);
-        if (enter_press) {
-            enter_press = !enter_press;
-            return false;
-        }
-        return true;
-    }
-</script>
-
-<form id="some-form" onsubmit="return test()" action="index.php?r=site/login" method="post">
-    <input type="text" onkeydown="return preventEnter(event.key)">
-    <input type="submit">
-</form>
-
 <div class="auditorium-form">
 
     <?php $form = ActiveForm::begin(['id' => 'some-form1']); ?>
