@@ -148,15 +148,17 @@ $session = Yii::$app->session;
             }
         }
     }
-    
 
+    
 </script>
 
 <div class="document-order-form">
 
     <?php
     $model->people_arr = \app\models\work\PeopleWork::find()->select(['id as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic) as label"])->asArray()->all();
-    $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    $form = ActiveForm::begin(['id' => 'dynamic-form', 'options' => [
+        'onsubmit' => 'test()',
+    ]]); ?>
 
     <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'php:Y-m-d',
