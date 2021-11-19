@@ -15,7 +15,7 @@ use app\models\work\VisitWork;
 use Mpdf\Tag\P;
 use yii\db\Query;
 
-class ManHoursReportModel extends \yii\base\Model
+class UsefulSideReportModel extends \yii\base\Model
 {
     public $start_date;
     public $end_date;

@@ -7,6 +7,7 @@ use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
 use app\models\extended\ManHoursReportModel;
 use app\models\extended\ResultReportModel;
+use app\models\extended\UsefulSideReportModel;
 use Yii;
 use app\models\work\PositionWork;
 use app\models\SearchPosition;
@@ -59,6 +60,30 @@ class ReportController extends Controller
     public function actionManHoursReport()
     {
         $model = new ManHoursReportModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $newModel = new ResultReportModel();
+            $report = $model->generateReport();
+            $newModel->result = $report[0];
+            $newModel->debugInfo = $report[1];
+            return $this->render('report-result', [
+                'model' => $newModel,
+            ]);
+        }
+
+        return $this->render('man-hours-report', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Creates a new Position model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUsefulSideReport()
+    {
+        $model = new UsefulSideReportModel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $newModel = new ResultReportModel();
