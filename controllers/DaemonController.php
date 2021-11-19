@@ -66,6 +66,7 @@ class DaemonController extends Controller
                     ->send();
                 Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
             }
+            gc_collect_cycles();
         }
     }
 
