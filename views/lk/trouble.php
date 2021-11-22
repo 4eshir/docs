@@ -19,7 +19,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 <div>
     <?= $this->render('menu') ?>
 
-    <?php echo '<b style="padding: 50px;">Поиск проблем на странице: </b>';
+    <?php echo '<b style="padding: 50px;">Поиск в таблице: </b>';
 
     echo '<input style="width: 400px;" type="text" id="nameSearch" onchange="searchColumn()" placeholder="Введите код проблемы, описание или место возникновения" title="Введите имя">';
     ?>
