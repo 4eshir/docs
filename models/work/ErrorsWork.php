@@ -39,12 +39,12 @@ class ErrorsWork extends Errors
 
         if ($groups !== '')
         {
-            $result .= '<table class="table table-bordered">';
-            $result .= '<h4 style="text-align: center;"><u>Ошибки в учебных группах</u></h4>';
+            $result .= '<table id="training-group" class="table table-bordered">';
+            $result .= '<h4 style="text-align: center;"><u><a onclick="hide(0)"> Ошибки в учебных группах</a></u></h4>';
             $result .= '<thead>';
-            $result .= '<th style="vertical-align: middle;">Код проблемы</th>';
-            $result .= '<th style="vertical-align: middle;">Описание проблемы</th>';
-            $result .= '<th style="vertical-align: middle;">Место возникновения</th>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
             $result .= '</thead>';
 
             $result .= '<tbody>';
@@ -62,7 +62,7 @@ class ErrorsWork extends Errors
                     else
                         $result .= '<tr>';
                     $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-                    $result .= '<th style="text-align: left;">' . $errorName->number . "</th>";
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
                     $result .= '<td>' . Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])) . '</td>';
                     $result .= '</tr>';
@@ -97,11 +97,11 @@ class ErrorsWork extends Errors
 
         if ($programs !== '')
         {
-            $result .= '<table class="table table-bordered"><h4 style="text-align: center;"><u>Ошибки в образовательных программах</u></h4>';
+            $result .= '<table id="training-program" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(1)">Ошибки в образовательных программах</a></u></h4>';
             $result .= '<thead>';
-            $result .= '<th style="vertical-align: middle;">Код проблемы</th>';
-            $result .= '<th style="vertical-align: middle;">Описание проблемы</th>';
-            $result .= '<th style="vertical-align: middle;">Место возникновения</th>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
             $result .= '</thead>';
             $result .= '<tbody>';
 
@@ -115,7 +115,7 @@ class ErrorsWork extends Errors
                     else
                         $result .= '<tr>';
                     $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-                    $result .= '<th style="text-align: left;">' . $errorName->number . "</th>";
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
                     $result .= '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
                     $result .= '</tr>';
