@@ -416,52 +416,47 @@ $session = Yii::$app->session;
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Изменение документов</h4></div>
             <br>
             <?php
-            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
+            //$order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
+            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
             if ($order != null)
             {
                 echo '<table>';
                 foreach ($order as $orderOne) {
                     if ($orderOne->expireRegulation !== null)
-                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Положение "'.$orderOne->expireRegulationWork->name.'"</h4></td><td style="padding-left: 10px">'
-                            .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                'class' => 'btn btn-danger',
-                                'data' => [
-                                    'confirm' => 'Вы уверены?',
-                                    'method' => 'post',
-                                ],]).'</td></tr>';
+                        if ($orderOne->expire_type === 1)
+                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Отменяет документ: </b> Положение "'.$orderOne->expireRegulationWork->name.'"</h4></td><td style="padding-left: 10px">'
+                                .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены?',
+                                        'method' => 'post',
+                                    ],]).'</td></tr>';
+                        else if ($orderOne->expire_type === 2)
+                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Изменяет документ: </b> Положение "' . $orderOne->expireRegulationWork->name . '"</h4></td><td style="padding-left: 10px">'
+                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены?',
+                                        'method' => 'post',
+                                    ],]) . '</td></tr>';
                     if ($orderOne->expireOrder !== null)
-                        echo '<tr><td style="padding-left: 20px"><h4><b>Утратил силу документ: </b> Приказ №'.$orderOne->expireOrderWork->fullName.'"</h4></td><td style="padding-left: 10px">'
-                            .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                'class' => 'btn btn-danger',
-                                'data' => [
-                                    'confirm' => 'Вы уверены?',
-                                    'method' => 'post',
-                                ],]).'</td></tr>';
-                }
-
-                $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 2])->all();
-                if ($order != null) {
-                    foreach ($order as $orderOne) {
-                        if ($orderOne->expireRegulation !== null)
-                            echo '<tr><td style="padding-left: 20px"><h4><b>Изменен документ: </b> Положение "' . $orderOne->expireRegulationWork->name . '"</h4></td><td style="padding-left: 10px">'
+                        if ($orderOne->expire_type === 1)
+                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Отменяет документ: </b> Приказ №'.$orderOne->expireOrderWork->fullName.'"</h4></td><td style="padding-left: 10px">'
+                                .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены?',
+                                        'method' => 'post',
+                                    ],]).'</td></tr>';
+                        else if ($orderOne->expire_type === 2)
+                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Изменяет документ: </b> Приказ №' . $orderOne->expireOrderWork->fullName . '"</h4></td><td style="padding-left: 10px">'
                                 . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
                                     'class' => 'btn btn-danger',
                                     'data' => [
                                         'confirm' => 'Вы уверены?',
                                         'method' => 'post',
                                     ],]) . '</td></tr>';
-                        if ($orderOne->expireOrder !== null)
-                            echo '<tr><td style="padding-left: 20px"><h4><b>Изменен документ: </b> Приказ №' . $orderOne->expireOrderWork->fullName . '"</h4></td><td style="padding-left: 10px">'
-                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены?',
-                                        'method' => 'post',
-                                    ],]) . '</td></tr>';
-                    }
                 }
-
-
                 echo '</table>';
             }
             ?>
