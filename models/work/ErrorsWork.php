@@ -155,7 +155,7 @@ class ErrorsWork extends Errors
         $result .= '<th style="vertical-align: middle;"><b>Отдел</b></th>';
         $result .= '</thead>' . '<tbody>';
 
-        $errorsList = GroupErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->orderBy(['time_start'])->all();
+        $errorsList = GroupErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->all();
         foreach ($errorsList as $error)
         {
             $result .= '<tr>';
@@ -168,7 +168,7 @@ class ErrorsWork extends Errors
             $result .= '</tr>';
         }
 
-        $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->orderBy(['time_start'])->all();
+        $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->all();
         foreach ($errorsList as $error)
         {
             $result .= '<tr>';

@@ -3,91 +3,146 @@
 namespace app\models\common;
 
 use Yii;
-use yii\base;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
- * @property integer $id
- * @property string $username
+ * @property int $id
  * @property string $secondname
  * @property string $firstname
  * @property string $patronymic
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
+ * @property string $username
  * @property string $auth_key
- * @property integer $status
- * @property integer $aka
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $password_hash
+ * @property string|null $password_reset_token
+ * @property string|null $email
+ * @property int|null $aka
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
+ *
+ * @property AsAdmin[] $asAdmins
+ * @property DocumentOrder[] $documentOrders
+ * @property Feedback[] $feedbacks
+ * @property Log[] $logs
+ * @property People $aka0
+ * @property UserRole[] $userRoles
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'user';
     }
 
     /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
-
-    /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass'], 'string'],
-            [['aka'], 'integer'],
-            ['status', 'default', 'value'],
-            ['status', 'in', 'range' => []]
-        ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'firstname' => 'Имя',
-            'secondname' => 'Фамилия',
-            'patronymic' => 'Отчество',
-            'email' => 'E-mail',
-            'username' => 'Логин (e-mail)',
-            'aka' => 'Также является',
-            'akaName' => 'Также является',
+            [['secondname', 'firstname', 'patronymic', 'username', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
+            [['aka', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['secondname', 'firstname', 'patronymic'], 'string', 'max' => 1000],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['aka'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['aka' => 'id']],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'secondname' => 'Secondname',
+            'firstname' => 'Firstname',
+            'patronymic' => 'Patronymic',
+            'username' => 'Username',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'aka' => 'Aka',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+
+    /**
+     * Gets query for [[AsAdmins]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAsAdmins()
+    {
+        return $this->hasMany(AsAdmin::className(), ['register_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[DocumentOrders]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDocumentOrders()
+    {
+        return $this->hasMany(DocumentOrder::className(), ['register_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Feedbacks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFeedbacks()
+    {
+        return $this->hasMany(Feedback::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Logs]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLogs()
+    {
+        return $this->hasMany(Log::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Aka0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAka0()
+    {
+        return $this->hasOne(People::className(), ['id' => 'aka']);
+    }
+
+    /**
+     * Gets query for [[UserRoles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRole::className(), ['user_id' => 'id']);
+    }
+
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         //throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
@@ -174,5 +229,4 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return false;
     }
-
 }
