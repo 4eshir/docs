@@ -72,23 +72,13 @@ class ErrorsWork extends Errors
                     $result .= '</tr>';
                 }
 
-                foreach ($errorsList as $error)
-                    $error->detachBehaviors();
 
             }
 
-            foreach ($groups as $group)
-                $group->detachBehaviors();
 
             $result .= '</tbode></table>';
         }
-
-
-
-        unset($groups);
-        unset($branch);
-        unset($errorsList);
-        unset($errorName);
+;
         return $result;
     }
 
@@ -154,12 +144,9 @@ class ErrorsWork extends Errors
     public function ErrorsElectronicJournalSubsystem($user, $critical)
     {
         $result = $this->ErrorsToGroupAndJournal($user, $critical);
-        var_dump('После ошибок групп: '.memory_get_usage());
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
-        var_dump('После ошибок программ: '.memory_get_usage());
-        var_dump('<br>');
         return $result;
     }
 }
