@@ -110,7 +110,7 @@ class PeopleWork extends People
     public function getRespLinks()
     {
         //$resp = LocalResponsibility::find()->where(['people_id' => $this->id])->all();
-        $resp = LegacyResponsibleWork::find()->where(['people_id' => $this->id])->andWhere(['end_date' => 'NULL'])->all();
+        $resp = LegacyResponsibleWork::find()->where(['people_id' => $this->id])->andWhere(['end_date' => NULL])->all();
         $result = '';
         foreach ($resp as $respOne)
             $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $respOne->id])).'<br>';
