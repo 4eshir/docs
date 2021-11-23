@@ -8,6 +8,7 @@ use app\models\work\ErrorsWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\ProgramErrorsWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\UserRoleWork;
 use app\models\work\UserWork;
 use Yii;
 use yii\web\Controller;
@@ -47,18 +48,19 @@ class DaemonController extends Controller
 
     public function actionMessageErrors()
     {
-        $users = UserWork::find()->all();
+        //$users = UserWork::find()->all();
+        $users = UserWork::find()->joinWith(['userRole userRole'])->where(['userRole.role_id' => 7])->all();
+
         $messages = [];
-        //$errors = new ErrorsWork();
-        //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($users[0], 1);
         foreach ($users as $user)
         {
             $errors = new ErrorsWork();
-            $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
-            if ($errorsTraining !== '')
-            {
+            //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+            //if ($errorsTraining !== '')
+            //{
                 $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
-                $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
+                //$string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
+                $string .= $errors->ForAdmin() . '</div>';
                 $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                 $string .= '<br>---------------------------------------------------------------------------';
                 $messages[] = Yii::$app->mailer->compose()
@@ -67,10 +69,15 @@ class DaemonController extends Controller
                     ->setSubject('Краткая сводка по ЦСХД')
                     ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
                 Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
-            }
-            //gc_collect_cycles();
+            //}
         }
         Yii::$app->mailer->sendMultiple($messages);
+    }
+
+    public function actionsMessageErrorsAdmin()
+    {
+        $users = UserRoleWork::find()->where(['role_id'])->all();
+
     }
 
 }

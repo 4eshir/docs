@@ -13,6 +13,7 @@ use app\models\common\PeoplePositionBranch;
 use app\models\common\Position;
 use app\models\common\TeacherParticipant;
 use app\models\common\TrainingGroup;
+use app\models\extended\AccessTrainingGroup;
 use Yii;
 use yii\helpers\Html;
 
@@ -109,10 +110,16 @@ class PeopleWork extends People
 
     public function getRespLinks()
     {
-        $resp = LocalResponsibility::find()->where(['people_id' => $this->id])->all();
+        $resp = LegacyResponsibleWork::find()->where(['people_id' => $this->id])->andWhere(['end_date' => NULL])->all();
         $result = '';
         foreach ($resp as $respOne)
-            $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $respOne->id])).'<br>';
+        {
+            $loc = LocalResponsibility::find()->where(['responsibility_type_id' => $respOne->responsibility_type_id])->andWhere(['branch_id' => $respOne->branch_id])->andWhere(['auditorium_id' => $respOne->auditorium_id])->one();
+            if ($loc === Null)
+                $result .= '<p style="font-style: italic; color: red; display: inline">Ответственность удалена</p>'.'<br>';
+            else
+                $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $loc->id])).'<br>';
+        }
         return $result;
     }
 

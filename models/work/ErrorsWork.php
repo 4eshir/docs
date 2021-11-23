@@ -49,8 +49,6 @@ class ErrorsWork extends Errors
             $result .= '</thead>';
 
             $result .= '<tbody>';
-            $errorsList = new GroupErrorsWork();
-            $errorName = new ErrorsWork();
             foreach ($groups as $group)
             {
                 if ($critical == 0)
@@ -71,14 +69,10 @@ class ErrorsWork extends Errors
                     $result .= '<td>' . Html::a($group->branchName, \yii\helpers\Url::to(['branch/view', 'id' => $group->branch_id])) . '</td>';
                     $result .= '</tr>';
                 }
-
-
             }
-
-
             $result .= '</tbode></table>';
         }
-;
+
         return $result;
     }
 
@@ -147,6 +141,52 @@ class ErrorsWork extends Errors
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
+        return $result;
+    }
+
+    public function ForAdmin()
+    {
+        $result = '<table id="training-group" class="table table-bordered">';
+        $result .= '<h4 style="text-align: center;"><u>Ошибки в системе: </u></h4>';
+        $result .= '<thead>';
+        $result .= '<th style="vertical-align: middle; width: 110px;"><b>Код проблемы</b></th>';
+        $result .= '<th style="vertical-align: middle; width: 400px;"><b>Описание проблемы</b></th>';
+        $result .= '<th style="vertical-align: middle; width: 220px;"><b>Место возникновения</b></th>';
+        $result .= '<th style="vertical-align: middle;"><b>Отдел</b></th>';
+        $result .= '</thead>' . '<tbody>';
+
+        $errorsList = GroupErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->orderBy(['time_start'])->all();
+        foreach ($errorsList as $error)
+        {
+            $result .= '<tr>';
+            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+            $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+            $result .= '<td>' . $errorName->name . '</td>';
+            $groupName = TrainingGroupWork::find()->where(['id' => $error->training_group_id])->one();
+            $result .= '<td>' . $groupName->number . '</td>';
+            $result .= '<td>' . $groupName->branchName . '</td>';
+            $result .= '</tr>';
+        }
+
+        $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->orderBy(['time_start'])->all();
+        foreach ($errorsList as $error)
+        {
+            $result .= '<tr>';
+            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+            $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+            $result .= '<td>' . $errorName->name . '</td>';
+            $programName = TrainingProgramWork::find()->where(['id' => $error->training_program_id])->one();
+            $result .= '<td>' . $programName->name . '</td>';
+            $result .= '<td>';
+            $branchs = BranchProgramWork::find()->where(['training_program_id' => $programName->id])->all();
+            foreach ($branchs as $branch)
+                $result .= $branch->branch->name . '<br>';
+            $result .= '</td>';
+            $result .= '</tr>';
+        }
+
+        $result .= '</tbode></table>';
+
         return $result;
     }
 }
