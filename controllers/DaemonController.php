@@ -54,7 +54,7 @@ class DaemonController extends Controller
         //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($users[0], 1);
         foreach ($users as $user)
         {
-            $roles = UserRoleWork::find()->where(['user_id'])->all();
+            $roles = UserRoleWork::find()->where(['user_id' => $user->id])->all();
             $rolemax = 0;
             foreach ($roles as $role)
                 if ($role->role_id > $rolemax)
