@@ -75,6 +75,7 @@ class ErrorsWork extends Errors
         unset($groups);
         unset($branch);
         unset($errorsList);
+        gc_collect_cycles();
         return $result;
     }
 
