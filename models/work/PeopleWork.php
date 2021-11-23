@@ -113,7 +113,11 @@ class PeopleWork extends People
         $resp = LegacyResponsibleWork::find()->where(['people_id' => $this->id])->andWhere(['end_date' => NULL])->all();
         $result = '';
         foreach ($resp as $respOne)
-            $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $respOne->id])).'<br>';
+        {
+            $loc = LocalResponsibility::find()->where(['responsibility_type_id' => $respOne->responsibility_type_id])->andWhere(['branch_id' => $respOne->branch_id])->andWhere(['auditorium_id' => $respOne->auditorium_id])->one();
+            //$result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $respOne->id])).'<br>';
+            $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $loc->id])).'<br>';
+        }
         return $result;
     }
 
