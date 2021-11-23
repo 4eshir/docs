@@ -49,10 +49,12 @@ class DaemonController extends Controller
     {
         $users = UserWork::find()->all();
         $messages = [];
+        $errors = new ErrorsWork();
+        $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($users[0], 1);
         foreach ($users as $user)
         {
-            $errors = new ErrorsWork();
-            $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+            //$errors = new ErrorsWork();
+            //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
             if ($errorsTraining !== '')
             {
                 $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
