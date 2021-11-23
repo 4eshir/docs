@@ -49,6 +49,8 @@ class ErrorsWork extends Errors
             $result .= '</thead>';
 
             $result .= '<tbody>';
+            $errorsList = new GroupErrorsWork();
+            $errorName = new ErrorsWork();
             foreach ($groups as $group)
             {
                 if ($critical == 0)
@@ -69,13 +71,15 @@ class ErrorsWork extends Errors
                     $result .= '<td>' . Html::a($group->branchName, \yii\helpers\Url::to(['branch/view', 'id' => $group->branch_id])) . '</td>';
                     $result .= '</tr>';
                 }
+
+                $errorsList->detachBehavior();
             }
             $result .= '</tbode></table>';
         }
         unset($groups);
         unset($branch);
         unset($errorsList);
-        gc_collect_cycles();
+        unset($errorName);
         return $result;
     }
 
