@@ -126,7 +126,7 @@ $this->title = 'Генерация отчета по обучающимся';
             ])->label('Сгенерировать отчет по'); ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report">
+    <div class="col-xs-8 block-report" id="unic" style="display: none">
         <?php
         $arr = ['0' => 'Все обучающиеся', '1' => 'Уникальные обучающиеся'];
         echo $form->field($model, 'unic')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
@@ -138,6 +138,20 @@ $this->title = 'Генерация отчета по обучающимся';
                     </label>
                 </div>';
         }])->label('Метод подсчета обучающихся');
+        ?>
+    </div>
+    <div class="col-xs-8 block-report" id="hours" style="display: none">
+        <?php
+        $arr = ['0' => 'Метод, учитывающий неявки', '1' => 'Метод, игнорирующий неявки'];
+        echo $form->field($model, 'method')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="methods-'. $index .'">
+                        <input style="margin-left: -20px" id="methods-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Метод подсчета человеко-часов');
         ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
@@ -157,20 +171,7 @@ $this->title = 'Генерация отчета по обучающимся';
         ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report" id="hours" style="display: none">
-        <?php
-        $arr = ['0' => 'Реальный', '1' => 'Идеальный'];
-        echo $form->field($model, 'method')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
-            return
-                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="methods-'. $index .'">
-                        <input style="margin-left: -20px" id="methods-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
-                        '. $label .'
-                    </label>
-                </div>';
-        }])->label('Метод подсчета человеко-часов');
-        ?>
-    </div>
+
 
     <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="form-group">
@@ -190,5 +191,13 @@ $this->title = 'Генерация отчета по обучающимся';
         var teach = document.getElementById('teachers');
         if (elem.checked) { hour.style.display = "block"; teach.style.display = "block"; }
         else { hour.style.display = "none"; teach.style.display = "none"; }
+
+        var elem1 = document.getElementById('interview-1');
+        var elem2 = document.getElementById('interview-2');
+        var elem3 = document.getElementById('interview-3');
+        var unic = document.getElementById('unic');
+        if (elem1.checked || elem2.checked || elem3.checked) { unic.style.display = "block"; }
+        else { unic.style.display = "none"; }
     }
+
 </script>

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\components\Logger;
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
+use app\models\extended\ForeignEventReportModel;
 use app\models\extended\ManHoursReportModel;
 use app\models\extended\ResultReportModel;
 use app\models\extended\UsefulSideReportModel;
@@ -95,7 +96,26 @@ class ReportController extends Controller
             ]);
         }
 
-        return $this->render('man-hours-report', [
+        return $this->render('useful-side-report', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionForeignEventReport()
+    {
+        $model = new ForeignEventReportModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $newModel = new ResultReportModel();
+            $report = $model->generateReport();
+            $newModel->result = $report[0];
+            $newModel->debugInfo = $report[1];
+            return $this->render('report-result', [
+                'model' => $newModel,
+            ]);
+        }
+
+        return $this->render('foreign-event-report', [
             'model' => $model,
         ]);
     }

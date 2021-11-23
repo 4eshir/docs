@@ -264,6 +264,7 @@ $this->title = 'ЦСХД';
                         <ul>
                             <?php
                                     echo '<li>'.Html::a('Отчеты по обучающимся', \yii\helpers\Url::to(['report/man-hours-report'])).'</li>';
+                                    //echo '<li>'.Html::a('Отчеты по мероприятиям', \yii\helpers\Url::to(['report/foreign-event-report'])).'</li>';
                                     //echo '<li>'.Html::a('Полезные функции', \yii\helpers\Url::to(['report/useful-side-report'])).'</li>';
                             ?>
                         </ul>

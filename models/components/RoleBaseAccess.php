@@ -215,6 +215,7 @@ class RoleBaseAccess
         //Отчеты
         "report" => [
             "man-hours-report" => [25, 26],
+            "foreign-event-report" => [25, 26],
             "report-result" => [25, 26],
         ],
         //------
