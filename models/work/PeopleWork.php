@@ -118,7 +118,7 @@ class PeopleWork extends People
             $loc = LocalResponsibility::find()->where(['responsibility_type_id' => $respOne->responsibility_type_id])->andWhere(['branch_id' => $respOne->branch_id])->andWhere(['auditorium_id' => $respOne->auditorium_id])->one();
             //$result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $respOne->id])).'<br>';
             if ($loc === Null)
-                $result .= 'В учете ответственности работников удалена запись';
+                $result .= 'В учете ответственности работников удалена запись'.'<br>';
             else
                 $result .= Html::a($respOne->responsibilityType->name.' '.$respOne->branch->name.' '.$respOne->auditorium->name, \yii\helpers\Url::to(['local-responsibility/view', 'id' => $loc->id])).'<br>';
         }
