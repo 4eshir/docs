@@ -72,6 +72,9 @@ class ErrorsWork extends Errors
             }
             $result .= '</tbode></table>';
         }
+        unset($groups);
+        unset($branch);
+        unset($errorsList);
         return $result;
     }
 
