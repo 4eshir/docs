@@ -8,6 +8,7 @@ use app\models\work\ErrorsWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\ProgramErrorsWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\UserRoleWork;
 use app\models\work\UserWork;
 use Yii;
 use yii\web\Controller;
@@ -53,24 +54,38 @@ class DaemonController extends Controller
         //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($users[0], 1);
         foreach ($users as $user)
         {
-            $errors = new ErrorsWork();
-            $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
-            if ($errorsTraining !== '')
+            $roles = UserRoleWork::find()->where(['user_id'])->all();
+            $rolemax = 0;
+            foreach ($roles as $role)
+                if ($role->role_id > $rolemax)
+                    $rolemax = $role->role_id;
+            if ($rolemax !== 7)
             {
-                $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
-                $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
-                $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
-                $string .= '<br>---------------------------------------------------------------------------';
-                $messages[] = Yii::$app->mailer->compose()
-                    ->setFrom('noreply@schooltech.ru')
-                    ->setTo($user->username)
-                    ->setSubject('Краткая сводка по ЦСХД')
-                    ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
-                Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
+                $errors = new ErrorsWork();
+                $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+                if ($errorsTraining !== '')
+                {
+                    $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
+                    $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
+                    $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
+                    $string .= '<br>---------------------------------------------------------------------------';
+                    $messages[] = Yii::$app->mailer->compose()
+                        ->setFrom('noreply@schooltech.ru')
+                        ->setTo($user->username)
+                        ->setSubject('Краткая сводка по ЦСХД')
+                        ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
+                    Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
+                }
             }
             //gc_collect_cycles();
         }
         Yii::$app->mailer->sendMultiple($messages);
+    }
+
+    public function actionsMessageErrorsAdmin()
+    {
+        $users = UserRoleWork::find()->where(['role_id'])->all();
+
     }
 
 }
