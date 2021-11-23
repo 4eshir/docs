@@ -48,6 +48,9 @@ class DaemonController extends Controller
     public function actionMessageErrors()
     {
         $users = UserWork::find()->all();
+        $messages = [];
+        //$errors = new ErrorsWork();
+        //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($users[0], 1);
         foreach ($users as $user)
         {
             $errors = new ErrorsWork();
@@ -58,16 +61,19 @@ class DaemonController extends Controller
                 $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
                 $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                 $string .= '<br>---------------------------------------------------------------------------';
-                Yii::$app->mailer->compose()
+                $messages[] = Yii::$app->mailer->compose()
                     ->setFrom('noreply@schooltech.ru')
                     ->setTo($user->username)
                     ->setSubject('Краткая сводка по ЦСХД')
-                    ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.')
-                    ->send();
+                    ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
                 Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
             }
+            unset($errors);
+            unset($errorsTraining);
+            var_dump(memory_get_usage());
             //gc_collect_cycles();
         }
+        Yii::$app->mailer->sendMultiple($messages);
     }
 
 }
