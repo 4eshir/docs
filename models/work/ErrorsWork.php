@@ -72,7 +72,8 @@ class ErrorsWork extends Errors
                     $result .= '</tr>';
                 }
 
-                $errorsList->detachBehavior();
+                foreach ($errorsList as $error)
+                    $error->detachBehaviors();
             }
             $result .= '</tbode></table>';
         }
