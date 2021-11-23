@@ -81,13 +81,15 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             let tdCode = td[0];
             let tdName = td[1];
             let tdPlace = td[2];
+            let tdBranch = td[3];
 
             if (td) {
                 let txtValueName = tdName.textContent || tdName.innerText;
                 let txtValueCode = tdCode.textContent || tdCode.innerText;
                 let txtValuePlace = tdPlace.textContent || tdPlace.innerText;
+                let txtValueBranch = tdBranch.textContent || tdBranch.innerText;
 
-                if (txtValueName.toUpperCase().indexOf(filterName) > -1 || txtValueCode.toUpperCase().indexOf(filterName) > -1 || txtValuePlace.toUpperCase().indexOf(filterName) > -1)
+                if (txtValueName.toUpperCase().indexOf(filterName) > -1 || txtValueCode.toUpperCase().indexOf(filterName) > -1 || txtValuePlace.toUpperCase().indexOf(filterName) > -1 || txtValueBranch.toUpperCase().indexOf(filterName) > -1)
                     rows[i].style.display = "";
                 else
                     rows[i].style.display = "none";

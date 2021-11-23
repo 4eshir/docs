@@ -45,6 +45,7 @@ class ErrorsWork extends Errors
             $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
             $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
             $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
             $result .= '</thead>';
 
             $result .= '<tbody>';
@@ -65,6 +66,7 @@ class ErrorsWork extends Errors
                     $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
                     $result .= '<td>' . Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])) . '</td>';
+                    $result .= '<td>' . Html::a($group->branchName, \yii\helpers\Url::to(['branch/view', 'id' => $group->branch_id])) . '</td>';
                     $result .= '</tr>';
                 }
             }
@@ -102,12 +104,14 @@ class ErrorsWork extends Errors
             $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
             $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
             $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
             $result .= '</thead>';
             $result .= '<tbody>';
 
             foreach ($programs as $program)
             {
                 $errorsList = ProgramErrorsWork::find()->where(['training_program_id' => $program->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                $branchs = BranchProgramWork::find()->where(['training_program_id' => $program->id])->all();
                 foreach ($errorsList as $error)
                 {
                     if ($error->critical == 1)
@@ -118,6 +122,10 @@ class ErrorsWork extends Errors
                     $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
                     $result .= '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
+                    $result .= '<td>';
+                    foreach ($branchs as $branch)
+                        $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])) . '<br>';
+                    $result .= '</td>';
                     $result .= '</tr>';
                 }
             }
