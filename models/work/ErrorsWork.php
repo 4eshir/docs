@@ -137,9 +137,12 @@ class ErrorsWork extends Errors
     public function ErrorsElectronicJournalSubsystem($user, $critical)
     {
         $result = $this->ErrorsToGroupAndJournal($user, $critical);
+        var_dump('После ошибок групп: '.memory_get_usage());
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
+        var_dump('После ошибок программ: '.memory_get_usage());
+        var_dump('<br>');
         return $result;
     }
 }

@@ -70,7 +70,6 @@ class DaemonController extends Controller
             }
             unset($errors);
             unset($errorsTraining);
-            var_dump(memory_get_usage());
             //gc_collect_cycles();
         }
         Yii::$app->mailer->sendMultiple($messages);
