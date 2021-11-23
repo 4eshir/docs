@@ -112,9 +112,9 @@ class DocumentOrderWork extends DocumentOrder
         {
             $doc_num = 0;
             if ($change->activeRegulationWork->order_postfix == null)
-                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->expireOrderWork->order_copy_id;
+                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->activeRegulationWork->order_copy_id;
             else
-                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->expireOrderWork->order_copy_id.'/'.$change->expireOrderWork->order_postfix;
+                $doc_num = $change->activeRegulationWork->order_number.'/'.$change->activeRegulationWork->order_copy_id.'/'.$change->activeRegulationWork->order_postfix;
             $result .= Html::a('Приказ №' . $doc_num . ' ' . $change->activeRegulationWork->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $change->active_regulation_id])) . '<br>';
         }
         return $result;
