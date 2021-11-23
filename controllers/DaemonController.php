@@ -49,10 +49,7 @@ class DaemonController extends Controller
     public function actionMessageErrors()
     {
         //$users = UserWork::find()->all();
-        $admins = UserRoleWork::find()->where(['role_id' => 7])->all();
-        $users = '';
-        foreach ($admins as $admin)
-            $users .= UserWork::find()->where(['id' => $admin->user_id])->one();
+        $users = UserWork::find()->joinWith(['userRole userRole'])->where(['userRole.role_id' => 7])->all();
 
         $messages = [];
         foreach ($users as $user)
