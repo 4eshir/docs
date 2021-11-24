@@ -79,7 +79,7 @@ class ErrorsWork extends Errors
 
     private function ErrorsToTrainingProgram($user, $actual)
     {
-        var_dump(PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id);
+        $user = UserWork::find()->where(['id' => $user->id])->one();
         $result = '';
         $programs = '';
         if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 16))
