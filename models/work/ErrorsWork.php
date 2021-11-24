@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\Errors;
+use app\models\extended\AccessTrainingGroup;
 use Yii;
 use yii\helpers\Html;
 
@@ -137,14 +138,16 @@ class ErrorsWork extends Errors
 
     public function ErrorsElectronicJournalSubsystem($user, $critical)
     {
-        $result = $this->ErrorsToGroupAndJournal($user, $critical);
+        //$result = $this->ErrorsToGroupAndJournal($user, $critical);
+        $role = $user->userRoles[0]->role_id;
+        $result = $this->test($role, $critical, $user);
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
         return $result;
     }
 
-    public function ForAdmin()
+    public function ForAdmin($role)
     {
         $result = '<table id="training-group" class="table table-bordered">';
         $result .= '<h4 style="text-align: center;"><u>Ошибки в системе: </u></h4>';
@@ -186,6 +189,68 @@ class ErrorsWork extends Errors
         }
 
         $result .= '</tbode></table>';
+
+        return $result;
+    }
+
+    public function test($role, $critical, $user)
+    {
+        $result = '';
+        $groupsSet = TrainingGroupWork::find();
+        if ($role == 6 || $role == 7)
+        {
+            $groups = $groupsSet->all();
+        }
+        else if ($role == 5)
+        {
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $groups = $groupsSet->where(['branch_id' => $branch])->all();
+        }
+        else if ($role == 1)
+        {
+            // тут должна быть выборка только учебных групп одного конкретного препода
+            $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+        }
+        else
+            $groups = '';
+
+        if ($groups !== '')
+        {
+            $result .= '<table id="training-group" class="table table-bordered">';
+            $result .= '<h4 style="text-align: center;"><u><a onclick="hide(0)"> Ошибки в учебных группах</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+
+            $result .= '<tbody>';
+            $errorsListSet = GroupErrorsWork::find();
+            $errorNameSet = ErrorsWork::find();
+            foreach ($groups as $group)
+            {
+                if ($critical == 0)
+                    $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                else
+                    $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->all();
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])) . '</td>';
+                    $result .= '<td>' . Html::a($group->branchName, \yii\helpers\Url::to(['branch/view', 'id' => $group->branch_id])) . '</td>';
+                    $result .= '</tr>';
+                }
+            }
+            $result .= '</tbode></table>';
+        }
 
         return $result;
     }

@@ -54,13 +54,14 @@ class DaemonController extends Controller
         $messages = [];
         foreach ($users as $user)
         {
+            //var_dump($user->userRoles[0]->role_id);
             $errors = new ErrorsWork();
-            //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
-            //if ($errorsTraining !== '')
-            //{
+            $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+            if ($errorsTraining !== '')
+            {
                 $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
-                //$string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
-                $string .= $errors->ForAdmin() . '</div>';
+                $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
+                //$string .= $errors->ForAdmin() . '</div>';
                 $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                 $string .= '<br>---------------------------------------------------------------------------';
                 $messages[] = Yii::$app->mailer->compose()
@@ -69,15 +70,9 @@ class DaemonController extends Controller
                     ->setSubject('Краткая сводка по ЦСХД')
                     ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
                 Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
-            //}
+            }
         }
         Yii::$app->mailer->sendMultiple($messages);
-    }
-
-    public function actionsMessageErrorsAdmin()
-    {
-        $users = UserRoleWork::find()->where(['role_id'])->all();
-
     }
 
 }
