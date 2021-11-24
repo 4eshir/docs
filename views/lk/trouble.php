@@ -58,7 +58,7 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             tableBodyPr = tablePr.querySelector('tbody');
             rowsPr = tableBodyPr.querySelectorAll('tr');
         }
-        
+
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -169,14 +169,14 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     }
 
     function hide(index) {
-        if (index == 0)
-            if (tableGr.style.display == "block")
+        if (index === 0)
+            if (tableGr.style.display === "block")
                 tableGr.style.display = "none";
             else
                 tableGr.style.display = "block";
 
-        if (index == 1)
-            if (tablePr.style.display == "block")
+        if (index === 1)
+            if (tablePr.style.display === "block")
                 tablePr.style.display = "none";
             else
                 tablePr.style.display = "block";

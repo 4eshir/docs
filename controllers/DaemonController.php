@@ -55,7 +55,9 @@ class DaemonController extends Controller
         foreach ($users as $user)
         {
             $errors = new ErrorsWork();
-            $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+            //$errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
+            $role = $user->userRoles[0]->role_id;
+            $errorsTraining = $errors->test($role, $user);
             if ($errorsTraining !== '')
             {
                 $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';

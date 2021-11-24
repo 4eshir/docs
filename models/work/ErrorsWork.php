@@ -194,62 +194,89 @@ class ErrorsWork extends Errors
         return $result;
     }
 
-    public function test($role, $critical, $user)
+    public function test($role, $user)
     {
         $result = '';
+        $groups = '';
+        $programs = '';
         $groupsSet = TrainingGroupWork::find();
+        $programsSet = TrainingProgramWork::find();
+
         if ($role == 6 || $role == 7)
         {
             $groups = $groupsSet->all();
+            $programs = $programsSet->where(['actual' => 1])->all();
         }
         else if ($role == 5)
         {
             $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
             $groups = $groupsSet->where(['branch_id' => $branch])->all();
+            $programs = $programsSet->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
         }
         else if ($role == 1)
         {
-            // тут должна быть выборка только учебных групп одного конкретного препода
             $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
         }
-        else
-            $groups = '';
 
-        if ($groups !== '')
+
+        if ($groups !== '' || $programs !== '')
         {
             $result .= '<table id="training-group" class="table table-bordered">';
-            $result .= '<h4 style="text-align: center;"><u><a onclick="hide(0)"> Ошибки в учебных группах</a></u></h4>';
+            $result .= '<h4 style="text-align: center;"><u>Ошибки ЦСХД связанные с процессом обучения (учебные группы, электронный журнал и образовательные программы)</u></h4>';
             $result .= '<thead>';
-            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
-            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
-            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
-            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><b>Код проблемы</b></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><b>Описание проблемы</b></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><b>Место возникновения</b></th>';
+            $result .= '<th style="vertical-align: middle;"><b>Отдел</b></th>';
             $result .= '</thead>';
 
             $result .= '<tbody>';
-            $errorsListSet = GroupErrorsWork::find();
+
             $errorNameSet = ErrorsWork::find();
-            foreach ($groups as $group)
+            if ($groups !== '')
             {
-                if ($critical == 0)
-                    $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
-                else
+                $errorsListSet = GroupErrorsWork::find();
+                foreach ($groups as $group)
+                {
                     $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->all();
 
-                foreach ($errorsList as $error)
-                {
-                    if ($error->critical == 1)
-                        $result .= '<tr style="background-color: #FCF8E3;">';
-                    else
+                    foreach ($errorsList as $error)
+                    {
                         $result .= '<tr>';
-                    $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
-                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
-                    $result .= '<td>' . $errorName->name . '</td>';
-                    $result .= '<td>' . Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])) . '</td>';
-                    $result .= '<td>' . Html::a($group->branchName, \yii\helpers\Url::to(['branch/view', 'id' => $group->branch_id])) . '</td>';
-                    $result .= '</tr>';
+                        $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                        $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                        $result .= '<td>' . $errorName->name . '</td>';
+                        $result .= '<td>' . $group->number . '</td>';
+                        $result .= '<td>' . $group->branchName . '</td>';
+                        $result .= '</tr>';
+                    }
                 }
             }
+
+            if ($programs !== '')
+            {
+                $errorsListSet = ProgramErrorsWork::find();
+                $branchsSet = BranchProgramWork::find();
+                foreach ($programs as $program)
+                {
+                    $errorsList = $errorsListSet->where(['training_program_id' => $program->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                    $branchs = $branchsSet->where(['training_program_id' => $program->id])->all();
+                    foreach ($errorsList as $error)
+                    {
+                        $result .= '<tr>';
+                        $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                        $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                        $result .= '<td>' . $errorName->name . '</td>';
+                        $result .= '<td>' . $program->name . '</td>';
+                        $result .= '<td>';
+                        foreach ($branchs as $branch)
+                            $result .= $branch->branch->name . '<br>';
+                        $result .= '</td>';
+                        $result .= '</tr>';
+                    }
+                }
+            }
+
             $result .= '</tbode></table>';
         }
 
