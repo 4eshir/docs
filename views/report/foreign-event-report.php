@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\extended\ManHoursReportModel */
+/* @var $model app\models\extended\ForeignEventReportModel */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
@@ -20,14 +20,6 @@ $this->title = 'Генерация отчета по обучающимся';
         margin-bottom: 20px;
         border-radius: 10px;
         margin-right: 10px;
-    }
-
-    .block-age{
-        background: #e9e9e9;
-        width: 95px;
-        padding: 10px 10px 0 5px;
-        margin-bottom: 20px;
-        margin-right: 0;
     }
 </style>
 
@@ -102,35 +94,55 @@ $this->title = 'Генерация отчета по обучающимся';
         ?>
     </div>
     <div class="col-xs-8 block-report">
-        <p><b>Возраст</b></p>
-        <div class="col-xs-10 block-age">
-            <?php
-            echo $form->field($model, 'age_left', ['template' => "<div><div style='float: left; margin-right: 5px; margin-top: 5px'>{label}</div><div style='float: left; width: 50px; padding-bottom: 10px'>{input}</div></div>"])->textInput()->label('C');
-            ?>
-        </div>
-        <div class="col-xs-10 block-age">
-            <?php
-            echo $form->field($model, 'age_right', ['template' => "<div><div style='float: left; margin-right: 5px; margin-top: 5px'>{label}</div><div style='float: left; width: 50px; padding-bottom: 10px'>{input}</div></div>"])->textInput()->label('По');
-            ?>
-        </div>
-    </div>
-    <div class="col-xs-8 block-report">
         <?php
-        $branchs = \app\models\work\BranchWork::find()->all();
-        $arr = ['Мужской', 'Женский'];
-        echo $form->field($model, 'sex')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+        $arr = ['1' => 'Бюджет', '0' => 'Внебюджет'];
+        echo $form->field($model, 'budget')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return
                 '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="sex-'. $index .'">
-                        <input id="sex-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                    <label for="budget-'. $index .'">
+                        <input id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
                         '. $label .'
                     </label>
                 </div>';
-        }])->label('Пол');
+        }])->label('Основа');
         ?>
     </div>
 
     <div class="panel-body" style="padding: 0; margin: 0"></div>
+
+    <div class="col-xs-8 block-report">
+        <?php
+        $arr = ['1' => 'Победители', '0' => 'Призеры'];
+        echo $form->field($model, 'prize')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="prize-'. $index .'">
+                        <input id="prize-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Победители и призеры');
+        ?>
+    </div>
+
+    <div class="col-xs-8 block-report">
+        <?php
+        $level = \app\models\work\EventLevelWork::find()->all();
+        $arr = \yii\helpers\ArrayHelper::map($level, 'id', 'name');
+        echo $form->field($model, 'level')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="level-'. $index .'">
+                        <input id="level-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Уровень мероприятия');
+        ?>
+    </div>
+
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
+
     <div class="form-group">
         <?= Html::submitButton('Генерировать отчет', ['class' => 'btn btn-primary']) ?>
     </div>
@@ -141,12 +153,5 @@ $this->title = 'Генерация отчета по обучающимся';
 
 
 <script>
-    function showHours()
-    {
-        var elem = document.getElementById('interview-0');
-        var hour = document.getElementById('hours');
-        var teach = document.getElementById('teachers');
-        if (elem.checked) { hour.style.display = "block"; teach.style.display = "block"; }
-        else { hour.style.display = "none"; teach.style.display = "none"; }
-    }
+
 </script>
