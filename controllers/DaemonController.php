@@ -48,13 +48,12 @@ class DaemonController extends Controller
 
     public function actionMessageErrors()
     {
-        //$users = UserWork::find()->all();
-        $users = UserWork::find()->joinWith(['userRoles userRoles'])->all();
+        $users = UserWork::find()->all();
+        //$users = UserWork::find()->joinWith(['userRoles userRoles'])->all();
 
         $messages = [];
         foreach ($users as $user)
         {
-            //var_dump($user->userRoles[0]->role_id);
             $errors = new ErrorsWork();
             $errorsTraining = $errors->ErrorsElectronicJournalSubsystem($user, 1);
             if ($errorsTraining !== '')
