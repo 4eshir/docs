@@ -144,7 +144,7 @@ class ErrorsWork extends Errors
         //$result = $this->test($role, $critical, $user);
         if ($result !== '')
            $result .= '<br><br>';
-        $result = $this->ErrorsToTrainingProgram($user, $critical);
+        $result .= $this->ErrorsToTrainingProgram($user, $critical);
         return $result;
     }
 
