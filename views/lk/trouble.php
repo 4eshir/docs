@@ -44,15 +44,21 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     const initData = () => {
         tableGr = document.getElementById('training-group');
-        headersGr = tableGr.querySelectorAll('th');
-        tableBodyGr = tableGr.querySelector('tbody');
-        rowsGr = tableBodyGr.querySelectorAll('tr');
+        if (tableGr !== null)
+        {
+            headersGr = tableGr.querySelectorAll('th');
+            tableBodyGr = tableGr.querySelector('tbody');
+            rowsGr = tableBodyGr.querySelectorAll('tr');
+        }
 
         tablePr = document.getElementById('training-program');
-        headersPr = tablePr.querySelectorAll('th');
-        tableBodyPr = tablePr.querySelector('tbody');
-        rowsPr = tableBodyPr.querySelectorAll('tr');
-
+        if (tablePr !== null)
+        {
+            headersPr = tablePr.querySelectorAll('th');
+            tableBodyPr = tablePr.querySelector('tbody');
+            rowsPr = tableBodyPr.querySelectorAll('tr');
+        }
+        
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
