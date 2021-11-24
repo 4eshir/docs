@@ -79,6 +79,7 @@ class ErrorsWork extends Errors
 
     private function ErrorsToTrainingProgram($user, $actual)
     {
+        var_dump($user->aka);
         $result = '';
         $programs = '';
         if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 16))
