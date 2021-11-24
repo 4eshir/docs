@@ -40,7 +40,7 @@ class ErrorsWork extends Errors
 
         if ($groups !== '')
         {
-            $result .= '<table id="training-group" class="table table-bordered">';
+            $result .= '<table id="training-group" class="table table-bordered" style="display: block">';
             $result .= '<h4 style="text-align: center;"><u><a onclick="hide(0)"> Ошибки в учебных группах</a></u></h4>';
             $result .= '<thead>';
             $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
@@ -102,7 +102,7 @@ class ErrorsWork extends Errors
 
         if ($programs !== '')
         {
-            $result .= '<table id="training-program" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(1)">Ошибки в образовательных программах</a></u></h4>';
+            $result .= '<table id="training-program" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(1)">Ошибки в образовательных программах</a></u></h4>';
             $result .= '<thead>';
             $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
             $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
