@@ -140,11 +140,11 @@ class ErrorsWork extends Errors
     {
         //$result = $this->ErrorsToGroupAndJournal($user, $critical);
         $role = $user->userRoles[0]->role_id;
-        $result = $this->test($role, $critical, $user);
-        if ($result !== '')
-            $result .= '<br><br>';
-        $result .= $this->ErrorsToTrainingProgram($user, $critical);
-        return $result;
+        //$result = $this->test($role, $critical, $user);
+        //if ($result !== '')
+        //    $result .= '<br><br>';
+        //$result .= $this->ErrorsToTrainingProgram($user, $critical);
+        return '$result';
     }
 
     public function ForAdmin($role)
