@@ -97,7 +97,7 @@ class ErrorsWork extends Errors
             else
                 $programs = TrainingProgramWork::find()->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
         }
-        if (count($programs) === 0)
+        if ($programs == null || count($programs) === 0)
             $programs = '';
 
         if ($programs !== '')
