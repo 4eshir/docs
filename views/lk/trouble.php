@@ -27,8 +27,8 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     <div class="content-container col-xs-8" style="float: left; padding-top: 30px;">
         <?php
             $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-            $erros = new ErrorsWork();
-            echo $erros->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+            $errors = new ErrorsWork();
+            echo $errors->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
         ?>
     </div>
     <div>
@@ -164,16 +164,16 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
     function hide(index) {
         if (index == 0)
-            if (tableGr.style.display == "")
+            if (tableGr.style.display == "block")
                 tableGr.style.display = "none";
             else
-                tableGr.style.display = "";
+                tableGr.style.display = "block";
 
         if (index == 1)
-            if (tablePr.style.display == "")
+            if (tablePr.style.display == "block")
                 tablePr.style.display = "none";
             else
-                tablePr.style.display = "";
+                tablePr.style.display = "block";
     }
 
 </script>
