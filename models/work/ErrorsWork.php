@@ -79,7 +79,6 @@ class ErrorsWork extends Errors
 
     private function ErrorsToTrainingProgram($user, $actual)
     {
-        //$user = UserWork::find()->where(['id' => $user->id])->one();
         $result = '';
         $programs = '';
         if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 16))
@@ -140,61 +139,13 @@ class ErrorsWork extends Errors
     public function ErrorsElectronicJournalSubsystem($user, $critical)
     {
         $result = $this->ErrorsToGroupAndJournal($user, $critical);
-        //$role = $user->userRoles[0]->role_id;
-        //$result = $this->test($role, $critical, $user);
         if ($result !== '')
            $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
         return $result;
     }
 
-    public function ForAdmin($role)
-    {
-        $result = '<table id="training-group" class="table table-bordered">';
-        $result .= '<h4 style="text-align: center;"><u>Ошибки в системе: </u></h4>';
-        $result .= '<thead>';
-        $result .= '<th style="vertical-align: middle; width: 110px;"><b>Код проблемы</b></th>';
-        $result .= '<th style="vertical-align: middle; width: 400px;"><b>Описание проблемы</b></th>';
-        $result .= '<th style="vertical-align: middle; width: 220px;"><b>Место возникновения</b></th>';
-        $result .= '<th style="vertical-align: middle;"><b>Отдел</b></th>';
-        $result .= '</thead>' . '<tbody>';
-
-        $errorsList = GroupErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->all();
-        foreach ($errorsList as $error)
-        {
-            $result .= '<tr>';
-            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-            $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
-            $result .= '<td>' . $errorName->name . '</td>';
-            $groupName = TrainingGroupWork::find()->where(['id' => $error->training_group_id])->one();
-            $result .= '<td>' . $groupName->number . '</td>';
-            $result .= '<td>' . $groupName->branchName . '</td>';
-            $result .= '</tr>';
-        }
-
-        $errorsList = ProgramErrorsWork::find()->where(['time_the_end' => NULL, 'amnesty' => NULL])->all();
-        foreach ($errorsList as $error)
-        {
-            $result .= '<tr>';
-            $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
-            $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
-            $result .= '<td>' . $errorName->name . '</td>';
-            $programName = TrainingProgramWork::find()->where(['id' => $error->training_program_id])->one();
-            $result .= '<td>' . $programName->name . '</td>';
-            $result .= '<td>';
-            $branchs = BranchProgramWork::find()->where(['training_program_id' => $programName->id])->all();
-            foreach ($branchs as $branch)
-                $result .= $branch->branch->name . '<br>';
-            $result .= '</td>';
-            $result .= '</tr>';
-        }
-
-        $result .= '</tbode></table>';
-
-        return $result;
-    }
-
-    public function test($role, $user)
+    public function test($user, $functions)
     {
         $result = '';
         $groups = '';
@@ -202,22 +153,23 @@ class ErrorsWork extends Errors
         $groupsSet = TrainingGroupWork::find();
         $programsSet = TrainingProgramWork::find();
 
-        if ($role == 6 || $role == 7)
+        foreach ($functions as $function)
         {
-            $groups = $groupsSet->all();
-            $programs = $programsSet->where(['actual' => 1])->all();
+            if ($function == 12)
+                $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+            else if ($function == 15 || $function == 13)
+            {
+                $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+                if ($function == 13)
+                    $groups = $groupsSet->where(['branch_id' => $branch])->all();
+                else
+                    $programs = $programsSet->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
+            }
+            else if ($function == 14)
+                $groups = $groupsSet->all();
+            else if ($function == 16)
+                $programs = $programsSet->where(['actual' => 1])->all();
         }
-        else if ($role == 5)
-        {
-            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
-            $groups = $groupsSet->where(['branch_id' => $branch])->all();
-            $programs = $programsSet->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
-        }
-        else if ($role == 1)
-        {
-            $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
-        }
-
 
         if ($groups !== '' || $programs !== '')
         {
@@ -233,6 +185,7 @@ class ErrorsWork extends Errors
             $result .= '<tbody>';
 
             $errorNameSet = ErrorsWork::find();
+
             if ($groups !== '')
             {
                 $errorsListSet = GroupErrorsWork::find();
