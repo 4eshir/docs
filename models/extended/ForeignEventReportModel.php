@@ -41,25 +41,42 @@ class ForeignEventReportModel extends \yii\base\Model
 
     public function generateReport()
     {
-        $events = ForeignEventWork::find()->where(['finish_date' >= $this->start_date])->andWhere(['finish_date' <= $this->end_date]);
-        $teachers = PeopleWork::find()->where(['IN', 'branch_id', $this->branch])->all();
-        $tIds = [];
-        foreach ($teachers as $teacher) $tIds[] = $teacher->id;
+        //Получаем группы и учеников
 
-        $event_teacher = TeacherParticipantWork::find()->where(['IN', 'teacher_id', $tIds])->orWhere(['IN', 'teacher2_id', $tIds])->all();
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['<=', 'start_date', $this->end_date])->andWhere(['>=', 'finish_date', $this->end_date])
+            ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
+            ->andWhere(['IN', 'budget', $this->budget])
+            ->all();
+
+        $tgIds = [];
+        foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+
+        //--------------------------
+
+        //Получаем мероприятия с выбранными учениками
+
+        $pIds = [];
+        foreach ($participants as $participant) $pIds[] = $participant->participant_id;
+        $eventParticipants = TeacherParticipantWork::find()->where(['IN', 'participant_id', $pIds])->all();
+
         $eIds = [];
-        foreach ($event_teacher as $event) $eIds[] = $event->foreign_event_id;
+        foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
 
-        $events = $events->andWhere(['IN', 'id', $eIds]); //отбор по отделу (педагогов)
+        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->all();
 
-        /*
-         * Здесь должен быть
-         * отбор по направленности
-         */
+        //-------------------------------------------
 
-        $age = [];
-        for ($i = $this->age_left + 0; $i <= $this->age_right; $i++) $age[] = $i;
-        $this->getAge('2021-11-24', '1999-01-10');
+        //======РЕЗУЛЬТАТ======
+        $resultHTML = "<table class='table table-bordered'><tr><td><b>Описание параметра</b></td><td><b>Значение</b></td></tr>";
+        //Вывод ВСЕХ обучающихся (по группам)
+        $resultHTML .= "<tr><td>Общее число обучающихся</td><td>".count($participants)."</td></tr>";
+        //-----------------------------------
+        //=====================
+        $resultHTML .= "</table>";
+
+        return $resultHTML;
     }
 
     public function getAge($birthdate, $target_date)
