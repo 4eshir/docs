@@ -43,7 +43,7 @@ $config = [
                 'port' => 465,
                 'encryption' => 'ssl',
             ],
-            'useFileTransport' => true,
+            'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
