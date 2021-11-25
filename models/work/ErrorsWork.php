@@ -145,7 +145,7 @@ class ErrorsWork extends Errors
         return $result;
     }
 
-    public function test($user, $functions)
+    public function EducationalCriticalMessage($user, $functions)
     {
         $result = '';
         $groups = '';

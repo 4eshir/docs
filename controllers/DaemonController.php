@@ -63,19 +63,18 @@ class DaemonController extends Controller
                 foreach ($function as $oneFunction)
                     $functions[] = $oneFunction->role_function_id;
             }
-            $functions = array_unique(array_intersect($functions, [12, 13, 14, 15, 16]), SORT_NUMERIC); // ещё отсортировать нужно
+            $functions = array_unique(array_intersect($functions, [12, 13, 14, 15, 16]), SORT_NUMERIC);
 
             if (count($functions) !== 0)
             {
                 asort($functions);
 
                 $errors = new ErrorsWork();
-                $errorsTraining = $errors->test($user, $functions);
+                $errorsTraining = $errors->EducationalCriticalMessage($user, $functions);
                 if ($errorsTraining !== '')
                 {
                     $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
                     $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
-                    //$string .= $errors->ForAdmin() . '</div>';
                     $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                     $string .= '<br>---------------------------------------------------------------------------';
                     $messages[] = Yii::$app->mailer->compose()
@@ -86,7 +85,6 @@ class DaemonController extends Controller
                     Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
                 }
             }
-
         }
         Yii::$app->mailer->sendMultiple($messages);
     }
