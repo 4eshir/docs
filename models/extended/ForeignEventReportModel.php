@@ -4,9 +4,11 @@
 namespace app\models\extended;
 
 
+use app\models\common\ParticipantAchievement;
 use app\models\common\TrainingGroup;
 use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
+use app\models\work\ParticipantAchievementWork;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantWork;
@@ -64,15 +66,81 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds = [];
         foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
 
-        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->all();
+        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
 
         //-------------------------------------------
 
         //======РЕЗУЛЬТАТ======
-        $resultHTML = "<table class='table table-bordered'><tr><td><b>Описание параметра</b></td><td><b>Значение</b></td></tr>";
+        $resultHTML = "<table class='table table-bordered'><tr><td><b>Наименование показателя</b></td><td><b>Значение показателя</b></td></tr>";
         //Вывод ВСЕХ обучающихся (по группам)
         $resultHTML .= "<tr><td>Общее число обучающихся</td><td>".count($participants)."</td></tr>";
         //-----------------------------------
+        //Вывод количества призеров / победителей (международных)
+        if (array_search(8, $this->level))
+        {
+            $events1 = $events->andWhere(['event_level_id' => 8])->all();
+            $counter1 = 0;
+            $counter2 = 0;
+            $counterPart1 = 0;
+            foreach ($events1 as $event)
+            {
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $counter1 += count($achieves1);
+                $counter2 += count($achieves2);
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+            }
+            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counter1."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counter2."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".($counter1 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".($counter2 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами международных конкурсных мероприятий</td><td>".(($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+        }
+        //-----------------------------------------
+        //Вывод количества призеров / победителей (всероссийских)
+        if (array_search(7, $this->level))
+        {
+            $events2 = $events->andWhere(['event_level_id' => 7])->all();
+            $counter3 = 0;
+            $counter4 = 0;
+            $counterPart1 = 0;
+            foreach ($events2 as $event)
+            {
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $counter3 += count($achieves1);
+                $counter4 += count($achieves2);
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+            }
+            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$counter3."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$counter4."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".($counter3 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".($counter4 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами всероссийских конкурсных мероприятий</td><td>".(($counter3 + $counter4) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+        }
+        //-----------------------------------------
+        //Вывод количества призеров / победителей (региональных)
+        if (array_search(7, $this->level))
+        {
+            $events3 = $events->andWhere(['event_level_id' => 6])->all();
+            $counter5 = 0;
+            $counter6 = 0;
+            $counterPart1 = 0;
+            foreach ($events3 as $event)
+            {
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $counter5 += count($achieves1);
+                $counter6 += count($achieves2);
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+            }
+            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".($counter5 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".($counter6 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".(($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+        }
+        //-----------------------------------------
         //=====================
         $resultHTML .= "</table>";
 
