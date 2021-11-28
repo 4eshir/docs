@@ -90,11 +90,22 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter2 += count($achieves2);
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
+
+            $r1 = 0;
+            $r2 = 0;
+            $r3 = 0;
+            if ($counterPart1 !== 0)
+            {
+                $r1 = ($counter1 * 1.0) / ($counterPart1 * 1.0);
+                $r2 = ($counter2 * 1.0) / ($counterPart1 * 1.0);
+                $r3 = (($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0);
+            }
+
             $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counter1."</td></tr>";
             $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counter2."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter1 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter2 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами международных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : (($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$r1."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$r2."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами международных конкурсных мероприятий</td><td>".$r3."</td></tr>";
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (всероссийских)
@@ -112,11 +123,22 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter4 += count($achieves2);
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
+
+            $r1 = 0;
+            $r2 = 0;
+            $r3 = 0;
+            if ($counterPart1 !== 0)
+            {
+                $r1 = ($counter3 * 1.0) / ($counterPart1 * 1.0);
+                $r2 = ($counter4 * 1.0) / ($counterPart1 * 1.0);
+                $r3 = (($counter3 + $counter4) * 1.0) / ($counterPart1 * 1.0);
+            }
+
             $resultHTML .= "<tr><td>Число учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$counter3."</td></tr>";
             $resultHTML .= "<tr><td>Число учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$counter4."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter3 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter4 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами всероссийских конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : (($counter3 + $counter4) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$r1."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$r2."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами всероссийских конкурсных мероприятий</td><td>".$r3."</td></tr>";
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (региональных)
@@ -136,9 +158,20 @@ class ForeignEventReportModel extends \yii\base\Model
             }
             $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
             $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter5 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : ($counter6 * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".$counterPart1 == 0 ? 0 : (($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0)."</td></tr>";
+
+            $r1 = 0;
+            $r2 = 0;
+            $r3 = 0;
+            if ($counterPart1 !== 0)
+            {
+                $r1 = ($counter5 * 1.0) / ($counterPart1 * 1.0);
+                $r2 = ($counter6 * 1.0) / ($counterPart1 * 1.0);
+                $r3 = (($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0);
+            }
+
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$r1."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$r2."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".$r3."</td></tr>";
         }
         //-----------------------------------------
         //=====================
