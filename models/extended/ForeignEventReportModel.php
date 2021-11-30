@@ -45,7 +45,7 @@ class ForeignEventReportModel extends \yii\base\Model
     public function generateReport()
     {
         //ОТЛАДКА
-        $debug = '<table class="table table-bordered"><tr><td><b>Мероприятие</b></td><td><b>Уровень</b></td><td><b>Дата начала</b></td><td><b>Дата окончания</b></td></tr>';
+        $debug = '<table class="table table-bordered"><tr><td><b>Мероприятие</b></td><td><b>Уровень</b></td><td><b>Дата начала</b></td><td><b>Дата окончания</b></td><td>Призеры</td><td>Победители</td></tr>';
         //ОТЛАДКА
 
         //Получаем группы и учеников
@@ -87,7 +87,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
 
             //ОТЛАДКА
-            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
+            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
             //ОТЛАДКА
 
             $counter1 = 0;
@@ -116,6 +116,11 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter1 += count($achieves1) + $counterTeamPrizes;
                 $counter2 += count($achieves2) + $counterTeamWinners;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+
+                //ОТЛАДКА
+                $debug .= '<td>'.$counter1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter2. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                //ОТЛАДКА
+
             }
 
             $r1 = 0;
@@ -186,6 +191,10 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами всероссийских конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
+
+            //ОТЛАДКА
+            $debug .= '<td>'.$counter3.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter4. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+            //ОТЛАДКА
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (региональных)
@@ -240,6 +249,10 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
+
+            //ОТЛАДКА
+            $debug .= '<td>'.$counter5.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter6. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+            //ОТЛАДКА
         }
         //-----------------------------------------
         //=====================
@@ -253,7 +266,6 @@ class ForeignEventReportModel extends \yii\base\Model
         $bdTime = new DateTime($birthdate);
         $tdTime = new DateTime($target_date);
         $interval = $tdTime->diff($bdTime);
-        var_dump($interval->y);
         return $interval->y;
     }
 
