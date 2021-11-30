@@ -191,6 +191,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (региональных)
         if (array_search(6, $this->level))
         {
+            var_dump('lol');
             $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
 
             //ОТЛАДКА
