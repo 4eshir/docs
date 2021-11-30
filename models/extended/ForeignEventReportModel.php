@@ -224,8 +224,6 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter6 += count($achieves2) + $counterTeamPrizes;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
-            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
-            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
 
             $r1 = 0;
             $r2 = 0;
@@ -236,7 +234,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter6 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0);
             }
-
+            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
