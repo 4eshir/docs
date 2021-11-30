@@ -45,7 +45,7 @@ class ForeignEventReportModel extends \yii\base\Model
     public function generateReport()
     {
         //ОТЛАДКА
-        $debug = '<table class="table table-bordered"><tr><td>Мероприятие</td><td>Дата начала</td><td>Дата окончания</td></tr>';
+        $debug = '<table class="table table-bordered"><tr><td>Мероприятие</td><td>Уровень</td><td>Дата начала</td><td>Дата окончания</td></tr>';
         //ОТЛАДКА
 
         //Получаем группы и учеников
@@ -88,7 +88,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events1 = $events->andWhere(['event_level_id' => 8])->all();
 
             //ОТЛАДКА
-            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
+            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->level->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
 
             $counter1 = 0;
