@@ -86,15 +86,15 @@ class ForeignEventReportModel extends \yii\base\Model
         {
             $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
 
-            //ОТЛАДКА
-            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
-            //ОТЛАДКА
-
             $counter1 = 0;
             $counter2 = 0;
             $counterPart1 = 0;
             foreach ($events1 as $event)
             {
+                //ОТЛАДКА
+                $debug .= '<tr>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                //ОТЛАДКА
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
                 $teamName = '';
