@@ -84,7 +84,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level))
         {
-            $events1 = $events->andWhere(['event_level_id' => 8])->all();
+            $events1 = $events->andWhere(['event_level_id' => 7])->all();
 
             //ОТЛАДКА
             foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
@@ -139,7 +139,6 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(7, $this->level))
         {
             $events2 = $events->andWhere(['event_level_id' => 7])->all();
-            var_dump($events->andWhere(['event_level_id' => 7])->createCommand()->getRawSql());
             //ОТЛАДКА
             foreach ($events2 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
@@ -190,7 +189,7 @@ class ForeignEventReportModel extends \yii\base\Model
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (региональных)
-        if (array_search(7, $this->level))
+        if (array_search(6, $this->level))
         {
             $events3 = $events->andWhere(['event_level_id' => 6])->all();
 
