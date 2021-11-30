@@ -88,7 +88,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events1 = $events->andWhere(['event_level_id' => 8])->all();
 
             //ОТЛАДКА
-            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->end_date.'</td></tr>';
+            foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
 
             $counter1 = 0;
@@ -142,7 +142,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events2 = $events->andWhere(['event_level_id' => 7])->all();
 
             //ОТЛАДКА
-            foreach ($events2 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->end_date.'</td></tr>';
+            foreach ($events2 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
 
             $counter3 = 0;
@@ -196,7 +196,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events3 = $events->andWhere(['event_level_id' => 6])->all();
 
             //ОТЛАДКА
-            foreach ($events3 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->end_date.'</td></tr>';
+            foreach ($events3 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
 
             $counter5 = 0;
