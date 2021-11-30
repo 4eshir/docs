@@ -114,7 +114,7 @@ class PeopleWork extends People
         $result = '';
         foreach ($resp as $respOne)
         {
-            $loc = LocalResponsibility::find()->where(['responsibility_type_id' => $respOne->responsibility_type_id])->andWhere(['branch_id' => $respOne->branch_id])->andWhere(['auditorium_id' => $respOne->auditorium_id])->one();
+            $loc = LocalResponsibility::find()->where(['responsibility_type_id' => $respOne->responsibility_type_id])->andWhere(['branch_id' => $respOne->branch_id])->andWhere(['auditorium_id' => $respOne->auditorium_id])->andWhere(['quant' => $respOne->quant])->one();
             if ($loc === Null)
                 $result .= '<p style="font-style: italic; color: red; display: inline">Ответственность удалена</p>'.'<br>';
             else

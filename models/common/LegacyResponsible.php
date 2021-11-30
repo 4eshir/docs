@@ -12,6 +12,7 @@ use Yii;
  * @property int $responsibility_type_id
  * @property int|null $branch_id
  * @property int|null $auditorium_id
+ * @property int|null $quant
  * @property string $start_date
  * @property string|null $end_date
  * @property int|null $order_id
@@ -38,14 +39,14 @@ class LegacyResponsible extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['people_id', 'responsibility_type_id', 'start_date'], 'required'],
-            [['people_id', 'responsibility_type_id', 'branch_id', 'auditorium_id', 'order_id'], 'integer'],
-            [['start_date', 'end_date'], 'safe'],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
-            [['people_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['people_id' => 'id']],
-            [['responsibility_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResponsibilityType::className(), 'targetAttribute' => ['responsibility_type_id' => 'id']],
-            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['responsibility_type_id'], 'required'],
+            [['quant'], 'integer'],
+            /*[['files'], 'string', 'max' => 1000],*/
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
+            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['people_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['people_id' => 'id']],
+            /*[['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],*/
+            [['responsibility_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ResponsibilityType::className(), 'targetAttribute' => ['responsibility_type_id' => 'id']],
         ];
     }
 
@@ -56,14 +57,30 @@ class LegacyResponsible extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'people_id' => 'People ID',
-            'responsibility_type_id' => 'Responsibility Type ID',
-            'branch_id' => 'Branch ID',
-            'auditorium_id' => 'Auditorium ID',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
-            'order_id' => 'Order ID',
+            'responsibility_type_id' => 'Вид ответственности',
+            'responsibilityTypeStr' => 'Вид ответственности',
+            'branch_id' => 'Отдел',
+            'branchStr' => 'Отдел',
+            'auditorium_id' => 'Помещение',
+            'auditoriumStr' => 'Помещение',
+            'quant' => 'Квант',
+            'people_id' => 'Работник',
+            'peopleStr' => 'Работник',
+            'regulation_id' => 'Положение/инструкция',
+            'regulationStr' => 'Положение/инструкция',
+            'files' => 'Файлы',
+            'filesStr' => 'Файлы',
         ];
+    }
+
+    /**
+     * Gets query for [[Regulation]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegulation()
+    {
+        return $this->hasOne(Regulation::className(), ['id' => 'regulation_id']);
     }
 
     /**

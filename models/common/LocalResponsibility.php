@@ -2,9 +2,7 @@
 
 namespace app\models\common;
 
-use app\models\components\FileWizard;
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "local_responsibility".
@@ -13,6 +11,7 @@ use yii\helpers\Html;
  * @property int $responsibility_type_id
  * @property int|null $branch_id
  * @property int|null $auditorium_id
+ * @property int|null $quant
  * @property int|null $people_id
  * @property int|null $regulation_id
  * @property string|null $files
@@ -41,6 +40,7 @@ class LocalResponsibility extends \yii\db\ActiveRecord
         return [
             [['responsibility_type_id'], 'required'],
             [['files'], 'string', 'max' => 1000],
+            [['quant'], 'integer'],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['people_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['people_id' => 'id']],
@@ -62,6 +62,7 @@ class LocalResponsibility extends \yii\db\ActiveRecord
             'branchStr' => 'Отдел',
             'auditorium_id' => 'Помещение',
             'auditoriumStr' => 'Помещение',
+            'quant' => 'Квант',
             'people_id' => 'Работник',
             'peopleStr' => 'Работник',
             'regulation_id' => 'Положение/инструкция',
@@ -120,5 +121,4 @@ class LocalResponsibility extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ResponsibilityType::className(), ['id' => 'responsibility_type_id']);
     }
-
 }
