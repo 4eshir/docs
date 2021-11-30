@@ -29,11 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             else
                 return ['class' => 'default'];
         },
+        'formatter' => ['class' => 'yii\i18n\Formatter', 'nullDisplay' => ''],
         'columns' => [
 
             ['attribute' => 'responsibilityTypeStr', 'format' => 'raw'],
             ['attribute' => 'branchStr', 'format' => 'raw'],
             ['attribute' => 'auditoriumStr', 'format' => 'raw'],
+            ['attribute' => 'quant', 'format' => 'raw', 'label' => 'Квант'],
             ['attribute' => 'peopleStr', 'format' => 'raw'],
             ['attribute' => 'orderStr', 'format' => 'raw', 'label' => 'Приказ'],
             ['attribute' => 'regulationStr', 'format' => 'raw'],

@@ -81,6 +81,8 @@ use yii\widgets\ActiveForm;
 
     ?>
 
+    <?= $form->field($model, 'quant')->input('text', ['placeholder'=>"Введите целое число, если необходима дополнительная идентификация ответственности", 'readonly' => 'true']); ?>
+
     <?php
     if ($model->people_id == null)
     {

@@ -7,6 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\work\LocalResponsibilityWork */
 
 $this->title = $model->people->secondname.' '.$model->responsibilityType->name;
+if ($model->quant !== null)
+    $this->title .= ' №' . $model->quant;
 $this->params['breadcrumbs'][] = ['label' => 'Учет ответственности работников', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'responsibilityTypeStr', 'format' => 'raw'],
             ['attribute' => 'branchStr', 'format' => 'raw'],
             ['attribute' => 'auditoriumStr', 'format' => 'raw'],
+            ['attribute' => 'quant', 'format' => 'raw'],
             ['attribute' => 'peopleStr', 'format' => 'raw'],
             ['attribute' => 'orderStr', 'format' => 'raw', 'label' => 'Приказ'],
             ['attribute' => 'regulationStr', 'format' => 'raw'],

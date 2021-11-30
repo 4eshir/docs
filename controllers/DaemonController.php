@@ -80,7 +80,7 @@ class DaemonController extends Controller
                     $messages[] = Yii::$app->mailer->compose()
                         ->setFrom('noreply@schooltech.ru')
                         ->setTo($user->username)
-                        ->setSubject('Краткая сводка по ЦСХД')
+                        ->setSubject('Cводка критических ошибок по ЦСХД')
                         ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
                     Logger::WriteLog(1, 'Пользователю ' . $user->username . ' отправлено сообщение об ошибках в системе');
                 }
