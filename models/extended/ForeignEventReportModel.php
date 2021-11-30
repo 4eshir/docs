@@ -51,7 +51,6 @@ class ForeignEventReportModel extends \yii\base\Model
         //Получаем группы и учеников
 
         $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
-            ->where(['<=', 'start_date', $this->end_date])->andWhere(['>=', 'finish_date', $this->end_date])
             ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
             ->andWhere(['IN', 'budget', $this->budget])
             ->all();
