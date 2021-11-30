@@ -241,7 +241,9 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
         }
-        var_dump($this->level);
+        var_dump(array_search(8, $this->level));
+        var_dump(array_search(7, $this->level));
+        var_dump(array_search(6, $this->level));
         //-----------------------------------------
         //=====================
         $resultHTML .= "</table>";
