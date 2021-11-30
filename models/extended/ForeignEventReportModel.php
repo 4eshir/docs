@@ -82,7 +82,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $resultHTML .= "<tr><td>Общее число обучающихся</td><td>".count($participants)."</td></tr>";
         //-----------------------------------
         //Вывод количества призеров / победителей (международных)
-        if (array_search(8, $this->level))
+        if (array_search(8, $this->level) !== null)
         {
             $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
 
@@ -136,7 +136,7 @@ class ForeignEventReportModel extends \yii\base\Model
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (всероссийских)
-        if (array_search(7, $this->level))
+        if (array_search(7, $this->level) !== null)
         {
             $events2 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->all();
             //ОТЛАДКА
@@ -189,7 +189,7 @@ class ForeignEventReportModel extends \yii\base\Model
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (региональных)
-        if (array_search(6, $this->level))
+        if (array_search(6, $this->level) !== null)
         {
 
             $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
@@ -241,9 +241,6 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
         }
-        var_dump(array_search(8, $this->level));
-        var_dump(array_search(7, $this->level));
-        var_dump(array_search(6, $this->level));
         //-----------------------------------------
         //=====================
         $resultHTML .= "</table>";
