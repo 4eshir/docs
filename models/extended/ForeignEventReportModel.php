@@ -87,11 +87,24 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
-                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $teamName = '';
+                $counterTeamWinners = 0;
+                $counterTeamPrizes = 0;
+                foreach ($teams as $team)
+                {
+                    if ($teamName != $team->name)
+                    {
+                        $teamName = $team->name;
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                        if ($res !== null) $counterTeamWinners++;
+                        else $counterTeamPrizes++;
+                    }
+                    $tIds[] = $team->participant_id;
+                }
                 $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
                 $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
-                $counter1 += count($achieves1);
-                $counter2 += count($achieves2);
+                $counter1 += count($achieves1) + $counterTeamPrizes;
+                $counter2 += count($achieves2) + $counterTeamWinners;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
 
@@ -123,11 +136,24 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
-                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $teamName = '';
+                $counterTeamWinners = 0;
+                $counterTeamPrizes = 0;
+                foreach ($teams as $team)
+                {
+                    if ($teamName != $team->name)
+                    {
+                        $teamName = $team->name;
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                        if ($res !== null) $counterTeamWinners++;
+                        else $counterTeamPrizes++;
+                    }
+                    $tIds[] = $team->participant_id;
+                }
                 $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
                 $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
-                $counter3 += count($achieves1);
-                $counter4 += count($achieves2);
+                $counter3 += count($achieves1) + $counterTeamPrizes;
+                $counter4 += count($achieves2) + $counterTeamWinners;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
 
@@ -159,11 +185,24 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
-                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $teamName = '';
+                $counterTeamWinners = 0;
+                $counterTeamPrizes = 0;
+                foreach ($teams as $team)
+                {
+                    if ($teamName != $team->name)
+                    {
+                        $teamName = $team->name;
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                        if ($res !== null) $counterTeamWinners++;
+                        else $counterTeamPrizes++;
+                    }
+                    $tIds[] = $team->participant_id;
+                }
                 $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
                 $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
-                $counter5 += count($achieves1);
-                $counter6 += count($achieves2);
+                $counter5 += count($achieves1) + $counterTeamPrizes;
+                $counter6 += count($achieves2) + $counterTeamPrizes;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
             }
             $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
