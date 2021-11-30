@@ -144,15 +144,18 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(7, $this->level) !== null)
         {
             $events2 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->all();
-            //ОТЛАДКА
-            foreach ($events2 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
-            //ОТЛАДКА
+
 
             $counter3 = 0;
             $counter4 = 0;
             $counterPart1 = 0;
             foreach ($events2 as $event)
             {
+                //ОТЛАДКА
+                $debug .= '<tr>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                //ОТЛАДКА
+
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
                 $teamName = '';
@@ -203,15 +206,16 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
 
-            //ОТЛАДКА
-            foreach ($events3 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
-            //ОТЛАДКА
-
             $counter5 = 0;
             $counter6 = 0;
             $counterPart1 = 0;
             foreach ($events3 as $event)
             {
+                //ОТЛАДКА
+                $debug .= '<tr>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                //ОТЛАДКА
+
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
                 $teamName = '';
