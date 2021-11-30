@@ -12,6 +12,7 @@ use app\models\work\ParticipantAchievementWork;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
@@ -84,8 +85,11 @@ class ForeignEventReportModel extends \yii\base\Model
             $counterPart1 = 0;
             foreach ($events1 as $event)
             {
-                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
-                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $tIds = [];
+                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
                 $counter1 += count($achieves1);
                 $counter2 += count($achieves2);
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
@@ -117,8 +121,11 @@ class ForeignEventReportModel extends \yii\base\Model
             $counterPart1 = 0;
             foreach ($events2 as $event)
             {
-                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
-                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $tIds = [];
+                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
                 $counter3 += count($achieves1);
                 $counter4 += count($achieves2);
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
@@ -150,8 +157,11 @@ class ForeignEventReportModel extends \yii\base\Model
             $counterPart1 = 0;
             foreach ($events3 as $event)
             {
-                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
-                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $tIds = [];
+                foreach ($teams as $team) $tIds[] = $team->participant_id;
+                $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 0])->all();
+                $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tIds])->andWhere(['winner' => 1])->all();
                 $counter5 += count($achieves1);
                 $counter6 += count($achieves2);
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
