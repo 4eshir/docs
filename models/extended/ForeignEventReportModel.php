@@ -118,7 +118,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.$counter1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter2. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
 
             }
@@ -179,7 +179,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.$counter3.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter4. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
@@ -241,7 +241,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.$counter5.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter6. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
