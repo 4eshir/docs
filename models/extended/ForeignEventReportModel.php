@@ -84,7 +84,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level))
         {
-            $events1 = $events->andWhere(['event_level_id' => 8])->all();
+            $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
 
             //ОТЛАДКА
             foreach ($events1 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
