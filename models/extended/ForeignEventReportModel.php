@@ -177,6 +177,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter3 += count($achieves1) + $counterTeamPrizes;
                 $counter4 += count($achieves2) + $counterTeamWinners;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+
+                //ОТЛАДКА
+                $debug .= '<td>'.$counter3.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter4. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                //ОТЛАДКА
             }
 
             $r1 = 0;
@@ -195,9 +199,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами всероссийских конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
-            //ОТЛАДКА
-            $debug .= '<td>'.$counter3.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter4. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
-            //ОТЛАДКА
+
         }
         //-----------------------------------------
         //Вывод количества призеров / победителей (региональных)
@@ -237,6 +239,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter5 += count($achieves1) + $counterTeamPrizes;
                 $counter6 += count($achieves2) + $counterTeamPrizes;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
+
+                //ОТЛАДКА
+                $debug .= '<td>'.$counter5.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter6. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                //ОТЛАДКА
             }
 
             $r1 = 0;
@@ -254,9 +260,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
             $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
-            //ОТЛАДКА
-            $debug .= '<td>'.$counter5.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$counter6. '(в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
-            //ОТЛАДКА
+
         }
         //-----------------------------------------
         //=====================
