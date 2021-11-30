@@ -118,7 +118,9 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $s1 = count($achieves1) + $counterTeamPrizes;
+                $s2 = count($achieves2) + $counterTeamWinners;
+                $debug .= '<td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
 
             }
@@ -179,7 +181,9 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $s1 = count($achieves1) + $counterTeamPrizes;
+                $s2 = count($achieves2) + $counterTeamWinners;
+                $debug .= '<td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
@@ -241,7 +245,9 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
 
                 //ОТЛАДКА
-                $debug .= '<td>'.count($achieves1).' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.count($achieves2). ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $s1 = count($achieves1) + $counterTeamPrizes;
+                $s2 = count($achieves2) + $counterTeamWinners;
+                $debug .= '<td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
