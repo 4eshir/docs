@@ -139,7 +139,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(7, $this->level))
         {
             $events2 = $events->andWhere(['event_level_id' => 7])->all();
-
+            var_dump($events2);
             //ОТЛАДКА
             foreach ($events2 as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td></tr>';
             //ОТЛАДКА
