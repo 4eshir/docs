@@ -45,7 +45,7 @@ class ForeignEventReportModel extends \yii\base\Model
     public function generateReport()
     {
         //ОТЛАДКА
-        $debug = '<table><tr><td>Мероприятие</td><td>Дата начала</td></tr>';
+        $debug = '<table class="table table-bordered"><tr><td>Мероприятие</td><td>Дата начала</td></tr>';
         //ОТЛАДКА
 
         //Получаем группы и учеников
