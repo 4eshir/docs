@@ -44,6 +44,10 @@ class ForeignEventReportModel extends \yii\base\Model
 
     public function generateReport()
     {
+        //ОТЛАДКА
+        $debug = '<table><tr><td>Мероприятие</td><td>Дата начала</td></tr>';
+        //ОТЛАДКА
+
         //Получаем группы и учеников
 
         $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
@@ -68,6 +72,11 @@ class ForeignEventReportModel extends \yii\base\Model
         foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
 
         $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
+
+        //ОТЛАДКА
+        foreach ($events as $event) $debug .= '<tr><td>'.$event->name.'</td><td>'.$event->start_date.'</td><td>'.$event->end_date.'</td></tr>';
+        $debug .= '</table>';
+        //ОТЛАДКА
 
         //-------------------------------------------
 
@@ -226,7 +235,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //=====================
         $resultHTML .= "</table>";
 
-        return $resultHTML;
+        return [$resultHTML, $debug];
     }
 
     public function getAge($birthdate, $target_date)
