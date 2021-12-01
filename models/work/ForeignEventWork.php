@@ -108,27 +108,23 @@ class ForeignEventWork extends ForeignEvent
 
     public function getColor($participant_id, $branch_id, $event_finish_date)
     {
+        var_dump('l');
         $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
         $groupSet = TrainingGroupWork::find();
         $now = $event_finish_date;
         $flag = false;
-        if ($groupsParticipant !== null)
+        foreach ($groupsParticipant as $groupParticipant)
         {
-            foreach ($groupsParticipant as $groupParticipant)
+            $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
+            if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
             {
-                $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
-                if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
-                {
-                    $flag = true;
-                }
+                $flag = true;
             }
-            if ($flag === false)
-                return 'style = "background-color: #FCF8E3; margin: 0; whi"';
-            else
-                return 'style = "margin: 0;"';
         }
-        else
+        if ($flag === false)
             return 'style = "background-color: #FCF8E3; margin: 0; whi"';
+        else
+            return 'style = "margin: 0;"';
     }
 
     public function getParticipantsLink()
