@@ -334,11 +334,11 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter8 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter7 + $counter8) * 1.0) / ($counterPart1 * 1.0);
             }
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter7."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter8."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
-            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".$counter7."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".$counter8."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами городских конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
 
         }
@@ -400,11 +400,11 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter10 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter9 + $counter10) * 1.0) / ($counterPart1 * 1.0);
             }
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter9."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter10."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
-            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".$counter9."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".$counter10."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами районных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
 
         }
@@ -466,11 +466,11 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter12 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter11 + $counter12) * 1.0) / ($counterPart1 * 1.0);
             }
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter11."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter12."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
-            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".$counter11."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".$counter12."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
+            if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами внутренних конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
 
         }
