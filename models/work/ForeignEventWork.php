@@ -110,9 +110,9 @@ class ForeignEventWork extends ForeignEvent
     {
 
         $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
-        var_dump($groupsParticipant);
+        var_dump(count($groupsParticipant));
         $groupSet = TrainingGroupWork::find();
-        var_dump($groupSet);
+        var_dump(count($groupSet->all()));
         var_dump('l');
         $now = $event_finish_date;
         $flag = false;
