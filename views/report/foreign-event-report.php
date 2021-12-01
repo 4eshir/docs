@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php
-$this->title = 'Генерация отчета по обучающимся';
+$this->title = 'Генерация отчета по мероприятиям';
 ?>
 
 <style>

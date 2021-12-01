@@ -8,6 +8,11 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+$this->title = 'Отчет';
+?>
+
+
 <div class="result-report-form">
     <div style="font-family: Tahoma; font-size: 20px">
         <?php echo $model->result; ?>
