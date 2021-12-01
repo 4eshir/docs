@@ -112,7 +112,7 @@ class ForeignEventWork extends ForeignEvent
         $groupSet = TrainingGroupWork::find();
         $now = $event_finish_date;
         $flag = false;
-        if ($groupParticipant !== null)
+        if ($groupsParticipant !== null)
         {
             foreach ($groupsParticipant as $groupParticipant)
             {
