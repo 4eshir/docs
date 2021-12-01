@@ -112,18 +112,23 @@ class ForeignEventWork extends ForeignEvent
         $groupSet = TrainingGroupWork::find();
         $now = date("Y-m-d");
         $flag = false;
-        foreach ($groupsParticipant as $groupParticipant)
+        if ($groupParticipant !== null)
         {
-            $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
-            if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
+            foreach ($groupsParticipant as $groupParticipant)
             {
-                $flag = true;
+                $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
+                if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
+                {
+                    $flag = true;
+                }
             }
+            if ($flag === false)
+                return 'style = "background-color: #FCF8E3; margin: 0; whi"';
+            else
+                return 'style = "margin: 0;"';
         }
-        if ($flag === false)
-            return 'style = "background-color: #FCF8E3; margin: 0; whi"';
         else
-            return 'style = "margin: 0;"';
+            return 'style = "background-color: #FCF8E3; margin: 0; whi"';
     }
 
     public function getParticipantsLink()
