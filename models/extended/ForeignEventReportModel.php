@@ -137,7 +137,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter2 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0);
             }
-
+            var_dump(array_search(0, $this->prize));
+            var_dump(array_search(1, $this->prize));
             if (array_search(0, $this->prize) !== null) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counter1."</td></tr>";
             if (array_search(1, $this->prize) !== null) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counter2."</td></tr>";
             if (array_search(0, $this->prize) !== null) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
