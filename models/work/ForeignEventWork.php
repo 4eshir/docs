@@ -121,7 +121,7 @@ class ForeignEventWork extends ForeignEvent
                 $flag = true;
             }
         }
-        if (false === false)
+        if ($flag === false)
             return 'style = "background-color: #FCF8E3; margin: 0; whi"';
         else
             return 'style = "margin: 0;"';
