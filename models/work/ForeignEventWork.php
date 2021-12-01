@@ -133,7 +133,7 @@ class ForeignEventWork extends ForeignEvent
         $branchSet =  BranchWork::find();
         foreach ($parts as $partOne)
         {
-            var_dump($partsLink);
+            var_dump($partOne);
             $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->branch_id) . '>';
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
