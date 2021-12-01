@@ -145,6 +145,7 @@ class ForeignEventWork extends ForeignEvent
             $partsLink .= '</p>';
 
         }
+        var_dump($partsLink);
         return $partsLink;
     }
 
