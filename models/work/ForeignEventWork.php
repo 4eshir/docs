@@ -143,9 +143,9 @@ class ForeignEventWork extends ForeignEvent
             if ($team !== null)
                 $partsLink = $partsLink.' - Команда '.$team->name;
             $partsLink .= '</p>';
-
+            var_dump($partsLink);
         }
-        var_dump($partsLink);
+
         return $partsLink;
     }
 
