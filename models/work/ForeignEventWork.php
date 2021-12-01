@@ -110,20 +110,17 @@ class ForeignEventWork extends ForeignEvent
     {
 
         $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
-        var_dump(count($groupsParticipant));
         $groupSet = TrainingGroupWork::find();
-        var_dump(count($groupSet->all()));
-        var_dump('l');
         $now = $event_finish_date;
         $flag = false;
-        foreach ($groupsParticipant as $groupParticipant)
+        /*foreach ($groupsParticipant as $groupParticipant)
         {
             $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
             if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
             {
                 $flag = true;
             }
-        }
+        }*/
         if (false === false)
             return 'style = "background-color: #FCF8E3; margin: 0; whi"';
         else
