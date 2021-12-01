@@ -106,11 +106,11 @@ class ForeignEventWork extends ForeignEvent
      * @return string
      */
 
-    public function getColor($participant_id, $branch_id)
+    public function getColor($participant_id, $branch_id, $event_finish_date)
     {
         $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
         $groupSet = TrainingGroupWork::find();
-        $now = date("Y-m-d");
+        $now = $event_finish_date;
         $flag = false;
         if ($groupParticipant !== null)
         {
@@ -139,7 +139,7 @@ class ForeignEventWork extends ForeignEvent
         foreach ($parts as $partOne)
         {
             var_dump(count($parts));
-            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->branch_id) . '>';
+            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->branch_id, $partOne->foreignEvent->finish_date) . '>';
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
