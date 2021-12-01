@@ -119,7 +119,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 //ОТЛАДКА
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
-                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).' (в т.ч. команды - '.count($teams).')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams) : '';
+                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).$teamStr.')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
 
             }
@@ -182,7 +183,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 //ОТЛАДКА
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
-                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).' (в т.ч. команды - '.count($teams).')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams) : '';
+                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).$teamStr.')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
@@ -246,7 +248,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 //ОТЛАДКА
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
-                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).' (в т.ч. команды - '.count($teams).')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
+                $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams) : '';
+                $debug .= '<td>'.count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all()).$teamStr.')</td><td>'.$s1.' (в т.ч. команды - '.$counterTeamPrizes.')</td><td>'.$s2. ' (в т.ч. команды - '.$counterTeamWinners.')</td></tr>';
                 //ОТЛАДКА
             }
 
