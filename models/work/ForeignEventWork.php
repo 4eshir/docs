@@ -106,19 +106,43 @@ class ForeignEventWork extends ForeignEvent
      * @return string
      */
 
+    public function getColor($participant_id, $branch_id)
+    {
+        $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
+        $groupSet = TrainingGroupWork::find();
+        $now = date("Y-m-d");
+        $flag = false;
+        foreach ($groupsParticipant as $groupParticipant)
+        {
+            $group = $groupSet->where(['id' => $groupParticipant->branch_id])->one();
+            if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
+            {
+                $flag = true;
+            }
+        }
+        if ($flag === false)
+            return 'style = "background-color: #FCF8E3; margin: 0; whi"';
+        else
+            return 'style = "margin: 0;"';
+    }
+
     public function getParticipantsLink()
     {
         $parts = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
         $partsLink = '';
+        $branchSet =  BranchWork::find();
         foreach ($parts as $partOne)
         {
+            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->branch_id) . '>';
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
+            $branch = $branchSet->where(['id' => $partOne->branch_id])->one();
+            $partsLink .= ', отдел для учета: ' . Html::a($branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->id]));
             $partsLink .= ')';
             if ($team !== null)
                 $partsLink = $partsLink.' - Команда '.$team->name;
-            $partsLink .= '<br>';
+            $partsLink .= '</p>';
 
         }
         return $partsLink;
