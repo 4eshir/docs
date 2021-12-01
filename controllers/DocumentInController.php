@@ -86,8 +86,8 @@ class DocumentInController extends Controller
             $model->scan = '';
             if ($model->correspondent_id !== null)
             {
-                $model->company_id = $model->correspondent->company_id;
-                $model->position_id = $model->correspondent->position_id;
+                //$model->company_id = $model->correspondent->company_id;
+                //$model->position_id = $model->correspondent->position_id;
             }
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
