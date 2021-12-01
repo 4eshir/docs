@@ -108,9 +108,12 @@ class ForeignEventWork extends ForeignEvent
 
     public function getColor($participant_id, $branch_id, $event_finish_date)
     {
-        var_dump('l');
-        /*$groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
+
+        $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
+        var_dump($groupsParticipant);
         $groupSet = TrainingGroupWork::find();
+        var_dump($groupSet);
+        var_dump('l');
         $now = $event_finish_date;
         $flag = false;
         foreach ($groupsParticipant as $groupParticipant)
@@ -120,7 +123,7 @@ class ForeignEventWork extends ForeignEvent
             {
                 $flag = true;
             }
-        }*/
+        }
         if (false === false)
             return 'style = "background-color: #FCF8E3; margin: 0; whi"';
         else
