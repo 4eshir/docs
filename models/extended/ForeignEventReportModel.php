@@ -92,7 +92,7 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 //ОТЛАДКА
                 $debug .= '<tr>';
-                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td nowrap>'.$event->start_date.'</td><td nowrap>'.$event->finish_date.'</td>';
                 //ОТЛАДКА
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
                 $tIds = [];
@@ -157,7 +157,7 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 //ОТЛАДКА
                 $debug .= '<tr>';
-                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td nowrap>'.$event->start_date.'</td><td nowrap>'.$event->finish_date.'</td>';
                 //ОТЛАДКА
 
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
@@ -224,7 +224,7 @@ class ForeignEventReportModel extends \yii\base\Model
             {
                 //ОТЛАДКА
                 $debug .= '<tr>';
-                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td>'.$event->start_date.'</td><td>'.$event->finish_date.'</td>';
+                $debug .= '<td>'.$event->name.'</td><td>'.$event->eventLevel->name.'</td><td nowrap>'.$event->start_date.'</td><td nowrap>'.$event->finish_date.'</td>';
                 //ОТЛАДКА
 
                 $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
