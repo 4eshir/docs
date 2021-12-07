@@ -80,6 +80,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод ВСЕХ обучающихся (по группам)
         $resultHTML .= "<tr><td>Общее число обучающихся</td><td>".count($participants)."</td></tr>";
         //-----------------------------------
+        $counterTeam = 0;
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level) !== false)
         {
@@ -99,6 +100,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -107,6 +109,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -137,6 +141,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter2 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0);
             }
+
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counter1."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counter2."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
@@ -165,6 +173,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -173,6 +182,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -202,6 +213,9 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r3 = (($counter3 + $counter4) * 1.0) / ($counterPart1 * 1.0);
             }
 
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками всероссийских конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$counter3."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$counter4."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
@@ -232,6 +246,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -240,6 +255,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -268,6 +285,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter6 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0);
             }
+
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками региональных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
@@ -298,6 +319,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -306,6 +328,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -334,6 +358,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter8 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter7 + $counter8) * 1.0) / ($counterPart1 * 1.0);
             }
+
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками городских конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".$counter7."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".$counter8."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
@@ -364,6 +392,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -372,6 +401,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -400,6 +431,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter10 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter9 + $counter10) * 1.0) / ($counterPart1 * 1.0);
             }
+
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками районных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".$counter9."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".$counter10."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
@@ -430,6 +465,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamName = '';
                 $counterTeamWinners = 0;
                 $counterTeamPrizes = 0;
+                $counterTeam = 0;
                 foreach ($teams as $team)
                 {
                     if ($teamName != $team->name)
@@ -438,6 +474,8 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                         if ($res !== null) $counterTeamWinners++;
                         else $counterTeamPrizes++;
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        if ($res !== null) $counterTeam++;
                     }
                     $tIds[] = $team->participant_id;
                 }
@@ -466,6 +504,10 @@ class ForeignEventReportModel extends \yii\base\Model
                 $r2 = ($counter12 * 1.0) / ($counterPart1 * 1.0);
                 $r3 = (($counter11 + $counter12) * 1.0) / ($counterPart1 * 1.0);
             }
+
+            $addStr = $counterTeam > 0 ? ' (в т.ч. команд - '.$counterTeam.')' : '';
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками внутренних конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".$counter11."</td></tr>";
             if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".$counter12."</td></tr>";
             if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
