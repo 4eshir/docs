@@ -392,6 +392,7 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroupWork];
+
             $modelTeachers = [new TeacherGroupWork];
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено занятие '.$model->lesson_date.'('.$model->lesson_start_time.') группы '.$model->trainingGroup->number);
             return $this->render('update', [
@@ -412,9 +413,13 @@ class TrainingGroupController extends Controller
     {
         $participant = TrainingGroupLessonWork::find()->where(['id' => $id])->one();
         $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $participant->id])->all();
+        $visits = VisitWork::find()->where(['training_group_lesson_id' => $participant->id])->andWhere(['!=', 'status', 3])->all();
+        if (count($themes) > 0 || count($visits) > 0)
+        {
+            Yii::$app->session->setFlash("danger", "Невозможно уадлить занятие, т.к. присутствуют связанные с ним сведения о явке/неявке обучающихся и/или сведения о теме занятия в учебно-тематическом плане");
+            return $this->redirect('index?r=training-group/update&id='.$modelId);
+        }
         $visits = VisitWork::find()->where(['training_group_lesson_id' => $participant->id])->all();
-        foreach ($themes as $theme)
-            $theme->delete();
         foreach ($visits as $visit)
             $visit->delete();
         $participant->delete();
