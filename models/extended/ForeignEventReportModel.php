@@ -122,9 +122,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->all();
                 $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->all();
 
-                var_dump($achieves1);
-                var_dump('<br>');
-                var_dump($achieves2);
+                var_dump($counterTeamPrizes);
+                
                 $counter1 += count($achieves1) + $counterTeamPrizes;
                 $counter2 += count($achieves2) + $counterTeamWinners;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->all());
