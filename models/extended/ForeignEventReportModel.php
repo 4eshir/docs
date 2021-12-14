@@ -125,7 +125,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
                 $counter1 += count($achieves1) + $counterTeamPrizes;
                 $counter2 += count($achieves2) + $counterTeamWinners;
-                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all());
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
                 //ОТЛАДКА
                 $s1 = count($achieves1) + $counterTeamPrizes;
