@@ -207,7 +207,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
                 //ОТЛАДКА
                 $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
-                var_dump(count($teams));
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = $counterTeam > 0 ? ' (в т.ч. команды - '.$counterTeam.')' : '';
