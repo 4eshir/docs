@@ -119,7 +119,6 @@ class ForeignEventReportModel extends \yii\base\Model
                 foreach ($tIds as $tId)
                     $tpIds[] = $tId->participant_id;
 
-                var_dump($tpIds);
 
                 $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->all();
                 $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->all();
