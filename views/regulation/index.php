@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['attribute' => 'date', 'label' => 'Дата положения'],
             ['attribute' => 'name'],
-            ['attribute' => 'order_id', 'label' => 'Приказ', 'value' => function($model){
+            ['attribute' => 'orderString', 'label' => 'Приказ', 'value' => function($model){
                 $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 $doc_num = 0;
                 if ($order->order_postfix == null)

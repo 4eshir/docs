@@ -11,6 +11,7 @@ use app\models\work\RegulationWork;
  */
 class SearchRegulation extends RegulationWork
 {
+    public $orderString;
     /**
      * {@inheritdoc}
      */
@@ -18,6 +19,7 @@ class SearchRegulation extends RegulationWork
     {
         return [
             [['id', 'order_id', 'ped_council_number', 'par_council_number', 'state'], 'integer'],
+            [['orderString'], 'string'],
             [['date', 'name', 'ped_council_date', 'par_council_date', 'scan'], 'safe'],
         ];
     }
@@ -48,6 +50,11 @@ class SearchRegulation extends RegulationWork
             'query' => $query,
         ]);
 
+        $dataProvider->sort->attributes['orderString'] = [
+            'asc' => ['order.order_name' => SORT_ASC],
+            'desc' => ['order.order_name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -69,6 +76,7 @@ class SearchRegulation extends RegulationWork
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'order.order_name', $this->orderString])
             ->andFilterWhere(['like', 'scan', $this->scan]);
 
         return $dataProvider;
