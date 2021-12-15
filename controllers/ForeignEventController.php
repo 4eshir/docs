@@ -220,13 +220,8 @@ class ForeignEventController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $this->findModel($id)->delete();
-
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие' . $this->name);
         return $this->redirect(['index']);
     }
 

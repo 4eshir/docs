@@ -296,7 +296,7 @@ class TrainingGroupController extends Controller
         $model = $this->findModel($id);
         $model->delete();
         $number = $model->number;
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена группа '.$number);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена группа '.$number);
 
         return $this->redirect(['index']);
     }
