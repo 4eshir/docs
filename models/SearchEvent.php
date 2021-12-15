@@ -16,6 +16,7 @@ class SearchEvent extends EventWork
 
     public $responsibleString;
     public $eventLevelString;
+    public $orderString;
     /**
      * {@inheritdoc}
      */
@@ -24,7 +25,7 @@ class SearchEvent extends EventWork
         return [
             [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
             [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
-            [['responsibleString', 'eventLevelString'], 'string']
+            [['responsibleString', 'eventLevelString', 'orderString'], 'string']
         ];
     }
 
@@ -61,6 +62,7 @@ class SearchEvent extends EventWork
 
         $query->joinWith(['responsible responsible']);
         $query->joinWith(['eventLevel eventLevel']);
+        $query->joinWith(['order order']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -74,6 +76,11 @@ class SearchEvent extends EventWork
         $dataProvider->sort->attributes['eventLevelString'] = [
             'asc' => ['eventLevel.Name' => SORT_ASC],
             'desc' => ['eventLevel.Name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['orderString'] = [
+            'asc' => ['order.order_name' => SORT_ASC],
+            'desc' => ['order.order_name' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -107,6 +114,7 @@ class SearchEvent extends EventWork
             ->andFilterWhere(['like', 'photos', $this->photos])
             ->andFilterWhere(['like', 'responsible.Secondname', $this->responsibleString])
             ->andFilterWhere(['like', 'eventLevel.Name', $this->eventLevelString])
+            ->andFilterWhere(['like', 'order.order_name', $this->orderString])
             ->andFilterWhere(['like', 'reporting_doc', $this->reporting_doc])
             ->andFilterWhere(['like', 'other_files', $this->other_files]);
 

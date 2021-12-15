@@ -47,9 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Да';
                 else
                     return 'Нет';
-            }, 'filter' => [ 1 => "Да", 0 => "Нет"]],
+            }, 'filter' => [1 => "Да", 0 => "Нет"]],
             ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
-            ['attribute' => 'order_id', 'value' => function($model){
+            ['attribute' => 'orderString', 'value' => function($model){
                 $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 if ($order == null)
                     return 'Нет';
