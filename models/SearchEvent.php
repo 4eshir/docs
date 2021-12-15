@@ -71,8 +71,8 @@ class SearchEvent extends EventWork
         ];
 
         $dataProvider->sort->attributes['eventLevelString'] = [
-            'asc' => ['event_level_string.short_name' => SORT_ASC],
-            'desc' => ['event_level_string.short_name' => SORT_DESC],
+            'asc' => ['event_level.short_name' => SORT_ASC],
+            'desc' => ['event_level.short_name' => SORT_DESC],
         ];
 
         $this->load($params);
