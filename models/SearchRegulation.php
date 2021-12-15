@@ -45,7 +45,8 @@ class SearchRegulation extends RegulationWork
         $query = RegulationWork::find()->where(['regulation_type_id' => $c]);
 
         // add conditions that should always apply here
-
+        $query->joinWith(['order order']);
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
