@@ -106,7 +106,7 @@ class SearchEvent extends EventWork
             ->andFilterWhere(['like', 'protocol', $this->protocol])
             ->andFilterWhere(['like', 'photos', $this->photos])
             ->andFilterWhere(['like', 'responsible.Secondname', $this->responsibleString])
-            ->andFilterWhere(['like', 'event_level.Name', $this->eventLevelString])
+            ->andFilterWhere(['like', 'eventLevel.Name', $this->eventLevelString])
             ->andFilterWhere(['like', 'reporting_doc', $this->reporting_doc])
             ->andFilterWhere(['like', 'other_files', $this->other_files]);
 
