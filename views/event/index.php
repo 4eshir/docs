@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($reg == null)
                     return 'Нет';
                 return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));
-            }, 'format' => 'raw'],
+            }, 'format' => 'raw', 'label' => 'Положение'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
