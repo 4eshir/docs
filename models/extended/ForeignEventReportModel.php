@@ -290,7 +290,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 $counter6 += count($achieves2) + $counterTeamPrizes;
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
                 $allTeams += $counterTeam;
-
+                var_dump($counterTeam);
+                var_dump($event);
 
                 //ОТЛАДКА
                 $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
