@@ -60,6 +60,7 @@ class SearchEvent extends EventWork
         // add conditions that should always apply here
 
         $query->joinWith(['responsible responsible']);
+        $query->joinWith(['eventLevel eventLevel']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,8 +72,8 @@ class SearchEvent extends EventWork
         ];
 
         $dataProvider->sort->attributes['eventLevelString'] = [
-            'asc' => ['event_level.shortName' => SORT_ASC],
-            'desc' => ['event_level.shortName' => SORT_DESC],
+            'asc' => ['event_level.short_name' => SORT_ASC],
+            'desc' => ['event_level.short_name' => SORT_DESC],
         ];
 
         $this->load($params);
