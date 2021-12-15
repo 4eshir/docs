@@ -57,7 +57,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
         $tgIds = [];
         foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'budget', $this->budget])->all();
 
         //--------------------------
 
