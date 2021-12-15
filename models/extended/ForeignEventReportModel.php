@@ -72,8 +72,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
         $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
 
-        var_dump($this->start_date <= '2021-03-02');
-        var_dump($this->end_date >= '2021-03-02');
 
 
         //-------------------------------------------
