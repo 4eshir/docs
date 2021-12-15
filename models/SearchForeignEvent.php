@@ -178,9 +178,9 @@ class SearchForeignEvent extends ForeignEventWork
             ->andFilterWhere(['like', 'city', $this->city])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'company.name', $this->companyString])
-            ->andFilterWhere(['like', 'eventLevel.name', $this->eventLevelString])
-            ->andFilterWhere(['like', 'eventWay.name', $this->eventWayString])
-            ->andFilterWhere(['like', 'foreignEventParticipants.secondname', $this->participants])
+            ->andFilterWhere(['like', 'event_level.name', $this->eventLevelString])
+            ->andFilterWhere(['like', 'event_way.name', $this->eventWayString])
+            ->andFilterWhere(['like', 'foreign_event_participants.secondname', $this->participants])
             ->andFilterWhere(['like', 'docs_achievement', $this->docs_achievement]);
 
         return $dataProvider;
