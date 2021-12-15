@@ -17,6 +17,7 @@ class SearchEvent extends EventWork
     public $responsibleString;
     public $eventLevelString;
     public $orderString;
+    public $regulationString;
     /**
      * {@inheritdoc}
      */
@@ -25,7 +26,7 @@ class SearchEvent extends EventWork
         return [
             [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
             [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
-            [['responsibleString', 'eventLevelString', 'orderString'], 'string']
+            [['responsibleString', 'eventLevelString', 'orderString', 'regulationString'], 'string']
         ];
     }
 
@@ -63,6 +64,7 @@ class SearchEvent extends EventWork
         $query->joinWith(['responsible responsible']);
         $query->joinWith(['eventLevel eventLevel']);
         $query->joinWith(['order order']);
+        $query->joinWith(['regulation regulation']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -81,6 +83,11 @@ class SearchEvent extends EventWork
         $dataProvider->sort->attributes['orderString'] = [
             'asc' => ['order.order_name' => SORT_ASC],
             'desc' => ['order.order_name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['regulationString'] = [
+            'asc' => ['regulation.name' => SORT_ASC],
+            'desc' => ['regulation.name' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -115,6 +122,7 @@ class SearchEvent extends EventWork
             ->andFilterWhere(['like', 'responsible.Secondname', $this->responsibleString])
             ->andFilterWhere(['like', 'eventLevel.Name', $this->eventLevelString])
             ->andFilterWhere(['like', 'order.order_name', $this->orderString])
+            ->andFilterWhere(['like', 'regulation.name', $this->regulationString])
             ->andFilterWhere(['like', 'reporting_doc', $this->reporting_doc])
             ->andFilterWhere(['like', 'other_files', $this->other_files]);
 
