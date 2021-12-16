@@ -114,7 +114,7 @@ class SearchEvent extends EventWork
         ]);
 
         $query->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'event.name', $this->name])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'protocol', $this->protocol])
