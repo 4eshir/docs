@@ -14,7 +14,7 @@
         }
 
         #dropbox {
-            height: 5000px;
+            height: 500px;
             width: 373px;
             margin-left: 30px;
             margin-right: 30px;
