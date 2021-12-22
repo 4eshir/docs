@@ -1,25 +1,63 @@
-<?php
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 100px;
+        }
+
+        #dropbox {
+            height: 250px;
+            width: 250px;
+            border: 5px solid black;
+        }
+
+        img {
+            position: absolute;
+            height: 150px;
+            width: 150px;
+        }
+    </style>
+    <title>Document</title>
 </head>
-
 <body>
-    <div id="cont">
-      <p style="font-size:50px;" >Какой то тескт</p>
-    </div>
+    <div id="dropbox"></div>
+    <img id="gif" src="https://media.giphy.com/media/3ohzdNF74rFtPMZzck/giphy.gif">
 </body>
-    
-    <script>
-    document.querySelector('#cont').addEventListener('touchstart', function(){
-	document.querySelector('#cont').style.background = '#f00';
-    });
-
-      document.querySelector('#cont').addEventListener('touchend', function(){
-        document.querySelector('#cont').style.background = '#fff';
-    });
+<script>
+    window.onload = function () {
+    //select the thing we wanna drag
+    var mustachio = document.getElementById('gif');
+    //listen to the touchmove event, every time it fires, grab the location of the touch
+    //then assign it to mustachio
+    mustachio.addEventListener('touchmove', function (ev) {
+        //grab the location of the touch
+        var touchLocation = ev.targetTouches[0];
+        //assign mustachio new coordinates based on the touch
+        mustachio.style.left = touchLocation.pageX + 'px';
+        mustachio.style.top = touchLocation.pageY + 'px';
+    })
+    mustachio.addEventListener('touchend', function (ev) {
+        //current mustachio position when dropped
+        var x = parseInt(mustachio.style.left);
+        var y = parseInt(mustachio.style.top);
+        //check to see if that position meets our constraints
+        if (x < 388 || x > 646) {
+            mustachio.style.left = '450px';
+            mustachio.style.top = '175px';
+        }
+        if (y < 100 || y > 356) {
+            mustachio.style.left = '450px';
+            mustachio.style.top = '175px';
+        }
+    })
+}
 </script>
-    
 </html>
