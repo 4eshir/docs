@@ -49,14 +49,6 @@
         var x = parseInt(mustachio.style.left);
         var y = parseInt(mustachio.style.top);
         //check to see if that position meets our constraints
-        if (x < 388 || x > 646) {
-            mustachio.style.left = '450px';
-            mustachio.style.top = '175px';
-        }
-        if (y < 100 || y > 356) {
-            mustachio.style.left = '450px';
-            mustachio.style.top = '175px';
-        }
     })
 }
 </script>
