@@ -48,6 +48,7 @@
         //current mustachio position when dropped
         var x = parseInt(mustachio.style.left);
         var y = parseInt(mustachio.style.top);
+        alert(x + " " + y);
         //check to see if that position meets our constraints
     })
 }
