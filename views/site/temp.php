@@ -15,7 +15,9 @@
 
         #dropbox {
             height: 250px;
-            width: 250px;
+            width: 373px;
+            padding-left: 30px;
+            padding-right: 30px;
             border: 5px solid black;
         }
 
@@ -28,6 +30,8 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="dropbox"></div>
+    <div id="dropbox"></div>
     <div id="dropbox"></div>
     <img id="gif" src="https://media.giphy.com/media/3ohzdNF74rFtPMZzck/giphy.gif">
 </body>
