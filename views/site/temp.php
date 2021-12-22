@@ -30,6 +30,11 @@
 
         event.dataTransfer.clearData();
     }
+
+    function aaa()
+    {
+        alert('lol');
+    }
 </script>
 
 <style>
@@ -83,7 +88,7 @@
             thing 3
         </div>
 
-        <div id="draggable-4" class="example-draggable" draggable="true"
+        <div id="draggable-4" class="example-draggable" draggable="true" onclick="aaa()"
              ondragstart="onDragStart(event);"
         >
             thing 4
