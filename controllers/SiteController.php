@@ -192,12 +192,7 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $arr = ['1', '2'];
-        $table = 'focus';
-        $q = new ArraySqlConstructor();
-        $q->table($table);
-        $q->oneWhereAnd($table, 'id', $arr);
-        var_dump($q->getQuery());
+        return $this->render('temp');
     }
 
 

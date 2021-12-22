@@ -58,8 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }
 
             else
-                return Html::a('Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
-                    \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->id]));
+                return 'Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"';
 
 
         }],

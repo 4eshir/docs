@@ -47,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if ($links == null)
                 return '';
             else
-                return Html::a('Входящий документ "'.\app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
-                    \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->id]));
+                return 'Входящий документ "'.\app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"';
         }],
 
     ];

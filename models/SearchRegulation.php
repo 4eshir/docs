@@ -73,7 +73,7 @@ class SearchRegulation extends RegulationWork
             'ped_council_date' => $this->ped_council_date,
             'par_council_number' => $this->par_council_number,
             'par_council_date' => $this->par_council_date,
-            'state' => $this->state,
+            'regulation.state' => $this->state,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
