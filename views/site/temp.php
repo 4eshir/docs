@@ -83,27 +83,7 @@
         var y = parseInt(mustachio.style.top);
         let elem = document.getElementById("dropbox1");
         elem.innerHTML = "<p>" + x + " " + y + "</p>";
-        if (x > 430)
-        {
-            elem.classList.remove('orga');
-            elem.classList.remove('orgaGray');
-            elem.classList.remove('orgaGreen');
-            elem.classList.add('orgaGray');
-        }
-        if (x > 800)
-        {
-            elem.classList.remove('orga');
-            elem.classList.remove('orgaGray');
-            elem.classList.remove('orgaGreen');
-            elem.classList.add('orgaGreen');
-        }
-        if (x < 430)
-        {
-            elem.classList.remove('orga');
-            elem.classList.remove('orgaGray');
-            elem.classList.remove('orgaGreen');
-            elem.classList.add('orga');
-        }
+        
         //check to see if that position meets our constraints
     })
 }
