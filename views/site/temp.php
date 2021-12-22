@@ -49,7 +49,7 @@
         var x = parseInt(mustachio.style.left);
         var y = parseInt(mustachio.style.top);
         let elem = document.getElementById("dropbox");
-        elem.innerHTML = "<p>" + x + " " + "</p>";
+        elem.innerHTML = "<p>" + x + " " + y + "</p>";
         //check to see if that position meets our constraints
     })
 }
