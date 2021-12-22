@@ -30,9 +30,12 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="dropbox"></div>
-    <div id="dropbox"></div>
-    <div id="dropbox"></div>
+    <div style="display: flex">
+        <div id="dropbox"></div>
+        <div id="dropbox"></div>
+        <div id="dropbox"></div>
+    </div>
+    
     <img id="gif" src="https://media.giphy.com/media/3ohzdNF74rFtPMZzck/giphy.gif">
 </body>
 <script>
