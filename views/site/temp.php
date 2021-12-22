@@ -55,9 +55,9 @@
 </head>
 <body>
     <div style="display: flex">
-        <div id="dropbox1"></div>
-        <div id="dropbox2"></div>
-        <div id="dropbox3"></div>
+        <div class="dropbox" id="dropbox1"></div>
+        <div class="dropbox" id="dropbox2"></div>
+        <div class="dropbox" id="dropbox3"></div>
     </div>
     
     <div id="pidor" class="orga">
