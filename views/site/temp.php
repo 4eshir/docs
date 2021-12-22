@@ -13,7 +13,7 @@
             margin-top: 100px;
         }
 
-        #dropbox {
+        .dropbox {
             height: 500px;
             width: 373px;
             margin-left: 30px;
@@ -21,7 +21,7 @@
             border: 5px solid black;
         }
         
-        #orga {
+        .orga {
             height: 50px;
             width: 280px;
             border-radius: 20px;
@@ -29,7 +29,7 @@
             background: red;
         }
         
-        #orgaGay {
+        .orgaGay {
             height: 50px;
             width: 280px;
             border-radius: 20px;
@@ -37,7 +37,7 @@
             background: gray;
         }
         
-        #orgaGreen {
+        .orgaGreen {
             height: 50px;
             width: 280px;
             border-radius: 20px;
