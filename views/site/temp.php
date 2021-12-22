@@ -69,6 +69,9 @@
 </style>
 
 <body>
+
+<button onclick="aaa()">FFF</button>
+
 <div class="example-parent">
     <div class="example-origin">
         <div id="draggable-1" class="example-draggable" draggable='true'
@@ -88,7 +91,7 @@
             thing 3
         </div>
 
-        <div id="draggable-4" class="example-draggable" draggable="true" onclick="aaa()"
+        <div id="draggable-4" class="example-draggable" draggable="true"
              ondragstart="onDragStart(event);"
         >
             thing 4
