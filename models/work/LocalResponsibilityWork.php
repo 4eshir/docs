@@ -42,9 +42,40 @@ class LocalResponsibilityWork extends LocalResponsibility
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'responsibility_type_id' => 'Вид ответственности',
+            'responsibilityTypeStr' => 'Вид ответственности',
+            'responsibilityTypeStrEx' => 'Вид ответственности',
+            'branch_id' => 'Отдел',
+            'branchStr' => 'Отдел',
+            'branchStrEx' => 'Отдел',
+            'auditorium_id' => 'Помещение',
+            'auditoriumStr' => 'Помещение',
+            'auditoriumStrEx' => 'Помещение',
+            'quant' => 'Квант',
+            'quantEx' => 'Квант',
+            'people_id' => 'Работник',
+            'peopleStr' => 'Работник',
+            'peopleStrEx' => 'Работник',
+            'regulation_id' => 'Положение/инструкция',
+            'regulationStr' => 'Положение/инструкция',
+            'regulationStrEx' => 'Положение/инструкция',
+            'files' => 'Файлы',
+            'filesStr' => 'Файлы',
+        ];
+    }
+
     public function getResponsibilityTypeStr()
     {
         return Html::a($this->responsibilityType->name, \yii\helpers\Url::to(['responsibility-type/view', 'id' => $this->responsibility_type_id]));
+    }
+
+    public function getResponsibilityTypeStrEx()
+    {
+        return $this->responsibilityType->name;
     }
 
     public function getBranchStr()
@@ -52,11 +83,20 @@ class LocalResponsibilityWork extends LocalResponsibility
         return Html::a($this->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $this->branch_id]));
     }
 
+    public function getBranchStrEx()
+    {
+        return $this->branch->name;
+    }
+
     public function getAuditoriumStr()
     {
         return Html::a($this->auditorium->name, \yii\helpers\Url::to(['auditorium/view', 'id' => $this->auditorium_id]));
     }
 
+    public function getAuditoriumStrEx()
+    {
+        return $this->auditorium->name;
+    }
 
     public function getPeopleStr()
     {
@@ -64,10 +104,21 @@ class LocalResponsibilityWork extends LocalResponsibility
         return Html::a($fullName, \yii\helpers\Url::to(['people/view', 'id' => $this->people_id]));
     }
 
+    public function getPeopleStrEx()
+    {
+        $fullName = $this->people->secondname.' '.$this->people->firstname.' '.$this->people->patronymic;
+        return $fullName;
+    }
+
 
     public function getRegulationStr()
     {
         return Html::a($this->regulation->name, \yii\helpers\Url::to(['regulation/view', 'id' => $this->regulation_id]));
+    }
+
+    public function getRegulationStrEx()
+    {
+        return $this->regulation->name;
     }
 
     public function getLegacyResp()
@@ -90,6 +141,13 @@ class LocalResponsibilityWork extends LocalResponsibility
         $leg = LegacyResponsible::find()->where(['people_id' => $this->people_id])->andWhere(['responsibility_type_id' => $this->responsibility_type_id])->andWhere(['IS', 'end_date', null])
             ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->one();
         return Html::a(\app\models\work\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id]));
+    }
+
+    public function getOrderStrEx()
+    {
+        $leg = LegacyResponsible::find()->where(['people_id' => $this->people_id])->andWhere(['responsibility_type_id' => $this->responsibility_type_id])->andWhere(['IS', 'end_date', null])
+            ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->one();
+        return \app\models\work\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName;
     }
 
     public function uploadFiles($upd = null)

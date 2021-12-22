@@ -79,7 +79,13 @@ class TrainingProgramWork extends TrainingProgram
             'hour_capacity' => 'Длительность 1 академического часа в минутах',
             'actual' => 'Образовательная программа актуальна',
             'fileUtp' => 'Файл УТП',
+            'actualExport' => 'Актуальность',
         ];
+    }
+
+    public function getActualExport()
+    {
+        return $this->actual == 0 ? 'Не актуальна' : 'Актуальна';
     }
 
     public function getFullName()

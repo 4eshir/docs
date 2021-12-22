@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -19,6 +20,53 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+
+    <?php
+
+    $gridColumns = [
+        ['attribute' => 'name'],
+        ['attribute' => 'start_date'],
+        ['attribute' => 'finish_date'],
+        ['attribute' => 'event_type_id', 'value' => function($model){
+            return \app\models\work\EventTypeWork::find()->where(['id' => $model->event_type_id])->one()->name;
+        }, 'filter' => [ 1 => "Соревновательный", 2 => "Несоревновательный"]],
+        ['attribute' => 'address'],
+        ['attribute' => 'eventLevelString', 'label' => 'Уровень мероприятия', 'value' => function($model){
+            return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
+        }, 'encodeLabel' => false],
+        ['attribute' => 'participants_count'],
+        ['attribute' => 'is_federal', 'value' => function($model){
+            if ($model->is_federal == 1)
+                return 'Да';
+            else
+                return 'Нет';
+        }, 'filter' => [1 => "Да", 0 => "Нет"]],
+        ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
+        ['attribute' => 'orderString', 'value' => function($model){
+            $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+            if ($order == null)
+                return 'Нет';
+            return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+        }, 'format' => 'raw', 'label' => 'Приказ'],
+        ['attribute' => 'regulationString', 'value' => function($model){
+            $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
+            if ($reg == null)
+                return 'Нет';
+            return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));
+        }, 'label' => 'Положение'],
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

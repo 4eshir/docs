@@ -35,10 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'order_date', 'label' => 'Дата приказа'],
         ['attribute' => 'order_number', 'label' => 'Номер приказа'],
         ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
-        ['attribute' => 'signedName', 'label' => 'Кем подписан', 'value' => function($model)
-        {
-            return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1);
-        }],
         ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
         {
             return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1);

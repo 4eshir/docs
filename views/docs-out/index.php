@@ -23,29 +23,34 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
 
     $gridColumns = [
-        ['attribute' => 'document_number', 'label' => 'Номер документа'],
+        ['attribute' => 'document_number', 'label' => '№ п/п'],
         ['attribute' => 'document_date', 'label' => 'Дата документа'],
         ['attribute' => 'document_theme', 'label' => 'Тема документа'],
-        ['attribute' => 'positionCompany', 'label' => 'Корреспондент', 'value' => function($model)
-        {
+        ['attribute' => 'positionCompany','label' => 'Кому адресован', 'value' => function ($model) {
             if ($model->position_id == 7)
                 return $model->company->name;
-            return $model->positionCompany;
+            return $model->position->name.' '.$model->company->name;
+        },
+        ],
+        ['attribute' => 'signedName','label' => 'Кем подписан', 'value' => function ($model) {
+            return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'.'.mb_substr($model->signed->patronymic, 0, 1).'.';
+        },
+        ],
+        ['attribute' => 'executorName','label' => 'Кто исполнитель', 'value' => function ($model) {
+            return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
+        },
+        ],
+        ['attribute' => 'sendMethodName','label' => 'Способ отправления', 'value' => 'sendMethod.name'],
+        ['attribute' => 'sent_date', 'label' => 'Дата отправления'],
+        ['attribute' => 'isAnswer', 'label' => 'Является ответом на', 'value' => function($model){
+            $links = \app\models\work\InOutDocsWork::find()->where(['document_out_id' => $model->id])->one();
+            if ($links == null)
+                return '';
+            else
+                return Html::a('Входящий документ "'.\app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->document_theme.'"',
+                    \yii\helpers\Url::to(['document-in/view', 'id' => \app\models\work\DocumentInWork::find()->where(['id' => $links->document_in_id])->one()->id]));
         }],
-        ['attribute' => 'signedName', 'label' => 'Кем подписан', 'value' => function($model)
-        {
-            return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1);
-        }],
-        ['attribute' => 'executorName', 'label' => 'Кто исполнил', 'value' => function($model)
-        {
-            return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'. '.mb_substr($model->executor->patronymic, 0, 1);
-        }],
-        ['attribute' => 'registerName', 'label' => 'Кто регистрировал', 'value' => function($model)
-        {
-            return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
-        }],
-        ['attribute' => 'sendMethod.name', 'label' => 'Способ отправки'],
-        ['attribute' => 'sent_date', 'label' => 'Дата отправки'],
+
     ];
     echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([

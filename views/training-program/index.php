@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -25,6 +26,35 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php
+
+    $gridColumns = [
+        'actualExport',
+        'name',
+        ['attribute' => 'level', 'label' => 'Ур. сложности','value' => function ($model) {return $model->level+1;}],
+        ['attribute' => 'branchs', 'label' => 'Место реализации', 'format' => 'html'],
+        ['attribute' => 'ped_council_date', 'label' => 'Дата пед. сов.'],
+        ['attribute' => 'ped_council_number', 'label' => '№ пед. сов.'],
+        ['attribute' => 'compilers', 'format' => 'html'],
+        'capacity',
+        'studentAge',
+        'stringFocus',
+        ['attribute' => 'allowRemote', 'label' => 'Дист. тех.'],
+
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
+
     <?php
     //$acc = \app\models\work\AccessLevelWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['access_id' => 21])->one();
     //$visible = $acc !== null;

@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -17,6 +18,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить ответственность', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <?php
+
+    $gridColumns = [
+        ['attribute' => 'responsibilityTypeStrEx'],
+        ['attribute' => 'branchStrEx'],
+        ['attribute' => 'auditoriumStrEx'],
+        ['attribute' => 'quantEx', 'label' => 'Квант'],
+        ['attribute' => 'peopleStrEx'],
+        ['attribute' => 'orderStrEx', 'label' => 'Приказ'],
+        ['attribute' => 'regulationStrEx'],
+
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

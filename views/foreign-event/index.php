@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -20,6 +21,37 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php
+
+    $gridColumns = [
+        'name',
+        ['attribute' => 'companyString'],
+        'start_date',
+        'finish_date',
+        'city',
+        'eventWayString',
+        'eventLevelString',
+
+        ['attribute' => 'teachersExport', 'contentOptions' => ['class' => 'text-nowrap']],
+
+        ['attribute' => 'participantCount', 'format' => 'raw', 'label' => 'Кол-во участников', 'encodeLabel' => false],
+        ['attribute' => 'winners', 'contentOptions' => ['class' => 'text-nowrap']],
+        ['attribute' => 'prizes', 'contentOptions' => ['class' => 'text-nowrap']],
+        'businessTrips',
+
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

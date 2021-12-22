@@ -72,6 +72,7 @@ class ForeignEventWork extends ForeignEvent
             'docString' => 'Документ о достижениях',
             'docsAchievement' => 'Документ о достижениях',
             'teachers' => 'Педагоги',
+            'teachersExport' => 'Педагоги',
             'winners' => 'Победители',
             'prizes' => 'Призеры',
             'businessTrips' => 'Командировка',
@@ -198,6 +199,17 @@ class ForeignEventWork extends ForeignEvent
         foreach ($teachers as $teacherOne)
         {
             $teacherList = $teacherList.$teacherOne->teacherWork->shortName.'<br>';
+        }
+        return $teacherList;
+    }
+
+    public function getTeachersExport()
+    {
+        $teachers = TeacherParticipantWork::find()->select(['teacher_id'])->where(['foreign_event_id' => $this->id])->distinct()->all();
+        $teacherList = '';
+        foreach ($teachers as $teacherOne)
+        {
+            $teacherList = $teacherList.$teacherOne->teacherWork->shortName.' ';
         }
         return $teacherList;
     }
