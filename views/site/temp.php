@@ -13,7 +13,7 @@
 </body>
     
     <script>
-    document.querySelector('#cont').addEventListener('click', function(){
+    document.querySelector('#cont').addEventListener('touchstart', function(){
 	document.querySelector('#cont').style.background = '#f00';
     });
 
