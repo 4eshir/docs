@@ -5,7 +5,14 @@
 <html lang="en">
 <head>
 </head>
-<script>
+
+<body>
+    <div id="cont">
+      <p style="font-size:50px;" >Какой то тескт</p>
+    </div>
+</body>
+    
+    <script>
     document.querySelector('#cont').addEventListener('click', function(){
 	document.querySelector('#cont').style.background = '#f00';
     });
@@ -14,9 +21,5 @@
         document.querySelector('#cont').style.background = '#fff';
     });
 </script>
-<body>
-    <div id="cont">
-      <p style="font-size:50px;">Какой то тескт</p>
-    </div>
-</body>
+    
 </html>
