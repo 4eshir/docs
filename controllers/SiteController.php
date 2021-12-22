@@ -38,7 +38,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'forgot-password', 'error-access'],
+                        'actions' => ['login', 'error', 'forgot-password', 'error-access', 'temp'],
                         'allow' => true,
                     ],
                     [
