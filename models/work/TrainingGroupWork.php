@@ -289,7 +289,7 @@ class TrainingGroupWork extends TrainingGroup
         $lessonsId = [];
         foreach ($lessons as $lesson)
             $lessonsId[] = $lesson->id;
-        $visits = count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['status' => 0])->orWhere(['status' => 2])->all());
+        $visits = count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['status' => 0])->all()) + count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['status' => 2])->all());
         $maximum = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all()) * count(TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all());
         $percent = (($visits * 1.0) / ($maximum * 1.0)) * 100;
         $numbPercent = $percent;
