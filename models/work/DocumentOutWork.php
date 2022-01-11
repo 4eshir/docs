@@ -165,39 +165,47 @@ class DocumentOutWork extends DocumentOut
 
     public function getDocumentNumber()
     {
-        $docs = DocumentOut::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all();
-        if (end($docs)->document_date > $this->document_date && $this->document_theme != 'Резерв')
-        {
-            $tempId = 0;
-            $tempPre = 0;
-            if (count($docs) == 0)
-                $tempId = 1;
-            for ($i = count($docs) - 1; $i >= 0; $i--)
-            {
-                if ($docs[$i]->document_date <= $this->document_date)
-                {
-                    $tempId = $docs[$i]->document_number;
-                    if ($docs[$i]->document_postfix != null)
-                        $tempPre = $docs[$i]->document_postfix + 1;
-                    else
-                        $tempPre = 1;
-                    break;
-                }
-            }
+        $docs = DocumentOut::find()->orderBy(['document_date' => SORT_DESC])->all();
 
-            $this->document_number = $tempId;
-            $this->document_postfix = $tempPre;
-            Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->document_number.'/'.$this->document_postfix);
-        }
+        if (date('Y') !== substr($docs[0]->document_date, 0, 4))
+            $this->document_number = 1;
         else
         {
-            if (count($docs) == 0)
-                $this->document_number = 1;
+            $docs = DocumentOut::find()->where(['like', 'document_date', date('Y')])->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all();
+            if (end($docs)->document_date > $this->document_date && $this->document_theme != 'Резерв')
+            {
+                $tempId = 0;
+                $tempPre = 0;
+                if (count($docs) == 0)
+                    $tempId = 1;
+                for ($i = count($docs) - 1; $i >= 0; $i--)
+                {
+                    if ($docs[$i]->document_date <= $this->document_date)
+                    {
+                        $tempId = $docs[$i]->document_number;
+                        if ($docs[$i]->document_postfix != null)
+                            $tempPre = $docs[$i]->document_postfix + 1;
+                        else
+                            $tempPre = 1;
+                        break;
+                    }
+                }
+
+                $this->document_number = $tempId;
+                $this->document_postfix = $tempPre;
+                Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->document_number.'/'.$this->document_postfix);
+            }
             else
             {
-                $this->document_number = end($docs)->document_number + 1;
+                if (count($docs) == 0)
+                    $this->document_number = 1;
+                else
+                {
+                    $this->document_number = end($docs)->document_number + 1;
+                }
             }
         }
+
     }
 
     public function beforeSave($insert)

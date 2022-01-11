@@ -92,7 +92,7 @@ class SearchDocumentIn extends DocumentInWork
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['local_number' => SORT_DESC, 'local_postfix' => SORT_DESC]]
+            'sort'=> ['defaultOrder' => ['local_date' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['needAnswer'] = [

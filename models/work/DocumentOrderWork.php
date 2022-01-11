@@ -362,39 +362,50 @@ class DocumentOrderWork extends DocumentOrder
 
             return;
         }
-        $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->andWhere(['!=', 'type', '10'])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
-        if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
-        {
-            $tempId = 0;
-            $tempPre = 0;
-            if (count($docs) == 0)
-                $tempId = 1;
-            for ($i = count($docs) - 1; $i >= 0; $i--)
-            {
-                if ($docs[$i]->order_date <= $this->order_date)
-                {
-                    $tempId = $docs[$i]->order_copy_id;
-                    if ($docs[$i]->order_postfix != null)
-                        $tempPre = $docs[$i]->order_postfix + 1;
-                    else
-                        $tempPre = 1;
-                    break;
-                }
-            }
 
-            $this->order_copy_id = $tempId;
-            $this->order_postfix = $tempPre;
-            Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix);
-        }
+
+        $docs = DocumentOrder::find()->orderBy(['order_date' => SORT_DESC])->all();
+
+        if (date('Y') !== substr($docs[0]->order_date, 0, 4))
+            $this->order_copy_id = 1;
         else
         {
-            if (count($docs) == 0)
-                $this->order_copy_id = 1;
+            $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->andWhere(['like', 'order_date', date('Y')])->andWhere(['!=', 'type', '10'])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
+
+            if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
+            {
+                $tempId = 0;
+                $tempPre = 0;
+                if (count($docs) == 0)
+                    $tempId = 1;
+                for ($i = count($docs) - 1; $i >= 0; $i--)
+                {
+                    if ($docs[$i]->order_date <= $this->order_date)
+                    {
+                        $tempId = $docs[$i]->order_copy_id;
+                        if ($docs[$i]->order_postfix != null)
+                            $tempPre = $docs[$i]->order_postfix + 1;
+                        else
+                            $tempPre = 1;
+                        break;
+                    }
+                }
+
+                $this->order_copy_id = $tempId;
+                $this->order_postfix = $tempPre;
+                Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->order_number.'/'.$this->order_copy_id.'/'.$this->order_postfix);
+            }
             else
             {
-                $this->order_copy_id = end($docs)->order_copy_id + 1;
+                if (count($docs) == 0)
+                    $this->order_copy_id = 1;
+                else
+                {
+                    $this->order_copy_id = end($docs)->order_copy_id + 1;
+                }
             }
         }
+
         /*$max = DocumentOut::find()->max('document_number');
         if ($max == null)
             $max = 1;

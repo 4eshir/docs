@@ -178,40 +178,46 @@ class DocumentInWork extends DocumentIn
 
     public function getDocumentNumber()
     {
-        $docs = DocumentIn::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all();
-
-        if (end($docs)->local_date > $this->local_date && $this->document_theme != 'Резерв')
-        {
-            $tempId = 0;
-            $tempPre = 0;
-            if (count($docs) == 0)
-                $tempId = 1;
-            for ($i = count($docs) - 1; $i >= 0; $i--)
-            {
-                if ($docs[$i]->local_date <= $this->local_date)
-                {
-                    $tempId = $docs[$i]->local_number;
-                    if ($docs[$i]->local_postfix != null)
-                        $tempPre = $docs[$i]->local_postfix + 1;
-                    else
-                        $tempPre = 1;
-                    break;
-                }
-            }
-
-            $this->local_number = $tempId;
-            $this->local_postfix = $tempPre;
-            Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->local_number.'/'.$this->local_postfix);
-        }
+        $docs = DocumentIn::find()->orderBy(['local_date' => SORT_DESC])->all();
+        if (date('Y') !== substr($docs[0]->local_date, 0, 4))
+            $this->local_number = 1;
         else
         {
-            if (count($docs) == 0)
-                $this->local_number = 1;
+            $docs = DocumentIn::find()->where(['like', 'local_date', date('Y')])->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all();
+            if (end($docs)->local_date > $this->local_date && $this->document_theme != 'Резерв')
+            {
+                $tempId = 0;
+                $tempPre = 0;
+                if (count($docs) == 0)
+                    $tempId = 1;
+                for ($i = count($docs) - 1; $i >= 0; $i--)
+                {
+                    if ($docs[$i]->local_date <= $this->local_date)
+                    {
+                        $tempId = $docs[$i]->local_number;
+                        if ($docs[$i]->local_postfix != null)
+                            $tempPre = $docs[$i]->local_postfix + 1;
+                        else
+                            $tempPre = 1;
+                        break;
+                    }
+                }
+
+                $this->local_number = $tempId;
+                $this->local_postfix = $tempPre;
+                Yii::$app->session->addFlash('warning', 'Добавленный документ должен был быть зарегистрирован раньше. Номер документа: '.$this->local_number.'/'.$this->local_postfix);
+            }
             else
             {
-                $this->local_number = end($docs)->local_number + 1;
+                if (count($docs) == 0)
+                    $this->local_number = 1;
+                else
+                {
+                    $this->local_number = end($docs)->local_number + 1;
+                }
             }
         }
+
     }
 
     public function afterSave($insert, $changedAttributes)
