@@ -64,7 +64,7 @@ class SearchDocumentOut extends DocumentOutWork
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['document_date' => SORT_DESC, 'document_number' => SORT_DESC]]
+            'sort'=> ['defaultOrder' => ['document_date' => SORT_DESC, 'document_number' => SORT_DESC, 'document_postfix' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['isAnswer'] = [
