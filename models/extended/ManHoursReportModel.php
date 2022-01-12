@@ -240,7 +240,11 @@ class ManHoursReportModel extends \yii\base\Model
                 //var_dump($this->end_date);
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->select('id')->where(['IN', 'training_group_id', $groupsId])->all();
+                {
+                    $str = "SELECT `id`, `participant_id` FROM `training_group_participant` GROUP BY `id` HAVING count(distinct `participant_id`)>1";
+                    $parts = TrainingGroupParticipantWork::findBySql($str)->all();
+                }
+                    //$parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
