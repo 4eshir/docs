@@ -46,6 +46,9 @@ class ManHoursReportModel extends \yii\base\Model
     {
         $debug = '<table class="table table-bordered">';
         $debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
+
+        $debug2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Раздел\r\n";
+
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
         {
@@ -158,8 +161,6 @@ class ManHoursReportModel extends \yii\base\Model
                 else $statusArr = [0, 1, 2, 3];
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
-
-
             }
             if ($oneType === '1')
             {
@@ -168,18 +169,30 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
-                        ->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
+                        ->where(['<=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
+
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td><b>1</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+
+                //ОТЛАДОЧНЫЙ ВЫВОД
+                foreach ($parts as $part)
+                {
+
+                    $part = TrainingGroupParticipantWork::find()->where(['id' => $part->id])->one();
+                    $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
+                         ";".$part->trainingGroupWork->pureBranch.";1\r\n";
+                }
+                $debug2 .= "\r\n";
+                //----------------
             }
             if ($oneType == '2')
             {
@@ -189,18 +202,29 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
-                        ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])])
+                        ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])->andWhere(['>=', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td><b>2</b></td><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+
+                //ОТЛАДОЧНЫЙ ВЫВОД
+                foreach ($parts as $part)
+                {
+
+                    $part = TrainingGroupParticipantWork::find()->where(['id' => $part->id])->one();
+                    $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
+                        ";".$part->trainingGroupWork->pureBranch.";2\r\n";
+                }
+                $debug2 .= "\r\n";
+                //----------------
             }
             if ($oneType == '3')
             {
@@ -211,14 +235,27 @@ class ManHoursReportModel extends \yii\base\Model
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])->all();
                 $groupsId = [];
+
+                //var_dump($groups);
+                //var_dump($this->end_date);
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td><b>3</b></td><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
+                //ОТЛАДОЧНЫЙ ВЫВОД
+                foreach ($parts as $part)
+                {
+
+                    $part = TrainingGroupParticipantWork::find()->where(['id' => $part->id])->one();
+                    $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
+                        ";".$part->trainingGroupWork->pureBranch.";3\r\n";
+                }
+                $debug2 .= "\r\n";
+                //----------------
             }
             if ($oneType == '4')
             {
@@ -231,18 +268,27 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
-                $result .= '<tr><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+                $result .= '<tr><td><b>4</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
+                //ОТЛАДОЧНЫЙ ВЫВОД
+                foreach ($parts as $part)
+                {
+
+                    $part = TrainingGroupParticipantWork::find()->where(['id' => $part->id])->one();
+                    $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
+                        ";".$part->trainingGroupWork->pureBranch.";4\r\n";
+                }
+                //----------------
             }
         }
         $result = $result.'</table>';
         $debug = $debug.'</table>';
 
-        return [$result, $debug];
+        return [$result, $debug, $debug2];
     }
 
     public function save()

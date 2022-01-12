@@ -254,6 +254,12 @@ class TrainingGroupWork extends TrainingGroup
         return $result;
     }
 
+    public function getPureBranch()
+    {
+        $branch =  BranchWork::find()->where(['id' => $this->branch_id])->one();
+        return $branch->name;
+    }
+
     public function getErrorsWork()
     {
         $errorsList = GroupErrorsWork::find()->where(['training_group_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();

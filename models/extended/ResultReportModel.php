@@ -11,11 +11,12 @@ class ResultReportModel extends Model
     public $result;
 
     public $debugInfo;
+    public $debugInfo2;
 
     public function rules()
     {
         return [
-            [['result', 'debugInfo'], 'string'],
+            [['result', 'debugInfo', 'debugInfo2'], 'string'],
         ];
     }
 

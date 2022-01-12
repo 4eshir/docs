@@ -67,6 +67,7 @@ class ReportController extends Controller
             $report = $model->generateReport();
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
+            $newModel->debugInfo2 = $report[2];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -91,6 +92,7 @@ class ReportController extends Controller
             $report = $model->generateReport();
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
+            $newModel->debugInfo2 = $report[2];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -110,6 +112,7 @@ class ReportController extends Controller
             $report = $model->generateReport();
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
+            $newModel->debugInfo2 = $report[2];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -118,6 +121,26 @@ class ReportController extends Controller
         return $this->render('foreign-event-report', [
             'model' => $model,
         ]);
+    }
+
+    public function actionGetFullReport()
+    {
+        $session = Yii::$app->session;
+
+        $fileName = "file.csv";
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . mb_strlen($session->get('csv')));
+        echo iconv('utf-8', 'windows-1251', $session->get('csv'));
+        ob_clean();
+        flush();
+
+        echo $session->get('csv');
     }
 
     //Проверка на права доступа к CRUD-операциям
