@@ -240,7 +240,7 @@ class ManHoursReportModel extends \yii\base\Model
                 //var_dump($this->end_date);
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->select('id')->where(['IN', 'training_group_id', $groupsId])->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->select('id, participant_id')->where(['IN', 'training_group_id', $groupsId])->all();
 
