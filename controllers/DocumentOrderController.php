@@ -110,7 +110,10 @@ class DocumentOrderController extends Controller
                     if (count($number) > 2)
                         $model->order_postfix = $number[2];
                     //$model->order_copy_id = $model->archive_number;
-                    $model->type = 10;
+                    if ($model->nomenclature_id == 5)
+                        $model->type = 10;  // административный архивный
+                    else
+                        $model->type = 11;  // учебный архивный
                 }
 
                 if ($model->scanFile !== null)

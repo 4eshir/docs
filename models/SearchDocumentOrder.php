@@ -54,7 +54,7 @@ class SearchDocumentOrder extends DocumentOrderWork
         if ($sort == 1)
             $query = DocumentOrderWork::find()->where(['type' => 1])->orWhere(['type' => 10]);
         else
-            $query = DocumentOrderWork::find()->where(['type' => 0]);
+            $query = DocumentOrderWork::find()->where(['type' => 0])->orWhere(['type' => 11]);
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 
