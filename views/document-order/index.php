@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
-        <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
+        <?php if($session->get('type') == 1) echo Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?php
         echo $this->render('_search', ['model' => $searchModel])
