@@ -68,6 +68,7 @@ class ReportController extends Controller
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
             $newModel->debugInfo2 = $report[2];
+            $newModel->header = $report[3];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -93,6 +94,7 @@ class ReportController extends Controller
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
             $newModel->debugInfo2 = $report[2];
+            $newModel->header = $report[3];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -113,6 +115,7 @@ class ReportController extends Controller
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
             $newModel->debugInfo2 = $report[2];
+            $newModel->header = $report[3];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);

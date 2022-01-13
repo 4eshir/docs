@@ -50,11 +50,15 @@ class ManHoursReportModel extends \yii\base\Model
 
         $debug2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Раздел\r\n";
 
+        $header = "Отчет по <br>";
+
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
             {
+                $header .= 'человеко-часам<br> ';
+
                 $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
                     ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
                                                                                                                        //попадающие в промежуток
@@ -69,10 +73,17 @@ class ManHoursReportModel extends \yii\base\Model
                 $lessons = $lessons->andWhere(['IN', 'trainingGroup.budget', $this->budget]);
                 if ($this->teacher !== "")
                 {
+                    $header .= '(';
+
                     $teachers = TeacherGroupWork::find()->where(['teacher_id' => $this->teacher])->all();
                     $tId = [];
                     $lessons = $lessons->all();
-                    foreach ($teachers as $teacher) $tId[] = $teacher->training_group_id;
+                    foreach ($teachers as $teacher)
+                    {
+                        $header .= $teacher->teacher->shortName.' ';
+                        $tId[] = $teacher->training_group_id;
+                    }
+                    $header .= ') с '.$this->start_date.' по '.$this->end_date.'<br>';
                     $tIdCopy = $tId;
                     $lessons = TrainingGroupLessonWork::find()->joinWith('trainingGroup trainingGroup')->where(['IN', 'training_group_id', $tIdCopy])
                         ->andWhere(['>=', 'lesson_date', $this->start_date])
@@ -125,6 +136,7 @@ class ManHoursReportModel extends \yii\base\Model
                 }
                 else
                 {
+                    $header .= 'с '.$this->start_date.' по '.$this->end_date.'<br>';
                     //ОТЛАДОЧНЫЙ ВЫВОД
                     $dGroups = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])->select('training_group_id')->distinct()
                         ->where(['>', 'lesson_date', $this->start_date])->andWhere(['<', 'lesson_date', $this->end_date])
@@ -163,8 +175,13 @@ class ManHoursReportModel extends \yii\base\Model
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
             }
+            else
+            {
+                $header .= 'обучающимся<br> с '.$this->start_date.' по '.$this->end_date;
+            }
             if ($oneType === '1')
             {
+
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2, 3];
 
@@ -229,6 +246,7 @@ class ManHoursReportModel extends \yii\base\Model
             }
             if ($oneType == '3')
             {
+
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['>', 'start_date', $this->start_date])->andWhere(['<', 'finish_date', $this->end_date])])
@@ -258,6 +276,7 @@ class ManHoursReportModel extends \yii\base\Model
             }
             if ($oneType == '4')
             {
+
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['<', 'start_date', $this->start_date])->andWhere(['>', 'finish_date', $this->end_date])])
@@ -287,7 +306,7 @@ class ManHoursReportModel extends \yii\base\Model
         }
         $result = $result.'</table>';
 
-        return [$result, $debug, $debug2];
+        return [$result, $debug, $debug2, $header];
     }
 
     public function save()

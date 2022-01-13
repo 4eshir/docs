@@ -15,7 +15,11 @@ $this->title = 'Отчет';
 
 <div class="result-report-form">
     <div style="font-family: Tahoma; font-size: 20px">
-        <?php echo $model->result;
+        <?php
+
+        echo '<h3>'.$model->header.'</h3>';
+
+        echo $model->result;
 
         $session = Yii::$app->session;
 
