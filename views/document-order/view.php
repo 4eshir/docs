@@ -103,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <div <?php echo $model->type == 0 ? '' : 'hidden'; ?>>
+    <div <?php echo $model->type == 0 || $model->type == 11 ? '' : 'hidden'; ?>>
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
