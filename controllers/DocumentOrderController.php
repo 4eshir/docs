@@ -168,7 +168,7 @@ class DocumentOrderController extends Controller
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
-        if ($model->type === 10)
+        if ($model->type === 10 || $model->type === 11)
         {
             $model->archive_number = $model->order_number . '/' . $model->order_copy_id;
             if ($model->order_postfix !== null)
@@ -200,7 +200,10 @@ class DocumentOrderController extends Controller
                     if (count($number) > 2)
                         $model->order_postfix = $number[2];
                     //$model->order_copy_id = $model->archive_number;
-                    $model->type = 10;
+                    if ($model->nomenclature_id == 5)
+                        $model->type = 10;  // административный архивный
+                    else
+                        $model->type = 11;  // учебный архивный
                 }
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
