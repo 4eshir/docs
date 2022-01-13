@@ -138,12 +138,13 @@ class ReportController extends Controller
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($session->get('csv')));
         echo iconv('utf-8', 'windows-1251', $session->get('csv'));
-        echo $session->get('csv');
-        $session->remove('csv');
+
+
         ob_clean();
         flush();
-
-
+        $temp = $session->get('csv');
+        $session->remove('csv');
+        return $temp;
     }
 
     //Проверка на права доступа к CRUD-операциям
