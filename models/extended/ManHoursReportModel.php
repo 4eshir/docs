@@ -183,7 +183,6 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $result .= '<tr><td><b>1</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
-                var_dump('check');
                 //ОТЛАДОЧНЫЙ ВЫВОД
                 foreach ($parts as $part)
                 {
