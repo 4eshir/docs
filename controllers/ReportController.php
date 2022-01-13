@@ -128,6 +128,8 @@ class ReportController extends Controller
         $session = Yii::$app->session;
 
         $fileName = "file.csv";
+        echo $session->get('csv');
+        $session->remove('csv');
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -137,8 +139,7 @@ class ReportController extends Controller
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($session->get('csv')));
         iconv('utf-8', 'windows-1251', $session->get('csv'));
-        echo $session->get('csv');
-        $session->remove('csv');
+
         ob_clean();
         flush();
 
