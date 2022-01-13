@@ -366,11 +366,11 @@ class DocumentOrderWork extends DocumentOrder
 
         $docs = DocumentOrder::find()->orderBy(['order_date' => SORT_DESC])->all();
 
-        if (substr($this->order_date, 0, 4) !== substr($docs[0]->order_date, 0, 4))
+        if (date('Y') !== substr($docs[0]->order_date, 0, 4))
             $this->order_copy_id = 1;
         else
         {
-            $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->andWhere(['like', 'order_date', substr($this->order_date, 0, 4)])->andWhere(['!=', 'type', '10'])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
+            $docs = DocumentOrder::find()->where(['order_number' => $this->order_number])->andWhere(['like', 'order_date', date('Y')])->andWhere(['!=', 'type', '10'])->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all();
 
             if (end($docs)->order_date > $this->order_date && $this->order_name != 'Резерв')
             {
