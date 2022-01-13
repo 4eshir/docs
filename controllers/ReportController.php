@@ -126,8 +126,8 @@ class ReportController extends Controller
     public function actionGetFullReport()
     {
         $session = Yii::$app->session;
-
         $fileName = "file.csv";
+        $data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
@@ -136,15 +136,14 @@ class ReportController extends Controller
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
-        header('Content-Length: ' . mb_strlen($session->get('csv')));
-        $temp = iconv('utf-8', 'windows-1251', $session->get('csv'));
+        header('Content-Length: ' . mb_strlen($data));
+        $temp = iconv('utf-8', 'windows-1251', $data);
 
-
-        ob_clean();
-        flush();
-        $session->remove('csv');
+        if ($session->get('csv1') === null) $session->remove('csv1');
+        if ($session->get('csv2') === null) $session->remove('csv2');
         return $temp;
     }
+
 
     //Проверка на права доступа к CRUD-операциям
     public function beforeAction($action)

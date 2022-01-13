@@ -8,6 +8,8 @@ use yii\base\Model;
 
 class ResultReportModel extends Model
 {
+    public $header;
+
     public $result;
 
     public $debugInfo;

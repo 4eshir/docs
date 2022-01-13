@@ -44,8 +44,9 @@ class ManHoursReportModel extends \yii\base\Model
 
     public function generateReport()
     {
-        $debug = '<table class="table table-bordered">';
-        $debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
+        //$debug = '<table class="table table-bordered">';
+        //$debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
+        $debug = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
 
         $debug2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Раздел\r\n";
 
@@ -101,13 +102,13 @@ class ManHoursReportModel extends \yii\base\Model
                     $dTeacherId = $this->teacher;
                     foreach ($tgs as $tg)
                     {
-                        $debug .= '<tr><td>'.$tg->number.'</td>';
+                        $debug .= $tg->number.";";
                         $dLessons = LessonThemeWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
                             ->where(['teacher_id' => $dTeacherId])->andWhere(['IN', 'training_group_lesson_id', $tId])
                             ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all();
-                        $debug .= '<td>'.count($dLessons).'</td>';
-                        $debug .= '<td>'.count(TrainingGroupLessonWork::find()->where(['training_group_id' => $tg->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all()).'</td>';
-                        $debug .= '<td>'.count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $tg->id])->all()).'</td>';
+                        $debug .= count($dLessons).";";
+                        $debug .= count(TrainingGroupLessonWork::find()->where(['training_group_id' => $tg->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all()).";";
+                        $debug .= count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $tg->id])->all()).";";
                         $statusArr = [];
                         if ($this->method == 0) $statusArr = [0, 2];
                         else $statusArr = [0, 1, 2, 3];
@@ -115,10 +116,10 @@ class ManHoursReportModel extends \yii\base\Model
                         $dlessons = $lessons;
                         $dlessons = $dlessons->all();
                         foreach ($dlessons as $dlesson) $dlessonsId[] = $this->teacher = $dlesson->training_group_lesson_id;
-                        $debug .= '<td>'.count(VisitWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
+                        $debug .= count(VisitWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
                                 ->where(['IN', 'training_group_lesson_id', $dlessonsId])->andWhere(['IN', 'status', $statusArr])
-                                ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all()).'</td>';
-                        $debug .= '</tr>';
+                                ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all());
+                        $debug .= "\r\n";
                     }
                     //----------------
                 }
@@ -136,18 +137,18 @@ class ManHoursReportModel extends \yii\base\Model
                     $dGroups = TrainingGroupWork::find()->where(['IN', 'id', $dgIds])->all();
                     foreach ($dGroups as $dGroup)
                     {
-                        $debug .= '<tr><td>'.$dGroup->number.'</td>';
+                        $debug .= $dGroup->number.";";
                         $newGroupsLessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $dGroup->id])->andWhere(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date])->all();
                         $nglIds = [];
-                        foreach ($newGroupsLessons as $lesso1n) $nglIds[] = $lesson->id;
-                        $debug .= '<td>'.count(LessonThemeWork::find()->where(['IN', 'id', $nglIds])->all()).'</td>';
-                        $debug .= '<td>'.count($newGroupsLessons).'</td>';
-                        $debug .= '<td>'.count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $dGroup->id])->all()).'</td>';
+                        foreach ($newGroupsLessons as $lesson) $nglIds[] = $lesson->id;
+                        $debug .= count(LessonThemeWork::find()->where(['IN', 'id', $nglIds])->all()).";";
+                        $debug .= count($newGroupsLessons).";";
+                        $debug .= count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $dGroup->id])->all()).";";
                         $statusArr = [];
                         if ($this->method == 0) $statusArr = [0, 2];
                         else $statusArr = [0, 1, 2, 3];
-                        $debug .= '<td>'.count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $nglIds])->andWhere(['IN', 'status', $statusArr])->all()).'</td>';
-                        $debug .= '</tr>';
+                        $debug .= count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $nglIds])->andWhere(['IN', 'status', $statusArr])->all()).";";
+                        $debug .= "\r\n";
                     }
                     //----------------
                 }
@@ -285,7 +286,6 @@ class ManHoursReportModel extends \yii\base\Model
             }
         }
         $result = $result.'</table>';
-        $debug = $debug.'</table>';
 
         return [$result, $debug, $debug2];
     }

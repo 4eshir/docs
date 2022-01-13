@@ -366,7 +366,7 @@ class DocumentOrderWork extends DocumentOrder
 
         $docs = DocumentOrder::find()->orderBy(['order_date' => SORT_DESC])->all();
 
-        if (date('Y') !== substr($docs[0]->order_date, 0, 4))
+        if (substr($this->order_date, 0, 4) !== substr($docs[0]->order_date, 0, 4))
             $this->order_copy_id = 1;
         else
         {

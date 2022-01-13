@@ -15,14 +15,21 @@ $this->title = 'Отчет';
 
 <div class="result-report-form">
     <div style="font-family: Tahoma; font-size: 20px">
-        <?php echo $model->result; ?>
-        <?php
+        <?php echo $model->result;
+
         $session = Yii::$app->session;
-        $session->set('csv', $model->debugInfo2);
-        if (strlen($model->debugInfo) > 100)
-            echo Html::a('Скачать подробный отчет по обучающимся', \yii\helpers\Url::to(['report/get-full-report'])); ?>
-        <?php
-        if (strlen($model->debugInfo) > 300)
-            echo $model->debugInfo; ?>
+
+        if (strlen($model->debugInfo2) > 150)
+        {
+            $session->set('csv1', $model->debugInfo2);
+            echo Html::a('Скачать подробный отчет по обучающимся', \yii\helpers\Url::to(['report/get-full-report']));
+        }
+        echo '<br>';
+        if (strlen($model->debugInfo) > 190)
+        {
+            $session->set('csv2', $model->debugInfo);
+            echo Html::a('Скачать подробный отчет по человеко-часам', \yii\helpers\Url::to(['report/get-full-report']));
+        }
+        ?>
     </div>
 </div>
