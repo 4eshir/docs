@@ -280,6 +280,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                         ";".$part->trainingGroupWork->pureBranch.";4\r\n";
                 }
+                $debug2 .= "\r\n";
                 //----------------
             }
         }

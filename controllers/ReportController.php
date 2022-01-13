@@ -141,6 +141,7 @@ class ReportController extends Controller
         flush();
 
         echo $session->get('csv');
+        $session->remove('csv');
     }
 
     //Проверка на права доступа к CRUD-операциям
