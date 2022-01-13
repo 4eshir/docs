@@ -136,7 +136,7 @@ class ReportController extends Controller
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($session->get('csv')));
-        echo iconv('utf-8', 'windows-1251', $session->get('csv'));
+        iconv('utf-8', 'windows-1251', $session->get('csv'));
         ob_clean();
         flush();
 
