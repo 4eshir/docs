@@ -22,7 +22,6 @@ $this->title = 'Отчет';
         echo $model->result;
 
         $session = Yii::$app->session;
-        var_dump($model->debugInfo3)
         if (strlen($model->debugInfo2) > 150)
         {
             $session->set('csv1', $model->debugInfo2);
