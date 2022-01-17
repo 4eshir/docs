@@ -148,7 +148,7 @@ class UserWork extends User
         {
             for ($i = 0; $i < count($this->roles); $i++)
             {
-                $roleBind = UserRoleWork::find()->where(['user_id' => $this->id])->andWhere(['role_id' => $this->roles[$i]->role_id])->all();
+                $roleBind = UserRoleWork::find()->where(['user_id' => $this->id])->andWhere(['role_id' => $this->roles[$i]->role_id])->one();
                 if ($roleBind == null) $roleBind = new UserRoleWork();
                 $roleBind->user_id = $this->id;
                 $roleBind->role_id = $this->roles[$i]->role_id;
