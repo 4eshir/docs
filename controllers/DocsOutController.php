@@ -133,7 +133,8 @@ class DocsOutController extends Controller
 
         $model->document_theme = 'Резерв';
         $model->document_name = '';
-        $model->document_date = end(DocumentOutWork::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all())->document_date;
+        //$model->document_date = end(DocumentOutWork::find()->orderBy(['document_number' => SORT_ASC, 'document_postfix' => SORT_ASC])->all())->document_date;
+        $model->document_date = date("Y-m-d");
         $model->sent_date = '1999-01-01';
         $model->Scan = '';
         $model->applications = '';
