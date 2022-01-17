@@ -22,7 +22,7 @@ $this->title = 'Отчет';
         echo $model->result;
 
         $session = Yii::$app->session;
-
+        var_dump($model->debugInfo3)
         if (strlen($model->debugInfo2) > 150)
         {
             $session->set('csv1', $model->debugInfo2);
@@ -33,6 +33,11 @@ $this->title = 'Отчет';
         {
             $session->set('csv2', $model->debugInfo);
             echo Html::a('Скачать подробный отчет по человеко-часам', \yii\helpers\Url::to(['report/get-full-report']));
+        }
+        if (strlen($model->debugInfo) !== null)
+        {
+            $session->set('csv3', $model->debugInfo3);
+            echo Html::a('Скачать подробный отчет по учету достижений в мероприятиях', \yii\helpers\Url::to(['report/get-full-report']));
         }
         ?>
     </div>

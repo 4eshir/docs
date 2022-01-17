@@ -52,6 +52,8 @@ class ManHoursReportModel extends \yii\base\Model
 
         $header = "Отчет по <br>";
 
+        $f = 0; //для генерации заголовка
+
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
         {
@@ -177,7 +179,11 @@ class ManHoursReportModel extends \yii\base\Model
             }
             else
             {
-                $header .= 'обучающимся<br> с '.$this->start_date.' по '.$this->end_date;
+                if ($f == 0)
+                {
+                    $header .= 'обучающимся<br> с ' . $this->start_date . ' по ' . $this->end_date;
+                    $f = 1;
+                }
             }
             if ($oneType === '1')
             {
