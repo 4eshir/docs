@@ -19,6 +19,8 @@ $this->title = 'Отчет';
 
         echo '<h3>'.$model->header.'</h3>';
 
+        echo '<br>';
+
         echo $model->result;
 
         $session = Yii::$app->session;
