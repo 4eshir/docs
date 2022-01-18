@@ -113,9 +113,8 @@ class ReportController extends Controller
             $newModel = new ResultReportModel();
             $report = $model->generateReport();
             $newModel->result = $report[0];
-            $newModel->debugInfo = $report[1];
-            $newModel->debugInfo2 = $report[2];
-            $newModel->header = $report[3];
+            $newModel->debugInfo3 = $report[1];
+            $newModel->header = $report[2];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
@@ -132,6 +131,10 @@ class ReportController extends Controller
         $fileName = "file.csv";
         $data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
+        if ($session->get('csv1') !== null) $data = $session->get('csv1');
+        else if ($session->get('csv2') !== null) $data = $session->get('csv2');
+        else if ($session->get('csv3') !== null) $data = $session->get('csv3');
+
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -144,6 +147,7 @@ class ReportController extends Controller
 
         if ($session->get('csv1') === null) $session->remove('csv1');
         if ($session->get('csv2') === null) $session->remove('csv2');
+        if ($session->get('csv3') === null) $session->remove('csv3');
         return $temp;
     }
 

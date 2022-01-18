@@ -121,7 +121,8 @@ class DocumentInController extends Controller
 
         $model->document_theme = 'Резерв';
 
-        $model->local_date = end(DocumentInWork::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        //$model->local_date = end(DocumentInWork::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        $model->local_date = date("Y-m-d");
         $model->real_date = '1999-01-01';
         $model->scan = '';
         $model->applications = '';
