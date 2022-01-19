@@ -42,6 +42,28 @@ class ExcelWizard
         unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
     }
 
+    static public function DownloadKUG($training_group_id)
+    {
+        ini_set('memory_limit', '512M');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
+
+        $index = 0;
+        while ($index <= 10)
+        {
+            $theme = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue();
+            $controlId = $inputData->getActiveSheet()->getCellByColumnAndRow(1, $index)->getValue();
+            $tp = new ThematicPlanWork();
+            $tp->theme = $theme;
+            $tp->control_type_id = $controlId;
+            $tp->training_program_id = $training_program_id;
+            $tp->save();
+            $index++;
+        }
+        unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+    }
+
     static public function WriteAllCertNumbers($filename, $training_group_id)
     {
         ini_set('memory_limit', '512M');
