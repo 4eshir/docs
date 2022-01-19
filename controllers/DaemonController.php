@@ -47,6 +47,18 @@ class DaemonController extends Controller
         }
     }
 
+    public function actionTest()
+    {
+        $messages = [];
+        $string = 'бла бла бла';
+        $messages[] = Yii::$app->mailer->compose()
+            ->setFrom('noreply@schooltech.ru')
+            ->setTo('dkurina@schooltech.ru')
+            ->setSubject('Тестирование крона')
+            ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
+        Yii::$app->mailer->sendMultiple($messages);
+    }
+
     public function actionMessageErrors()
     {
         $users = UserWork::find()->all();
