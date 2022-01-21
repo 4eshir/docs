@@ -49,40 +49,40 @@ class DaemonController extends Controller
 
     public function actionTest()
     {
-        $messages = [];
+        /*$messages = [];
         $string = 'бла бла бла';
         $messages[] = Yii::$app->mailer->compose()
             ->setFrom('noreply@schooltech.ru')
             ->setTo('dkurina@schooltech.ru')
             ->setSubject('Тестирование крона1')
             ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
-        Yii::$app->mailer->sendMultiple($messages);
+        Yii::$app->mailer->sendMultiple($messages);*/
         Logger::WriteLog(1, 'Сработал планировщик задач. Тест 1');
     }
 
     public function actionTest2()
     {
-        $messages = [];
+        /*$messages = [];
         $string = 'бла бла бла';
         $messages[] = Yii::$app->mailer->compose()
             ->setFrom('noreply@schooltech.ru')
             ->setTo('dkurina@schooltech.ru')
             ->setSubject('Тестирование крона2')
             ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
-        Yii::$app->mailer->sendMultiple($messages);
+        Yii::$app->mailer->sendMultiple($messages);*/
         Logger::WriteLog(1, 'Сработал планировщик задач. Тест 2');
     }
 
     public function actionTest3()
     {
-        $messages = [];
+        /*$messages = [];
         $string = 'бла бла бла';
         $messages[] = Yii::$app->mailer->compose()
             ->setFrom('noreply@schooltech.ru')
             ->setTo('dkurina@schooltech.ru')
             ->setSubject('Тестирование крона3')
             ->setHtmlBody( $string . '<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.');
-        Yii::$app->mailer->sendMultiple($messages);
+        Yii::$app->mailer->sendMultiple($messages);*/
         Logger::WriteLog(1, 'Сработал планировщик задач. Тест 3');
     }
 
