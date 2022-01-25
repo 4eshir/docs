@@ -148,14 +148,14 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     echo '</table></div><br><br>';
     echo '<h4>Тематический план занятий</h4><br>';
-    echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
+    echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>Форма контроля</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {
         $theme = \app\models\work\LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $result = '';
         if ($theme !== null) $result = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td>
-             <td>'.$result.'</td><td>'.$theme->teacherWork->shortName.'</td></tr>';
+             <td>'.$result.'</td><td>'.$theme->controlType->name.'</td><td>'.$theme->teacherWork->shortName.'</td></tr>';
     }
     echo '</table></div>';
 ?>

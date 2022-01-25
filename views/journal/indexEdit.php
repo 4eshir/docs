@@ -305,7 +305,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</td></tr></table>';
     \yii\bootstrap\Modal::end();
     echo '</div></td></tr></table>';
-    echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td><b>Тема занятия</b></td><td><b>ФИО педагога</b></td></tr>';
+    echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td style="width: 40%"><b>Тема занятия</b></td><td><b>Форма контроля</b></td><td><b>ФИО педагога</b></td></tr>';
     foreach ($lessons as $lesson)
     {
         $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
@@ -314,6 +314,9 @@ $this->params['breadcrumbs'][] = $this->title;
             $teachers_id[] = $teacher->teacher_id;
         $people = \app\models\work\PeopleWork::find()->where(['in', 'id', $teachers_id])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+        $control = \app\models\work\ControlTypeWork::find()->all();
+        $items2 = \yii\helpers\ArrayHelper::map($control,'id','name');
+
         $theme = \app\models\work\LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $params = [
             'options' => [$theme->teacher_id => ['Selected' => true]],
@@ -322,6 +325,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if ($theme !== null) $value = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.
             $form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td><td>'.
+            $form->field($model, "controls[]")->dropDownList($items2,$params)->label(false).'</td><td>'.
             $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
             '</td></tr>';
     }

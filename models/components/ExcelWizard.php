@@ -6,6 +6,7 @@ namespace app\models\components;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
+use app\models\work\LessonThemeWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupParticipantWork;
 use Yii;
@@ -45,23 +46,44 @@ class ExcelWizard
     static public function DownloadKUG($training_group_id)
     {
         ini_set('memory_limit', '512M');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="kug.xlsx"');
+        header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
 
-        $index = 0;
-        while ($index <= 10)
+
+        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])->all();
+        $c = 1;
+
+        foreach ($lessons as $lesson)
         {
-            $theme = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue();
-            $controlId = $inputData->getActiveSheet()->getCellByColumnAndRow(1, $index)->getValue();
-            $tp = new ThematicPlanWork();
-            $tp->theme = $theme;
-            $tp->control_type_id = $controlId;
-            $tp->training_program_id = $training_program_id;
-            $tp->save();
-            $index++;
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 12 + $c, $c);
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 12 + $c, $lesson->trainingGroupLesson->lesson_date);
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 12 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 12 + $c, $lesson->theme);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 12 + $c, $lesson->trainingGroupLesson->duration);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 12 + $c, "Групповая");
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 12 + $c, $lesson->controlType->name);
+            $c++;
         }
-        unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
     }
 
     static public function WriteAllCertNumbers($filename, $training_group_id)

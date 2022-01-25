@@ -24,21 +24,23 @@ $this->title = 'Отчет';
         echo $model->result;
 
         $session = Yii::$app->session;
+
+
         if (strlen($model->debugInfo2) > 150)
         {
             $session->set('csv1', $model->debugInfo2);
-            echo Html::a('Скачать подробный отчет по обучающимся', \yii\helpers\Url::to(['report/get-full-report']));
+            echo Html::a('Скачать подробный отчет по обучающимся', \yii\helpers\Url::to(['report/get-full-report', 'type' => 1]));
         }
         echo '<br>';
         if (strlen($model->debugInfo) > 190)
         {
             $session->set('csv2', $model->debugInfo);
-            echo Html::a('Скачать подробный отчет по человеко-часам', \yii\helpers\Url::to(['report/get-full-report']));
+            echo Html::a('Скачать подробный отчет по человеко-часам', \yii\helpers\Url::to(['report/get-full-report', 'type' => 2]));
         }
         if ($model->debugInfo3 !== null)
         {
             $session->set('csv3', $model->debugInfo3);
-            echo Html::a('Скачать подробный отчет по учету достижений в мероприятиях', \yii\helpers\Url::to(['report/get-full-report']));
+            echo Html::a('Скачать подробный отчет по учету достижений в мероприятиях', \yii\helpers\Url::to(['report/get-full-report', 'type' => 3]));
         }
         ?>
     </div>

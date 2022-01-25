@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\components\ArraySqlConstructor;
+use app\models\components\ExcelWizard;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
@@ -192,7 +193,7 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        return $this->render('temp');
+        ExcelWizard::DownloadKUG(15);
     }
 
 

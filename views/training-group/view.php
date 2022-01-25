@@ -130,6 +130,10 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
     ]) ?>
 
 </div>
+<br>
+<?php
+echo Html::a("Скачать КУГ", \yii\helpers\Url::to(['training-group/get-kug', 'training_group_id' => $model->id]), ['class' => 'btn btn-success']);
+?>
 
 
 <script>
