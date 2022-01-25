@@ -125,15 +125,15 @@ class ReportController extends Controller
         ]);
     }
 
-    public function actionGetFullReport()
+    public function actionGetFullReport($type)
     {
         $session = Yii::$app->session;
         $fileName = "file.csv";
         $data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
-        if ($session->get('csv1') !== null) $data = $session->get('csv1');
-        else if ($session->get('csv2') !== null) $data = $session->get('csv2');
-        else if ($session->get('csv3') !== null) $data = $session->get('csv3');
+        if ($type == 1) $data = $session->get('csv1');
+        else if ($type == 2) $data = $session->get('csv2');
+        else if ($type == 3) $data = $session->get('csv3');
 
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
