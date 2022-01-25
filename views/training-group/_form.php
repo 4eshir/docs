@@ -668,6 +668,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                         </div>
                                         <div class="col-xs-2">
                                             <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['type' => 'time', 'class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+
                                         </div>
                                         <div class="col-xs-2">
                                             <?php
@@ -800,6 +801,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                         </div>
                                         <div class="col-xs-2">
                                             <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['type' => 'time','class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+
                                         </div>
                                         <div class="col-xs-2">
                                             <?php

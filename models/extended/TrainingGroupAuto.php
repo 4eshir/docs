@@ -14,6 +14,7 @@ class TrainingGroupAuto extends Model
     public $end_time;
     public $auditorium_id;
     public $duration;
+    public $control_type_id;
 
     public $auds;
 
@@ -23,7 +24,7 @@ class TrainingGroupAuto extends Model
         return [
             [['start_time', 'end_time', 'auditorium'], 'required'],
             [['start_time', 'end_time'], 'string'],
-            [['duration'], 'integer'],
+            [['duration', 'control_type_id'], 'integer'],
             [['auds', 'day'], 'safe'],
             [['auditorium_id'], 'exist', 'skipOnError' => true, 'targetClass' => Auditorium::className(), 'targetAttribute' => ['auditorium_id' => 'id']],
         ];
