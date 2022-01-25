@@ -321,7 +321,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $params = [
             'options' => [$theme->teacher_id => ['Selected' => true]],
         ];
-        $params = [
+        $params2 = [
             'options' => [$theme->control_type_id => ['Selected' => true]],
         ];
         $value = '';
