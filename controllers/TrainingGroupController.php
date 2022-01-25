@@ -475,6 +475,11 @@ class TrainingGroupController extends Controller
         return $this->redirect('index?r=training-group/update&id='.$model->id);
     }
 
+    public function actionGetKug($training_group_id)
+    {
+        ExcelWizard::DownloadKUG($training_group_id);
+    }
+
     public function actionSubcat()
     {
         if ($id = Yii::$app->request->post('id')) {
