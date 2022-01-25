@@ -714,6 +714,7 @@ class TrainingGroupWork extends TrainingGroup
                         if ($theme === null)
                             $theme = new LessonThemeWork();
                         $theme->theme = $tp[$i]->theme;
+                        $theme->control_type_id = $tp[$i]->control_type_id;
                         $theme->training_group_lesson_id = $lessons[$i]->id;
                         $theme->teacher_id = $teachers[0]->teacher_id;
                         $theme->save(false);
