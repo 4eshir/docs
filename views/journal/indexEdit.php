@@ -321,11 +321,14 @@ $this->params['breadcrumbs'][] = $this->title;
         $params = [
             'options' => [$theme->teacher_id => ['Selected' => true]],
         ];
+        $params = [
+            'options' => [$theme->control_type_id => ['Selected' => true]],
+        ];
         $value = '';
         if ($theme !== null) $value = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.
             $form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td><td>'.
-            $form->field($model, "controls[]")->dropDownList($items2,$params)->label(false).'</td><td>'.
+            $form->field($model, "controls[]")->dropDownList($items2,$params2)->label(false).'</td><td>'.
             $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
             '</td></tr>';
     }
