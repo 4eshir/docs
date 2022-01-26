@@ -146,6 +146,7 @@ class ReportController extends Controller
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($data));
         var_dump('ggg');
+        return;
         $temp = iconv('utf-8', 'windows-1251', $data);
 
         if ($session->get('csv1') === null) $session->remove('csv1');
