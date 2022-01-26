@@ -53,6 +53,7 @@ class ManHoursReportModel extends \yii\base\Model
         $header = "Отчет по <br>";
 
         $f = 0; //для генерации заголовка
+        $f1 = 0;
 
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
@@ -82,7 +83,11 @@ class ManHoursReportModel extends \yii\base\Model
                     $lessons = $lessons->all();
                     foreach ($teachers as $teacher)
                     {
-                        $header .= $teacher->teacherWork->shortName.' ';
+                        if ($f1 == 0)
+                        {
+                            $header .= $teacher->teacherWork->shortName.' ';
+                            $f1 = 1;
+                        }
                         $tId[] = $teacher->training_group_id;
                     }
                     $header .= ') с '.$this->start_date.' по '.$this->end_date.'<br>';
