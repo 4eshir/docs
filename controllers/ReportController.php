@@ -146,12 +146,13 @@ class ReportController extends Controller
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($data));
         $temp = iconv('utf-8', 'windows-1251', $data);
+        $temp = mb_convert_encoding($temp, 'UTF-16LE', 'UTF-8');;
 
         if ($session->get('csv1') === null) $session->remove('csv1');
         if ($session->get('csv2') === null) $session->remove('csv2');
         if ($session->get('csv3') === null) $session->remove('csv3');
 
-        return "\xEF\xBB\xBF".$temp;
+        return $temp;
     }
 
 
