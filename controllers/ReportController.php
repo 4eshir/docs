@@ -151,9 +151,7 @@ class ReportController extends Controller
         if ($session->get('csv2') === null) $session->remove('csv2');
         if ($session->get('csv3') === null) $session->remove('csv3');
 
-        var_dump($temp);
-
-        return '1;2;3';
+        return $data;
     }
 
 
