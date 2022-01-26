@@ -131,6 +131,8 @@ class ReportController extends Controller
         $fileName = "file.csv";
         //$data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
+        $data = 'test';
+
         if ($type == 1) $data = $session->get('csv1');
         else if ($type == 2) $data = $session->get('csv2');
         else if ($type == 3) $data = $session->get('csv3');
