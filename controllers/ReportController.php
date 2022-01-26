@@ -128,7 +128,7 @@ class ReportController extends Controller
     public function actionGetFullReport($type)
     {
         $session = Yii::$app->session;
-        $fileName = "file.txt";
+        $fileName = "file.csv";
         //$data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
         if ($type == 1) $data = $session->get('csv1');
@@ -136,13 +136,13 @@ class ReportController extends Controller
         else if ($type == 3) $data = $session->get('csv3');
 
         header('Content-Description: File Transfer');
-        header('Content-Type: application/text');
+        header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
-        //header('Content-Length: ' . mb_strlen($data));
+        header('Content-Length: ' . mb_strlen($data));
         $temp = iconv('utf-8', 'windows-1251', $data);
 
 
