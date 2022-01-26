@@ -223,7 +223,6 @@ class ManHoursReportModel extends \yii\base\Model
 
                 }
                 $debug2 .= "\r\n";
-                var_dump($debug2);
                 //----------------
             }
             if ($oneType == '2')
