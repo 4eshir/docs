@@ -153,7 +153,7 @@ class ReportController extends Controller
         if ($session->get('csv3') === null) $session->remove('csv3');
 
 
-        return $temp;
+        //return $temp;
     }
 
 
