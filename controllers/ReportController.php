@@ -139,10 +139,10 @@ class ReportController extends Controller
         header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Content-Transfer-Encoding: binary');
-        header('Expires: 10');
+        header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
-        header('Content-Length: ' . '62563'/*mb_strlen($data)*/);
+        header('Content-Length: 62563' /*.mb_strlen($data)*/);
         $temp = iconv('utf-8', 'windows-1251', $data);
 
 
