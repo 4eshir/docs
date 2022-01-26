@@ -217,9 +217,11 @@ class ManHoursReportModel extends \yii\base\Model
                 {
 
                     $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'training_group_id', $groupsId])->one();
-                    var_dump($part->id);
+
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                          ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";1\r\n";
+                    var_dump($debug2);
+                    var_dump('<br>');
                 }
                 $debug2 .= "\r\n";
                 //----------------
