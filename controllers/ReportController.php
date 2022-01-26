@@ -142,7 +142,7 @@ class ReportController extends Controller
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
-        header('Content-Length: ' . mb_strlen($data));
+        header('Content-Length: ' . '62563'/*mb_strlen($data)*/);
         $temp = iconv('utf-8', 'windows-1251', $data);
 
 
