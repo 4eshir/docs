@@ -137,6 +137,7 @@ class ReportController extends Controller
         else if ($type == 2) $data = $session->get('csv2');
         else if ($type == 3) $data = $session->get('csv3');
 
+        /*
         header('Content-Description: File Transfer');
         header('Content-Type: application/csv;charset=UTF-8');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -145,10 +146,11 @@ class ReportController extends Controller
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
         header('Content-Length: ' . mb_strlen($data));
-        var_dump('ggg');
-        return;
+        */
+
         $temp = iconv('utf-8', 'windows-1251', $data);
 
+        var_dump($temp);
         if ($session->get('csv1') === null) $session->remove('csv1');
         if ($session->get('csv2') === null) $session->remove('csv2');
         if ($session->get('csv3') === null) $session->remove('csv3');
