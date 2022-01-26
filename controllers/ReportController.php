@@ -135,8 +135,6 @@ class ReportController extends Controller
         else if ($type == 2) $data = $session->get('csv2');
         else if ($type == 3) $data = $session->get('csv3');
 
-        var_dump($data);
-
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -150,6 +148,9 @@ class ReportController extends Controller
         if ($session->get('csv1') === null) $session->remove('csv1');
         if ($session->get('csv2') === null) $session->remove('csv2');
         if ($session->get('csv3') === null) $session->remove('csv3');
+
+        var_dump($temp);
+
         return $temp;
     }
 
