@@ -193,7 +193,8 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        ExcelWizard::DownloadKUG(15);
+        $sqlStr = "CREATE EVENT `token_event` ON SCHEDULE AT '2022-01-26 15:25:00' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO `log`(`user_id`, `text`, `date`, `time`) VALUES (1, 'Test Event', CURRENT_DATE, CURRENT_TIME)";
+        Yii::$app->db->createCommand($sqlStr)->execute();
     }
 
 
