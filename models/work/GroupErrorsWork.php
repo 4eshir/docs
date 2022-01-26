@@ -517,7 +517,7 @@ class GroupErrorsWork extends GroupErrors
     {
         $now_time = date("Y-m-d");
         $finish_date = date('Y-m-d', strtotime($now_time . '-1 day'));
-        $start_date = date('Y-m-d', strtotime($now_time . '-365 day'));
+        $start_date = date('Y-m-d', strtotime($now_time . '-11 day'));
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['between', 'lesson_date', $start_date, $finish_date])->all();
 
         $this->CheckLesson($modelGroupID, $lessons);
