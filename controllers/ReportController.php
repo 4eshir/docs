@@ -145,9 +145,9 @@ class ReportController extends Controller
         header('Content-Length: ' . mb_strlen($data));
         $temp = iconv('utf-8', 'windows-1251', $data);
 
-        var_dump($session->get('csv1') === null);
-        var_dump($session->get('csv2') === null);
-        var_dump($session->get('csv3') === null);
+        if ($session->get('csv1') === null) var_dump('1');
+        if ($session->get('csv2') === null) var_dump('2');
+        if ($session->get('csv3') === null) var_dump('3');
 
         if ($session->get('csv1') === null) $session->remove('csv1');
         if ($session->get('csv2') === null) $session->remove('csv2');
