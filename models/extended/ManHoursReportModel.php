@@ -220,10 +220,10 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                          ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";1\r\n";
-                    var_dump($debug2);
-                    var_dump('<br>');
+
                 }
                 $debug2 .= "\r\n";
+                var_dump($debug2);
                 //----------------
             }
             if ($oneType == '2')
