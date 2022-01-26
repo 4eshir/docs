@@ -82,7 +82,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $lessons = $lessons->all();
                     foreach ($teachers as $teacher)
                     {
-                        $header .= $teacher->teacher->shortName.' ';
+                        $header .= $teacher->teacherWork->shortName.' ';
                         $tId[] = $teacher->training_group_id;
                     }
                     $header .= ') с '.$this->start_date.' по '.$this->end_date.'<br>';
