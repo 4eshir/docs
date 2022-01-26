@@ -138,7 +138,7 @@ class ReportController extends Controller
         else if ($type == 3) $data = $session->get('csv3');
 
         header('Content-Description: File Transfer');
-        header('Content-Type: application/csv');
+        header('Content-Type: application/csv;charset=UTF-8');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
