@@ -25,6 +25,7 @@ $this->title = 'Отчет';
 
         $session = Yii::$app->session;
 
+        var_dump($model->debugInfo2);
 
         if (strlen($model->debugInfo2) > 150)
         {
