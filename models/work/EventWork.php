@@ -30,6 +30,7 @@ class EventWork extends Event
     public $isQuantorium;
     public $isCDNTT;
     public $isMobQuant;
+    public $isCod;
 
     public $yesEducation;
     public $noEducation;
@@ -337,6 +338,21 @@ class EventWork extends Event
             $edM = EventBranch::find()->where(['branch_id' => 4])->andWhere(['event_id' => $this->id])->one();
             if ($edM !== null)
                 $edM->delete();
+        }
+
+        $edCod = new EventBranch();
+        if ($this->isCod == 1)
+        {
+            $edM->branch_id = 7;
+            $edM->event_id = $this->id;
+            if (count(EventBranch::find()->where(['branch_id' => 7])->andWhere(['event_id' => $this->id])->all()) == 0)
+                $edCod->save();
+        }
+        else
+        {
+            $edCod = EventBranch::find()->where(['branch_id' => 7])->andWhere(['event_id' => $this->id])->one();
+            if ($edCod !== null)
+                $edCod->delete();
         }
 
         $eventP = EventParticipants::find()->where(['event_id' => $this->id])->one();
