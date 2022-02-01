@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\work\AccessLevelWork;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\LegacyResponsibleWork;
 use app\models\components\Logger;
 use app\models\work\UserWork;
+use Mpdf\Tag\A;
 use Yii;
 use app\models\work\LocalResponsibilityWork;
 use app\models\SearchLocalResponsibility;
@@ -43,6 +45,28 @@ class LkController extends Controller
     {
         Yii::$app->session->set('lk-index', 2);
         return $this->render('trouble');
+    }
+
+    /**
+     * Lists all LocalResponsibility models.
+     * @return mixed
+     */
+    public function actionToken($id)
+    {
+        Yii::$app->session->set('lk-index', 4);
+        $model = new AccessLevelWork();
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->start_time = '2020-01-01';
+            $model->end_time = '2020-01-01';
+            $model->save();
+            $model = new AccessLevelWork();
+            return $this->redirect(['/lk/token', 'id' => 4]);
+        }
+
+        return $this->render('token', [
+            'model' => $model,
+        ]);
     }
 
     public function actionInfo($id)

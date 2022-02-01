@@ -4,7 +4,18 @@ namespace app\models\common;
 
 use Yii;
 
-
+/**
+ * This is the model class for table "access_level".
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $role_function_id
+ * @property string $start_time
+ * @property string $end_time
+ *
+ * @property RoleFunction $roleFunction
+ * @property User $user
+ */
 class AccessLevel extends \yii\db\ActiveRecord
 {
     /**
@@ -21,10 +32,11 @@ class AccessLevel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'access_id'], 'required'],
-            [['user_id', 'access_id'], 'integer'],
-            [['user_id'], 'unique'],
-            [['access_id'], 'exist', 'skipOnError' => true, 'targetClass' => Access::className(), 'targetAttribute' => ['access_id' => 'id']],
+            [['user_id', 'role_function_id', 'start_time', 'end_time'], 'required'],
+            [['user_id', 'role_function_id'], 'integer'],
+            [['start_time', 'end_time'], 'safe'],
+            [['role_function_id'], 'exist', 'skipOnError' => true, 'targetClass' => RoleFunction::className(), 'targetAttribute' => ['role_function_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -36,17 +48,29 @@ class AccessLevel extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'access_id' => 'Access ID',
+            'role_function_id' => 'Role Function ID',
+            'start_time' => 'Start Time',
+            'end_time' => 'End Time',
         ];
     }
 
     /**
-     * Gets query for [[Access]].
+     * Gets query for [[RoleFunction]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getAccess()
+    public function getRoleFunction()
     {
-        return $this->hasOne(Access::className(), ['id' => 'access_id']);
+        return $this->hasOne(RoleFunction::className(), ['id' => 'role_function_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
