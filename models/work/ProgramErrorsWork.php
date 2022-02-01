@@ -18,6 +18,16 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
+    private function NoAmnesty ($modelProgramID)
+    {
+        $errors = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'amnesty' => 1])->all();
+        foreach ($errors as $err)
+        {
+            $err->amnesty = null;
+            $err->save();
+        }
+    }
+
     private function CheckThematicPlane ($modelProgramID, $tp)
     {
         $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 7])->all();
@@ -146,5 +156,11 @@ class ProgramErrorsWork extends ProgramErrors
         $this->CheckControl($modelProgramID, $tp);
         $this->CheckThematicDirection($modelProgramID, $program);
         $this->CheckAuthors($modelProgramID);
+    }
+
+    public function CheckErrorsTrainingProgramWithoutAmnesty($modelProgramID)
+    {
+        $this->NoAmnesty($modelProgramID);
+        $this->CheckErrorsTrainingProgram($modelProgramID);
     }
 }

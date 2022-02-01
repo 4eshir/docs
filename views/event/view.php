@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
                 $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
                 $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
+                $cod = \app\models\work\EventBranchWork::find()->where(['branch_id' => 7])->andWhere(['event_id' => $model->id])->all();
                 $result = '';
                 if (count($tech) > 0)
                     $result = $result.'Технопарк';
@@ -72,6 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = $result.'Мобильный кванториум';
                     else
                         $result = $result.'<br>Мобильный кванториум';
+                if (count($cod) > 0)
+                    if ($result == '')
+                        $result = $result.'Центр одаренных детей';
+                    else
+                        $result = $result.'<br>Центр одаренных детей';
                 return $result;
             }, 'format' => 'raw'],
             ['attribute' => 'contains_education', 'value' => function($model){

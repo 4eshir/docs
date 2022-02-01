@@ -287,7 +287,7 @@ class TrainingProgramWork extends TrainingProgram
 
         // тут должны работать проверки на ошибки
         $errorsCheck = new ProgramErrorsWork();
-        $errorsCheck->CheckErrorsTrainingProgram($this->id);
+        $errorsCheck->CheckErrorsTrainingProgramWithoutAmnesty($this->id);
     }
 
     public function uploadEditFiles($upd = null)
