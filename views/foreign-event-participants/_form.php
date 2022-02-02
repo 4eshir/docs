@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
     <?php
     $data = \app\models\work\PersonalDataWork::find()->all();
     $arr = \yii\helpers\ArrayHelper::map($data, 'id', 'name');
-    if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 22))
+    if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 22) )
         echo $form->field($model, 'pd')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             if ($checked == 1) $checked = 'checked';
             return

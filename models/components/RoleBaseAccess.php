@@ -297,6 +297,7 @@ class RoleBaseAccess
     public static function CheckSingleAccess($userId, $accessId)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
+        $accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
         $accessArray = [];
         foreach ($userAccess as $access)
         {
@@ -304,6 +305,9 @@ class RoleBaseAccess
             foreach ($functions as $function)
                 if ($function->role_function_id == $accessId)
                     return true;
+            if ($accesses !== null)
+                foreach ($accesses as $acc)
+                    $accessArray[] = $acc->role_function_id;
         }
         return false;
     }
