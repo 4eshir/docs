@@ -78,6 +78,13 @@ class LkController extends Controller
         ]);
     }
 
+    public function actionDeleteToken($id)
+    {
+        $access = AccessLevelWork::find()->where(['id' => $id])->one();
+        $access->delete();
+        return $this->redirect(['/lk/token', 'id' => 4]);
+    }
+
     public function actionChangePassword($id)
     {
         Yii::$app->session->set('lk-index', 3);
