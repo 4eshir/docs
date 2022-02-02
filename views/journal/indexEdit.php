@@ -259,9 +259,10 @@ $this->params['breadcrumbs'][] = $this->title;
             $date->modify('-10 days');
             $roles = [5, 6, 7];
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
+            $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if ($isMethodist || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
+            if ($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
