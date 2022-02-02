@@ -350,6 +350,13 @@ class RoleBaseAccess
         return $allow;
     }
 
+    public static function CheckRole($userId, $role)
+    {
+        $roles = UserRoleWork::find()->where(['user_id' => $userId])->andWhere(['role_id' => $role])->all();
+        if ($roles === null) return false;
+        else return true;
+    }
+
     //Выгрузка групп по роли пользователя
     public static function getGroupsByRole($userId)
     {
