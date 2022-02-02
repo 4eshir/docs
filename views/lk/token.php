@@ -61,7 +61,7 @@ use yii\widgets\DetailView;
 
 
         <div class="form-group">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Выдать токен', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -81,7 +81,8 @@ use yii\widgets\DetailView;
             foreach ($levels as $level)
             {
                 echo '<tr>';
-                echo '<td>'.$level->userWork->fullName.'</td><td>'.$level->roleFunctionWork->name.'</td><td>'.date('d.m.Y (H:m)', strtotime($level->start_time)).'</td><td>'.date('d.m.Y (H:m)', strtotime($level->end_time)).'</td>';
+                echo '<td>'.$level->userWork->fullName.'</td><td>'.$level->roleFunctionWork->name.'</td><td>'.date('d.m.Y (H:i)', strtotime($level->start_time)).'</td><td>'.date('d.m.Y (H:i)', strtotime($level->end_time)).'</td>'.
+                '<td>'.Html::a('Отозвать токен', \yii\helpers\Url::to(['lk/delete-token', 'id' => $level->id]), ['class' => 'btn btn-danger']).'</td>';
                 echo '</tr>';
             }
 
