@@ -63,6 +63,7 @@ class UserController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        /*
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 1])->one() !== null) $model->addUsers = 1; else $model->addUsers = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 2])->one() !== null) $model->viewRoles = 1; else $model->viewRoles = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 3])->one() !== null) $model->editRoles = 1; else $model->editRoles = 0;
@@ -91,6 +92,8 @@ class UserController extends Controller
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 26])->one() !== null) $model->addGroup = 1; else $model->addGroup = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 27])->one() !== null) $model->deleteGroup = 1; else $model->deleteGroup = 0;
         if (AccessLevelWork::find()->where(['user_id' => $id])->andWhere(['access_id' => 28])->one() !== null) $model->report = 1; else $model->report = 0;
+
+        */
         return $this->render('view', [
             'model' => $model,
         ]);
