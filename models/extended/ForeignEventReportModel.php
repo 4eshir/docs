@@ -331,7 +331,7 @@ class ForeignEventReportModel extends \yii\base\Model
             //if (array_search(0, $this->prize) !== false && array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами региональных конкурсных мероприятий</td><td>".round($r3, 2)."</td></tr>";
 
             $bigPercent = ($bigPrizes * 1.0) / ($bigCounter * 1.0);
-            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами мероприятий, ни ниже регионального уровня</td><td>".round($bigPercent, 2)."</td></tr>";
+            $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами мероприятий, не ниже регионального уровня</td><td>".round($bigPercent, 2)."</td></tr>";
 
         }
         //-----------------------------------------
