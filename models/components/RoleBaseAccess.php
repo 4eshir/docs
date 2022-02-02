@@ -353,8 +353,7 @@ class RoleBaseAccess
     public static function CheckRole($userId, $role)
     {
         $roles = UserRoleWork::find()->where(['user_id' => $userId])->andWhere(['role_id' => $role])->all();
-        var_dump($roles);
-        if ($roles === null) return false;
+        if (count($roles) == 0) return false;
         else return true;
     }
 

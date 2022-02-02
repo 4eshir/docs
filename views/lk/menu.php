@@ -70,7 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $curIndex = Yii::$app->session->get('lk-index')?>
             <li <?php if($curIndex === 1) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/info', 'id' => Yii::$app->user->identity->getId()]) ?>">Профиль</a></li>
             <?php
-            echo \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7);
             if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7)) {  ?>
             <li <?php if($curIndex === 4) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/token', 'id' => Yii::$app->user->identity->getId()]) ?>">Токены</a></li>
             <?php } ?>
