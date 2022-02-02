@@ -159,6 +159,13 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
                 $parts[$i]->save();
             }
 
+            if ($parts[$i]->birthdate < '1930-01-01' || $parts[$i]->birthdate > $newDate->format('Y-m-d'))
+            {
+                $parts[$i]->is_true = 0;
+                $parts[$i]->guaranted_true = 0;
+                $parts[$i]->save();
+            }
+
 
             if ($parts[$i]->secondname == $parts[$i + 1]->secondname && $parts[$i]->firstname == $parts[$i + 1]->firstname && $parts[$i]->patronymic == $parts[$i + 1]->patronymic)
             {
