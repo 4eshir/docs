@@ -307,7 +307,8 @@ class RoleBaseAccess
                     return true;
             if ($accesses !== null)
                 foreach ($accesses as $acc)
-                    $accessArray[] = $acc->role_function_id;
+                    if ($acc->role_function_id == $accessId)
+                        return true;
         }
         return false;
     }
