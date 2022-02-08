@@ -33,7 +33,7 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckScan ($modelOrderID, $order)
     {
-        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 19])->all();
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 17])->all();
 
         foreach ($err as $oneErr)
         {
@@ -47,7 +47,7 @@ class OrderErrorsWork extends OrderErrors
         if (count($err) == 0 && $order->scan == null)
         {
             $this->document_order_id = $modelOrderID;
-            $this->errors_id = 19;
+            $this->errors_id = 17;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
@@ -55,7 +55,7 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckDocument ($modelOrderID, $order)
     {
-        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 20])->all();
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 18])->all();
 
         foreach ($err as $oneErr)
         {
@@ -69,7 +69,7 @@ class OrderErrorsWork extends OrderErrors
         if (count($err) == 0 && $order->doc == null)
         {
             $this->document_order_id = $modelOrderID;
-            $this->errors_id = 20;
+            $this->errors_id = 18;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
@@ -77,7 +77,7 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckKeyWord ($modelOrderID, $order)
     {
-        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 21])->all();
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 19])->all();
 
         foreach ($err as $oneErr)
         {
@@ -91,7 +91,7 @@ class OrderErrorsWork extends OrderErrors
         if (count($err) == 0 && $order->key_words == null)
         {
             $this->document_order_id = $modelOrderID;
-            $this->errors_id = 21;
+            $this->errors_id = 19;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
@@ -99,7 +99,7 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckGroup ($modelOrderID, $order)
     {
-        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 22])->all();
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 20])->all();
         $group = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
 
         foreach ($err as $oneErr)
@@ -114,7 +114,7 @@ class OrderErrorsWork extends OrderErrors
         if (count($err) == 0 && $order->key_words == null)
         {
             $this->document_order_id = $modelOrderID;
-            $this->errors_id = 22;
+            $this->errors_id = 20;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
