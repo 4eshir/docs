@@ -21,6 +21,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
+use app\models\work\OrderErrorsWork;
 
 /**
  * DocumentOrderController implements the CRUD actions for DocumentOrder model.
@@ -412,5 +413,12 @@ class DocumentOrderController extends Controller
             return false;
         }
         return parent::beforeAction($action);
+    }
+
+    public function actionAmnesty ($id)
+    {
+        $errorsAmnesty = new OrderErrorsWork();
+        $errorsAmnesty->OrderAmnesty($id);
+        return $this->redirect('index?r=document-order/view&id='.$id);
     }
 }

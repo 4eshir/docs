@@ -4,10 +4,14 @@ namespace app\controllers;
 
 use app\models\common\TrainingGroup;
 use app\models\components\Logger;
+use app\models\work\DocumentOrderWork;
 use app\models\work\ErrorsWork;
 use app\models\work\GroupErrorsWork;
+use app\models\work\OrderErrorsWork;
+use app\models\work\OrderGroupWork;
 use app\models\work\ProgramErrorsWork;
 use app\models\work\RoleFunctionRoleWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\UserRoleWork;
 use app\models\work\UserWork;
@@ -29,7 +33,7 @@ class DaemonController extends Controller
 
     public function actionJournalErrors()
     {
-        $groups = TrainingGroup::find()->where(['archive' => 0])->all();
+        $groups = TrainingGroupWork::find()->where(['archive' => 0])->all();
         foreach ($groups as $group)
         {
             $errorsGroupCheck = new GroupErrorsWork();
@@ -39,11 +43,21 @@ class DaemonController extends Controller
 
     public function actionTrainingGroupErrors()
     {
-        $groups = TrainingGroup::find()->where(['archive' => 0])->all();
+        $groups = TrainingGroupWork::find()->where(['archive' => 0])->all();
         foreach ($groups as $group)
         {
             $errorsGroupCheck = new GroupErrorsWork();
             $errorsGroupCheck->CheckErrorsTrainingGroup($group->id);
+        }
+    }
+
+    public function actionsDocumentOrderErrors()
+    {
+        $orders = DocumentOrderWork::find()->all();
+        foreach ($orders as $order)
+        {
+            $errorsOrderCheck = new OrderErrorsWork();
+            $errorsOrderCheck->CheckDocumentOrder($order->id);
         }
     }
 

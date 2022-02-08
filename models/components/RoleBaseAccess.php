@@ -107,6 +107,7 @@ class RoleBaseAccess
             "delete" => [32, 24],
             "subattr" => [31, 23],
             "find-model" => [31, 23],
+            "amnesty" => [32, 24],
         ],
         //----------------------------------------
 
