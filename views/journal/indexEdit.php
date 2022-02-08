@@ -221,7 +221,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<table width="100%">';
     echo '<tr>';
     echo '<td align="left" style="text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Журнал посещений (Я<i> - явка, </i>Н<i> - неявка, </i>Д<i> - дистант)</i></td>';
-    echo '<td align="right" style="text-align: right; font-family: Tahoma; font-size: 20px; padding-: 0">Масштабирование журнала: <a class="btn btn-success" onclick="resize(1)" style="margin-right: 10px; width: 40px; font-size: 18px">+</a><a onclick="resize(2)" class="btn btn-danger" style="width: 40px; font-size: 18px">-</a></td>';
+    echo '<td align="right" style="text-align: right; font-family: Tahoma; font-size: 20px; padding-left: 0">Масштабирование журнала: <a class="btn btn-success" onclick="resize(1)" style="margin-right: 10px; width: 40px; font-size: 18px">+</a><a onclick="resize(2)" class="btn btn-danger" style="width: 40px; font-size: 18px">-</a></td>';
     echo '</tr></table>';
     echo '<div class="containerTable" id="tableId">';
     echo '<table class="table table-bordered"><thead><tr>';
@@ -234,9 +234,10 @@ $this->params['breadcrumbs'][] = $this->title;
         $date = new DateTime(date("Y-m-d"));
         $date->modify('-10 days');
         $roles = [5, 6, 7];
+        $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
         $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
         $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
-        if ($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
+        if (($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) && !$group->archive == 1) $dis = false;
         if (!$dis)
             echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
         else
@@ -259,11 +260,13 @@ $this->params['breadcrumbs'][] = $this->title;
             $date = new DateTime(date("Y-m-d"));
             $date->modify('-10 days');
             $roles = [5, 6, 7];
+            $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
+
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if ($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) $dis = false;
+            if (($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) && !$group->archive == 1) $dis = false;
             $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
@@ -288,7 +291,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '</tr>';
     }
     echo '</tbody></table></div><br>';
-
+    $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
     //echo '<h4>Тематический план занятий</h4><br>';
     echo '<table>';
     echo '<tr>';
@@ -297,7 +300,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<td align="right" style="text-align: right; font-family: Tahoma;  font-size: 20px; "><div id="button-design" style="margin: 0 0 0 auto;">';
     \yii\bootstrap\Modal::begin([
         'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e;">Предупреждение</p>',
-        'toggleButton' => ['label' => 'Очистить тематический план', 'class' => 'btn btn-secondary'],
+        'toggleButton' => ['label' => 'Очистить тематический план', 'class' => 'btn btn-secondary', $group->archive ? 'disabled' : '' => ''],
     ]);
     echo '<p style="text-align: left">Внимание, очистка тематического плана приведет к ПОЛНОЙ очистке внесенных тем и ФИО педагога!</p>';
     echo '<table><tr><td style="text-align: right; width: 50%;>"';
@@ -308,6 +311,7 @@ $this->params['breadcrumbs'][] = $this->title;
     \yii\bootstrap\Modal::end();
     echo '</div></td></tr></table>';
     echo '<div style="overflow-y: scroll; max-height: 400px; margin-bottom: 30px"><table class="table table-responsive"><tr><td><b>Дата занятия</b></td><td style="width: 40%"><b>Тема занятия</b></td><td><b>Форма контроля</b></td><td><b>ФИО педагога</b></td></tr>';
+
     foreach ($lessons as $lesson)
     {
         $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
@@ -322,14 +326,16 @@ $this->params['breadcrumbs'][] = $this->title;
         $theme = \app\models\work\LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->one();
         $params = [
             'options' => [$theme->teacher_id => ['Selected' => true]],
+            $group->archive ? 'disabled' : '' => '',
         ];
         $params2 = [
             'options' => [$theme->control_type_id => ['Selected' => true]],
+            $group->archive ? 'disabled' : '' => '',
         ];
         $value = '';
         if ($theme !== null) $value = $theme->theme;
         echo '<tr><td>'.date("d.m.Y", strtotime($lesson->lesson_date)).'</td><td>'.
-            $form->field($model, 'themes[]')->textInput(['value' => $value])->label(false).'</td><td>'.
+            $form->field($model, 'themes[]')->textInput(['value' => $value, $group->archive ? 'disabled' : '' => ''])->label(false).'</td><td>'.
             $form->field($model, "controls[]")->dropDownList($items2,$params2)->label(false).'</td><td>'.
             $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
             '</td></tr>';
