@@ -9,7 +9,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="document-in-search">
-    <h5><b>Поиск по дате регистрации документа</b></h5>
+    <div style="margin-top: 20px">
+        <h5><b>Поиск по дате создания документа</b></h5>
+    </div>
     <div class="col-xs-4" style="padding-left: 0; width: auto">
         <?php $form = ActiveForm::begin([
             'action' => ['index'],
