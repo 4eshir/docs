@@ -53,8 +53,7 @@ class DaemonController extends Controller
 
     public function actionDocumentOrderErrors()
     {
-        $orders = DocumentOrderWork::find()->where(['not like', 'order_name', '%резерв%'])->all();
-        var_dump(count($orders));
+        $orders = DocumentOrderWork::find()->where(['not like', 'order_name', 'резерв'])->all();
         foreach ($orders as $order)
         {
             $errorsOrderCheck = new OrderErrorsWork();
