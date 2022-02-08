@@ -21,6 +21,7 @@ class TrainingProgramWork extends TrainingProgram
     public $isQuantorium;
     public $isCDNTT;
     public $isMobQuant;
+    public $isCod;
 
     public $authors;
     public $thematicPlan;
@@ -36,7 +37,7 @@ class TrainingProgramWork extends TrainingProgram
             [['name', 'author_id', 'focus', 'hour_capacity', 'capacity'], 'required'],
             [['ped_council_date'], 'safe'],
             [['student_left_age'], 'double'],
-            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
@@ -74,6 +75,7 @@ class TrainingProgramWork extends TrainingProgram
             'isCDNTT' => 'ЦДНТТ',
             'isQuantorium' => 'Кванториум',
             'isTechnopark' => 'Технопарк',
+            'isCod' => 'Центр одаренных детей',
             'isMobQuant' => 'Мобильный кванториум',
             'branchs' => 'Отдел(-ы) - место реализации',
             'hour_capacity' => 'Длительность 1 академического часа в минутах',
@@ -252,6 +254,21 @@ class TrainingProgramWork extends TrainingProgram
             $edM = BranchProgram::find()->where(['branch_id' => 4])->andWhere(['training_program_id' => $this->id])->one();
             if ($edM !== null)
                 $edM->delete();
+        }
+
+        $edCc = new BranchProgram();
+        if ($this->isCod == 1)
+        {
+            $edCc->branch_id = 7;
+            $edCc->training_program_id = $this->id;
+            if (count(BranchProgram::find()->where(['branch_id' => 7])->andWhere(['training_program_id' => $this->id])->all()) == 0)
+                $edCc->save();
+        }
+        else
+        {
+            $edCc = BranchProgram::find()->where(['branch_id' => 7])->andWhere(['training_program_id' => $this->id])->one();
+            if ($edCc !== null)
+                $edCc->delete();
         }
 
         //--------------
