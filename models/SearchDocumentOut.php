@@ -12,6 +12,7 @@ use app\models\extended\DocumentOutExtended;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\DocumentOutWork;
+use yii\db\Query;
 
 /**
  * SearchDocumentOut represents the model behind the search form of `app\models\common\DocumentOut`.
@@ -24,6 +25,8 @@ class SearchDocumentOut extends DocumentOutWork
     public $registerName;
     public $sendMethodName;
     public $positionCompany;
+    public $start_date_search;
+    public $finish_date_search;
     /**
      * {@inheritdoc}
      */
@@ -32,7 +35,8 @@ class SearchDocumentOut extends DocumentOutWork
         return [
             [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words', 'isAnswer'], 'safe'],
+                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words', 'isAnswer',
+                'start_date_search', 'finish_date_search'], 'safe'],
         ];
     }
 
@@ -60,6 +64,20 @@ class SearchDocumentOut extends DocumentOutWork
         $query->joinWith(['sendMethod']);
         $query->joinWith(['company']);
         $query->joinWith(['position']);
+
+        if (strlen($params["SearchDocumentOut"]["start_date_search"]) > 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) > 9)
+        {
+            $query = $query->where(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]])->andWhere(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]]);
+        }
+        else if (strlen($params["SearchDocumentOut"]["start_date_search"]) > 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) < 9)
+        {
+            $query = $query->where(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]]);
+        }
+        else if (strlen($params["SearchDocumentOut"]["start_date_search"]) < 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) > 9)
+        {
+            $query = $query->where(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]]);
+        }
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

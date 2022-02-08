@@ -20,6 +20,8 @@ class SearchDocumentIn extends DocumentInWork
     public $correspondentName;
     public $companyName;
     public $sendMethodName;
+    public $start_date_search;
+    public $finish_date_search;
 
     public $fullNumber;
     /**
@@ -30,7 +32,8 @@ class SearchDocumentIn extends DocumentInWork
         return [
             [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
             [['real_number', 'fullNumber'], 'string'],
-            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName'], 'safe'],
+            [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName',
+                'start_date_search', 'finish_date_search'], 'safe'],
         ];
     }
 
@@ -86,6 +89,19 @@ class SearchDocumentIn extends DocumentInWork
         $query->joinWith(['correspondent correspondent']);
         $query->joinWith(['company']);
         $query->joinWith(['sendMethod']);
+
+        if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
+        {
+            $query = $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
+        }
+        else if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) < 9)
+        {
+            $query = $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]]);
+        }
+        else if (strlen($params["SearchDocumentIn"]["start_date_search"]) < 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
+        {
+            $query = $query->where(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
+        }
 
 
         // add conditions that should always apply here
