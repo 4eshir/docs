@@ -51,7 +51,7 @@ class DaemonController extends Controller
         }
     }
 
-    public function actionsDocumentOrderErrors()
+    public function actionDocumentOrderErrors()
     {
         $orders = DocumentOrderWork::find()->all();
         foreach ($orders as $order)
