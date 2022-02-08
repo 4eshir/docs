@@ -5,6 +5,7 @@ namespace app\models\work;
 use app\models\common\Errors;
 use app\models\extended\AccessTrainingGroup;
 use Yii;
+use yii\db\Query;
 use yii\helpers\Html;
 
 
@@ -136,12 +137,15 @@ class ErrorsWork extends Errors
         return $result;
     }
 
-    public function ErrorsElectronicJournalSubsystem($user, $critical)
+    public function ErrorsSystem($user, $critical)
     {
         $result = $this->ErrorsToGroupAndJournal($user, $critical);
         if ($result !== '')
            $result .= '<br><br>';
         $result .= $this->ErrorsToTrainingProgram($user, $critical);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToDocumentOrder($user);
         return $result;
     }
 
@@ -233,6 +237,63 @@ class ErrorsWork extends Errors
             $result .= '</tbode></table>';
         }
 
+        return $result;
+    }
+
+    /*       Электронный документооборот        */
+
+    private function ErrorsToDocumentOrder ($user)
+    {
+        $result = '';
+        $documents = '';
+        if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 24) && \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 32))
+        {
+            $documents = DocumentOrderWork::find()->all();
+        }
+        else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 24))   // образовательные
+        {
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $documents = DocumentOrderWork::find()->where(['nomenclature_id' => $branch])->andWhere(['IN', 'id',
+                (new Query())->select('id')->from('document_order')->where(['type' => 0])->orWhere(['type' => 11])])->all();
+        }
+        else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 32))  // основные приказы
+        {
+            $documents = DocumentOrderWork::find()->where(['type' => 1])->orWhere(['type' => 10])->all();
+        }
+
+        if ($documents !== '')
+        {
+            $result .= '<table id="document-order" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(2)">Ошибки в приказах (по основной и образовательной деятельности)</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+
+            foreach ($documents as $document)
+            {
+                $errorsList = OrderErrorsWork::find()->where(['document_order_id' => $document->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($document->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $document->id])) . '</td>';
+                    $result .= '<td>';
+                    $branchName = BranchWork::find()->where(['id' => $document->nomenclature_id])->one();
+                    $result .= Html::a($branchName->name, \yii\helpers\Url::to(['branch/view', 'id' => $document->nomenclature_id])) . '<br>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+            $result .= '</tbody></table>';
+        }
         return $result;
     }
 }

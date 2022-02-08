@@ -23,7 +23,7 @@ use app\models\work\UserWork;
         <?php
             $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             $errors = new ErrorsWork();
-            echo $errors->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+            echo $errors->ErrorsSystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
         ?>
     </div>
     <div>
@@ -54,6 +54,14 @@ use app\models\work\UserWork;
             rowsPr = tableBodyPr.querySelectorAll('tr');
         }
 
+        tableDocOrd = document.getElementById('document-order');
+        if (tableDocOrd !== null)
+        {
+            headersDocOrd = tableDocOrd.querySelectorAll('th');
+            tableBodyDocOrd = tableDocOrd.querySelector('tbody');
+            rowsDocOrd = tableBodyDocOrd.querySelectorAll('tr');
+        }
+
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -62,18 +70,27 @@ use app\models\work\UserWork;
         directionsPr = Array.from(headersPr).map(function(header) {
             return '';
         });
+
+        directionsDocOrd = Array.from(headersDocOrd).map(function(header) {
+            return '';
+        });
     }
 
     let tableGr = '';
     let tablePr = '';
+    let tableDocOrd = '';
     let headersGr = '';
     let headersPr = '';
+    let headersDocOrd = '';
     let tableBodyGr = '';
     let tableBodyPr = '';
+    let tableBodyDocOrd = '';
     let rowsGr = '';
     let rowsPr = '';
+    let rowsDocOrd = '';
     let directionsGr = '';
     let directionsPr = '';
+    let directionsDocOrd = '';
 
     function fFor(rows, filterName) {
         for (let i = 0; i < rows.length; i++)
@@ -106,19 +123,23 @@ use app\models\work\UserWork;
 
         fFor(rowsGr, filterName);
         fFor(rowsPr, filterName);
+        fFor(rowsDocOrd, filterName);
     }
 
     function sortColumn(index) {
         // Получить текущее направление
         const directionGr = directionsGr[index] || 'asc';
         const directionPr = directionsPr[index] || 'asc';
+        const directionDocOrd = directionsDocOrd[index] || 'asc';
 
         // Фактор по направлению
         const multiplierGr = (directionGr === 'asc') ? 1 : -1;
         const multiplierPr = (directionPr === 'asc') ? 1 : -1;
+        const multiplierDocOrd = (directionDocOrd === 'asc') ? 1 : -1;
 
         const newRowsGr = Array.from(rowsGr);
         const newRowsPr = Array.from(rowsPr);
+        const newRowsDocOrd = Array.from(rowsDocOrd);
 
         newRowsGr.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
@@ -140,6 +161,16 @@ use app\models\work\UserWork;
                 case cellA === cellB: return 0;
             }
         });
+        newRowsDocOrd.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierDocOrd;
+                case cellA < cellB: return -1 * multiplierDocOrd;
+                case cellA === cellB: return 0;
+            }
+        });
 
         // Удалить старые строки
         [].forEach.call(rowsGr, function(row) {
@@ -148,10 +179,14 @@ use app\models\work\UserWork;
         [].forEach.call(rowsPr, function(row) {
             tableBodyPr.removeChild(row);
         });
+        [].forEach.call(rowsDocOrd, function(row) {
+            tableBodyDocOrd.removeChild(row);
+        });
 
         // Поменять направление
         directionsGr[index] = directionGr === 'asc' ? 'desc' : 'asc';
         directionsPr[index] = directionPr === 'asc' ? 'desc' : 'asc';
+        directionsDocOrd[index] = directionPr === 'asc' ? 'desc' : 'asc';
 
         // Добавить новую строку
         newRowsGr.forEach(function(newRow) {
@@ -160,7 +195,9 @@ use app\models\work\UserWork;
         newRowsPr.forEach(function(newRow) {
             tableBodyPr.appendChild(newRow);
         });
-
+        newRowsDocOrd.forEach(function(newRow) {
+            tableBodyDocOrd.appendChild(newRow);
+        });
     }
 
     function hide(index) {
@@ -175,6 +212,12 @@ use app\models\work\UserWork;
                 tablePr.style.display = "none";
             else
                 tablePr.style.display = "block";
+
+        if (index === 2)
+            if (tableDocOrd.style.display === "block")
+                tableDocOrd.style.display = "none";
+            else
+                tableDocOrd.style.display = "block";
     }
 
 </script>
