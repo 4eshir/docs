@@ -103,7 +103,6 @@ class DocumentOrderWork extends DocumentOrder
         return $result;
     }
 
-
     public function getChangeDocs()
     {
         $changes = ExpireWork::find()->where(['expire_type' => 2])->andWhere(['expire_order_id' => $this->id])->all();
@@ -320,6 +319,10 @@ class DocumentOrderWork extends DocumentOrder
             $errorsCheck = new GroupErrorsWork();
             $errorsCheck->CheckOrderTrainingGroup($this->groups_check);
         }
+
+        // тут должны работать проверки на ошибки
+        $errorsCheck = new OrderErrorsWork();
+        $errorsCheck->CheckErrorsDocumentOrderWithoutAmnesty($this->id);
     }
 
     public function beforeDelete()
@@ -458,5 +461,19 @@ class DocumentOrderWork extends DocumentOrder
                 $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
             return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
         }
+    }
+
+    public function getErrorsWork()
+    {
+        $errorsList = OrderErrorsWork::find()->where(['document_order_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+        $result = '';
+        foreach ($errorsList as $errors)
+        {
+            $errorName = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
+            if ($errors->critical == 1)
+                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+            else $result .= 'Внимание, ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+        }
+        return $result;
     }
 }

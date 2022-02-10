@@ -10,11 +10,14 @@ use app\models\work\UserWork;
 //$this->title = $model->people->secondname.' '.$model->responsibilityType->name;
 ?>
 
+<<<<<<< HEAD
 <?php
 $access = [12, 13, 14];
 $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'access_id', $access])->one();
 ?>
 
+=======
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 <div style="width:100%; height:1px; clear:both;"></div>
 <div>
     <?= $this->render('menu') ?>
@@ -28,7 +31,11 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         <?php
             $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             $errors = new ErrorsWork();
+<<<<<<< HEAD
             echo $errors->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+=======
+            echo $errors->ErrorsSystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         ?>
     </div>
     <div>
@@ -59,6 +66,17 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
             rowsPr = tableBodyPr.querySelectorAll('tr');
         }
 
+<<<<<<< HEAD
+=======
+        tableDocOrd = document.getElementById('document-order');
+        if (tableDocOrd !== null)
+        {
+            headersDocOrd = tableDocOrd.querySelectorAll('th');
+            tableBodyDocOrd = tableDocOrd.querySelector('tbody');
+            rowsDocOrd = tableBodyDocOrd.querySelectorAll('tr');
+        }
+
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -67,10 +85,18 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         directionsPr = Array.from(headersPr).map(function(header) {
             return '';
         });
+<<<<<<< HEAD
+=======
+
+        directionsDocOrd = Array.from(headersDocOrd).map(function(header) {
+            return '';
+        });
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
     }
 
     let tableGr = '';
     let tablePr = '';
+<<<<<<< HEAD
     let headersGr = '';
     let headersPr = '';
     let tableBodyGr = '';
@@ -79,6 +105,21 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
     let rowsPr = '';
     let directionsGr = '';
     let directionsPr = '';
+=======
+    let tableDocOrd = '';
+    let headersGr = '';
+    let headersPr = '';
+    let headersDocOrd = '';
+    let tableBodyGr = '';
+    let tableBodyPr = '';
+    let tableBodyDocOrd = '';
+    let rowsGr = '';
+    let rowsPr = '';
+    let rowsDocOrd = '';
+    let directionsGr = '';
+    let directionsPr = '';
+    let directionsDocOrd = '';
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
     function fFor(rows, filterName) {
         for (let i = 0; i < rows.length; i++)
@@ -111,19 +152,35 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
 
         fFor(rowsGr, filterName);
         fFor(rowsPr, filterName);
+<<<<<<< HEAD
+=======
+        fFor(rowsDocOrd, filterName);
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
     }
 
     function sortColumn(index) {
         // Получить текущее направление
         const directionGr = directionsGr[index] || 'asc';
         const directionPr = directionsPr[index] || 'asc';
+<<<<<<< HEAD
+=======
+        const directionDocOrd = directionsDocOrd[index] || 'asc';
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
         // Фактор по направлению
         const multiplierGr = (directionGr === 'asc') ? 1 : -1;
         const multiplierPr = (directionPr === 'asc') ? 1 : -1;
+<<<<<<< HEAD
 
         const newRowsGr = Array.from(rowsGr);
         const newRowsPr = Array.from(rowsPr);
+=======
+        const multiplierDocOrd = (directionDocOrd === 'asc') ? 1 : -1;
+
+        const newRowsGr = Array.from(rowsGr);
+        const newRowsPr = Array.from(rowsPr);
+        const newRowsDocOrd = Array.from(rowsDocOrd);
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
         newRowsGr.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
@@ -145,6 +202,19 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 case cellA === cellB: return 0;
             }
         });
+<<<<<<< HEAD
+=======
+        newRowsDocOrd.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierDocOrd;
+                case cellA < cellB: return -1 * multiplierDocOrd;
+                case cellA === cellB: return 0;
+            }
+        });
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
         // Удалить старые строки
         [].forEach.call(rowsGr, function(row) {
@@ -153,10 +223,20 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         [].forEach.call(rowsPr, function(row) {
             tableBodyPr.removeChild(row);
         });
+<<<<<<< HEAD
+=======
+        [].forEach.call(rowsDocOrd, function(row) {
+            tableBodyDocOrd.removeChild(row);
+        });
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
         // Поменять направление
         directionsGr[index] = directionGr === 'asc' ? 'desc' : 'asc';
         directionsPr[index] = directionPr === 'asc' ? 'desc' : 'asc';
+<<<<<<< HEAD
+=======
+        directionsDocOrd[index] = directionPr === 'asc' ? 'desc' : 'asc';
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
         // Добавить новую строку
         newRowsGr.forEach(function(newRow) {
@@ -165,7 +245,13 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
         newRowsPr.forEach(function(newRow) {
             tableBodyPr.appendChild(newRow);
         });
+<<<<<<< HEAD
 
+=======
+        newRowsDocOrd.forEach(function(newRow) {
+            tableBodyDocOrd.appendChild(newRow);
+        });
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
     }
 
     function hide(index) {
@@ -180,6 +266,15 @@ $isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::
                 tablePr.style.display = "none";
             else
                 tablePr.style.display = "block";
+<<<<<<< HEAD
+=======
+
+        if (index === 2)
+            if (tableDocOrd.style.display === "block")
+                tableDocOrd.style.display = "none";
+            else
+                tableDocOrd.style.display = "block";
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
     }
 
 </script>

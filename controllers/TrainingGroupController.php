@@ -416,7 +416,7 @@ class TrainingGroupController extends Controller
         $visits = VisitWork::find()->where(['training_group_lesson_id' => $participant->id])->andWhere(['!=', 'status', 3])->all();
         if (count($themes) > 0 || count($visits) > 0)
         {
-            Yii::$app->session->setFlash("danger", "Невозможно уадлить занятие, т.к. присутствуют связанные с ним сведения о явке/неявке обучающихся и/или сведения о теме занятия в учебно-тематическом плане");
+            Yii::$app->session->setFlash("danger", "Невозможно удалить занятие, т.к. присутствуют связанные с ним сведения о явке/неявке обучающихся и/или сведения о теме занятия в учебно-тематическом плане");
             return $this->redirect('index?r=training-group/update&id='.$modelId);
         }
         $visits = VisitWork::find()->where(['training_group_lesson_id' => $participant->id])->all();

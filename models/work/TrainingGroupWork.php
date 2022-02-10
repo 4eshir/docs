@@ -517,11 +517,19 @@ class TrainingGroupWork extends TrainingGroup
                     $lesson = TrainingGroupLessonWork::find()->where(['id' => $oneDel])->one();
                     $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
                     $visits = VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->all();
+                    $visits2 = VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['!=', 'status', 3])->all();
 
-                    foreach ($themes as $theme) $theme->delete();
-                    foreach ($visits as $visit) $visit->delete();
-                    if ($lesson !== null)
-                       $lesson->delete();
+                    //foreach ($themes as $theme) $theme->delete();
+                    if (count($visits2) > 0 || count($themes) > 0)
+                    {
+                        Yii::$app->session->setFlash('danger', 'Невозможно удалить занятие, т.к. присутствуют связанные с ним сведения о явке/неявке обучающихся и/или сведения о теме занятия в учебно-тематическом плане');
+                    }
+                    else
+                    {
+                        foreach ($visits as $visit) $visit->delete();
+                        if ($lesson !== null)
+                            $lesson->delete();
+                    }
                 }
                 /*
                             $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC, 'lesson_start_time' => SORT_ASC])->all();
@@ -620,7 +628,7 @@ class TrainingGroupWork extends TrainingGroup
                     $newLesson = new TrainingGroupLessonWork();
                     $newLesson->lesson_date = $lesson->lesson_date;
                     $newLesson->lesson_start_time = $lesson->lesson_start_time;
-                    $newLesson->control_type_id = $lesson->control_type_id;
+                    //$newLesson->control_type_id = $lesson->control_type_id;
                     $min = $this->trainingProgram->hour_capacity;
                     $newLesson->lesson_end_time = date("H:i", strtotime('+' . $min . ' minutes', strtotime($lesson->lesson_start_time)));
                     $newLesson->duration = $this->trainingProgram->hour_capacity;
@@ -639,7 +647,7 @@ class TrainingGroupWork extends TrainingGroup
                         $newLesson = new TrainingGroupLessonWork();
                         $newLesson->lesson_date = $day;
                         $newLesson->lesson_start_time = $autoOne->start_time;
-                        $newLesson->control_type_id = $autoOne->control_type_id;
+                        //$newLesson->control_type_id = $autoOne->control_type_id;
                         $min = $this->trainingProgram->hour_capacity;
                         $newLesson->lesson_end_time = date("H:i", strtotime('+' . $min . ' minutes', strtotime($autoOne->start_time)));
                         $newLesson->duration = $this->trainingProgram->hour_capacity;

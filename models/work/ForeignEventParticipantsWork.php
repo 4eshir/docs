@@ -152,7 +152,14 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
         for ($i = 0; $i !== count($parts) - 1; $i++)
         {
             $newDate = new \DateTime('-3 year');
-            if ($parts[$i]->birthdate < '1996-01-01' || $parts[$i]->birthdate > $newDate->format('Y-m-d'))
+            if (($parts[$i]->birthdate < '1996-01-01' || $parts[$i]->birthdate > $newDate->format('Y-m-d')) & $parts[$i]->guaranted_true !== 1)
+            {
+                $parts[$i]->is_true = 0;
+                $parts[$i]->guaranted_true = 0;
+                $parts[$i]->save();
+            }
+
+            if ($parts[$i]->birthdate < '1930-01-01' || $parts[$i]->birthdate > $newDate->format('Y-m-d'))
             {
                 $parts[$i]->is_true = 0;
                 $parts[$i]->guaranted_true = 0;

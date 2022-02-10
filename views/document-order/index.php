@@ -13,11 +13,20 @@ use kartik\export\ExportMenu;
 
 <?php
 $session = Yii::$app->session;
+<<<<<<< HEAD
 
 $this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+=======
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
+$this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div style="margin-left: auto; margin-right: 0; width: max-content;">
+    <div class="" data-html="true" style="position: fixed; z-index: 101; width: 30px; height: 30px;  margin-left: 10px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Серый цвет - приказ утратил силу или был изменен другим приказом&#10Желтый цвет - архивный приказ&#10Красный цвет - в приказе есть ошибки">❔</div>
+</div>
 <div class="document-order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -83,11 +92,16 @@ $this->params['breadcrumbs'][] = $this->title;
             if (strtotime($data['order_date']) < strtotime('2021-01-01'))
                 return ['class' => 'warning'];
             else if ($data['state'] == 0)
+                return ['style' => 'background: #c0c0c0'];
+            //else if ($data['changeDocs'] == '')
+            //    return ['class' => 'warning'];
+            else if ($data['errorsWork'] !== '')
                 return ['class' => 'danger'];
             else if ($data['changeDocs'] != '')
                 return ['class' => 'warning'];
             else
                 return ['class' => 'default'];
+
         },
         'summary' => false,
         'columns' => [

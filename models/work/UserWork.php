@@ -168,7 +168,7 @@ class UserWork extends User
         {
             for ($i = 0; $i != count($arr); $i++)
             {
-
+                /*
                 $tmpAccess = AccessLevel::find()->where(['user_id' => $this->id])->andWhere(['access_id' => $i + 1])->one();
 
                 if ($arr[$i] == 1)
@@ -184,6 +184,7 @@ class UserWork extends User
                 else
                     if ($tmpAccess !== null)
                         $tmpAccess->delete();
+                */
             }
 
         }

@@ -4,6 +4,10 @@
 namespace app\models\components;
 
 
+<<<<<<< HEAD
+=======
+use app\models\work\AccessLevelWork;
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 use app\models\work\PeopleWork;
 use app\models\work\RoleFunctionRoleWork;
 use app\models\work\TeacherGroupWork;
@@ -106,6 +110,10 @@ class RoleBaseAccess
             "delete" => [32, 24],
             "subattr" => [31, 23],
             "find-model" => [31, 23],
+<<<<<<< HEAD
+=======
+            "amnesty" => [32, 24],
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         ],
         //----------------------------------------
 
@@ -296,6 +304,10 @@ class RoleBaseAccess
     public static function CheckSingleAccess($userId, $accessId)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
+<<<<<<< HEAD
+=======
+        $accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         $accessArray = [];
         foreach ($userAccess as $access)
         {
@@ -303,6 +315,13 @@ class RoleBaseAccess
             foreach ($functions as $function)
                 if ($function->role_function_id == $accessId)
                     return true;
+<<<<<<< HEAD
+=======
+            if ($accesses !== null)
+                foreach ($accesses as $acc)
+                    if ($acc->role_function_id == $accessId)
+                        return true;
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         }
         return false;
     }
@@ -311,12 +330,22 @@ class RoleBaseAccess
     public static function CheckAccess($controllerName, $actionName, $userId, $special = -1)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
+<<<<<<< HEAD
+=======
+        $accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         $accessArray = [];
         foreach ($userAccess as $access)
         {
             $functions = RoleFunctionRoleWork::find()->where(['role_id' => $access->role_id])->all();
             foreach ($functions as $function)
                 $accessArray[] = $function->role_function_id;
+<<<<<<< HEAD
+=======
+            if ($accesses !== null)
+                foreach ($accesses as $acc)
+                    $accessArray[] = $acc->role_function_id;
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         }
         $allow = false;
         for ($i = 0; $i < count($accessArray); $i++){
@@ -340,6 +369,16 @@ class RoleBaseAccess
         return $allow;
     }
 
+<<<<<<< HEAD
+=======
+    public static function CheckRole($userId, $role)
+    {
+        $roles = UserRoleWork::find()->where(['user_id' => $userId])->andWhere(['role_id' => $role])->all();
+        if (count($roles) == 0) return false;
+        else return true;
+    }
+
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
     //Выгрузка групп по роли пользователя
     public static function getGroupsByRole($userId)
     {

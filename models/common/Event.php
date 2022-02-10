@@ -127,6 +127,7 @@ class Event extends \yii\db\ActiveRecord
             'isQuantorium' => 'Кванториум',
             'isMobQuant' => 'Мобильный кванториум',
             'isCDNTT' => 'ЦДНТТ',
+            'isCod' => 'Центр одаренных детей',
             'contains_education' => 'Содержит образовательные программы',
             'yesEducation' => 'Содержит образовательные программы',
             'noEducation' => 'Не содержит образовательные программы',
