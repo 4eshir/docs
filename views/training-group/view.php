@@ -50,11 +50,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
 
 <div class="training-group-view">
 
-<<<<<<< HEAD
-    <h1><?= Html::encode('Группа '.$this->title) ?></h1>
-=======
     <h1><?= Html::encode('Группа '.$this->title) ?><span class="badge badge-secondary" style="font-size: 18px; margin-bottom: 5px"><?php echo $model->archive == 1 ? 'Архив' : ''; ?></span></h1>
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -69,11 +65,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             $error = $model->getErrorsWork();
             //$isGod = \app\models\work\UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)))
-<<<<<<< HEAD
-                echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
-=======
                 echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning', 'style' => $model->archive == 1 ? 'display: none' : '',
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
                     'data' => [
                         'confirm' => 'Вы действительно хотите простить группе все ошибки?',
                         'method' => 'post',
