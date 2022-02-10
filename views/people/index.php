@@ -28,9 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'secondname', 'label' => 'Фамилия'],
             ['attribute' => 'firstname', 'label' => 'Имя'],
             ['attribute' => 'patronymic', 'label' => 'Отчество'],
-            ['attribute' => 'positionName', 'label' => 'Должность', 'value' => function($model){
-                return $model->position->name;
-            }],
+            ['attribute' => 'positionsWork', 'label' => 'Должности', 'format' => 'raw'],
+            /*['attribute' => 'positionsWork', 'label' => 'Должность', 'format' => 'raw'],*/ // вот это работает, но нужно подшаманить с фильтрами
             ['attribute' => 'companyName', 'label' => 'Организация', 'value' => function($model){
                 return $model->company->name;
             }],

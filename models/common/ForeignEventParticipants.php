@@ -14,6 +14,8 @@ use yii\helpers\Html;
  * @property string $patronymic
  * @property string $birthdate
  * @property string $sex
+ * @property int $is_true
+ * @property int $guaranted_true
  *
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
@@ -36,7 +38,8 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic', 'sex'], 'required'],
+            [['firstname', 'secondname', 'sex'], 'required'],
+            [['is_true', 'guaranted_true'], 'integer'],
             [['firstname', 'secondname', 'patronymic', 'birthdate', 'sex'], 'string'],
         ];
     }
@@ -55,6 +58,10 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
             'achievements' => 'Достижения',
             'birthdate' => 'Дата рождения',
             'sex' => 'Пол',
+            'events' => 'Участие в мероприятиях',
+            'studies' => 'Учебные группы участника',
+            'is_true' => 'Данные корректны',
+            'guaranted_true' => 'Данные корректны'
         ];
     }
 
@@ -98,36 +105,4 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
         return $this->hasMany(TeacherParticipant::className(), ['participant_id' => 'id']);
     }
 
-    public function getFullName()
-    {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
-    }
-
-    public function getShortName()
-    {
-        return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
-    }
-
-    public function getDocuments()
-    {
-        $docs = ParticipantFiles::find()->where(['participant_id' => $this->id])->all();
-        $docsLink = '';
-        foreach ($docs as $docOne)
-        {
-            $docsLink = $docsLink.Html::a($docOne->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $docOne->filename, 'type' => 'participants'])).'<br>';
-        }
-        return $docsLink;
-    }
-
-    public function getAchievements()
-    {
-        $achieves = ParticipantAchievement::find()->where(['participant_id' => $this->id])->all();
-        $achievesLink = '';
-        foreach ($achieves as $achieveOne)
-        {
-            $achievesLink = $achievesLink.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
-                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
-        }
-        return $achievesLink;
-    }
 }

@@ -2,21 +2,22 @@
 
 namespace app\models;
 
-use app\models\common\People;
+use app\models\work\PeopleWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\DocumentOrder;
+use app\models\work\DocumentOrderWork;
 
 /**
  * SearchDocumentOrder represents the model behind the search form of `app\models\common\DocumentOrder`.
  */
-class SearchDocumentOrder extends DocumentOrder
+class SearchDocumentOrder extends DocumentOrderWork
 {
     public $signedName;
     public $executorName;
     public $registerName;
     public $bringName;
     public $stateName;
+    public $branchString;
 
     public $documentNumberString;
     /**
@@ -25,7 +26,7 @@ class SearchDocumentOrder extends DocumentOrder
     public function rules()
     {
         return [
-            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id'], 'integer'],
+            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id', 'branchString', 'nomenclature_id'], 'integer'],
             [['signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'documentNumberString'], 'string'],
             [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'key_words'], 'safe'],
         ];
@@ -47,15 +48,19 @@ class SearchDocumentOrder extends DocumentOrder
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $sort)
     {
-        $query = DocumentOrder::find();
+        $query = DocumentOrderWork::find();
+        if ($sort == 1)
+            $query = DocumentOrderWork::find()->where(['type' => 1])->orWhere(['type' => 10]);
+        else
+            $query = DocumentOrderWork::find()->where(['type' => 0])->orWhere(['type' => 11]);
         $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC]]
+            'sort'=> ['defaultOrder' => ['order_date' => SORT_DESC, 'order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['signedName'] = [
@@ -95,7 +100,6 @@ class SearchDocumentOrder extends DocumentOrder
             // $query->where('0=1');
             return $dataProvider;
         }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -117,7 +121,8 @@ class SearchDocumentOrder extends DocumentOrder
             ->andFilterWhere(['=', 'order_copy_id', $this->documentNumberString])
             ->orFilterWhere(['=', 'order_number', $this->documentNumberString])
             ->orFilterWhere(['=', 'order_postfix', $this->documentNumberString])
-            ->andFilterWhere(['like', 'key_words', $this->key_words]);
+            ->andFilterWhere(['like', 'key_words', $this->key_words])
+            ->andFilterWhere(['like', 'nomenclature_id', $this->nomenclature_id]);
 
 
 

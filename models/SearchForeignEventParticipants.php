@@ -4,12 +4,13 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\ForeignEventParticipants;
+use app\models\work\ForeignEventParticipantsWork;
+use yii\db\Query;
 
 /**
  * SearchForeignEventParticipants represents the model behind the search form of `app\models\common\ForeignEventParticipants`.
  */
-class SearchForeignEventParticipants extends ForeignEventParticipants
+class SearchForeignEventParticipants extends ForeignEventParticipantsWork
 {
     /**
      * {@inheritdoc}
@@ -17,7 +18,8 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
     public function rules()
     {
         return [
-            [['id', 'firstname', 'secondname', 'patronymic'], 'integer'],
+            ['id', 'integer'],
+            [['firstname', 'secondname', 'patronymic'], 'string'],
         ];
     }
 
@@ -37,14 +39,32 @@ class SearchForeignEventParticipants extends ForeignEventParticipants
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $sort)
     {
-        $query = ForeignEventParticipants::find();
+        $query = ForeignEventParticipantsWork::find();
+        if ($sort == 1)
+        {
+            //$str = "SELECT * FROM `foreign_event_participants` WHERE `is_true` <> 1 AND (`guaranted_true` IS NULL OR `guaranted_true` = 0)
+            //       OR `sex` = 'Другое' AND (`guaranted_true` IS NULL OR `guaranted_true` = 0) ORDER BY `secondname`";
+            $query = ForeignEventParticipantsWork::find()->where(['IN', 'id',
+                (new Query())->select('id')->from('foreign_event_participants')->where(['!=', 'is_true', 1])->andWhere(['IN', 'id',
+                    (new Query())->select('id')->from('foreign_event_participants')->where(['guaranted_true' => null])->orWhere(['guaranted_true' => 0])])])
+                ->orWhere(['IN', 'id',
+                    (new Query())->select('id')->from('foreign_event_participants')->where(['sex' => 'Другое'])->andWhere(['IN', 'id',
+                        (new Query())->select('id')->from('foreign_event_participants')->where(['guaranted_true' => null])->orWhere(['guaranted_true' => 0])])]);
+            //$query = ForeignEventParticipantsWork::findBySql($str);
+        }
+        if ($sort == 2)
+        {
+            $query = ForeignEventParticipantsWork::find()->where(['IN', 'id',
+                (new Query())->select('foreign_event_participant_id')->distinct()->from('personal_data_foreign_event_participant')->where(['status' => 1])]);
+        }
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['secondname' => SORT_ASC, 'firstname' => SORT_ASC]]
         ]);
 
         $this->load($params);

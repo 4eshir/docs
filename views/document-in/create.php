@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentIn */
+/* @var $model app\models\work\DocumentInWork */
 
 $this->title = 'Добавить входящий документ';
 $this->params['breadcrumbs'][] = ['label' => 'Входящая документация', 'url' => ['index']];

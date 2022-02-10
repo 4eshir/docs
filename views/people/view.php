@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\People */
+/* @var $model app\models\work\PeopleWork */
 
 $this->title = $model->secondname.' '.$model->firstname.' '.$model->patronymic;
 $this->params['breadcrumbs'][] = ['label' => 'Люди', 'url' => ['index']];
@@ -25,21 +25,52 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <h4><u>Общая информация</u></h4>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             ['label' => 'Фамилия', 'attribute' => 'secondname'],
             ['label' => 'Имя', 'attribute' => 'firstname'],
             ['label' => 'Отчество', 'attribute' => 'patronymic'],
-            ['label' => 'Должность', 'attribute' => 'position', 'value' => function($model){
-                return $model->position->name;
-            }],
+            ['label' => 'Должность(-и)', 'attribute' => 'positionsList', 'format' => 'raw'],
             ['label' => 'Организация', 'attribute' => 'company', 'value' => function($model){
                 return $model->company->name;
             }],
-            ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw', 'visible' => $model->position->name == 'Педагог дополнительного образования']
+            ['label' => 'Отдел по трудовому договору', 'attribute' => 'branch_id', 'format' => 'raw', 'value' => function($model) {return Html::a($model->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $model->branch_id]));}, 'visible' => $model->branch_id !== null],
+
+            ['label' => 'Уникальный идентификатор', 'attribute' => 'short', 'format' => 'raw', 'visible' => $model->short !== null && $model->short !== ''],
+            ['label' => 'Дата рождения', 'attribute' => 'birthdate', 'visible' => $model->birthdate !== null && $model->birthdate !== ''],
+            ['label' => 'Пол', 'attribute' => 'sexString', 'visible' => $model->sex !== null && $model->sex !== ''],
         ],
     ]) ?>
+    <?php
+    $vis = strlen($model->groupsList) > 3 ? 'normal' : 'none';
+    echo "<div style='display: ".$vis."'>";
+    ?>
+        <h4><u>Информация об образовательной деятельности</u></h4>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['label' => 'Группы', 'attribute' => 'groupsList', 'format' => 'raw'],
+                ['label' => 'Достижения учеников', 'attribute' => 'achievements', 'format' => 'raw'],
+
+            ],
+        ]) ?>
+    </div>
+
+    <?php
+    $vis = $model->company_id === 8 ? 'visible' : 'hidden';
+    echo "<div style='visibility: ".$vis."'>";
+    ?>
+    <h4><u>Ответственность работника</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['label' => 'Ответственности', 'attribute' => 'respLinks', 'format' => 'raw'],
+
+        ],
+    ]) ?>
+    </div>
+
 
 </div>

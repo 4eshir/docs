@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -18,7 +19,54 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить мероприятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+
+    <?php
+
+    $gridColumns = [
+        ['attribute' => 'name'],
+        ['attribute' => 'start_date'],
+        ['attribute' => 'finish_date'],
+        ['attribute' => 'event_type_id', 'value' => function($model){
+            return \app\models\work\EventTypeWork::find()->where(['id' => $model->event_type_id])->one()->name;
+        }, 'filter' => [ 1 => "Соревновательный", 2 => "Несоревновательный"]],
+        ['attribute' => 'address'],
+        ['attribute' => 'eventLevelString', 'label' => 'Уровень мероприятия', 'value' => function($model){
+            return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
+        }, 'encodeLabel' => false],
+        ['attribute' => 'participants_count'],
+        ['attribute' => 'is_federal', 'value' => function($model){
+            if ($model->is_federal == 1)
+                return 'Да';
+            else
+                return 'Нет';
+        }, 'filter' => [1 => "Да", 0 => "Нет"]],
+        ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
+        ['attribute' => 'orderString', 'value' => function($model){
+            $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+            if ($order == null)
+                return 'Нет';
+            return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+        }, 'format' => 'raw', 'label' => 'Приказ'],
+        ['attribute' => 'regulationString', 'value' => function($model){
+            $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
+            if ($reg == null)
+                return 'Нет';
+            return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));
+        }, 'label' => 'Положение'],
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 10px">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,14 +83,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'start_date'],
             ['attribute' => 'finish_date'],
             ['attribute' => 'event_type_id', 'value' => function($model){
-                return \app\models\common\EventType::find()->where(['id' => $model->event_type_id])->one()->name;
-            }],
-            ['attribute' => 'event_form_id', 'value' => function($model){
-                return \app\models\common\EventForm::find()->where(['id' => $model->event_form_id])->one()->name;
-            }],
+                return \app\models\work\EventTypeWork::find()->where(['id' => $model->event_type_id])->one()->name;
+            }, 'filter' => [ 1 => "Соревновательный", 2 => "Несоревновательный"]],
             ['attribute' => 'address'],
-            ['attribute' => 'event_level_id', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
-                return \app\models\common\EventLevel::find()->where(['id' => $model->event_level_id])->one()->name;
+            ['attribute' => 'eventLevelString', 'label' => 'Уровень<br>мероприятия', 'value' => function($model){
+                return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
             }, 'encodeLabel' => false],
             ['attribute' => 'participants_count'],
             ['attribute' => 'is_federal', 'value' => function($model){
@@ -50,22 +95,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Да';
                 else
                     return 'Нет';
-            }],
-            ['attribute' => 'responsible_id', 'value' => function($model){
-                return \app\models\common\People::find()->where(['id' => $model->responsible_id])->one()->shortName;
-            }],
-            ['attribute' => 'order_id', 'value' => function($model){
-                $order = \app\models\common\DocumentOrder::find()->where(['id' => $model->order_id])->one();
+            }, 'filter' => [1 => "Да", 0 => "Нет"]],
+            ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
+            ['attribute' => 'orderString', 'value' => function($model){
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 if ($order == null)
                     return 'Нет';
                 return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
-            }, 'format' => 'raw'],
-            ['attribute' => 'regulation_id', 'value' => function($model){
-                $reg = \app\models\common\Regulation::find()->where(['id' => $model->regulation_id])->one();
+            }, 'format' => 'raw', 'label' => 'Приказ'],
+            ['attribute' => 'regulationString', 'value' => function($model){
+                $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
                 if ($reg == null)
                     return 'Нет';
                 return Html::a('Положение "'.$reg->name.'"', \yii\helpers\Url::to(['regulation/view', 'id' => $reg->id]));
-            }, 'format' => 'raw'],
+            }, 'format' => 'raw', 'label' => 'Положение'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

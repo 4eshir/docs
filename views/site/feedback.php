@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\common\Feedback */
+/* @var $model app\models\work\FeedbackWork */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="alert alert-warning">
     <?php $message = 'Система находится в стадии тестирования. Пожалуйста, опишите Вашу проблему как можно более подробно. По возможности опишите выполняемые действия. 
-    Эл. почта для экстренной связи или пересылки файлов <b>gkalashnik@schooltech.ru</b>.'; ?>
+    Эл. почты для экстренной связи или пересылки файлов <b>gkalashnik@schooltech.ru</b> и <b>dkurina@schooltech.ru</b>.'; ?>
     <?= nl2br(Html::decode($message)) ?>
 </div>
 <div class="site-login">
@@ -36,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php
     $feedback = '';
-    if (Yii::$app->user->identity->getId() == 1)
-        $feedback = \app\models\common\Feedback::find()->all();
+    if (Yii::$app->user->identity->getId() == 1 || Yii::$app->user->identity->getId() == 31)
+        $feedback = \app\models\work\FeedbackWork::find()->all();
     else
-        $feedback = \app\models\common\Feedback::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
+        $feedback = \app\models\work\FeedbackWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->all();
     ?>
     <br>
     <br>

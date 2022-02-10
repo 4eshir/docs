@@ -8,10 +8,15 @@ use kartik\export\ExportMenu;
 /* @var $searchModel app\models\SearchDocumentOrder */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Приказы';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
+<?php
+$session = Yii::$app->session;
+
+$this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
+$this->params['breadcrumbs'][] = $this->title;
+?>
 
 <div class="document-order-index">
 
@@ -19,19 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
-        <?= Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
+        <?php if($session->get('type') == 1) echo Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
-    <?= $this->render('_search', ['model' => $searchModel]) ?>
+    <?php
+        echo $this->render('_search', ['model' => $searchModel])
+    ?>
     <?php
 
     $gridColumns = [
         ['attribute' => 'order_date', 'label' => 'Дата приказа'],
         ['attribute' => 'order_number', 'label' => 'Номер приказа'],
         ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
-        ['attribute' => 'signedName', 'label' => 'Кем подписан', 'value' => function($model)
-        {
-            return $model->signed->secondname.' '.mb_substr($model->signed->firstname, 0, 1).'. '.mb_substr($model->signed->patronymic, 0, 1);
-        }],
         ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
         {
             return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'. '.mb_substr($model->bring->patronymic, 0, 1);
@@ -42,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }],
         ['attribute' => 'responsiblies', 'label' => 'Ответственные', 'value' => function($model)
         {
-            $resp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+            $resp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
             $result = '';
             foreach ($resp as $respOne)
                 $result = $result.$respOne->people->secondname.' '.mb_substr($respOne->people->firstname, 0, 1).'. '.mb_substr($respOne->people->patronymic, 0, 1).'. ';
@@ -81,13 +84,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 return ['class' => 'warning'];
             else if ($data['state'] == 0)
                 return ['class' => 'danger'];
+            else if ($data['changeDocs'] != '')
+                return ['class' => 'warning'];
             else
                 return ['class' => 'default'];
         },
         'summary' => false,
         'columns' => [
             ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-            'documentNumberString',
+            ['attribute' => 'documentNumberString', 'label' => 'Номер приказа'],
             ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
             ['attribute' => 'bringName','label' => 'Проект вносит', 'value' => function ($model) {
                 return $model->bring->secondname.' '.mb_substr($model->bring->firstname, 0, 1).'.'.mb_substr($model->bring->patronymic, 0, 1).'.';
@@ -99,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             ['attribute' => 'responsibilities','label' => 'Ответственные', 'contentOptions' => ['encode' => 'false'], 'value' => function ($model) {
-                $tmp = \app\models\common\Responsible::find()->where(['document_order_id' => $model->id])->all();
+                $tmp = \app\models\work\ResponsibleWork::find()->where(['document_order_id' => $model->id])->all();
                 $result = '';
                 for ($i = 0; $i < count($tmp); $i++)
                     $result = $result.$tmp[$i]->people->secondname.' '.mb_substr($tmp[$i]->people->firstname, 0, 1).'.'.mb_substr($tmp[$i]->people->patronymic, 0, 1).'. <br>';
@@ -107,13 +112,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
             }, 'format' => 'html'
             ],
-            ['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
+            /*['attribute' => 'state', 'label' => 'Состояние', 'value' => function($model){
                 if ($model->state == 1)
                     return 'Актуален';
                 else
                 {
-                    $exp = \app\models\common\Expire::find()->where(['expire_order_id' => $model->id])->one();
-                    $order = \app\models\common\DocumentOrder::find()->where(['id' => $exp->active_regulation_id])->one();
+                    $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $model->id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;
@@ -121,8 +126,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $doc_num = $order->order_number.'/'.$order->order_copy_id.'/'.$order->order_postfix;
                     return 'Утратил силу в связи с приказом '.Html::a('№'.$doc_num, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
                 }
-            }, 'format' => 'raw'],
-
+            }, 'format' => 'raw'],*/
+            ['attribute' => 'state', 'label' => 'Состояние', 'format' => 'raw', 'value' => 'stateAndColor'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

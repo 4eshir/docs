@@ -5,10 +5,10 @@ use wbraganca\dynamicform\DynamicFormAsset;
 use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOrder */
-
+/* @var $model app\models\work\DocumentOrderWork */
+$session = Yii::$app->session;
 $this->title = 'Добавить приказ';
-$this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index', 'c' => $session->get('type') == 1 ? 1 : 0]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-order-create">

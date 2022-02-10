@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -19,7 +20,64 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить резерв', ['document-in/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
-    <?php echo '<div style="margin-bottom: 10px">'.Html::a('Показать просроченные документы', \yii\helpers\Url::to(['document-in/index', 'sort' => '1'])).
+
+    <?php
+
+    $gridColumns = [
+        ['attribute' => 'fullNumber', 'label' => '№ п/п', 'value' => function($model){
+            if ($model->local_postfix == null)
+                return $model->local_number;
+            else
+                return $model->local_number.'/'.$model->local_postfix;
+        }],
+        ['attribute' => 'local_date', 'label' => 'Дата поступления<br>документа', 'encodeLabel' => false],
+        ['attribute' => 'real_date', 'label' => 'Дата входящего<br>документа', 'encodeLabel' => false],
+        ['attribute' => 'real_number', 'label' => 'Рег. номер<br>входящего док.', 'encodeLabel' => false],
+
+        ['attribute' => 'companyName', 'label' => 'Наименование<br>корреспондента', 'encodeLabel' => false, 'value' => function ($model) {
+            return $model->company->name;
+        }],
+        ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
+        ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
+        ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
+            $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
+
+
+            if ($links == null)
+                return '';
+            if ($links->document_out_id == null)
+            {
+                if ($links->people == null)
+                {
+                    if ($links->date == null)
+                        return 'Требуется ответ';
+                    else
+                        return 'До '.$links->date;
+                }
+                return 'До '.$links->date.' от '.$links->peopleWork->shortName;
+            }
+
+            else
+                return 'Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"';
+
+
+        }],
+
+    ];
+    echo '<b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+
+    ?>
+    <div style="margin-bottom: 20px">
+
+    <?php echo '<div style="margin-bottom: 10px; margin-top: 20px">'.Html::a('Показать просроченные документы', \yii\helpers\Url::to(['document-in/index', 'sort' => '1'])).
         ' || '.Html::a('Показать документы, требующие ответа', \yii\helpers\Url::to(['document-in/index', 'sort' => '2'])).
         ' || '.Html::a('Показать все документы', \yii\helpers\Url::to(['document-in/index'])).'</div>' ?>
         <?= GridView::widget([
@@ -27,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'summary' => false,
             'rowOptions' => function($data) {
-                $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $data['id']])->one();
+                $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $data['id']])->one();
                 if ($links == null || $links->document_out_id !== null)
                     return ['class' => 'default'];
                 else if ($links->date !== null && $links->date < date("Y-m-d"))
@@ -50,11 +108,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'companyName', 'label' => 'Наименование<br>корреспондента', 'encodeLabel' => false, 'value' => function ($model) {
                     return $model->company->name;
                 }],
-                ['attribute' => 'correspondentName', 'label' => 'Кем подписан', 'value' => 'correspondent.shortName'],
                 ['attribute' => 'document_theme', 'label' => 'Тема документа', 'encodeLabel' => false],
                 ['attribute' => 'sendMethodName','label' => 'Способ получения', 'value' => 'sendMethod.name'],
                 ['attribute' => 'needAnswer', 'label' => 'Ответ', 'value' => function($model){
-                   $links = \app\models\common\InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+                   $links = \app\models\work\InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
 
 
                    if ($links == null)
@@ -68,12 +125,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             else
                                 return 'До '.$links->date;
                         }
-                        return 'До '.$links->date.' от '.$links->people->shortName;
+                        return 'До '.$links->date.' от '.$links->peopleWork->shortName;
                     }
 
                     else
-                        return Html::a('Исходящий документ "'.\app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
-                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\common\DocumentOut::find()->where(['id' => $links->document_out_id])->one()->id]));
+                        return Html::a('Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
+                            \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->id]));
 
 
                 }, 'format' => 'raw'],

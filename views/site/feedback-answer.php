@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <?php
     $form = ActiveForm::begin(['id' => 'login-form']);
-    $feedback = \app\models\common\Feedback::find()->all();
+    $feedback = \app\models\work\FeedbackWork::find()->all();
     ?>
     <?php echo Html::a('Показать неотвеченные заявки', \yii\helpers\Url::to(['site/feedback-answer', 'type' => 1]), ['class' => 'btn btn-success']) ?>
     <?php echo Html::a('Показать все заявки', \yii\helpers\Url::to(['site/feedback-answer']), ['class' => 'btn btn-success']) ?>

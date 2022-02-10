@@ -2,19 +2,21 @@
 
 namespace app\controllers;
 
-use app\models\common\ForeignEventParticipants;
-use app\models\common\ParticipantAchievement;
-use app\models\common\ParticipantFiles;
-use app\models\common\Responsible;
-use app\models\common\TeacherParticipant;
+use app\models\components\RoleBaseAccess;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\ParticipantFilesWork;
+use app\models\work\ResponsibleWork;
+use app\models\work\TeacherParticipantWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
+use app\models\extended\LoadParticipants;
 use app\models\extended\ParticipantsAchievementExtended;
 use app\models\extended\TeamModel;
 use Yii;
-use app\models\common\ForeignEvent;
+use app\models\work\ForeignEventWork;
 use app\models\SearchForeignEvent;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -47,11 +49,6 @@ class ForeignEventController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $searchModel = new SearchForeignEvent();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -69,11 +66,6 @@ class ForeignEventController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -86,12 +78,7 @@ class ForeignEventController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
-        $model = new ForeignEvent();
+        $model = new ForeignEventWork();
         $modelParticipants = [new ForeignEventParticipantsExtended];
         $modelAchievement = [new ParticipantsAchievementExtended];
 
@@ -136,11 +123,6 @@ class ForeignEventController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
         $modelParticipants = [new ForeignEventParticipantsExtended];
         $modelAchievement = [new ParticipantsAchievementExtended];
@@ -182,6 +164,30 @@ class ForeignEventController extends Controller
         ]);
     }
 
+    public function actionUpdateParticipant($id, $modelId)
+    {
+        $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
+        $model->getTeam();
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file !== null)
+                $model->uploadParticipantFiles();
+            $model->save(false);
+            $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
+            $modelParticipants = [new ForeignEventParticipantsExtended];
+            $modelAchievement = [new ParticipantsAchievementExtended];
+            return $this->render('update',[
+                'model' => $model,
+                'modelParticipants' => $modelParticipants,
+                'modelAchievement' => $modelAchievement,
+            ]);
+        }
+        return $this->render('update-participant',[
+            'model' => $model,
+        ]);
+    }
+
     public function actionCreateTeam()
     {
         var_dump('lol');
@@ -189,17 +195,18 @@ class ForeignEventController extends Controller
 
     public function actionDeleteParticipant($id, $model_id)
     {
-        $part = TeacherParticipant::find()->where(['id' => $id])->one();
+        $part = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $p_id = $part->participant_id;
         $part->delete();
-        $files = ParticipantFiles::find()->where(['participant_id' => $p_id])->one();
-        $files->delete();
+        $files = ParticipantFilesWork::find()->where(['participant_id' => $p_id])->one();
+        if ($files !== null)
+            $files->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
 
     public function actionDeleteAchievement($id, $model_id)
     {
-        $part = ParticipantAchievement::find()->where(['id' => $id])->one();
+        $part = ParticipantAchievementWork::find()->where(['id' => $id])->one();
         $part->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
@@ -213,60 +220,69 @@ class ForeignEventController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $this->findModel($id)->delete();
-
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие' . $this->name);
         return $this->redirect(['index']);
     }
 
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/foreign_event/'.$type.'/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
-                return $this->redirect('index.php?r=foreign-event/create');
-            };
+        $file = Yii::$app->basePath . '/upload/files/foreign_event/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
         }
+        throw new \Exception('File not found');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = ForeignEvent::find()->where(['id' => $modelId])->one();
+        $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'docs') {
             $model->docs_achievement = '';
             $model->save(false);
             return $this->redirect('index?r=foreign-event/update&id=' . $model->id);
         }
+        if ($type == 'participants')
+        {
+            $partFile = ParticipantFilesWork::find()->where(['id' => $modelId])->one();
+            $tp = TeacherParticipantWork::find()->where(['participant_id' => $partFile->participant_id])->andWhere(['foreign_event_id' => $partFile->foreign_event_id])->one();
+            $tModelId = $partFile->foreign_event_id;
+            $partFile->delete();
+            return $this->redirect('index?r=foreign-event/update-participant&id=' . $tp->id.'&modelId='.$tModelId);
+        }
+
     }
+
+
 
     /**
      * Finds the ForeignEvent model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ForeignEvent the loaded model
+     * @return ForeignEventWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ForeignEvent::findOne($id)) !== null) {
+        if (($model = ForeignEventWork::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId())) {
+            return $this->redirect(['/site/error-access']);
+        }
+        return parent::beforeAction($action); // TODO: Change the autogenerated stub
     }
 }

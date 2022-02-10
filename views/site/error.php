@@ -13,13 +13,6 @@ $this->title = $name;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="alert alert-danger">
-        <?php $message = 'У Вас нет прав для выполнения этого действия!'; ?>
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
-
-    <p>
-        Обратитесь к администратору системы или вернитесь на страницу назад.
-    </p>
+    
 
 </div>

@@ -2,23 +2,31 @@
 
 namespace app\models;
 
+use app\models\work\EventBranchWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Event;
+use app\models\work\EventWork;
 
 /**
  * SearchEvent represents the model behind the search form of `app\models\common\Event`.
  */
-class SearchEvent extends Event
+class SearchEvent extends EventWork
 {
+    public $eventBranchs;
+
+    public $responsibleString;
+    public $eventLevelString;
+    public $orderString;
+    public $regulationString;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id'], 'integer'],
+            [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
             [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
+            [['responsibleString', 'eventLevelString', 'orderString', 'regulationString'], 'string']
         ];
     }
 
@@ -40,13 +48,47 @@ class SearchEvent extends Event
      */
     public function search($params)
     {
-        $query = Event::find();
+        $query = EventWork::find();
+        if ($params["SearchEvent"]["eventBranchs"] != null)
+        {
+            $ebs = EventBranchWork::find()->where(['branch_id' => $params["SearchEvent"]["eventBranchs"]])->all();
+            $eIds = [];
+            foreach ($ebs as $eb) $eIds[] = $eb->event_id;
+            $query = EventWork::find()->where(['IN', 'event.id', $eIds]);
+        }
+
+        //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)
 
         // add conditions that should always apply here
+
+        $query->joinWith(['responsible responsible']);
+        $query->joinWith(['eventLevel eventLevel']);
+        $query->joinWith(['order order']);
+        $query->joinWith(['regulation regulation']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['responsibleString'] = [
+            'asc' => ['responsible.short_name' => SORT_ASC],
+            'desc' => ['responsible.short_name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['eventLevelString'] = [
+            'asc' => ['eventLevel.Name' => SORT_ASC],
+            'desc' => ['eventLevel.Name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['orderString'] = [
+            'asc' => ['order.order_name' => SORT_ASC],
+            'desc' => ['order.order_name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['regulationString'] = [
+            'asc' => ['regulation.name' => SORT_ASC],
+            'desc' => ['regulation.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -72,10 +114,15 @@ class SearchEvent extends Event
         ]);
 
         $query->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'event.name', $this->name])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'protocol', $this->protocol])
             ->andFilterWhere(['like', 'photos', $this->photos])
+            ->andFilterWhere(['like', 'responsible.Secondname', $this->responsibleString])
+            ->andFilterWhere(['like', 'eventLevel.Name', $this->eventLevelString])
+            ->andFilterWhere(['like', 'order.order_name', $this->orderString])
+            ->andFilterWhere(['like', 'regulation.name', $this->regulationString])
             ->andFilterWhere(['like', 'reporting_doc', $this->reporting_doc])
             ->andFilterWhere(['like', 'other_files', $this->other_files]);
 

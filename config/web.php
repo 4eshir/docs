@@ -15,7 +15,9 @@ $config = [
     'modules' => [
         'gridview' => ['class' => 'kartik\grid\Module']
     ],
+
     'components' => [
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'm8MGAOdi4yHnIPPGB2MadmTF-6gxwYCw',
@@ -25,8 +27,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\extended\UserExtended',
-            'enableAutoLogin' => false,
-            'authTimeout' => '28800',
+            'authTimeout' => 60 * 60 * 24 * 100,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -36,9 +37,9 @@ $config = [
             'viewPath' => '@app/mail',
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.mail.ru',
-                'username' => 'no-reply-schooltech@mail.ru',
-                'password' => '111_condor',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'noreply@schooltech.ru',
+                'password' => 'Pass123$$',
                 'port' => 465,
                 'encryption' => 'ssl',
             ],
@@ -72,7 +73,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        //'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';

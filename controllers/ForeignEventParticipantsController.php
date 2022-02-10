@@ -2,13 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
+use app\models\extended\LoadParticipants;
+use app\models\work\PersonalDataForeignEventParticipantWork;
 use Yii;
-use app\models\common\ForeignEventParticipants;
+use app\models\work\ForeignEventParticipantsWork;
 use app\models\SearchForeignEventParticipants;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ForeignEventParticipantsController implements the CRUD actions for ForeignEventParticipants model.
@@ -34,15 +38,10 @@ class ForeignEventParticipantsController extends Controller
      * Lists all ForeignEventParticipants models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($sort = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $searchModel = new SearchForeignEventParticipants();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -58,11 +57,6 @@ class ForeignEventParticipantsController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -75,14 +69,11 @@ class ForeignEventParticipantsController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
-        $model = new ForeignEventParticipants();
+        $model = new ForeignEventParticipantsWork();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $model->checkOther();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -100,14 +91,19 @@ class ForeignEventParticipantsController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $pdDatabase = PersonalDataForeignEventParticipantWork::find()->where(['foreign_event_participant_id' => $id])->all();
+        if ($pdDatabase !== null)
+        {
+            $pdIds = [];
+            foreach ($pdDatabase as $one)
+                if ($one->status === 1)
+                    $pdIds[] = $one->personal_data_id;
+        }
+        $model->pd = $pdIds;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $model->checkOther();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -125,13 +121,36 @@ class ForeignEventParticipantsController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, 'Add')) {
-            return $this->render('/site/error');
-        }
         $this->findModel($id)->delete();
 
+        $searchModel = new SearchForeignEventParticipants();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, null);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionFileLoad()
+    {
+        $model = new LoadParticipants();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->save();
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('file-load', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCheckCorrect()
+    {
+        $model = new ForeignEventParticipantsWork();
+        $model->checkCorrect();
         return $this->redirect(['index']);
     }
 
@@ -139,15 +158,27 @@ class ForeignEventParticipantsController extends Controller
      * Finds the ForeignEventParticipants model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ForeignEventParticipants the loaded model
+     * @return ForeignEventParticipantsWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ForeignEventParticipants::findOne($id)) !== null) {
+        if (($model = ForeignEventParticipantsWork::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId())) {
+            $this->redirect(['/site/error-access']);
+            return false;
+        }
+        return parent::beforeAction($action); // TODO: Change the autogenerated stub
     }
 }

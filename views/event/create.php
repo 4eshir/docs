@@ -1,10 +1,10 @@
 <?php
 
-use app\models\common\EventsLink;
+use app\models\work\EventsLinkWork;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Event */
+/* @var $model app\models\work\EventWork */
 
 $this->title = 'Добавить мероприятие';
 $this->params['breadcrumbs'][] = ['label' => 'Мероприятия', 'url' => ['index']];

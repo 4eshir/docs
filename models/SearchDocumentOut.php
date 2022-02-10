@@ -2,21 +2,21 @@
 
 namespace app\models;
 
-use app\models\common\Company;
-use app\models\common\Destination;
-use app\models\common\People;
-use app\models\common\Position;
-use app\models\common\SendMethod;
-use app\models\common\User;
+use app\models\work\CompanyWork;
+use app\models\work\DestinationWork;
+use app\models\work\PeopleWork;
+use app\models\work\PositionWork;
+use app\models\work\SendMethodWork;
+use app\models\work\UserWork;
 use app\models\extended\DocumentOutExtended;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\DocumentOut;
+use app\models\work\DocumentOutWork;
 
 /**
  * SearchDocumentOut represents the model behind the search form of `app\models\common\DocumentOut`.
  */
-class SearchDocumentOut extends DocumentOut
+class SearchDocumentOut extends DocumentOutWork
 {
 
     public $signedName;
@@ -54,7 +54,7 @@ class SearchDocumentOut extends DocumentOut
      */
     public function search($params)
     {
-        $query = DocumentOut::find();
+        $query = DocumentOutWork::find();
         $query->joinWith(['signed signed', 'executor executor']);
         $query->joinWith(['register']);
         $query->joinWith(['sendMethod']);
@@ -64,7 +64,7 @@ class SearchDocumentOut extends DocumentOut
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['document_number' => SORT_DESC, 'document_postfix' => SORT_DESC]]
+            'sort'=> ['defaultOrder' => ['document_date' => SORT_DESC, 'document_number' => SORT_DESC, 'document_postfix' => SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['isAnswer'] = [
@@ -88,13 +88,13 @@ class SearchDocumentOut extends DocumentOut
         ];
 
         $dataProvider->sort->attributes['sendMethodName'] = [
-            'asc' => [SendMethod::tableName().'.name' => SORT_ASC],
-            'desc' => [SendMethod::tableName().'.name' => SORT_DESC],
+            'asc' => [SendMethodWork::tableName().'.name' => SORT_ASC],
+            'desc' => [SendMethodWork::tableName().'.name' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['registerName'] = [
-            'asc' => [User::tableName().'.secondname' => SORT_ASC],
-            'desc' => [User::tableName().'.secondname' => SORT_DESC],
+            'asc' => [UserWork::tableName().'.secondname' => SORT_ASC],
+            'desc' => [UserWork::tableName().'.secondname' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['positionCompany'] = [
@@ -133,8 +133,8 @@ class SearchDocumentOut extends DocumentOut
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
-            ->andFilterWhere(['like', User::tableName().'.secondname', $this->registerName])
-            ->andFilterWhere(['like', SendMethod::tableName().'.name', $this->sendMethodName])
+            ->andFilterWhere(['like', UserWork::tableName().'.secondname', $this->registerName])
+            ->andFilterWhere(['like', SendMethodWork::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['like', 'position.name', $this->positionCompany])
             ->orFilterWhere(['like', 'company.name', $this->positionCompany]);
 

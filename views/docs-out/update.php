@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\DocumentOut */
+/* @var $model app\models\work\DocumentOutWork */
 
 $this->title = 'Редактирование исходящего документа: ' . $model->document_theme;
 $this->params['breadcrumbs'][] = ['label' => 'Исходящая документация', 'url' => ['index']];
@@ -15,13 +15,13 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <h3><?= Html::encode($this->title) ?></h3>
     <br>
     <?php
-        $fioDb = \app\models\common\People::find()->where(['id' => $model->signed_id])->one();
+        $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->signed_id])->one();
         $model->signedString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-        $fioDb = \app\models\common\People::find()->where(['id' => $model->executor_id])->one();
+        $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->executor_id])->one();
         $model->executorString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-        $fioDb = \app\models\common\People::find()->where(['id' => $model->register_id])->one();
+        $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->register_id])->one();
         $model->registerString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
     ?>

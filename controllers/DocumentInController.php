@@ -2,12 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\common\DocumentOut;
-use app\models\common\InOutDocs;
+use app\models\components\RoleBaseAccess;
+use app\models\work\CompanyWork;
+use app\models\work\DocumentOutWork;
+use app\models\work\InOutDocsWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\PeopleWork;
+use app\models\work\PositionWork;
 use Yii;
-use app\models\common\DocumentIn;
+use app\models\work\DocumentInWork;
 use app\models\SearchDocumentIn;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -40,12 +45,6 @@ class DocumentInController extends Controller
      */
     public function actionIndex($sort = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
         $searchModel = new SearchDocumentIn();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
@@ -63,10 +62,6 @@ class DocumentInController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -79,11 +74,7 @@ class DocumentInController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
-        $model = new DocumentIn();
+        $model = new DocumentInWork();
 
 
         if ($model->load(Yii::$app->request->post())) {
@@ -95,8 +86,8 @@ class DocumentInController extends Controller
             $model->scan = '';
             if ($model->correspondent_id !== null)
             {
-                $model->company_id = $model->correspondent->company_id;
-                $model->position_id = $model->correspondent->position_id;
+                //$model->company_id = $model->correspondent->company_id;
+                //$model->position_id = $model->correspondent->position_id;
             }
 
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
@@ -126,11 +117,12 @@ class DocumentInController extends Controller
     public function actionCreateReserve()
     {
 
-        $model = new DocumentIn();
+        $model = new DocumentInWork();
 
         $model->document_theme = 'Резерв';
 
-        $model->local_date = end(DocumentIn::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        //$model->local_date = end(DocumentInWork::find()->orderBy(['local_number' => SORT_ASC, 'local_postfix' => SORT_ASC])->all())->local_date;
+        $model->local_date = date("Y-m-d");
         $model->real_date = '1999-01-01';
         $model->scan = '';
         $model->applications = '';
@@ -151,15 +143,11 @@ class DocumentInController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
         $model = $this->findModel($id);
 
         $model->scanFile = $model->scan;
 
-        $links = InOutDocs::find()->where(['document_in_id' => $model->id])->one();
+        $links = InOutDocsWork::find()->where(['document_in_id' => $model->id])->one();
         if ($links !== null)
             $model->needAnswer = 1;
 
@@ -195,10 +183,6 @@ class DocumentInController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
         $name = $this->findModel($id)->document_theme;
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален входящий документ '.$name);
         $this->findModel($id)->delete();
@@ -211,12 +195,12 @@ class DocumentInController extends Controller
      * Finds the DocumentIn model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DocumentIn the loaded model
+     * @return DocumentInWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DocumentIn::findOne($id)) !== null) {
+        if (($model = DocumentInWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -226,41 +210,31 @@ class DocumentInController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/document_in/'.$type.'/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
-                return $this->redirect('index.php?r=document-in/create');
-            };
+        $file = Yii::$app->basePath . '/upload/files/document_in/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
         }
+        throw new \Exception('File not found');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
 
-        $model = DocumentIn::find()->where(['id' => $modelId])->one();
+        $model = DocumentInWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
         {
             $model->scan = '';
             $model->save(false);
-            return $this->render('update', [
-                'model' => $this->findModel($modelId),
-            ]);
+            return $this->redirect('index?r=document-in/update&id='.$modelId);
         }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
 
             $result = '';
-            $split = explode(" ", $model->applications);
+            $type == 'app' ? $split = explode(" ", $model->applications) : $split = explode(" ", $model->doc);
             $deleteFile = '';
             for ($i = 0; $i < count($split) - 1; $i++)
             {
@@ -272,10 +246,74 @@ class DocumentInController extends Controller
                     $deleteFile = $split[$i];
             }
 
-            $model->applications = $result;
+            $type == 'app' ? $model->applications = $result : $model->doc = $result;
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл '.$deleteFile);
+            return $this->redirect('index?r=document-in/update&id='.$modelId);
         }
         return $this->redirect('index.php?r=document-in/update&id='.$modelId);
+    }
+
+    public function actionSubcat()
+    {
+
+        if (Yii::$app->request->post('id') === "")
+        {
+            $operations = PositionWork::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all();
+            foreach ($operations as $operation)
+                echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+            echo "|split|";
+            $operations = CompanyWork::find()
+                ->orderBy(['name' => SORT_ASC])
+                ->all();
+            foreach ($operations as $operation)
+                echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+        }
+        else
+        {
+            if ($id = Yii::$app->request->post('id')) {
+                Yii::trace('$id=' . $id, 'значение id=');
+                $operationPosts = PeoplePositionBranchWork::find()
+                    ->where(['people_id' => $id])
+                    ->count();
+
+                if ($operationPosts > 0) {
+                    $operations = PeoplePositionBranchWork::find()
+                        ->where(['people_id' => $id])
+                        ->all();
+                    foreach ($operations as $operation)
+                        echo "<option value='" . $operation->position_id . "'>" . $operation->position->name . "</option>";
+                } else
+                    echo "<option>-</option>";
+
+                echo "|split|";
+                $people = PeopleWork::find()->where(['id' => $id])->one();
+                $operationPosts = CompanyWork::find()
+                    ->where(['id' => $people->company_id])
+                    ->count();
+
+                if ($operationPosts > 0) {
+                    $operations = CompanyWork::find()
+                        ->where(['id' => $people->company_id])
+                        ->all();
+                    foreach ($operations as $operation)
+                        echo "<option value='" . $operation->id . "'>" . $operation->name . "</option>";
+                } else
+                    echo "<option>-</option>";
+            }
+        }
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId())) {
+            return $this->redirect(['/site/error-access']);
+        }
+        return parent::beforeAction($action); // TODO: Change the autogenerated stub
     }
 }

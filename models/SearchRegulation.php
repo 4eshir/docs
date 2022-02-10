@@ -4,13 +4,14 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Regulation;
+use app\models\work\RegulationWork;
 
 /**
  * SearchRegulation represents the model behind the search form of `app\models\common\Regulation`.
  */
-class SearchRegulation extends Regulation
+class SearchRegulation extends RegulationWork
 {
+    public $orderString;
     /**
      * {@inheritdoc}
      */
@@ -18,6 +19,7 @@ class SearchRegulation extends Regulation
     {
         return [
             [['id', 'order_id', 'ped_council_number', 'par_council_number', 'state'], 'integer'],
+            [['orderString'], 'string'],
             [['date', 'name', 'ped_council_date', 'par_council_date', 'scan'], 'safe'],
         ];
     }
@@ -40,13 +42,19 @@ class SearchRegulation extends Regulation
      */
     public function search($params, $c)
     {
-        $query = Regulation::find()->where(['regulation_type_id' => $c]);
+        $query = RegulationWork::find()->where(['regulation_type_id' => $c]);
 
         // add conditions that should always apply here
-
+        $query->joinWith(['order order']);
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['orderString'] = [
+            'asc' => ['order.order_name' => SORT_ASC],
+            'desc' => ['order.order_name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -65,10 +73,11 @@ class SearchRegulation extends Regulation
             'ped_council_date' => $this->ped_council_date,
             'par_council_number' => $this->par_council_number,
             'par_council_date' => $this->par_council_date,
-            'state' => $this->state,
+            'regulation.state' => $this->state,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'order.order_name', $this->orderString])
             ->andFilterWhere(['like', 'scan', $this->scan]);
 
         return $dataProvider;

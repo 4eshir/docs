@@ -2,16 +2,17 @@
 
 namespace app\models;
 
-use app\models\common\Company;
-use app\models\common\Position;
+use app\models\work\CompanyWork;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\PositionWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\People;
+use app\models\work\PeopleWork;
 
 /**
  * SearchPeople represents the model behind the search form of `app\models\common\People`.
  */
-class SearchPeople extends People
+class SearchPeople extends PeopleWork
 {
     public $companyName;
     public $positionName;
@@ -44,7 +45,7 @@ class SearchPeople extends People
      */
     public function search($params)
     {
-        $query = People::find();
+        $query = PeopleWork::find();
         $query->joinWith(['company company']);
         $query->joinWith(['position position']);
 
@@ -55,13 +56,13 @@ class SearchPeople extends People
         ]);
 
         $dataProvider->sort->attributes['companyName'] = [
-            'asc' => [Company::tableName().'.name' => SORT_ASC],
-            'desc' => [Company::tableName().'.name' => SORT_DESC],
+            'asc' => [CompanyWork::tableName().'.name' => SORT_ASC],
+            'desc' => [CompanyWork::tableName().'.name' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['positionName'] = [
-            'asc' => [Position::tableName().'.name' => SORT_ASC],
-            'desc' => [Position::tableName().'.name' => SORT_DESC],
+            'asc' => [PositionWork::tableName().'.name' => SORT_ASC],
+            'desc' => [PositionWork::tableName().'.name' => SORT_DESC],
         ];
 
         $this->load($params);

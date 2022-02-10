@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Company;
+use app\models\work\CompanyWork;
 
 /**
  * SearchCompany represents the model behind the search form of `app\models\common\Company`.
  */
-class SearchCompany extends Company
+class SearchCompany extends CompanyWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchCompany extends Company
      */
     public function search($params)
     {
-        $query = Company::find();
+        $query = CompanyWork::find();
 
         // add conditions that should always apply here
 

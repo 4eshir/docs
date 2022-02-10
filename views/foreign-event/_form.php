@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\ForeignEvent */
+/* @var $model app\models\work\ForeignEventWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
 
     <?php
-    $company = \app\models\common\Company::find()->all();
+    $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [
     ];
@@ -103,7 +103,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $ways = \app\models\common\EventWay::find()->all();
+    $ways = \app\models\work\EventWayWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
     $params = [
     ];
@@ -112,7 +112,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $levels = \app\models\common\EventLevel::find()->all();
+    $levels = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
     $params = [
         'disabled' => 'disabled'
@@ -127,20 +127,26 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
             <?php
-            $parts = \app\models\common\TeacherParticipant::find()->where(['foreign_event_id' => $model->id])->all();
+            $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Направленность</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
-                    $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
-                    $partFiles = \app\models\common\ParticipantFiles::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
-                    $partOneTeacher = \app\models\common\People::find()->where(['id' => $partOne->teacher_id])->one();
-                    $team = \app\models\common\Team::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
+                    $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
+                    $partFiles = \app\models\work\ParticipantFilesWork::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
+                    $partOneTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher_id])->one();
+                    $partTwoTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher2_id])->one();
+                    $teachersStr = '';
+                    if ($partOneTeacher !== null) $teachersStr .= $partOneTeacher->shortName;
+                    if ($partTwoTeacher !== null) $teachersStr .= '<br>'.$partTwoTeacher->shortName;
+                    $team = \app\models\work\TeamWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.
-                            $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$partOneTeacher->shortName.'</h4></td>'.
+                            $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$teachersStr.'</h4></td>'.
+                            '<td style="padding-left: 10px">'.$partOne->focus.'</td>'.
                             '<td style="padding-left: 10px">'.$team->name.'</td>'.
                             '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
+                            '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.
                             '<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
@@ -175,13 +181,13 @@ use yii\widgets\ActiveForm;
                             <div class="col-xs-4">
                                 <div>
                                     <?php
-                                    $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                    $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-                                    $branchs = \app\models\common\Branch::find()->all();
+                                    $branchs = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
                                     echo $form->field($modelParticipantsOne, "[{$i}]branch")->dropDownList($items,$params)->label('Отдел');
                                     ?>
@@ -190,12 +196,13 @@ use yii\widgets\ActiveForm;
                             <div class="col-xs-4">
                                 <div>
                                     <?php
-                                    $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+                                    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
                                         'prompt' => ''
                                     ];
-                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагога');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагогов');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher2")->dropDownList($items,$params)->label(false);
                                     echo $form->field($modelParticipantsOne, "[{$i}]focus")->textInput()->label('Направленность');
                                     ?>
                                 </div>
@@ -204,7 +211,7 @@ use yii\widgets\ActiveForm;
                                 <div>
                                     <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
                                     <?php
-                                    $people = \app\models\common\ParticipantFiles::find()->all();
+                                    $people = \app\models\work\ParticipantFilesWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'filename','filename');
                                     $params = [
                                     'prompt' => ''
@@ -236,13 +243,13 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
             <?php
-            $parts = \app\models\common\ParticipantAchievement::find()->where(['foreign_event_id' => $model->id])->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->where(['foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
                 echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
-                    $partOnePeople = \app\models\common\ForeignEventParticipants::find()->where(['id' => $partOne->participant_id])->one();
+                    $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
@@ -276,7 +283,10 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="col-xs-4">
                                 <?php
-                                $people = \app\models\common\ForeignEventParticipants::find()->all();
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->all();
+                                $newParts = [];
+                                foreach ($parts as $part) $newParts[] = $part->participant_id;
+                                $people = \app\models\work\ForeignEventParticipantsWork::find()->where(['in', 'id', $newParts])->all();
                                 $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                 $params = [
                                     'prompt' => ''
@@ -312,7 +322,7 @@ use yii\widgets\ActiveForm;
 
     <div id="divEscort" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
-        $people = \app\models\common\People::find()->where(['company_id' => 8])->all();
+        $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
         ];
@@ -323,7 +333,7 @@ use yii\widgets\ActiveForm;
 
     <div id="divOrderTrip" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
-        $orders = \app\models\common\DocumentOrder::find()->all();
+        $orders = \app\models\work\DocumentOrderWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
         ];
@@ -333,7 +343,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $orders = \app\models\common\DocumentOrder::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
     ];

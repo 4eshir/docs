@@ -9,13 +9,15 @@ use Yii;
  *
  * @property int $id
  * @property int $active_regulation_id
- * @property int $expire_regulation_id
- * @property int $expire_order_id
+ * @property int|null $expire_regulation_id
+ * @property int|null $expire_order_id
  * @property int $document_type_id
+ * @property int $expire_type 1 - отмена, 2 - изменение
  *
  * @property DocumentOrder $activeRegulation
- * @property Regulation $expireRegulation
  * @property DocumentType $documentType
+ * @property Regulation $expireRegulation
+ * @property DocumentOrder $expireOrder
  */
 class Expire extends \yii\db\ActiveRecord
 {
@@ -33,12 +35,12 @@ class Expire extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['active_regulation_id'], 'required'],
-            [['active_regulation_id', 'expire_regulation_id', 'document_type_id', 'expire_order_id'], 'integer'],
+            [['active_regulation_id', 'document_type_id'], 'required'],
+            [['active_regulation_id', 'expire_regulation_id', 'expire_order_id', 'document_type_id', 'expire_type'], 'integer'],
             [['active_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['active_regulation_id' => 'id']],
+            [['document_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::className(), 'targetAttribute' => ['document_type_id' => 'id']],
             [['expire_regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['expire_regulation_id' => 'id']],
             [['expire_order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['expire_order_id' => 'id']],
-            [['document_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::className(), 'targetAttribute' => ['document_type_id' => 'id']],
         ];
     }
 
@@ -51,6 +53,9 @@ class Expire extends \yii\db\ActiveRecord
             'id' => 'ID',
             'active_regulation_id' => 'Active Regulation ID',
             'expire_regulation_id' => 'Expire Regulation ID',
+            'expire_order_id' => 'Expire Order ID',
+            'document_type_id' => 'Document Type ID',
+            'expire_type' => 'Expire Type',
         ];
     }
 
@@ -65,16 +70,6 @@ class Expire extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ExpireRegulation]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExpireRegulation()
-    {
-        return $this->hasOne(Regulation::className(), ['id' => 'expire_regulation_id']);
-    }
-
-    /**
      * Gets query for [[DocumentType]].
      *
      * @return \yii\db\ActiveQuery
@@ -82,6 +77,16 @@ class Expire extends \yii\db\ActiveRecord
     public function getDocumentType()
     {
         return $this->hasOne(DocumentType::className(), ['id' => 'document_type_id']);
+    }
+
+    /**
+     * Gets query for [[ExpireRegulation]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExpireRegulation()
+    {
+        return $this->hasOne(Regulation::className(), ['id' => 'expire_regulation_id']);
     }
 
     /**

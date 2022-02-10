@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Position;
+use app\models\work\PositionWork;
 
 /**
  * SearchPosition represents the model behind the search form of `app\models\common\Position`.
  */
-class SearchPosition extends Position
+class SearchPosition extends PositionWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchPosition extends Position
      */
     public function search($params)
     {
-        $query = Position::find();
+        $query = PositionWork::find();
 
         // add conditions that should always apply here
 

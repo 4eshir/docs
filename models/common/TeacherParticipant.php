@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\FileWizard;
 use Yii;
 
 /**
@@ -10,6 +11,7 @@ use Yii;
  * @property int $id
  * @property int $participant_id
  * @property int $teacher_id
+ * @property int $teacher2_id
  * @property int $foreign_event_id
  * @property int $branch_id
  * @property string $focus
@@ -36,7 +38,7 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     {
         return [
             [['participant_id', 'teacher_id', 'foreign_event_id', 'branch_id'], 'required'],
-            [['participant_id', 'teacher_id', 'foreign_event_id', 'branch_id'], 'integer'],
+            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'branch_id'], 'integer'],
             [['focus'], 'string'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
@@ -51,9 +53,10 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'participant_id' => 'Participant ID',
-            'teacher_id' => 'Teacher ID',
+            'participant_id' => 'Участник',
+            'teacher_id' => 'Педагог',
             'foreign_event_id' => 'Foreign Event ID',
+            'branch_id' => 'Отдел',
         ];
     }
 
@@ -87,8 +90,8 @@ class TeacherParticipant extends \yii\db\ActiveRecord
         return $this->hasOne(People::className(), ['id' => 'teacher_id']);
     }
 
-    public function getBranch()
+    public function getTeacher2()
     {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
     }
 }

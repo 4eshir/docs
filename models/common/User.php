@@ -3,135 +3,148 @@
 namespace app\models\common;
 
 use Yii;
-use yii\base;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
- * @property integer $id
- * @property string $username
+ * @property int $id
  * @property string $secondname
  * @property string $firstname
  * @property string $patronymic
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
+ * @property string $username
  * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $password_hash
+ * @property string|null $password_reset_token
+ * @property string|null $email
+ * @property int|null $aka
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
+ *
+ * @property AsAdmin[] $asAdmins
+ * @property DocumentOrder[] $documentOrders
+ * @property Feedback[] $feedbacks
+ * @property Log[] $logs
+ * @property People $aka0
+ * @property UserRole[] $userRoles
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
-    public $addUsers;
-    public $viewRoles;
-    public $editRoles;
-    public $viewOut;
-    public $editOut;
-    public $viewIn;
-    public $editIn;
-    public $viewOrder;
-    public $editOrder;
-    public $viewRegulation;
-    public $editRegulation;
-    public $viewEvent;
-    public $editEvent;
-    public $viewAS;
-    public $editAS;
-    public $viewAdd;
-    public $editAdd;
-    public $viewForeign;
-    public $editForeign;
-
-    public $oldPass;
-    public $newPass;
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'user';
     }
 
     /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
-
-    /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass'], 'string'],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            [['addUsers', 'viewRoles', 'editRoles', 'viewOut', 'editOut', 'viewIn', 'editIn', 'viewOrder', 'editOrder',
-                'viewRegulation', 'editRegulation', 'viewEvent', 'editEvent', 'viewAS', 'editAS', 'viewAdd', 'editAdd',
-                'viewForeign', 'editForeign'], 'safe'],
+            [['secondname', 'firstname', 'patronymic', 'username', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
+            [['aka', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['secondname', 'firstname', 'patronymic'], 'string', 'max' => 1000],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['aka'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['aka' => 'id']],
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'firstname' => 'Имя',
-            'secondname' => 'Фамилия',
-            'patronymic' => 'Отчество',
-            'email' => 'E-mail',
-            'username' => 'Логин (e-mail)',
-            'addUsers' => 'Разрешено добавлять новых пользователей',
-            'viewRoles' => 'Разрешено просматривать роли пользователей',
-            'editRoles' => 'Разрешено редактировать роли пользователей',
-            'viewOut' => 'Разрешено просматривать исходящую документацию',
-            'editOut' => 'Разрешено редактировать исходящую документацию',
-            'viewIn' => 'Разрешено просматривать входящую документацию',
-            'editIn' => 'Разрешено редактировать входящую документацию',
-            'viewOrder' => 'Разрешено просматривать приказы',
-            'editOrder' => 'Разрешено редактировать приказы',
-            'viewRegulation' => 'Разрешено просматривать положения',
-            'editRegulation' => 'Разрешено редактировать положения',
-            'viewEvent' => 'Разрешено просматривать мероприятия',
-            'editEvent' => 'Разрешено редактировать мероприятия',
-            'viewAS' => 'Разрешено просматривать реестр ПО',
-            'editAS' => 'Разрешено редактировать реестр ПО',
-            'viewAdd' => 'Разрешено просматривать дополнительную информацию',
-            'editAdd' => 'Разрешено редактировать дополнительную информацию',
-            'viewForeign' => 'Разрешено просматривать внешние мероприятия',
-            'editForeign' => 'Разрешено редактировать внешние мероприятия',
-            'oldPass' => 'Старый пароль',
-            'newPass' => 'Новый пароль',
+            'secondname' => 'Secondname',
+            'firstname' => 'Firstname',
+            'patronymic' => 'Patronymic',
+            'username' => 'Username',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'aka' => 'Aka',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
     /**
-     * @inheritdoc
+     * Gets query for [[AsAdmins]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public static function findIdentity($id)
+    public function getAsAdmins()
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return $this->hasMany(AsAdmin::className(), ['register_id' => 'id']);
     }
 
     /**
-     * @inheritdoc
+     * Gets query for [[DocumentOrders]].
+     *
+     * @return \yii\db\ActiveQuery
      */
+    public function getDocumentOrders()
+    {
+        return $this->hasMany(DocumentOrder::className(), ['register_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Feedbacks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFeedbacks()
+    {
+        return $this->hasMany(Feedback::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Logs]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLogs()
+    {
+        return $this->hasMany(Log::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Aka0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAka0()
+    {
+        return $this->hasOne(People::className(), ['id' => 'aka']);
+    }
+
+    /**
+     * Gets query for [[UserRoles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRole::className(), ['user_id' => 'id']);
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
     public static function findIdentityByAccessToken($token, $type = null)
     {
         //throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
@@ -156,6 +169,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->getPrimaryKey();
     }
 
+
     /**
      * @inheritdoc
      */
@@ -170,6 +184,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
+    }
+
+    public function getAka()
+    {
+        return $this->hasOne(People::className(), ['aka' => 'id']);
     }
 
     /**
@@ -199,46 +218,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->save();
     }
 
-    public function getFullName()
+    public function beforeSave($insert)
     {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
-    }
-
-    //-------------------------------------------
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes); // TODO: Change the autogenerated stub
-        $arr = array($this->addUsers, $this->viewRoles, $this->editRoles, $this->viewOut, $this->editOut,
-            $this->viewIn, $this->editIn, $this->viewOrder, $this->editOrder, $this->viewRegulation,
-            $this->editRegulation, $this->viewEvent, $this->editEvent, $this->viewAS, $this->editAS,
-            $this->viewAdd, $this->editAdd, $this->viewForeign, $this->editForeign);
-        if ($changedAttributes['password_hash'] == null)
-        {
-            for ($i = 0; $i != count($arr); $i++)
-            {
-
-                $tmpAccess = AccessLevel::find()->where(['user_id' => $this->id])->andWhere(['access_id' => $i + 1])->one();
-
-                if ($arr[$i] == 1)
-                {
-                    if ($tmpAccess == null)
-                    {
-                        $newAccess = new AccessLevel();
-                        $newAccess->user_id = $this->id;
-                        $newAccess->access_id = $i + 1;
-                        $newAccess->save(false);
-                    }
-                }
-                else
-                    if ($tmpAccess !== null)
-                        $tmpAccess->delete();
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->auth_key = \Yii::$app->security->generateRandomString();
             }
-
+            return true;
         }
-
+        return false;
     }
-
 }

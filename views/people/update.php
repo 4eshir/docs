@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\People */
+/* @var $model app\models\work\PeopleWork */
 
 $this->title = 'Редактировать человека: ' . $model->secondname.' '.$model->firstname.' '.$model->patronymic;
 $this->params['breadcrumbs'][] = ['label' => 'Люди', 'url' => ['index']];
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelPeoplePositionBranch' => $modelPeoplePositionBranch,
     ]) ?>
 
 </div>

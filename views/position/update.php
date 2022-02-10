@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Position */
+/* @var $model app\models\work\PositionWork */
 
 $this->title = 'Редактировать должность: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Должности', 'url' => ['index']];

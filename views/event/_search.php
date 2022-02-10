@@ -15,44 +15,19 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php
+    $branchs = \app\models\work\BranchWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
+    $params = [
+        'prompt' => '---'
+    ];
 
-    <?= $form->field($model, 'start_date') ?>
+    echo $form->field($model, 'eventBranchs')->dropDownList($items,$params)->label('Мероприятие проводит');
 
-    <?= $form->field($model, 'finish_date') ?>
-
-    <?= $form->field($model, 'event_type_id') ?>
-
-    <?= $form->field($model, 'event_form_id') ?>
-
-    <?php // echo $form->field($model, 'address') ?>
-
-    <?php // echo $form->field($model, 'event_level_id') ?>
-
-    <?php // echo $form->field($model, 'participants_count') ?>
-
-    <?php // echo $form->field($model, 'is_federal') ?>
-
-    <?php // echo $form->field($model, 'responsible_id') ?>
-
-    <?php // echo $form->field($model, 'key_words') ?>
-
-    <?php // echo $form->field($model, 'comment') ?>
-
-    <?php // echo $form->field($model, 'order_id') ?>
-
-    <?php // echo $form->field($model, 'regulation_id') ?>
-
-    <?php // echo $form->field($model, 'protocol') ?>
-
-    <?php // echo $form->field($model, 'photos') ?>
-
-    <?php // echo $form->field($model, 'reporting_doc') ?>
-
-    <?php // echo $form->field($model, 'other_files') ?>
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 

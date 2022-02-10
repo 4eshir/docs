@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Event */
+/* @var $model app\models\work\EventWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
         ]])->label('Дата окончания мероприятия') ?>
 
     <?php
-    $orders = \app\models\common\EventType::find()->all();
+    $orders = \app\models\work\EventTypeWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -53,7 +53,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\common\EventForm::find()->all();
+    $orders = \app\models\work\EventFormWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -64,7 +64,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\EventLevel::find()->all();
+    $orders = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [];
 
@@ -90,11 +90,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'is_federal')->checkbox() ?>
 
     <?php
-    $orders = \app\models\common\People::find()->all();
+    $orders = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
     $params = [];
 
     echo $form->field($model, 'responsible_id')->dropDownList($items,$params)->label('Ответственный за мероприятие');
+
+    ?>
+    <?php
+    $orders = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($orders,'id','shortName');
+    $params = [
+        'prompt' => '--',
+    ];
+
+    echo $form->field($model, 'responsible2_id')->dropDownList($items,$params)->label('Второй ответственный (опционально)');
 
     ?>
     <div class="row">
@@ -103,10 +113,11 @@ use yii\widgets\ActiveForm;
             <div class="panel-body">
 
                 <?php
-                $tech = \app\models\common\EventBranch::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
-                $quant = \app\models\common\EventBranch::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
-                $cdntt = \app\models\common\EventBranch::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
-                $value = false;
+                $tech = \app\models\work\EventBranchWork::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+                $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+                $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+                $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
+                $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isTechnopark')->checkbox(['checked' => $value]) ?>
@@ -116,6 +127,9 @@ use yii\widgets\ActiveForm;
 
                 <?php if (count($cdntt) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isCDNTT')->checkbox(['checked' => $value]) ?>
+
+                <?php if (count($mobquant) > 0) $value = true; else $value = false; ?>
+                <?= $form->field($model, 'isMobQuant')->checkbox(['checked' => $value]) ?>
             </div>
         </div>
     </div>
@@ -125,7 +139,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\common\DocumentOrder::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => 'Нет'
@@ -136,7 +150,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\common\Regulation::find()->all();
+    $orders = \app\models\work\RegulationWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
     $params = [
         'prompt' => 'Нет'
@@ -150,7 +164,7 @@ use yii\widgets\ActiveForm;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Отчетные мероприятия</h4></div>
             <?php
-            $extEvents = \app\models\common\EventsLink::find()->where(['event_id' => $model->id])->all();
+            $extEvents = \app\models\work\EventsLinkWork::find()->where(['event_id' => $model->id])->all();
             if ($extEvents != null)
             {
                 echo '<table>';
@@ -197,7 +211,7 @@ use yii\widgets\ActiveForm;
                                 <div>
                                     <?php
 
-                                    $branch = \app\models\common\EventExternal::find()->all();
+                                    $branch = \app\models\work\EventExternalWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
                                     $params = [
                                         'prompt' => '',
@@ -228,7 +242,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'protocol/'.$split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id])).'</td></tr>';
         }
         echo '</table>';
     }
@@ -243,7 +257,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'photos'])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'photos'])).'</td></tr>';
         }
         echo '</table>';
     }
@@ -258,7 +272,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'reporting/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
         }
         echo '</table>';
     }
@@ -273,7 +287,7 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['document-order/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
         }
         echo '</table>';
     }

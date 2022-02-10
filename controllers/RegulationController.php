@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\common\Expire;
+use app\models\components\RoleBaseAccess;
+use app\models\work\ExpireWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\Regulation;
+use app\models\work\RegulationWork;
 use app\models\SearchRegulation;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -40,11 +41,6 @@ class RegulationController extends Controller
      */
     public function actionIndex($c = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $session = Yii::$app->session;
         $session->set('type', $c);
         if (Yii::$app->user->isGuest)
@@ -66,11 +62,6 @@ class RegulationController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -83,18 +74,13 @@ class RegulationController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
-        $model = new Regulation();
-        $modelExpire = [new Expire];
+        $model = new RegulationWork();
+        $modelExpire = [new ExpireWork];
         if ($model->load(Yii::$app->request->post())) {
             $session = Yii::$app->session;
             $model->regulation_type_id = $session->get('type');
             $model->state = 1;
-            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 
@@ -113,7 +99,7 @@ class RegulationController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire
         ]);
     }
 
@@ -126,16 +112,11 @@ class RegulationController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
-        $modelExpire = [new Expire];
+        $modelExpire = [new ExpireWork];
         if ($model->load(Yii::$app->request->post())) {
-            Regulation::CheckRegulationState($model->order_id);
-            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            RegulationWork::CheckRegulationState($model->order_id);
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
@@ -152,7 +133,7 @@ class RegulationController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire
         ]);
     }
 
@@ -165,11 +146,6 @@ class RegulationController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $reg = $this->findModel($id);
 
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено положение '.$reg->name);
@@ -180,25 +156,17 @@ class RegulationController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null)
     {
-
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/regulation/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
-                return $this->redirect('index.php?r=regulation/create');
-            };
+        $file = Yii::$app->basePath . '/upload/files/regulation/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
         }
+        throw new \Exception('File not found');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
-        $model = Regulation::find()->where(['id' => $modelId])->one();
+        $model = RegulationWork::find()->where(['id' => $modelId])->one();
         if ($type == 'scan')
         {
             $model->scan = '';
@@ -214,15 +182,30 @@ class RegulationController extends Controller
      * Finds the Regulation model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Regulation the loaded model
+     * @return RegulationWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Regulation::findOne($id)) !== null) {
+        if (($model = RegulationWork::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        $session = Yii::$app->session;
+        $c = $_GET['c'];
+        if ($_GET['c']  === null) $c = $session->get('type');
+        if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId(), $c == '1' ? 1 : 2)) {
+            $this->redirect(['/site/error-access']);
+            return false;
+        }
+        return parent::beforeAction($action);
     }
 }

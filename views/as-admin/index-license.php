@@ -1,7 +1,7 @@
 <?php
 
-use app\models\common\AsInstall;
-use app\models\common\UseYears;
+use app\models\work\AsInstallWork;
+use app\models\work\UseYearsWork;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

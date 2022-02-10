@@ -2,9 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\common\DocumentOut;
-use app\models\common\Feedback;
-use app\models\common\User;
+use app\models\components\ArraySqlConstructor;
+use app\models\components\ExcelWizard;
+use app\models\work\DocumentOrderWork;
+use app\models\work\DocumentOutWork;
+use app\models\work\FeedbackWork;
+use app\models\work\PeopleWork;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\UserWork;
 use app\models\components\Logger;
 use app\models\extended\FeedbackAnswer;
 use app\models\ForgotPassword;
@@ -13,12 +18,12 @@ use app\models\SearchOutDocsModel;
 use Yii;
 use yii\console\ExitCode;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\extended\UserExtended;
 use app\models\extended\DocumentOutExtended;
 
 
@@ -34,11 +39,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'forgot-password'],
+                        'actions' => ['login', 'error', 'forgot-password', 'error-access', 'temp'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer'],
+                        'actions' => ['logout', 'index', 'index-docs-out', 'create-docs-out', 'add-admin', 'feedback', 'feedback-answer', 'temp', 'error-access'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -79,7 +84,7 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
 
-        $model = new Feedback();
+        $model = new FeedbackWork();
         if ($model->load(Yii::$app->request->post()))
         {
             $model->user_id = Yii::$app->user->identity->getId();
@@ -106,9 +111,12 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        if (Yii::$app->session->get('userSessionTimeout') !== 60 * 60 * 24 * 100)
+            Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
+
+        //if (!Yii::$app->user->isGuest) {
+        //    return $this->goHome();
+        //}
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -121,17 +129,26 @@ class SiteController extends Controller
         }
     }
 
+    public function actionErrorAccess()
+    {
+        return $this->render('error-access');
+    }
+
     /**
      * Logout action.
      *
      * @return string
      */
-    public function actionLogout()
+    public function actionLogout($from = null)
     {
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
-        Yii::$app->user->logout();
+        if ($from == '1')
+        {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
+            Yii::$app->user->logout();
 
-        return $this->goHome();
+            return $this->goHome();
+        }
+        return "";
     }
 
     public function actionIndexDocsOut()
@@ -154,16 +171,16 @@ class SiteController extends Controller
             {
                 $string = Yii::$app->security->generateRandomString(8);
                 Yii::$app->mailer->compose()
-                    ->setFrom('no-reply-schooltech@mail.ru')
+                    ->setFrom('noreply@schooltech.ru')
                     ->setTo($model->email)
                     ->setSubject('Восстановление пароля')
                     ->setTextBody($string)
-                    ->setHtmlBody('Ваш новый пароль: '.$string)
+                    ->setHtmlBody('Вы запросили восстановление пароля в системе электронного документооборота ЦСХД (https://index.schooltech.ru/)<br>Ваш новый пароль: '.$string.'<br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него.')
                     ->send();
-                $user = User::find()->where(['username' => $model->email])->one();
+                $user = UserWork::find()->where(['username' => $model->email])->one();
                 $user->password_hash = Yii::$app->security->generatePasswordHash($string);
                 $user->save();
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Сброшен пароль для пользователя '.$model->email);
+                Logger::WriteLog(1, 'Сброшен пароль для пользователя '.$model->email);
                 Yii::$app->session->addFlash('success', 'Вам на почту было отправлено письмо с новым паролем (проверьте папку "Спам"!).');
                 return $this->redirect(['/site/login']);
             }
@@ -174,24 +191,35 @@ class SiteController extends Controller
         return $this->render('forgot-password', ['model' => $model]);
     }
 
-    public function actionCreateOutdocs()
+    public function actionTemp()
     {
-
+        $sqlStr = "CREATE EVENT `token_event` ON SCHEDULE AT '2022-01-26 15:25:00' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO `log`(`user_id`, `text`, `date`, `time`) VALUES (1, 'Test Event', CURRENT_DATE, CURRENT_TIME)";
+        Yii::$app->db->createCommand($sqlStr)->execute();
     }
 
-    /*public function actionAddAdmin() {
-    $model = User::find()->where(['username' => 'ar_khabekenova'])->one();
-    if (empty($model)) {
-        $user = new User();
-        $user->username = 'ar_khabekenova';
-        $user->firstname = 'Анара';
-        $user->secondname = 'Хабекенова';
-        $user->patronymic = 'Романовна';
-        $user->email = '-';
-        $user->setPassword('schooltech_doc');
-        $user->generateAuthKey();
-        if ($user->save()) {
-            echo 'good';
+
+    /*public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action))
+        {
+            return false;
+        } // Check only when the user is logged in
+        if ( !Yii::$app->user->isGuest)
+        {
+            if (Yii::$app->session['userSessionTimeout'] < 60 * 60 * 24 * 100)
+            {
+                //Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен выход из системы');
+                //Yii::$app->user->logout();
+
+                //return $this->goHome();
+            }
+            else {
+                Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
+                return true;
+            }
+        }
+        else {
+            return true;
         }
     }*/
 }

@@ -2,16 +2,20 @@
 
 namespace app\controllers;
 
-use app\models\common\Expire;
-use app\models\common\Regulation;
-use app\models\common\Responsible;
+use app\models\components\RoleBaseAccess;
+use app\models\work\BranchWork;
+use app\models\work\ExpireWork;
+use app\models\work\NomenclatureWork;
+use app\models\work\RegulationWork;
+use app\models\work\ResponsibleWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
-use app\models\common\DocumentOrder;
+use app\models\work\DocumentOrderWork;
 use app\models\SearchDocumentOrder;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,15 +46,12 @@ class DocumentOrderController extends Controller
      * Lists all DocumentOrder models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($c = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
+        $session = Yii::$app->session;
+        $session->set('type', $c);
         $searchModel = new SearchDocumentOrder();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $c);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -66,11 +67,6 @@ class DocumentOrderController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -83,15 +79,12 @@ class DocumentOrderController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
-        $model = new DocumentOrder();
-        $model->order_number = "02-02";
-        $modelExpire = [new Expire];
-        $modelResponsible = [new Responsible];
+        $session = Yii::$app->session;
+        $model = new DocumentOrderWork();
+        //$model->order_number = NomenclatureWork::find()->where([]);
+        $modelExpire = [new ExpireWork];
+        $modelExpire2 = [new ExpireWork];
+        $modelResponsible = [new ResponsibleWork];
         if ($model->load(Yii::$app->request->post())) {
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
@@ -99,15 +92,30 @@ class DocumentOrderController extends Controller
             $model->scan = '';
             $model->state = true;
 
-            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
-            $modelExpire = DynamicModel::createMultiple(Expire::classname());
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 
             if ($model->validate(false)) {
-                $model->getDocumentNumber();
+                if ($model->archive_number === '')
+                    $model->getDocumentNumber();
+                else
+                {
+                    $number = explode( '/',  $model->archive_number);
+                    $model->order_number = $number[0];
+                    $model->order_copy_id = $number[1];
+                    if (count($number) > 2)
+                        $model->order_postfix = $number[2];
+                    //$model->order_copy_id = $model->archive_number;
+                    if ($model->nomenclature_id == 5)
+                        $model->type = 10;  // административный архивный
+                    else
+                        $model->type = 11;  // учебный архивный
+                }
+
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
@@ -121,26 +129,31 @@ class DocumentOrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+            'modelExpire2' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire2,
         ]);
     }
 
     public function actionCreateReserve()
     {
-        $model = new DocumentOrder();
-
+        if (!RoleBaseAccess::CheckAccess('document-order', 'create-reserve', Yii::$app->user->identity->getId(), $_GET['c'] === '1' ? 2 : 1)) {
+            return $this->redirect(['/site/error-access']);
+        }
+        $model = new DocumentOrderWork();
+        $session = Yii::$app->session;
         $model->order_name = 'Резерв';
         $model->order_number = '02-02';
-        $model->order_date = end(DocumentOrder::find()->orderBy(['order_copy_id' => SORT_ASC, 'order_postfix' => SORT_ASC])->all())->order_date;
+        $model->order_date = date("Y-m-d");
         $model->scan = '';
         $model->state = true;
+        $model->type = $session->get('type') === '1' ? 1 : 0;
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен резерв приказа '.$model->order_number.'/'.$model->order_postfix);
-        return $this->redirect('index.php?r=document-order/index');
+        return $this->redirect('index.php?r=document-order/index&c='.$session->get('type'));
     }
 
     /**
@@ -150,29 +163,48 @@ class DocumentOrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $sideCall = null)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
-        $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
-        $modelExpire = DynamicModel::createMultiple(Expire::classname());
+        $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
+        $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
+        if ($model->type === 10 || $model->type === 11)
+        {
+            $model->archive_number = $model->order_number . '/' . $model->order_copy_id;
+            if ($model->order_postfix !== null)
+                $model->archive_number .= '/' . $model->order_postfix;
+        }
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
+            //var_dump('kek');
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
-            $modelResponsible = DynamicModel::createMultiple(Responsible::classname());
+            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
             DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
             $model->responsibles = $modelResponsible;
+            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
 
-
             if ($model->validate(false)) {
+                $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
+                if ($model->archive_number !== "")
+                    if ($cur->order_number !== $model->order_number)
+                        $model->getDocumentNumber();
+                else
+                {
+                    $number = explode( '/',  $model->archive_number);
+                    $model->order_number = $number[0];
+                    $model->order_copy_id = $number[1];
+                    if (count($number) > 2)
+                        $model->order_postfix = $number[2];
+                    //$model->order_copy_id = $model->archive_number;
+                    if ($model->nomenclature_id == 5)
+                        $model->type = 10;  // административный архивный
+                    else
+                        $model->type = 11;  // учебный архивный
+                }
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
@@ -181,30 +213,36 @@ class DocumentOrderController extends Controller
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
             }
-
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($sideCall === null)
+                return $this->redirect(['view', 'id' => $model->id]);
+            else
+                return $this->render('update', [
+                    'model' => $model,
+                    'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+                    'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+                ]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire,
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
         ]);
     }
 
     public function actionDeleteExpire($expireId, $modelId)
     {
-        $expire = Expire::find()->where(['id' => $expireId])->one();
-        $order = DocumentOrder::find()->where(['id' => $expire->expire_order_id])->one();
+        $expire = ExpireWork::find()->where(['id' => $expireId])->one();
+        $order = DocumentOrderWork::find()->where(['id' => $expire->expire_order_id])->one();
         if ($order !== null)
         {
             $order->state = 1;
-            Regulation::CheckRegulationState($order->id, 1);
+            RegulationWork::CheckRegulationState($order->id, 1);
             $order->save(false);
-            $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+            $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
 
         }
-        $reg = Regulation::find()->where(['id' => $expire->expire_regulation_id])->one();
+        $reg = RegulationWork::find()->where(['id' => $expire->expire_regulation_id])->one();
         if ($reg !== null)
         {
             $reg->state = 'Утратило силу';
@@ -212,18 +250,18 @@ class DocumentOrderController extends Controller
         }
         $expire->delete();
 
-        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
-        return $this->render('update', [
+        $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
+        return $this->actionUpdate($modelId, 1);
+        /*return $this->render('update', [
             'model' => $model,
-            'modelResponsible' => (empty($modelResponsible)) ? [new Responsible] : $modelResponsible,
-            'modelExpire' => (empty($modelExpire)) ? [new Expire] : $modelExpire
-        ]);
+            'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
+            'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire
+        ]);*/
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
-
-        $model = DocumentOrder::find()->where(['id' => $modelId])->one();
+        $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
 
         if ($type == 'scan')
         {
@@ -253,29 +291,23 @@ class DocumentOrderController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/order/'.$type.'/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
-                return $this->redirect('index.php?r=docs-out/create');
-            };
+        $file = Yii::$app->basePath . '/upload/files/order/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
         }
+        throw new \Exception('File not found');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteResponsible($peopleId, $orderId)
     {
-        $resp = Responsible::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
+        $resp = ResponsibleWork::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
         if ($resp != null)
             $resp->delete();
-        $model = $this->findModel($orderId);
-        return $this->redirect('index.php?r=document-order/update&id='.$orderId);
+
+        return $this->actionUpdate($orderId, 1);
+
+        //return $this->redirect('index.php?r=document-order/update&id='.$orderId);
     }
 
     /**
@@ -287,11 +319,6 @@ class DocumentOrderController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $order = $this->findModel($id);
         $name = $order->order_name;
         if (!$order->checkForeignKeys())
@@ -306,19 +333,84 @@ class DocumentOrderController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionSubattr()
+    {
+        $idG = Yii::$app->request->post('idG');
+        if ($id = Yii::$app->request->post('id')) {
+            $operationPosts = BranchWork::find()
+                ->where(['id' => $id])
+                ->count();
+
+            if ($operationPosts > 0) {
+                $operations = NomenclatureWork::find()
+                    ->where(['branch_id' => $id])
+                    ->all();
+                foreach ($operations as $operation)
+                    echo "<option value='" . $operation->number . "'>" . $operation->fullNameWork . "</option>";
+            } else
+                echo "<option>-</option>";
+            echo '|split|';
+
+            echo '<b>Фильтры для учебных групп: </b>';
+            echo '<input type="text" id="nameSearch" onchange="searchColumn()" placeholder="Поиск по части имени..." title="Введите имя">';
+            echo '    С <input type="date" id="nameLeftDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+            echo '    По <input type="date" id="nameRightDate" onchange="searchColumn()" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Поиск по дате начала занятий...">';
+
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="sortable" class="table table-bordered"><thead><tr><th></th><th><a onclick="sortColumn(1)"><b>Учебная группа</b></a></th><th><a onclick="sortColumn(2)"><b>Дата начала занятий</b></a></th><th><a onclick="sortColumn(3)"><b>Дата окончания занятий</b></a></th></tr></thead>';
+            echo '';
+            echo '<tbody>';
+            $groups = \app\models\work\TrainingGroupWork::find()->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])->all();
+            foreach ($groups as $group)
+            {
+                $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $idG])->one();
+                echo '<tr><td style="width: 10px">';
+                if ($orders !== null)
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                else
+                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                echo '</td><td style="width: auto">';
+                echo $group->number;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->start_date;
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $group->finish_date;
+                echo '</td></tr>';
+            }
+
+            echo '</tbody></table></div>'.'|split|';
+        }
+    }
+
     /**
      * Finds the DocumentOrder model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DocumentOrder the loaded model
+     * @return DocumentOrderWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DocumentOrder::findOne($id)) !== null) {
+        if (($model = DocumentOrderWork::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        $session = Yii::$app->session;
+        $c = $_GET['c'];
+        if ($_GET['c']  === null) $c = $session->get('type');
+        if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId(), $c == '1' ? 1 : 2)) {
+            $this->redirect(['/site/error-access']);
+            return false;
+        }
+        return parent::beforeAction($action);
     }
 }

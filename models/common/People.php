@@ -12,15 +12,19 @@ use yii\helpers\Html;
  * @property string $firstname
  * @property string $secondname
  * @property string $patronymic
+ * @property string $short
  * @property int|null $company_id
  * @property int|null $position_id
+ * @property int|null $branch_id
+ * @property string $birthdate
+ * @property int $sex
  *
  * @property Company $company
  * @property Position $position
+ * @property Branch $branch
  */
 class People extends \yii\db\ActiveRecord
 {
-    public $stringPosition;
     /**
      * {@inheritdoc}
      */
@@ -36,11 +40,11 @@ class People extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
-            [['id', 'company_id', 'position_id'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'stringPosition'], 'string', 'max' => 1000],
+            [['id', 'company_id', 'position_id', 'branch_id', 'sex'], 'integer'],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
+            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
         ];
     }
 
@@ -54,8 +58,12 @@ class People extends \yii\db\ActiveRecord
             'firstname' => 'Firstname',
             'secondname' => 'Secondname',
             'patronymic' => 'Patronymic',
+            'short' => 'Уникальный идентификатор',
             'company_id' => 'Company ID',
             'position_id' => 'Position ID',
+            'branch_id' => 'Отдел по трудовому договору',
+            'birthdate' => 'Дата рождения',
+            'sex' => 'Пол',
         ];
     }
 
@@ -79,61 +87,12 @@ class People extends \yii\db\ActiveRecord
         return $this->hasOne(Position::className(), ['id' => 'position_id']);
     }
 
-    public function checkForeignKeys()
-    {
-        $doc_out_signed = DocumentOut::find()->where(['signed_id' => $this->id])->all();
-        $doc_out_exec = DocumentOut::find()->where(['executor_id' => $this->id])->all();
-        $doc_in_corr = DocumentIn::find()->where(['correspondent_id' => $this->id])->all();
-        $doc_in_signed = DocumentIn::find()->where(['signed_id' => $this->id])->all();
-        if (count($doc_out_signed) > 0 || count($doc_out_exec) > 0 || count($doc_in_corr) > 0 || count($doc_in_signed) > 0)
-        {
 
-            Yii::$app->session->addFlash('error', 'Невозможно удалить человека! Человек включен в существующие документы');
-            return false;
-        }
-        return true;
-    }
+    /**
+     * Gets query for [[TrainingProgramParticipants]].
+     *
+     * @return string
+     */
 
-    public function getFullName()
-    {
-        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$this->position->name.')';
-    }
 
-    public function getShortName()
-    {
-        return $this->secondname.' '.mb_substr($this->firstname, 0, 1).'.'.mb_substr($this->patronymic, 0, 1).'.';
-    }
-
-    public function getAchievements()
-    {
-        $achieves = ParticipantAchievement::find()
-                    ->leftJoin(TeacherParticipant::tableName(), TeacherParticipant::tableName().'.participant_id ='.ParticipantAchievement::tableName().'.participant_id')
-                    ->where([TeacherParticipant::tableName().'.teacher_id' => $this->id])
-                    ->all();
-        foreach ($achieves as $achieveOne)
-        {
-            $achieveList = $achieveList.Html::a($achieveOne->participant->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $achieveOne->participant_id])).
-                ' &mdash; '.$achieveOne->achievment.
-                ' '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
-        }
-        return $achieveList;
-    }
-
-    public function beforeSave($insert)
-    {
-        if ($this->stringPosition == '')
-            $this->stringPosition = '---';
-        $position = Position::find()->where(['name' => $this->stringPosition])->one();
-        if ($position !== null)
-            $this->position_id = $position->id;
-        else
-        {
-            $position = new Position();
-            $position->name = $this->stringPosition;
-            $position->save();
-            $newPos = Position::find()->where(['name' => $this->stringPosition])->one();
-            $this->position_id = $newPos->id;
-        }
-        return parent::beforeSave($insert);
-    }
 }

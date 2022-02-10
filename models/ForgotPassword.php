@@ -2,7 +2,7 @@
 
 
 namespace app\models;
-use app\models\common\User;
+use app\models\work\UserWork;
 use yii\db\ActiveRecord;
 
 class ForgotPassword extends ActiveRecord
@@ -19,7 +19,7 @@ class ForgotPassword extends ActiveRecord
 
     public function validateEmail()
     {
-        $email = User::find()->where(['username' => $this->email])->all();
+        $email = UserWork::find()->where(['username' => $this->email])->all();
         return count($email) > 0;
     }
 }

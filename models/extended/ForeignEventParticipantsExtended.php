@@ -12,6 +12,7 @@ class ForeignEventParticipantsExtended extends Model
 {
     public $fio;
     public $teacher;
+    public $teacher2;
     public $branch;
     public $focus;
     public $file;
@@ -22,7 +23,7 @@ class ForeignEventParticipantsExtended extends Model
     {
         return [
             [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
-            [['teacher', 'fileString', 'focus', 'team'], 'string'],
+            [['teacher', 'teacher2', 'fileString', 'focus', 'team'], 'string'],
             [['fio', 'branch'], 'integer'],
         ];
     }

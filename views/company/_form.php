@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Company */
+/* @var $model app\models\work\CompanyWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $company_type = \app\models\common\CompanyType::find()->all();
+    $company_type = \app\models\work\CompanyTypeWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company_type,'id','type');
     $params = [];
     echo $form->field($model, 'company_type_id')->dropDownList($items,$params)->label('Тип организации');

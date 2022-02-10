@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\EventForm;
+use app\models\work\EventFormWork;
 
 /**
  * SearchEventForm represents the model behind the search form of `app\models\common\EventForm`.
  */
-class SearchEventForm extends EventForm
+class SearchEventForm extends EventFormWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class SearchEventForm extends EventForm
      */
     public function search($params)
     {
-        $query = EventForm::find();
+        $query = EventFormWork::find();
 
         // add conditions that should always apply here
 

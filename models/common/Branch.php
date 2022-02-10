@@ -3,6 +3,7 @@
 namespace app\models\common;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "branch".
@@ -38,7 +39,9 @@ class Branch extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название отдела',
+            'workerList' => 'Список сотрудников',
         ];
     }
+
 }
