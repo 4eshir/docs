@@ -232,9 +232,12 @@ use yii\widgets\ActiveForm;
 
                 <?php if (count($mobquant) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isMobQuant')->checkbox(['checked' => $value]) ?>
+<<<<<<< HEAD
+=======
 
                 <?php if (count($mobquant) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isCod')->checkbox(['checked' => $value]) ?>
+>>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
             </div>
         </div>
     </div>

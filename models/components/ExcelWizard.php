@@ -6,9 +6,12 @@ namespace app\models\components;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
+use app\models\extended\JournalModel;
 use app\models\work\LessonThemeWork;
 use app\models\work\ThematicPlanWork;
+use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\VisitWork;
 use Yii;
 
 class ExcelWizard
@@ -46,17 +49,15 @@ class ExcelWizard
     static public function DownloadKUG($training_group_id)
     {
         ini_set('memory_limit', '512M');
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="kug.xlsx"');
-        header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
+        //header('Content-Type: application/vnd.ms-excel');
+        //header('Content-Disposition: attachment;filename="kug.xlsx"');
+        //header('Cache-Control: max-age=0');
 
 // If you're serving to IE over SSL, then the following may be needed
-        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header ('Pragma: public'); // HTTP/1.0
+        //header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        //header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        //header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        //header ('Pragma: public'); // HTTP/1.0
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
@@ -82,7 +83,103 @@ class ExcelWizard
             $c++;
         }
 
-        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header("Content-Disposition: attachment;filename=kug.xls");
+//header("Content-Disposition: attachment;filename=test.xls");
+        header("Content-Transfer-Encoding: binary ");
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+    }
+
+    static public function DownloadJournal($group_id)
+    {
+        $onPage = 7; //количество занятий на одной странице
+        $counter = 0; //основной счетчик для visits
+        $lesCount = 0; //счетчик для занятий
+        ini_set('memory_limit', '512M');
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+
+        $model = new JournalModel($group_id);
+
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+        $newVisits = array();
+        $newVisitsId = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+        $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+
+        $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
+        $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
+
+        $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
+
+        $row = 1;
+        while ($lesCount * $onPage < count($lessons))
+        {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО/Занятие');
+            $c = 0;
+            for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
+            {
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $c, $row, date("d.m", strtotime($lessons[$i]->lesson_date)));
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->getStyle()->getAlignment()->setTextRotation(90);
+                $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $c)->setWidth('3');
+                $c++;
+            }
+
+
+            $row++;
+            foreach ($parts as $part)
+            {
+                $col = 0;
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
+
+
+                for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
+                {
+                    //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+                    $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
+                    $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
+                    $col++;
+                    $counter++;
+                }
+                $row++;
+            }
+            $row = $row + 2;
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
+            $row = $row + 2;
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
+            $row = $row + 3;
+            $lesCount++;
+        }
+
+
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header("Content-Disposition: attachment;filename=journal.xls");
+//header("Content-Disposition: attachment;filename=test.xls");
+        header("Content-Transfer-Encoding: binary ");
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
     }
 
