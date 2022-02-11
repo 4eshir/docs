@@ -13,13 +13,6 @@ use kartik\export\ExportMenu;
 
 <?php
 $session = Yii::$app->session;
-<<<<<<< HEAD
-
-$this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
-$this->params['breadcrumbs'][] = $this->title;
-?>
-=======
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
 
 $this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
 $this->params['breadcrumbs'][] = $this->title;
@@ -42,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $gridColumns = [
         ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-        ['attribute' => 'order_number', 'label' => 'Номер приказа'],
+        ['attribute' => 'documentNumberStringgit ', 'label' => 'Номер приказа'],
         ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
         ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
         {
