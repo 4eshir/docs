@@ -80,8 +80,10 @@ class TrainingGroupController extends Controller
         $selections = explode(',', $ids);
         $flashStr = "";
         $allGroups = TrainingGroupWork::find()->all();
+        $errors = new GroupErrorsWork();
         foreach ($allGroups as $group) {
             $group->archive = 0;
+            //$errors->CheckArchive($group->id);
             $group->save();
         }
         if ($ids !== "")
