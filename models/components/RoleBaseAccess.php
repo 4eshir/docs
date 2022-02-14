@@ -221,6 +221,10 @@ class RoleBaseAccess
             "report-result" => [25, 26],
             "get-full-report" => [25, 26],
         ],
+        "report-form" => [
+            "index" => [25, 26],
+            "effective-contract" => [25, 26],
+        ],
         //------
 
         //Роли

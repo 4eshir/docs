@@ -7,10 +7,15 @@ namespace app\models\components;
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
 use app\models\extended\JournalModel;
+use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use Yii;
 
@@ -180,6 +185,199 @@ class ExcelWizard
 //header("Content-Disposition: attachment;filename=test.xls");
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+    }
+
+    static public function DownloadEffectiveContract($start_date, $end_date, $budget)
+    {
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_EC.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/report_EC.xlsx');
+        //var_dump($inputData);
+
+        //Получаем количество учеников
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        $tgIds = [];
+        foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 5, count($participants));
+        //----------------------------
+
+        //Получаем мероприятия с выбранными учениками
+
+        $pIds = [];
+        foreach ($participants as $participant) $pIds[] = $participant->participant_id;
+        $eventParticipants = TeacherParticipantWork::find()->where(['IN', 'participant_id', $pIds])->all();
+
+        $eIds = [];
+        foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
+
+        $eIds2 = [];
+        foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
+
+        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
+
+        //-------------------------------------------
+
+        //Международные победители и призеры
+
+        $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 8])->all();
+
+        $counter1 = 0;
+        $counter2 = 0;
+        $counterPart1 = 0;
+        $allTeams = 0;
+        foreach ($events1 as $event)
+        {
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $tIds = [];
+            $teamName = '';
+            $counterTeamWinners = 0;
+            $counterTeamPrizes = 0;
+            $counterTeam = 0;
+            foreach ($teams as $team)
+            {
+                if ($teamName != $team->name)
+                {
+                    $teamName = $team->name;
+                    $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                    if ($res !== null) $counterTeamWinners++;
+                    else $counterTeamPrizes++;
+                    $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                    if ($res !== null) $counterTeam++;
+                }
+                $tIds[] = $team;
+            }
+
+            $tpIds = [];
+            foreach ($tIds as $tId)
+                $tpIds[] = $tId->participant_id;
+
+            $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $eIds2])->all();
+            $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $eIds2])->all();
+
+
+            $counter1 += count($achieves1) + $counterTeamPrizes;
+            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $allTeams += $counterTeam;
+
+        }
+
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $counter1);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 7, $counter2);
+
+        //----------------------------------
+
+        //Всероссийские победители и призеры
+
+        $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 7])->all();
+
+        $counter1 = 0;
+        $counter2 = 0;
+        $counterPart1 = 0;
+        $allTeams = 0;
+        foreach ($events1 as $event)
+        {
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $tIds = [];
+            $teamName = '';
+            $counterTeamWinners = 0;
+            $counterTeamPrizes = 0;
+            $counterTeam = 0;
+            foreach ($teams as $team)
+            {
+                if ($teamName != $team->name)
+                {
+                    $teamName = $team->name;
+                    $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                    if ($res !== null) $counterTeamWinners++;
+                    else $counterTeamPrizes++;
+                    $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                    if ($res !== null) $counterTeam++;
+                }
+                $tIds[] = $team;
+            }
+
+            $tpIds = [];
+            foreach ($tIds as $tId)
+                $tpIds[] = $tId->participant_id;
+
+            $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $eIds2])->all();
+            $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $eIds2])->all();
+
+
+            $counter1 += count($achieves1) + $counterTeamPrizes;
+            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $allTeams += $counterTeam;
+
+        }
+
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $counter1);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $counter2);
+
+        //----------------------------------
+
+        //Всероссийские победители и призеры
+
+        $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 6])->all();
+
+        $counter1 = 0;
+        $counter2 = 0;
+        $counterPart1 = 0;
+        $allTeams = 0;
+        foreach ($events1 as $event)
+        {
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $tIds = [];
+            $teamName = '';
+            $counterTeamWinners = 0;
+            $counterTeamPrizes = 0;
+            $counterTeam = 0;
+            foreach ($teams as $team)
+            {
+                if ($teamName != $team->name)
+                {
+                    $teamName = $team->name;
+                    $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                    if ($res !== null) $counterTeamWinners++;
+                    else $counterTeamPrizes++;
+                    $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                    if ($res !== null) $counterTeam++;
+                }
+                $tIds[] = $team;
+            }
+
+            $tpIds = [];
+            foreach ($tIds as $tId)
+                $tpIds[] = $tId->participant_id;
+
+            $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $eIds2])->all();
+            $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $eIds2])->all();
+
+
+            $counter1 += count($achieves1) + $counterTeamPrizes;
+            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $allTeams += $counterTeam;
+
+        }
+
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $counter1);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $counter2);
+
+        //----------------------------------
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
     }
 
