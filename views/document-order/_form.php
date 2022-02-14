@@ -21,7 +21,6 @@ $session = Yii::$app->session;
         initData();
     }
 
-
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -303,6 +302,14 @@ $session = Yii::$app->session;
 
             echo '</tbody></table></div>';
         }
+
+        $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->orderBy('training_group_id')->all();
+        foreach ($groupParticipants as $groupParticipant)
+        {
+            $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['IN', 'id',
+                (new Query())->select('id')->from('order_group')->where(['order_id' => $model->id])])->all();
+        }
+
         ?>
     </div>
 
