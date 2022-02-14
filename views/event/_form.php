@@ -117,10 +117,8 @@ use yii\widgets\ActiveForm;
                 $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
                 $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
                 $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
-<<<<<<< HEAD
-=======
                 $cod = \app\models\work\EventBranchWork::find()->where(['branch_id' => 7])->andWhere(['event_id' => $model->id])->all();
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
+
                 $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
@@ -134,12 +132,10 @@ use yii\widgets\ActiveForm;
 
                 <?php if (count($mobquant) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isMobQuant')->checkbox(['checked' => $value]) ?>
-<<<<<<< HEAD
-=======
 
                 <?php if (count($cod) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isCod')->checkbox(['checked' => $value]) ?>
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
+
             </div>
         </div>
     </div>
@@ -297,11 +293,9 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
-<<<<<<< HEAD
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
-=======
+
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'other'])).'</td></tr>';
->>>>>>> b6c4d95a8059c9f1470a65a2e13f147fd054d749
         }
         echo '</table>';
     }

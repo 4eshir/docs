@@ -444,7 +444,7 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckCertificate($modelGroupID, $group, $now_time);
         $this->CheckAuditorium($modelGroupID);
         $this->IncorrectDates($modelGroupID, $group);
-        //$this->CheckArchive($modelGroupID, $group, $now_time);
+        $this->CheckArchive($modelGroupID, $group, $now_time);
         //$this->TwoPlacesOneTeacher($modelGroupID);
     }
 
