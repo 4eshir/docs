@@ -163,7 +163,7 @@ class ExcelWizard
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
 
-                if ($i % $onPage === 0 && $i !== 0) { $pages++; var_dump($i); };
+                if ($i % $onPage === 0 && $i !== 0) { $pages++; var_dump($i); }
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, 2 + $cp + $pages * (count($parts) + $magic), $visits->excelStatus);
             }
         }
