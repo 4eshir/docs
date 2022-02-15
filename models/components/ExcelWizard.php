@@ -137,9 +137,9 @@ class ExcelWizard
         {
             for ($i = 0; $i < $onPage; $i++) //цикл заполнения дат на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount, date("d.m", strtotime($lessons[$i]->lesson_date)));
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount)->getStyle()->getAlignment()->setTextRotation(90);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1, date("d.m", strtotime($lessons[$i]->lesson_date)));
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1)->getStyle()->getAlignment()->setTextRotation(90);
                 $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $i)->setWidth('3');
             }
 
