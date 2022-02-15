@@ -108,7 +108,7 @@ class ExcelWizard
     {
         $onPage = 20; //количество занятий на одной странице
         $counter = 0; //основной счетчик для visits
-        $lesCount = 0; //счетчик для занятий
+        $lesCount = 0; //счетчик для страниц
         ini_set('memory_limit', '512M');
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
@@ -132,11 +132,28 @@ class ExcelWizard
         $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
         $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
 
-        $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
 
-        $row = 1;
+        while ($lesCount < count($lessons) / $onPage)
+        {
+            for ($i = 0; $i < $onPage; $i++) //цикл заполнения дат на странице
+            {
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount, date("d.m", strtotime($lessons[$i]->lesson_date)));
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount)->getStyle()->getAlignment()->setTextRotation(90);
+                $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $i)->setWidth('3');
+            }
 
-        
+            for($i = 0; $i < count($parts); $i++)
+            {
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + (count($parts) * $lesCount), $parts[$i]->participantWork->shortName);
+            }
+
+            $lesCount++;
+        }
+
+        /*$row = 1;
+
+
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО/Занятие');
         $c = 0;
         for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
@@ -181,7 +198,7 @@ class ExcelWizard
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
         $row = $row + 3;
         $lesCount++;
-
+        */
 
 
         header("Pragma: public");
