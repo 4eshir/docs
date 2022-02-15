@@ -165,6 +165,9 @@ class ExcelWizard
                 var_dump($i);
                 var_dump($i % $onPage);
                 var_dump($i % $onPage === 0);
+                var_dump(count($lessons));
+                var_dump(count($parts));
+                var_dump(count($lessons) / count($parts));
                 var_dump('<br>');
                 if ($i % $onPage === 0 && $i !== 0) { $pages++; }
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, 2 + $cp + $pages * (count($parts) + $magic), $visits->excelStatus);
