@@ -150,9 +150,11 @@ class ExcelWizard
 
 
             $row++;
+            $tempRaw = $row;
+            $col = 0;
             foreach ($parts as $part)
             {
-                $col = 0;
+                $row = $tempRaw;
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
 
 
@@ -161,10 +163,10 @@ class ExcelWizard
                     //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
                     $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
                     $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
-                    $col++;
+                    $row++;
                     $counter++;
                 }
-                $row++;
+                $col++;
             }
             $row = $row + 2;
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
