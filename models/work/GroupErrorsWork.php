@@ -371,6 +371,36 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
+    private function CheckArchive($modelGroupID, $group, $now_time)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 21])->all();
+        $finishDate = date('Y-m-d', strtotime($group->finish_date . '+2 week'));
+
+        foreach ($err as $oneErr)
+        {
+            if ($now_time < $finishDate || $group->archive == 1)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+            else if ($now_time >= $finishDate && $group->archive == 0)
+            {
+                $oneErr->critical = 1;
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $now_time >= $finishDate && $group->archive == 0)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 21;
+            $this->time_start = date("Y.m.d H:i:s");
+            if ($now_time >= date('Y-m-d', strtotime($finishDate . '+1 week')))
+                $this->critical = 1;
+            $this->save();
+        }
+    }
+
     /*-------------------------------------------------*/
 
     public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)   // для проверки при изменении типа помещения
@@ -382,6 +412,13 @@ class GroupErrorsWork extends GroupErrors
 
         foreach ($groupsId as $groupId)
             $this->CheckAuditorium($groupId);
+    }
+
+    public function CheckArchiveTrainingGroup ($modelGroupID)
+    {
+        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
+        $now_time = date("Y-m-d");
+        $this->CheckArchive($modelGroupID, $group, $now_time);
     }
 
     /*public function CheckSchedule ($modelGroupID)   // проверка всего что связано с расписанием учбеной группы
@@ -407,6 +444,7 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckCertificate($modelGroupID, $group, $now_time);
         $this->CheckAuditorium($modelGroupID);
         $this->IncorrectDates($modelGroupID, $group);
+        $this->CheckArchive($modelGroupID, $group, $now_time);
         //$this->TwoPlacesOneTeacher($modelGroupID);
     }
 

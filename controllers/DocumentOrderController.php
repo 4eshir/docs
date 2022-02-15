@@ -414,7 +414,6 @@ class DocumentOrderController extends Controller
         }
         return parent::beforeAction($action);
     }
-
     public function actionAmnesty ($id)
     {
         $errorsAmnesty = new OrderErrorsWork();

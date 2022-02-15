@@ -118,6 +118,7 @@ use yii\widgets\ActiveForm;
                 $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
                 $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
                 $cod = \app\models\work\EventBranchWork::find()->where(['branch_id' => 7])->andWhere(['event_id' => $model->id])->all();
+
                 $value = 'false';
                 ?>
                 <?php if (count($tech) > 0) $value = true; else $value = false; ?>
@@ -134,6 +135,7 @@ use yii\widgets\ActiveForm;
 
                 <?php if (count($cod) > 0) $value = true; else $value = false; ?>
                 <?= $form->field($model, 'isCod')->checkbox(['checked' => $value]) ?>
+
             </div>
         </div>
     </div>
@@ -291,6 +293,8 @@ use yii\widgets\ActiveForm;
         echo '<table>';
         for ($i = 0; $i < count($split) - 1; $i++)
         {
+            echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'report'])).'</td></tr>';
+
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['event/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'other'])).'</td></tr>';
         }
         echo '</table>';

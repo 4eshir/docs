@@ -13,6 +13,11 @@ $this->title = 'Учебные группы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<?php/*
+$access = [23, 25];
+$isMethodist = \app\models\common\AccessLevel::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'access_id', $access])->one();
+*/?>
+
 
 <script>
     function archive() {

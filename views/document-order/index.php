@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $gridColumns = [
         ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-        ['attribute' => 'order_number', 'label' => 'Номер приказа'],
+        ['attribute' => 'documentNumberStringgit ', 'label' => 'Номер приказа'],
         ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
         ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
         {
@@ -90,6 +90,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //    return ['class' => 'warning'];
             else if ($data['errorsWork'] !== '')
                 return ['class' => 'danger'];
+            else if ($data['changeDocs'] != '')
+                return ['class' => 'warning'];
             else
                 return ['class' => 'default'];
 

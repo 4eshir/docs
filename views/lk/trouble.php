@@ -23,7 +23,10 @@ use app\models\work\UserWork;
         <?php
             $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
             $errors = new ErrorsWork();
+
+            //echo $errors->ErrorsElectronicJournalSubsystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
             echo $errors->ErrorsSystem($user, 0);    // если второй параметр 0, то выводим все ошибки, если 1, то только критические
+
         ?>
     </div>
     <div>
@@ -141,6 +144,7 @@ use app\models\work\UserWork;
         const newRowsPr = Array.from(rowsPr);
         const newRowsDocOrd = Array.from(rowsDocOrd);
 
+
         newRowsGr.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
             const cellB = rowB.querySelectorAll('td')[index].innerHTML;
@@ -161,6 +165,7 @@ use app\models\work\UserWork;
                 case cellA === cellB: return 0;
             }
         });
+
         newRowsDocOrd.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
             const cellB = rowB.querySelectorAll('td')[index].innerHTML;
@@ -172,6 +177,7 @@ use app\models\work\UserWork;
             }
         });
 
+
         // Удалить старые строки
         [].forEach.call(rowsGr, function(row) {
             tableBodyGr.removeChild(row);
@@ -179,14 +185,17 @@ use app\models\work\UserWork;
         [].forEach.call(rowsPr, function(row) {
             tableBodyPr.removeChild(row);
         });
+
         [].forEach.call(rowsDocOrd, function(row) {
             tableBodyDocOrd.removeChild(row);
         });
+
 
         // Поменять направление
         directionsGr[index] = directionGr === 'asc' ? 'desc' : 'asc';
         directionsPr[index] = directionPr === 'asc' ? 'desc' : 'asc';
         directionsDocOrd[index] = directionPr === 'asc' ? 'desc' : 'asc';
+
 
         // Добавить новую строку
         newRowsGr.forEach(function(newRow) {

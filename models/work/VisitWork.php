@@ -19,4 +19,16 @@ class VisitWork extends Visit
         else
             return '<td style="background-color: green"><font color=white>Я</font></td>';
     }
+
+    public function getExcelStatus()
+    {
+        if ($this->status == 1)
+            return 'Н';
+        else if ($this->status == 2)
+            return 'Д';
+        else if ($this->status == 3)
+            return '-';
+        else
+            return 'Я';
+    }
 }

@@ -80,6 +80,7 @@ class TrainingGroupController extends Controller
         $selections = explode(',', $ids);
         $flashStr = "";
         $allGroups = TrainingGroupWork::find()->all();
+        $errors = new GroupErrorsWork();
         foreach ($allGroups as $group) {
             $group->archive = 0;
             $group->save();
@@ -94,6 +95,8 @@ class TrainingGroupController extends Controller
                     $flashStr .= "Группа ".$tag->number." разархивирована\n";
                 else
                     $flashStr .= "Группа ".$tag->number." архивирована\n";
+
+                $errors->CheckArchiveTrainingGroup($tag->id);
             }
         Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
         return $this->redirect(['/training-group/index']);

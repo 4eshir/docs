@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\ExcelWizard;
 use app\models\work\GroupErrorsWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\TrainingGroupLessonWork;
@@ -228,6 +229,11 @@ class JournalController extends Controller
             }
         }
         return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
+    }
+
+    public function actionDownloadExcel($group_id)
+    {
+        ExcelWizard::DownloadJournal($group_id);
     }
 
 
