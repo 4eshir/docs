@@ -159,7 +159,7 @@ class ExcelWizard
                 $i = 0;
                 while ($i < count($lessons) / count($parts))
                 {
-                    for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
+                    for ($k = 0; $k < $onPage; $k++)
                     {
                         //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
 
@@ -167,12 +167,12 @@ class ExcelWizard
                         $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
                         $col++;
                         $counter++;
-
+                        $i++;
                     }
 
-                    $row = $row + $onPage;
+                    $row = $row + count($parts) + 7;
                 }
-                $row = $tempRow;
+                $row = $tempRow + 1;
             }
 
             $row = $row + 2;
