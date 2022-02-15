@@ -135,53 +135,52 @@ class ExcelWizard
         $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
 
         $row = 1;
-        while ($lesCount * $onPage < count($lessons))
+
+        
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО/Занятие');
+        $c = 0;
+        for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО/Занятие');
-            $c = 0;
-            for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
-            {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $c, $row, date("d.m", strtotime($lessons[$i]->lesson_date)));
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->getStyle()->getAlignment()->setTextRotation(90);
-                $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $c)->setWidth('3');
-                $c++;
-            }
-
-
-            $row++;
-            $tempRow = $row;
-            foreach ($parts as $part)
-            {
-                $col = 0;
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
-
-                $i = 0;
-                while ($i < count($lessons) / count($parts))
-                {
-                    for ($k = 0; $k < $onPage; $k++)
-                    {
-                        //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
-
-                        $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
-                        $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
-                        $col++;
-                        $counter++;
-                        $i++;
-                    }
-
-                    $row = $row + count($parts) + 7;
-                }
-                $row = $tempRow + 1;
-            }
-
-            $row = $row + 2;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
-            $row = $row + 2;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
-            $row = $row + 3;
-            $lesCount++;
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $c, $row, date("d.m", strtotime($lessons[$i]->lesson_date)));
+            $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+            $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $c, $row)->getStyle()->getAlignment()->setTextRotation(90);
+            $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $c)->setWidth('3');
+            $c++;
         }
+
+
+        $row++;
+        $tempRow = $row;
+        foreach ($parts as $part)
+        {
+            $col = 0;
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
+
+            $i = 0;
+            while ($i < count($lessons) / count($parts))
+            {
+                for ($k = 0; $k < $onPage; $k++)
+                {
+                    //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
+
+                    $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
+                    $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
+                    $col++;
+                    $counter++;
+                    $i++;
+                }
+
+                $row = $row + count($parts) + 7;
+            }
+            $row = $tempRow + 1;
+        }
+
+        $row = $row + 2;
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
+        $row = $row + 2;
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
+        $row = $row + 3;
+        $lesCount++;
 
 
 
