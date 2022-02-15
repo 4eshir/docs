@@ -106,7 +106,7 @@ class ExcelWizard
 
     static public function DownloadJournal($group_id)
     {
-        $onPage = 40; //количество занятий на одной странице
+        $onPage = 20; //количество занятий на одной странице
         $counter = 0; //основной счетчик для visits
         $lesCount = 0; //счетчик для занятий
         ini_set('memory_limit', '512M');
@@ -150,11 +150,9 @@ class ExcelWizard
 
 
             $row++;
-            $tempRaw = $row;
-            $col = 0;
             foreach ($parts as $part)
             {
-                $row = $tempRaw;
+                $col = 0;
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
 
 
@@ -162,11 +160,11 @@ class ExcelWizard
                 {
                     //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
                     $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
-                    $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row, $visits->excelStatus);
-                    $row++;
+                    $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $col, $row + $lesCount * $onPage, $visits->excelStatus);
+                    $col++;
                     $counter++;
                 }
-                $col++;
+                $row++;
             }
             $row = $row + 2;
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
