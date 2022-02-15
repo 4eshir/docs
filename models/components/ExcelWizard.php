@@ -148,7 +148,7 @@ class ExcelWizard
                 $c++;
             }
 
-
+            $tempRow = 0;
             $row++;
             foreach ($parts as $part)
             {
