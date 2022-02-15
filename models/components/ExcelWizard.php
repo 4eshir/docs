@@ -157,7 +157,7 @@ class ExcelWizard
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $part->participantWork->shortName);
 
                 $i = $lesCount * $onPage;
-                while ($i < count($lessons))
+                while ($i < count($lessons) / count($parts))
                 {
                     for ($i = $lesCount * $onPage; $i < count($lessons) && $i < ($lesCount + 1) * $onPage; $i++)
                     {
