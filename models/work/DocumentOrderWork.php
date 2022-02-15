@@ -31,6 +31,7 @@ class DocumentOrderWork extends DocumentOrder
     public $nomenclature_number;
 
     public $groups_check;
+    public $participants_check;
 
     public $archive_check;
 
@@ -46,7 +47,7 @@ class DocumentOrderWork extends DocumentOrder
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
             [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'study_type', 'archive_check' ], 'integer'],
-            [['order_date', 'allResp', 'groups_check'], 'safe'],
+            [['order_date', 'allResp', 'groups_check', 'participants_check'], 'safe'],
             [['state'], 'boolean'],
             [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
             [['nomenclature_number', 'archive_number'], 'string'],
