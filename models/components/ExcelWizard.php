@@ -147,7 +147,7 @@ class ExcelWizard
 
             for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + (count($parts) * $lesCount) + 1, $parts[$i]->participantWork->shortName);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + (count($parts) * $lesCount) + 2, $parts[$i]->participantWork->shortName);
             }
 
             $lesCount++;
