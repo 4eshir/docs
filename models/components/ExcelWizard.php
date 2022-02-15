@@ -132,22 +132,24 @@ class ExcelWizard
         $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
         $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
 
-
+        $magic = 8; //  смещение между страницами засчет фио+подписи и пустых строк
         while ($lesCount < count($lessons) / $onPage)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + 2) * $lesCount + 1, 'ФИО/Занятие');
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1, 'ФИО/Занятие');
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1 + count($parts) + 3, 'ФИО');
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1 + count($parts) + 5, 'Подпись');
 
             for ($i = 0; $i < $onPage; $i++) //цикл заполнения дат на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1, date("d.m", strtotime($lessons[$i]->lesson_date)));
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1)->getStyle()->getAlignment()->setTextRotation(90);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + $magic) * $lesCount + 1, date("d.m", strtotime($lessons[$i]->lesson_date)));
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + $magic) * $lesCount + 1)->setValueExplicit(date("d.m", strtotime($lessons[$i]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + $magic) * $lesCount + 1)->getStyle()->getAlignment()->setTextRotation(90);
                 $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $i)->setWidth('3');
             }
 
             for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + ((count($parts) + 2) * $lesCount) + 2, $parts[$i]->participantWork->shortName);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + ((count($parts) + $magic) * $lesCount) + 2, $parts[$i]->participantWork->shortName);
             }
 
             $lesCount++;
