@@ -172,9 +172,9 @@ class ExcelWizard
 
                     $row = $row + $onPage;
                 }
-
+                $row = $tempRow;
             }
-            $row = $tempRow;
+
             $row = $row + 2;
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО');
             $row = $row + 2;
