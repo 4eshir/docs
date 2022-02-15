@@ -139,7 +139,7 @@ class ExcelWizard
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1 + count($parts) + 3, 'ФИО');
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1 + count($parts) + 5, 'Подпись');
 
-            for ($i = 0; $i < $onPage; $i++) //цикл заполнения дат на странице
+            for ($i = 0; $i + $lesCount * $onPage < count($lessons) && $i < $onPage; $i++) //цикл заполнения дат на странице
             {
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + $magic) * $lesCount + 1, date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)));
                 $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, (count($parts) + $magic) * $lesCount + 1)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
