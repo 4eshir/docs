@@ -161,7 +161,7 @@ class ExcelWizard
             for ($i = 0; $i < count($lessons) / count($parts); $i++, $delay++)
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, $cp + (count($parts) + $magic) * $lesCount + 1, $visits->excelStatus);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, $cp + (count($parts) + $magic) * $cp + 1, $visits->excelStatus);
             }
         }
         /*$row = 1;
