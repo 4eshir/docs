@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-02-15 08:10:01 [127.0.0.1][-][bd96e39gipo405du2e2oc5l4c8mkih6g][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:151
 Stack trace:
 #0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(528): yii\base\Controller->runAction('program-erros', Array)
@@ -175,6 +176,26 @@ Stack trace:
 2022-02-15 08:14:34 [127.0.0.1][31][hb5j88q2r019kpqvmnvq6evs0kj09hfm][info][application] $_GET = [
     'r' => 'document-order/update'
     'id' => '368'
+=======
+2022-02-15 08:58:27 [127.0.0.1][1][eumcrk4pnpr0lclcdcbfce4sphphatl5][error][yii\base\ErrorException:2] yii\base\ErrorException: Use of undefined constant php - assumed 'php' (this will throw an Error in a future version of PHP) in C:\OpenServer\domains\localhost\docs\views\training-group\index.php:16
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\views\training-group\index.php(16): yii\base\ErrorHandler->handleError(2, 'Use of undefine...', 'C:\\OpenServer\\d...', 16, Array)
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(348): require('C:\\OpenServer\\d...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', Array)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\TrainingGroupController))
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(409): yii\base\View->render('index', Array, Object(app\controllers\TrainingGroupController))
+#5 C:\OpenServer\domains\localhost\docs\controllers\TrainingGroupController.php(74): yii\base\Controller->render('index', Array)
+#6 [internal function]: app\controllers\TrainingGroupController->actionIndex(NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(180): yii\base\InlineAction->runWithParams(Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(528): yii\base\Controller->runAction('index', Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('training-group/...', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#12 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#13 {main}
+2022-02-15 08:58:27 [127.0.0.1][1][eumcrk4pnpr0lclcdcbfce4sphphatl5][info][application] $_GET = [
+    'r' => 'training-group/index'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_POST = []
@@ -182,17 +203,27 @@ $_POST = []
 $_FILES = []
 
 $_COOKIE = [
+<<<<<<< HEAD
     'PHPSESSID' => 'hb5j88q2r019kpqvmnvq6evs0kj09hfm'
     '_csrf' => 'f66cd22d2909c0deeefb95b918feaf8b659c558402de27f635543a15cd1821b3a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"pDSSworl7vrhZDn1-N8KhpjAL0SxXKHy\";}'
+=======
+    'PHPSESSID' => 'eumcrk4pnpr0lclcdcbfce4sphphatl5'
+    '_csrf' => 'c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8C4ExX7O08V3541nR4g9CAm9kilvipzG\";}'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SESSION = [
     '__flash' => []
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
+<<<<<<< HEAD
     '__id' => 31
     '__expire' => 1653542074
     'type' => '2'
+=======
+    '__id' => 1
+    '__expire' => 1653544707
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SERVER = [
@@ -201,6 +232,7 @@ $_SERVER = [
     'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
     'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+<<<<<<< HEAD
     'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Findex&c=2'
     'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
     'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
@@ -211,12 +243,24 @@ $_SERVER = [
     'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
     'WINDIR' => 'C:\\WINDOWS'
+=======
+    'HTTP_REFERER' => 'http://docs/index.php?r=site%2Flogin'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=eumcrk4pnpr0lclcdcbfce4sphphatl5; _csrf=c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228C4ExX7O08V3541nR4g9CAm9kilvipzG%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
     'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -260,6 +304,38 @@ Stack trace:
 2022-02-15 08:18:52 [127.0.0.1][31][hb5j88q2r019kpqvmnvq6evs0kj09hfm][info][application] $_GET = [
     'r' => 'document-order/update'
     'id' => '368'
+=======
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50599'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Findex'
+    'REQUEST_URI' => '/index.php?r=training-group%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1644904707.49
+    'REQUEST_TIME' => 1644904707
+    'argv' => [
+        0 => 'r=training-group%2Findex'
+    ]
+    'argc' => 1
+]
+2022-02-15 08:59:15 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\vendor\phpoffice\phpexcel\Classes\PHPExcel\Shared\OLE\PPS\Root.php on line 223. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:366
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(339): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-02-15 08:59:14 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'training-group/get-kug'
+    'training_group_id' => '15'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_POST = []
@@ -267,22 +343,33 @@ $_POST = []
 $_FILES = []
 
 $_COOKIE = [
+<<<<<<< HEAD
     'PHPSESSID' => 'hb5j88q2r019kpqvmnvq6evs0kj09hfm'
     '_csrf' => 'f66cd22d2909c0deeefb95b918feaf8b659c558402de27f635543a15cd1821b3a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"pDSSworl7vrhZDn1-N8KhpjAL0SxXKHy\";}'
+=======
+    'PHPSESSID' => 'eumcrk4pnpr0lclcdcbfce4sphphatl5'
+    '_csrf' => 'c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8C4ExX7O08V3541nR4g9CAm9kilvipzG\";}'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SESSION = [
     '__flash' => []
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
+<<<<<<< HEAD
     '__id' => 31
     '__expire' => 1653542332
     'type' => '2'
+=======
+    '__id' => 1
+    '__expire' => 1653544754
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
     'HTTP_CONNECTION' => 'keep-alive'
+<<<<<<< HEAD
     'HTTP_CACHE_CONTROL' => 'max-age=0'
     'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
@@ -297,12 +384,27 @@ $_SERVER = [
     'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
     'WINDIR' => 'C:\\WINDOWS'
+=======
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=15'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=eumcrk4pnpr0lclcdcbfce4sphphatl5; _csrf=c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228C4ExX7O08V3541nR4g9CAm9kilvipzG%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
     'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -463,20 +565,75 @@ $_FILES = []
 $_COOKIE = [
     'PHPSESSID' => 'hb5j88q2r019kpqvmnvq6evs0kj09hfm'
     '_csrf' => 'f66cd22d2909c0deeefb95b918feaf8b659c558402de27f635543a15cd1821b3a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"pDSSworl7vrhZDn1-N8KhpjAL0SxXKHy\";}'
+=======
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50598'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fget-kug&training_group_id=15'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fget-kug&training_group_id=15'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1644904754.801
+    'REQUEST_TIME' => 1644904754
+    'argv' => [
+        0 => 'r=training-group%2Fget-kug&training_group_id=15'
+    ]
+    'argc' => 1
+]
+2022-02-15 09:00:00 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\vendor\phpoffice\phpexcel\Classes\PHPExcel\Writer\Excel2007.php on line 394. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:366
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(339): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-02-15 08:59:59 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/effective-contract'
+]
+
+$_POST = [
+    '_csrf' => 'SlTSP2s20kkAbsGfBnNI0O025cHFXgdgS17YwUV-uoVyF-Z6E27lBjBWl6wzR3m-vwKC-IYfalkgN7S3LA7Awg=='
+    'ForeignEventReportModel' => [
+        'start_date' => '2021-02-01'
+        'end_date' => '2022-02-01'
+        'budget' => [
+            0 => '1'
+        ]
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'eumcrk4pnpr0lclcdcbfce4sphphatl5'
+    '_csrf' => 'c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8C4ExX7O08V3541nR4g9CAm9kilvipzG\";}'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SESSION = [
     '__flash' => []
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
+<<<<<<< HEAD
     '__id' => 31
     '__expire' => 1653542447
     'type' => '2'
+=======
+    '__id' => 1
+    '__expire' => 1653544799
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
     'HTTP_CONNECTION' => 'keep-alive'
+<<<<<<< HEAD
     'HTTP_CACHE_CONTROL' => 'max-age=0'
     'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
@@ -491,12 +648,31 @@ $_SERVER = [
     'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
     'WINDIR' => 'C:\\WINDOWS'
+=======
+    'CONTENT_LENGTH' => '279'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Feffective-contract'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=eumcrk4pnpr0lclcdcbfce4sphphatl5; _csrf=c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228C4ExX7O08V3541nR4g9CAm9kilvipzG%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
     'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -581,6 +757,38 @@ Array
 2022-02-15 08:22:04 [127.0.0.1][31][hb5j88q2r019kpqvmnvq6evs0kj09hfm][info][application] $_GET = [
     'r' => 'document-order/update'
     'id' => '368'
+=======
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50598'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Feffective-contract'
+    'REQUEST_URI' => '/index.php?r=report-form%2Feffective-contract'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1644904799.836
+    'REQUEST_TIME' => 1644904799
+    'argv' => [
+        0 => 'r=report-form%2Feffective-contract'
+    ]
+    'argc' => 1
+]
+2022-02-15 09:24:19 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\vendor\phpoffice\phpexcel\Classes\PHPExcel\Shared\OLE\PPS\Root.php on line 223. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:366
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(339): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-02-15 09:24:18 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'training-group/get-kug'
+    'training_group_id' => '15'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_POST = []
@@ -588,22 +796,34 @@ $_POST = []
 $_FILES = []
 
 $_COOKIE = [
+<<<<<<< HEAD
     'PHPSESSID' => 'hb5j88q2r019kpqvmnvq6evs0kj09hfm'
     '_csrf' => 'f66cd22d2909c0deeefb95b918feaf8b659c558402de27f635543a15cd1821b3a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"pDSSworl7vrhZDn1-N8KhpjAL0SxXKHy\";}'
+=======
+    'PHPSESSID' => 'eumcrk4pnpr0lclcdcbfce4sphphatl5'
+    '_csrf' => 'c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8C4ExX7O08V3541nR4g9CAm9kilvipzG\";}'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SESSION = [
     '__flash' => []
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
+<<<<<<< HEAD
     '__id' => 31
     '__expire' => 1653542524
     'type' => '2'
+=======
+    '__id' => 1
+    '__expire' => 1653546258
+    'show' => 'common'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
     'HTTP_CONNECTION' => 'keep-alive'
+<<<<<<< HEAD
     'HTTP_CACHE_CONTROL' => 'max-age=0'
     'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
@@ -5001,12 +5221,27 @@ $_SERVER = [
     'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
     'WINDIR' => 'C:\\WINDOWS'
+=======
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=15'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=eumcrk4pnpr0lclcdcbfce4sphphatl5; _csrf=c96a0f4f37ee4ebd4c37afc4558450b1cda17171b7585c5fc0d26a8fced01eaca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228C4ExX7O08V3541nR4g9CAm9kilvipzG%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
     'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -5025,6 +5260,26 @@ $_SERVER = [
     'REQUEST_TIME' => 1644927000
     'argv' => [
         0 => 'r=daemon/program-erros'
+=======
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50858'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fget-kug&training_group_id=15'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fget-kug&training_group_id=15'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1644906258.92
+    'REQUEST_TIME' => 1644906258
+    'argv' => [
+        0 => 'r=training-group%2Fget-kug&training_group_id=15'
+>>>>>>> 3b8bb8917051baaf5a191061f84e3ebaeae3fb28
     ]
     'argc' => 1
 ]

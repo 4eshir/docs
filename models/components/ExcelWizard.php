@@ -69,7 +69,8 @@ class ExcelWizard
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
 
 
-        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])->all();
+        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
+                                        ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
         $c = 1;
 
         foreach ($lessons as $lesson)
