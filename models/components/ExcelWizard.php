@@ -135,6 +135,8 @@ class ExcelWizard
 
         while ($lesCount < count($lessons) / $onPage)
         {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + 2) * $lesCount + 1, 'ФИО/Занятие');
+
             for ($i = 0; $i < $onPage; $i++) //цикл заполнения дат на странице
             {
                 $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i, (count($parts) + 2) * $lesCount + 1, date("d.m", strtotime($lessons[$i]->lesson_date)));
@@ -143,9 +145,9 @@ class ExcelWizard
                 $inputData->getActiveSheet()->getColumnDimensionByColumn(1 + $i)->setWidth('3');
             }
 
-            for($i = 0; $i < count($parts); $i++)
+            for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + (count($parts) * $lesCount), $parts[$i]->participantWork->shortName);
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + (count($parts) * $lesCount) + 1, $parts[$i]->participantWork->shortName);
             }
 
             $lesCount++;
