@@ -133,7 +133,7 @@ class ExcelWizard
         $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
 
         $magic = 8; //  смещение между страницами засчет фио+подписи и пустых строк
-        while ($lesCount < count($lessons) / $onPage)
+        while ($lesCount < count($lessons))
         {
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1, 'ФИО/Занятие');
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, (count($parts) + $magic) * $lesCount + 1 + count($parts) + 3, 'ФИО');
