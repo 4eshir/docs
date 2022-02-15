@@ -158,10 +158,12 @@ class ExcelWizard
         $delay = 0;
         for ($cp = 0; $cp < count($parts); $cp++)
         {
+            $pages = 0;
             for ($i = 0; $i < count($lessons) / count($parts); $i++, $delay++)
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, $cp + (count($parts) + $magic) * $cp + 1, $visits->excelStatus);
+                if ($i % $onPage === 0 && $i !== 0) $pages++;
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, 2 + $cp + $pages * (count($parts) + $magic), $visits->excelStatus);
             }
         }
         /*$row = 1;
