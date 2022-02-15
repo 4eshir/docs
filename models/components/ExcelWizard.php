@@ -106,7 +106,7 @@ class ExcelWizard
 
     static public function DownloadJournal($group_id)
     {
-        $onPage = 59; //количество занятий на одной странице
+        $onPage = 40; //количество занятий на одной странице
         $counter = 0; //основной счетчик для visits
         $lesCount = 0; //счетчик для занятий
         ini_set('memory_limit', '512M');
