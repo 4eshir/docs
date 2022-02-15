@@ -29,6 +29,7 @@ use yii\helpers\Html;
 use yii\queue\db\Queue;
 use app\models\common;
 
+const _MAX_FILE_SIZE = 26214400;
 
 class TrainingGroupWork extends TrainingGroup
 {
@@ -69,7 +70,7 @@ class TrainingGroupWork extends TrainingGroup
             [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
             [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => 26214400],
             [['presentDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
-            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
+            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'maxSize' => 524288000, 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => 26214400, 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgramWork::className(), 'targetAttribute' => ['training_program_id' => 'id']],
@@ -403,6 +404,11 @@ class TrainingGroupWork extends TrainingGroup
         if (strlen($this->work_data) > 3)
             $counter = count(explode(" ", $this->work_data)) - 1;
         foreach ($this->workDataFile as $file) {
+            if ($file->size > _MAX_FILE_SIZE)
+            {
+                var_dump('its so big!');
+            }
+
             $counter++;
             $date = $this->start_date;
             $new_date = '';
