@@ -135,7 +135,6 @@ class ExcelWizard
         $groups = \app\models\components\RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId());
 
         $row = 1;
-        var_dump($model->visits_id);
         while ($lesCount * $onPage < count($lessons))
         {
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'ФИО/Занятие');
