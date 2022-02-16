@@ -43,9 +43,9 @@ class DocumentInController extends Controller
      * Lists all DocumentIn models.
      * @return mixed
      */
-    public function actionIndex($sort = null)
+    public function actionIndex($sort = null, $archive = null)
     {
-        $searchModel = new SearchDocumentIn();
+        $searchModel = new SearchDocumentIn($archive);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 
         return $this->render('index', [
