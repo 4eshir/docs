@@ -245,6 +245,8 @@ class ExcelWizard
         foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
 
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
+        $inputData->getActiveSheet()->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 5, count($participants));
         //----------------------------
 
