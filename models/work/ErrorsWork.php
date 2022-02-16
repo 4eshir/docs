@@ -149,36 +149,46 @@ class ErrorsWork extends Errors
         return $result;
     }
 
-    public function EducationalCriticalMessage($user, $functions)
+    public function SystemCriticalMessage($user, $functions)
     {
         $result = '';
         $groups = '';
         $programs = '';
+        $orders = '';
         $groupsSet = TrainingGroupWork::find();
         $programsSet = TrainingProgramWork::find();
+        $ordersSet = DocumentOrderWork::find();
 
-        foreach ($functions as $function)
-        {
-            if ($function == 12)
-                $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
-            else if ($function == 15 || $function == 13)
-            {
-                $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
-                if ($function == 13)
-                    $groups = $groupsSet->where(['branch_id' => $branch])->all();
-                else
-                    $programs = $programsSet->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
-            }
-            else if ($function == 14)
-                $groups = $groupsSet->all();
-            else if ($function == 16)
-                $programs = $programsSet->where(['actual' => 1])->all();
-        }
+        $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
 
-        if ($groups !== '' || $programs !== '')
+        // Образовательные программы
+        if (count(array_intersect([16], $functions)) > 0)
+            $programs = $programsSet->where(['actual' => 1])->all();
+        else if (count(array_intersect([15], $functions)) > 0)
+            $programs = $programsSet->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->andWhere(['actual' => 1])->all();
+
+        // Учебные группы
+        if (count(array_intersect([14], $functions)) > 0)
+            $groups = $groupsSet->all();
+        else if (count(array_intersect([13], $functions)) > 0)
+            $groups = $groupsSet->where(['branch_id' => $branch])->all();
+        else if (count(array_intersect([12], $functions)) > 0)
+            $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+
+        // Приказы
+        if (count(array_intersect([32], $functions)) > 0 && count(array_intersect([24], $functions)) > 0)
+            $orders = $ordersSet->all();
+        else if (count(array_intersect([32], $functions)) > 0)
+            $orders = $ordersSet->where(['type' => 1])->orWhere(['type' => 10])->all();
+        else if (count(array_intersect([24], $functions)) > 0)
+            $orders = $ordersSet->where(['nomenclature_id' => $branch])->andWhere(['IN', 'id',
+                (new Query())->select('id')->from('document_order')->where(['type' => 0])->orWhere(['type' => 11])])->all();
+
+
+        if ($groups !== '' || $programs !== '' || $orders !== '')
         {
             $result .= '<table id="training-group" class="table table-bordered">';
-            $result .= '<h4 style="text-align: center;"><u>Ошибки ЦСХД связанные с процессом обучения (учебные группы, электронный журнал и образовательные программы)</u></h4>';
+            $result .= '<h4 style="text-align: center;"><u>Ошибки ЦСХД связанные с некорректно заполненными данными</u></h4>';
             $result .= '<thead>';
             $result .= '<th style="vertical-align: middle; width: 110px;"><b>Код проблемы</b></th>';
             $result .= '<th style="vertical-align: middle; width: 400px;"><b>Описание проблемы</b></th>';
@@ -234,13 +244,32 @@ class ErrorsWork extends Errors
                 }
             }
 
+            if ($orders !== '')
+            {
+                $errorsListSet = OrderErrorsWork::find();
+                $branchsSet = BranchWork::find();
+                foreach ($orders as $order)
+                {
+                    $errorsList = $errorsListSet->where(['document_order_id' => $order->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                    $branchs = $branchsSet->where(['id' => $order->nomenclature_id])->one();
+                    foreach ($errorsList as $error)
+                    {
+                        $result .= '<tr>';
+                        $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                        $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                        $result .= '<td>' . $errorName->name . '</td>';
+                        $result .= '<td>' . $order->order_name . '</td>';
+                        $result .= '<td>' . $branchs->name . '</td>';
+                        $result .= '</tr>';
+                    }
+                }
+            }
+
             $result .= '</tbode></table>';
         }
 
         return $result;
     }
-
-    /*       Электронный документооборот        */
 
     private function ErrorsToDocumentOrder ($user)
     {

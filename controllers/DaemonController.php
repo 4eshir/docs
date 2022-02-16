@@ -77,18 +77,18 @@ class DaemonController extends Controller
                 foreach ($function as $oneFunction)
                     $functions[] = $oneFunction->role_function_id;
             }
-            $functions = array_unique(array_intersect($functions, [12, 13, 14, 15, 16]), SORT_NUMERIC);
+            $functions = array_unique(array_intersect($functions, [12, 13, 14, 15, 16, 24, 32]), SORT_NUMERIC);
 
             if (count($functions) !== 0)
             {
                 asort($functions);
 
                 $errors = new ErrorsWork();
-                $errorsTraining = $errors->EducationalCriticalMessage($user, $functions);
-                if ($errorsTraining !== '')
+                $errorsSystem = $errors->SystemCriticalMessage($user, $functions);
+                if ($errorsSystem !== '')
                 {
                     $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
-                    $string .= $errorsTraining . '</div>';   // тут будет лежать всё то, что отправится пользователю
+                    $string .= $errorsSystem . '</div>';   // тут будет лежать всё то, что отправится пользователю
                     $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                     $string .= '<br>---------------------------------------------------------------------------';
                     $messages[] = Yii::$app->mailer->compose()
