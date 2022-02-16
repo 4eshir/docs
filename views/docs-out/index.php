@@ -18,6 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить исходящий документ', ['docs-out/create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
         <?= Html::a('Добавить резерв', ['docs-out/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
+        <?php
+        if ($searchModel->archive === null)
+            echo Html::a('Показать архивные документы', ['docs-out/index', 'archive' => 1], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
+        else
+            echo Html::a('Скрыть архивные документы', ['docs-out/index'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
+        ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
     <?php

@@ -59,9 +59,9 @@ class DocsOutController extends Controller
      * Lists all DocumentOut models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($archive = null)
     {
-        $searchModel = new SearchDocumentOut();
+        $searchModel = new SearchDocumentOut($archive);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

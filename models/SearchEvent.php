@@ -6,6 +6,7 @@ use app\models\work\EventBranchWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\EventWork;
+use yii\db\Query;
 
 /**
  * SearchEvent represents the model behind the search form of `app\models\common\Event`.
@@ -18,6 +19,9 @@ class SearchEvent extends EventWork
     public $eventLevelString;
     public $orderString;
     public $regulationString;
+
+    public $start_date_search;
+    public $finish_date_search;
     /**
      * {@inheritdoc}
      */
@@ -25,7 +29,7 @@ class SearchEvent extends EventWork
     {
         return [
             [['id', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'eventBranchs'], 'integer'],
-            [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name'], 'safe'],
+            [['start_date', 'finish_date', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'start_date_search', 'finish_date_search'], 'safe'],
             [['responsibleString', 'eventLevelString', 'orderString', 'regulationString'], 'string']
         ];
     }
@@ -55,6 +59,14 @@ class SearchEvent extends EventWork
             $eIds = [];
             foreach ($ebs as $eb) $eIds[] = $eb->event_id;
             $query = EventWork::find()->where(['IN', 'event.id', $eIds]);
+        }
+
+        if (strlen($params["SearchEvent"]["start_date_search"]) > 9 && strlen($params["SearchEvent"]["finish_date_search"]) > 9)
+        {
+            $query = $query->andWhere(['IN', 'event.id',
+                (new Query())->select('event.id')->from('event')->where(['>=', 'start_date', $params["SearchEvent"]["start_date_search"]])
+                    ->andWhere(['<=', 'finish_date', $params["SearchEvent"]["finish_date_search"]])]);
+
         }
 
         //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)
