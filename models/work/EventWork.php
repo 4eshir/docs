@@ -106,6 +106,7 @@ class EventWork extends Event
             'others' => 'Кол-во иных',
             'leftAge' => 'Возраст детей: минимальный, лет',
             'rightAge' => 'Возраст детей: максимальный, лет',
+            'formatString' => 'Формат проведения',
         ];
     }
 
