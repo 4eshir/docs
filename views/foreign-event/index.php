@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <!--<div style="margin: 0 118%;">
+        <div class="" data-html="true" style="position: fixed; z-index: 101; width: 30px; height: 30px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Желтый цвет - карточка учета достижений имеет ошибку">❔</div>
+    </div>-->
+
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?php
@@ -56,6 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            if ($data['errorsWork'] !== '')
+                return ['class' => 'warning'];
+        },
         'columns' => [
 
             'name',

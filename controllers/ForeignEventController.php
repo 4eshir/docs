@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\components\RoleBaseAccess;
+use app\models\work\ForeignEventErrorsWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
@@ -191,6 +192,13 @@ class ForeignEventController extends Controller
     public function actionCreateTeam()
     {
         var_dump('lol');
+    }
+
+    public function actionAmnesty ($id)
+    {
+        $errorsAmnesty = new ForeignEventErrorsWork();
+        $errorsAmnesty->ForeignEventAmnesty($id);
+        return $this->redirect('index?r=foreign-event/view&id='.$id);
     }
 
     public function actionDeleteParticipant($id, $model_id)
