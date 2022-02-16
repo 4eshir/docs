@@ -61,6 +61,15 @@ use yii\widgets\ActiveForm;
 
     ?>
 
+    <?php
+    $items = array('0' => 'Очный', '1' => 'Заочный', '2' => 'Очно-заочный');
+    $params = [
+    ];
+
+    echo $form->field($model, 'format')->dropDownList($items,$params)->label('Формат проведения');
+
+    ?>
+
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?php

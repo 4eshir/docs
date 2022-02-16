@@ -49,7 +49,7 @@ class EventWork extends Event
             [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
             [['responsibleString', 'eventLevelString'], 'string'],
-            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant','isCod', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
+            [['format', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant','isCod', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'old_name'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
@@ -63,6 +63,57 @@ class EventWork extends Event
             [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['otherFiles'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'start_date' => 'Дата начала',
+            'finish_date' => 'Дата окончания',
+            'event_type_id' => 'Тип мероприятия',
+            'event_form_id' => 'Форма мероприятия',
+            'address' => 'Адрес проведения',
+            'event_level_id' => 'Уровень мероприятия',
+            'participants_count' => 'Кол-во участников',
+            'is_federal' => 'Входит в ФП',
+            'responsible_id' => 'Ответственный(-ые) работник(-и)',
+            'responsible2_id' => 'Ответственный работник',
+            'key_words' => 'Ключевые слова',
+            'comment' => 'Примечание',
+            'order_id' => 'Приказ',
+            'regulation_id' => 'Положение',
+            'protocol' => 'Протоколы',
+            'photos' => 'Фотоматериалы',
+            'reporting_doc' => 'Явочный документ',
+            'other_files' => 'Другие файлы',
+            'protocolFile' => 'Протокол мероприятия',
+            'reportingFile' => 'Явочные документы',
+            'photoFiles' => 'Фотоматериалы',
+            'otherFiles' => 'Другие файлы',
+            'name' => 'Название мероприятия',
+            'isTechnopark' => 'Технопарк',
+            'isQuantorium' => 'Кванториум',
+            'isMobQuant' => 'Мобильный кванториум',
+            'isCDNTT' => 'ЦДНТТ',
+            'isCod' => 'Центр одаренных детей',
+            'contains_education' => 'Содержит образовательные программы',
+            'yesEducation' => 'Содержит образовательные программы',
+            'noEducation' => 'Не содержит образовательные программы',
+            'childs' => 'Кол-во детей',
+            'childs_rst' => 'В т.ч. обучающихся РШТ',
+            'teachers' => 'Кол-во педагогов',
+            'others' => 'Кол-во иных',
+            'leftAge' => 'Возраст детей: минимальный, лет',
+            'rightAge' => 'Возраст детей: максимальный, лет',
+        ];
+    }
+
+    public function getFormatString()
+    {
+        if ($this->format === 0) return 'Очный';
+        if ($this->format === 1) return 'Заочный';
+        if ($this->format === 2) return 'Очно-заочный';
     }
 
     public function getEventTypeString()

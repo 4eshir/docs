@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'finish_date',
             ['attribute' => 'event_type_id', 'value' => $model->eventType->name],
             ['attribute' => 'event_form_id', 'value' => $model->eventForm->name],
+            'formatString',
             'address',
             ['attribute' => 'event_level_id', 'value' => $model->eventLevel->name],
             'participants_count',
