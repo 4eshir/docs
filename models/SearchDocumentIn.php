@@ -24,13 +24,14 @@ class SearchDocumentIn extends DocumentInWork
     public $finish_date_search;
 
     public $fullNumber;
+    public $archive;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id'], 'integer'],
+            [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id', 'archive'], 'integer'],
             [['real_number', 'fullNumber'], 'string'],
             [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName',
                 'start_date_search', 'finish_date_search'], 'safe'],
@@ -44,6 +45,12 @@ class SearchDocumentIn extends DocumentInWork
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    function __construct($archive = null)
+    {
+        //parent::__construct($config);
+        $this->archive = $archive;
     }
 
     /**
@@ -90,17 +97,29 @@ class SearchDocumentIn extends DocumentInWork
         $query->joinWith(['company']);
         $query->joinWith(['sendMethod']);
 
+        if ($this->archive === null)
+        {
+            $query = $query->where(['>', 'local_date', date("Y").'.01.01']);
+            //var_dump($query->createCommand()->getRawSql());
+        }
+
         if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
         {
-            $query = $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
+            $query = $this->archive === null ?
+                $query->andWhere(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]])
+                : $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
         }
         else if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) < 9)
         {
-            $query = $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]]);
+            $query = $this->archive === null ?
+                $query->andWhere(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])
+                : $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]]);
         }
         else if (strlen($params["SearchDocumentIn"]["start_date_search"]) < 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
         {
-            $query = $query->where(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
+            $query = $this->archive === null ?
+                $query->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]])
+                : $query->where(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
         }
 
 
