@@ -15,6 +15,14 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+    <?php
+    $branch = \app\models\work\BranchWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, 'branchSearch')->dropDownList($items, $params)->label('Отдел');
+    ?>
 
     <?php
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
