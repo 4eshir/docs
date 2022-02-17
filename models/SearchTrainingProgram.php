@@ -6,6 +6,7 @@ use app\models\common\Focus;
 use app\models\common\People;
 use app\models\common\ThematicDirection;
 use app\models\work\AuthorProgramWork;
+use app\models\work\BranchProgramWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\TrainingProgramWork;
@@ -16,6 +17,7 @@ use app\models\work\TrainingProgramWork;
 class SearchTrainingProgram extends TrainingProgramWork
 {
     public $authorSearch;
+    public $branchSearch;
     /**
      * {@inheritdoc}
      */
@@ -23,7 +25,7 @@ class SearchTrainingProgram extends TrainingProgramWork
     {
         return [
             [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote', 'name'], 'safe'],
-            [['authorSearch'], 'integer'],
+            [['authorSearch', 'branchSearch'], 'integer'],
         ];
     }
 
@@ -52,7 +54,18 @@ class SearchTrainingProgram extends TrainingProgramWork
             $authors = AuthorProgramWork::find()->where(['author_id' => $params["SearchTrainingProgram"]["authorSearch"]])->all();
             $aIds = [];
             foreach ($authors as $author) $aIds[] = $author->training_program_id;
-            $query = TrainingProgramWork::find()->where(['IN', 'training_program.id', $aIds]);
+            $query = $query->where(['IN', 'training_program.id', $aIds]);
+        }
+
+        if ($params["SearchTrainingProgram"]["branchSearch"] != null)
+        {
+            $branchs = BranchProgramWork::find()->where(['branch_id' => $params["SearchTrainingProgram"]["branchSearch"]])->all();
+            $aIds = [];
+            foreach ($branchs as $branch) $aIds[] = $branch->training_program_id;
+            if ($params["SearchTrainingProgram"]["authorSearch"] != null)
+                $query = TrainingProgramWork::find()->andWhere(['IN', 'training_program.id', $aIds]);
+            else
+                $query = TrainingProgramWork::find()->where(['IN', 'training_program.id', $aIds]);
         }
 
         // add conditions that should always apply here
