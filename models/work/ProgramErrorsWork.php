@@ -146,6 +146,51 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
+    private function CheckBranch ($modelProgramID)
+    {
+        $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 28])->all();
+        $branchsCount = count(BranchProgramWork::find()->where(['training_program_id' => $modelProgramID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($branchsCount > 0)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $branchsCount == 0) // не заполнено утп
+        {
+            $this->training_program_id = $modelProgramID;
+            $this->errors_id = 28;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckDatePedCouncil ($modelProgramID, $program)
+    {
+        $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 29])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($program->ped_council_date !== NULL)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $program->ped_council_date === NULL) // не заполнено утп
+        {
+            $this->training_program_id = $modelProgramID;
+            $this->errors_id = 29;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsTrainingProgram($modelProgramID)
     {
         $program = TrainingProgramWork::find()->where(['id' => $modelProgramID])->one();
@@ -156,6 +201,8 @@ class ProgramErrorsWork extends ProgramErrors
         $this->CheckControl($modelProgramID, $tp);
         $this->CheckThematicDirection($modelProgramID, $program);
         $this->CheckAuthors($modelProgramID);
+        $this->CheckBranch($modelProgramID);
+        $this->CheckDatePedCouncil($modelProgramID, $program);
     }
 
     public function CheckErrorsTrainingProgramWithoutAmnesty($modelProgramID)
