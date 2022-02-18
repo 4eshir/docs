@@ -24,7 +24,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php
+        $error = $model->getErrorsWork();
+        if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7)))
+            echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
+                'data' => [
+                    'confirm' => 'Вы действительно хотите простить все ошибки в мероприятии?',
+                    'method' => 'post',
+                ],]);
+        ?>
     </p>
+
+    <div class="content-container" style="color: #ff0000; font: 18px bold;">
+        <?php
+        $error = $model->getErrorsWork();
+        if ($error != '')
+        {
+            echo '<p style="">';
+            echo $error;
+            echo '</p>';
+        }
+        ?>
+    </div>
 
     <?= DetailView::widget([
         'model' => $model,

@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
             if ($data['state'] == 0)
-                return ['class' => 'danger'];
+                return ['style' => 'background: #c0c0c0']; //return ['class' => 'danger'];
             else
                 return ['class' => 'default'];
         },

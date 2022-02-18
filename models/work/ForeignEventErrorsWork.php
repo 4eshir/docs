@@ -72,10 +72,10 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         }
     }
 
-    private function CheckParticipant ($modelForeignEventID, $participant)
+    private function CheckParticipant ($modelForeignEventID, $participants)
     {
         $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 24])->all();
-        $participantCount = count($participant);
+        $participantCount = count($participants);
 
         foreach ($err as $oneErr)
         {
@@ -183,6 +183,50 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         }
     }
 
+    private function CheckCompany ($modelForeignEventID, $foreignEvent)
+    {
+        $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 30])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($foreignEvent->company_id !== NULL)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && $foreignEvent->company_id === NULL)
+        {
+            $this->foreign_event_id = $modelForeignEventID;
+            $this->errors_id = 30;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckEventWay ($modelForeignEventID, $foreignEvent)
+    {
+        $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 31])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($foreignEvent->event_way_id !== NULL)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && $foreignEvent->event_way_id === NULL)
+        {
+            $this->foreign_event_id = $modelForeignEventID;
+            $this->errors_id = 31;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsForeignEvent ($modelForeignEventID)
     {
         $foreignEvent = ForeignEventWork::find()->where(['id' => $modelForeignEventID])->one();
@@ -194,6 +238,8 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         $this->CheckParticipantGroup($modelForeignEventID, $foreignEvent, $participants);
         $this->CheckAchievement($modelForeignEventID);
         $this->CheckDoc($modelForeignEventID, $foreignEvent);
+        $this->CheckCompany($modelForeignEventID, $foreignEvent);
+        $this->CheckEventWay($modelForeignEventID, $foreignEvent);
     }
 
     public function CheckErrorsForeignEventWithoutAmnesty ($modelForeignEventID)

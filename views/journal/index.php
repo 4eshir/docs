@@ -160,7 +160,3 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     echo '</table></div>';
 ?>
-
-<?php
-echo Html::a("Скачать электронный журнал", \yii\helpers\Url::to(['journal/download-excel', 'group_id' => $model->trainingGroup]), ['class'=>'btn btn-success'])
-?>

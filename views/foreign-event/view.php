@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7)))
             echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
                 'data' => [
-                    'confirm' => 'Вы действительно хотите простить в приказе все ошибки?',
+                    'confirm' => 'Вы действительно хотите простить все ошибки в карточке учета мероприятия?',
                     'method' => 'post',
                 ],]);
         ?>
