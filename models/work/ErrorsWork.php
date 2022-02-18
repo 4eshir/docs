@@ -126,8 +126,11 @@ class ErrorsWork extends Errors
                     $result .= '<td>' . $errorName->name . '</td>';
                     $result .= '<td>' . Html::a($program->name, \yii\helpers\Url::to(['training-program/view', 'id' => $program->id])) . '</td>';
                     $result .= '<td>';
-                    foreach ($branchs as $branch)
-                        $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])) . '<br>';
+                    if (count($branchs) !== 0)
+                        foreach ($branchs as $branch)
+                            $result .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])) . '<br>';
+                    else
+                        $result .= '<p style="color: red;">не указан</p>';
                     $result .= '</td>';
                     $result .= '</tr>';
                 }
@@ -146,6 +149,9 @@ class ErrorsWork extends Errors
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToDocumentOrder($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        //$result .= $this->ErrorsToEventAndForeignEvent($user);
         return $result;
     }
 
@@ -321,6 +327,104 @@ class ErrorsWork extends Errors
                     $result .= '</tr>';
                 }
             }
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
+
+    private function ErrorsToEventAndForeignEvent($user)
+    {
+        $result = '';
+        $events = '';
+        $foreignEvents = '';
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 3)) // значит информатор по мероприятиям
+        {
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $events = EventWork::find()->where(['IN', 'id',
+                            (new Query())->select('id')->from('event_branch')->where(['branch_id' => $branch])])->all();
+            $foreignEvents = ForeignEventWork::find()->where(['IN', 'id',
+                (new Query())->select('id')->from('teacher_participant')->where(['branch_id' => $branch])])->all();
+        }
+        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))   // значит админ
+        {
+            $events = EventWork::find()->all();
+            $foreignEvents = ForeignEventWork::find()->all();
+        }
+
+        if ($events !== '' || $foreignEvents !== '')
+        {
+            $result .= '<table id="event" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(3)">Ошибки в мероприятиях</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+            foreach ($events as $event)
+            {
+                $errorsList = EventErrorsWork::find()->where(['event_id' => $event->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                $branchsEvent = EventBranchWork::find()->where(['event_id' => $event->id])->all();
+                $branchsName = BranchWork::find();
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($event->name, \yii\helpers\Url::to(['event/view', 'id' => $event->id])) . '</td>';
+                    $result .= '<td>';
+                    if (count($branchsEvent) !== 0)
+                        foreach ($branchsEvent as $branchName)
+                        {
+                            $result .= Html::a($branchsName->where(['id' => $branchName->branch_id])->one()->name, \yii\helpers\Url::to(['branch/view', 'id' => $branchName->branch_id])) . '<br>';
+                        }
+                    else
+                        $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
+            foreach ($foreignEvents as $foreignEvent)
+            {
+                $errorsList = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $foreignEvent->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                $branchsEvent = TeacherParticipantWork::find()->where(['foreign_event_id' => $foreignEvent->id])->all();
+                $branchsName = BranchWork::find();
+                $branchsSet = [];
+                foreach ($branchsEvent as $branch)
+                {
+                    $branchsSet[] = $branch->branch_id;
+                }
+                if (count($branchsSet) > 1)
+                    $branchsSet = array_unique($branchsSet);
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $foreignEvent->id])) . '</td>';
+                    $result .= '<td>';
+                    if (count($branchsSet) !== 0)
+                        foreach ($branchsSet as $branchID)
+                        {
+                            $result .= Html::a($branchsName->where(['id' => $branchID])->one()->name, \yii\helpers\Url::to(['branch/view', 'id' => $branchID])) . '<br>';
+                        }
+                    else
+                        $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
             $result .= '</tbody></table>';
         }
         return $result;
