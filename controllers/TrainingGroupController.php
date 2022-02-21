@@ -255,8 +255,8 @@ class TrainingGroupController extends Controller
                 $model->uploadPhotosFile(10);
             if ($model->presentDataFile !== null)
                 $model->uploadPresentDataFile(10);
-            //if ($model->workDataFile !== null)
-            //    $model->uploadWorkDataFile(10);
+            if ($model->workDataFile !== null)
+                $model->uploadWorkDataFile(10);
             if ($model->fileParticipants !== null)
                 $model->uploadFileParticipants();
             if ($model->certFile !== null)
