@@ -431,10 +431,62 @@ class ExcelWizard
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOP.xlsx');
         //var_dump($inputData);
 
-        //Получаем количество учеников
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, '2222');
+        //Получаем количество учеников по техническим программам
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 1])->all();
+        $groupsId = [];
+        foreach ($groups as $group) $groupsId[] = $group->id;
+
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
+        $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['participant.sex' => 'Женский'])->all();
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($participants2));
 
         //----------------------------------
+
+        //Получаем количество учеников по художественным программам
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 2])->all();
+        $groupsId = [];
+        foreach ($groups as $group) $groupsId[] = $group->id;
+
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
+        $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['participant.sex' => 'Женский'])->all();
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, count($participants2));
+
+        //----------------------------------
+
+        //Получаем количество учеников по социально-педагогическим программам
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 3])->all();
+        $groupsId = [];
+        foreach ($groups as $group) $groupsId[] = $group->id;
+
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
+        $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['participant.sex' => 'Женский'])->all();
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($participants2));
+
+        //----------------------------------
+
+        //Получаем количество учеников по естественнонаучным программам
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 4])->all();
+        $groupsId = [];
+        foreach ($groups as $group) $groupsId[] = $group->id;
+
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
+        $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['participant.sex' => 'Женский'])->all();
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, count($participants2));
+
+        //----------------------------------
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(13, 3, substr($start_date, 2, 2));
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
