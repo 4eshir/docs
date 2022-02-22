@@ -224,6 +224,7 @@ class RoleBaseAccess
         "report-form" => [
             "index" => [25, 26],
             "effective-contract" => [25, 26],
+            "do-dop-1" => [25, 26],
         ],
         //------
 

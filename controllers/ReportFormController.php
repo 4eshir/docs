@@ -63,6 +63,19 @@ class ReportFormController extends Controller
         ]);
     }
 
+    public function actionDoDop1()
+    {
+        $model = new ForeignEventReportModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ExcelWizard::DownloadDoDop1($model->start_date, $model->end_date, $model->budget);
+        }
+
+        return $this->render('do-dop-1', [
+            'model' => $model,
+        ]);
+    }
+
 
 
     //Проверка на права доступа к CRUD-операциям

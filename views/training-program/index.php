@@ -13,6 +13,15 @@ use yii\widgets\ActiveForm;
 $this->title = 'Образовательные программы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<script>
+    function archive() {
+        var keys = $('#grid').yiiGridView('getSelectedRows');
+        window.location.href='<?php echo Url::to(['training-program/archive']); ?>&ids='+keys.join();
+        //$('#grid').yiiGridView('getSelectedRows')
+    }
+</script>
+
 <div class="training-program-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -63,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $visible = true;
 
     echo GridView::widget([
+        'id'=>'grid',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($data) {
@@ -78,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn', 'header' => 'Акт.', 'visible' => $visible,
                 'checkboxOptions' => function ($model, $key, $index, $column) {
-                    $options['onclick'] = 'myStatus('.$model->id.');';
+                    //$options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->actual ? true : false;
                     return $options;
                 }],
@@ -96,6 +106,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+    <div class="form-group">
+        <!--<a class="btn btn-danger" href="/index.php?r=training-group%2Findex&archive=">Сохранить архив</a>-->
+        <?php echo Html::button('Сохранить статус программ', ['class' => 'btn btn-success', 'onclick' => 'archive()']) ?>
+        <?php //echo Html::submitButton('Сохранить архив', ['class' => 'btn btn-success']) ?>
+    </div>
 
 </div>
 

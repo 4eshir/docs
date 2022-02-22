@@ -424,6 +424,26 @@ class ExcelWizard
         $writer->save('php://output');
     }
 
+    static public function DownloadDoDop1($start_date, $end_date, $budget)
+    {
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOP.xlsx');
+        //var_dump($inputData);
+
+        //Получаем количество учеников
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, '2222');
+
+        //----------------------------------
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
+    }
+
     static public function WriteAllCertNumbers($filename, $training_group_id)
     {
         ini_set('memory_limit', '512M');

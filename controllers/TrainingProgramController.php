@@ -295,7 +295,7 @@ class TrainingProgramController extends Controller
         $plan = ThematicPlanWork::find()->where(['id' => $id])->one();
         $name = $plan->trainingProgram->name;
         $plan->delete();
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален тема УТП образовательной программы ' . $name);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалена тема УТП образовательной программы ' . $name);
 
         return $this->redirect('index?r=training-program/update&id='.$modelId);
     }
@@ -305,6 +305,34 @@ class TrainingProgramController extends Controller
         $errorsAmnesty = new ProgramErrorsWork();
         $errorsAmnesty->ProgramAmnesty($id);
         return $this->redirect('index?r=training-program/view&id='.$id);
+    }
+
+    public function actionArchive($ids)
+    {
+        $selections = explode(',', $ids);
+        $flashStr = "";
+        $allPrograms = TrainingProgramWork::find()->all();
+        //$errors = new GroupErrorsWork();
+        foreach ($allPrograms as $program) {
+            $program->actual = 0;
+            $program->save(false);
+            //var_dump($program->getErrors());
+        }
+        if ($ids !== "")
+            for ($i = 0; $i < count($selections); $i++)
+            {
+                $tag = TrainingProgramWork::findOne($selections[$i]);
+                $tag->actual === 1 ? $tag->actual = 0 : $tag->actual = 1;
+                $tag->save(false);
+                if ($tag->actual === 0)
+                    $flashStr .= "Программа ".$tag->name." больше не актуальна\n";
+                else
+                    $flashStr .= "Программа ".$tag->name." теперь актуальна\n";
+
+                //$errors->CheckArchiveTrainingGroup($tag->id);
+            }
+        Yii::$app->session->setFlash("success", 'Изменение статуса программ произведено успешно');
+        return $this->redirect(['/training-program/index']);
     }
 
     //Проверка на права доступа к CRUD-операциям
