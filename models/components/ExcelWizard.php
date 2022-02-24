@@ -468,11 +468,11 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 6, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 6, count($participants));
 
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 6, count($participants));
 
@@ -515,11 +515,11 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 10, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 10, count($participants));
 
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 10, count($participants));
 
@@ -562,11 +562,11 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 9, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 9, count($participants));
 
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 9, count($participants));
 
@@ -609,11 +609,11 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 7, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 7, count($participants));
 
-        $participants = ForeignEventParticipantsWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 7, count($participants));
 
