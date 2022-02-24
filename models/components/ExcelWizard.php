@@ -103,6 +103,7 @@ class ExcelWizard
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
+        exit;
     }
 
     static public function DownloadJournal($group_id)
@@ -423,6 +424,7 @@ class ExcelWizard
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
+        exit;
     }
 
     static public function DownloadDoDop1($start_date, $end_date, $budget)
@@ -622,12 +624,14 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(13, 3, substr($start_date, 2, 2));
 
 
+        
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
         header('Cache-Control: max-age=0');
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
+        exit;
     }
 
     static private function GetParticipantsByAge($age, $participants, $date)
