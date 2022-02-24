@@ -316,12 +316,14 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->participants as $participantOne)
             {
+                var_dump($participantOne->branch);
+                var_dump('<br>');
+
                 $part = new TeacherParticipant();
                 $part->foreign_event_id = $this->id;
                 $part->participant_id = $participantOne->fio;
                 $part->teacher_id = $participantOne->teacher;
                 $part->teacher2_id = $participantOne->teacher2;
-                $part->branch_id = $participantOne->branch;
                 $part->focus = $participantOne->focus;
                 $part->save();
             }

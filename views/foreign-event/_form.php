@@ -187,9 +187,11 @@ use yii\widgets\ActiveForm;
                                         'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-                                    $branchs = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
+                                    $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-                                    echo $form->field($modelParticipantsOne, "[{$i}]branch")->dropDownList($items,$params)->label('Отдел');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
+                                            $items, ['separator' => '<br>']
+                                    )->label('<u>Отдел(-ы)</u>')
                                     ?>
                                 </div>
                             </div>
