@@ -28,10 +28,21 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     ?>
 
     <?php
-    $branchs = \app\models\work\BranchWork::find()->all();
+    $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-    $params = [];
-    echo $form->field($model, 'branch_id')->dropDownList($items,$params)->label('Отдел');
+    echo $form->field($model, 'branchs')->checkboxList(
+            $items, ['class' => 'base',
+                'item' => function ($index, $label, $name, $checked, $value) {
+                if ($checked == 1) $checked = 'checked';
+                return
+                    '<div class="checkbox" class="form-control">
+                            <label style="margin-bottom: 0px" for="branch-' . $index .'">
+                                <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                '. $label .'
+                            </label>
+                        </div>';
+            }]
+    )->label('<u>Отдел(-ы)</u>')
     ?>
 
     <?= $form->field($model, 'team')->textInput()->label('Команда') ?>

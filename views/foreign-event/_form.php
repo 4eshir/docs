@@ -190,7 +190,7 @@ use yii\widgets\ActiveForm;
                                     $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
                                     echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
-                                            $items, ['separator' => '<br>']
+                                            $items, ['separator' => '<br>', 'class' => 'base']
                                     )->label('<u>Отдел(-ы)</u>')
                                     ?>
                                 </div>
@@ -259,7 +259,7 @@ use yii\widgets\ActiveForm;
             ?>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
-                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                     'widgetBody' => '.container-items1', // required: css class selector
                     'widgetItem' => '.item1', // required: css class
                     'limit' => 50, // the maximum times, an element can be cloned (default 999)
@@ -393,4 +393,22 @@ use yii\widgets\ActiveForm;
             $("#divOrderTrip").attr("hidden", "true");
         }
     }
+
 </script>
+
+<?php
+$js =<<< JS
+    $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        let elems = document.getElementsByClassName('base');
+        let values = [];
+        for (let i = 0; i < elems[0].children.length; i++)
+            if (elems[1].children[i].childElementCount > 0)
+                values[i] = elems[0].children[i].children[0].value;
+        for (let j = 1; j < elems.length; j++)
+            for (let i = 0; i < elems[1].children.length; i++)
+                if (elems[j].children[i].childElementCount > 0)
+                   elems[j].children[i].children[0].value = values[i]; 
+    });
+JS;
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+?>

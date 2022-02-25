@@ -165,4 +165,13 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop/src',
     ),
   ),
+  'la-haute-societe/yii2-save-relations-behavior' => 
+  array (
+    'name' => 'la-haute-societe/yii2-save-relations-behavior',
+    'version' => '1.7.2.0',
+    'alias' => 
+    array (
+      '@lhs/Yii2SaveRelationsBehavior' => $vendorDir . '/la-haute-societe/yii2-save-relations-behavior/src',
+    ),
+  ),
 );

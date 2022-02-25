@@ -138,8 +138,13 @@ class ForeignEventWork extends ForeignEvent
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
-            $branch = $branchSet->where(['id' => $partOne->branch_id])->one();
-            $partsLink .= ', отдел для учета: ' . Html::a($branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->id]));
+            $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->id])->all();
+            $tempStr = '';
+            foreach ($branchs as $branch)
+                $tempStr .= Html::a($branch->branch->name, \yii\helpers\Url::to(['branch/view', 'id' => $branch->branch_id])).', ';
+             $tempStr = substr($tempStr, 0, -2);
+
+            $partsLink .= ', отдел(-ы) для учета: ' . $tempStr;
             $partsLink .= ')';
             if ($team !== null)
                 $partsLink = $partsLink.' - Команда '.$team->name;
@@ -316,8 +321,6 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->participants as $participantOne)
             {
-                var_dump($participantOne->branch);
-                var_dump('<br>');
 
                 $part = new TeacherParticipant();
                 $part->foreign_event_id = $this->id;
@@ -325,6 +328,16 @@ class ForeignEventWork extends ForeignEvent
                 $part->teacher_id = $participantOne->teacher;
                 $part->teacher2_id = $participantOne->teacher2;
                 $part->focus = $participantOne->focus;
+                $tpbs = [];
+                for ($i = 0; $i < count($participantOne->branch); $i++)
+                {
+                    $tpb = new TeacherParticipantBranchWork();
+                    $tpb->branch_id = $participantOne->branch[$i];
+                    $tpbs[] = $tpb;
+                    
+                    
+                }
+                $part->teacherParticipantBranches = $tpbs;
                 $part->save();
             }
         }

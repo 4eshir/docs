@@ -9,6 +9,7 @@ use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\ResponsibleWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TeacherParticipantBranchWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
@@ -169,9 +170,11 @@ class ForeignEventController extends Controller
     {
         $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $model->getTeam();
+        $model->branchs = $model->getBranchs();
         if ($model->load(Yii::$app->request->post()))
         {
             $model->file = UploadedFile::getInstance($model, 'file');
+
             if ($model->file !== null)
                 $model->uploadParticipantFiles();
             $model->save(false);
@@ -205,6 +208,8 @@ class ForeignEventController extends Controller
     {
         $part = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $p_id = $part->participant_id;
+        $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $id])->all();
+        foreach ($branchs as $branch) $branch->delete();
         $part->delete();
         $files = ParticipantFilesWork::find()->where(['participant_id' => $p_id])->one();
         if ($files !== null)

@@ -107,6 +107,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'l' => 
+        array (
+            'lhs\\Yii2SaveRelationsBehavior\\' => 30,
+        ),
         'k' => 
         array (
             'kartik\\sortable\\' => 16,
@@ -248,6 +252,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'lhs\\Yii2SaveRelationsBehavior\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/la-haute-societe/yii2-save-relations-behavior/src',
         ),
         'kartik\\sortable\\' => 
         array (
@@ -528,6 +536,7 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Codeception\\Util\\HttpCode' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Util/HttpCode.php',
         'Codeception\\Util\\Shared\\Asserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/Asserts.php',
         'Codeception\\Util\\Shared\\InheritedAsserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/InheritedAsserts.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
         'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',

@@ -30,7 +30,7 @@ class TeacherParticipantBranch extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['teacher_participant_id', 'branch_id'], 'required'],
+            [['branch_id'], 'required'],
             [['teacher_participant_id', 'branch_id'], 'integer'],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['teacher_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TeacherParticipant::className(), 'targetAttribute' => ['teacher_participant_id' => 'id']],
