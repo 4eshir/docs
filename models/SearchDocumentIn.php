@@ -11,6 +11,7 @@ use app\models\work\DocumentInWork;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use Yii;
 
 /**
  * SearchDocumentIn represents the model behind the search form of `app\models\common\DocumentIn`.
