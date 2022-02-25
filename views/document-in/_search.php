@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['document-in/index'])) ?>
+        <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['document-in/index', 'archive' => $model->archive])) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
