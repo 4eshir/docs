@@ -43,10 +43,10 @@ class DocumentInController extends Controller
      * Lists all DocumentIn models.
      * @return mixed
      */
-    public function actionIndex($sort = null, $archive = null)
+    public function actionIndex($sort = null, $archive = null, $type = null)
     {
         $session = Yii::$app->session;
-        if ($archive !== null)
+        if ($archive !== null && $type !== null)
             $session->set("archive", "1");
         else
             $session->remove("archive");

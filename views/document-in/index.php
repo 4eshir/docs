@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить резерв', ['document-in/create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
         <?php
         if ($searchModel->archive === null)
-            echo Html::a('Показать архивные документы', ['document-in/index', 'archive' => 1], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
+            echo Html::a('Показать архивные документы', ['document-in/index', 'archive' => 1, 'type' => 'button'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
         else
             echo Html::a('Скрыть архивные документы', ['document-in/index'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
         ?>
