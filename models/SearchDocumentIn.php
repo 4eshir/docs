@@ -64,7 +64,7 @@ class SearchDocumentIn extends DocumentInWork
     public function search($params, $sort)
     {
         $session = Yii::$app->session;
-        $tempArchive = $session->set("archive");
+        $tempArchive = $session->get("archive");
 
         $query = DocumentInWork::find();
         if ($sort !== null)
