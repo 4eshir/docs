@@ -48,7 +48,7 @@ class DocumentInController extends Controller
         $session = Yii::$app->session;
         if ($archive !== null && $type !== null)
             $session->set("archive", "1");
-        if ($archive === null && $type === null)
+        if ($archive === null && $type !== null)
             $session->remove("archive");
 
         $searchModel = new SearchDocumentIn($archive);
