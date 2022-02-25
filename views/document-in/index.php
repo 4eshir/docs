@@ -10,6 +10,10 @@ use yii\grid\GridView;
 
 $this->title = 'Входящая документация';
 $this->params['breadcrumbs'][] = $this->title;
+
+$session = Yii::$app->session;
+$tempArchive = $session->get("archive");
+var_dump($tempArchive);
 ?>
 <div class="document-in-index">
 
