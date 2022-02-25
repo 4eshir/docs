@@ -77,7 +77,7 @@ class SearchDocumentOut extends DocumentOutWork
         $query->joinWith(['company']);
         $query->joinWith(['position']);
 
-        if ($this->archive === null)
+        if ($tempArchive === null)
         {
             $query = $query->where(['>', 'document_date', date("Y").'.01.01']);
             //var_dump($query->createCommand()->getRawSql());
