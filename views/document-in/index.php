@@ -25,7 +25,7 @@ $tempArchive = $session->get("archive");
         if ($tempArchive === null)
             echo Html::a('Показать архивные документы', ['document-in/index', 'archive' => 1, 'type' => 'button'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
         else
-            echo Html::a('Скрыть архивные документы', ['document-in/index'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
+            echo Html::a('Скрыть архивные документы', ['document-in/index', 'type' => 'button'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block; background-color: #ededed']);
         ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]) ?>
