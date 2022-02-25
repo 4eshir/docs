@@ -59,8 +59,14 @@ class DocsOutController extends Controller
      * Lists all DocumentOut models.
      * @return mixed
      */
-    public function actionIndex($archive = null)
+    public function actionIndex($archive = null, $type = null)
     {
+        $session = Yii::$app->session;
+        if ($archive !== null && $type !== null)
+            $session->set("archiveOut", "1");
+        if ($archive === null && $type !== null)
+            $session->remove("archiveOut");
+
         $searchModel = new SearchDocumentOut($archive);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -12,7 +12,7 @@ $this->title = 'Входящая документация';
 $this->params['breadcrumbs'][] = $this->title;
 
 $session = Yii::$app->session;
-$tempArchive = $session->get("archive");
+$tempArchive = $session->get("archiveIn");
 ?>
 <div class="document-in-index">
 

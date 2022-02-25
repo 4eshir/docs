@@ -64,7 +64,7 @@ class SearchDocumentIn extends DocumentInWork
     public function search($params, $sort)
     {
         $session = Yii::$app->session;
-        $tempArchive = $session->get("archive");
+        $tempArchive = $session->get("archiveIn");
 
         $query = DocumentInWork::find();
         if ($sort !== null)
@@ -100,7 +100,7 @@ class SearchDocumentIn extends DocumentInWork
         $query->joinWith(['company']);
         $query->joinWith(['sendMethod']);
 
-        if ($this->archive === null)
+        if ($tempArchive === null)
         {
             $query = $query->where(['>', 'local_date', date("Y").'.01.01']);
             //var_dump($query->createCommand()->getRawSql());

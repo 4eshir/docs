@@ -66,6 +66,9 @@ class SearchDocumentOut extends DocumentOutWork
      */
     public function search($params)
     {
+        $session = Yii::$app->session;
+        $tempArchive = $session->get("archiveOut");
+
         $query = DocumentOutWork::find();
         $query->joinWith(['signed signed', 'executor executor']);
         $query->joinWith(['register']);
@@ -82,19 +85,19 @@ class SearchDocumentOut extends DocumentOutWork
         if (strlen($params["SearchDocumentOut"]["start_date_search"]) > 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) > 9)
         {
 
-            $query = $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query->andWhere(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]])->andWhere(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]])
                 : $query->where(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]])->andWhere(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]]);
         }
         else if (strlen($params["SearchDocumentOut"]["start_date_search"]) > 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) < 9)
         {
-            $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query = $query->andWhere(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]])
                 :$query = $query->where(['>=', 'document_date', $params["SearchDocumentOut"]["start_date_search"]]);
         }
         else if (strlen($params["SearchDocumentOut"]["start_date_search"]) < 9 && strlen($params["SearchDocumentOut"]["finish_date_search"]) > 9)
         {
-            $query = $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query->andWhere(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]])
                 : $query->where(['<=', 'document_date', $params["SearchDocumentOut"]["finish_date_search"]]);
         }
