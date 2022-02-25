@@ -57,6 +57,6 @@ use yii\widgets\ActiveForm;
         <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['document-in/index', 'archive' => $model->archive])) ?>
     </div>
 
-    <?php ActiveForm::end(); var_dump($model->archive);?>
+    <?php ActiveForm::end();?>
 
 </div>

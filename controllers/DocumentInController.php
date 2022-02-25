@@ -45,6 +45,12 @@ class DocumentInController extends Controller
      */
     public function actionIndex($sort = null, $archive = null)
     {
+        $session = Yii::$app->session;
+        if ($archive !== null)
+            $session->set("archive", "1");
+        else
+            $session->remove("archive");
+
         $searchModel = new SearchDocumentIn($archive);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $sort);
 

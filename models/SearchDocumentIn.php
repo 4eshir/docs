@@ -62,6 +62,8 @@ class SearchDocumentIn extends DocumentInWork
      */
     public function search($params, $sort)
     {
+        $session = Yii::$app->session;
+        $tempArchive = $session->set("archive");
 
         $query = DocumentInWork::find();
         if ($sort !== null)
@@ -105,19 +107,19 @@ class SearchDocumentIn extends DocumentInWork
 
         if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
         {
-            $query = $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query->andWhere(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]])
                 : $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
         }
         else if (strlen($params["SearchDocumentIn"]["start_date_search"]) > 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) < 9)
         {
-            $query = $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query->andWhere(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]])
                 : $query->where(['>=', 'real_date', $params["SearchDocumentIn"]["start_date_search"]]);
         }
         else if (strlen($params["SearchDocumentIn"]["start_date_search"]) < 9 && strlen($params["SearchDocumentIn"]["finish_date_search"]) > 9)
         {
-            $query = $this->archive === null ?
+            $query = $tempArchive === null ?
                 $query->andWhere(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]])
                 : $query->where(['<=', 'real_date', $params["SearchDocumentIn"]["finish_date_search"]]);
         }
