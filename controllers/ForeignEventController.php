@@ -144,6 +144,7 @@ class ForeignEventController extends Controller
             $i = 0;
             foreach ($modelParticipants as $modelParticipantOne)
             {
+                
                 if (strlen($modelParticipantOne->file) == 0)
                 {
                     $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");

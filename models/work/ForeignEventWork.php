@@ -107,7 +107,8 @@ class ForeignEventWork extends ForeignEvent
      * @return string
      */
 
-    public function getColor($participant_id, $branch_id, $event_finish_date)
+
+    public function getColor($participant_id, $branchs_id, $event_finish_date)
     {
         $groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
         $groupSet = TrainingGroupWork::find();
@@ -116,7 +117,7 @@ class ForeignEventWork extends ForeignEvent
         foreach ($groupsParticipant as $groupParticipant)
         {
             $group = $groupSet->where(['id' => $groupParticipant->training_group_id])->one();
-            if ($group->branch_id === $branch_id && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
+            if (array_search($group->branch_id, $branchs_id) && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
             {
                 $flag = true;
             }
@@ -132,9 +133,14 @@ class ForeignEventWork extends ForeignEvent
         $parts = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
         $partsLink = '';
         $branchSet =  BranchWork::find();
+        
         foreach ($parts as $partOne)
         {
-            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->branch_id, $partOne->foreignEvent->finish_date) . '>';
+
+            $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->id])->all();
+            $branchsId = [];
+            foreach ($branchs as $branch) $branchsId[] = $branch->branch_id;
+            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $branchsId, $partOne->foreignEvent->finish_date) . '>';
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
@@ -151,7 +157,6 @@ class ForeignEventWork extends ForeignEvent
             $partsLink .= '</p>';
 
         }
-
         return $partsLink;
     }
 
@@ -321,8 +326,7 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->participants as $participantOne)
             {
-
-                $part = new TeacherParticipant();
+                $part = new TeacherParticipantWork();
                 $part->foreign_event_id = $this->id;
                 $part->participant_id = $participantOne->fio;
                 $part->teacher_id = $participantOne->teacher;
@@ -334,11 +338,11 @@ class ForeignEventWork extends ForeignEvent
                     $tpb = new TeacherParticipantBranchWork();
                     $tpb->branch_id = $participantOne->branch[$i];
                     $tpbs[] = $tpb;
-                    
-                    
                 }
                 $part->teacherParticipantBranches = $tpbs;
+                $part->branchs = $participantOne->branch;
                 $part->save();
+                var_dump($part->getErrors());
             }
         }
     }
