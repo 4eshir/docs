@@ -204,6 +204,25 @@ $session = Yii::$app->session;
             }
         }
     }
+
+    function allCheck()
+    {
+        let elems = document.getElementsByClassName('check');
+        for (var c = 0; c !== elems.length; c++)
+        {
+            if (elems[c].checked === false)
+            {
+                if (rowsPart[c].style.display !== "none")
+                    elems[c].checked = true;
+                else
+                    elems[c].checked = false;
+            }
+            else
+            {
+                elems[c].checked = false;
+            }
+        }
+    }
 </script>
 
 <div class="document-order-form">
@@ -332,24 +351,25 @@ $session = Yii::$app->session;
             echo '</tbody></table></div>';
         }
 
-        /*echo '<br><b>Учащиеся учебных групп: </b>';
-        echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></tr></thead>';
+        echo '<br><b>Учащиеся учебных групп: </b>';
+        echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></tr></thead>';
         echo '';
         echo '<tbody>';
         $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['status' => 0])->andWhere(['IN', 'training_group_id',
             (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])])->all();//->orderBy('training_group_id')->all();
         $part =  \app\models\work\ForeignEventParticipantsWork::find();
         $stud = \app\models\work\TrainingGroupWork::find();
+        $count = 0;
         foreach ($groupParticipants as $groupParticipant)
         {
             $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['IN', 'order_group_id',
                 (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
 
             echo '<tr><td style="width: 10px">';
-            if ($orders !== null)
-                echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" value="'.$groupParticipant->id.'">';
+            if (count($ordersParticipant) !== 0)
+                echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="'.$groupParticipant->id.'">';
             else
-                echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" value="'.$groupParticipant->id.'">';
+                echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="'.$groupParticipant->id.'">';
             echo '</td><td style="width: auto">';
             echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
             echo '</td>';
@@ -358,7 +378,7 @@ $session = Yii::$app->session;
             echo '</td>';
             echo '</td></tr>';
         }
-        echo '</tbody></table></div>';*/
+        echo '</tbody></table></div>';
         ?>
     </div>
 

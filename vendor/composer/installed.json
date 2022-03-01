@@ -1930,6 +1930,10 @@
                 "relations",
                 "yii2"
             ],
+            "support": {
+                "issues": "https://github.com/la-haute-societe/yii2-save-relations-behavior/issues",
+                "source": "https://github.com/la-haute-societe/yii2-save-relations-behavior/tree/1.7.2"
+            },
             "install-path": "../la-haute-societe/yii2-save-relations-behavior"
         },
         {
