@@ -342,7 +342,6 @@ class ForeignEventWork extends ForeignEvent
                 $part->teacherParticipantBranches = $tpbs;
                 $part->branchs = $participantOne->branch;
                 $part->save();
-                var_dump($part->getErrors());
             }
         }
     }
