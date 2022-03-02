@@ -12,6 +12,7 @@ use app\models\work\TrainingGroupWork;
 use app\models\work\UserRoleWork;
 use app\models\work\UserWork;
 use yii\db\ActiveQuery;
+//vdvdvdv
 
 class RoleBaseAccess
 {
@@ -255,6 +256,7 @@ class RoleBaseAccess
             "delete-order" => [5, 6, 7],
             "delete-teacher" => [5, 6, 7],
             "view" => [2, 3, 4],
+            "download-excel" => [2, 3, 4],
             "delete-file" => [5, 6, 7],
             "get-file" => [2, 3, 4],
             "subcat" => [2, 3, 4],
