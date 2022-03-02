@@ -14,6 +14,7 @@ use app\models\DynamicModel;
 use Yii;
 use app\models\work\DocumentOrderWork;
 use app\models\SearchDocumentOrder;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -366,9 +367,9 @@ class DocumentOrderController extends Controller
                 $orders = \app\models\work\OrderGroupWork::find()->where(['training_group_id' => $group->id])->andWhere(['document_order_id' => $idG])->one();
                 echo '<tr><td style="width: 10px">';
                 if ($orders !== null)
-                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" onchange="displayParticipant()" value="'.$group->id.'">';
                 else
-                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" value="'.$group->id.'">';
+                    echo '<input type="checkbox" id="documentorderwork-groups_check" name="DocumentOrderWork[groups_check][]" onchange="displayParticipant()" value="'.$group->id.'">';
                 echo '</td><td style="width: auto">';
                 echo $group->number;
                 echo '</td>';
@@ -380,6 +381,35 @@ class DocumentOrderController extends Controller
                 echo '</td></tr>';
             }
 
+            echo '</tbody></table></div>';//.'|split|';
+
+            /*---------------------*/
+
+            echo '<br><b>Учащиеся учебных групп: </b>';
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></tr></thead>';
+            echo '';
+            echo '<tbody>';
+            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['status' => 0])->andWhere(['IN', 'training_group_id',
+                (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])])->all();//->orderBy('training_group_id')->all();
+            $part = \app\models\work\ForeignEventParticipantsWork::find();
+            $stud = \app\models\work\TrainingGroupWork::find();
+            foreach ($groupParticipants as $groupParticipant) {
+                $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['IN', 'order_group_id',
+                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $this->id])])->all();
+
+                echo '<tr><td style="width: 10px">';
+                if (count($ordersParticipant) !== 0)
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                else
+                    echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                echo '</td><td style="width: auto">';
+                echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
+                echo '</td>';
+                echo '</td><td style="width: auto">';
+                echo $stud->where(['id' => $groupParticipant->training_group_id])->one()->number;
+                echo '</td>';
+                echo '</td></tr>';
+            }
             echo '</tbody></table></div>'.'|split|';
         }
     }
