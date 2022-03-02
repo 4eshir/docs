@@ -25,8 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         var lessons = document.getElementsByClassName("class" + obj);
 
         for (let i = 0; i < lessons.length; i++) {
-            lessons[i].value = "0";
-            lessons[i].style.background = "green";
+            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
+            {
+                lessons[i].value = "0";
+                lessons[i].style.background = "green";
+            }
         }
     }
 
@@ -35,8 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
         var lessons = document.getElementsByClassName("class" + obj);
 
         for (let i = 0; i < lessons.length; i++) {
-            lessons[i].value = "3";
-            lessons[i].style.background = "white";
+            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
+            {
+                lessons[i].value = "3";
+                lessons[i].style.background = "white";
+            }
         }
     }
 
@@ -247,8 +253,11 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</thead><tbody>';
     foreach ($parts as $part)
     {
-        echo '<tr>';
-        echo '<th style="text-align: left;">' . $part->participantWork->shortName . "</th>";
+        if ($part->status == 1)
+            echo '<tr style="background:#918a8a">';
+        else
+            echo '<tr>';
+        echo '<th style="text-align: left; background: inherit;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         $c = 0;
 

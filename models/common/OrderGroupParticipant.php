@@ -11,6 +11,9 @@ use Yii;
  * @property int $order_group_id
  * @property int $group_participant_id
  * @property int $status
+ *
+ * @property OrderGroup $orderGroup
+ * @property TrainingGroupParticipant $groupParticipant
  */
 class OrderGroupParticipant extends \yii\db\ActiveRecord
 {
@@ -30,6 +33,8 @@ class OrderGroupParticipant extends \yii\db\ActiveRecord
         return [
             [['order_group_id', 'group_participant_id', 'status'], 'required'],
             [['order_group_id', 'group_participant_id', 'status'], 'integer'],
+            [['order_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderGroup::className(), 'targetAttribute' => ['order_group_id' => 'id']],
+            [['group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipant::className(), 'targetAttribute' => ['group_participant_id' => 'id']],
         ];
     }
 
@@ -44,5 +49,25 @@ class OrderGroupParticipant extends \yii\db\ActiveRecord
             'group_participant_id' => 'Group Participant ID',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * Gets query for [[OrderGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderGroup()
+    {
+        return $this->hasOne(OrderGroup::className(), ['id' => 'order_group_id']);
+    }
+
+    /**
+     * Gets query for [[GroupParticipant]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroupParticipant()
+    {
+        return $this->hasOne(TrainingGroupParticipant::className(), ['id' => 'group_participant_id']);
     }
 }

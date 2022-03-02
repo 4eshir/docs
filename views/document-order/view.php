@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 ['label' => 'Группы в приказе', 'attribute' => 'groupsLink', 'format' => 'raw'],
-                ['label' => 'Учащиеся в приказе', 'attribute' => 'participantsLink'],
+                ['label' => 'Учащиеся в приказе', 'attribute' => 'participantsLink', 'format' => 'raw'],
             ],
         ]) ?>
     </div>
