@@ -275,8 +275,8 @@ $this->params['breadcrumbs'][] = $this->title;
             $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
             if (!($visits == null || $visits->status == 0)) $value = true;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
-            if (($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d')) && !$group->archive == 1) $dis = false;
-            $selected0 = $visits->status == 0 ? 'selected' : '';
+            if (($isMethodist != null || $isToken || $lesson->lesson_date >= $date->format('Y-m-d') && $part->status == 0) && !$group->archive == 1) $dis = false;
+            //echo ($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d') || $part->status == 1) && !$group->archive == 1;isits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
             $selected3 = $visits->status == 3 ? 'selected' : '';
@@ -287,6 +287,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if ($visits->status == 3) $color = 'style="background: white; color: white; appearance: none;-webkit-appearance: none;"';
             echo "<td style='padding: 5px 5px 0 5px;'>";
             $disabledStr = $dis ? 'disabled' : '';
+
             if (!$dis) echo $form->field($model, 'visits_id[]', ['template' => "{input}", 'options' => ['class' => 'form-inline']])->hiddenInput(['value' => $visits->id])->label(false);
             echo '<select class="form-control class'.$c.'" '.$disabledStr.' onchange="changeColor(this)" id="journalmodel-visits" class="form-control" name="JournalModel[visits][]" '.$color.'>';
             echo '<option value="3" '.$selected3.' style="background: white">--</option>';
