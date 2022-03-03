@@ -338,6 +338,7 @@ class DocumentOrderController extends Controller
     public function actionSubattr()
     {
         $idG = Yii::$app->request->post('idG');
+        $date = Yii::$app->request->post('date');
         if ($id = Yii::$app->request->post('id')) {
             $operationPosts = BranchWork::find()
                 ->where(['id' => $id])
@@ -384,9 +385,8 @@ class DocumentOrderController extends Controller
             echo '</tbody></table></div>';//.'|split|';
 
             /*---------------------*/
-
             echo '<br><b>Учащиеся учебных групп: </b>';
-            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></tr></thead>';
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
             $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['status' => 0])->andWhere(['IN', 'training_group_id',
@@ -395,7 +395,7 @@ class DocumentOrderController extends Controller
             $stud = \app\models\work\TrainingGroupWork::find();
             foreach ($groupParticipants as $groupParticipant) {
                 $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['IN', 'order_group_id',
-                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $this->id])])->all();
+                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $idG])])->all();
 
                 echo '<tr><td style="width: 10px">';
                 if (count($ordersParticipant) !== 0)
@@ -404,11 +404,20 @@ class DocumentOrderController extends Controller
                     echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
                 echo '</td><td style="width: auto">';
                 echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
-                echo '</td>';
                 echo '</td><td style="width: auto">';
-                echo $stud->where(['id' => $groupParticipant->training_group_id])->one()->number;
-                echo '</td>';
-                echo '</td></tr>';
+                $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
+                echo $gr->number;
+                //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
+                //{
+                echo '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check"><select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check]">';
+                $newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
+                if (count($newGroups) > 0) {
+                    foreach ($newGroups as $newGroup)
+                        echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
+                } else
+                  echo "<option>-</option>";
+                //-----
+                echo '</select></div></td></tr>';
             }
             echo '</tbody></table></div>'.'|split|';
         }

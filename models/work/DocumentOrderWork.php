@@ -32,6 +32,7 @@ class DocumentOrderWork extends DocumentOrder
 
     public $groups_check;
     public $participants_check;
+    public $new_groups_check;
 
     public $archive_check;
 
@@ -381,6 +382,14 @@ class DocumentOrderWork extends DocumentOrder
                     // изменяем статус ученика
                     $group->status = $status;
                     $group->save();
+
+                    // отдельная песня с переводом. если перевод, то это статус 2 (т.е. перевод) и новая запись со статусом 0 (т.е. зачисление)
+                    // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
+                    if ($status === 2)
+                    {
+                        
+                    }
+
                 }
             }
 
