@@ -75,11 +75,19 @@ class TrainingGroupController extends Controller
         ]);
     }
 
-    public function actionArchive($ids)
+    public function actionArchive($ids, $p)
     {
+        $searchModel = new SearchTrainingGroup();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = false;
+
+        $realIds = [];
+        for ($i = ($p - 1) * 20; $i < count($dataProvider->keys) && $i < $p * 20; $i++) $realIds[] = $dataProvider->keys[$i];
+
+
         $selections = explode(',', $ids);
         $flashStr = "";
-        $allGroups = TrainingGroupWork::find()->all();
+        $allGroups = TrainingGroupWork::find()->where(['IN', 'id', $realIds])->all();
         $errors = new GroupErrorsWork();
         foreach ($allGroups as $group) {
             $group->archive = 0;

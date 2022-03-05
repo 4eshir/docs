@@ -17,9 +17,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
+
     function archive() {
         var keys = $('#grid').yiiGridView('getSelectedRows');
-        window.location.href='<?php echo Url::to(['training-group/archive']); ?>&ids='+keys.join();
+        var p = getUrlParameter('page');
+        if (p == false) p = 1;
+        window.location.href='<?php echo Url::to(['training-group/archive']); ?>&ids='+keys.join()+'&p='+p;
         //$('#grid').yiiGridView('getSelectedRows')
     }
 </script>
