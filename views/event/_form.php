@@ -62,11 +62,12 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $items = array('0' => 'Очный', '1' => 'Заочный', '2' => 'Очно-заочный');
+    $ways = \app\models\work\EventWayWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
     $params = [
     ];
 
-    echo $form->field($model, 'format')->dropDownList($items,$params)->label('Формат проведения');
+    echo $form->field($model, 'event_way_id')->dropDownList($items,$params)->label('Формат проведения');
 
     ?>
 

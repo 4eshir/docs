@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return 'Нет';
             return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
         }, 'format' => 'raw', 'label' => 'Приказ'],
+        'eventWayString',
         ['attribute' => 'regulationString', 'value' => function($model){
             $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
             if ($reg == null)
@@ -101,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Нет';
                 return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
             }, 'format' => 'raw', 'label' => 'Приказ'],
+            'eventWayString',
             ['attribute' => 'regulationString', 'value' => function($model){
                 $reg = \app\models\work\RegulationWork::find()->where(['id' => $model->regulation_id])->one();
                 if ($reg == null)

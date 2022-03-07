@@ -46,7 +46,7 @@ class EventWork extends Event
     public function rules()
     {
         return [
-            [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education'], 'required'],
+            [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education', 'event_way_id'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
             [['responsibleString', 'eventLevelString'], 'string'],
             [['format', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant','isCod', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
@@ -73,6 +73,7 @@ class EventWork extends Event
             'finish_date' => 'Дата окончания',
             'event_type_id' => 'Тип мероприятия',
             'event_form_id' => 'Форма мероприятия',
+            'eventWayString' => 'Формат проведения',
             'address' => 'Адрес проведения',
             'event_level_id' => 'Уровень мероприятия',
             'participants_count' => 'Кол-во участников',
@@ -156,6 +157,12 @@ class EventWork extends Event
     public function getResponsibleString()
     {
         return PeopleWork::find()->where(['id' => $this->responsible_id])->one()->shortName;
+    }
+
+    public function getEventWayString()
+    {
+        $way = EventWayWork::find()->where(['id' => $this->event_way_id])->one();
+        return $way->name;
     }
 
     //---------------------------------

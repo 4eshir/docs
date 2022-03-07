@@ -8,23 +8,22 @@ use Yii;
  * This is the model class for table "event".
  *
  * @property int $id
- * @property string $name
+ * @property string|null $name
  * @property string|null $old_name
  * @property string $start_date
  * @property string $finish_date
  * @property int $event_type_id
  * @property int $event_form_id
- * @property int $format
  * @property string $address
  * @property int $event_level_id
  * @property int $participants_count
  * @property int $is_federal
  * @property int $responsible_id
- * @property int|null $responsible2_id
  * @property string $key_words
  * @property string $comment
  * @property int|null $order_id
  * @property int|null $regulation_id
+ * @property int|null $event_way_id
  * @property int $contains_education
  * @property string|null $protocol
  * @property string|null $photos
@@ -34,10 +33,10 @@ use Yii;
  * @property EventForm $eventForm
  * @property EventLevel $eventLevel
  * @property EventType $eventType
- * @property People $responsible
- * @property People $responsible2
  * @property DocumentOrder $order
  * @property Regulation $regulation
+ * @property People $responsible
+ * @property EventWay $eventWay
  * @property EventBranch[] $eventBranches
  * @property EventParticipants[] $eventParticipants
  * @property EventsLink[] $eventsLinks
@@ -59,17 +58,17 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'key_words', 'comment', 'contains_education'], 'required'],
+            [['start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'key_words', 'comment', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'format', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'responsible2_id', 'order_id', 'regulation_id', 'contains_education'], 'integer'],
+            [['event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'order_id', 'regulation_id', 'event_way_id', 'contains_education'], 'integer'],
             [['name', 'old_name', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['responsible2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible2_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['event_way_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventWay::className(), 'targetAttribute' => ['event_way_id' => 'id']],
         ];
     }
 
@@ -80,23 +79,22 @@ class Event extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'name' => 'Name',
             'old_name' => 'Old Name',
             'start_date' => 'Start Date',
             'finish_date' => 'Finish Date',
             'event_type_id' => 'Event Type ID',
             'event_form_id' => 'Event Form ID',
-            'format' => 'Format',
-            'address' => 'Адрес проведения',
+            'address' => 'Address',
             'event_level_id' => 'Event Level ID',
             'participants_count' => 'Participants Count',
             'is_federal' => 'Is Federal',
             'responsible_id' => 'Responsible ID',
-            'responsible2_id' => 'Responsible2 ID',
             'key_words' => 'Key Words',
             'comment' => 'Comment',
             'order_id' => 'Order ID',
             'regulation_id' => 'Regulation ID',
+            'event_way_id' => 'Event Way ID',
             'contains_education' => 'Contains Education',
             'protocol' => 'Protocol',
             'photos' => 'Photos',
@@ -136,26 +134,6 @@ class Event extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Responsible]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponsible()
-    {
-        return $this->hasOne(People::className(), ['id' => 'responsible_id']);
-    }
-
-    /**
-     * Gets query for [[Responsible2]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponsible2()
-    {
-        return $this->hasOne(People::className(), ['id' => 'responsible2_id']);
-    }
-
-    /**
      * Gets query for [[Order]].
      *
      * @return \yii\db\ActiveQuery
@@ -173,6 +151,26 @@ class Event extends \yii\db\ActiveRecord
     public function getRegulation()
     {
         return $this->hasOne(Regulation::className(), ['id' => 'regulation_id']);
+    }
+
+    /**
+     * Gets query for [[Responsible]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsible()
+    {
+        return $this->hasOne(People::className(), ['id' => 'responsible_id']);
+    }
+
+    /**
+     * Gets query for [[EventWay]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventWay()
+    {
+        return $this->hasOne(EventWay::className(), ['id' => 'event_way_id']);
     }
 
     /**
