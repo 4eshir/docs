@@ -239,12 +239,27 @@ class ExcelWizard
         //var_dump($inputData);
 
         //Получаем количество учеников
-        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+        /*$trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $this->end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
-        $tgIds = [];
-        foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
+        $tgIds1 = [];
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds1[] = $trainingGroup->id;
+
+        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        $tgIds2 = [];
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds2[] = $trainingGroup->id;
+
+        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        $tgIds2 = [];
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds2[] = $trainingGroup->id;*/
+
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
