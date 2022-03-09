@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var lessons = document.getElementsByClassName("class" + obj);
 
         for (let i = 0; i < lessons.length; i++) {
-            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%')
+            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%' || lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
             {
                 console.log(lessons[i].parentNode.parentNode.style.background);
                 lessons[i].value = "0";
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var lessons = document.getElementsByClassName("class" + obj);
 
         for (let i = 0; i < lessons.length; i++) {
-            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%')
+            if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%' || lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
             {
                 lessons[i].value = "3";
                 lessons[i].style.background = "white";
@@ -260,7 +260,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo '<tr style="background:#918a8a">';
         else
             echo '<tr>';
-        echo '<th style="text-align: left; background: inherit;">' . $part->participantWork->shortName . "</th>";
+        echo '<th style="text-align: left; background: white;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         $c = 0;
 
