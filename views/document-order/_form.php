@@ -206,7 +206,7 @@ $session = Yii::$app->session;
             }
         }
 
-        if (nom === 'номер приказа отчисления')
+        if (nom === 'номер перевода')
         {
             document.getElementById("order_participant").getElementsByTagName("thead")[0].getElementsByTagName("th")[3].style.display = "";
             for (let i = 0; i < rowsPart.length; i++)

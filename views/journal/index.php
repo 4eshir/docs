@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
     foreach ($parts as $part)
     {
         $tr = '<tr>';
-        if ($part->status == 1)
+        if ($part->status == 1 || $part->status == 2)
             $tr = '<tr style="background:#f08080">';
         //echo $tr.'<td>'.$part->participantWork->shortName.'</td>';
         echo $tr.'<td>'.Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participantWork->id])).'</td>';
