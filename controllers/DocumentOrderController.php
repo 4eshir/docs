@@ -416,7 +416,7 @@ class DocumentOrderController extends Controller
                     foreach ($newGroups as $newGroup)
                         echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
                 } else
-                  echo "<option>-</option>";
+                    echo "<option>-</option>";
                 //-----
                 echo '</select></div></td></tr>';
             }

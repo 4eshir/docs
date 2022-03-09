@@ -206,7 +206,7 @@ $session = Yii::$app->session;
             }
         }
 
-        if (nom === '10-01')
+        if (nom === 'номер приказа отчисления')
         {
             document.getElementById("order_participant").getElementsByTagName("thead")[0].getElementsByTagName("th")[3].style.display = "";
             for (let i = 0; i < rowsPart.length; i++)
@@ -279,6 +279,7 @@ $session = Yii::$app->session;
                         $.post(
                             "' . Url::toRoute('subattr') . '", 
                             {id: $(this).val(),
+                            date: document.getElementById("documentorderwork-order_date").value,
                             idG: getUrlParameter("id")},
                             function(res){
                                 var resArr = res.split("|split|");
@@ -371,40 +372,42 @@ $session = Yii::$app->session;
             }
 
             echo '</tbody></table></div>';
+
+            echo '<br><b>Учащиеся учебных групп: </b>';
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
+            echo '';
+            echo '<tbody>';
+            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['!=', 'status', 1])->andWhere(['IN', 'training_group_id',
+                (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])])->all();//->orderBy('training_group_id')->all();
+            $part = \app\models\work\ForeignEventParticipantsWork::find();
+            $stud = \app\models\work\TrainingGroupWork::find();
+            foreach ($groupParticipants as $groupParticipant) {
+                $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
+                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
+                echo '<tr><td style="width: 10px">';
+                if (count($ordersParticipant) !== 0)
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                else
+                    echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                echo '</td><td style="width: auto">';
+                echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
+                echo '</td><td style="width: auto">';
+                $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
+                echo $gr->number;
+                //{
+                echo '</td><td style="width: auto; display: none">';
+                $newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
+                $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
+                $params = [
+                ];
+                echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
+                //}
+                echo '</td></tr>';
+            }
+            echo '</tbody></table></div>';
         }
 
-        echo '<br><b>Учащиеся учебных групп: </b>';
-        echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
-        echo '';
-        echo '<tbody>';
-        $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['!=', 'status', 1])->andWhere(['IN', 'training_group_id',
-            (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $model->nomenclature_id])])->all();//->orderBy('training_group_id')->all();
-        $part = \app\models\work\ForeignEventParticipantsWork::find();
-        $stud = \app\models\work\TrainingGroupWork::find();
-        foreach ($groupParticipants as $groupParticipant) {
-            $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
-                (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
-            echo '<tr><td style="width: 10px">';
-            if (count($ordersParticipant) !== 0)
-                echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-            else
-                echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-            echo '</td><td style="width: auto">';
-            echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
-            echo '</td><td style="width: auto">';
-            $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
-            echo $gr->number;
-            //{
-            echo '</td><td style="width: auto; display: none">';
-            $newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
-            $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
-            $params = [
-            ];
-            echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
-            //}
-            echo '</td></tr>';
-        }
-        echo '</tbody></table></div>';
+
         ?>
     </div>
 
