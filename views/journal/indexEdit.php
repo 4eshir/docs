@@ -27,9 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
         for (let i = 0; i < lessons.length; i++) {
             if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
             {
+                console.log(lessons[i].parentNode.parentNode.style.background + ' true');
                 lessons[i].value = "0";
                 lessons[i].style.background = "green";
             }
+            else
+                console.log(lessons[i].parentNode.parentNode.style.background);
         }
     }
 
