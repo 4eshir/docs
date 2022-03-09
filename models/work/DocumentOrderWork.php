@@ -412,33 +412,6 @@ class DocumentOrderWork extends DocumentOrder
                     }
                 }
             }
-                /*foreach ($this->participants_check as $participant_check)
-                {
-                    $groupsParticipantId[] = $participant_check;
-
-                    $group = $groups->where(['id' => $participant_check])->one();
-                    $orderGroup = $ordersGroup->where(['document_order_id' => $this->id])->andWhere(['training_group_id' => $group->training_group_id])->one();
-                    $pasta = $pastas->where(['group_participant_id' => $participant_check])->andWhere(['order_group_id' => $orderGroup->id])->one();
-                    if ($pasta === null)
-                    {
-                        $pasta = new OrderGroupParticipantWork();
-                        $pasta->order_group_id = $orderGroup->id;
-                        $pasta->group_participant_id = $participant_check;
-                        $pasta->status = $status;
-                        $pasta->save();
-
-                        // изменяем статус ученика
-                        $group->status = $status;
-                        $group->save();
-
-                        // отдельная песня с переводом. если перевод, то это статус 2 (т.е. перевод) и новая запись со статусом 0 (т.е. зачисление)
-                        // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
-                        if ($status === 2)
-                        {
-
-                        }
-                    }
-                }*/
 
             $delParticipants = TrainingGroupParticipantWork::find()->where(['in', 'training_group_id', $groupsId])->andWhere(['not in', 'id', $groupsParticipantId])->all();
             foreach ($delParticipants as $delParticipant)

@@ -385,7 +385,7 @@ class DocumentOrderController extends Controller
             echo '</tbody></table></div>';//.'|split|';
 
             /*---------------------*/
-            /*
+
             echo '<br><b>Учащиеся учебных групп: </b>';
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
@@ -420,7 +420,7 @@ class DocumentOrderController extends Controller
                 //-----
                 echo '</select></div></td></tr>';
             }
-            echo '</tbody></table></div>'.'|split|';*/
+            echo '</tbody></table></div>'.'|split|';
         }
     }
 
