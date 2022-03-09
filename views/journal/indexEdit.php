@@ -253,7 +253,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</thead><tbody>';
     foreach ($parts as $part)
     {
-        if ($part->status == 1)
+        if ($part->status == 1 || $part->status == 2)
             echo '<tr style="background:#918a8a">';
         else
             echo '<tr>';
