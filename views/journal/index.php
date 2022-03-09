@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 
 <?php
+//bfbf
     $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
     $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $user = UserWork::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
