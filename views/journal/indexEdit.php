@@ -277,6 +277,7 @@ $this->params['breadcrumbs'][] = $this->title;
             /*вот тут должна быть проверка на дату и если не заполнил журнал за неделю - идёшь лесом, а не редактирование*/
             if (($isMethodist != null || $isToken || $lesson->lesson_date >= $date->format('Y-m-d') && $part->status == 0) && !$group->archive == 1) $dis = false;
             //echo ($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d') || $part->status == 1) && !$group->archive == 1;isits->status == 0 ? 'selected' : '';
+            $selected0 = $visits->status == 0 ? 'selected' : '';
             $selected1 = $visits->status == 1 ? 'selected' : '';
             $selected2 = $visits->status == 2 ? 'selected' : '';
             $selected3 = $visits->status == 3 ? 'selected' : '';
