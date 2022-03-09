@@ -395,7 +395,7 @@ class DocumentOrderController extends Controller
             $part = \app\models\work\ForeignEventParticipantsWork::find();
             $stud = \app\models\work\TrainingGroupWork::find();
             foreach ($groupParticipants as $groupParticipant) {
-                $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['IN', 'order_group_id',
+                $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $idG])])->all();
 
                 echo '<tr><td style="width: 10px">';

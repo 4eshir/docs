@@ -75,12 +75,32 @@ class DocumentOrderWork extends DocumentOrder
     public function getParticipantsLink()
     {
         $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $this->id])->all();
+        $flag = 0;
         $result = '';
         foreach ($pasta as $macaroni)
         {
+            if ($macaroni->link_id !== NULL)
+            {
+                $flag = 1;
+                break;
+            }
             $result .= $macaroni->getParticipantAndGroup();
             $result .= '<br>';
         }
+
+        if ($flag !== 0)
+        {
+            $result = '';
+            foreach ($pasta as $macaroni)
+            {
+                if ($macaroni->link_id !== NULL)
+                {
+                    $result .= $macaroni->getParticipantDefectors();
+                    $result .= '<br>';
+                }
+            }
+        }
+
         return $result;
     }
 
@@ -402,12 +422,13 @@ class DocumentOrderWork extends DocumentOrder
                                 $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$i]])->one();
                             }
 
+                            $link = OrderGroupParticipantWork::find()->where(['order_group_id' => $orderGroup->id])->andWhere(['group_participant_id' => $this->participants_check[$i]])->andWhere(['status' => $status])->one();
                             $pasta = new OrderGroupParticipantWork();
                             $pasta->order_group_id = $orderGroup->id;
                             $pasta->group_participant_id = $newGroup->id;
                             $pasta->status = 0;
+                            $pasta->link_id = $link->id;
                             $pasta->save();
-
                         }
                     }
                 }

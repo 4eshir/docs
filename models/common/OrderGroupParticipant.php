@@ -11,6 +11,7 @@ use Yii;
  * @property int $order_group_id
  * @property int $group_participant_id
  * @property int $status
+ * @property int|null $link_id
  *
  * @property OrderGroup $orderGroup
  * @property TrainingGroupParticipant $groupParticipant
@@ -32,7 +33,7 @@ class OrderGroupParticipant extends \yii\db\ActiveRecord
     {
         return [
             [['order_group_id', 'group_participant_id', 'status'], 'required'],
-            [['order_group_id', 'group_participant_id', 'status'], 'integer'],
+            [['order_group_id', 'group_participant_id', 'status', 'link_id'], 'integer'],
             [['order_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderGroup::className(), 'targetAttribute' => ['order_group_id' => 'id']],
             [['group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipant::className(), 'targetAttribute' => ['group_participant_id' => 'id']],
         ];
@@ -48,6 +49,7 @@ class OrderGroupParticipant extends \yii\db\ActiveRecord
             'order_group_id' => 'Order Group ID',
             'group_participant_id' => 'Group Participant ID',
             'status' => 'Status',
+            'link_id' => 'Link ID',
         ];
     }
 
