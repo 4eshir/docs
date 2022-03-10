@@ -512,6 +512,8 @@ class ExcelWizard
         for ($i = 0; $i < 22; $i++)
             var_dump(ExcelWizard::getParticipantsByAge($i, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
+        var_dump(count($newParticipants));
+
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
 
