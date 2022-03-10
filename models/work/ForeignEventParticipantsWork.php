@@ -101,9 +101,13 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
 
             if ($event->trainingGroup->finish_date < date("Y-m-d"))
-                $eventsLink .= ' (завершил обучение)';
+                $eventsLink .= ' (группа завершила обучение)';
             else
                 $eventsLink .= ' <div style="background-color: green; display: inline"><font color="white"> (проходит обучение)</font></div>';
+
+            if ($event->status === 2)
+                $eventsLink .= ' | Переведен';
+
             $eventsLink .= '<br>';
         }
 
