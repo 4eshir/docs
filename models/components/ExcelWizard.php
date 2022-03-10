@@ -231,6 +231,7 @@ class ExcelWizard
         $writer->save('php://output');
     }
 
+
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_EC.xlsx');
@@ -239,7 +240,18 @@ class ExcelWizard
         //var_dump($inputData);
 
         $tgIds = [];
+
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
+            ->orWhere(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
+            ->orWhere(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
+            ->orWhere(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
         //Получаем количество учеников
+        /*
         $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
@@ -264,6 +276,7 @@ class ExcelWizard
             ->all();
 
         foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
+        */
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
 
@@ -455,8 +468,10 @@ class ExcelWizard
         //var_dump($inputData);
 
         //Получаем количество учеников по техническим программам
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 1])->all();
         $groupsId = [];
+
+        $groups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 1])->all();
+        
         foreach ($groups as $group) $groupsId[] = $group->id;
 
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
