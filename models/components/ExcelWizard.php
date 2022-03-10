@@ -509,7 +509,7 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 6, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 2, 2).'-01-01'));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 6, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 2, 2).'-01-01'));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 6, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
-        for ($i = 0; i < 22; $i++)
+        for ($i = 0; $i < 22; $i++)
             var_dump(ExcelWizard::getParticipantsByAge($i, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
