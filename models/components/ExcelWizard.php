@@ -231,11 +231,6 @@ class ExcelWizard
         $writer->save('php://output');
     }
 
-    //возвращает запрос на выгрузку уч. групп, входящих в промежуток start_date - $end_date
-    static private GetGroupsQuery($start_date, $end_date)
-    {
-
-    }
 
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
