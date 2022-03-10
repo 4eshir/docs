@@ -509,6 +509,7 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 6, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 2, 2).'-01-01'));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 6, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 2, 2).'-01-01'));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 6, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
+        var_dump(ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
