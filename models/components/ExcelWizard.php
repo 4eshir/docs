@@ -240,26 +240,26 @@ class ExcelWizard
 
         $tgIds = [];
         //Получаем количество учеников
-        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])->andWhere(['<', 'start_date', $this->end_date])
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
         
         foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $this->end_date])->andWhere(['>', 'finish_date', $this->start_date])
+        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
         foreach ($trainingGroups2 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $trainingGroups3 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])
+        $trainingGroups3 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
         foreach ($trainingGroups3 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $trainingGroups4 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $this->end_date])
+        $trainingGroups4 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
