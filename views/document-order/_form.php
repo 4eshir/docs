@@ -184,6 +184,32 @@ $session = Yii::$app->session;
         }
     }
 
+    function searchParticipant() {
+        var inputName, filterName, tdName, txtValueName;
+
+        inputName = document.getElementById('participantSearch');
+        filterName = inputName.value.toUpperCase();
+
+        for (let i = 0; i < rowsPart.length; i++)
+        {
+            tdName = rowsPart[i].getElementsByTagName("td")[1];
+
+            if (tdName)
+            {
+                txtValueName = tdName.textContent || tdName.innerText;
+                if (txtValueName.toUpperCase().indexOf(filterName) > -1)
+                {
+                    if (filterName !== "")
+                        rowsPart[i].style.backgroundColor = "lightgreen";
+                    else
+                        rowsPart[i].style.backgroundColor = "";
+                }
+                else
+                    rowsPart[i].style.backgroundColor = "";
+            }
+        }
+    }
+
 
     function displayParticipant() {
         let nom = document.getElementById('rS').value;
@@ -374,6 +400,7 @@ $session = Yii::$app->session;
             echo '</tbody></table></div>';
 
             echo '<br><b>Учащиеся учебных групп: </b>';
+            echo '<input type="text" id="participantSearch" onkeydown="return preventEnter(event.key)" onchange="searchParticipant()" placeholder="Поиск по учащимся..." title="Введите имя">';
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
