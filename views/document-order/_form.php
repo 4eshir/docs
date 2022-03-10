@@ -206,7 +206,7 @@ $session = Yii::$app->session;
             }
         }
 
-        if (nom === 'номер перевода')
+        if (nom === '11-31')
         {
             document.getElementById("order_participant").getElementsByTagName("thead")[0].getElementsByTagName("th")[3].style.display = "";
             for (let i = 0; i < rowsPart.length; i++)
@@ -317,7 +317,7 @@ $session = Yii::$app->session;
             echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Преамбула');
         else
         {
-            $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->all();
+            $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->andWhere(['actuality' => 0])->all();
             $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
             echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Преамбула');
         }

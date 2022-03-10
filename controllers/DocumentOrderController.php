@@ -347,6 +347,7 @@ class DocumentOrderController extends Controller
             if ($operationPosts > 0) {
                 $operations = NomenclatureWork::find()
                     ->where(['branch_id' => $id])
+                    ->andWhere(['actuality' => 0])
                     ->all();
                 foreach ($operations as $operation)
                     echo "<option value='" . $operation->number . "'>" . $operation->fullNameWork . "</option>";
