@@ -19,6 +19,8 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\Query;
 
 class ExcelWizard
 {
