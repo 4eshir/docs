@@ -238,27 +238,32 @@ class ExcelWizard
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_EC.xlsx');
         //var_dump($inputData);
 
+        $tgIds = [];
         //Получаем количество учеников
-        /*$trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $this->end_date])
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
-        $tgIds1 = [];
-        foreach ($trainingGroups1 as $trainingGroup) $tgIds1[] = $trainingGroup->id;
+        
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])
+        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
-        $tgIds2 = [];
-        foreach ($trainingGroups1 as $trainingGroup) $tgIds2[] = $trainingGroup->id;
+        foreach ($trainingGroups2 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $this->end_date])
+        $trainingGroups3 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
 
-        $tgIds2 = [];
-        foreach ($trainingGroups1 as $trainingGroup) $tgIds2[] = $trainingGroup->id;*/
+        foreach ($trainingGroups3 as $trainingGroup) $tgIds[] = $trainingGroup->id;
+
+        $trainingGroups4 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
 
