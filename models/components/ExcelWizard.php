@@ -472,7 +472,11 @@ class ExcelWizard
         //Получаем количество учеников по техническим программам
         $groupsId = [];
 
-        $groups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 1])->all();
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 1])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
+            ->all();
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -518,7 +522,11 @@ class ExcelWizard
         //----------------------------------
 
         //Получаем количество учеников по художественным программам
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 2])->all();
+        TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 2])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 2])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 2])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 2])])
+            ->all();
         $groupsId = [];
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -565,7 +573,11 @@ class ExcelWizard
         //----------------------------------
 
         //Получаем количество учеников по социально-педагогическим программам
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 3])->all();
+        TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 3])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
+            ->all();
         $groupsId = [];
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -612,7 +624,11 @@ class ExcelWizard
         //----------------------------------
 
         //Получаем количество учеников по естественнонаучным программам
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 4])->all();
+        TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->all();
         $groupsId = [];
         foreach ($groups as $group) $groupsId[] = $group->id;
 
