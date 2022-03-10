@@ -471,6 +471,7 @@ class DocumentOrderWork extends DocumentOrder
                                 $trPr->status = 0;
                                 $trPr->save();
 
+                                $trPr->addVisits($this->new_groups_check[$i], $group->participant_id);
                                 $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$i]])->one();
                             }
 
