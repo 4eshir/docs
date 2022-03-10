@@ -11,6 +11,8 @@ use Yii;
  * @property string|null $number
  * @property string|null $name
  * @property int $branch_id
+ * @property int $actuality
+ * @property int|null $type
  *
  * @property Branch $branch
  */
@@ -30,8 +32,8 @@ class Nomenclature extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['branch_id'], 'required'],
-            [['branch_id'], 'integer'],
+            [['branch_id', 'actuality'], 'required'],
+            [['branch_id', 'actuality', 'type'], 'integer'],
             [['number'], 'string', 'max' => 5],
             [['name'], 'string', 'max' => 1000],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
@@ -48,6 +50,8 @@ class Nomenclature extends \yii\db\ActiveRecord
             'number' => 'Number',
             'name' => 'Name',
             'branch_id' => 'Branch ID',
+            'actuality' => 'Actuality',
+            'type' => 'Type',
         ];
     }
 

@@ -333,12 +333,13 @@ class ForeignEventWork extends ForeignEvent
                 $part->teacher2_id = $participantOne->teacher2;
                 $part->focus = $participantOne->focus;
                 $tpbs = [];
-                for ($i = 0; $i < count($participantOne->branch); $i++)
-                {
-                    $tpb = new TeacherParticipantBranchWork();
-                    $tpb->branch_id = $participantOne->branch[$i];
-                    $tpbs[] = $tpb;
-                }
+                if ($participantOne->branch !== "")
+                    for ($i = 0; $i < count($participantOne->branch); $i++)
+                    {
+                        $tpb = new TeacherParticipantBranchWork();
+                        $tpb->branch_id = $participantOne->branch[$i];
+                        $tpbs[] = $tpb;
+                    }
                 $part->teacherParticipantBranches = $tpbs;
                 $part->branchs = $participantOne->branch;
                 $part->save();

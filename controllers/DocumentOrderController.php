@@ -112,7 +112,7 @@ class DocumentOrderController extends Controller
                     if (count($number) > 2)
                         $model->order_postfix = $number[2];
                     //$model->order_copy_id = $model->archive_number;
-                    if ($model->nomenclature_id == 5)
+                    if ($model->nomenclature_id === 5 || $model->nomenclature_id === NULL)
                         $model->type = 10;  // административный архивный
                     else
                         $model->type = 11;  // учебный архивный
@@ -202,7 +202,7 @@ class DocumentOrderController extends Controller
                     if (count($number) > 2)
                         $model->order_postfix = $number[2];
                     //$model->order_copy_id = $model->archive_number;
-                    if ($model->nomenclature_id == 5)
+                    if ($model->nomenclature_id === 5 || $model->nomenclature_id === NULL)
                         $model->type = 10;  // административный архивный
                     else
                         $model->type = 11;  // учебный архивный
@@ -347,6 +347,7 @@ class DocumentOrderController extends Controller
             if ($operationPosts > 0) {
                 $operations = NomenclatureWork::find()
                     ->where(['branch_id' => $id])
+                    ->andWhere(['actuality' => 0])
                     ->all();
                 foreach ($operations as $operation)
                     echo "<option value='" . $operation->number . "'>" . $operation->fullNameWork . "</option>";
