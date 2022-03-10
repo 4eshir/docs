@@ -231,6 +231,12 @@ class ExcelWizard
         $writer->save('php://output');
     }
 
+    //возвращает запрос на выгрузку уч. групп, входящих в промежуток start_date - $end_date
+    static private GetGroupsQuery($start_date, $end_date)
+    {
+
+    }
+
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_EC.xlsx');
@@ -239,7 +245,18 @@ class ExcelWizard
         //var_dump($inputData);
 
         $tgIds = [];
+
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
+            ->orWhere(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
+            ->orWhere(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
+            ->orWhere(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
+            ->andWhere(['IN', 'budget', $budget])
+            ->all();
+
+        
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
         //Получаем количество учеников
+        /*
         $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
             ->andWhere(['IN', 'budget', $budget])
             ->all();
@@ -264,6 +281,7 @@ class ExcelWizard
             ->all();
 
         foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
+        */
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
 
@@ -457,30 +475,9 @@ class ExcelWizard
         //Получаем количество учеников по техническим программам
         $groupsId = [];
 
-        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
+        $groups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => 1])->all();
         
-        foreach ($trainingGroups1 as $trainingGroup) $groupsId[] = $trainingGroup->id;
-
-        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        foreach ($trainingGroups2 as $trainingGroup) $groupsId[] = $trainingGroup->id;
-
-        $trainingGroups3 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        foreach ($trainingGroups3 as $trainingGroup) $groupsId[] = $trainingGroup->id;
-
-        $trainingGroups4 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-        
-        foreach ($trainingGroups4 as $trainingGroup) $groupsId[] = $trainingGroup->id;
+        foreach ($groups as $group) $groupsId[] = $group->id;
 
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->all();
         $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['participant.sex' => 'Женский'])->all();
