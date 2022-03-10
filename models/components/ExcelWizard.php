@@ -491,7 +491,9 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        $newParticipants = $participants;
+
         //var_dump($newParticipants);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 6, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 2, 2).'-01-01'));
@@ -543,7 +545,9 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        $newParticipants = $participants;
+
         //var_dump($newParticipants);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 10, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 2, 2).'-01-01'));
@@ -562,10 +566,6 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 10, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 2, 2).'-01-01'));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 10, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 2, 2).'-01-01'));
 
-        for ($i = 0; $i < 100; $i++)
-            var_dump(ExcelWizard::getParticipantsByAge($i, $newParticipants, substr($start_date, 2, 2).'-01-01'));
-
-        var_dump(count($newParticipants));
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
@@ -599,7 +599,9 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        $newParticipants = $participants;
+
         //var_dump($newParticipants);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 9, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 2, 2).'-01-01'));
@@ -650,7 +652,9 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        $newParticipants = $participants;
+
         //var_dump($newParticipants);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 7, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 2, 2).'-01-01'));
@@ -693,12 +697,24 @@ class ExcelWizard
         exit;
     }
 
+    /*
     static private function GetParticipantsByAge($age, $participants, $date)
     {
         $participantsId = [];
         foreach ($participants as $participant){
             if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) == $age)
                 $participantsId[] = $participant->id;
+        }
+        return count($participantsId);
+    }
+    */
+
+    static private function GetParticipantsByAge($age, $participants, $date)
+    {
+        $participantsId = [];
+        foreach ($participants as $participant){
+            if (round(floor((strtotime($date) - strtotime($participant->participant->birthdate))) / (60 * 60 * 24 * 365.25)) == $age)
+                $participantsId[] = $participant->participant_id;
         }
         return count($participantsId);
     }
