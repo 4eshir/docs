@@ -436,8 +436,7 @@ class DocumentOrderWork extends DocumentOrder
             $groups = TrainingGroupParticipantWork::find();
             $ordersGroup = OrderGroupWork::find();
             $pastas = OrderGroupParticipantWork::find();
-            //var_dump($this->participants_check);
-            //var_dump($this->new_groups_check);
+
             if ($this->participants_check !== null)
             {
                 for ($i = 0; $i < count($this->participants_check); $i++)
@@ -463,19 +462,18 @@ class DocumentOrderWork extends DocumentOrder
                         // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
                         if ($status === 2)
                         {
-                            $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$i]])->one();
+                            $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$group->participant_id][0]])->one();
                             if ($newGroup === null)
                             {
                                 $trPr = new TrainingGroupParticipantWork();
                                 $trPr->participant_id = $group->participant_id;
-                                $trPr->training_group_id = $this->new_groups_check[$i];
+                                $trPr->training_group_id = $this->new_groups_check[$group->participant_id][0];
                                 $trPr->status = 0;
                                 $trPr->save();
 
-                                $trPr->addVisits($this->new_groups_check[$i], $group->participant_id);
-                                $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$i]])->one();
+                                $trPr->addVisits($this->new_groups_check[$group->participant_id][0], $group->participant_id);
+                                $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$group->participant_id][0]])->one();
                             }
-
                             $link = OrderGroupParticipantWork::find()->where(['order_group_id' => $orderGroup->id])->andWhere(['group_participant_id' => $this->participants_check[$i]])->andWhere(['status' => $status])->one();
                             $pasta = new OrderGroupParticipantWork();
                             $pasta->order_group_id = $orderGroup->id;

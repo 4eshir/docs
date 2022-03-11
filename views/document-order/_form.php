@@ -427,7 +427,8 @@ $session = Yii::$app->session;
                 $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
                 $params = [
                 ];
-                echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
+                //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
+                echo $form->field($model, "new_groups_check[$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
                 //}
                 echo '</td></tr>';
             }
