@@ -436,7 +436,8 @@ class DocumentOrderWork extends DocumentOrder
             $groups = TrainingGroupParticipantWork::find();
             $ordersGroup = OrderGroupWork::find();
             $pastas = OrderGroupParticipantWork::find();
-
+            var_dump($this->participants_check);
+            var_dump($this->new_groups_check);
             if ($this->participants_check !== null)
             {
                 for ($i = 0; $i < count($this->participants_check); $i++)
