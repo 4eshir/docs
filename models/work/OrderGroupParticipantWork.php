@@ -37,7 +37,7 @@ class OrderGroupParticipantWork extends OrderGroupParticipant
 
         $result = Html::a($participant->getFullName(), \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $participant->id]));
         $result .= " - переведен из группы ";
-        $result .= Html::a($oldGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id]));
+        $result .= Html::a($oldGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $oldGroup->id]));
         $result .= " в группу ";
         $result .= Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id]));
 
