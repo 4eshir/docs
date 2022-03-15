@@ -201,10 +201,7 @@ class DocsOutController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id))
-            return $this->render('/site/error');
+        
         $name = $this->findModel($id)->document_theme;
         $theme = $this->findModel($id)->document_theme;
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален исходящий документ '.$theme);
