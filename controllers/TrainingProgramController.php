@@ -315,6 +315,7 @@ class TrainingProgramController extends Controller
         //$errors = new GroupErrorsWork();
         foreach ($allPrograms as $program) {
             $program->actual = 0;
+            $program->isCod = 2;
             $program->save(false);
             //var_dump($program->getErrors());
         }
@@ -322,6 +323,7 @@ class TrainingProgramController extends Controller
             for ($i = 0; $i < count($selections); $i++)
             {
                 $tag = TrainingProgramWork::findOne($selections[$i]);
+                $tag->archStat = 1;
                 $tag->actual === 1 ? $tag->actual = 0 : $tag->actual = 1;
                 $tag->save(false);
                 if ($tag->actual === 0)
