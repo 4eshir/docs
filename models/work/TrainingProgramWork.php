@@ -92,6 +92,11 @@ class TrainingProgramWork extends TrainingProgram
         return $this->actual == 0 ? 'Не актуальна' : 'Актуальна';
     }
 
+    public function getNameX()
+    {
+        return $this->name.' ('.$this->id.')';
+    }
+
     public function getFullName()
     {
         $authors = AuthorProgramWork::find()->where(['training_program_id' => $this->id])->all();
