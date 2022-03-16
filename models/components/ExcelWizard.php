@@ -697,7 +697,6 @@ class ExcelWizard
         exit;
     }
 
-    /*
     static private function GetParticipantsByAge($age, $participants, $date)
     {
         $participantsId = [];
@@ -707,8 +706,8 @@ class ExcelWizard
         }
         return count($participantsId);
     }
-    */
 
+    /*
     static private function GetParticipantsByAge($age, $participants, $date)
     {
         $participantsId = [];
@@ -718,6 +717,7 @@ class ExcelWizard
         }
         return count($participantsId);
     }
+    */
 
     static public function WriteAllCertNumbers($filename, $training_group_id)
     {
