@@ -491,8 +491,8 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
-        $newParticipants = $participants;
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = $participants;
 
         //var_dump($newParticipants);
 
@@ -545,8 +545,8 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
-        $newParticipants = $participants;
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = $participants;
 
         //var_dump($newParticipants);
 
@@ -599,8 +599,8 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
-        $newParticipants = $participants;
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = $participants;
 
         //var_dump($newParticipants);
 
@@ -652,8 +652,8 @@ class ExcelWizard
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-        //$newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
-        $newParticipants = $participants;
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+        //$newParticipants = $participants;
 
         //var_dump($newParticipants);
 
