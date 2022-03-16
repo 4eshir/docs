@@ -707,6 +707,11 @@ class ExcelWizard
         return count($participantsId);
     }
 
+    public function DownloadGZ($start_date, $end_date)
+    {
+
+    }
+
     /*
     static private function GetParticipantsByAge($age, $participants, $date)
     {

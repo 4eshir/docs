@@ -54,7 +54,6 @@ $this->title = 'Отчет ДО-1 ДОП';
             'language' => 'ru',
             'options' => [
                 'id' => 'date2',
-                'readonly' => 'true',
                 'placeholder' => '',
                 'class'=> 'form-control',
                 'autocomplete'=>'off'
