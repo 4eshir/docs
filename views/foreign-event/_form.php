@@ -409,11 +409,6 @@ $js =<<< JS
                 if (elems[j].children[i].childElementCount > 0)
                    elems[j].children[i].children[0].value = values[i]; 
     });
-    $(function() {
-      $('#foreigneventparticipantsextended-0-fio').on('change', function(){
-        alert('lol');
-       });
-    });
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
