@@ -322,6 +322,7 @@ class ForeignEventWork extends ForeignEvent
 
     private function uploadTeacherParticipants()
     {
+        var_dump($this->participants);
         if ($this->participants !== null)
         {
             foreach ($this->participants as $participantOne)
