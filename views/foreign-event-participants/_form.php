@@ -9,6 +9,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
+<script src="/scripts/sisyphus/sisyphus.js"></script>
+<script src="/scripts/sisyphus/sisyphus.min.js"></script>
+
 <div class="foreign-event-participants-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -75,3 +78,7 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script type="text/javascript">
+    $('form').sisyphus();
+</script>

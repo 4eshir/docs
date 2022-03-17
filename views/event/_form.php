@@ -9,6 +9,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<script src="/scripts/sisyphus/sisyphus.js"></script>
+<script src="/scripts/sisyphus/sisyphus.min.js"></script>
+
 <div class="event-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -319,3 +322,17 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script type="text/javascript">
+    $('form').sisyphus();
+    
+    var reloaded  = function(){alert('reload');} //страницу перезагрузили
+    window.onload = function() {
+      var loaded = sessionStorage.getItem('loaded');
+      if(loaded) {
+        reloaded();
+      } else {
+        sessionStorage.setItem('loaded', true);
+      }
+    }
+</script>
