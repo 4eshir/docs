@@ -719,7 +719,8 @@ class ExcelWizard
         
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
-        var_dump($gIds);
+        if ($branch_id == 4)
+            var_dump($gIds);
         return $gIds;
     }
 
