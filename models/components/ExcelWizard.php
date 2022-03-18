@@ -805,7 +805,7 @@ class ExcelWizard
 
         //Отдел Технопарк
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($start_date, $end_date, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2]))->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($start_date, $end_date, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
 
