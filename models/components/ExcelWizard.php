@@ -714,8 +714,6 @@ class ExcelWizard
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->training_program_id;
 
-        var_dump(BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => $focus_id])->createCommand()->getRawSql());
-        var_dump('<br>');
 
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->all();
 
