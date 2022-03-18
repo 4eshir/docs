@@ -736,6 +736,7 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
 
+        if (count($unicParts) == 0) return 0;
         return round((count($allParts) - count($unicParts)) / count($unicParts) * 100);
     }
 
