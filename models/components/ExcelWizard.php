@@ -707,9 +707,21 @@ class ExcelWizard
         return count($participantsId);
     }
 
-    public function DownloadGZ($start_date, $end_date)
+    static public function DownloadGZ($start_date, $end_date)
     {
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
 
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 8, '111');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
+        exit;
     }
 
     /*

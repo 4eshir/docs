@@ -76,6 +76,19 @@ class ReportFormController extends Controller
         ]);
     }
 
+    public function actionGz()
+    {
+        $model = new ForeignEventReportModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ExcelWizard::DownloadGZ($model->start_date, $model->end_date);
+        }
+
+        return $this->render('gz', [
+            'model' => $model,
+        ]);
+    }
+
 
 
     //Проверка на права доступа к CRUD-операциям

@@ -226,6 +226,7 @@ class RoleBaseAccess
             "index" => [25, 26],
             "effective-contract" => [25, 26],
             "do-dop-1" => [25, 26],
+            "gz" => [25, 26],
         ],
         //------
 
