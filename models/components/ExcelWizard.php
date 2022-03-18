@@ -737,6 +737,8 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
 
+        var_dump($groups);
+
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
 
