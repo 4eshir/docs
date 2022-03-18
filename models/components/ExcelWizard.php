@@ -710,7 +710,7 @@ class ExcelWizard
 
     static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
     {
-        $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => $focus_id])->all();
+        $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.focus_id', $focus_id])->all();
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->training_program_id;
 
@@ -730,13 +730,6 @@ class ExcelWizard
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
-
-        if ($branch_id == 4)
-            var_dump(TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->distinct()->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
-            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])->createCommand()->getRawSql());
 
         $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
@@ -787,13 +780,17 @@ class ExcelWizard
 
         //--------------------------------------
 
-        //Отдел Моб. Кванториум (тех. направленность)
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 38, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 4, 1));
-
-        //--------------------------------------
-
         //-----------------------------------------------------
+
+        //Кол-во человеко-часов
+
+        //Отдел Технопарк
+
+        $visits = VisitWork::find()->where()->
+
+        //---------------
+
+        //---------------------
         
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
