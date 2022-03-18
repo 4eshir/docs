@@ -714,16 +714,12 @@ class ExcelWizard
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->training_program_id;
 
-        if ($branch_id == 4)
-            var_dump(BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.focus_id' => $focus_id])->createCommand()->getRawSql());
-
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->all();
 
-        if ($branch_id == 4)
-            var_dump(TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->createCommand()->getRawSql());
-
+        
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
+        var_dump($gIds);
         return $gIds;
     }
 
