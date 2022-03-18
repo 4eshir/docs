@@ -724,8 +724,6 @@ class ExcelWizard
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
 
-        if ($focus_id == 0)
-            var_dump($gIds);
 
         return $gIds;
     }
