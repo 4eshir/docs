@@ -807,7 +807,7 @@ class ExcelWizard
 
         //Отдел Технопарк (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesAndBranch($start_date, $end_date, 2, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 2, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
 
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
@@ -816,7 +816,7 @@ class ExcelWizard
 
         //Отдел ЦДНТТ (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesAndBranch($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
 
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 9, count($visits));
