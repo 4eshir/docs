@@ -13,6 +13,7 @@ use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamWork;
 use app\models\work\ThematicPlanWork;
+use app\models\work\BranchProgramWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ForeignEventParticipantsWork;
