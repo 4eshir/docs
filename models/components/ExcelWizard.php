@@ -745,6 +745,7 @@ class ExcelWizard
             ->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 8, (count($allParts) - count($unicParts)) / count($unicParts));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 8, '111');
 
         //---------------
 
