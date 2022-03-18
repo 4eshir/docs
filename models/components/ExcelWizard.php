@@ -786,7 +786,7 @@ class ExcelWizard
 
         //Отдел Технопарк
 
-        $visits = VisitWork::find()->where()->all();
+        //$visits = VisitWork::find()->where()->all();
 
         //---------------
 
