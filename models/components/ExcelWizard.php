@@ -744,8 +744,7 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranch(2)])
             ->all();
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 8, (count($allParts) - count($unicParts)) / count($unicParts));
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 8, '111');
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 8, (count($allParts) - count($unicParts)) / count($unicParts));
 
         //---------------
 
