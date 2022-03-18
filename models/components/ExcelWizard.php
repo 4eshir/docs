@@ -709,7 +709,11 @@ class ExcelWizard
 
     static public function GetGroupsByBranch($branch_id)
     {
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.branch_id' => $branch_id])->all();
+        $programs = BranchProgramWork::find()->where(['branch_id' => $branch_id])->all();
+        $tpIds = [];
+        foreach ($programs as $program) $tpIds[] = $program->training_program_id;
+
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['trainingProgram.id' => $tpIds])->all();
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
         return $gIds;
