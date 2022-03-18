@@ -823,6 +823,38 @@ class ExcelWizard
 
         //---------------
 
+        //Отдел ЦДНТТ (худ. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 10, count($visits));
+
+        //---------------
+
+        //Отдел ЦДНТТ (соц-пед. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 3)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
+
+        //---------------
+
+        //Отдел Кванториум (тех. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 1, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, count($visits));
+
+        //---------------
+
+        //Отдел Моб. Кванториум (тех. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
+
+        //---------------
+
         //---------------------
         
 
