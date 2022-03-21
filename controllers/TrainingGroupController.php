@@ -75,8 +75,26 @@ class TrainingGroupController extends Controller
         ]);
     }
 
-    public function actionArchive($ids, $p)
+    public function actionArchive($arch, $unarch)
     {
+        $arch = explode(',', $arch);
+        $unarch = explode(',', $unarch);
+        for ($i = 0; $i < count($arch); $i++)
+        {
+            $group = TrainingGroupWork::find()->where(['id' => $arch[$i]])->one();
+            $group->archive = 1;
+            $group->save();
+        }
+
+        for ($i = 0; $i < count($unarch); $i++)
+        {
+            $group = TrainingGroupWork::find()->where(['id' => $unarch[$i]])->one();
+            $group->archive = 0;
+            $group->save();
+        }
+        Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
+        return $this->redirect(['/training-group/index']);
+        /*
         $searchModel = new SearchTrainingGroup();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = false;
@@ -108,6 +126,7 @@ class TrainingGroupController extends Controller
             }
         Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
         return $this->redirect(['/training-group/index']);
+        */
     }
 
     /**
