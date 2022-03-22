@@ -273,7 +273,7 @@ class ExcelWizard
         }
 
         if ($branch_id !== 0)
-            var_dump($pIds);
+            var_dump($partsLink);
 
         $counter1 = 0;
         $counter2 = 0;
