@@ -272,8 +272,6 @@ class ExcelWizard
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         }
 
-        if ($branch_id !== 0)
-            var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->createCommand()->getRawSql());
 
         $counter1 = 0;
         $counter2 = 0;
@@ -407,7 +405,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date, 3);
+        var_dump(ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date, 3)[1]);
         $result = ExcelWizard::GetPrizesWinners(8, $eIds, $eIds2, $start_date, $end_date, 0);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $result[0]);
