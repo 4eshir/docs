@@ -453,8 +453,8 @@ class ExcelWizard
 
         }
         */
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $counter1);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $counter2);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $result[0]);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $result[1]);
 
         //----------------------------------
 
@@ -506,8 +506,8 @@ class ExcelWizard
 
         }
         */
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $counter1);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $counter2);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $result[0]);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
 
         //----------------------------------
 
