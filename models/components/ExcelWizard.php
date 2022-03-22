@@ -784,7 +784,7 @@ class ExcelWizard
             ->all();
 
         if (count($projectParts) == 0) return 0;
-        return round((count($allParts) - count($projectParts)) / count($projectParts) * 100);
+        return round((count($allParts) / count($projectParts)) * 100);
     }
 
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
