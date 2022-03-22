@@ -228,7 +228,11 @@ class ForeignEventWork extends ForeignEvent
         $partsList = '';
         foreach ($parts as $partOne)
         {
-            $partsList = $partsList.$partOne->participantWork->shortName.'<br>';
+            $team = TeamWork::find()->where(['participant_id' => $partOne->participant_id])->andWhere(['foreign_event_id' => $this->id])->one();
+            if ($team !== null)
+                $partsList = $partsList.$partOne->participantWork->shortName.' ('.$team->name.')<br>';
+            else
+                $partsList = $partsList.$partOne->participantWork->shortName.'<br>';
         }
         return $partsList;
     }
