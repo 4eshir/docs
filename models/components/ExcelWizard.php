@@ -235,7 +235,7 @@ class ExcelWizard
     }
 
     //получить всех участников мероприятий в заданный период
-    static public function GetAllParticipants($start_date, $end_date, $budget)
+    static public function GetAllParticipantsForeignEvents($start_date, $end_date, $budget)
     {
         $tgIds = [];
 
