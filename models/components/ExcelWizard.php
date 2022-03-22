@@ -744,6 +744,7 @@ class ExcelWizard
         return $gIds;
     }
 
+    //получаем данные по людям, которые обучались в 2+ группах
     static public function GetPercentDoubleParticipant($start_date, $end_date, $branch_id, $focus_id)
     {
         $unicParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->distinct()->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
@@ -764,19 +765,44 @@ class ExcelWizard
         return round((count($allParts) - count($unicParts)) / count($unicParts) * 100);
     }
 
+    //получаем данные по проектам людей (получившие сертификат)
+    static public function GetPercentProjectParticipant($start_date, $end_date, $branch_id, $focus_id)
+    {
+        $projectParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->andWhere(['is not', ['certificat_number' => null]])
+            ->all();
+
+        $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->all();
+
+        if (count($projectParts) == 0) return 0;
+        return round((count($allParts) - count($projectParts)) / count($projectParts) * 100);
+    }
+
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
 
-        //получаем количество детей, подавших более 1 заявления
+        //получаем количество детей, подавших более 1 заявления и считаем процент защитивших проект
 
         //Отдел Технопарк (тех. направленность)
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 2, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 2, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 18)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 18)->getStyle()->getAlignment()->setHorizontal('center');
 
         //-------------------------------------
 
