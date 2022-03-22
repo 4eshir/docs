@@ -11,6 +11,7 @@ use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeamWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\BranchProgramWork;
