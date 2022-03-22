@@ -273,7 +273,7 @@ class ExcelWizard
         }
 
         if ($branch_id !== 0)
-            var_dump($partsLink);
+            var_dump($TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->createCommand()->getRawSql());
 
         $counter1 = 0;
         $counter2 = 0;
