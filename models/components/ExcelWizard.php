@@ -407,6 +407,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
+        ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date, 3);
         $result = ExcelWizard::GetPrizesWinners(8, $eIds, $eIds2, $start_date, $end_date, 0);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $result[0]);
