@@ -235,7 +235,7 @@ class ExcelWizard
     }
 
 
-    static public function GetPrizesWinners($event_level, $events_id, $start_date, $end_date)
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date)
     {
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
@@ -269,8 +269,8 @@ class ExcelWizard
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
 
-            $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $eIds2])->all();
-            $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $eIds2])->all();
+            $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->all();
+            $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->all();
 
 
             $counter1 += count($achieves1) + $counterTeamPrizes;
@@ -355,7 +355,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(8, $eIds, $start_date, $end_date);
+        $result = ExcelWizard::GetPrizesWinners(8, $eIds, $eIds2, $start_date, $end_date);
         /*
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 8])->all();
 
@@ -407,7 +407,7 @@ class ExcelWizard
 
         //Всероссийские победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(7, $eIds, $start_date, $end_date);
+        $result = ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date);
         
         /*
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 7])->all();
@@ -460,7 +460,7 @@ class ExcelWizard
 
         //Региональные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(6, $eIds, $start_date, $end_date);
+        $result = ExcelWizard::GetPrizesWinners(6, $eIds, $eIds2, $start_date, $end_date);
 
         /*
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => 6])->all();
