@@ -764,7 +764,7 @@ class ExcelWizard
         return round((count($allParts) - count($unicParts)) / count($unicParts) * 100);
     }
 
-    static public function DownloadGZ($start_date, $end_date)
+    static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
@@ -775,30 +775,40 @@ class ExcelWizard
         //Отдел Технопарк (тех. направленность)
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 2, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setHorizontal('center');
 
         //-------------------------------------
 
         //Отдел ЦДНТТ (тех. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setHorizontal('center');
 
         //---------------------------------
 
         //Отдел ЦДНТТ (худ. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 2));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setHorizontal('center');
 
         //---------------------------------
 
         //Отдел ЦДНТТ (соц-пед. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 3));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setHorizontal('center');
 
         //-------------------------------------
 
         //Отдел Кванториум (тех. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 1, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setHorizontal('center');
 
         //--------------------------------------
 
@@ -806,9 +816,15 @@ class ExcelWizard
 
         //Кол-во человеко-часов
 
+        $statusArr = [];
+        if ($visit_flag == 1) $statusArr = [0, 1, 2];
+        else $statusArr = [0, 2];
+
+
         //Отдел Технопарк (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 2, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 2, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
@@ -817,7 +833,7 @@ class ExcelWizard
 
         //Отдел ЦДНТТ (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 9, count($visits));
 
@@ -825,7 +841,7 @@ class ExcelWizard
 
         //Отдел ЦДНТТ (худ. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 10, count($visits));
 
@@ -833,7 +849,7 @@ class ExcelWizard
 
         //Отдел ЦДНТТ (соц-пед. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 3)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 3)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
 
@@ -841,7 +857,7 @@ class ExcelWizard
 
         //Отдел Кванториум (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 1, 0)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 1, 0)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, count($visits));
 
@@ -849,7 +865,7 @@ class ExcelWizard
 
         //Отдел Моб. Кванториум (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['status' => 0])->orWhere(['status' => 2])])->all();
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
 

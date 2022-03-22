@@ -7,6 +7,7 @@ use app\models\components\Logger;
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
 use app\models\extended\ForeignEventReportModel;
+use app\models\extended\ReportFormModel;
 use app\models\extended\ManHoursReportModel;
 use app\models\extended\ResultReportModel;
 use app\models\extended\UsefulSideReportModel;
@@ -78,10 +79,10 @@ class ReportFormController extends Controller
 
     public function actionGz()
     {
-        $model = new ForeignEventReportModel();
+        $model = new ReportFormModel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            ExcelWizard::DownloadGZ($model->start_date, $model->end_date);
+            ExcelWizard::DownloadGZ($model->start_date, $model->end_date, $model->method);
         }
 
         return $this->render('gz', [

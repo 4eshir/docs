@@ -65,7 +65,20 @@ $this->title = 'Отчет гос. заданию';
             ]])->label('По') ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-
+    <div class="col-xs-8 block-report" id="hours">
+            <?php
+            $arr = ['0' => 'Метод, учитывающий неявки', '1' => 'Метод, игнорирующий неявки'];
+            echo $form->field($model, 'method')->radioList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+                return
+                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="methods-'. $index .'">
+                            <input style="margin-left: -20px" id="methods-'. $index .'" name="'. $name .'" type="radio" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+            }])->label('Метод подсчета человеко-часов');
+            ?>
+    </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
 
     <div class="form-group">
@@ -82,9 +95,10 @@ $this->title = 'Отчет гос. заданию';
 
     elem.onchange = function()
     {
-        var Dy = new Date(elem.value);
-        Dy.setFullYear(Dy.getFullYear() + 1);
+        var Dy = new Date().toLocaleDateString();
+        console.log(Dy);
         var elem1 = document.getElementById('date2');
-        elem1.value = Dy.getFullYear() + "-" + ('0' + (Dy.getMonth() + 1)).slice(-2) + "-" + ('0' + Dy.getDate()).slice(-2);
+        var dateArr = Dy.split('.');
+        elem1.value = dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
     }
 </script>
