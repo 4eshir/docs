@@ -259,6 +259,8 @@ class ExcelWizard
     {
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
+        var_dump(count($events1));
+
         $partsLink = null;
         $pIds = [];
         if ($branch_id !== 0)
