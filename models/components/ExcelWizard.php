@@ -259,9 +259,6 @@ class ExcelWizard
     {
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
-        if ($event_level == 7)
-            foreach ($events1 as $event)
-                var_dump($event->name.'<br>');
 
         $partsLink = null;
         $pIds = [];
@@ -406,6 +403,8 @@ class ExcelWizard
 
         //Международные победители и призеры
 
+        var_dump(ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date, 3)[0]);
+        var_dump(ExcelWizard::GetPrizesWinners(7, $eIds, $eIds2, $start_date, $end_date, 3)[1]);
         $result = ExcelWizard::GetPrizesWinners(8, $eIds, $eIds2, $start_date, $end_date, 0);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $result[0]);
