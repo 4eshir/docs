@@ -259,7 +259,9 @@ class ExcelWizard
     {
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
-        var_dump(count($events1));
+        if ($event_level == 8)
+            foreach ($events1 as $event)
+                var_dump($event->name.'<br>');
 
         $partsLink = null;
         $pIds = [];
