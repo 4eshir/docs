@@ -809,32 +809,52 @@ class ExcelWizard
         //Отдел ЦДНТТ (тех. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 3, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 23)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 23)->getStyle()->getAlignment()->setHorizontal('center');
 
         //---------------------------------
 
         //Отдел ЦДНТТ (худ. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 2));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 3, 2));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 27)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 27)->getStyle()->getAlignment()->setHorizontal('center');
 
         //---------------------------------
 
         //Отдел ЦДНТТ (соц-пед. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 3, 3));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 3, 3));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 31)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 31)->getStyle()->getAlignment()->setHorizontal('center');
 
         //-------------------------------------
 
         //Отдел Кванториум (тех. направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 1, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 35, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 1, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 35)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 35)->getStyle()->getAlignment()->setHorizontal('center');
+
+        //--------------------------------------
+
+        //Отдел Моб. Кванториум (тех. направленность)
+        
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 4, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setHorizontal('center');
 
         //--------------------------------------
 
