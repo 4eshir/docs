@@ -200,6 +200,7 @@ class SiteController extends Controller
         foreach ($tp as $one) {
             $one->focus = 1;
             $one->save();
+            var_dump($one->getErrors());
         }
         //*/
     }
