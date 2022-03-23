@@ -292,6 +292,7 @@ class ExcelWizard
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
 
+            var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event_id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->createCommand()->getRawSql());
 
             if ($partsLink !== null)
                 $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event_id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
