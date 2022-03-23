@@ -143,7 +143,7 @@ use yii\widgets\ActiveForm;
                     $team = \app\models\work\TeamWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
                     echo '<tr><td style="padding-left: 20px"><h4>'.
                             $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$teachersStr.'</h4></td>'.
-                            '<td style="padding-left: 10px">'.$partOne->focus.'</td>'.
+                            '<td style="padding-left: 10px">'.$partOne->focus0->name.'</td>'.
                             '<td style="padding-left: 10px">'.$team->name.'</td>'.
                             '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
                             '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.
