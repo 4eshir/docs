@@ -936,6 +936,34 @@ class ExcelWizard
 
         //--------------------------------------
 
+        //Отдел ЦОД (естес.-науч. направленность)
+        
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 50, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setHorizontal('center');
+
+        //--------------------------------------
+
+        //Отдел ЦОД (худож. направленность)
+        
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 50, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setHorizontal('center');
+
+        //--------------------------------------
+
         //-----------------------------------------------------
 
         //Кол-во человеко-часов
@@ -992,6 +1020,22 @@ class ExcelWizard
         $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
+
+        //---------------
+
+        //Отдел ЦОД (естес.-науч. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 4)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 16, count($visits));
+
+        //---------------
+
+        //Отдел ЦОД (худож. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 2)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 17, count($visits));
 
         //---------------
 
