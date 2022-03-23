@@ -28,6 +28,15 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     ?>
 
     <?php
+    $focuses = \app\models\work\FocusWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($focuses,'id','name');
+    $params = [
+        'prompt' => ''
+    ];
+    echo $form->field($model, 'focus')->dropDownList($items,$params)->label('Направленность');
+    ?>
+
+    <?php
     $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
     echo $form->field($model, 'branchs')->checkboxList(
