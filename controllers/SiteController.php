@@ -195,18 +195,13 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $oldBranch = TeacherParticipantWork::find()->all();
-        foreach ($oldBranch as $branch) 
-        {
-            $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $branch->id])->one();
-            if ($newBranch == null && $branch->branch_id !== null)
-            {
-                $newBranch = new TeacherParticipantBranchWork();
-                $newBranch->branch_id = $branch->branch_id;
-                $newBranch->teacher_participant_id = $branch->id;
-                $newBranch->save();
-            }
+        ///*
+        $tp = TeacherParticipantWork::find()->where(['IN', 'branch_id', [1, 2]])->all();
+        foreach ($tp as $one) {
+            $tp->focus = 1;
+            $tp->save();
         }
+        //*/
     }
 
 
