@@ -193,11 +193,20 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $sqlStr = "CREATE EVENT `token_event` ON SCHEDULE AT '2022-01-26 15:25:00' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO `log`(`user_id`, `text`, `date`, `time`) VALUES (1, 'Test Event', CURRENT_DATE, CURRENT_TIME)";
-        Yii::$app->db->createCommand($sqlStr)->execute();
-        //$sqlStr = "CREATE EVENT `token_event` ON SCHEDULE AT '2022-01-26 15:25:00' ON COMPLETION NOT PRESERVE ENABLE DO INSERT INTO `log`(`user_id`, `text`, `date`, `time`) VALUES (1, 'Test Event', CURRENT_DATE, CURRENT_TIME)";
-        //Yii::$app->db->createCommand($sqlStr)->execute();
+        $oldBranch = TeacherParticipantWork::find()->all();
+        foreach ($oldBranch as $branch) 
+        {
+            $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $oldBranch->id])->one();
+            if ($newBranch == null)
+            {
+                $newBranch = new TeacherParticipantBranchWork();
+                $newBranch->branch_id = $oldBranch->branch_id;
+                $newBranch->teacher_participant_id = $oldBranch->id;
+                $newBranch->save();
+            }
+        }
     }
+
 
 
     /*public function beforeAction($action)
