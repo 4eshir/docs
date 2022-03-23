@@ -199,7 +199,7 @@ class SiteController extends Controller
         foreach ($oldBranch as $branch) 
         {
             $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $oldBranch->id])->one();
-            if ($newBranch == null)
+            if ($newBranch == null && $oldBranch->branch_id !== null)
             {
                 $newBranch = new TeacherParticipantBranchWork();
                 $newBranch->branch_id = $oldBranch->branch_id;
