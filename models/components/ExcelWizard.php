@@ -328,6 +328,8 @@ class ExcelWizard
             $eIds = [];
             foreach ($events1 as $event) $eIds[] = $event->id;
 
+            var_dump($eIds);
+
             if ($focus_id !== 0)
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             else
@@ -809,10 +811,7 @@ class ExcelWizard
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
         $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
-        var_dump($winners1);
-        var_dump($winners2);
-        var_dump($winners3);
-        var_dump($all);
+        
         return (($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100;
     }
 
