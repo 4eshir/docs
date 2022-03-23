@@ -198,9 +198,8 @@ class SiteController extends Controller
         ///*
         $tp = TeacherParticipantWork::find()->where(['IN', 'branch_id', [1, 2]])->all();
         foreach ($tp as $one) {
-            $one->focus = 1;
+            $one->focus = "1";
             $one->save();
-            var_dump($one->getErrors());
         }
         //*/
     }
