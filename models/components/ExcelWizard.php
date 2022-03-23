@@ -811,6 +811,7 @@ class ExcelWizard
         var_dump($winners1);
         var_dump($winners2);
         var_dump($winners3);
+        var_dump($all);
         return (($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100;
     }
 
