@@ -294,7 +294,7 @@ class ExcelWizard
 
 
             if ($partsLink !== null)
-                $counterPart1 += count($partsLink) + $counterTeam;
+                $counterPart1 += count(TeacherParticipantBranchWork::find()->join(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event_id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
