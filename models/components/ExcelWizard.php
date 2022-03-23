@@ -236,31 +236,65 @@ class ExcelWizard
     }
 
     //получить всех участников заданного отдела мероприятий в заданный период
-    static public function GetAllParticipantsForeignEvents($start_date, $end_date, $budget, $branch_id)
+    static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
     {
-        $tgIds = [];
+        if ($events_id == 0)
+            $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
+        else
+            $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
-        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->all();
 
-        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-
+        $partsLink = null;
         $pIds = [];
-        foreach ($participants as $participant) $pIds[] = $participant->participant_id;
-        $eventParticipants = TeacherParticipantWork::find()->joinWith(['foreignEvent foreignEvent'])->where(['IN', 'participant_id', $pIds])->andWhere(['foreignEvent.event_level'])->all();
+        if ($branch_id !== 0)
+        {
+            $eIds = [];
+            foreach ($events1 as $event) $eIds[] = $event->id;
 
-        $tpIds = [];
-        foreach ($eventParticipants as $part) $tpIds[] = $part->id;
+            if ($focus_id !== 0)
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+            else
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
 
-        $eventBranchParticipants = TeacherParticipantBranchWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['branch_id' => $branch_id])->all();
+            foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
+        }
 
-        $result = [];
-        foreach ($eventBranchParticipants as $part) $result[] = $part->teacherParticipant->participant_id;
 
-        return $result;
+        $counter1 = 0;
+        $counter2 = 0;
+        $counterPart1 = 0;
+        $allTeams = 0;
+        foreach ($events1 as $event)
+        {
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $tIds = [];
+            $teamName = '';
+            $counterTeamWinners = 0;
+            $counterTeamPrizes = 0;
+            $counterTeam = 0;
+            foreach ($teams as $team)
+            {
+                if ($teamName != $team->name)
+                {
+                    $teamName = $team->name;
+                    if ($partsLink !== null)
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                    else
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                    if ($res !== null) $counterTeam++;
+                }
+                $tIds[] = $team;
+            }
+
+            $tpIds = [];
+            foreach ($tIds as $tId)
+                $tpIds[] = $tId->participant_id;
+
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+
+        }
+
+        return $counterPart1;
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
@@ -764,7 +798,9 @@ class ExcelWizard
     //получаем процент победителей и призеров от общего числа участников
     static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
     {
-        return (ExcelWizard::GetPrizesWinners($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id) / ExcelWizard::GetAllParticipantsForeignEvents($start_date, $end_date, $budget, $branch_id)) * 100;
+        $winners = ExcelWizard::GetPrizesWinners($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
+        $all = ExcelWizard::GetAllParticipantsForeignEvents($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id)
+        return (($winners[0] + $winners[1]) / $all) * 100;
     }
 
     //получаем данные по людям, которые обучались в 2+ группах
