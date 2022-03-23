@@ -196,7 +196,7 @@ class SiteController extends Controller
     public function actionTemp()
     {
         ///*
-        $tp = TeacherParticipantWork::find()->where(['IN', 'branch_id', [3, 4, 7]])->all();
+        $tp = TeacherParticipantWork::find()->where(['NOT IN', 'branch_id', [1, 2, 3, 4, 7]])->all();
         foreach ($tp as $one) {
             $one->focus = null;
             $one->save();
