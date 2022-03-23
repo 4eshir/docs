@@ -272,7 +272,7 @@ class ExcelWizard
     * $end_date - правая дата для поиска групп
     * $branch_id - id отдела, производящего учет (0 - все отделы)
     */
-    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id)
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
     {
         if ($events_id == 0)
             $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
@@ -286,7 +286,11 @@ class ExcelWizard
         {
             $eIds = [];
             foreach ($events1 as $event) $eIds[] = $event->id;
-            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
+
+            if ($focus_id !== 0)
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacher_participant_branch.focus' => $focus_id])->all();
+            else
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         }
@@ -442,7 +446,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, 0);
+        $result = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, 0, 0);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 7, $result[1]);
@@ -451,7 +455,7 @@ class ExcelWizard
 
         //Всероссийские победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0);
+        $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $result[1]);
@@ -460,7 +464,7 @@ class ExcelWizard
 
         //Региональные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0);
+        $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0);
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
@@ -758,7 +762,7 @@ class ExcelWizard
     }
 
     //получаем процент победителей и призеров от общего числа участников
-    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $budget)
+    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
     {
         return (ExcelWizard::GetPrizesWinners($event_level, 0, 0, $start_date, $end_date, $branch_id) / ExcelWizard::GetAllParticipantsForeignEvents($start_date, $end_date, $budget, $branch_id)) * 100;
     }
@@ -818,11 +822,13 @@ class ExcelWizard
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 2, 1));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 2, 1));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 2, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 2, 1, 1, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 18)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 18)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 19)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 19)->getStyle()->getAlignment()->setHorizontal('center');
 
         //-------------------------------------
 

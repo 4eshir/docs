@@ -195,7 +195,7 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        ///*
+        /*
         $tp = TeacherParticipantWork::find()->all();
         foreach ($tp as $one) {
             $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $one->id])->one();
@@ -207,7 +207,7 @@ class SiteController extends Controller
                 $newBranch->save();
             }
         }
-        //*/
+        */
     }
 
 
