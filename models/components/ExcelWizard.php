@@ -260,9 +260,6 @@ class ExcelWizard
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         }
 
-        var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->createCommand()->getRawSql());
-
-        var_dump($events1);
 
 
         $counter1 = 0;
