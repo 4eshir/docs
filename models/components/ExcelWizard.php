@@ -799,7 +799,7 @@ class ExcelWizard
     static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
     {
         $winners = ExcelWizard::GetPrizesWinners($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
-        $all = ExcelWizard::GetAllParticipantsForeignEvents($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id)
+        $all = ExcelWizard::GetAllParticipantsForeignEvents($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
         return (($winners[0] + $winners[1]) / $all) * 100;
     }
 
