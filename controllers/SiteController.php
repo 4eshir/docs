@@ -205,6 +205,7 @@ class SiteController extends Controller
                 $newBranch->branch_id = $oldBranch->branch_id;
                 $newBranch->teacher_participant_id = $oldBranch->id;
                 $newBranch->save();
+                var_dump($newBranch->getErrors());
             }
         }
     }
