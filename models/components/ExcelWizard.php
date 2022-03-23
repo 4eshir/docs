@@ -336,7 +336,6 @@ class ExcelWizard
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
-            var_dump($pIds);
         }
 
 
