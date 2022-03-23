@@ -336,7 +336,7 @@ class ExcelWizard
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
-            var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->createCommand()->getRawSql());
+            var_dump($pIds);
         }
 
 
@@ -808,9 +808,9 @@ class ExcelWizard
     //получаем процент победителей и призеров от общего числа участников
     static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
     {
-        $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
-        $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
-        $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
+        $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
+        $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
+        $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         
         return (($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100;
