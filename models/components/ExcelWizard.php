@@ -246,9 +246,10 @@ class ExcelWizard
 
         $partsLink = null;
         $pIds = [];
+        $eIds = [];
         if ($branch_id !== 0)
         {
-            $eIds = [];
+            
             foreach ($events1 as $event) $eIds[] = $event->id;
 
             if ($focus_id !== 0)
