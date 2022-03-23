@@ -807,8 +807,8 @@ class ExcelWizard
     //получаем процент победителей и призеров от общего числа участников
     static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
     {
-        $winners = ExcelWizard::GetPrizesWinners($event_level, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
-        $all = ExcelWizard::GetAllParticipantsForeignEvents($event_level, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
+        $winners = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $focus_id, $branch_id) + ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $focus_id, $branch_id) + ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $focus_id, $branch_id);
+        $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         return (($winners[0] + $winners[1]) / $all) * 100;
     }
 
