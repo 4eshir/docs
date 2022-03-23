@@ -290,7 +290,11 @@ class ExcelWizard
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
 
-            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+
+            if ($partsLink !== null)
+                $counterPart1 += count($partsLink) + $counterTeam;
+            else
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
         }
 
