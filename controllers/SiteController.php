@@ -198,14 +198,13 @@ class SiteController extends Controller
         $oldBranch = TeacherParticipantWork::find()->all();
         foreach ($oldBranch as $branch) 
         {
-            $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $oldBranch->id])->one();
-            if ($newBranch == null && $oldBranch->branch_id !== null)
+            $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $branch->id])->one();
+            if ($newBranch == null && $branch->branch_id !== null)
             {
                 $newBranch = new TeacherParticipantBranchWork();
-                $newBranch->branch_id = $oldBranch->branch_id;
-                $newBranch->teacher_participant_id = $oldBranch->id;
+                $newBranch->branch_id = $branch->branch_id;
+                $newBranch->teacher_participant_id = $branch->id;
                 $newBranch->save();
-                var_dump($newBranch->getErrors());
             }
         }
     }
