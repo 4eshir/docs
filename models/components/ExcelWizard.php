@@ -812,12 +812,13 @@ class ExcelWizard
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
 
-        //получаем количество детей, подавших более 1 заявления и считаем процент защитивших проект
+        //получаем количество детей, подавших более 1 заявления и считаем процент защитивших проект / призеров победителей мероприятий
 
         //Отдел Технопарк (тех. направленность)
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 2, 1));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 2, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 2, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 18)->getStyle()->getAlignment()->setVertical('top');

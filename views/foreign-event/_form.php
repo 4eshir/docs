@@ -205,7 +205,12 @@ use yii\widgets\ActiveForm;
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагогов');
                                     echo $form->field($modelParticipantsOne, "[{$i}]teacher2")->dropDownList($items,$params)->label(false);
-                                    echo $form->field($modelParticipantsOne, "[{$i}]focus")->textInput()->label('Направленность');
+                                    $focuses = \app\models\work\FocusWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($focuses,'id','name');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]focus")->dropDownList($items,$params)->label('Направленность');
                                     ?>
                                 </div>
                             </div>

@@ -12,12 +12,15 @@ use Yii;
  * @property int $teacher_id
  * @property int|null $teacher2_id
  * @property int $foreign_event_id
- * @property string $focus
+ * @property int|null $branch_id
+ * @property int|null $focus
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
  * @property People $teacher
  * @property People $teacher2
+ * @property Branch $branch
+ * @property Focus $focus0
  * @property TeacherParticipantBranch[] $teacherParticipantBranches
  */
 class TeacherParticipant extends \yii\db\ActiveRecord
@@ -36,17 +39,16 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'teacher_id', 'foreign_event_id', 'focus'], 'required'],
-            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id'], 'integer'],
-            [['focus'], 'string', 'max' => 1000],
+            [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
+            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'branch_id', 'focus'], 'integer'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['teacher2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher2_id' => 'id']],
+            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['focus'], 'exist', 'skipOnError' => true, 'targetClass' => Focus::className(), 'targetAttribute' => ['focus' => 'id']],
         ];
     }
-
-    
 
     /**
      * {@inheritdoc}
@@ -59,6 +61,7 @@ class TeacherParticipant extends \yii\db\ActiveRecord
             'teacher_id' => 'Teacher ID',
             'teacher2_id' => 'Teacher2 ID',
             'foreign_event_id' => 'Foreign Event ID',
+            'branch_id' => 'Branch ID',
             'focus' => 'Focus',
         ];
     }
@@ -101,6 +104,26 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function getTeacher2()
     {
         return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
+    }
+
+    /**
+     * Gets query for [[Branch]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+    }
+
+    /**
+     * Gets query for [[Focus0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFocus0()
+    {
+        return $this->hasOne(Focus::className(), ['id' => 'focus']);
     }
 
     /**

@@ -195,13 +195,13 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        ///*
+        /*
         $tp = TeacherParticipantWork::find()->where(['is', 'branch_id', new \yii\db\Expression('null')])->all();
         foreach ($tp as $one) {
             $one->focus = null;
             $one->save();
         }
-        //*/
+        */
     }
 
 
