@@ -246,7 +246,27 @@ use yii\widgets\ActiveForm;
     {
         $value = $prog->allow_remote == 0 ? $value = false : $value = true;
     }
-    echo $form->field($model, 'allow_remote')->checkbox(['checked' => $value]);
+    echo $form->field($model, 'allow_remote')->radioList([
+            0 => 'Только очная форма',
+            1 => 'Очная форма, с применением дистанционных технологий',
+            2 => 'Только дистанционная форма'
+        ],
+        [
+            'item' => function($index, $label, $name, $checked, $value) {
+                if ($checked == true)
+                    $checkedStr = 'checked=""';
+                else
+                    $checkedStr = '';
+                $return = '<label class="modal-radio">';
+                $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" style="margin-right: 5px" '.$checkedStr.'>';
+                $return .= '<i></i>';
+                $return .= '<span>' . ucwords($label) . '</span>';
+                $return .= '</label><br>';
+
+                return $return;
+            }
+        ])->label('Форма реализации');
+    
     ?>
 
     <?= $form->field($model, 'hour_capacity')->textInput() ?>
