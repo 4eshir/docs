@@ -428,10 +428,29 @@ $session = Yii::$app->session;
                 $params = [
                 ];
                 //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
-                echo $form->field($model, "new_groups_check[$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
+                echo $form->field($model, "new_groups_check[$gr->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
                 //}
                 echo '</td></tr>';
             }
+            /*----------------*/
+            if (\app\models\work\NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one()->type === 1)
+            {
+                $pasta = \app\models\work\OrderGroupParticipantWork::find()->joinWith('orderGroup orderGroup')->where(['orderGroup.document_order_id' => $model->id])->all();
+                $grPs = \app\models\work\TrainingGroupParticipantWork::find();
+                foreach ($pasta as $macaroni)
+                {
+                    echo '<tr><td style="width: 10px">';
+                    $grP = $grPs->where(['id' => $macaroni->group_participant_id])->one();
+                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $grP->id . '">';
+                    echo '</td><td style="width: auto">';
+                    echo $part->where(['id' => $grP->participant_id])->one()->getFullName();
+                    echo '</td><td style="width: auto">';
+                    $gr = $stud->where(['id' => $grP->training_group_id])->one();
+                    echo $gr->number;
+                    echo '</td><td style="width: auto; display: none"></td></tr>';
+                }
+            }
+            /*----------------*/
             echo '</tbody></table></div>';
         }
 

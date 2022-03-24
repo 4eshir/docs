@@ -462,17 +462,17 @@ class DocumentOrderWork extends DocumentOrder
                         // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
                         if ($status === 2)
                         {
-                            $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$group->participant_id][0]])->one();
+                            $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
                             if ($newGroup === null)
                             {
                                 $trPr = new TrainingGroupParticipantWork();
                                 $trPr->participant_id = $group->participant_id;
-                                $trPr->training_group_id = $this->new_groups_check[$group->participant_id][0];
+                                $trPr->training_group_id = $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0];
                                 $trPr->status = 0;
                                 $trPr->save();
 
-                                $trPr->addVisits($this->new_groups_check[$group->participant_id][0], $group->participant_id);
-                                $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$group->participant_id][0]])->one();
+                                $trPr->addVisits($this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0], $group->participant_id);
+                                $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
                             }
                             $link = OrderGroupParticipantWork::find()->where(['order_group_id' => $orderGroup->id])->andWhere(['group_participant_id' => $this->participants_check[$i]])->andWhere(['status' => $status])->one();
                             $pasta = new OrderGroupParticipantWork();
@@ -510,9 +510,9 @@ class DocumentOrderWork extends DocumentOrder
                         $delGr->delete();
                 }
 
-                if ($macaroni->status === 1) // отчисление
+                if ($pasta->status === 1) // отчисление
                 {
-                    $edit = TrainingGroupParticipantWork::find()->where(['id' => $macaroni->group_participant_id])->one();
+                    $edit = TrainingGroupParticipantWork::find()->where(['id' => $pasta->group_participant_id])->one();
                     if ($edit !== NULL)
                     {
                         $edit->status = 0;
