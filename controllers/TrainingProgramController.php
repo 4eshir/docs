@@ -142,7 +142,6 @@ class TrainingProgramController extends Controller
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
             'modelAuthor' => $modelAuthor,

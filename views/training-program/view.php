@@ -63,7 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'hour_capacity',
             ['attribute' => 'themesPlan', 'format' => 'raw', 'label' => 'Учебно-тематический план'],
             ['attribute' => 'branchs', 'format' => 'raw'],
-            ['attribute' => 'allow_remote', 'value' => function($model) {return $model->allow_remote == 0 ? 'Нет' : 'Да';}],
+            ['attribute' => 'allow_remote', 'label' => 'Форма реализации', 'value' => function($model) {
+                $out = '';
+                if ($model->allow_remote == 0) $out = 'Только очная форма';
+                if ($model->allow_remote == 1) $out = 'Очная форма, с применением дистанционных технологий';
+                if ($model->allow_remote == 2) $out = 'Только дистанционная форма';
+                return $out;}],
             ['attribute' => 'doc_file', 'value' => function ($model) {
                 return Html::a($model->doc_file, \yii\helpers\Url::to(['training-program/get-file', 'fileName' => $model->doc_file, 'modelId' => $model->id, 'type' => 'doc']));
             }, 'format' => 'raw'],
