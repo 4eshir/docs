@@ -1,6 +1,15 @@
 Change Log: `yii2-export`
 =========================
 
+## version 1.4.2
+
+**Date:** 03-Nov-2021
+
+- (enh #353): Enhancements to support Bootstrap v5.x.
+- (enh #333): Correct `stripHtml`.
+- (enh #330): Sanitize file names in a better way.
+- (enh #328, #329): Allow closure for contentOptions.
+
 ## version 1.4.1
 
 **Date:** 27-Jul-2020

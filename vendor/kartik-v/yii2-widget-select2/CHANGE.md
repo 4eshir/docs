@@ -1,6 +1,31 @@
 Change Log: `yii2-widget-select2`
 =================================
 
+## Version 2.2.3
+
+**Date:** 04-Mar-2022
+
+- (enh #345): Create new theme krajee-bs5 for Bootstrap 5.x.
+- (enh #344): Match language for toggleAll message.
+- (enh #343): Enhance search field auto focus for jQuery 3.6.0.
+- (enh #342): Replace null coalescing operator for BC for PHP 5.x.
+- (enh #340): Enhance Krajee theme for better BSv4.x and BSv5.x support.
+- (enh #339): Enhance Krajee theme to support BSv5.x floating labels.
+
+## Version 2.2.2
+
+**Date:** 02-Sep-2021
+
+- (enh #338): Enhancements to support Bootstrap v5.x.
+
+## Version 2.2.1
+
+**Date:** 09-Jun-2021
+
+- (enh #334): Correct multiple select placeholder styles.
+- (enh #332): Enhance Select2 required attribute validation when used with model.
+- Fix Krajee BS themes styling for multiple select.
+
 ## Version 2.2.0
 
 **Date:** 28-Sep-2020

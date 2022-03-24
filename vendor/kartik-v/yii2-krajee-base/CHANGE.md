@@ -1,6 +1,49 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 3.0.4
+
+**Date:** 26-Feb-2022
+
+- (enh #118): Correct `substr` function use and add new `strncmp` method.
+- Enhance PHP Documentation.
+
+## Version 3.0.3
+
+**Date:** 26-Feb-2022
+
+- New class `Lib` for PHP internal base methods (for addressing NULL params deprecation in PHP versions >= v8.1).
+- Enhance & standardize php docs for new website https://docs.krajee.com.
+
+## Version 3.0.2
+
+**Date:** 10-Jan-2022
+
+- Enhance & standardize php docs for new website https://docs.krajee.com.
+- (enh #116): Enhance dependency exception messaging for `getDropdownClass`.
+- (enh #115): Fix code for older PHP version support.
+- (enh #114): Enhancements to HTML 5 input CSS.
+
+## Version 3.0.1
+
+**Date:** 03-Sep-2021
+
+- Add BootstrapIconsAsset bundle.
+- Enhancements to support Bootstrap v5.x.
+
+## Version 3.0.0
+
+**Date:** 01-Sep-2021
+
+- (enh #113): Add bootstrap 5.x support.
+- Create new major release for Bootstrap v5.x support
+
+## Version 2.0.6
+
+**Date:** 08-Apr-2021
+
+- (enh #112): Add new bootstrap CSS Class map `BS_PANEL_SECONDARY`.
+
 ## Version 2.0.5
 
 **Date:** 13-Mar-2019

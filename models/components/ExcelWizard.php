@@ -7,6 +7,7 @@ namespace app\models\components;
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
 use app\models\extended\JournalModel;
+use app\models\work\DocumentOrderWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\ParticipantAchievementWork;
@@ -1206,4 +1207,29 @@ class ExcelWizard
         return $participants;
     }
 
+    static public function DownloadTeacherDocumentOrder($order_id)
+    {
+        ini_set('memory_limit', '512M');
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/test.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/test.xlsx');
+
+        $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
+        $c = 1;
+
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 12 + $c, $c);
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header("Content-Disposition: attachment;filename=test.xls");
+        header("Content-Transfer-Encoding: binary ");
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+        exit;
+    }
 }
