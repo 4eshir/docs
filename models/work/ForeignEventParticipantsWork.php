@@ -108,6 +108,9 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             if ($event->status === 2)
                 $eventsLink .= ' | Переведен';
 
+            if ($event->status === 1)
+                $eventsLink .= ' | Отчислен';
+
             $eventsLink .= '<br>';
         }
 
