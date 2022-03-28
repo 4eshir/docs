@@ -10,7 +10,10 @@ use app\models\extended\JournalModel;
 use app\models\work\DocumentOrderWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
+use app\models\work\OrderGroupParticipantWork;
+use app\models\work\OrderGroupWork;
 use app\models\work\ParticipantAchievementWork;
+use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeamWork;
@@ -20,6 +23,7 @@ use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
+use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\db\ActiveQuery;
@@ -1216,9 +1220,22 @@ class ExcelWizard
         $inputData = $reader->load(Yii::$app->basePath.'/templates/test.xlsx');
 
         $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
+        $group = OrderGroupWork::find();
+        $pasta = OrderGroupParticipantWork::find();
+        $program = TrainingProgramWork::find();
+        $teacher = TeacherGroupWork::find();
+        $trG = TrainingGroupWork::find();
+        $part = ForeignEventParticipantsWork::find();
+        $gPart = TrainingGroupParticipantWork::find();
+
         $c = 1;
 
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 12 + $c, $c);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 8, $order->order_date);
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 8, $order->order_number . '/' . $order->order_copy_id . '/' .  $order->order_postfix);
+        $text = '';
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 15, '2. Назначить ' . $text . 'руководителем учебной группы, указанной в Приложении к настоящему приказу.');
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 16, '3. ' . $text . 'обеспечить:');
+
 
         header("Pragma: public");
         header("Expires: 0");
