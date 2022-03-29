@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $gridColumns = [
         ['attribute' => 'name', 'label' => 'Уникальный глобальный номер'],
         ['attribute' => 'text', 'label' => 'Имя'],
-        ['attribute' => 'square', 'label' => 'Площадб (кв.м)'],
+        ['attribute' => 'square', 'label' => 'Площадь (кв.м)'],
         ['attribute' => 'isEducation', 'label' => 'Предназначен для обр. деят.'],
         ['attribute' => 'branch_id', 'label' => 'Название отдела', 'value' => function($model){
                     return $model->branch->name;}],

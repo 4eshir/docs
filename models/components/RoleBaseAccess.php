@@ -109,6 +109,7 @@ class RoleBaseAccess
             "subattr" => [31, 23],
             "find-model" => [31, 23],
             "amnesty" => [32, 24],
+            "download-excel" => [31, 24],
         ],
         //----------------------------------------
 

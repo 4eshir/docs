@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\components\ExcelWizard;
 use app\models\components\RoleBaseAccess;
+use app\models\components\WordWizard;
 use app\models\work\BranchWork;
 use app\models\work\ExpireWork;
 use app\models\work\NomenclatureWork;
@@ -460,5 +462,12 @@ class DocumentOrderController extends Controller
         $errorsAmnesty = new OrderErrorsWork();
         $errorsAmnesty->OrderAmnesty($id);
         return $this->redirect('index?r=document-order/view&id='.$id);
+    }
+
+    // Новый функционал - генерация образовательных приказов
+    public function actionDownloadExcel($order_id)
+    {
+        //ExcelWizard::Enrolment($order_id);
+        WordWizard::Enrolment($order_id);
     }
 }
