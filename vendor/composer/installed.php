@@ -220,7 +220,7 @@
             'aliases' => array(
                 0 => '1.20.x-dev',
             ),
-            'reference' => '834cd7c92bbf7a71ea593463f91b7496a9d41b0f',
+            'reference' => 'acef8f29bfd88bb046a5fe2a08693977aa9501bd',
             'dev_requirement' => true,
         ),
         'guzzlehttp/psr7' => array(

@@ -90,6 +90,18 @@ class ReportFormController extends Controller
         ]);
     }
 
+    public function actionDo()
+    {
+        $model = new ReportFormModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ExcelWizard::DownloadDO($model->start_date, $model->end_date);
+        }
+
+        return $this->render('do', [
+            'model' => $model,
+        ]);
+    }
 
 
     //Проверка на права доступа к CRUD-операциям

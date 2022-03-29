@@ -18,6 +18,8 @@ use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeamWork;
+use app\models\work\BranchWork;
+use app\models\work\FocusWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\BranchProgramWork;
 use app\models\work\TrainingGroupLessonWork;
@@ -774,6 +776,16 @@ class ExcelWizard
         return count($participantsId);
     }
 
+    static private function GetParticipantsByAgeRange($age_left, $age_right, $participants, $date)
+    {
+        $participantsId = [];
+        foreach ($participants as $participant){
+            if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) >= $age_left && round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) <= $age_right)
+                $participantsId[] = $participant->id;
+        }
+        return count($participantsId);
+    }
+
     static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
     {
         $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.focus_id', $focus_id])->all();
@@ -1097,6 +1109,176 @@ class ExcelWizard
         $writer->save('php://output');
         exit;
     }
+
+    static public function GetParticipantsFromGroup($training_group_ids, $sex)
+    {
+        $result = [];
+        if (count($training_group_ids) > 0)
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['status' => 0])->andWhere(['IN', 'participant.sex', $sex])->all();
+
+        $resIds = [];
+        foreach ($result as $one) $resIds[] = $one->participant_id;
+
+        $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
+
+        return $partsRes;
+    }
+
+    static public function DownloadDO($start_date, $end_date)
+    {
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DO.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DO.xlsx');
+
+        //получаем количество групп по направленностям
+
+        $branchs = BranchWork::find()->all();
+        $focuses = FocusWork::find()->all();
+        $sumArr = [];  
+        $allGroups = [];
+
+        foreach ($focuses as $focus)
+        {
+            $sum = 0;
+            $groupsId = [];
+            foreach ($branchs as $branch) 
+            {
+                $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id);
+                foreach ($groups as $group) $groupsId[] = $group;
+
+                $sum += count($groups);
+            }
+            $allGroups[] = $groupsId;
+            $sumArr[] = $sum;
+        }
+
+        //техническая направленность
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 22, $sumArr[0]);
+
+        //--------------------------
+
+        //художественная направленность
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 27, $sumArr[1]);
+
+        //-----------------------------
+
+        //социально-педагогическая направленность + естественнонаучная направленность
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 29, $sumArr[2] + $sumArr[3]);
+
+        //----------------------------------------------------------------------------
+
+        //--------------------------------------------
+
+        //получаем количество детей по технической направленности
+
+        if ($allGroups[0] !== null)
+        {
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский'])));
+        }
+        else
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, 0);
+
+        //-------------------------------------------------------
+
+        //получаем количество детей по художественной направленности
+
+        if ($allGroups[1] !== null)
+        {
+            $sex = ['Мужской', 'Женский'];
+            //var_dump(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $allGroups[1]])->andWhere(['status' => 0])->andWhere(['IN', 'participant.sex', $sex])->all());
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, count(ExcelWizard::GetParticipantsFromGroup($allGroups[1], $sex)));
+        }
+        else
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, 0);
+
+        
+
+        //----------------------------------------------------------
+
+        //получаем количество детей по социально-педагогической направленности + естественнонаучной направленности
+
+        if ($allGroups[3] !== null)
+        {
+            foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, count(ExcelWizard::GetParticipantsFromGroup($allGroups[3], ['Мужской', 'Женский'])));
+        }
+        else
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
+        
+
+        //----------------------------------------------------------
+
+        $newAllGroups = [];
+        foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
+
+        //получаем количество детей по возрасту
+
+        $date = explode("-", $start_date)[0];
+        $date .= '-01-01';
+        $sum = 0;
+        $tempS = 0;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(5, 9, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 22, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(10, 14, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 23, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(15, 17, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 24, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(18, 99, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 25, $tempS);
+        $sum += $tempS;
+
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 26, $sum);
+
+        $sum = 0;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 21, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(5, 9, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 22, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(10, 14, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 23, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(15, 17, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 24, $tempS);
+        $sum += $tempS;
+
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(18, 99, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Женский']), $date);
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 25, $tempS);
+        $sum += $tempS;
+
+        $inputData->getSheet(5)->setCellValueByColumnAndRow(16, 26, $sum);
+
+        //-------------------------------------
+        
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
+        exit;
+    }
+
 
     /*
     static private function GetParticipantsByAge($age, $participants, $date)

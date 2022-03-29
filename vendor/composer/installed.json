@@ -121,7 +121,7 @@
             "version_normalized": "3.6.0.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
             },
             "dist": {
@@ -1137,12 +1137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "834cd7c92bbf7a71ea593463f91b7496a9d41b0f"
+                "reference": "acef8f29bfd88bb046a5fe2a08693977aa9501bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/834cd7c92bbf7a71ea593463f91b7496a9d41b0f",
-                "reference": "834cd7c92bbf7a71ea593463f91b7496a9d41b0f",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/acef8f29bfd88bb046a5fe2a08693977aa9501bd",
+                "reference": "acef8f29bfd88bb046a5fe2a08693977aa9501bd",
                 "shasum": ""
             },
             "require": {
@@ -1166,7 +1166,7 @@
                 "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
                 "ext-mbstring": "Required for multibyte Unicode string functionality."
             },
-            "time": "2022-03-10T19:49:14+00:00",
+            "time": "2022-03-24T18:16:26+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -2269,6 +2269,10 @@
                 "stream",
                 "zip"
             ],
+            "support": {
+                "issues": "https://github.com/maennchen/ZipStream-PHP/issues",
+                "source": "https://github.com/maennchen/ZipStream-PHP/tree/master"
+            },
             "funding": [
                 {
                     "url": "https://opencollective.com/zipstream",
@@ -3333,6 +3337,9 @@
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+            "support": {
+                "source": "https://github.com/phpspec/php-diff/tree/v1.1.3"
+            },
             "install-path": "../phpspec/php-diff"
         },
         {
@@ -3587,6 +3594,10 @@
             "keywords": [
                 "template"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/php-text-template/issues",
+                "source": "https://github.com/sebastianbergmann/php-text-template/tree/1.2.1"
+            },
             "install-path": "../phpunit/php-text-template"
         },
         {
@@ -4147,6 +4158,9 @@
                 "psr-16",
                 "simple-cache"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/simple-cache/tree/master"
+            },
             "install-path": "../psr/simple-cache"
         },
         {
@@ -4190,6 +4204,10 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
+            "support": {
+                "issues": "https://github.com/ralouphie/getallheaders/issues",
+                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+            },
             "install-path": "../ralouphie/getallheaders"
         },
         {
@@ -4951,6 +4969,10 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/version/issues",
+                "source": "https://github.com/sebastianbergmann/version/tree/master"
+            },
             "install-path": "../sebastian/version"
         },
         {
@@ -5202,6 +5224,9 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/browser-kit/tree/4.2"
+            },
             "install-path": "../symfony/browser-kit"
         },
         {
@@ -7460,6 +7485,13 @@
                 "gii",
                 "yii2"
             ],
+            "support": {
+                "forum": "http://www.yiiframework.com/forum/",
+                "irc": "irc://irc.freenode.net/yii",
+                "issues": "https://github.com/yiisoft/yii2-gii/issues",
+                "source": "https://github.com/yiisoft/yii2-gii",
+                "wiki": "http://www.yiiframework.com/wiki/"
+            },
             "install-path": "../yiisoft/yii2-gii"
         },
         {
