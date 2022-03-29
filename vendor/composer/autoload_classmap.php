@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'CGIF' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
     'CGIFCOLORTABLE' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
     'CGIFFILEHEADER' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
@@ -483,11 +484,14 @@ return array(
     'PharIo\\Version\\AbstractVersionConstraint' => $vendorDir . '/phar-io/version/src/constraints/AbstractVersionConstraint.php',
     'PharIo\\Version\\AndVersionConstraintGroup' => $vendorDir . '/phar-io/version/src/constraints/AndVersionConstraintGroup.php',
     'PharIo\\Version\\AnyVersionConstraint' => $vendorDir . '/phar-io/version/src/constraints/AnyVersionConstraint.php',
+    'PharIo\\Version\\BuildMetaData' => $vendorDir . '/phar-io/version/src/BuildMetaData.php',
     'PharIo\\Version\\ExactVersionConstraint' => $vendorDir . '/phar-io/version/src/constraints/ExactVersionConstraint.php',
     'PharIo\\Version\\Exception' => $vendorDir . '/phar-io/version/src/exceptions/Exception.php',
     'PharIo\\Version\\GreaterThanOrEqualToVersionConstraint' => $vendorDir . '/phar-io/version/src/constraints/GreaterThanOrEqualToVersionConstraint.php',
     'PharIo\\Version\\InvalidPreReleaseSuffixException' => $vendorDir . '/phar-io/version/src/exceptions/InvalidPreReleaseSuffixException.php',
     'PharIo\\Version\\InvalidVersionException' => $vendorDir . '/phar-io/version/src/exceptions/InvalidVersionException.php',
+    'PharIo\\Version\\NoBuildMetaDataException' => $vendorDir . '/phar-io/version/src/exceptions/NoBuildMetaDataException.php',
+    'PharIo\\Version\\NoPreReleaseSuffixException' => $vendorDir . '/phar-io/version/src/exceptions/NoPreReleaseSuffixException.php',
     'PharIo\\Version\\OrVersionConstraintGroup' => $vendorDir . '/phar-io/version/src/constraints/OrVersionConstraintGroup.php',
     'PharIo\\Version\\PreReleaseSuffix' => $vendorDir . '/phar-io/version/src/PreReleaseSuffix.php',
     'PharIo\\Version\\SpecificMajorAndMinorVersionConstraint' => $vendorDir . '/phar-io/version/src/constraints/SpecificMajorAndMinorVersionConstraint.php',
@@ -498,6 +502,7 @@ return array(
     'PharIo\\Version\\VersionConstraintParser' => $vendorDir . '/phar-io/version/src/VersionConstraintParser.php',
     'PharIo\\Version\\VersionConstraintValue' => $vendorDir . '/phar-io/version/src/VersionConstraintValue.php',
     'PharIo\\Version\\VersionNumber' => $vendorDir . '/phar-io/version/src/VersionNumber.php',
+    'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'SEA' => $vendorDir . '/mpdf/mpdf/classes/sea.php',
     'SVG' => $vendorDir . '/mpdf/mpdf/classes/svg.php',
     'SebastianBergmann\\CodeCoverage\\CodeCoverage' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage.php',

@@ -1255,11 +1255,11 @@ class ExcelWizard
 
     static public function DownloadTeacherDocumentOrder($order_id, $type)
     {
-        if ($type === 0)
-            $this->Enrolment($order_id);
+        //if ($type === 0)
+            //$this->Enrolment($order_id);
     }
 
-    static private function Enrolment ($order_id)
+    static public function Enrolment ($order_id)
     {
         ini_set('memory_limit', '512M');
 
@@ -1282,6 +1282,11 @@ class ExcelWizard
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 8, $order->order_date);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 8, $order->order_number . '/' . $order->order_copy_id . '/' .  $order->order_postfix);
         $text = '';
+        foreach ($groups as $group)
+        {
+            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
+            $text .= $teacherTrG->teacherWork->shortName . ', ';
+        }
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 15, '2. Назначить ' . $text . 'руководителем учебной группы, указанной в Приложении к настоящему приказу.');
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 16, '3. ' . $text . 'обеспечить:');
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 26, mb_substr($order->bring->firstname, 0, 1).'. '.mb_substr($order->bring->patronymic, 0, 1).'. '.$order->bring->secondname);
@@ -1326,7 +1331,7 @@ class ExcelWizard
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $order->order_date);
             $c++;
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Обучающиеся: ');
-            $pasta = $pastaAlDente->where(['document_order_id' => $order->id])->andWhere(['training_group_id' => $trGroup->id])->all();
+            $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
             foreach ($pasta as $macaroni)
             {
                 $groupParticipant = $gPart->where(['id' => $macaroni->group_participant_id])->one();
