@@ -103,6 +103,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
     <?php
+    //--
     $ways = \app\models\work\EventWayWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
     $params = [
