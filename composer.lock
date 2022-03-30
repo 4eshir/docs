@@ -53,7 +53,7 @@
             "version": "3.6.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "e786e3d9707ffd9b0dd330ca135b66344dcef85a"
             },
             "dist": {
@@ -4113,12 +4113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "834cd7c92bbf7a71ea593463f91b7496a9d41b0f"
+                "reference": "acef8f29bfd88bb046a5fe2a08693977aa9501bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/834cd7c92bbf7a71ea593463f91b7496a9d41b0f",
-                "reference": "834cd7c92bbf7a71ea593463f91b7496a9d41b0f",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/acef8f29bfd88bb046a5fe2a08693977aa9501bd",
+                "reference": "acef8f29bfd88bb046a5fe2a08693977aa9501bd",
                 "shasum": ""
             },
             "require": {
@@ -4173,7 +4173,7 @@
                 "issues": "https://github.com/FakerPHP/Faker/issues",
                 "source": "https://github.com/FakerPHP/Faker/tree/main"
             },
-            "time": "2022-03-10T19:49:14+00:00"
+            "time": "2022-03-24T18:16:26+00:00"
         },
         {
             "name": "guzzlehttp/psr7",

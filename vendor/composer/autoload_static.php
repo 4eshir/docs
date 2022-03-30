@@ -4,6 +4,7 @@
 
 namespace Composer\Autoload;
 
+
 class ComposerStaticInitfdcb318a03550f07c2c96c0093ee5230
 {
     public static $files = array (
