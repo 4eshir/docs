@@ -822,10 +822,12 @@ class ExcelWizard
         if (count($gIds) > 0)
         {
             $resGroups = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
-            return count ($resGroups);
+            $res = [];
+            foreach ($resGroups as $group) $res[] = $group->id;
+            return $res;
         }
         else
-            return 0;
+            return [];
     }
 
     //получаем процент победителей и призеров от общего числа участников
