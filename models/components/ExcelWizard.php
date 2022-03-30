@@ -819,7 +819,13 @@ class ExcelWizard
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->training_group_id;
 
-        return $gIds;
+        if (count($gIds) > 0)
+        {
+            $resGroups = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
+            return count ($resGroups);
+        }
+        else
+            return 0;
     }
 
     //получаем процент победителей и призеров от общего числа участников
