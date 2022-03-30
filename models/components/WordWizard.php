@@ -3,6 +3,16 @@
 //--g
 namespace app\models\components;
 
+use app\models\work\DocumentOrderWork;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\OrderGroupParticipantWork;
+use app\models\work\OrderGroupWork;
+use app\models\components\petrovich\Petrovich;
+use app\models\work\ResponsibleWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
+use app\models\work\TrainingProgramWork;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
@@ -15,15 +25,76 @@ use yii\helpers\Html;
 class WordWizard
 {
 
+    static public function Month($month)
+    {
+        if ($month === '01')
+            return 'января';
+        if ($month === '02')
+            return 'февраля';
+        if ($month === '03')
+            return 'марта';
+        if ($month === '04')
+            return 'апреля';
+        if ($month === '05')
+            return 'мая';
+        if ($month === '06')
+            return 'июня';
+        if ($month === '07')
+            return 'июля';
+        if ($month === '08')
+            return 'августа';
+        if ($month === '09')
+            return 'сентября';
+        if ($month === '10')
+            return 'октября';
+        if ($month === '11')
+            return 'ноября';
+        if ($month === '12')
+            return 'декабря';
+        else return '______';
+    }
+
+    static public function convertMillimetersToTwips($millimeters)
+    {
+        return floor($millimeters * 56.7);
+    }
+
     static public function Enrolment ($order_id)
     {
         ini_set('memory_limit', '512M');
 
-        //$inputType = \PHPWord_IOFactory::identify(Yii::$app->basePath.'/templates/order_Enrolment.xlsx');
-        //$reader = \PHPExcel_IOFactory::createReader($inputType);
-        //$inputData = $reader->load(Yii::$app->basePath.'/templates/order_Enrolment.xlsx');
+        $inputData = new PhpWord();
+        //$reader = \PhpOffice\PhpWord\IOFactory::createReader('Word2007');
+        //$inputData = $reader->load(Yii::$app->basePath.'\templates\order_study.docx');
+        $inputData->setDefaultFontName('Times New Roman');
+        $inputData->setDefaultFontSize(14);
 
-        /*$order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+                                                'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+                                                'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+                                                'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(2000);
+        $cell->addText('Региональный', array('name' => 'Calibri', 'size' => '16'));
+        $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
+        $cell->addText(' школьный', array('name' => 'Calibri', 'size' => '16'));
+        $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $table->addRow();
+        $cell = $table->addCell(2000);
+        $cell->addImage(Yii::$app->basePath.'\templates\logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
+        $cell = $table->addCell(2000, array('valign' => 'top'));
+        $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
+        $cell = $table->addCell(22000);
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        //----------
+        $section->addTextBreak(2);
+        $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
+        $section->addTextBreak(1);
+
+        /*----------------*/
+        $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
         $groups = OrderGroupWork::find()->where(['document_order_id' => $order->id])->all();
         $pastaAlDente = OrderGroupParticipantWork::find();
         $program = TrainingProgramWork::find();
@@ -33,110 +104,158 @@ class WordWizard
         $gPart = TrainingGroupParticipantWork::find();
         $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
 
-        $c = 31;
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('«' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г.');
+        $cell = $table->addCell(12000);
+        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+        if ($order->order_postfix !== NULL)
+            $text .= '/' .  $order->order_postfix;
+        $cell->addText($text, null, array('align' => 'right'));
+        $section->addTextBreak(1);
 
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 8, $order->order_date);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 8, $order->order_number . '/' . $order->order_copy_id . '/' .  $order->order_postfix);
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText($order->order_name, null, array('align' => 'left'));
+        $cell = $table->addCell(6000);
+        $cell->addTextBreak(1);
+
+        $section->addTextBreak(1);
+        $text = '          В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном 
+автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
+        $section->addText($text, null, array('align' => 'both'));
+        $section->addText('ПРИКАЗЫВАЮ:');
+        $section->addText('1.   Зачислить обучающихся согласно Приложению к настоящему приказу.');
+
+        $petrovich = new Petrovich();
+        //ar_dump($petrovich->lastname('Курина', Petrovich::CASE_ACCUSATIVE));   // 2 пункт
+        //var_dump($petrovich->lastname('Курина', Petrovich::CASE_INSTRUMENTAL)); // 3 пункт
         $text = '';
         foreach ($groups as $group)
         {
             $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
             $text .= $teacherTrG->teacherWork->shortName . ', ';
         }
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 15, '2. Назначить ' . $text . 'руководителем учебной группы, указанной в Приложении к настоящему приказу.');
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 16, '3. ' . $text . 'обеспечить:');
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 26, mb_substr($order->bring->firstname, 0, 1).'. '.mb_substr($order->bring->patronymic, 0, 1).'. '.$order->bring->secondname);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 27, mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. '.$order->executor->secondname);
+        $section->addText('2. Назначить ' . $text . ' руководителем учебной группы, указанной в Приложении к настоящему приказу.', null, array('align' => 'both'));
+        $section->addText('3. ' . $text . ' обеспечить:', null, array('align' => 'both'));
+        $section->addText('        3.1. своевременное ознакомление руководителя учебной группы с', null, array('align' => 'both'));
+        $section->addText('        настоящим приказом;', null, array('align' => 'both'));
+        $section->addText('        3.2. контроль за соблюдением расписания занятий и соответствии ', null, array('align' => 'both'));
+        $section->addText('        тематике проводимых учебных занятий дополнительной', null, array('align' => 'both'));
+        $section->addText('        общеразвивающей программы – постоянно.', null, array('align' => 'both'));
+        $section->addText('4. Руководителю учебной группы проводить с обучающимися инструктажи по технике безопасности в соответствии с дополнительной общеразвивающей программой.', null, array('align' => 'both'));
+        $section->addText('5. Контроль за исполнением приказа оставляю за собой.', null, array('align' => 'both'));
+        $section->addTextBreak(2);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Директор');
+        $cell = $table->addCell(12000);
+        $cell->addText('В.В. Войков');
+        $section->addTextBreak(1);
+
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Проект вносит:');
+        $cell = $table->addCell(12000);
+        $cell->addText(mb_substr($order->bring->firstname, 0, 1).'. '.mb_substr($order->bring->patronymic, 0, 1).'. '.$order->bring->secondname, null, array('align' => 'right'));
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Исполнитель:');
+        $cell = $table->addCell(12000);
+        $cell->addText(mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. '.$order->executor->secondname, null, array('align' => 'right'));
+        $section->addTextBreak(1);
+        $section->addText('Ознакомлены:');
+        $table = $section->addTable();
         for ($i = 0; $i != count($res); $i++, $c++)
         {
             $fio = mb_substr($res[$i]->people->firstname, 0, 1) .'. '. mb_substr($res[$i]->people->patronymic, 0, 1) .'. '. $res[$i]->people->secondname;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $c, '«____» ________ 20__ г.');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, $c, $fio);
+
+            $table->addRow();
+            $cell = $table->addCell(8000);
+            $cell->addText('«___» __________ 20___ г.');
+            $cell = $table->addCell(5000);
+            $cell->addText('    ________________/', null, array('align' => 'right'));
+            $cell = $table->addCell(5000);
+            $cell->addText($fio . '/');
         }
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 77, 'от ' . $order->order_date . ' № ' . $order->order_number . '/' . $order->order_copy_id . '/' .  $order->order_postfix);
-        $c = 80;
+
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(8000);
+        $cell->addTextBreak(1);
+        $cell = $table->addCell(10000);
+        $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»', null, array('align' => 'right'));
+        $table->addRow();
+        $cell = $table->addCell(8000);
+        $cell->addTextBreak(1);
+        $cell = $table->addCell(10000);
+        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+        if ($order->order_postfix !== NULL)
+            $text .= '/' .  $order->order_postfix;
+        $cell->addText('от ' . date("d", strtotime($order->order_date)) . ' '
+                . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+                . date("Y", strtotime($order->order_date)) . ' г. '
+                . $text);
+        $section->addTextBreak(2);
 
         foreach ($groups as $group)
         {
             $trGroup = $trG->where(['id' => $group->training_group_id])->one();
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $c, 'Учебная группа: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $trGroup->number);
-            $c++;
+            $section->addText('Учебная группа: ' . $trGroup->number);
+
             $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Руководитель: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $teacherTrG->teacherWork->shortName);
-            $c++;
+            $section->addText('Руководитель: ' . $teacherTrG->teacherWork->shortName);
+
             $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Дополнительная общеразвивающая программа: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $programTrG->name);
-            $c++;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Направленность: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $programTrG->stringFocus);
-            $c++;
+            $section->addText('Дополнительная общеразвивающая программа: ' . $programTrG->name);
+            $section->addText('Направленность: ' . $programTrG->stringFocus);
+
             $out = '';
             if ($programTrG->allow_remote == 0) $out = 'Только очная форма';
             if ($programTrG->allow_remote == 1) $out = 'Очная форма, с применением дистанционных технологий';
             if ($programTrG->allow_remote == 2) $out = 'Только дистанционная форма';
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Форма обучения: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $out);
-            $c++;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Срок освоения: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'c ' . $trGroup->start_date . ' до ' . $trGroup->finish_date);
-            $c++;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Дата зачисления: ');
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $order->order_date);
-            $c++;
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, 'Обучающиеся: ');
+            $section->addText('Форма обучения: ' . $out);
+
+            $section->addText('Срок освоения: ' . $programTrG->capacity . ' академ. ч.');
+            $section->addText('Дата зачисления: ' . date("d", strtotime($order->order_date)) . ' '
+                                                        . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+                                                        . date("Y", strtotime($order->order_date)) . ' г. ');
+            $section->addText('Обучающиеся: ');
             $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
-            foreach ($pasta as $macaroni)
+            for ($i = 0; $i < count($pasta); $i++)
             {
-                $groupParticipant = $gPart->where(['id' => $macaroni->group_participant_id])->one();
+                $groupParticipant = $gPart->where(['id' => $pasta[$i]->group_participant_id])->one();
                 $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, $c, $participant->getFullName());
-                $c++;
+                $section->addText($i+1 . '. ' . $participant->getFullName());
             }
-            $c = $c + 2;
-        }*/
-
-        //header("Pragma: public");
-        //header("Expires: 0");
-        //header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        //header("Content-Type: application/force-download");
-        //header("Content-Type: application/octet-stream");
-        //header("Content-Type: application/download");;
-        //header("Content-Disposition: attachment;filename=order_Enrolment.xls");
-        //header("Content-Transfer-Encoding: binary ");
-
-        $reader = \PhpOffice\PhpWord\IOFactory::createReader('Word2007');
-        $inputData = $reader->load(Yii::$app->basePath.'\templates\enrolment3.docx');
-        //$inputData->setDefaultFontName('Times New Roman');
-        //$inputData->setDefaultFontSize(14);
-        $text = "Добавление тестового текста";
-
-        $section = $inputData->addSection();
-        $section->addText($text);
-
-        /*$rendererName = \PhpOffice\PhpWord\Settings::PDF_RENDERER_TCPDF;
-        $rendererLibraryPath = realpath(Yii::$app->basePath . '/../vendor/tecnick.com/tcpdf');
-        \PhpOffice\PhpWord\Settings::setPdfRenderer($rendererName, $rendererLibraryPath);
-        $writer = new PDF($phpWord);*/
-
-        //\PhpOffice\PhpWord\Settings::setPdfRendererPath('tcpdf_min');
-        //\PhpOffice\PhpWord\Settings::setPdfRendererName('TCPDF');
-
+            $section->addTextBreak(2);
+        }
 
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="first.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        //header('Content-Type: application/pdf');
         header('Content-Transfer-Encoding: binary');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Expires: 0');
 
-
         $writer = \PhpOffice\PhpWord\IOFactory::createWriter($inputData, 'Word2007');
-        //$writer = \PhpOffice\PhpWord\IOFactory::createWriter($inputData, 'PDF');
-        //$writer->save("test.pdf");
         $writer->save("php://output");
         exit;
     }

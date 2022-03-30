@@ -26,7 +26,8 @@
         "phpoffice/phpspreadsheet": "^1.17",
       	"ext-json": "*",
         "la-haute-societe/yii2-save-relations-behavior": "^1.7",
-        "phpoffice/phpword": "0.19.x-dev"
+        "phpoffice/phpword": "0.19.x-dev",
+        "petrovich/petrovich": "^0.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

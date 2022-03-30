@@ -348,7 +348,7 @@
             'aliases' => array(
                 0 => '2.2.x-dev',
             ),
-            'reference' => '25fbe4b93b8acbac325fa4f594a983be1e84a780',
+            'reference' => '2346248bb09377bd4f0a585d7cad10be103d72ca',
             'dev_requirement' => false,
         ),
         'la-haute-societe/yii2-save-relations-behavior' => array(
@@ -493,7 +493,7 @@
             'aliases' => array(
                 0 => '5.x-dev',
             ),
-            'reference' => '21481a5c97e8332f7279e31219c32faa2da21c79',
+            'reference' => '6baa6f8bd7ec9986a6fd8a40a527be94bf78411d',
             'dev_requirement' => true,
         ),
         'phpdocumentor/type-resolver' => array(
@@ -605,7 +605,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
-            'reference' => '7a77a52793bb68d618a5c90f10eb1aefb2c847d5',
+            'reference' => '35c7b866eccd4d152a701278dc2b7349c882d44f',
             'dev_requirement' => true,
         ),
         'psr/container' => array(
@@ -1065,7 +1065,7 @@
             'aliases' => array(
                 0 => '2.0.x-dev',
             ),
-            'reference' => '677f1a2b5e646aa943a2b8f828c10edbf0ba53ef',
+            'reference' => 'cc49c1657a578c5fead1d02e3976589d04381238',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
