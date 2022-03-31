@@ -135,13 +135,15 @@ class WordWizard
         //ar_dump($petrovich->lastname('Курина', Petrovich::CASE_ACCUSATIVE));   // 2 пункт
         //var_dump($petrovich->lastname('Курина', Petrovich::CASE_INSTRUMENTAL)); // 3 пункт
         $text = '';
+        $text2 = '';
         foreach ($groups as $group)
         {
             $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
-            $text .= $teacherTrG->teacherWork->shortName . ', ';
+            $text .= $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_ACCUSATIVE).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
+            $text2 .= $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_INSTRUMENTAL).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
         }
         $section->addText('2. Назначить ' . $text . ' руководителем учебной группы, указанной в Приложении к настоящему приказу.', null, array('align' => 'both'));
-        $section->addText('3. ' . $text . ' обеспечить:', null, array('align' => 'both'));
+        $section->addText('3. ' . $text2 . ' обеспечить:', null, array('align' => 'both'));
         $section->addText('        3.1. своевременное ознакомление руководителя учебной группы с', null, array('align' => 'both'));
         $section->addText('        настоящим приказом;', null, array('align' => 'both'));
         $section->addText('        3.2. контроль за соблюдением расписания занятий и соответствии ', null, array('align' => 'both'));
