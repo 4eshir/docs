@@ -406,7 +406,6 @@ use yii\widgets\ActiveForm;
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-        alert('lol');
         let elems = document.getElementsByClassName('base');
         let values = [];
         for (let i = 0; i < elems[0].children.length; i++)
