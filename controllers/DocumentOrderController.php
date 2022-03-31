@@ -475,5 +475,6 @@ class DocumentOrderController extends Controller
     {
         //ExcelWizard::Enrolment($order_id);
         WordWizard::Transfer($order_id);
+        WordWizard::Deduction($order_id);
     }
 }
