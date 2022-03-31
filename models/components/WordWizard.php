@@ -83,7 +83,7 @@ class WordWizard
         $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addImage(Yii::$app->basePath.'\templates\logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
+        $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
         $cell = $table->addCell(22000);
