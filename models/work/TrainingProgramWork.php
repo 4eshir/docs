@@ -55,6 +55,7 @@ class TrainingProgramWork extends TrainingProgram
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'nameX' => 'Название',
             'ped_council_date' => 'Дата педагогического совета',
             'ped_council_number' => 'Номер протокола педагогического совета',
             'author_id' => 'Составитель',

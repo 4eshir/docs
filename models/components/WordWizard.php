@@ -269,4 +269,12 @@ class WordWizard
     static private function Deduction ($order_id) {
 
     }
+
+    static private function DeductionAll ($order_id) {
+
+    }
+
+    static private function Transfer ($order_id) {
+
+    }
 }
