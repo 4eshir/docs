@@ -40,7 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Список печатных форм</p>',
             'toggleButton' => ['label' => 'Прочее', 'class' => 'btn btn-success', 'style' => 'float: right;'],
         ]);
-        echo Html::a("Скачать", \yii\helpers\Url::to(['document-order/download-excel', 'order_id' => $model->id]), ['class'=>'btn btn-success']);
+        echo Html::a("Скачать", \yii\helpers\Url::to(['document-order/download-word1', 'order_id' => $model->id]), ['class'=>'btn btn-success']);
+        //echo Html::a("Скачать", \yii\helpers\Url::to(['document-order/download-word2', 'order_id' => $model->id]), ['class'=>'btn btn-success']);
         \yii\bootstrap\Modal::end();
         ?>
     </p>

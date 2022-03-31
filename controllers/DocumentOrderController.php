@@ -465,9 +465,15 @@ class DocumentOrderController extends Controller
     }
 
     // Новый функционал - генерация образовательных приказов
-    public function actionDownloadExcel($order_id)
+    public function actionDownloadWord1($order_id)
     {
         //ExcelWizard::Enrolment($order_id);
         WordWizard::Enrolment($order_id);
+    }
+
+    public function actionDownloadWord2($order_id)
+    {
+        //ExcelWizard::Enrolment($order_id);
+        WordWizard::Transfer($order_id);
     }
 }
