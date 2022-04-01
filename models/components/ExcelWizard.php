@@ -428,7 +428,9 @@ class ExcelWizard
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
     static public function GetParticipantsIdsByStatus($start_date, $end_date, $group_ids)
     {
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids]);
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids]); //получаем всех учеников групп
+
+        
     }
 
 

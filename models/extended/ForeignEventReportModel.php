@@ -56,7 +56,6 @@ class ForeignEventReportModel extends \yii\base\Model
             ->andWhere(['IN', 'budget', $this->budget])
             ->all();
 
-        var_dump(count($trainingGroups));
 
         $tgIds = [];
         foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
@@ -69,6 +68,8 @@ class ForeignEventReportModel extends \yii\base\Model
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
         $eventParticipants = TeacherParticipantWork::find()->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'branch_id', $this->branch])->all();
+
+        var_dump(count($eventParticipants));
 
         $eIds = [];
         foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
