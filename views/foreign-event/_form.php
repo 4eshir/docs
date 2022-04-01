@@ -265,7 +265,7 @@ use yii\widgets\ActiveForm;
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                    'widgetBody' => '.container-items', // required: css class selector
+                    'widgetBody' => '.container-items1', // required: css class selector
                     'widgetItem' => '.item1', // required: css class
                     'limit' => 50, // the maximum times, an element can be cloned (default 999)
                     'min' => 1, // 0 or 1 (default 1)
@@ -278,7 +278,7 @@ use yii\widgets\ActiveForm;
                     ],
                 ]); ?>
 
-                <div class="container-items" style="padding: 0; margin: 0"><!-- widgetContainer -->
+                <div class="container-items1" style="padding: 0; margin: 0"><!-- widgetContainer -->
                     <?php foreach ($modelAchievement as $i => $modelAchievementOne): ?>
                         <div class="item1 panel panel-default" style="padding: 0; margin: 0"><!-- widgetBody -->
                             <div class="panel-heading" style="padding: 0; margin: 0">
