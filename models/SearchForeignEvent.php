@@ -77,7 +77,7 @@ class SearchForeignEvent extends ForeignEventWork
         }
         if (strlen($params["SearchForeignEvent"]["nameBranch"]) > 0)
         {
-            $branchs = TeacherParticipantWork::find()->where(['branch_id' => $params["SearchForeignEvent"]["nameBranch"]])->all();
+            $branchs = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['teacherParticipantBranches.branch_id' => $params["SearchForeignEvent"]["nameBranch"]])->all();
             $bIds = [];
             foreach ($branchs as $branch) $bIds[] = $branch->foreign_event_id;
             $query = $query->andWhere(['IN', 'foreign_event.id', $bIds]);
