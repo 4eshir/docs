@@ -100,6 +100,40 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
+    private function CheckPasta ($modelGroupID, $group, $now_time)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 36])->all();
+        $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->where(['trainingGroupParticipant.training_group_id' => $modelGroupID])->all());
+        $partCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
+        $end_time = $group->finish_date;
+        $midStudy = $now_time < $end_time && $partCount <= $pastaCount;     // если ещё не конец обучения, то на каждого ребенка минимум один приказ
+        $graduation = $now_time > $end_time && (2 * $partCount) <= $pastaCount;     // если конец обучения, то на каждого ребенка два приказа - зачислени и отчисление
+
+        foreach ($err as $oneErr)
+        {
+            if ($midStudy)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+            else if ($graduation)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (!$midStudy)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 36;
+            $this->time_start = date("Y.m.d H:i:s");
+            if (!$graduation)
+                $this->critical = 1;
+            $this->save();
+        }
+    }
+
     public function CheckOrderTrainingGroup ($groupsID)     // проверка всех групп которые были отмечены в образовательном приказе при его создании/редактировании
     {
         $now_time = date("Y-m-d");
@@ -302,11 +336,6 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
-    private function TwoTeachersOnePlace()
-    {
-        //$auditorium = TrainingGroupLessonWork::find()->select(['lesson_date', 'lesson_start_time', 'lesson_end_time', 'auditorium_id', 'training_group_id'])->
-    }
-
     private function TwoPlacesOneTeacher($modelGroupID)
     {
         $teachers = TeacherGroupWork::find()->where(['training_group_id' => $modelGroupID])->all();
@@ -332,7 +361,6 @@ class GroupErrorsWork extends GroupErrors
                     }
             }
         }
-
 
     }
 
@@ -421,15 +449,6 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckArchive($modelGroupID, $group, $now_time);
     }
 
-    /*public function CheckSchedule ($modelGroupID)   // проверка всего что связано с расписанием учбеной группы
-    {
-        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
-        $this->CheckAuditorium($modelGroupID);
-        $this->IncorrectDates($modelGroupID, $group);
-        $this->TwoPlacesOneTeacher($modelGroupID);
-        $this->TwoTeachersOnePlace();
-    }*/
-
     public function CheckErrorsTrainingGroup ($modelGroupID)    // проверка учебной группы на все ошибки (используется демоном)
     {
         $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
@@ -445,7 +464,7 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckAuditorium($modelGroupID);
         $this->IncorrectDates($modelGroupID, $group);
         $this->CheckArchive($modelGroupID, $group, $now_time);
-        //$this->TwoPlacesOneTeacher($modelGroupID);
+
     }
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
