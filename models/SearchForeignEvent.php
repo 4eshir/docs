@@ -65,7 +65,7 @@ class SearchForeignEvent extends ForeignEventWork
         {
             $query = $query->andWhere(['IN', 'foreign_event.id',
                                         (new Query())->select('foreign_event.id')->from('foreign_event')->where(['>=', 'start_date', $params["SearchForeignEvent"]["start_date_search"]])
-                                            ->andWhere(['<=', 'finish_date', $params["SearchForeignEvent"]["finish_date_search"]])]);
+                                            ->andWhere(['<=', 'start_date', $params["SearchForeignEvent"]["finish_date_search"]])]);
 
         }
         if (strlen($params["SearchForeignEvent"]["secondnameTeacher"]) > 1)
