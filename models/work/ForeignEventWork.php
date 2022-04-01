@@ -136,7 +136,6 @@ class ForeignEventWork extends ForeignEvent
         
         foreach ($parts as $partOne)
         {
-
             $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->id])->all();
             $branchsId = [];
             foreach ($branchs as $branch) $branchsId[] = $branch->branch_id;
@@ -155,7 +154,6 @@ class ForeignEventWork extends ForeignEvent
             if ($team !== null)
                 $partsLink = $partsLink.' - Команда '.$team->name;
             $partsLink .= '</p>';
-
         }
         return $partsLink;
     }

@@ -97,7 +97,7 @@ class OrderErrorsWork extends OrderErrors
         }
     }
 
-    private function CheckGroup ($modelOrderID, $order)
+    private function CheckGroup ($modelOrderID)
     {
         $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 20])->all();
         $group = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
@@ -111,10 +111,33 @@ class OrderErrorsWork extends OrderErrors
             }
         }
 
-        if (count($err) == 0 && $order->key_words == null)
+        if (count($err) == 0)
         {
             $this->document_order_id = $modelOrderID;
             $this->errors_id = 20;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckPasta ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 37])->all();
+        $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $modelOrderID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($pastaCount !== 0)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if ($pastaCount == 0)
+        {
+            $this->document_order_id = $modelOrderID;
+            $this->errors_id = 37;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
@@ -126,10 +149,15 @@ class OrderErrorsWork extends OrderErrors
     {
         $order = DocumentOrderWork::find()->where(['id' => $modelOrderID])->one();
         $this->CheckScan($modelOrderID, $order);
-        $this->CheckDocument($modelOrderID, $order);
+        if ($order->type === 1 || $order->type == 10)   // неучебный
+            $this->CheckDocument($modelOrderID, $order);
         $this->CheckKeyWord($modelOrderID, $order);
         if ($order->type == 0 || $order->type == 11)    // учебный
-            $this->CheckGroup($modelOrderID, $order);
+        {
+            $this->CheckGroup($modelOrderID);
+            if ($order->order_date >= "2022-03-01")
+                $this->CheckPasta($modelOrderID);
+        }
     }
 
     public function CheckErrorsDocumentOrderWithoutAmnesty ($modelOrderID)

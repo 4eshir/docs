@@ -162,6 +162,28 @@ class EventErrorsWork extends EventErrors
         }
     }
 
+    private function CheckWay ($modelEventID, $event)
+    {
+        $err = EventErrorsWork::find()->where(['event_id' => $modelEventID, 'time_the_end' => null, 'errors_id' => 31])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($event->event_way_id !== NULL)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && $event->event_way_id === NULL)
+        {
+            $this->event_id = $modelEventID;
+            $this->errors_id = 31;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsEvent ($modelEventID)
     {
         $event = EventWork::find()->where(['id' => $modelEventID])->one();
@@ -172,6 +194,7 @@ class EventErrorsWork extends EventErrors
         $this->CheckOrder($modelEventID, $event);
         $this->CheckPhoto($modelEventID, $event);
         $this->CheckKeyWord($modelEventID, $event);
+        $this->CheckWay($modelEventID, $event);
     }
 
     public function CheckErrorsEventWithoutAmnesty ($modelEventID)
