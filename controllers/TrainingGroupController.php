@@ -77,6 +77,7 @@ class TrainingGroupController extends Controller
 
     public function actionArchive($arch, $unarch)
     {
+        $err = new GroupErrorsWork();
         $arch = explode(',', $arch);
         $unarch = explode(',', $unarch);
         if ($arch[0] !== "")
@@ -86,6 +87,7 @@ class TrainingGroupController extends Controller
                 $group = TrainingGroupWork::find()->where(['id' => $arch[$i]])->one();
                 $group->archive = 1;
                 $group->save();
+                $err->CheckArchiveTrainingGroup($arch[$i]);
             }
         }
         
