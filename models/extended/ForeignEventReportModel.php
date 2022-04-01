@@ -67,7 +67,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
-        $eventParticipants = TeacherParticipantWork::find()->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'branch_id', $this->branch])->all();
+        $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranch teacherParticipantBranch'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranch.branch_id', $this->branch])->all();
 
 
         $eIds = [];
