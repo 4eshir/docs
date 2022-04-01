@@ -78,7 +78,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
         $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
 
-        var_dump(count($events));
+        var_dump(count($events->all()));
 
         //-------------------------------------------
 
