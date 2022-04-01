@@ -109,8 +109,7 @@ class RoleBaseAccess
             "subattr" => [31, 23],
             "find-model" => [31, 23],
             "amnesty" => [32, 24],
-            "download-word1" => [31, 24],
-            "download-word2" => [31, 24],
+            "generation-word" => [32, 24],
         ],
         //----------------------------------------
 
