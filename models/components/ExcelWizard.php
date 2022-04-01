@@ -847,7 +847,7 @@ class ExcelWizard
         $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
 
         if ($branch_id == 1)
-            var_dump($winners1.' '.$winners2.' '.$winners3);
+            var_dump($winners1[0].' '.$winners2[0].' '.$winners3[0]);
         
         if ($all == 0) return 0;
         return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
