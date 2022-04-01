@@ -35,15 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],]);
         ?>
-        <?php
-        \yii\bootstrap\Modal::begin([
-            'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Список печатных форм</p>',
-            'toggleButton' => ['label' => 'Прочее', 'class' => 'btn btn-success', 'style' => 'float: right;'],
-        ]);
-        echo Html::a("Скачать", \yii\helpers\Url::to(['document-order/download-word1', 'order_id' => $model->id]), ['class'=>'btn btn-success']);
-        //echo Html::a("Скачать", \yii\helpers\Url::to(['document-order/download-word2', 'order_id' => $model->id]), ['class'=>'btn btn-success']);
-        \yii\bootstrap\Modal::end();
-        ?>
     </p>
 
     <div class="content-container" style="color: #ff0000; font: 18px bold;">
@@ -118,14 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return Html::a($model->scan, \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan']));
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
-            ['label' => 'Редактируемые документы', 'attribute' => 'docFiles', 'value' => function ($model) {
-                $split = explode(" ", $model->doc);
-                $result = '';
-                for ($i = 0; $i < count($split); $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'docs'])).'<br>';
-                return $result;
-                //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
-            }, 'format' => 'raw'],
+            ['label' => 'Редактируемые документы', 'attribute' => 'changeDocFile', 'format' => 'raw'],
             ['label' => 'По основной деятельности', 'attribute' => 'type', 'value' => function ($model) {
                 return $model->type == 0 ? 'Нет' : 'Да';
             }],

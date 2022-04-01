@@ -12561,6 +12561,442 @@ $_SERVER = [
     ]
     'argc' => 1
 ]
+<<<<<<< HEAD
+2022-04-01 08:00:00 [127.0.0.1][-][nvog9vb4bpt24gm15fpun16tvek1528b][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:00:00 [127.0.0.1][-][nvog9vb4bpt24gm15fpun16tvek1528b][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '64796'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648789200.817
+    'REQUEST_TIME' => 1648789200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:10:00 [127.0.0.1][-][fialf1sgon8ckbmd72935ueq7jen6ujn][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:10:00 [127.0.0.1][-][fialf1sgon8ckbmd72935ueq7jen6ujn][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '65023'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648789800.733
+    'REQUEST_TIME' => 1648789800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:20:00 [127.0.0.1][-][i0gu7s91go2kub7c6efd191dofj561hk][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:20:00 [127.0.0.1][-][i0gu7s91go2kub7c6efd191dofj561hk][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '65323'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648790400.71
+    'REQUEST_TIME' => 1648790400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:30:01 [127.0.0.1][-][29j82c1uue7nve14n3po0j5sluhgsqm7][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:30:01 [127.0.0.1][-][29j82c1uue7nve14n3po0j5sluhgsqm7][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49291'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791000.851
+    'REQUEST_TIME' => 1648791000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:38:51 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: document-order/download-word1 in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('download-word1', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('document-order/...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:38:50 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][info][application] $_GET = [
+    'r' => 'document-order/download-word1'
+    'order_id' => '331'
+    'type' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49420'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fdownload-word1&order_id=331&type=1'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fdownload-word1&order_id=331&type=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791530.971
+    'REQUEST_TIME' => 1648791530
+    'argv' => [
+        0 => 'r=document-order%2Fdownload-word1&order_id=331&type=1'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:40:00 [127.0.0.1][-][b2gri86dvkh3pvdgdkhh2thlu6h5etg3][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:40:00 [127.0.0.1][-][b2gri86dvkh3pvdgdkhh2thlu6h5etg3][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49525'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791600.663
+    'REQUEST_TIME' => 1648791600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:41:21 [127.0.0.1][31][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php on line 470. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-04-01 08:41:21 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '331'
+    'type' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+=======
 2022-04-01 09:05:46 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\controllers\ForeignEventController.php on line 159. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:368
 Stack trace:
 #0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
@@ -12662,18 +13098,41 @@ $_COOKIE = [
     'PHPSESSID' => '872s38qtd4nqfgrdk9t5aqb1il7o2427'
     '_csrf' => '4c1253bf9eb91aef047c351134179d7f922a6caa3defffdfc21f44562f87c852a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"wIDK8vo32Pq5IJbST9gJFTtTCWOj_7lR\";}'
     '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SESSION = [
     '__flash' => []
+<<<<<<< HEAD
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+=======
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
     '__id' => 1
     '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
+<<<<<<< HEAD
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+=======
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0'
     'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
     'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3'
@@ -12690,12 +13149,56 @@ $_SERVER = [
     'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW'
     'WINDIR' => 'C:\\Windows'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49420'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791681.871
+    'REQUEST_TIME' => 1648791681
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:41:38 [127.0.0.1][31][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php on line 470. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-04-01 08:41:38 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '331'
+    'type' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+=======
     'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -12818,18 +13321,114 @@ $_COOKIE = [
     'PHPSESSID' => '872s38qtd4nqfgrdk9t5aqb1il7o2427'
     '_csrf' => '4c1253bf9eb91aef047c351134179d7f922a6caa3defffdfc21f44562f87c852a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"wIDK8vo32Pq5IJbST9gJFTtTCWOj_7lR\";}'
     '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SESSION = [
     '__flash' => []
+<<<<<<< HEAD
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+=======
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
     '__id' => 1
     '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
+<<<<<<< HEAD
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49420'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791698.676
+    'REQUEST_TIME' => 1648791698
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:41:48 [127.0.0.1][31][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php on line 470. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-04-01 08:41:48 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '331'
+    'type' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+=======
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0'
     'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
     'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3'
@@ -12847,12 +13446,63 @@ $_SERVER = [
     'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW'
     'WINDIR' => 'C:\\Windows'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49420'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791708.106
+    'REQUEST_TIME' => 1648791708
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:41:59 [127.0.0.1][31][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php:470) in E:\OpenServer\OpenServer\domains\localhost\docs\docs\models\components\WordWizard.php:462
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'E:\\OpenServer\\O...', 462, Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\models\components\WordWizard.php(462): header('Content-Descrip...')
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php(476): app\models\components\WordWizard::Deduction('331')
+#3 [internal function]: app\controllers\DocumentOrderController->actionGenerationWord('331', '1')
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('generation-word', Array)
+#7 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('document-order/...', Array)
+#8 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-04-01 08:41:58 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '331'
+    'type' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+=======
     'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -12985,18 +13635,120 @@ $_COOKIE = [
     'PHPSESSID' => '872s38qtd4nqfgrdk9t5aqb1il7o2427'
     '_csrf' => '4c1253bf9eb91aef047c351134179d7f922a6caa3defffdfc21f44562f87c852a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"wIDK8vo32Pq5IJbST9gJFTtTCWOj_7lR\";}'
     '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SESSION = [
     '__flash' => []
+<<<<<<< HEAD
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+=======
     '__returnUrl' => 'http://docs/'
     'userSessionTimeout' => 8640000
     '__id' => 1
     '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
 ]
 
 $_SERVER = [
     'HTTP_HOST' => 'docs'
+<<<<<<< HEAD
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49420'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=331&type=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648791718.947
+    'REQUEST_TIME' => 1648791718
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=331&type=1'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:49:49 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\DocumentOrderWork::name in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('name')
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\models\components\WordWizard.php(255): yii\db\BaseActiveRecord->__get('name')
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php(472): app\models\components\WordWizard::Enrolment('370')
+#3 [internal function]: app\controllers\DocumentOrderController->actionGenerationWord('370', '0')
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('generation-word', Array)
+#7 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('document-order/...', Array)
+#8 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-04-01 08:49:49 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '370'
+    'type' => '0'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=370'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+=======
     'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0'
     'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
     'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3'
@@ -13013,12 +13765,381 @@ $_SERVER = [
     'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
     'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW'
     'WINDIR' => 'C:\\Windows'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
     'SERVER_SIGNATURE' => ''
     'SERVER_SOFTWARE' => 'Apache'
     'SERVER_NAME' => 'docs'
     'SERVER_ADDR' => '127.0.0.1'
     'SERVER_PORT' => '80'
     'REMOTE_ADDR' => '127.0.0.1'
+<<<<<<< HEAD
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49817'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=370&type=0'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=370&type=0'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648792189.281
+    'REQUEST_TIME' => 1648792189
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=370&type=0'
+    ]
+    'argc' => 1
+]
+2022-04-01 08:50:00 [127.0.0.1][-][thgdd9kdc7bcu4no8dmb5avtn1944tn8][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 08:50:00 [127.0.0.1][-][thgdd9kdc7bcu4no8dmb5avtn1944tn8][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '49833'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648792200.796
+    'REQUEST_TIME' => 1648792200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:00:00 [127.0.0.1][-][62c9tdjoi68fgp6p11ouui8dt9kmn5gr][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:00:00 [127.0.0.1][-][62c9tdjoi68fgp6p11ouui8dt9kmn5gr][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '50253'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648792800.809
+    'REQUEST_TIME' => 1648792800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:10:00 [127.0.0.1][-][kfbs3qruu2n92tkbr42v1eesvsj3nbh1][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:10:00 [127.0.0.1][-][kfbs3qruu2n92tkbr42v1eesvsj3nbh1][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '50799'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648793400.818
+    'REQUEST_TIME' => 1648793400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:20:00 [127.0.0.1][-][4dbhqljhc5bas13mdpqo2k0sct7o6phh][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:20:00 [127.0.0.1][-][4dbhqljhc5bas13mdpqo2k0sct7o6phh][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '51165'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648794000.814
+    'REQUEST_TIME' => 1648794000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:20:55 [127.0.0.1][31][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php:475) in E:\OpenServer\OpenServer\domains\localhost\docs\docs\models\components\WordWizard.php:637
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'E:\\OpenServer\\O...', 637, Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\models\components\WordWizard.php(637): header('Content-Descrip...')
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\controllers\DocumentOrderController.php(479): app\models\components\WordWizard::DeductionAll('331')
+#3 [internal function]: app\controllers\DocumentOrderController->actionGenerationWord('331', '1', '0')
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('generation-word', Array)
+#7 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('document-order/...', Array)
+#8 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-04-01 09:20:55 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'document-order/generation-word'
+    'order_id' => '331'
+    'type' => '1'
+    'flag' => '0'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fview&id=331'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '50926'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=document-order%2Fgeneration-word&order_id=331&type=1&flag=0'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fgeneration-word&order_id=331&type=1&flag=0'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648794055.571
+    'REQUEST_TIME' => 1648794055
+    'argv' => [
+        0 => 'r=document-order%2Fgeneration-word&order_id=331&type=1&flag=0'
+=======
     'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
     'REQUEST_SCHEME' => 'http'
     'CONTEXT_PREFIX' => ''
@@ -13037,6 +14158,551 @@ $_SERVER = [
     'REQUEST_TIME' => 1648793248
     'argv' => [
         0 => 'r=foreign-event/update&id=23'
+>>>>>>> b44f08e98867b90964cb52e63642b82fbe1960cd
+    ]
+    'argc' => 1
+]
+2022-04-01 09:30:00 [127.0.0.1][-][rpjbef4pa4sviqcb5pth6otccj3u4nor][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:30:00 [127.0.0.1][-][rpjbef4pa4sviqcb5pth6otccj3u4nor][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '51448'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648794600.796
+    'REQUEST_TIME' => 1648794600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:40:00 [127.0.0.1][-][l2s1um6cob3dqi6dtnk5oatk4hejj06i][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:40:00 [127.0.0.1][-][l2s1um6cob3dqi6dtnk5oatk4hejj06i][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '51794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648795200.81
+    'REQUEST_TIME' => 1648795200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 09:50:00 [127.0.0.1][-][6d7qrdiiue9vjcnafnbvg4k17oht296b][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 09:50:00 [127.0.0.1][-][6d7qrdiiue9vjcnafnbvg4k17oht296b][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '52044'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648795800.796
+    'REQUEST_TIME' => 1648795800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 10:00:00 [127.0.0.1][-][801qlhemn2bjasqlp56ia9c1atdhihq3][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 10:00:00 [127.0.0.1][-][801qlhemn2bjasqlp56ia9c1atdhihq3][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '52290'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648796400.787
+    'REQUEST_TIME' => 1648796400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 10:10:00 [127.0.0.1][-][2vm3f6uq05fbncou3pncqu2bu01b1m2i][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 10:10:00 [127.0.0.1][-][2vm3f6uq05fbncou3pncqu2bu01b1m2i][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '52532'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648797000.788
+    'REQUEST_TIME' => 1648797000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 10:20:00 [127.0.0.1][-][7b5ga2u6gr1cmgi77pvsnjtgcaaekl9o][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 10:20:00 [127.0.0.1][-][7b5ga2u6gr1cmgi77pvsnjtgcaaekl9o][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '52768'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648797600.79
+    'REQUEST_TIME' => 1648797600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 10:30:00 [127.0.0.1][-][h68r2r6q9shiqkpuc130aqu7j6c52fun][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 10:30:00 [127.0.0.1][-][h68r2r6q9shiqkpuc130aqu7j6c52fun][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '53046'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648798200.783
+    'REQUEST_TIME' => 1648798200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-04-01 10:32:27 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "index.php?r=training-group/archive". in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Module.php:561
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('index.php?r=tra...', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-04-01 10:32:27 [127.0.0.1][31][uojnrma9qtu9cgogqmatbmd4rjphhvjl][info][application] $_GET = [
+    'r' => 'index.php?r=training-group/archive'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'uojnrma9qtu9cgogqmatbmd4rjphhvjl'
+    '_csrf' => '41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=uojnrma9qtu9cgogqmatbmd4rjphhvjl; _csrf=41ebffbb7284a5e0dd6cdeccdb87a4d3b5d4366b2189c4f25500a95f87534f74a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Ix1eNevrt0kjSeI_Mvi2f9uqkKWolSEC%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/docs/web/index.php'
+    'REMOTE_PORT' => '53104'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=index.php?r=training-group/archive'
+    'REQUEST_URI' => '/index.php?r=index.php?r=training-group/archive'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1648798347.906
+    'REQUEST_TIME' => 1648798347
+    'argv' => [
+        0 => 'r=index.php?r=training-group/archive'
     ]
     'argc' => 1
 ]

@@ -1443,12 +1443,6 @@ class ExcelWizard
         return $participants;
     }
 
-    static public function DownloadTeacherDocumentOrder($order_id, $type)
-    {
-        //if ($type === 0)
-            //$this->Enrolment($order_id);
-    }
-
     static public function Enrolment ($order_id)
     {
         ini_set('memory_limit', '512M');
@@ -1543,9 +1537,5 @@ class ExcelWizard
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
         exit;
-    }
-
-    static private function Deduction ($order_id) {
-
     }
 }

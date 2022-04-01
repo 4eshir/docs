@@ -61,6 +61,34 @@ class DocumentOrderWork extends DocumentOrder
         ];
     }
 
+    public function getChangeDocFile()
+    {
+        $split = explode(" ", $this->doc);
+        $result = '';
+        if (count($split) > 1)
+            for ($i = 0; $i < count($split); $i++)
+                $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $split[$i], 'modelId' => $this->id, 'type' => 'docs'])).'<br>';
+        else
+        {
+            if ($this->type === 0 || $this->type == 11)   // учебный
+            {
+                $view = NomenclatureWork::find()->where(['number' => $this->order_number])->andWhere(['actuality' => 0])->one();
+                $flag = '';
+                if ($view->type === 1)  // если отчисление то нужно понять какое именно
+                {
+                    $group = TrainingGroupWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.document_order_id' => $this->id])->one();
+                    if ($group->finish_date > $this->order_date)    // отчисление части группы
+                        $flag = 0;
+                    else
+                        $flag = 1;
+                }
+                $result = Html::a("Сгенерировать файл", \yii\helpers\Url::to(['document-order/generation-word', 'order_id' => $this->id, 'type' => $view->type, 'flag' => $flag]), ['class'=>'btn btn-success']);
+            }
+        }
+        return $result;
+    }
+
+
     public function getGroupsLink()
     {
         $orders = OrderGroupWork::find()->where(['document_order_id' => $this->id])->all();
