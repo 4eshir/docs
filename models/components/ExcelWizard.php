@@ -335,18 +335,14 @@ class ExcelWizard
         {
             $eIds = [];
             foreach ($events1 as $event) $eIds[] = $event->id;
-
-
-            if ($focus_id !== 0)
-                $partsLink = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'foreign_event_id', $eIds])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->andWhere(['focus' => $focus_id])->all();
-            else
-                $partsLink = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'foreign_event_id', $eIds])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->all();
-            /*
+            if ($event_level == 7 && $branch_id == 1)
+                var_dump(count($eIds));
+            
             if ($focus_id !== 0)
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             else
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
-                */
+            
 
             foreach ($partsLink as $part) $pIds[] = $part->participant_id;
 
