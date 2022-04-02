@@ -100,6 +100,7 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 25])->all();
         $flag = false;
 
+        $partBtanch = TeacherParticipantBranchWork::find();
         $groupsParticipantSet = TrainingGroupParticipantWork::find();
         $groupSet = TrainingGroupWork::find();
         $now = $foreignEvent->finish_date;

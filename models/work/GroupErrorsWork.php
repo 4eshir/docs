@@ -103,7 +103,7 @@ class GroupErrorsWork extends GroupErrors
     private function CheckPasta ($modelGroupID, $group, $now_time)
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 36])->all();
-        $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->where(['trainingGroupParticipant.training_group_id' => $modelGroupID])->all());
+        $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['groupParticipant groupParticipant'])->where(['groupParticipant.training_group_id' => $modelGroupID])->all());
         $partCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
         $end_time = $group->finish_date;
         $midStudy = $now_time < $end_time && $partCount <= $pastaCount;     // если ещё не конец обучения, то на каждого ребенка минимум один приказ
@@ -464,7 +464,8 @@ class GroupErrorsWork extends GroupErrors
         $this->CheckAuditorium($modelGroupID);
         $this->IncorrectDates($modelGroupID, $group);
         $this->CheckArchive($modelGroupID, $group, $now_time);
-
+        if ($group->start_date >= "2022-03-01")
+            $this->CheckPasta($modelGroupID, $group, $now_time);
     }
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
