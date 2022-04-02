@@ -426,16 +426,57 @@ class ExcelWizard
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
-    static public function GetParticipantsIdsByStatus($start_date, $end_date, $group_ids)
+    static public function GetParticipantsIdsByStatus($group_ids)
     {
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids]); //получаем всех учеников групп
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
 
-        
+        $pIds = [];
+
+        foreach ($participants as $participant)
+        {
+            $orders = OrderGroupWork::find()->joinWith(['documentOrder documentOrder'])->joinWith(['trainingGroup trainingGroup'])->where(['training_group_id' => $participant->training_group_id])->andWhere(['<', 'documentOrder.order_date', 'trainingGroup.finish_date'])->all();
+            foreach ($orders as $order)
+            {
+                $pasta = OrderGroupParticipantWork::find()->where(['order_group_id' => $order_id])->andWhere(['group_participant_id' => $participant->id])->andWhere(['status' => 1])->all();
+                foreach ($pasta as $makarona) $pIds[] = $makarona->groupParticipant->participant_id;
+            }
+
+        }
+
+        if (count($pIds) !== 0)
+            $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->andWhere(['NOT IN', $pIds])->all();
+        else
+            $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all();
+
+        $result = [];
+        foreach ($participants as $participant) $result[] = $participant->participant_id;
+
+        return $result;
+
+        /*
+        $ogp1 = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder order'])->joinWith(['orderGroup.trainingGroup group'])->where(['IN', 'group.id'])->andWhere(['status' => 1])->andWhere(['>=', 'order.order_date', 'group.finish_date'])->all(); //получить всех отчисленных по успешному завершению
+
+        foreach ($ogp1 as $one) $pIds[] = $ogp1->groupParticipant->participant_id;
+
+        $ogp2 = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder order'])->joinWith(['orderGroup.trainingGroup group'])->where(['IN', 'group.id'])->andWhere(['status' => 0])->andWhere(['>=', 'order.order_date', 'group.start_date'])->andWhere(['<=', 'order.order_date', 'group.finish_date'])->all(); //получить всех зачисленных и еще не отчисленных
+
+        foreach ($ogp2 as $one) $pIds[] = $ogp2->groupParticipant->participant_id;
+
+        $participants = $participants->andWhere(['IN', 'participant_id', $piIds])->all();
+
+        $result[];
+
+        foreach ($participants as $one) $result[] = $one->participant_id;
+
+        return $result;
+        */
     }
 
 
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
+        
+
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_EC.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_EC.xlsx');
@@ -453,6 +494,7 @@ class ExcelWizard
 
         
         foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
+
         //Получаем количество учеников
         /*
         $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])
@@ -480,7 +522,7 @@ class ExcelWizard
         foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
         */
 
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($tgIds)])->all();
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
         $inputData->getActiveSheet()->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
