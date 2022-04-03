@@ -434,17 +434,17 @@ class ExcelWizard
 
         foreach ($participants as $participant)
         {
-            $orders = OrderGroupWork::find()->joinWith(['documentOrder documentOrder'])->joinWith(['trainingGroup trainingGroup'])->where(['training_group_id' => $participant->training_group_id])->andWhere(['<', 'documentOrder.order_date', 'trainingGroup.finish_date'])->all();
+            $orders = OrderGroupWork::find()->joinWith(['documentOrder documentOrder'])->joinWith(['trainingGroup trainingGroup'])->where(['training_group_id' => $participant->training_group_id])->andWhere(['<', 'documentOrder.order_date', new \yii\db\Expression('`trainingGroup`.`finish_date`')])->all();
             foreach ($orders as $order)
             {
-                $pasta = OrderGroupParticipantWork::find()->where(['order_group_id' => $order_id])->andWhere(['group_participant_id' => $participant->id])->andWhere(['status' => 1])->all();
+                $pasta = OrderGroupParticipantWork::find()->where(['order_group_id' => $order->id])->andWhere(['group_participant_id' => $participant->id])->andWhere(['status' => 1])->all();
                 foreach ($pasta as $makarona) $pIds[] = $makarona->groupParticipant->participant_id;
             }
 
         }
 
         if (count($pIds) !== 0)
-            $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->andWhere(['NOT IN', $pIds])->all();
+            $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->andWhere(['NOT IN', 'participant_id', $pIds])->all();
         else
             $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all();
 
