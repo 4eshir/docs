@@ -65,6 +65,14 @@ use app\models\work\UserWork;
             rowsDocOrd = tableBodyDocOrd.querySelectorAll('tr');
         }
 
+        tableEvent = document.getElementById('event');
+        if (tableEvent !== null)
+        {
+            headersEvent = tableEvent.querySelectorAll('th');
+            tableBodyEvent = tableEvent.querySelector('tbody');
+            rowsEvent = tableBodyEvent.querySelectorAll('tr');
+        }
+
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -77,23 +85,32 @@ use app\models\work\UserWork;
         directionsDocOrd = Array.from(headersDocOrd).map(function(header) {
             return '';
         });
+
+        directionsEvent = Array.from(headersEvent).map(function(header) {
+            return '';
+        });
     }
 
     let tableGr = '';
     let tablePr = '';
     let tableDocOrd = '';
+    let tableEvent = '';
     let headersGr = '';
     let headersPr = '';
     let headersDocOrd = '';
+    let headersEvent = '';
     let tableBodyGr = '';
     let tableBodyPr = '';
     let tableBodyDocOrd = '';
+    let tableBodyEvent = '';
     let rowsGr = '';
     let rowsPr = '';
     let rowsDocOrd = '';
+    let rowsEvent = '';
     let directionsGr = '';
     let directionsPr = '';
     let directionsDocOrd = '';
+    let directionsEvent = '';
 
     function fFor(rows, filterName) {
         for (let i = 0; i < rows.length; i++)
@@ -127,6 +144,7 @@ use app\models\work\UserWork;
         fFor(rowsGr, filterName);
         fFor(rowsPr, filterName);
         fFor(rowsDocOrd, filterName);
+        fFor(rowsEvent, filterName);
     }
 
     function sortColumn(index) {
@@ -134,15 +152,18 @@ use app\models\work\UserWork;
         const directionGr = directionsGr[index] || 'asc';
         const directionPr = directionsPr[index] || 'asc';
         const directionDocOrd = directionsDocOrd[index] || 'asc';
+        const directionEvent = directionsEvent[index] || 'asc';
 
         // Фактор по направлению
         const multiplierGr = (directionGr === 'asc') ? 1 : -1;
         const multiplierPr = (directionPr === 'asc') ? 1 : -1;
         const multiplierDocOrd = (directionDocOrd === 'asc') ? 1 : -1;
+        const multiplierEvent = (directionEvent === 'asc') ? 1 : -1;
 
         const newRowsGr = Array.from(rowsGr);
         const newRowsPr = Array.from(rowsPr);
         const newRowsDocOrd = Array.from(rowsDocOrd);
+        const newRowsEvent = Array.from(rowsEvent);
 
 
         newRowsGr.sort(function(rowA, rowB) {
@@ -177,6 +198,17 @@ use app\models\work\UserWork;
             }
         });
 
+        newRowsEvent.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierEvent;
+                case cellA < cellB: return -1 * multiplierEvent;
+                case cellA === cellB: return 0;
+            }
+        });
+
 
         // Удалить старые строки
         [].forEach.call(rowsGr, function(row) {
@@ -190,11 +222,16 @@ use app\models\work\UserWork;
             tableBodyDocOrd.removeChild(row);
         });
 
+        [].forEach.call(rowsEvent, function(row) {
+            tableBodyEvent.removeChild(row);
+        });
+
 
         // Поменять направление
         directionsGr[index] = directionGr === 'asc' ? 'desc' : 'asc';
         directionsPr[index] = directionPr === 'asc' ? 'desc' : 'asc';
-        directionsDocOrd[index] = directionPr === 'asc' ? 'desc' : 'asc';
+        directionsDocOrd[index] = directionDocOrd === 'asc' ? 'desc' : 'asc';
+        directionsEvent[index] = directionEvent === 'asc' ? 'desc' : 'asc';
 
 
         // Добавить новую строку
@@ -206,6 +243,9 @@ use app\models\work\UserWork;
         });
         newRowsDocOrd.forEach(function(newRow) {
             tableBodyDocOrd.appendChild(newRow);
+        });
+        newRowsEvent.forEach(function(newRow) {
+            tableBodyEvent.appendChild(newRow);
         });
     }
 
@@ -227,6 +267,11 @@ use app\models\work\UserWork;
                 tableDocOrd.style.display = "none";
             else
                 tableDocOrd.style.display = "block";
-    }
 
+        if (index === 3)
+            if (tableEvent.style.display === "block")
+                tableEvent.style.display = "none";
+            else
+                tableEvent.style.display = "block";
+    }
 </script>

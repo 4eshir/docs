@@ -95,12 +95,50 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         }
     }
 
-    private function CheckParticipantGroup ($modelForeignEventID, $foreignEvent, $participants)
+    private function CheckParticipantGroup ($modelForeignEventID, $participants)
     {
         $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 25])->all();
-        $flag = false;
+        $flag = true;
 
-        $partBtanch = TeacherParticipantBranchWork::find();
+        foreach ($participants as $participant)
+        {
+            $branchEvent = [];
+            $branchTrG = [];
+
+            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant->id])->all();
+            foreach ($branchSet as $branch)
+                $branchEvent[] = $branch->branch_id;
+
+            $trG = TrainingGroupWork::find()->joinWith(['trainingGroupParticipants trainingGroupParticipants'])->where(['trainingGroupParticipants.participant_id' => $participant->participant_id])->all();
+
+            foreach ($trG as $group)
+                $branchTrG[] = $group->branch_id;
+
+            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
+            {
+                $flag = false;
+                break;
+            }
+        }
+
+        foreach ($err as $oneErr)
+        {
+            if ($flag)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && !$flag)
+        {
+            $this->foreign_event_id = $modelForeignEventID;
+            $this->errors_id = 25;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+
+        /*$partBtanch = TeacherParticipantBranchWork::find();
         $groupsParticipantSet = TrainingGroupParticipantWork::find();
         $groupSet = TrainingGroupWork::find();
         $now = $foreignEvent->finish_date;
@@ -134,9 +172,7 @@ class ForeignEventErrorsWork extends ForeignEventErrors
             $this->errors_id = 25;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
-        }
-
-
+        }*/
     }
 
     private function CheckAchievement ($modelForeignEventID)
@@ -236,7 +272,7 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         $this->CheckDate($modelForeignEventID, $foreignEvent);
         $this->CheckCity($modelForeignEventID, $foreignEvent);
         $this->CheckParticipant($modelForeignEventID, $participants);
-        $this->CheckParticipantGroup($modelForeignEventID, $foreignEvent, $participants);
+        $this->CheckParticipantGroup($modelForeignEventID, $participants);
         $this->CheckAchievement($modelForeignEventID);
         $this->CheckDoc($modelForeignEventID, $foreignEvent);
         $this->CheckCompany($modelForeignEventID, $foreignEvent);

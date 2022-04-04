@@ -6,6 +6,10 @@ use app\models\common\TrainingGroup;
 use app\models\components\Logger;
 use app\models\work\DocumentOrderWork;
 use app\models\work\ErrorsWork;
+use app\models\work\EventErrorsWork;
+use app\models\work\EventWork;
+use app\models\work\ForeignEventErrorsWork;
+use app\models\work\ForeignEventWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\OrderErrorsWork;
 use app\models\work\OrderGroupWork;
@@ -58,6 +62,23 @@ class DaemonController extends Controller
         {
             $errorsOrderCheck = new OrderErrorsWork();
             $errorsOrderCheck->CheckDocumentOrder($order->id);
+        }
+    }
+
+    public function actionEventAndForeignEventErrors()
+    {
+        $events = EventWork::find()->all();
+        foreach ($events as $event)
+        {
+            $errorsEventCheck = new EventErrorsWork();
+            $errorsEventCheck->CheckErrorsEvent($event->id);
+        }
+
+        $foreignEvents = ForeignEventWork::find()->all();
+        foreach ($foreignEvents as $foreignEvent)
+        {
+            $errorsForeignEventCheck = new ForeignEventErrorsWork();
+            $errorsForeignEventCheck->CheckErrorsForeignEvent($foreignEvent->id);
         }
     }
 

@@ -216,15 +216,17 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 
 <div>
-    <div>
+    <div class="form-group col-xs-5" style="padding-top: 1.75em;">
         <?php
-        echo Html::a("Переключиться в режим просмотра", \yii\helpers\Url::to(['journal/index', 'group_id' => $model->trainingGroup]), ['class'=>'btn btn-success'])
+        echo Html::a("Переключиться в режим просмотра", \yii\helpers\Url::to(['journal/index', 'group_id' => $model->trainingGroup]), ['class'=>'btn btn-success']);
         ?>
     </div>
+
     <?php
     $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
     $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
     $form = ActiveForm::begin();
+    //echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary md-trigger', 'data-modal' => 'modal-12', 'style' => "margin-left: 55em; margin-top: -4em;"]);
     $counter = 0;
 
     echo '<table width="100%">';

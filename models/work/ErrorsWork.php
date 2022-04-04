@@ -151,7 +151,7 @@ class ErrorsWork extends Errors
         $result .= $this->ErrorsToDocumentOrder($user);
         if ($result !== '')
             $result .= '<br><br>';
-        //$result .= $this->ErrorsToEventAndForeignEvent($user);
+        $result .= $this->ErrorsToEventAndForeignEvent($user);
         return $result;
     }
 
@@ -161,9 +161,13 @@ class ErrorsWork extends Errors
         $groups = '';
         $programs = '';
         $orders = '';
+        $events = '';
+        $foreignEvents = '';
         $groupsSet = TrainingGroupWork::find();
         $programsSet = TrainingProgramWork::find();
         $ordersSet = DocumentOrderWork::find();
+        $eventsSet = EventWork::find();
+        $foreignEventsSet = ForeignEventWork::find();
 
         $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
 
@@ -190,8 +194,16 @@ class ErrorsWork extends Errors
             $orders = $ordersSet->where(['nomenclature_id' => $branch])->andWhere(['IN', 'id',
                 (new Query())->select('id')->from('document_order')->where(['type' => 0])->orWhere(['type' => 11])])->all();
 
+        // Мероприятия
+        if (count(array_intersect([38], $functions)) > 0)
+            $events = $eventsSet->all();
 
-        if ($groups !== '' || $programs !== '' || $orders !== '')
+        // Участие в мероприятиях
+        if (count(array_intersect([40], $functions)) > 0)
+            $foreignEvents = $foreignEventsSet->all();
+
+
+        if ($groups !== '' || $programs !== '' || $orders !== '' || $events !== '' || $foreignEvents !== '')
         {
             $result .= '<table id="training-group" class="table table-bordered">';
             $result .= '<h4 style="text-align: center;"><u>Ошибки ЦСХД связанные с некорректно заполненными данными</u></h4>';
@@ -267,6 +279,64 @@ class ErrorsWork extends Errors
                         $result .= '<td>' . $order->order_name . '</td>';
                         $result .= '<td>' . $branchs->name . '</td>';
                         $result .= '</tr>';
+                    }
+                }
+            }
+
+            if ($events != '')
+            {
+                $errorsListSet = EventErrorsWork::find();
+                $branchsSet = EventBranchWork::find();
+
+                foreach ($events as $event)
+                {
+                    $errorsList = $errorsListSet->where(['event_id' => $event->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                    $branchs = $branchsSet->where(['event_id' => $event->id])->all();
+                    foreach ($errorsList as $error)
+                    {
+                        $result .= '<tr>';
+                        $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                        $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                        $result .= '<td>' . $errorName->name . '</td>';
+                        $result .= '<td>' . $event->name . '</td>';
+                        $result .= '<td>';
+                        foreach ($branchs as $branch)
+                            $result .= $branch->branch->name . '<br>';
+                        $result .= '</td></tr>';
+                    }
+                }
+            }
+
+            if ($foreignEvents != '')
+            {
+                $errorsListSet = ForeignEventErrorsWork::find();
+                $branchsSet = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant']);
+
+                foreach ($foreignEvents as $foreignEvent)
+                {
+                    $errorsList = $errorsListSet->where(['foreign_event_id' => $foreignEvent->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+                    $branchsEvent = $branchsSet->where(['teacherParticipant.foreign_event_id' => $foreignEvent->id])->all();
+                    $branchsNoDouble = [];
+                    foreach ($branchsEvent as $branch)
+                        $branchsNoDouble[] = $branch->branch_id;
+
+                    if (count($branchsNoDouble) > 1)
+                        $branchsNoDouble = array_unique($branchsNoDouble);
+
+                    foreach ($errorsList as $error)
+                    {
+                        $result .= '<tr>';
+                        $errorName = $errorNameSet->where(['id' => $error->errors_id])->one();
+                        $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                        $result .= '<td>' . $errorName->name . '</td>';
+                        $result .= '<td>' . $foreignEvent->name . '</td>';
+                        $result .= '<td>';
+                        if (count($branchsNoDouble) !== 0)
+                            foreach ($branchsNoDouble as $branch)
+                                $result .= $branch->branch->name . '<br>';
+                        else
+                            $result .= '<p style="color: red;">не указан</p>';
+                        $result .= '</td></tr>';
                     }
                 }
             }
@@ -392,7 +462,7 @@ class ErrorsWork extends Errors
             foreach ($foreignEvents as $foreignEvent)
             {
                 $errorsList = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $foreignEvent->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
-                $branchsEvent = TeacherParticipantWork::find()->where(['foreign_event_id' => $foreignEvent->id])->all();
+                $branchsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $foreignEvent->id])->all();
                 $branchsName = BranchWork::find();
                 $branchsSet = [];
                 foreach ($branchsEvent as $branch)

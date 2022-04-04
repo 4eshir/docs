@@ -437,8 +437,8 @@ class EventWork extends Event
             $this->editCopy($changedAttributes);
 
         // тут должны работать проверки на ошибки
-        //$errorsCheck = new EventErrorsWork();
-        //$errorsCheck->CheckErrorsEventWithoutAmnesty($this->id);
+        $errorsCheck = new EventErrorsWork();
+        $errorsCheck->CheckErrorsEventWithoutAmnesty($this->id);
     }
 
     private function copyEvent()
