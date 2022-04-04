@@ -44,7 +44,7 @@ class TeacherParticipantWork extends TeacherParticipant
     {
         return [
             'saveRelations' => [
-                'class' => SaveRelationsBehavior::className(),
+                'class' => 'lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior',
                 'relations' => [
                     'teacherParticipantBranches',
                 ],

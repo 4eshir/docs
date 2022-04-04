@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '232e2424fcd8199be7b588a2184702f65e8460bc',
         'name' => 'yiisoft/yii2-app-basic',
         'dev' => true,
     ),
@@ -212,17 +212,6 @@
             'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
             'dev_requirement' => false,
         ),
-        'fakerphp/faker' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../fakerphp/faker',
-            'aliases' => array(
-                0 => '1.20.x-dev',
-            ),
-            'reference' => 'acef8f29bfd88bb046a5fe2a08693977aa9501bd',
-            'dev_requirement' => true,
-        ),
         'guzzlehttp/psr7' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -352,12 +341,14 @@
             'dev_requirement' => false,
         ),
         'la-haute-societe/yii2-save-relations-behavior' => array(
-            'pretty_version' => '1.7.2',
-            'version' => '1.7.2.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../la-haute-societe/yii2-save-relations-behavior',
-            'aliases' => array(),
-            'reference' => '1fbe8d07430fddf58f44bdd554a181a4898d0f00',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => '3aa286f7c9f8399b3d4ba93c502878925f1be7d5',
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
@@ -606,15 +597,6 @@
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
             'reference' => '35c7b866eccd4d152a701278dc2b7349c882d44f',
-            'dev_requirement' => true,
-        ),
-        'psr/container' => array(
-            'pretty_version' => '2.0.1',
-            'version' => '2.0.1.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/container',
-            'aliases' => array(),
-            'reference' => '2ae37329ee82f91efadc282cc2d527fd6065a5ef',
             'dev_requirement' => true,
         ),
         'psr/event-dispatcher' => array(
@@ -1069,12 +1051,12 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '232e2424fcd8199be7b588a2184702f65e8460bc',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap' => array(
@@ -1106,17 +1088,6 @@
             'install_path' => __DIR__ . '/../yiisoft/yii2-debug',
             'aliases' => array(),
             'reference' => '45bc5d2ef4e3b0ef6f638190d42f04a77ab1df6c',
-            'dev_requirement' => true,
-        ),
-        'yiisoft/yii2-faker' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'type' => 'yii2-extension',
-            'install_path' => __DIR__ . '/../yiisoft/yii2-faker',
-            'aliases' => array(
-                0 => '2.0.x-dev',
-            ),
-            'reference' => '98e4e4ca1aa38282af598dd2e7f658c7090d22e5',
             'dev_requirement' => true,
         ),
         'yiisoft/yii2-gii' => array(
