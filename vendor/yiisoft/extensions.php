@@ -135,7 +135,7 @@ return array (
     'version' => 'dev-master',
     'alias' => 
     array (
-      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui/src',
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
     ),
   ),
   'yiisoft/yii2-debug' => 

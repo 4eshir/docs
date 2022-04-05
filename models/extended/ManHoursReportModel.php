@@ -53,7 +53,7 @@ class ManHoursReportModel extends \yii\base\Model
         $header = "Отчет по <br>";
 
         $f = 0; //для генерации заголовка
-        $f1 = 0;
+        $f1 = 0; //
 
         $result = '<table class="table table-bordered">';
         foreach ($this->type as $oneType)
