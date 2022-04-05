@@ -111,7 +111,7 @@ class OrderErrorsWork extends OrderErrors
             }
         }
 
-        if (count($err) == 0)
+        if (count($err) == 0 && count($group) === 0)
         {
             $this->document_order_id = $modelOrderID;
             $this->errors_id = 20;
@@ -134,7 +134,7 @@ class OrderErrorsWork extends OrderErrors
             }
         }
         //boobs
-        if ($pastaCount == 0)
+        if (count($err) == 0 && $pastaCount == 0)
         {
             $this->document_order_id = $modelOrderID;
             $this->errors_id = 37;
