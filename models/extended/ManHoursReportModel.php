@@ -129,7 +129,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $debug .= count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $tg->id])->all()).";";
                         $statusArr = [];
                         if ($this->method == 0) $statusArr = [0, 2];
-                        else $statusArr = [0, 1, 2, 3];
+                        else $statusArr = [0, 1, 2];
                         $dlessonsId = [];
                         $dlessons = $lessons;
                         $dlessons = $dlessons->all();
@@ -165,7 +165,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $debug .= count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $dGroup->id])->all()).";";
                         $statusArr = [];
                         if ($this->method == 0) $statusArr = [0, 2];
-                        else $statusArr = [0, 1, 2, 3];
+                        else $statusArr = [0, 1, 2];
                         $debug .= count(VisitWork::find()->where(['IN', 'training_group_lesson_id', $nglIds])->andWhere(['IN', 'status', $statusArr])->all()).";";
                         $debug .= "\r\n";
                     }
@@ -178,7 +178,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($lessons as $lesson) $lessonsId[] = $this->teacher !== "" ? $lesson->training_group_lesson_id : $lesson->id;
                 $statusArr = [];
                 if ($this->method == 0) $statusArr = [0, 2];
-                else $statusArr = [0, 1, 2, 3];
+                else $statusArr = [0, 1, 2];
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
             }
