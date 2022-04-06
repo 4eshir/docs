@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchForeignEventParticipants */
@@ -20,6 +21,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     echo '<div style="margin-bottom: 10px">'.Html::a('Показать участников с некорректными данными', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '1']), ['class' => 'btn btn-danger', 'style' => 'margin-right: 5px;']);
     echo Html::a('Показать участников с ограничениями на разглашение ПД', \yii\helpers\Url::to(['foreign-event-participants/index', 'sort' => '2']), ['class' => 'btn btn-info']).'</div>';
+    ?>
+
+    <?php
+
+    $gridColumns = [
+        'secondname',
+            'firstname',
+            'patronymic',
+            'sex',
+            ['attribute' => 'birthdate', 'value' => function($model){return date("d.m.Y", strtotime($model->birthdate));}],
+
+            ['class' => 'yii\grid\ActionColumn'],
+
+    ];
+    echo '<div style="margin-bottom: 10px"><b>Скачать файл </b>';
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'options' => [
+            'padding-bottom: 100px',
+        ]
+    ]);
+    echo '</div>';
+
     ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
