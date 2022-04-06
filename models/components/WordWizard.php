@@ -141,9 +141,9 @@ class WordWizard
             if (strpos($text, $temp) === false)
             {
                 $text .= $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_ACCUSATIVE).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
-                $text2 .= $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_INSTRUMENTAL).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
             }
         }
+        $text2 .= $petrovich->lastname($order->executor->secondname, Petrovich::CASE_INSTRUMENTAL).' '. mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. ';
         $section->addText('2. Назначить ' . $text . 'руководителем учебной группы, указанной в Приложении к настоящему приказу.', null, array('align' => 'both'));
         $section->addText('3. ' . $text2 . 'обеспечить:', null, array('align' => 'both'));
         $section->addText('        3.1. своевременное ознакомление руководителя учебной группы с', null, array('align' => 'both'));
