@@ -201,7 +201,7 @@ class SiteController extends Controller
         {
             $pb = new TeacherParticipantBranchWork();
             $pb->teacher_participant_id = $participant->id;
-            $pb->branch = 3;
+            $pb->branch_id = 3;
             $pb->save();
         }
         /*
