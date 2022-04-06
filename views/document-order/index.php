@@ -63,6 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
         {
             return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
         }],
+        ['attribute' => 'key_words', 'label' => 'Ключевые слова', 'value' => function($model)
+        {
+            return $model->key_words;
+        }],
     ];
     echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([
@@ -135,6 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             }, 'format' => 'raw'],*/
             ['attribute' => 'state', 'label' => 'Состояние', 'format' => 'raw', 'value' => 'stateAndColor'],
+            ['attribute' => 'key_words', 'label' => 'Ключевые слова', 'visible' => $session->get('type') == 1 ? false : true],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

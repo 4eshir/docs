@@ -210,7 +210,6 @@ $session = Yii::$app->session;
         }
     }
 
-
     function displayParticipant() {
         let nom = document.getElementById('rS').value;
         for (let i = 0; i < rowsPart.length; i++)
@@ -271,6 +270,16 @@ $session = Yii::$app->session;
         }
     }
 
+    function documentName()
+    {
+        let nom = document.getElementById('rS').value;
+        if (nom === '09-01' || nom === '10-01' || nom === '11-01' || nom === '12-01' || nom === '13-01' || nom === '09-22' || nom === '10-26' || nom === '11-26')
+            document.getElementById('documentorderwork-order_name').value = 'О зачислении';
+        if (nom === '09-02' || nom === '10-02' || nom === '11-02' || nom === '12-02' || nom === '13-02' || nom === '09-23' || nom === '10-27' || nom === '11-27')
+            document.getElementById('documentorderwork-order_name').value = 'Об отчислении';
+        if (nom === '11-31')
+            document.getElementById('documentorderwork-order_name').value = 'О переводе';
+    }
 </script>
 
 <div class="document-order-form">
@@ -317,6 +326,7 @@ $session = Yii::$app->session;
                                 var elem = document.getElementById("group_table");
                                 elem.innerHTML = resArr[1];
                                 initData();
+                                documentName();
                             }
                         );
                     ',
@@ -335,6 +345,7 @@ $session = Yii::$app->session;
         //'prompt' => '',
         'id' => 'rS',
         'class' => 'form-control nom',
+        'onchange' => 'documentName()',
     ];
     if ($model->type !== 10)
     {
@@ -460,7 +471,14 @@ $session = Yii::$app->session;
 
     <!---      -->
 
-    <?= $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа') ?>
+    <?php
+        if ($session->get('type') === '1')
+            echo $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа');
+        else
+        {
+            echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'value' => '', 'readonly' => true])->label('Наименование приказа');
+        }
+    ?>
 
     <?php
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
