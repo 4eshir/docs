@@ -195,6 +195,15 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
+        $grs = [239, 238, 237, 235, 234, 233, 232, 231];
+        $participants = TeacherParticipantWork::find()->where(['IN', 'foreign_event_id', $grs])->all();
+        foreach ($participants as $participant) 
+        {
+            $pb = new TeacherParticipantBranchWork();
+            $pb->teacher_participant_id = $participant->id;
+            $pb->branch_id = 3;
+            $pb->save();
+        }
         /*
         $tp = TeacherParticipantWork::find()->all();
         foreach ($tp as $one) {
