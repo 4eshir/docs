@@ -117,7 +117,7 @@ return array (
     'version' => 'dev-master',
     'alias' => 
     array (
-      '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform/src',
+      '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform',
     ),
   ),
   'yiisoft/yii2-bootstrap' => 
