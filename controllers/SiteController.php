@@ -199,7 +199,7 @@ class SiteController extends Controller
         $logs = Log::find()->where(['LIKE', 'text', '%Добавлена группа%', false])->all();
         var_dump(count($logs));
         foreach ($logs as $log) {
-            $groups[] = explode(" ", $log->text);
+            $groups[] = explode(" ", $log->text)[2];
         }
         var_dump($groups);
         /*
