@@ -58,12 +58,12 @@ class TrainingGroupWork extends TrainingGroup
     public $sendMethodArr = [];
     public $idArr = [];
 
-
+    //
     public function rules()
     {
         return [
             [['start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id'], 'integer'],
             [['start_date', 'finish_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
