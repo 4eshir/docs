@@ -198,6 +198,10 @@ class SiteController extends Controller
     {
         $logs = Log::find()->where(['LIKE', 'text', '%Добавлена группа%', false])->all();
         var_dump(count($logs));
+        foreach ($logs as $log) {
+            $groups[] = explode(" ", $log->text);
+        }
+        var_dump($groups);
         /*
         $tp = TeacherParticipantWork::find()->all();
         foreach ($tp as $one) {
