@@ -511,7 +511,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function afterSave($insert, $changedAttributes)
     {
-        if ($this->creator_id === null)
+        if ($this->creator_id == null)
             $this->creator_id = Yii::$app->user->identity->getId();
 
         if (!(count($changedAttributes) === 0 || $changedAttributes["archive"] !== null))
