@@ -196,7 +196,7 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $logs = Log::find()->where(['LIKE', 'text', '%Добавлена группа%'])->all();
+        $logs = Log::find()->where(['LIKE', 'text', '%Добавлена группа%', false])->all();
         var_dump(count($logs));
         /*
         $tp = TeacherParticipantWork::find()->all();
