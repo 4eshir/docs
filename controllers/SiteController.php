@@ -207,7 +207,7 @@ class SiteController extends Controller
         $counter = 0;
         foreach ($groups as $group) {
             $gr = TrainingGroupWork::find()->where(['number' => $group])->one();
-            if ($gr !== null)
+            if ($gr !== null && $gr->creator_id === null)
             {
                 $gr->creator_id = $ids[$counter];
                 $gr->save();
