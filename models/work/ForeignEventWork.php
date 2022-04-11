@@ -123,7 +123,7 @@ class ForeignEventWork extends ForeignEvent
             }
         }*/
         //$participants = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
-        $flag = true;
+        //$flag = true;
 
         //foreach ($participants as $participant)
         //{
@@ -138,23 +138,30 @@ class ForeignEventWork extends ForeignEvent
 
             foreach ($trG as $group)
                 $branchTrG[] = $group->branch_id;
-            var_dump($participant->id, ']');var_dump(count(array_intersect($branchEvent, $branchTrG)));
+
             if (count(array_intersect($branchEvent, $branchTrG)) === 0)
             {
-                $flag = false;
+                //$flag = false;
                 //break;
+                return 'style = "background-color: #FCF8E3; margin: 0;"';
             }
         //}
-
+        var_dump($participant_id);
+        var_dump(']');
+        var_dump($branchEvent);
+        var_dump('[');
+        var_dump($branchTrG);
+        var_dump('/');
+        var_dump(array_intersect($branchEvent, $branchTrG));
+        var_dump('*');
+        var_dump(count(array_intersect($branchEvent, $branchTrG)));
         var_dump('Внимание идёт отладка. ');
-        var_dump($flag);
-        var_dump('flag');
-        var_dump($flag === false);
-        var_dump('=');
+        //var_dump($flag);
+        
 
-        if ($flag === false)
-            return 'style = "background-color: #FCF8E3; margin: 0;"';
-        else
+        //if ($flag === false)
+        //    return 'style = "background-color: #FCF8E3; margin: 0;"';
+        //else
             return 'style = "margin: 0;"';
     }
 
