@@ -138,7 +138,7 @@ class ForeignEventWork extends ForeignEvent
 
             foreach ($trG as $group)
                 $branchTrG[] = $group->branch_id;
-            var_dump(count(array_intersect($branchEvent, $branchTrG)));
+            var_dump($participant->id, ']');var_dump(count(array_intersect($branchEvent, $branchTrG)));
             if (count(array_intersect($branchEvent, $branchTrG)) === 0)
             {
                 $flag = false;
