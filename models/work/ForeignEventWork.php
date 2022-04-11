@@ -144,9 +144,9 @@ var_dump($branchEvent);
 var_dump('----');
 var_dump(array_intersect($branchEvent, $branchTrG));
 var_dump('****');
-var_dump(count(array_intersect($branchEvent, $branchTrG)) === 0);
+var_dump(count(array_intersect($branchEvent, $branchTrG)) == 0);
 var_dump('Внимание идёт отладка. ');
-            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
+            if (count(array_intersect($branchEvent, $branchTrG)) == 0)
             {
                 $flag = false;
                 break;
