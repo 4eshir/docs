@@ -110,60 +110,21 @@ class ForeignEventWork extends ForeignEvent
 
     public function getColor($participant_id, $partOne_id)
     {
-        /*$groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
-        $groupSet = TrainingGroupWork::find();
-        $now = $event_finish_date;
-        $flag = false;
-        foreach ($groupsParticipant as $groupParticipant)
-        {
-            $group = $groupSet->where(['id' => $groupParticipant->training_group_id])->one();
-            if (array_search($group->branch_id, $branchs_id) && date('Y-m-d', strtotime($group->finish_date . '+6 month')) >= $now)
-            {
-                $flag = true;
-            }
-        }*/
-        //$participants = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
-        //$flag = true;
+        $branchEvent = [];
+        $branchTrG = [];
 
-        //foreach ($participants as $participant)
-        //{
-            $branchEvent = [];
-            $branchTrG = [];
+        $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne_id])->all();
+        foreach ($branchSet as $branch)
+            $branchEvent[] = $branch->branch_id;
 
-            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne_id])->all();
-            foreach ($branchSet as $branch)
-                $branchEvent[] = $branch->branch_id;
+        $trG = TrainingGroupWork::find()->joinWith(['trainingGroupParticipants trainingGroupParticipants'])->where(['trainingGroupParticipants.participant_id' => $participant_id])->all();
+        foreach ($trG as $group)
+            $branchTrG[] = $group->branch_id;
 
-            $trG = TrainingGroupWork::find()->joinWith(['trainingGroupParticipants trainingGroupParticipants'])->where(['trainingGroupParticipants.participant_id' => $participant_id])->all();
-            foreach ($trG as $group)
-                $branchTrG[] = $group->branch_id;
+        if (count(array_intersect($branchEvent, $branchTrG)) === 0)
+            return 'style = "background-color: #FCF8E3; margin: 0;"';
 
-        var_dump($participant_id);
-        var_dump(']');
-        var_dump($branchEvent);
-        var_dump('[');
-        var_dump($branchTrG);
-        var_dump('/');
-        var_dump(array_intersect($branchEvent, $branchTrG));
-        var_dump('*');
-        var_dump(count(array_intersect($branchEvent, $branchTrG)));
-        var_dump('Внимание идёт отладка. ');
-        //var_dump($flag);
-
-            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
-            {
-                //$flag = false;
-                //break;
-                return 'style = "background-color: #FCF8E3; margin: 0;"';
-            }
-        //}
-
-
-
-        //if ($flag === false)
-        //    return 'style = "background-color: #FCF8E3; margin: 0;"';
-        //else
-            return 'style = "margin: 0;"';
+        return 'style = "margin: 0;"';
     }
 
     public function getParticipantsLink()
