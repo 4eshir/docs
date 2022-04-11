@@ -139,13 +139,6 @@ class ForeignEventWork extends ForeignEvent
             foreach ($trG as $group)
                 $branchTrG[] = $group->branch_id;
 
-            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
-            {
-                //$flag = false;
-                //break;
-                return 'style = "background-color: #FCF8E3; margin: 0;"';
-            }
-        //}
         var_dump($participant_id);
         var_dump(']');
         var_dump($branchEvent);
@@ -157,7 +150,16 @@ class ForeignEventWork extends ForeignEvent
         var_dump(count(array_intersect($branchEvent, $branchTrG)));
         var_dump('Внимание идёт отладка. ');
         //var_dump($flag);
-        
+
+            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
+            {
+                //$flag = false;
+                //break;
+                return 'style = "background-color: #FCF8E3; margin: 0;"';
+            }
+        //}
+
+
 
         //if ($flag === false)
         //    return 'style = "background-color: #FCF8E3; margin: 0;"';
