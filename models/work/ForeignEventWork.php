@@ -138,21 +138,14 @@ class ForeignEventWork extends ForeignEvent
 
             foreach ($trG as $group)
                 $branchTrG[] = $group->branch_id;
-
+            var_dump(count(array_intersect($branchEvent, $branchTrG)));
             if (count(array_intersect($branchEvent, $branchTrG)) === 0)
             {
                 $flag = false;
                 break;
             }
         }
-        
-        var_dump($branchTrG);
-        var_dump('////');
-        var_dump($branchEvent);
-        var_dump('----');
-        var_dump(array_intersect($branchEvent, $branchTrG));
-        var_dump('****');
-        var_dump(count(array_intersect($branchEvent, $branchTrG)) === 0);
+
         var_dump('Внимание идёт отладка. ');
         var_dump($flag);
         var_dump('flag');
