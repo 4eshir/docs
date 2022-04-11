@@ -122,15 +122,15 @@ class ForeignEventWork extends ForeignEvent
                 $flag = true;
             }
         }*/
-        $participants = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
+        //$participants = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->all();
         $flag = true;
 
-        foreach ($participants as $participant)
-        {
+        //foreach ($participants as $participant)
+        //{
             $branchEvent = [];
             $branchTrG = [];
 
-            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant->id])->all();
+            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant_id])->all();
             foreach ($branchSet as $branch)
                 $branchEvent[] = $branch->branch_id;
 
@@ -142,9 +142,9 @@ class ForeignEventWork extends ForeignEvent
             if (count(array_intersect($branchEvent, $branchTrG)) === 0)
             {
                 $flag = false;
-                break;
+                //break;
             }
-        }
+        //}
 
         var_dump('Внимание идёт отладка. ');
         var_dump($flag);
