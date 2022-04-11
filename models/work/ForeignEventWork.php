@@ -131,6 +131,7 @@ class ForeignEventWork extends ForeignEvent
             $branchTrG = [];
 
             $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant_id])->all();
+            var_dump($branchSet);
             foreach ($branchSet as $branch)
                 $branchEvent[] = $branch->branch_id;
 
