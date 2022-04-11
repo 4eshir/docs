@@ -108,7 +108,7 @@ class ForeignEventWork extends ForeignEvent
      */
 
 
-    public function getColor($participant_id, $branchs_id, $event_finish_date)
+    public function getColor($participant_id, $partOne_id)
     {
         /*$groupsParticipant = TrainingGroupParticipantWork::find()->where(['participant_id' => $participant_id])->all();
         $groupSet = TrainingGroupWork::find();
@@ -130,7 +130,7 @@ class ForeignEventWork extends ForeignEvent
             $branchEvent = [];
             $branchTrG = [];
 
-            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant_id])->all();
+            $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne_id])->all();
             var_dump($branchSet);
             foreach ($branchSet as $branch)
                 $branchEvent[] = $branch->branch_id;
@@ -179,7 +179,7 @@ class ForeignEventWork extends ForeignEvent
             $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->id])->all();
             $branchsId = [];
             foreach ($branchs as $branch) $branchsId[] = $branch->branch_id;
-            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $branchsId, $partOne->foreignEvent->finish_date) . '>';
+            $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->id) . '>';
             $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
