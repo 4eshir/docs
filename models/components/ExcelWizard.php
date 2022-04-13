@@ -874,7 +874,7 @@ class ExcelWizard
         
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->id;
-        var_dump($gIds);
+        foreach ($groups as $group) echo $group->id;
         return $gIds;
 
 
