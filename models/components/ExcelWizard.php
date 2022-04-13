@@ -838,14 +838,14 @@ class ExcelWizard
 
     static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
     {
-        $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.focus_id', $focus_id])->all();
+        /*$programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.focus_id', $focus_id])->all();
         if ($focus_id == 0)
         {
             $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->all();
         }
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->training_program_id;
-
+        */
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
 
         
@@ -873,13 +873,8 @@ class ExcelWizard
             ->all();
         
         $gIds = [];
-        var_dump(TrainingGroupWork::find()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])->createCommand()->getRawSql());
+        
         foreach ($groups as $group) $gIds[] = $group->id;
-        foreach ($groups as $group) echo $group->id.'<br>';
         return $gIds;
 
 
