@@ -864,7 +864,7 @@ class ExcelWizard
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
-        var_dump($branch_id . ' ' . count($groups));
+
 
         $gIds = [];
         foreach ($groups as $group) $gIds[] = $group->training_group_id;
@@ -872,6 +872,7 @@ class ExcelWizard
         if (count($gIds) > 0)
         {
             $resGroups = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
+            var_dump($branch_id . ' ' . count($resGroups));
             $res = [];
             foreach ($resGroups as $group) $res[] = $group->id;
             return $res;
