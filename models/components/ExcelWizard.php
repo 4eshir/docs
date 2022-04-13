@@ -838,15 +838,15 @@ class ExcelWizard
 
     static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
     {
-        /*$programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.focus_id', $focus_id])->all();
+        $programs = TrainingProgramWork::find()->where(['IN', 'focus_id', $focus_id])->all();
         if ($focus_id == 0)
         {
-            $programs = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->all();
+            $programs = TrainingProgramWork::find()->all();
         }
         $tpIds = [];
-        foreach ($programs as $program) $tpIds[] = $program->training_program_id;
-        */
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        foreach ($programs as $program) $tpIds[] = $program->id;
+        
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
 
         
         $gIds = [];
