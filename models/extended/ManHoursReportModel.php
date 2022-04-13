@@ -114,6 +114,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $nlIds = [];
                     foreach ($newLessons as $lesson) $nlIds[] = $lesson->training_group_id;
                     $tgs = TrainingGroupWork::find()->where(['IN', 'id', $nlIds])->all();
+                    var_dump(count($tgs);
                     //----------------
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
