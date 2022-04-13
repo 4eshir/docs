@@ -155,7 +155,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $dgIds = [];
                     foreach ($dGroups as $dGroup) $dgIds[] = $dGroup->training_group_id;
                     $dGroups = TrainingGroupWork::find()->where(['IN', 'id', $dgIds])->all();
-                    var_dump(count($dGroups);
+                    var_dump(count($dGroups));
                     foreach ($dGroups as $dGroup)
                     {
                         $debug .= $dGroup->number.";";
