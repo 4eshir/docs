@@ -846,7 +846,7 @@ class ExcelWizard
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->training_program_id;
         */
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])where(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
 
         
         $gIds = [];
