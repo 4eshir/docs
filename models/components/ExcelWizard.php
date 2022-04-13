@@ -840,7 +840,7 @@ class ExcelWizard
             if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) <= 18)
                 $participantsId[] = $participant->id;
         }
-        return count($participantsId);
+        return $participantsId;
     }
 
     static private function GetParticipantsByAgeRange($age_left, $age_right, $participants, $date)
