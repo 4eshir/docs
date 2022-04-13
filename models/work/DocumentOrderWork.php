@@ -472,8 +472,33 @@ class DocumentOrderWork extends DocumentOrder
                     $groupsParticipantId[] = $this->participants_check[$i];
 
                     $group = $groups->where(['id' => $this->participants_check[$i]])->one();
+
+                    
+
                     $orderGroup = $ordersGroup->where(['document_order_id' => $this->id])->andWhere(['training_group_id' => $group->training_group_id])->one();
                     $pasta = $pastas->where(['group_participant_id' => $this->participants_check[$i]])->andWhere(['order_group_id' => $orderGroup->id])->one();
+                    
+                    //удаление явок
+
+                    if ($status == 1 || $status == 2)
+                    {
+                        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->training_group_id])->andWhere(['>=', 'lesson_date', $this->order_date])->all();
+
+                        $lessonIds = [];
+                        foreach ($lessons as $lesson) $lessonIds[] = $lesson->id;
+
+                        $visits = VisitWork::find()->where(['foreign_event_participant_id' => $group->participant_id])->andWhere(['IN', 'training_group_lesson_id', $lessonIds])->all();
+
+                        foreach ($visits as $visit)
+                        {
+                            $visit->status = 3;
+                            $visit->save(false);
+                        }
+                    }
+                    
+
+                    //-------------
+
                     if ($pasta === null)
                     {
                         $pasta = new OrderGroupParticipantWork();
@@ -541,6 +566,7 @@ class DocumentOrderWork extends DocumentOrder
                 if ($pasta->status === 1) // отчисление
                 {
                     $edit = TrainingGroupParticipantWork::find()->where(['id' => $pasta->group_participant_id])->one();
+
                     if ($edit !== NULL)
                     {
                         $edit->status = 0;

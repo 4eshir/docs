@@ -749,7 +749,7 @@ $session = Yii::$app->session;
 
 
     <div class="form-group">
-        <?php echo Html::submitButton('Добавить приказ', ['class' => 'btn btn-success']); ?>
+        <?php echo Html::submitButton('Сохранить приказ', ['class' => 'btn btn-success']); ?>
     </div>
 
     <?php ActiveForm::end(); ?>
