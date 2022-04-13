@@ -123,7 +123,7 @@ class GroupErrorsWork extends GroupErrors
             }
         }
 
-        if (!$midStudy)
+        if ((count($err) == 0) && !$midStudy)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 36;
