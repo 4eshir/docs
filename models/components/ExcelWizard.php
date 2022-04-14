@@ -746,7 +746,7 @@ class ExcelWizard
         $tests16 = ExcelWizard::getParticipantsByAge1(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
         $result = array_merge($tests1, $tests2, $tests3, $tests4, $tests5, $tests6, $tests7, $tests8, $tests9, $tests10, $tests11, $tests12, $tests13, $tests14, $tests15, $tests16);
         foreach ($result as $test)
-            echo $tests->participant_id.'<br>';
+            echo $test->participant_id.'<br>';
         
 /*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
