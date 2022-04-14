@@ -837,7 +837,7 @@ class ExcelWizard
     {
         $participantsId = [];
         foreach ($participants as $participant){
-            echo $participant->birthdate.'<br>';
+            echo $date.' '.$participant->birthdate.' '.round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)).'<br>';
             if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) <= 18)
                 $participantsId[] = $participant->id;
         }
