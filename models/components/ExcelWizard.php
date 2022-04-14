@@ -723,6 +723,59 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        foreach ($participants as $participant)
+            echo $participant->participant_id.'<br>';
+
+        echo '<br><br>';
+
+        $tests = ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
+        $tests = ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        foreach ($tests as $test)
+            echo $tests->participant_id.'<br>';
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($participants2));
@@ -838,6 +891,16 @@ class ExcelWizard
                 $participantsId[] = $participant->id;
         }
         return count($participantsId);
+    }
+
+    static private function GetParticipantsByAge1($age, $participants, $date)
+    {
+        $participantsId = [];
+        foreach ($participants as $participant){
+            if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) == $age)
+                $participantsId[] = $participant->id;
+        }
+        return $participantsId;
     }
 
     static private function CheckParticipant18Plus($participants, $date)
