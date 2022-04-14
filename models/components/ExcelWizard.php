@@ -583,7 +583,7 @@ class ExcelWizard
 
     static public function DownloadDoDop1($start_date, $end_date, $budget)
     {
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
+/*        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOP.xlsx');
         //var_dump($inputData);
@@ -703,7 +703,7 @@ class ExcelWizard
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 10, count($participants));
 
         //----------------------------------
-
+*/
         //Получаем количество учеников по социально-педагогическим программам
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 3])])
