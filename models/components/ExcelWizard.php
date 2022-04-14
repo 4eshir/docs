@@ -776,7 +776,7 @@ class ExcelWizard
         $tests = ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-
+/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($participants2));
 
@@ -880,7 +880,7 @@ class ExcelWizard
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
-        exit;
+        exit;*/
     }
 
     static private function GetParticipantsByAge($age, $participants, $date)
