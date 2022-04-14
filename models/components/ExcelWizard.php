@@ -723,10 +723,10 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
-        //foreach ($participants as $participant)
-        //    echo $participant->participant_id.'<br>';
+        foreach ($participants as $participant)
+            echo $participant->participant_id.'<br>';
 
-        //echo '<br><br>';
+        echo '<br><br>';
 
         $tests1 = ExcelWizard::getParticipantsByAge1(3, $newParticipants, substr($start_date, 0, 4).'-01-01');
         $tests2 = ExcelWizard::getParticipantsByAge1(4, $newParticipants, substr($start_date, 0, 4).'-01-01');
