@@ -728,22 +728,22 @@ class ExcelWizard
 
         //echo '<br><br>';
 
-        $tests1 = ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests2 = ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests3 = ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests4 = ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests5 = ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests6 = ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests7 = ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests8 = ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests9 = ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests10 = ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests11 = ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests12 = ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests13 = ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests14 = ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests15 = ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests16 = ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests1 = ExcelWizard::getParticipantsByAge1(3, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests2 = ExcelWizard::getParticipantsByAge1(4, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests3 = ExcelWizard::getParticipantsByAge1(5, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests4 = ExcelWizard::getParticipantsByAge1(6, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests5 = ExcelWizard::getParticipantsByAge1(7, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests6 = ExcelWizard::getParticipantsByAge1(8, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests7 = ExcelWizard::getParticipantsByAge1(9, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests8 = ExcelWizard::getParticipantsByAge1(10, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests9 = ExcelWizard::getParticipantsByAge1(11, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests10 = ExcelWizard::getParticipantsByAge1(12, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests11 = ExcelWizard::getParticipantsByAge1(13, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests12 = ExcelWizard::getParticipantsByAge1(14, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests13 = ExcelWizard::getParticipantsByAge1(15, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests14 = ExcelWizard::getParticipantsByAge1(16, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests15 = ExcelWizard::getParticipantsByAge1(17, $newParticipants, substr($start_date, 0, 4).'-01-01');
+        $tests16 = ExcelWizard::getParticipantsByAge1(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
         $result = array_merge($tests1, $tests2, $tests3, $tests4, $tests5, $tests6, $tests7, $tests8, $tests9, $tests10, $tests11, $tests12, $tests13, $tests14, $tests15, $tests16);
         foreach ($result as $test)
             echo $tests->participant_id.'<br>';
