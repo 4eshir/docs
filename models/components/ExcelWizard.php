@@ -583,7 +583,7 @@ class ExcelWizard
 
     static public function DownloadDoDop1($start_date, $end_date, $budget)
     {
-/*        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOP.xlsx');
         //var_dump($inputData);
@@ -703,7 +703,7 @@ class ExcelWizard
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 10, count($participants));
 
         //----------------------------------
-*/
+
         //Получаем количество учеников по социально-педагогическим программам
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 3])])
@@ -723,35 +723,8 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
-        var_dump(count($participants));
-        var_dump(TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->createCommand()->getRawSql());
 
-        foreach ($participants as $participant)
-            echo $participant->participant_id.'<br>';
 
-        echo '<br><br>';
-
-        $tests1 = ExcelWizard::getParticipantsByAge1(3, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests2 = ExcelWizard::getParticipantsByAge1(4, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests3 = ExcelWizard::getParticipantsByAge1(5, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests4 = ExcelWizard::getParticipantsByAge1(6, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests5 = ExcelWizard::getParticipantsByAge1(7, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests6 = ExcelWizard::getParticipantsByAge1(8, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests7 = ExcelWizard::getParticipantsByAge1(9, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests8 = ExcelWizard::getParticipantsByAge1(10, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests9 = ExcelWizard::getParticipantsByAge1(11, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests10 = ExcelWizard::getParticipantsByAge1(12, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests11 = ExcelWizard::getParticipantsByAge1(13, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests12 = ExcelWizard::getParticipantsByAge1(14, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests13 = ExcelWizard::getParticipantsByAge1(15, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests14 = ExcelWizard::getParticipantsByAge1(16, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests15 = ExcelWizard::getParticipantsByAge1(17, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $tests16 = ExcelWizard::getParticipantsByAge1(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
-        $result = array_merge($tests1, $tests2, $tests3, $tests4, $tests5, $tests6, $tests7, $tests8, $tests9, $tests10, $tests11, $tests12, $tests13, $tests14, $tests15, $tests16);
-        foreach ($result as $test)
-            echo $test.'<br>';
-        
-/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($participants2));
 
@@ -855,7 +828,7 @@ class ExcelWizard
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
-        exit;*/
+        exit;
     }
 
     static private function GetParticipantsByAge($age, $participants, $date)
