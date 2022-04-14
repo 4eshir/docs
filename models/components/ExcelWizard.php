@@ -713,6 +713,8 @@ class ExcelWizard
         $groupsId = [];
         foreach ($groups as $group) $groupsId[] = $group->id;
 
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
+
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
 
