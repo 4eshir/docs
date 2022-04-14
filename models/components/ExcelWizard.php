@@ -612,12 +612,18 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($participants2));
 
+
+
         //Делим учеников по возрастам
 
         $participantsId = [];
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+
+        var_dump(count($participants));
+        var_dump(count($newParticipants));
+        
         //$newParticipants = $participants;
 
         //var_dump($newParticipants);
