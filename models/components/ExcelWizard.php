@@ -728,52 +728,52 @@ class ExcelWizard
 
         echo '<br><br>';
 
-        $tests = ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
-        $tests = ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        $tests = ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01');
         foreach ($tests as $test)
             echo $tests->participant_id.'<br>';
 
