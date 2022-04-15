@@ -1678,4 +1678,88 @@ class ExcelWizard
         $writer->save('php://output');
         exit;
     }
+
+    static public function DownloadJournalAndKUG($training_group_id) {
+        $onPage = 21; //количество занятий на одной странице
+        $lesCount = 0; //счетчик для страниц
+        ini_set('memory_limit', '512M');
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/electronicJournal.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal.xlsx');
+
+        $model = new JournalModel($training_group_id);
+
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+        $newVisits = array();
+        $newVisitsId = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+        $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
+        $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
+
+        $magic = 26; //  смещение между страницами засчет фио+подписи и пустых строк
+        while ($lesCount < count($lessons) / $onPage)
+        {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, ($magic - 1) * $lesCount + 1, 'Группа: ' . $group->number);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, ($magic - 1) * $lesCount + 1, 'Программа: ' . $group->programNameNoLink);
+            $inputData->getActiveSheet()->getStyle('B'. (($magic - 1) * $lesCount + 1))->getAlignment()->setWrapText(true);
+
+            for ($i = 0; $i + $lesCount * $onPage < count($lessons) && $i < $onPage; $i++) //цикл заполнения дат на странице
+            {
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, $magic * $lesCount + 4)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, $magic * $lesCount + 4)->getStyle()->getAlignment()->setTextRotation(90);
+            }
+
+            for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
+            {
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + ($magic * $lesCount) + 6, $parts[$i]->participantWork->shortName);
+            }
+
+            $lesCount++;
+        }
+
+        $delay = 0;
+        for ($cp = 0; $cp < count($parts); $cp++)
+        {
+            $pages = 0;
+            for ($i = 0; $i < count($lessons); $i++, $delay++)
+            {
+                $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
+                if ($i % $onPage === 0 && $i !== 0) { $pages++; }
+                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $pages * $magic, $visits->excelStatus);
+            }
+        }
+
+
+        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
+            ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
+        $magic = 5;
+        foreach ($lessons as $lesson)
+        {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(26, $magic, $lesson->trainingGroupLesson->lesson_date);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
+            $magic++;
+        }
+
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header("Content-Disposition: attachment;filename=journal.xls");
+        header("Content-Transfer-Encoding: binary ");
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+    }
 }

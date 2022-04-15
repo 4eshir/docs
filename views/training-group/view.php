@@ -78,7 +78,9 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             ]);
             echo Html::a("Скачать КУГ", \yii\helpers\Url::to(['training-group/get-kug', 'training_group_id' => $model->id]), ['class' => 'btn btn-success']);
             echo '<br><br>';
-            echo Html::a("Скачать электронный журнал", \yii\helpers\Url::to(['training-group/download-excel', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
+            echo Html::a("Скачать журнал", \yii\helpers\Url::to(['training-group/download-excel', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
+            echo '<br><br>';
+            //echo Html::a("Скачать электронный журнал (форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
             \yii\bootstrap\Modal::end();
         ?>
     </p>

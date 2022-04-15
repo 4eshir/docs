@@ -526,6 +526,11 @@ class TrainingGroupController extends Controller
         ExcelWizard::DownloadJournal($group_id);
     }
 
+    public function actionDownloadJournal($group_id)
+    {
+        ExcelWizard::DownloadJournalAndKUG($group_id);
+    }
+
     public function actionSubcat()
     {
         if ($id = Yii::$app->request->post('id')) {
