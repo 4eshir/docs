@@ -36,6 +36,7 @@ use yii\widgets\ActiveForm;
     $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($company,'id','name');
     $params = [
+        'prompt' => '--',
     ];
     echo $form->field($model, 'company_id')->dropDownList($items,$params);
 
@@ -332,6 +333,7 @@ use yii\widgets\ActiveForm;
         $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
+            'prompt' => '--',
         ];
         echo $form->field($model, 'escort_id')->dropDownList($items,$params);
 
@@ -343,6 +345,7 @@ use yii\widgets\ActiveForm;
         $orders = \app\models\work\DocumentOrderWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
+            'prompt' => '--',
         ];
         echo $form->field($model, 'order_business_trip_id')->dropDownList($items,$params);
 
@@ -353,6 +356,7 @@ use yii\widgets\ActiveForm;
     $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
+        'prompt' => '--',
     ];
     echo $form->field($model, 'order_participation_id')->dropDownList($items,$params);
 
