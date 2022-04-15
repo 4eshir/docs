@@ -2,40 +2,43 @@
 
 namespace app\models\common;
 
-use app\models\components\FileWizard;
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "foreign_event".
  *
  * @property int $id
  * @property string $name
- * @property int $company_id
+ * @property int|null $company_id
  * @property string $start_date
  * @property string $finish_date
  * @property string|null $city
- * @property int $event_way_id
+ * @property int|null $event_way_id
  * @property int $event_level_id
- * @property int $min_participants_age
- * @property int $max_participants_age
- * @property int $business_trip
+ * @property int|null $min_participants_age
+ * @property int|null $max_participants_age
+ * @property int|null $business_trip
  * @property int|null $escort_id
- * @property int $order_participation_id
+ * @property int|null $order_participation_id
  * @property int|null $order_business_trip_id
- * @property string $key_words
- * @property string $docs_achievement
+ * @property string|null $key_words
+ * @property string|null $docs_achievement
  * @property int $copy
+ * @property int|null $creator_id
  *
  * @property Company $company
  * @property EventWay $eventWay
  * @property EventLevel $eventLevel
  * @property DocumentOrder $orderParticipation
  * @property DocumentOrder $orderBusinessTrip
+ * @property User $creator
+ * @property ForeignEventErrors[] $foreignEventErrors
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
  * @property ParticipantForeignEvent[] $participantForeignEvents
  * @property TeacherParticipant[] $teacherParticipants
+ * @property Team[] $teams
+ * @property TemporaryJournal[] $temporaryJournals
  */
 class ForeignEvent extends \yii\db\ActiveRecord
 {
@@ -53,14 +56,16 @@ class ForeignEvent extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'order_participation_id', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy'], 'integer'],
+            [['name', 'start_date', 'finish_date', 'event_level_id'], 'required'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'copy', 'creator_id'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
+            [['name', 'city', 'key_words', 'docs_achievement'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['event_way_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventWay::className(), 'targetAttribute' => ['event_way_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_participation_id' => 'id']],
             [['order_business_trip_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_business_trip_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
         ];
     }
 
@@ -71,36 +76,23 @@ class ForeignEvent extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
-            'company_id' => 'Организатор',
-            'companyString' => 'Организатор',
-            'start_date' => 'Дата начала',
-            'finish_date' => 'Дата окончания',
-            'city' => 'Город',
-            'event_way_id' => 'Формат проведения',
-            'eventWayString' => 'Формат проведения',
-            'event_level_id' => 'Уровень',
-            'eventLevelString' => 'Уровень',
-            'ageRange' => 'Возраст участников',
-            'min_participants_age' => 'Мин. возраст участников (лет)',
-            'max_participants_age' => 'Макс. возраст участников (лет)',
-            'business_trip' => 'Командировка',
-            'businessTrip' => 'Командировка',
-            'escort_id' => 'Сопровождающий',
-            'order_participation_id' => 'Приказ об участии',
-            'orderParticipationString' => 'Приказ об участии',
-            'order_business_trip_id' => 'Приказ о командировке',
-            'orderBusinessTripString' => 'Приказ о командировке',
-            'key_words' => 'Ключевые слова',
-            'docs_achievement' => 'Документы о достижениях',
-            'participantsLink' => 'Участники',
-            'achievementsLink' => 'Достижения',
-            'docString' => 'Документ о достижениях',
-            'teachers' => 'Педагоги',
-            'winners' => 'Победители',
-            'prizes' => 'Призеры',
-            'businessTrips' => 'Командировка',
-            'participantCount' => 'Кол-во участников',
+            'name' => 'Name',
+            'company_id' => 'Company ID',
+            'start_date' => 'Start Date',
+            'finish_date' => 'Finish Date',
+            'city' => 'City',
+            'event_way_id' => 'Event Way ID',
+            'event_level_id' => 'Event Level ID',
+            'min_participants_age' => 'Min Participants Age',
+            'max_participants_age' => 'Max Participants Age',
+            'business_trip' => 'Business Trip',
+            'escort_id' => 'Escort ID',
+            'order_participation_id' => 'Order Participation ID',
+            'order_business_trip_id' => 'Order Business Trip ID',
+            'key_words' => 'Key Words',
+            'docs_achievement' => 'Docs Achievement',
+            'copy' => 'Copy',
+            'creator_id' => 'Creator ID',
         ];
     }
 
@@ -155,6 +147,26 @@ class ForeignEvent extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Creator]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
+    }
+
+    /**
+     * Gets query for [[ForeignEventErrors]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForeignEventErrors()
+    {
+        return $this->hasMany(ForeignEventErrors::className(), ['foreign_event_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[ParticipantAchievements]].
      *
      * @return \yii\db\ActiveQuery
@@ -195,21 +207,22 @@ class ForeignEvent extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[EventLevel]].
+     * Gets query for [[Teams]].
      *
-     * @return string
+     * @return \yii\db\ActiveQuery
      */
-
-    public function getCompanyString()
+    public function getTeams()
     {
-        return $this->company->name;
+        return $this->hasMany(Team::className(), ['foreign_event_id' => 'id']);
     }
 
-
     /**
-     * Gets query for [[EventLevel]].
+     * Gets query for [[TemporaryJournals]].
      *
-     * @return string
+     * @return \yii\db\ActiveQuery
      */
-
+    public function getTemporaryJournals()
+    {
+        return $this->hasMany(TemporaryJournal::className(), ['foreign_event_id' => 'id']);
+    }
 }

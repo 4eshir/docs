@@ -78,6 +78,7 @@ class ForeignEventWork extends ForeignEvent
             'businessTrips' => 'Командировка',
             'participantCount' => 'Кол-во участников',
             'participants' => 'Участники',
+            'creatorString' => 'Создатель карточки'
         ];
     }
 
@@ -262,6 +263,12 @@ class ForeignEventWork extends ForeignEvent
         return $result;
     }
 
+    public function GetCreatorString()
+    {
+        $user = UserWork::find()->where(['id' => $this->creator_id])->one();
+        return $user->fullName;
+    }
+
     public function uploadAchievementsFile()
     {
         $path = '@app/upload/files/foreign_event/achievements_files/';
@@ -281,6 +288,9 @@ class ForeignEventWork extends ForeignEvent
 
     public function beforeSave($insert)
     {
+        if ($this->creator_id === null)
+            $this->creator_id = Yii::$app->user->identity->getId();
+
         if ($this->business_trip == 0)
         {
             $this->order_business_trip_id = null;
