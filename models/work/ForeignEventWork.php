@@ -82,6 +82,12 @@ class ForeignEventWork extends ForeignEvent
         ];
     }
 
+    public function getCompanyString()
+    {
+        $company = CompanyWork::find()->where(['id' => $this->company_id])->one();
+        return $company->name;
+    }
+
     public function getEventWayString()
     {
         return $this->eventWay->name;
