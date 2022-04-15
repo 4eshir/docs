@@ -439,7 +439,7 @@ $session = Yii::$app->session;
                 $params = [
                 ];
                 //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
-                echo $form->field($model, "new_groups_check[$gr->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
+                echo $form->field($model, "new_groups_check[$groupParticipant->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
                 //}
                 echo '</td></tr>';
             }

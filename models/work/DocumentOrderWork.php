@@ -277,7 +277,6 @@ class DocumentOrderWork extends DocumentOrder
         $nom = NomenclatureWork::find()->where(['number' => $this->order_number])->andWhere(['actuality' => 0])->one();
         $status = $nom->type;    // 0 - зачислен, 1 - отчислен, 2 - перевод
 
-
         //прикрепление и открепление приказов к/от групп(-ам)
         if (true)   // тут было условие которое ловило баг, теперь всё работает как надо
         {
@@ -470,10 +469,7 @@ class DocumentOrderWork extends DocumentOrder
                 for ($i = 0; $i < count($this->participants_check); $i++)
                 {
                     $groupsParticipantId[] = $this->participants_check[$i];
-
                     $group = $groups->where(['id' => $this->participants_check[$i]])->one();
-
-                    
 
                     $orderGroup = $ordersGroup->where(['document_order_id' => $this->id])->andWhere(['training_group_id' => $group->training_group_id])->one();
                     $pasta = $pastas->where(['group_participant_id' => $this->participants_check[$i]])->andWhere(['order_group_id' => $orderGroup->id])->one();
@@ -495,7 +491,6 @@ class DocumentOrderWork extends DocumentOrder
                             $visit->save(false);
                         }
                     }
-                    
 
                     //-------------
 
@@ -549,7 +544,7 @@ class DocumentOrderWork extends DocumentOrder
                 $orderGroup = OrderGroupWork::find()->where(['document_order_id' => $this->id])->andWhere(['training_group_id' => $delParticipant->training_group_id])->one();
                 $pasta = $orderGroupParticipant->where(['group_participant_id' => $delParticipant->id])->andWhere(['order_group_id' => $orderGroup->id])->one();
 
-                if ($pasta->status === 2)    // перевод
+                if ($pasta->status == 2)    // перевод
                 {
                     $defector = $orderGroupParticipant->where(['link_id' => $pasta->id])->one();
                     $tempId = $defector->group_participant_id;
@@ -597,7 +592,7 @@ class DocumentOrderWork extends DocumentOrder
             {
                 $tempId = NULL;
 
-                if ($macaroni->status === 2)
+                if ($macaroni->status == 2)
                 {
                     $defector = OrderGroupParticipantWork::find()->where(['link_id' => $macaroni->id])->one();
                     $tempId = $defector->group_participant_id;
