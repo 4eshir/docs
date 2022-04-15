@@ -151,7 +151,10 @@ class ErrorsWork extends Errors
         $result .= $this->ErrorsToDocumentOrder($user);
         if ($result !== '')
             $result .= '<br><br>';
-        $result .= $this->ErrorsToEventAndForeignEvent($user);
+        $result .= $this->ErrorsToEvent($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToForeignEvent($user);
         return $result;
     }
 
@@ -402,26 +405,22 @@ class ErrorsWork extends Errors
         return $result;
     }
 
-    private function ErrorsToEventAndForeignEvent($user)
+    private function ErrorsToEvent($user)
     {
         $result = '';
         $events = '';
-        $foreignEvents = '';
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 3)) // значит информатор по мероприятиям
         {
             $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
             $events = EventWork::find()->where(['IN', 'id',
                             (new Query())->select('id')->from('event_branch')->where(['branch_id' => $branch])])->all();
-            $foreignEvents = ForeignEventWork::find()->where(['IN', 'id',
-                (new Query())->select('id')->from('teacher_participant')->where(['branch_id' => $branch])])->all();
         }
         else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))   // значит админ
         {
             $events = EventWork::find()->all();
-            $foreignEvents = ForeignEventWork::find()->all();
         }
 
-        if ($events !== '' || $foreignEvents !== '')
+        if ($events !== '')
         {
             $result .= '<table id="event" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(3)">Ошибки в мероприятиях</a></u></h4>';
             $result .= '<thead>';
@@ -458,6 +457,37 @@ class ErrorsWork extends Errors
                     $result .= '</tr>';
                 }
             }
+
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
+
+    private function ErrorsToForeignEvent($user)
+    {
+        $result = '';
+        $foreignEvents = '';
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 3)) // значит информатор по мероприятиям
+        {
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $foreignEvents = ForeignEventWork::find()->where(['IN', 'id',
+                (new Query())->select('id')->from('teacher_participant')->where(['branch_id' => $branch])])->all();
+        }
+        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))   // значит админ
+        {
+            $foreignEvents = ForeignEventWork::find()->all();
+        }
+
+        if ($foreignEvents !== '')
+        {
+            $result .= '<table id="foreignEvent" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(4)">Ошибки в учете достижений</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
 
             foreach ($foreignEvents as $foreignEvent)
             {
@@ -499,4 +529,6 @@ class ErrorsWork extends Errors
         }
         return $result;
     }
+
+
 }

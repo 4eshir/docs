@@ -39,7 +39,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.yandex.ru',
                 'username' => 'noreply@schooltech.ru',
-                'password' => 'Pass123$$',
+                'password' => 'noreply0noreply',
                 'port' => 465,
                 'encryption' => 'ssl',
             ],

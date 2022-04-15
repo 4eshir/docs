@@ -73,6 +73,14 @@ use app\models\work\UserWork;
             rowsEvent = tableBodyEvent.querySelectorAll('tr');
         }
 
+        tableForeignEvent = document.getElementById('foreignEvent');
+        if (tableForeignEvent !== null)
+        {
+            headersForeignEvent = tableForeignEvent.querySelectorAll('th');
+            tableBodyForeignEvent = tableForeignEvent.querySelector('tbody');
+            rowsForeignEvent = tableBodyForeignEvent.querySelectorAll('tr');
+        }
+
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -89,28 +97,41 @@ use app\models\work\UserWork;
         directionsEvent = Array.from(headersEvent).map(function(header) {
             return '';
         });
+
+        directionsForeignEvent = Array.from(headersForeignEvent).map(function(header) {
+            return '';
+        });
     }
 
     let tableGr = '';
     let tablePr = '';
     let tableDocOrd = '';
     let tableEvent = '';
+    let tableForeignEvent = '';
+
     let headersGr = '';
     let headersPr = '';
     let headersDocOrd = '';
     let headersEvent = '';
+    let headersForeignEvent = '';
+
     let tableBodyGr = '';
     let tableBodyPr = '';
     let tableBodyDocOrd = '';
     let tableBodyEvent = '';
+    let tableBodyForeignEvent = '';
+
     let rowsGr = '';
     let rowsPr = '';
     let rowsDocOrd = '';
     let rowsEvent = '';
+    let rowsForeignEvent = '';
+
     let directionsGr = '';
     let directionsPr = '';
     let directionsDocOrd = '';
     let directionsEvent = '';
+    let directionsForeignEvent = '';
 
     function fFor(rows, filterName) {
         for (let i = 0; i < rows.length; i++)
@@ -145,6 +166,7 @@ use app\models\work\UserWork;
         fFor(rowsPr, filterName);
         fFor(rowsDocOrd, filterName);
         fFor(rowsEvent, filterName);
+        fFor(rowsForeignEvent, filterName);
     }
 
     function sortColumn(index) {
@@ -153,17 +175,20 @@ use app\models\work\UserWork;
         const directionPr = directionsPr[index] || 'asc';
         const directionDocOrd = directionsDocOrd[index] || 'asc';
         const directionEvent = directionsEvent[index] || 'asc';
+        const directionForeignEvent = directionsForeignEvent[index] || 'asc';
 
         // Фактор по направлению
         const multiplierGr = (directionGr === 'asc') ? 1 : -1;
         const multiplierPr = (directionPr === 'asc') ? 1 : -1;
         const multiplierDocOrd = (directionDocOrd === 'asc') ? 1 : -1;
         const multiplierEvent = (directionEvent === 'asc') ? 1 : -1;
+        const multiplierForeignEvent = (directionForeignEvent === 'asc') ? 1 : -1;
 
         const newRowsGr = Array.from(rowsGr);
         const newRowsPr = Array.from(rowsPr);
         const newRowsDocOrd = Array.from(rowsDocOrd);
         const newRowsEvent = Array.from(rowsEvent);
+        const newRowsForeignEvent = Array.from(rowsForeignEvent);
 
 
         newRowsGr.sort(function(rowA, rowB) {
@@ -186,7 +211,6 @@ use app\models\work\UserWork;
                 case cellA === cellB: return 0;
             }
         });
-
         newRowsDocOrd.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
             const cellB = rowB.querySelectorAll('td')[index].innerHTML;
@@ -197,7 +221,6 @@ use app\models\work\UserWork;
                 case cellA === cellB: return 0;
             }
         });
-
         newRowsEvent.sort(function(rowA, rowB) {
             const cellA = rowA.querySelectorAll('td')[index].innerHTML;
             const cellB = rowB.querySelectorAll('td')[index].innerHTML;
@@ -205,6 +228,16 @@ use app\models\work\UserWork;
             switch (true) {
                 case cellA > cellB: return 1 * multiplierEvent;
                 case cellA < cellB: return -1 * multiplierEvent;
+                case cellA === cellB: return 0;
+            }
+        });
+        newRowsForeignEvent.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierForeignEvent;
+                case cellA < cellB: return -1 * multiplierForeignEvent;
                 case cellA === cellB: return 0;
             }
         });
@@ -217,13 +250,14 @@ use app\models\work\UserWork;
         [].forEach.call(rowsPr, function(row) {
             tableBodyPr.removeChild(row);
         });
-
         [].forEach.call(rowsDocOrd, function(row) {
             tableBodyDocOrd.removeChild(row);
         });
-
         [].forEach.call(rowsEvent, function(row) {
             tableBodyEvent.removeChild(row);
+        });
+        [].forEach.call(rowsForeignEvent, function(row) {
+            tableBodyForeignEvent.removeChild(row);
         });
 
 
@@ -232,6 +266,7 @@ use app\models\work\UserWork;
         directionsPr[index] = directionPr === 'asc' ? 'desc' : 'asc';
         directionsDocOrd[index] = directionDocOrd === 'asc' ? 'desc' : 'asc';
         directionsEvent[index] = directionEvent === 'asc' ? 'desc' : 'asc';
+        directionsForeignEvent[index] = directionForeignEvent === 'asc' ? 'desc' : 'asc';
 
 
         // Добавить новую строку
@@ -246,6 +281,9 @@ use app\models\work\UserWork;
         });
         newRowsEvent.forEach(function(newRow) {
             tableBodyEvent.appendChild(newRow);
+        });
+        newRowsForeignEvent.forEach(function(newRow) {
+            tableBodyForeignEvent.appendChild(newRow);
         });
     }
 
@@ -273,5 +311,11 @@ use app\models\work\UserWork;
                 tableEvent.style.display = "none";
             else
                 tableEvent.style.display = "block";
+
+        if (index === 4)
+            if (tableForeignEvent.style.display === "block")
+                tableForeignEvent.style.display = "none";
+            else
+                tableForeignEvent.style.display = "block";
     }
 </script>
