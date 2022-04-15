@@ -78,10 +78,13 @@ class SearchForeignEventParticipants extends ForeignEventParticipantsWork
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'firstname' => $this->firstname,
-            'secondname' => $this->secondname,
-            'patronymic' => $this->patronymic,
-        ]);
+            //'firstname' => $this->firstname,
+            //'secondname' => $this->secondname,
+            //'patronymic' => $this->patronymic,
+        ])
+        ->andFilterWhere(['like', 'firstname', $this->firstname])
+        ->andFilterWhere(['like', 'secondname', $this->secondname])
+        ->andFilterWhere(['like', 'patronymic', $this->patronymic]);
 
         return $dataProvider;
     }

@@ -140,7 +140,8 @@ class GroupErrorsWork extends GroupErrors
         foreach ($groupsID as $groupID)
         {
             $group = TrainingGroupWork::find()->where(['id' => $groupID])->one();
-            $this->CheckOrder($groupID, $group, $now_time);
+            //$this->CheckOrder($groupID, $group, $now_time);
+            $this->CheckPasta($groupID, $group, $now_time);
         }
     }
 
@@ -455,7 +456,7 @@ class GroupErrorsWork extends GroupErrors
         $now_time = date("Y-m-d");
 
         $this->CheckTeacher($modelGroupID, $group, $now_time);
-        $this->CheckOrder($modelGroupID, $group, $now_time);
+        //$this->CheckOrder($modelGroupID, $group, $now_time);
         $this->CheckPhotos($modelGroupID, $group, $now_time);
         $this->CheckPresent($modelGroupID, $group, $now_time);
         $this->CheckWork($modelGroupID, $group, $now_time);
