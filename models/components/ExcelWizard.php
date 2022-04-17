@@ -1276,7 +1276,7 @@ class ExcelWizard
     {
         $result = [];
         if (count($training_group_ids) > 0)
-            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->select('participant_id, trainingGroup.focus_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram program'])->select('participant_id, program.focus_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
 
         $resIds = [];
         foreach ($result as $one) $resIds[] = $one->participant_id;
