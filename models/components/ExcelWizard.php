@@ -1302,8 +1302,8 @@ class ExcelWizard
         }
 
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, count($allGroups[]));
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, count($allGroups[]));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, count($allGroups));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, count($allGroups));
 
         //техническая направленность
 
