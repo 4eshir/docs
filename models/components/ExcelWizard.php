@@ -1351,7 +1351,7 @@ class ExcelWizard
         if ($allGroups[3] !== null)
         {
             foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, count(ExcelWizard::GetParticipantsFromGroup($allGroups[3], ['Мужской', 'Женский'])));
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, count(ExcelWizard::GetParticipantsFromGroup($allGroups[2], ['Мужской', 'Женский'])));
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
@@ -1361,7 +1361,7 @@ class ExcelWizard
 
         $newAllGroups = [];
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
-        var_dump(count($newAllGroups));
+
 
         //получаем количество детей по возрасту
 
