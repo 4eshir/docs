@@ -1272,6 +1272,20 @@ class ExcelWizard
         return $partsRes;
     }
 
+    static public function GetParticipantsFromGroupDist($training_group_ids, $sex)
+    {
+        $result = [];
+        if (count($training_group_ids) > 0)
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->select('participant_id, trainingGroup.focus_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+
+        $resIds = [];
+        foreach ($result as $one) $resIds[] = $one->participant_id;
+
+        $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
+
+        return $partsRes;
+    }
+
     static public function DownloadDO($start_date, $end_date)
     {
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DO.xlsx');
@@ -1363,6 +1377,7 @@ class ExcelWizard
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
 
 
+        var_dump(count(ExcelWizard::GetParticipantsFromGroupDist($newAllGroups, ['Мужской', 'Женский'])));
         //получаем количество детей по возрасту
 
         $date = explode("-", $start_date)[0];
