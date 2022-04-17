@@ -1272,19 +1272,6 @@ class ExcelWizard
         return $partsRes;
     }
 
-    static public function GetParticipantsFromGroupDist($training_group_ids, $sex)
-    {
-        $result = [];
-        if (count($training_group_ids) > 0)
-            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram program'])->select('participant_id, program.focus_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
-
-        $resIds = [];
-        foreach ($result as $one) $resIds[] = $one->participant_id;
-
-        $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
-
-        return $partsRes;
-    }
 
     static public function DownloadDO($start_date, $end_date)
     {
@@ -1314,20 +1301,27 @@ class ExcelWizard
             $sumArr[] = $sum;
         }
 
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, count($allGroups[]));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, count($allGroups[]));
+
         //техническая направленность
 
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 22, $sumArr[0]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 22, $sumArr[0]);
 
         //--------------------------
 
         //художественная направленность
 
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 27, $sumArr[1]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 27, $sumArr[1]);
 
         //-----------------------------
 
         //социально-педагогическая направленность + естественнонаучная направленность
 
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 29, $sumArr[2] + $sumArr[3]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 29, $sumArr[2] + $sumArr[3]);
 
         //----------------------------------------------------------------------------
@@ -1336,9 +1330,14 @@ class ExcelWizard
 
         //получаем количество детей по технической направленности
 
+        $allParts = 0;
+
         if ($allGroups[0] !== null)
         {
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский'])));
+            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский']));
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
+            $allParts += $temp;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, 0);
@@ -1350,8 +1349,10 @@ class ExcelWizard
         if ($allGroups[1] !== null)
         {
             $sex = ['Мужской', 'Женский'];
-            //var_dump(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $allGroups[1]])->andWhere(['status' => 0])->andWhere(['IN', 'participant.sex', $sex])->all());
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, count(ExcelWizard::GetParticipantsFromGroup($allGroups[1], $sex)));
+            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[1], $sex));
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
+            $allParts += $temp;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, 0);
@@ -1365,7 +1366,10 @@ class ExcelWizard
         if ($allGroups[3] !== null)
         {
             foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, count(ExcelWizard::GetParticipantsFromGroup($allGroups[2], ['Мужской', 'Женский'])));
+            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[2], ['Мужской', 'Женский']));
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
+            $allParts += $temp;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
@@ -1373,11 +1377,13 @@ class ExcelWizard
 
         //----------------------------------------------------------
 
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 21, $allParts);
+
         $newAllGroups = [];
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
 
 
-        var_dump(count(ExcelWizard::GetParticipantsFromGroupDist($newAllGroups, ['Мужской', 'Женский'])));
         //получаем количество детей по возрасту
 
         $date = explode("-", $start_date)[0];
