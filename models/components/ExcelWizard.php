@@ -1272,6 +1272,20 @@ class ExcelWizard
         return $partsRes;
     }
 
+    static public function GetParticipantsFromGroupDistinct($training_group_ids, $sex)
+    {
+        $result = [];
+        if (count($training_group_ids) > 0)
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->select('participant_id, training_group_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+
+        $resIds = [];
+        foreach ($result as $one) $resIds[] = $one->participant_id;
+
+        $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
+
+        return $partsRes;
+    }
+
 
     static public function DownloadDO($start_date, $end_date)
     {
@@ -1336,6 +1350,7 @@ class ExcelWizard
         {
             $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский'])));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
             $allParts += $temp;
         }
