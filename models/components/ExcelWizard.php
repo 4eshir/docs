@@ -1361,6 +1361,7 @@ class ExcelWizard
 
         $newAllGroups = [];
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
+        var_dump(count($newAllGroups));
 
         //получаем количество детей по возрасту
 
