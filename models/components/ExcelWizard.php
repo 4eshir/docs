@@ -1731,6 +1731,8 @@ class ExcelWizard
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
+        if (count($lessons) > 42) var_dump('Поздравляем, Вы нашли новую функцию системы. К сожалению она не до конца готова, это скоро исправится. Спасибо за проявленный интерес)');
+
         $newVisits = array();
         $newVisitsId = array();
         foreach ($visits as $visit) $newVisits[] = $visit->status;
@@ -1781,11 +1783,14 @@ class ExcelWizard
         $magic = 5;
         foreach ($lessons as $lesson)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(26, $magic, $lesson->trainingGroupLesson->lesson_date);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(25, $magic, date("d.m.y", strtotime($lesson->trainingGroupLesson->lesson_date)));
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(26, $magic, $lesson->theme);
             $magic++;
         }
 
+        //$order = OrderGroupWork::find()->where(['training_group_id' => $training_group_id])->all();
+        //$status = DocumentOrderWork::find()->joinWith(['numenclature'])
+        //$inputData->getActiveSheet()->setCellValueByColumnAndRow(26,$magic, )
 
         header("Pragma: public");
         header("Expires: 0");
