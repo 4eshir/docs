@@ -1333,26 +1333,40 @@ class ExcelWizard
         $branchs = BranchWork::find()->all();
         $focuses = FocusWork::find()->all();
         $sumArr = [];  
+        $sumArrCom = []; 
         $allGroups = [];
+        $allGroupsCom = [];
 
         foreach ($focuses as $focus)
         {
             $sum = 0;
+            $sumCom = 0;
             $groupsId = [];
+            $groupsIdCom = [];
             foreach ($branchs as $branch) 
             {
                 $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id, [0, 1]);
                 foreach ($groups as $group) $groupsId[] = $group;
 
                 $sum += count($groups);
+
+                $groupsCom = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id, [0]);
+                foreach ($groupsCom as $group) $groupsIdCom[] = $group;
+
+                $sumCom += count($groupsCom);
             }
             $allGroups[] = $groupsId;
+            $allGroupsCom[] = $groupsIdCom;
             $sumArr[] = $sum;
+            $sumArrCom[] = $sumCom;
         }
 
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
 
         //техническая направленность
 
@@ -1381,16 +1395,22 @@ class ExcelWizard
 
         $allParts = 0;
         $allPartsDouble = 0;
+        $allPartsCom = 0;
+        $allPartsDoubleCom = 0;
 
         if ($allGroups[0] !== null)
         {
             $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[0], ['Мужской', 'Женский']));
             $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[0], ['Мужской', 'Женский']));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[0], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
             $allParts += $temp;
             $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, 0);
@@ -1404,11 +1424,15 @@ class ExcelWizard
             $sex = ['Мужской', 'Женский'];
             $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[1], $sex));
             $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[1], $sex));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[1], $sex));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[1], $sex));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 27, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
             $allParts += $temp;
             $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, 0);
@@ -1424,11 +1448,15 @@ class ExcelWizard
             foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
             $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[2], ['Мужской', 'Женский']));
             $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[2], ['Мужской', 'Женский']));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[2], ['Мужской', 'Женский']));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[2], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
             $allParts += $temp;
             $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
@@ -1439,6 +1467,10 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 21, $allParts);
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 30, $allPartsCom);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 30, $allPartsDoubleCom);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 30, $allPartsCom);
 
         $newAllGroups = [];
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
