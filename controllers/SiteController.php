@@ -9,6 +9,8 @@ use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
 use app\models\work\PeopleWork;
 use app\models\work\TrainingGroupWork;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\TrainingGroupParticipantWork;
 use app\models\common\Log;
 use app\models\work\PeoplePositionBranchWork;
 use app\models\work\TeacherParticipantWork;
@@ -29,6 +31,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\extended\DocumentOutExtended;
+
+use yii\db\ActiveQuery;
+use yii\db\Query;
 
 
 class SiteController extends Controller
@@ -197,23 +202,45 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $logs = Log::find()->where(['LIKE', 'text', '%Добавлена группа%', false])->all();
-        $groups = [];
+        $start_date = '2021-01-01';
+        $end_date = '2021-12-31';
+        $groups = TrainingGroupWork::find()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->all();
+        
+        $gIds = [];
+        
+        foreach ($groups as $group) $gIds[] = $group->id;
+
+        $fps = ForeignEventParticipantsWork::find()->all();
         $ids = [];
-        foreach ($logs as $log) {
-            $groups[] = explode(" ", $log->text)[2];
-            $ids[] = $log->user_id;
-        }
-        $counter = 0;
-        foreach ($groups as $group) {
-            $gr = TrainingGroupWork::find()->where(['number' => $group])->one();
-            if ($gr !== null && $gr->creator_id === null)
+        foreach ($fps as $fp)
+        {
+            $parts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['participant_id' => $fp->id])->andWhere(['IN', 'trainingGroup.id', $gIds])->all();
+            if (count($parts) > 0)
             {
-                $gr->creator_id = $ids[$counter];
-                $gr->save();
+                $f1 = 0;
+                $f2 = 0;
+                foreach ($parts as $part)
+                {
+                    if ($part->trainingGroup->budget == 0)
+                        $f1 = 1;
+                    else
+                        $f2 = 1;
+                }
+                if ($f1 == 1 && $f2 == 1)
+                    $ids[] = $part->participant_id;
             }
-            $counter++;
         }
+        $fps = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
+
+        foreach ($fps as $fp)
+            echo $fp->fullName.' '.$fp->birthdate.'<br>';
+
+        return null;
+        
         /*
         $tp = TeacherParticipantWork::find()->all();
         foreach ($tp as $one) {
