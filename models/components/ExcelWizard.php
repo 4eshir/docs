@@ -1869,7 +1869,8 @@ class ExcelWizard
                 if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
                 {
                     $magic = 0;
-                    $sheets++;
+                    if ($inputData->getSheetCount() > $sheets)
+                        $sheets++;
                 }
                 else if ($i % $onPage === 0 && $i !== 0)
                     $magic = 26;
@@ -1883,6 +1884,8 @@ class ExcelWizard
 
         $magic = 5;
         $sheets = 0;
+        if ((count($lessons) > $inputData->getSheetCount()*42))
+            var_dump("Форма не может быть выгружена, т.к. количество академических часов в образовательной программе больше, чем количество занятий в расписании");
         foreach ($lessons as $lesson)
         {
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(25, $magic, date("d.m.y", strtotime($lesson->trainingGroupLesson->lesson_date)));
