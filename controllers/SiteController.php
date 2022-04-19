@@ -10,6 +10,7 @@ use app\models\work\FeedbackWork;
 use app\models\work\PeopleWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\TrainingGroupParticipantWork;
 use app\models\common\Log;
 use app\models\work\PeoplePositionBranchWork;
 use app\models\work\TeacherParticipantWork;
