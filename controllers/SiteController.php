@@ -30,6 +30,9 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\extended\DocumentOutExtended;
 
+use yii\db\ActiveQuery;
+use yii\db\Query;
+
 
 class SiteController extends Controller
 {
