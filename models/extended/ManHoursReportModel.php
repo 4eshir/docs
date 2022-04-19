@@ -207,11 +207,12 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
-                var_dump($this->unic == 1);
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->orderBy(['participant_id' => SORT_ASC])->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->all();
+
+                foreach ($parts as $part) echo $part->participant_id.'<br>';
 
                 $result .= '<tr><td><b>1</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
