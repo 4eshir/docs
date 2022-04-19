@@ -1410,7 +1410,7 @@ class ExcelWizard
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
-            $allPartsDouble += $temp3;
+            $allPartsDoubleCom += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, 0);
@@ -1432,7 +1432,7 @@ class ExcelWizard
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
-            $allPartsDouble += $temp3;
+            $allPartsDoubleCom += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, 0);
@@ -1456,7 +1456,7 @@ class ExcelWizard
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
-            $allPartsDouble += $temp3;
+            $allPartsDoubleCom += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
@@ -1465,7 +1465,7 @@ class ExcelWizard
         //----------------------------------------------------------
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble + $allPartsDoubleCom);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 21, $allParts);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 30, $allPartsCom);
