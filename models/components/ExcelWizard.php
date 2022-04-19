@@ -426,6 +426,18 @@ class ExcelWizard
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
+    static public function GetParticipantsIdsFromGroups($group_ids)
+    {
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
+
+        $result = [];
+        foreach ($participants as $participant) $result[] = $participant->participant_id;
+
+        return $result;
+
+    }
+
+    //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
     static public function GetParticipantsIdsByStatus($group_ids)
     {
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
@@ -522,7 +534,7 @@ class ExcelWizard
         foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
         */
 
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($tgIds)])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($tgIds)])->all();
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
         $inputData->getActiveSheet()->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
@@ -909,7 +921,7 @@ class ExcelWizard
         return count($participantsId);
     }
 
-    static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
+    static public function GetGroupsByBranchAndFocus($branch_id, $focus_id, $budget = null)
     {
         $programs = TrainingProgramWork::find()->where(['IN', 'focus_id', $focus_id])->all();
         if ($focus_id == 0)
@@ -919,7 +931,14 @@ class ExcelWizard
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->id;
         
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        if ($budget === null)
+        {
+            $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        }
+        else
+        {
+            $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['IN', 'budget', $budget])->all();
+        }
 
         
         $gIds = [];
@@ -929,7 +948,7 @@ class ExcelWizard
         return $gIds;
     }
 
-    static public function GetGroupsByDatesBranchFocus($start_date, $end_date, $branch_id, $focus_id)
+    static public function GetGroupsByDatesBranchFocus($start_date, $end_date, $branch_id, $focus_id, $budget = null)
     {
         /*$groups = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
@@ -942,7 +961,7 @@ class ExcelWizard
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id, $budget)])
             ->all();
         
         $gIds = [];
@@ -1322,7 +1341,7 @@ class ExcelWizard
             $groupsId = [];
             foreach ($branchs as $branch) 
             {
-                $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id);
+                $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id, [0, 1]);
                 foreach ($groups as $group) $groupsId[] = $group;
 
                 $sum += count($groups);
