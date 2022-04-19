@@ -1272,14 +1272,30 @@ class ExcelWizard
         return $partsRes;
     }
 
+    static public function GetParticipantsFromGroupAll($training_group_ids, $sex)
+    {
+        $result = [];
+        if (count($training_group_ids) > 0)
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+
+        if (count($result) > 0)
+            return $result;
+        else
+            return [];
+    }
+
     static public function GetParticipantsFromGroupDistinct($training_group_ids, $sex)
     {
         $result = [];
         if (count($training_group_ids) > 0)
-            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->select('participant_id, training_group_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
 
         $resIds = [];
-        foreach ($result as $one) $resIds[] = $one->participant_id;
+        foreach ($result as $one)
+        {
+            if (count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()) > 1)
+                $resIds[] = $one->participant_id;
+        }
 
         $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
 
@@ -1348,7 +1364,7 @@ class ExcelWizard
 
         if ($allGroups[0] !== null)
         {
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский']));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[0], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
             $allParts += $temp;
@@ -1363,7 +1379,7 @@ class ExcelWizard
         if ($allGroups[1] !== null)
         {
             $sex = ['Мужской', 'Женский'];
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[1], $sex));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[1], $sex));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
             $allParts += $temp;
@@ -1380,7 +1396,7 @@ class ExcelWizard
         if ($allGroups[3] !== null)
         {
             foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[2], ['Мужской', 'Женский']));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[2], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
             $allParts += $temp;
