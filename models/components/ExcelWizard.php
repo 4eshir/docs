@@ -1871,6 +1871,7 @@ class ExcelWizard
                     var_dump($magic);
                     var_dump($sheets);
                     var_dump($i);
+                    var_dump('new iteration');
                 }
                 if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
                 {
