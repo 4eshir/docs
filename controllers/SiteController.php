@@ -237,7 +237,7 @@ class SiteController extends Controller
         $fps = ForeignEventParticipants::find()->where(['IN', 'id', $ids])->all();
 
         foreach ($fps as $fp)
-            echo $fp->fullName.' '.$fp->birthdate;
+            var_dump($fp->fullName.' '.$fp->birthdate);
         
         /*
         $tp = TeacherParticipantWork::find()->all();
