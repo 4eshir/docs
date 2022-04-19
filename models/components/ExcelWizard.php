@@ -903,7 +903,7 @@ class ExcelWizard
         return $participantsId;
     }
 
-    static private function CheckParticipant18Plus($participants, $date)
+    static public function CheckParticipant18Plus($participants, $date)
     {
         $participantsId = [];
         foreach ($participants as $participant){
