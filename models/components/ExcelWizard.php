@@ -1809,7 +1809,7 @@ class ExcelWizard
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
-        for ($i = 1; $i < count($lessons) / 42; $i++)
+        for ($i = 1; $i < count($lessons) / ($onPage * 2); $i++)
         {
             $clone = clone $inputData->getActiveSheet();
             $clone->setTitle('Шаблон' . $i);
@@ -1866,14 +1866,7 @@ class ExcelWizard
             for ($i = 0; $i < count($lessons); $i++, $delay++)
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
-                if ($cp == 0)
-                {
-                    var_dump($i % $onPage === 0);
-                    var_dump($magic === 26);
-                    var_dump($i !== 0);
-                    var_dump($i % $onPage === 0 && $magic === 26 && $i !== 0);
-                    var_dump('new iteration');
-                }
+
                 if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
                 {
                     $magic = 0;
@@ -1882,6 +1875,13 @@ class ExcelWizard
                 else if ($i % $onPage === 0 && $i !== 0)
                     $magic = 26;
 
+                if ($cp == 0)
+                {
+                    var_dump($i);
+                    var_dump($magic);
+                    var_dump($sheets);
+                    var_dump('new iteration');
+                }
                 $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
             }
         }
