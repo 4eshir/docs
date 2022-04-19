@@ -76,7 +76,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
 
         //var_dump(count($events->all()));
 
@@ -94,7 +94,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level) !== false)
         {
-            $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
+            $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
 
             $counter1 = 0;
             $counter2 = 0;
@@ -176,7 +176,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (всероссийских)
         if (array_search(7, $this->level) !== false)
         {
-            $events2 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->all();
+            $events2 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->all();
 
 
             $counter3 = 0;
@@ -260,7 +260,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(6, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
+            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
 
             $counter5 = 0;
             $counter6 = 0;
@@ -350,7 +350,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(5, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->all();
+            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->all();
 
             $counter7 = 0;
             $counter8 = 0;
@@ -431,7 +431,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(4, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->all();
+            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->all();
 
             $counter9 = 0;
             $counter10 = 0;
@@ -512,7 +512,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(3, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->all();
+            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->all();
 
             $counter11 = 0;
             $counter12 = 0;
