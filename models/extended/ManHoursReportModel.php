@@ -56,6 +56,7 @@ class ManHoursReportModel extends \yii\base\Model
         $f1 = 0; //
 
         $result = '<table class="table table-bordered">';
+        $checkParticipantsId = []; //массив уже попавших в список уникальных людей
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
@@ -193,7 +194,7 @@ class ManHoursReportModel extends \yii\base\Model
                 }
             }
 
-            $checkParticipantsId = []; //массив уже попавших в список уникальных людей
+            
 
             if ($oneType === '1')
             {
