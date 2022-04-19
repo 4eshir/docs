@@ -1716,7 +1716,7 @@ class ExcelWizard
     }
 
     static public function DownloadJournalAndKUG($training_group_id) {
-        $onPage = 21; //количество занятий на одной странице
+        $onPage = 21; //количество занятий на одной строке в листе
         $lesCount = 0; //счетчик для страниц
         ini_set('memory_limit', '512M');
 
@@ -1731,7 +1731,12 @@ class ExcelWizard
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
 
-        if (count($lessons) > 42) var_dump('Поздравляем, Вы нашли новую функцию системы. К сожалению она не до конца готова, это скоро исправится. Спасибо за проявленный интерес)');
+        for ($i = 1; $i < count($lessons) / 42; $i++)
+        {
+            $clone = clone $inputData->getActiveSheet();
+            $clone->setTitle('Шаблон' . $i);
+            $inputData->addSheet($clone);
+        }
 
         $newVisits = array();
         $newVisitsId = array();
@@ -1744,48 +1749,72 @@ class ExcelWizard
         $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
         $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
 
-        $magic = 26; //  смещение между страницами засчет фио+подписи и пустых строк
+        $magic = 0; //  смещение между страницами засчет фио+подписи и пустых строк
+        $sheets = 0;
         while ($lesCount < count($lessons) / $onPage)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, ($magic - 1) * $lesCount + 1, 'Группа: ' . $group->number);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, ($magic - 1) * $lesCount + 1, 'Программа: ' . $group->programNameNoLink);
-            $inputData->getActiveSheet()->getStyle('B'. (($magic - 1) * $lesCount + 1))->getAlignment()->setWrapText(true);
+            if ($lesCount !== 0 && $lesCount % 2 === 0)
+            {
+                $sheets++;
+                $magic = 0;
+            }
+            if ($lesCount % 2 !== 0)
+                $magic = 25;
 
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(0, 1 + $magic, 'Группа: ' . $group->number);
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
+            $inputData->getSheet($sheets)->getStyle('B'. $magic)->getAlignment()->setWrapText(true)->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+            if ($magic === 25) $magic++;
             for ($i = 0; $i + $lesCount * $onPage < count($lessons) && $i < $onPage; $i++) //цикл заполнения дат на странице
             {
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, $magic * $lesCount + 4)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
-                $inputData->getActiveSheet()->getCellByColumnAndRow(1 + $i, $magic * $lesCount + 4)->getStyle()->getAlignment()->setTextRotation(90);
+                $inputData->getSheet($sheets)->getCellByColumnAndRow(1 + $i, 4 + $magic)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                $inputData->getSheet($sheets)->getCellByColumnAndRow(1 + $i, 4 + $magic)->getStyle()->getAlignment()->setTextRotation(90);
             }
 
             for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
             {
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $i + ($magic * $lesCount) + 6, $parts[$i]->participantWork->shortName);
+                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(0, $i + 6 + $magic, $parts[$i]->participantWork->shortName);
             }
 
             $lesCount++;
         }
 
         $delay = 0;
+        $magic = 0;
         for ($cp = 0; $cp < count($parts); $cp++)
         {
-            $pages = 0;
+            $sheets = 0;
             for ($i = 0; $i < count($lessons); $i++, $delay++)
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
-                if ($i % $onPage === 0 && $i !== 0) { $pages++; }
-                $inputData->getActiveSheet()->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $pages * $magic, $visits->excelStatus);
+                if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
+                {
+                    $magic = 0;
+                    $sheets++;
+                }
+                else if ($i % $onPage === 0 && $i !== 0)
+                    $magic = 26;
+
+                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
             }
         }
 
-
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
             ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
+
         $magic = 5;
+        $sheets = 0;
         foreach ($lessons as $lesson)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(25, $magic, date("d.m.y", strtotime($lesson->trainingGroupLesson->lesson_date)));
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(26, $magic, $lesson->theme);
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(25, $magic, date("d.m.y", strtotime($lesson->trainingGroupLesson->lesson_date)));
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, $magic, $lesson->theme);
             $magic++;
+            if ($magic > 46)
+            {
+                $sheets++;
+                $magic = 5;
+            }
         }
 
         //$order = OrderGroupWork::find()->where(['training_group_id' => $training_group_id])->all();
