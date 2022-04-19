@@ -1860,12 +1860,18 @@ class ExcelWizard
 
         $delay = 0;
         $magic = 0;
-        /*for ($cp = 0; $cp < count($parts); $cp++)
+        for ($cp = 0; $cp < count($parts); $cp++)
         {
             $sheets = 0;
             for ($i = 0; $i < count($lessons); $i++, $delay++)
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
+                if ($cp == 0)
+                {
+                    var_dump($magic);
+                    var_dump($sheets);
+                    var_dump($i);
+                }
                 if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
                 {
                     $magic = 0;
@@ -1876,7 +1882,7 @@ class ExcelWizard
 
                 $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
             }
-        }*/
+        }
 
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
             ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
