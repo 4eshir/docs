@@ -333,7 +333,7 @@ class WordWizard
 «Об образовании в Российской Федерации» и заявлений родителей или законных представителей';
         $section->addText($text, null, array('align' => 'both'));
         $section->addText('ПРИКАЗЫВАЮ:');
-        if (count($group) > 0 && $group[0]->DocumentOrderWork->budget == 0)
+        /*if (count($group) > 0 && $group[0]->DocumentOrderWork->budget == 0)
         {
             $section->addText('1.   Расторгнуть договора об оказании платных дополнительных образовательных услуг согласно Приложению № 1.', null, array('align' => 'both'));
             $section->addText('2.   Отчислить обучающихся согласно Приложению № 2 к настоящему приказу.', null, array('align' => 'both'));
@@ -342,12 +342,12 @@ class WordWizard
             $section->addTextBreak(2);
         }
         else
-        {
+        {*/
             $section->addText('1.   Отчислить обучающихся согласно Положению к настоящему приказу', null, array('align' => 'both'));
             $section->addText('2.   Выдать обучающимся, указанным в Приложении к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного образца.', null, array('align' => 'both'));
             $section->addText('3.   Контроль за исполнением приказа оставляю за собой.', null, array('align' => 'both'));
             $section->addTextBreak(2);  
-        }
+        //}
         
 
         $table = $section->addTable();
