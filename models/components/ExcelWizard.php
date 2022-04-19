@@ -1465,7 +1465,7 @@ class ExcelWizard
         //----------------------------------------------------------
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble + $$allPartsDoubleCom);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble + $allPartsDoubleCom);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 21, $allParts);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 30, $allPartsCom);
