@@ -1875,13 +1875,11 @@ class ExcelWizard
                 else if ($i % $onPage === 0 && $i !== 0)
                     $magic = 26;
 
-                if ($sheets == 3)
+                if ($cp == 1)
                 {
                     var_dump($i);
                     var_dump($magic);
                     var_dump($sheets);
-                    var_dump(count($lessons));
-                    var_dump($cp);
                     var_dump('new iteration');
                 }
                 $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
