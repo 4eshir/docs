@@ -608,6 +608,8 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
             ->all();
+
+        var_dump(count($groups));
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
