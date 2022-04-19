@@ -426,6 +426,18 @@ class ExcelWizard
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
+    static public function GetParticipantsIdsFromGroups($group_ids)
+    {
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
+
+        $result = [];
+        foreach ($participants as $participant) $result[] = $participant->participant_id;
+
+        return $result;
+
+    }
+
+    //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
     static public function GetParticipantsIdsByStatus($group_ids)
     {
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
@@ -522,7 +534,7 @@ class ExcelWizard
         foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
         */
 
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($tgIds)])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($tgIds)])->all();
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
         $inputData->getActiveSheet()->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
@@ -541,7 +553,7 @@ class ExcelWizard
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
         //-------------------------------------------
 
@@ -909,7 +921,7 @@ class ExcelWizard
         return count($participantsId);
     }
 
-    static public function GetGroupsByBranchAndFocus($branch_id, $focus_id)
+    static public function GetGroupsByBranchAndFocus($branch_id, $focus_id, $budget = null)
     {
         $programs = TrainingProgramWork::find()->where(['IN', 'focus_id', $focus_id])->all();
         if ($focus_id == 0)
@@ -919,7 +931,14 @@ class ExcelWizard
         $tpIds = [];
         foreach ($programs as $program) $tpIds[] = $program->id;
         
-        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        if ($budget === null)
+        {
+            $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['budget' => 1])->all();
+        }
+        else
+        {
+            $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'trainingProgram.id', $tpIds])->andWhere(['branch_id' => $branch_id])->andWhere(['IN', 'budget', $budget])->all();
+        }
 
         
         $gIds = [];
@@ -929,7 +948,7 @@ class ExcelWizard
         return $gIds;
     }
 
-    static public function GetGroupsByDatesBranchFocus($start_date, $end_date, $branch_id, $focus_id)
+    static public function GetGroupsByDatesBranchFocus($start_date, $end_date, $branch_id, $focus_id, $budget = null)
     {
         /*$groups = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
@@ -942,7 +961,7 @@ class ExcelWizard
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id, $budget)])
             ->all();
         
         $gIds = [];
@@ -1272,14 +1291,30 @@ class ExcelWizard
         return $partsRes;
     }
 
+    static public function GetParticipantsFromGroupAll($training_group_ids, $sex)
+    {
+        $result = [];
+        if (count($training_group_ids) > 0)
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+
+        if (count($result) > 0)
+            return $result;
+        else
+            return [];
+    }
+
     static public function GetParticipantsFromGroupDistinct($training_group_ids, $sex)
     {
         $result = [];
         if (count($training_group_ids) > 0)
-            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->select('participant_id, training_group_id')->distinct()->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
+            $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
 
         $resIds = [];
-        foreach ($result as $one) $resIds[] = $one->participant_id;
+        foreach ($result as $one)
+        {
+            if (count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()) > 1)
+                $resIds[] = $one->participant_id;
+        }
 
         $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
 
@@ -1298,26 +1333,40 @@ class ExcelWizard
         $branchs = BranchWork::find()->all();
         $focuses = FocusWork::find()->all();
         $sumArr = [];  
+        $sumArrCom = []; 
         $allGroups = [];
+        $allGroupsCom = [];
 
         foreach ($focuses as $focus)
         {
             $sum = 0;
+            $sumCom = 0;
             $groupsId = [];
+            $groupsIdCom = [];
             foreach ($branchs as $branch) 
             {
-                $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id);
+                $groups = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id, [0, 1]);
                 foreach ($groups as $group) $groupsId[] = $group;
 
                 $sum += count($groups);
+
+                $groupsCom = ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, $branch->id, $focus->id, [0]);
+                foreach ($groupsCom as $group) $groupsIdCom[] = $group;
+
+                $sumCom += count($groupsCom);
             }
             $allGroups[] = $groupsId;
+            $allGroupsCom[] = $groupsIdCom;
             $sumArr[] = $sum;
+            $sumArrCom[] = $sumCom;
         }
 
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
 
         //техническая направленность
 
@@ -1345,13 +1394,23 @@ class ExcelWizard
         //получаем количество детей по технической направленности
 
         $allParts = 0;
+        $allPartsDouble = 0;
+        $allPartsCom = 0;
+        $allPartsDoubleCom = 0;
 
         if ($allGroups[0] !== null)
         {
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[0], ['Мужской', 'Женский']));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[0], ['Мужской', 'Женский']));
+            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[0], ['Мужской', 'Женский']));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[0], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
             $allParts += $temp;
+            $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, 0);
@@ -1363,10 +1422,17 @@ class ExcelWizard
         if ($allGroups[1] !== null)
         {
             $sex = ['Мужской', 'Женский'];
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[1], $sex));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[1], $sex));
+            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[1], $sex));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[1], $sex));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[1], $sex));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 27, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
             $allParts += $temp;
+            $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, 0);
@@ -1380,10 +1446,17 @@ class ExcelWizard
         if ($allGroups[3] !== null)
         {
             foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
-            $temp = count(ExcelWizard::GetParticipantsFromGroup($allGroups[2], ['Мужской', 'Женский']));
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[2], ['Мужской', 'Женский']));
+            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[2], ['Мужской', 'Женский']));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[2], ['Мужской', 'Женский']));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[2], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
             $allParts += $temp;
+            $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDouble += $temp3;
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
@@ -1392,7 +1465,12 @@ class ExcelWizard
         //----------------------------------------------------------
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 21, $allParts);
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 30, $allPartsCom);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 30, $allPartsDoubleCom);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 30, $allPartsCom);
 
         $newAllGroups = [];
         foreach ($allGroups as $group) $newAllGroups = array_merge($newAllGroups, $group);
