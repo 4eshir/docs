@@ -1868,9 +1868,10 @@ class ExcelWizard
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
                 if ($cp == 0)
                 {
-                    var_dump($magic);
-                    var_dump($sheets);
-                    var_dump($i);
+                    var_dump($i % $onPage === 0);
+                    var_dump($magic === 26);
+                    var_dump($i !== 0);
+                    var_dump($i % $onPage === 0 && $magic === 26 && $i !== 0);
                     var_dump('new iteration');
                 }
                 if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
