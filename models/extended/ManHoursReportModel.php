@@ -215,8 +215,11 @@ class ManHoursReportModel extends \yii\base\Model
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                var_dump($parts);
-                foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
+                foreach ($parts as $part) 
+                {
+                    echo $part->participant_id.'<br>';
+                    $checkParticipantsId[] = $part->participant_id;
+                }
 
                 $result .= '<tr><td><b>1</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
