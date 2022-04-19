@@ -238,6 +238,8 @@ class SiteController extends Controller
 
         foreach ($fps as $fp)
             var_dump($fp->fullName.' '.$fp->birthdate);
+
+        return null;
         
         /*
         $tp = TeacherParticipantWork::find()->all();
