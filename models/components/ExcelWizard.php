@@ -553,7 +553,7 @@ class ExcelWizard
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        $events = ForeignEventWork::find()->where(['IN', 'id', $eIds])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
         //-------------------------------------------
 
