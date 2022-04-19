@@ -207,6 +207,7 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
+                var_dump($this->unic);
                 if ($this->unic == 1)
                     $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->all();
                 else
