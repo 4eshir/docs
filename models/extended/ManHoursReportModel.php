@@ -9,6 +9,7 @@ use app\models\work\LessonThemeWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
