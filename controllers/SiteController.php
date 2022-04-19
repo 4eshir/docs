@@ -227,7 +227,7 @@ class SiteController extends Controller
                         $f2 = 1;
                 }
                 if ($f1 == 1 && f2 == 1)
-                    $ids[] = $part->participant_id
+                    $ids[] = $part->participant_id;
             }
         }
 
