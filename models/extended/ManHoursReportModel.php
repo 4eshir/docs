@@ -58,6 +58,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         $result = '<table class="table table-bordered">';
         $checkParticipantsId = []; //массив уже попавших в список уникальных людей
+        $newParticipants = ForeignEventParticipantsWork::find()->all();
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
