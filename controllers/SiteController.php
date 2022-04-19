@@ -211,7 +211,6 @@ class SiteController extends Controller
         $gIds = [];
         
         foreach ($groups as $group) $gIds[] = $group->id;
-        return $gIds;
 
         $fps = ForeignEventParticipants::find()->all();
         $ids = [];
@@ -233,7 +232,6 @@ class SiteController extends Controller
                     $ids[] = $part->participant_id;
             }
         }
-        var_dump('lol');
         $fps = ForeignEventParticipants::find()->where(['IN', 'id', $ids])->all();
 
         foreach ($fps as $fp)
