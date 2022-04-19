@@ -216,7 +216,6 @@ class ManHoursReportModel extends \yii\base\Model
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                var_dump($checkParticipantsId);
                 foreach ($parts as $part) 
                 {
                     $checkParticipantsId[] = $part->participant_id;
@@ -259,7 +258,6 @@ class ManHoursReportModel extends \yii\base\Model
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->all();
 
-                var_dump($checkParticipantsId);
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
                 
 
@@ -292,7 +290,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->all();
-                var_dump($checkParticipantsId);
+                
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
                 
 
