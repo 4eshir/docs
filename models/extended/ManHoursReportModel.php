@@ -12,6 +12,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
+use app\models\components\ExcelWizard;
 use Mpdf\Tag\P;
 use yii\db\Query;
 
