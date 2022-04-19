@@ -233,7 +233,7 @@ class SiteController extends Controller
                     $ids[] = $part->participant_id;
             }
         }
-
+        var_dump('lol');
         $fps = ForeignEventParticipants::find()->where(['IN', 'id', $ids])->all();
 
         foreach ($fps as $fp)
