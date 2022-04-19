@@ -219,7 +219,7 @@ class SiteController extends Controller
         foreach ($fps as $fp)
         {
             $parts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['participant_id' => $fp->id])->andWhere(['IN', 'trainingGroup.id', $gIds])->all();
-            if (count($parts) > 0)
+            if (count($parts) > 1)
             {
                 $f1 = 0;
                 $f2 = 0;
