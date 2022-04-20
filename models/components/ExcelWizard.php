@@ -704,8 +704,7 @@ class ExcelWizard
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
-        foreach ($newParticipants as $part)
-            echo $part->fullName.'<br>';
+
 
         //$newParticipants = $participants;
 
@@ -774,6 +773,10 @@ class ExcelWizard
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+
+        foreach ($newParticipants as $part)
+            echo $part->fullName.'<br>';
+
         //$newParticipants = $participants;
 
         //var_dump($newParticipants);
@@ -839,6 +842,10 @@ class ExcelWizard
         foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+
+        foreach ($newParticipants as $part)
+            echo $part->fullName.'<br>';
+        
         //$newParticipants = $participants;
 
         //var_dump($newParticipants);
