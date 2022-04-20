@@ -1487,9 +1487,9 @@ class ExcelWizard
         $tempS = 0;
 
         $paricipantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
-
+        var_dump($participantsG);
         foreach ($participantsG as $part)
-            echo $paricipantsG->fullName.'<br>';
+            echo $part->fullName.'<br>';
 
         $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, $paricipantsG, $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
