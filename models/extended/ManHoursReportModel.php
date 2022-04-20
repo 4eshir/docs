@@ -61,7 +61,7 @@ class ManHoursReportModel extends \yii\base\Model
         $checkParticipantsId = []; //массив уже попавших в список уникальных людей
         $newParticipants = ForeignEventParticipantsWork::find()->all();
         $newParticipants = ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01');
-        foreach ($newParticipants as $p) echo $p->fullName.'<br>';
+        foreach ($newParticipants as $p) echo $p.'<br>';
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
