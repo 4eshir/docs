@@ -668,10 +668,7 @@ class ExcelWizard
 
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
 
-        $ids = [];
-        foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
-        foreach ($pgs as $pg) echo $pg->fullName.'<br>';
+        
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
 
@@ -742,10 +739,7 @@ class ExcelWizard
 
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
 
-        $ids = [];
-        foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
-        foreach ($pgs as $pg) echo $pg->fullName.'<br>';
+        
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
 
@@ -815,11 +809,7 @@ class ExcelWizard
 
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
 
-        $ids = [];
-        foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
-        foreach ($pgs as $pg) echo $pg->fullName.'<br>';
-
+        
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
 
         $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 9, count($participants2) - count($participants));
@@ -887,10 +877,7 @@ class ExcelWizard
 
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
 
-        $ids = [];
-        foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
-        foreach ($pgs as $pg) echo $pg->fullName.'<br>';
+        
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
 
