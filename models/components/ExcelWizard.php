@@ -635,6 +635,8 @@ class ExcelWizard
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
+        foreach ($newParticipants as $part)
+            echo $part->fullName.'<br>';
 
 
         //$newParticipants = $participants;
@@ -1489,8 +1491,6 @@ class ExcelWizard
 
         $participantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
         
-        foreach ($participantsG as $part)
-            echo $part->fullName.'<br>';
 
         $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, $paricipantsG, $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
