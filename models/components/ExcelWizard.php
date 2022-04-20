@@ -1033,6 +1033,13 @@ class ExcelWizard
             ->andWhere(['not', ['certificat_number' => null]])
             ->all();
 
+        var_dump(TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->andWhere(['not', ['certificat_number' => null]])->createCommand()->getRawSql());
+
         $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])

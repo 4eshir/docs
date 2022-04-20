@@ -60,6 +60,7 @@ class ManHoursReportModel extends \yii\base\Model
         $result = '<table class="table table-bordered">';
         $checkParticipantsId = []; //массив уже попавших в список уникальных людей
         $newParticipants = ForeignEventParticipantsWork::find()->all();
+        $newParticipants = ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01');
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
@@ -215,9 +216,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->orderBy(['participant_id' => SORT_ASC])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->andWhere(['IN', 'participant_id', $newParticipants])->orderBy(['participant_id' => SORT_ASC])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->all();
+                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
                 foreach ($parts as $part) 
                 {
@@ -232,7 +233,7 @@ class ManHoursReportModel extends \yii\base\Model
                 {
 
                     if($this->unic == 1)
-                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                          ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";1\r\n";
@@ -257,9 +258,9 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->all();
+                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
                 
@@ -270,7 +271,7 @@ class ManHoursReportModel extends \yii\base\Model
                 foreach ($parts as $part)
                 {
                     if($this->unic == 1)
-                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";2\r\n";
                 }
@@ -290,9 +291,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->all();
+                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
                 
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
                 
@@ -304,7 +305,7 @@ class ManHoursReportModel extends \yii\base\Model
                 {
 
                     if($this->unic == 1)
-                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";3\r\n";
                 }
@@ -323,9 +324,9 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
                 else
-                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->all();
+                    $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
 
@@ -337,7 +338,7 @@ class ManHoursReportModel extends \yii\base\Model
                 {
 
                     if($this->unic == 1)
-                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01')])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+                        $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";4\r\n";
                 }
