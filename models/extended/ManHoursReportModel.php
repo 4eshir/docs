@@ -60,7 +60,10 @@ class ManHoursReportModel extends \yii\base\Model
         $result = '<table class="table table-bordered">';
         $checkParticipantsId = []; //массив уже попавших в список уникальных людей
         $newParticipants = ForeignEventParticipantsWork::find()->all();
-        $newParticipants = ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01');
+        $tempP = [];
+        foreach ($newParticipants as $p) $tempP[] = $p->id;
+        $newParticipants = $tempP;
+        //$newParticipants = ExcelWizard::CheckParticipant18Plus($newParticipants, substr($this->start_date, 0, 4).'-01-01');
         foreach ($this->type as $oneType)
         {
             if ($oneType === '0')
