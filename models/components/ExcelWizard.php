@@ -1504,12 +1504,6 @@ class ExcelWizard
 
         $pg = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
 
-        foreach ($pg as $p)
-        {
-            if (round(floor((strtotime($date) - strtotime($p->birthdate))) / (60 * 60 * 24 * 365.25)) >= 3 && round(floor((strtotime($date) - strtotime($p->birthdate))) / (60 * 60 * 24 * 365.25)) <= 18)
-                echo $p->fullName.'<br>';
-        }
-
 
         $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, $pg, $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
