@@ -1286,12 +1286,12 @@ class ExcelWizard
         if (count($training_group_ids) > 0)
             $result = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->all();
 
-        var_dump($result);
+
         $resIds = [];
         foreach ($result as $one) $resIds[] = $one->participant_id;
 
         $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
-
+        var_dump($partsRes);
         return $partsRes;
     }
 
