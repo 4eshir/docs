@@ -1495,9 +1495,9 @@ class ExcelWizard
         $sum = 0;
         $tempS = 0;
 
-        
+        $pg = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, $pg, $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
         $sum += $tempS;
 
