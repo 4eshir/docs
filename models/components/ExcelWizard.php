@@ -1495,26 +1495,25 @@ class ExcelWizard
         $sum = 0;
         $tempS = 0;
 
-        $participantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
         
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, $paricipantsG, $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(0, 4, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 21, $tempS);
         $sum += $tempS;
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(5, 9, $paricipantsG, $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(5, 9, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 22, $tempS);
         $sum += $tempS;
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(10, 14, $paricipantsG, $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(10, 14, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 23, $tempS);
         $sum += $tempS;
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(15, 17, $paricipantsG, $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(15, 17, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 24, $tempS);
         $sum += $tempS;
 
-        $tempS = ExcelWizard::GetParticipantsByAgeRange(18, 99, $paricipantsG, $date);
+        $tempS = ExcelWizard::GetParticipantsByAgeRange(18, 99, ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']), $date);
         $inputData->getSheet(5)->setCellValueByColumnAndRow(15, 25, $tempS);
         $sum += $tempS;
 
