@@ -1291,7 +1291,7 @@ class ExcelWizard
         foreach ($result as $one) $resIds[] = $one->participant_id;
 
         $partsRes = ForeignEventParticipantsWork::find()->where(['IN', 'id', $resIds])->all();
-        var_dump($partsRes);
+        
         return $partsRes;
     }
 
@@ -1488,7 +1488,7 @@ class ExcelWizard
         $tempS = 0;
 
         $paricipantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
-        var_dump('----------------------------');
+        var_dump($paricipantsG);
         foreach ($participantsG as $part)
             echo $part->fullName.'<br>';
 
