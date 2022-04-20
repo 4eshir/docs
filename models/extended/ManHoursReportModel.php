@@ -258,7 +258,9 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])
+                        //->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])
+                        ->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
@@ -291,7 +293,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])
+                        //->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])
+                        ->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
                 
@@ -324,7 +328,9 @@ class ManHoursReportModel extends \yii\base\Model
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
-                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])->all();
+                    $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])
+                        //->andWhere(['NOT IN', 'participant_id', $checkParticipantsId])
+                        ->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
