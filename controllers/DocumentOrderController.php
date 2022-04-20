@@ -424,6 +424,7 @@ class DocumentOrderController extends Controller
                 echo '</select></div></td></tr>';
             }
             echo '</tbody></table></div>';//.'|split|';
+            echo '<br>';
             echo '<div id="study-type"><div class="form-group field-study_type-0"><input type="hidden" name="DocumentOrderWork[study_type]" value="0"><label><input type="checkbox" id="study_type-0" name="DocumentOrderWork[study_type]" value=""> По заявлению родителя или законного представителя</label></div></div>'.'|split|';
         }
     }

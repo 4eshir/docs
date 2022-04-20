@@ -489,7 +489,7 @@ $session = Yii::$app->session;
             /*----------------*/
             echo '</tbody></table></div>';
 
-
+            echo '<br>';
             echo '<div id="study-type">' . $form->field($model, 'study_type')->checkbox([
                 'id' => 'study_type-0',
                 'label' => 'По заявлению родителя или законного представителя',
