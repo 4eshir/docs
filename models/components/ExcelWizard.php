@@ -670,7 +670,7 @@ class ExcelWizard
 
         $ids = [];
         foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventWork::find()->where(['IN', 'id', $ids])->all();
+        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
         foreach ($pgs as $pg) echo $pg->fullName.'<br>';
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
@@ -744,7 +744,7 @@ class ExcelWizard
 
         $ids = [];
         foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventWork::find()->where(['IN', 'id', $ids])->all();
+        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
         foreach ($pgs as $pg) echo $pg->fullName.'<br>';
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
@@ -817,7 +817,7 @@ class ExcelWizard
 
         $ids = [];
         foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventWork::find()->where(['IN', 'id', $ids])->all();
+        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
         foreach ($pgs as $pg) echo $pg->fullName.'<br>';
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
@@ -889,7 +889,7 @@ class ExcelWizard
 
         $ids = [];
         foreach ($participants2 as $p) $ids[] = $p->participant_id;
-        $pgs = ForeignEventWork::find()->where(['IN', 'id', $ids])->all();
+        $pgs = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
         foreach ($pgs as $pg) echo $pg->fullName.'<br>';
 
         //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsByStatus($groupsId)])->all();
