@@ -1487,7 +1487,7 @@ class ExcelWizard
         $tempS = 0;
 
         $paricipantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
-        var_dump($participantsG);
+        var_dump($newAllGroups);
         foreach ($participantsG as $part)
             echo $part->fullName.'<br>';
 
