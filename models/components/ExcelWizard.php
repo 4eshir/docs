@@ -922,7 +922,7 @@ class ExcelWizard
     {
         $participantsId = [];
         foreach ($participants as $participant){
-            if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) >= 3 && round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) < 18)
+            if (round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) >= 3 && round(floor((strtotime($date) - strtotime($participant->birthdate))) / (60 * 60 * 24 * 365.25)) <= 18)
                 $participantsId[] = $participant->id;
         }
         return $participantsId;
