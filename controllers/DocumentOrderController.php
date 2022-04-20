@@ -124,7 +124,7 @@ class DocumentOrderController extends Controller
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
                     $model->uploadDocFiles();
-                
+
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
             }
@@ -423,7 +423,8 @@ class DocumentOrderController extends Controller
                 //-----
                 echo '</select></div></td></tr>';
             }
-            echo '</tbody></table></div>'.'|split|';
+            echo '</tbody></table></div>';//.'|split|';
+            echo '<div id="study-type"><div class="form-group field-study_type-0"><input type="hidden" name="DocumentOrderWork[study_type]" value="0"><label><input type="checkbox" id="study_type-0" name="DocumentOrderWork[study_type]" value=""> По заявлению родителя или законного представителя</label></div></div>'.'|split|';
         }
     }
 

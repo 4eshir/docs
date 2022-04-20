@@ -249,6 +249,20 @@ $session = Yii::$app->session;
                     rowsPart[i].getElementsByTagName("td")[3].style.display = "none";
             }
         }
+
+        let date = document.getElementById("documentorderwork-order_date").value;
+        document.getElementById("study_type-0").checked = false;
+        for (let i = 0; i < rows.length; i++)
+        {
+            if (rows[i].getElementsByTagName("td")[0].querySelector('input').checked === true)
+            {
+                if (rows[i].getElementsByTagName("td")[3].textContent > date)
+                {
+                    document.getElementById("study_type-0").checked = true;
+                    break;
+                }
+            }
+        }
     }
 
     function allCheck()
@@ -274,11 +288,22 @@ $session = Yii::$app->session;
     {
         let nom = document.getElementById('rS').value;
         if (nom === '09-01' || nom === '10-01' || nom === '11-01' || nom === '12-01' || nom === '13-01' || nom === '09-22' || nom === '10-26' || nom === '11-26')
+        {
             document.getElementById('documentorderwork-order_name').value = 'О зачислении';
+            document.getElementById('study-type').style.display = 'none';
+            document.getElementById("study_type-0").checked = false;
+        }
         if (nom === '09-02' || nom === '10-02' || nom === '11-02' || nom === '12-02' || nom === '13-02' || nom === '09-23' || nom === '10-27' || nom === '11-27')
+        {
             document.getElementById('documentorderwork-order_name').value = 'Об отчислении';
+            document.getElementById('study-type').style.display = '';
+        }
         if (nom === '11-31')
+        {
             document.getElementById('documentorderwork-order_name').value = 'О переводе';
+            document.getElementById('study-type').style.display = 'none';
+            document.getElementById("study_type-0").checked = false;
+        }
     }
 </script>
 
@@ -463,8 +488,15 @@ $session = Yii::$app->session;
             }
             /*----------------*/
             echo '</tbody></table></div>';
-        }
 
+
+            echo '<div id="study-type">' . $form->field($model, 'study_type')->checkbox([
+                'id' => 'study_type-0',
+                'label' => 'По заявлению родителя или законного представителя',
+                'labelOptions' => [
+                ],
+            ]) . '</div>';
+        }
 
         ?>
     </div>

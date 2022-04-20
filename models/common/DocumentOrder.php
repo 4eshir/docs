@@ -20,6 +20,7 @@ use Yii;
  * @property string|null $doc
  * @property int $register_id
  * @property int|null $type
+ * @property int|null $study_type
  * @property string|null $key_words
  * @property int|null $state
  * @property int $nomenclature_id
