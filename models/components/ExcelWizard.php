@@ -1487,7 +1487,7 @@ class ExcelWizard
         $sum = 0;
         $tempS = 0;
 
-        $paricipantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
+        $participantsG = ExcelWizard::GetParticipantsFromGroup($newAllGroups, ['Мужской', 'Женский']);
         
         foreach ($participantsG as $part)
             echo $part->fullName.'<br>';
