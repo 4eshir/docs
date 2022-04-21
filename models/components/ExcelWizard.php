@@ -1855,23 +1855,12 @@ class ExcelWizard
         $lesCount = 0; //счетчик для страниц
         ini_set('memory_limit', '512M');
 
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/electronicJournal.xlsx');
-        $reader = \PHPExcel_IOFactory::createReader($inputType);
-        $inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal.xlsx');
-
         $model = new JournalModel($training_group_id);
 
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
         $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
-
-        for ($i = 1; $i < count($lessons) / ($onPage * 2); $i++)
-        {
-            $clone = clone $inputData->getActiveSheet();
-            $clone->setTitle('Шаблон' . $i);
-            $inputData->addSheet($clone);
-        }
 
         $newVisits = array();
         $newVisitsId = array();
@@ -1884,6 +1873,26 @@ class ExcelWizard
         $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
         $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
 
+        $flag = 1; // флаг вида журнала, в зависимости от количества детей
+        if (count($parts) > 20)
+        {
+            $fileName = '/templates/electronicJournal2.xlsx';
+            $flag = 0;
+        }
+        else
+            $fileName = '/templates/electronicJournal.xlsx';
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath . $fileName);
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath . $fileName);
+
+        for ($i = 1; $i < count($lessons) / ($onPage * (1 + $flag)); $i++)
+        {
+            $clone = clone $inputData->getActiveSheet();
+            $clone->setTitle('Шаблон' . $i);
+            $inputData->addSheet($clone);
+        }
+
         $magic = 0; //  смещение между страницами засчет фио+подписи и пустых строк
         $sheets = 0;
         while ($lesCount < count($lessons) / $onPage)
@@ -1894,7 +1903,15 @@ class ExcelWizard
                 $magic = 0;
             }
             if ($lesCount % 2 !== 0)
-                $magic = 25;
+            {
+                if ($flag == 1)
+                    $magic = 25;
+                else
+                {
+                    $sheets++;
+                    $magic = 0;
+                }
+            }
 
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(0, 1 + $magic, 'Группа: ' . $group->number);
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
@@ -1924,13 +1941,16 @@ class ExcelWizard
             {
                 $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
 
-                if ($i % $onPage === 0 && $magic === 26 && $i !== 0)
+                if ($i % $onPage === 0 && $i !== 0)
                 {
-                    $magic = 0;
-                    $sheets++;
+                    if (($magic === 26 && $flag === 1) || $flag === 0)
+                    {
+                        $magic = 0;
+                        $sheets++;
+                    }
+                    else if ($flag === 1)
+                        $magic = 26;
                 }
-                else if ($i % $onPage === 0 && $i !== 0)
-                    $magic = 26;
                 
                 $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
             }
@@ -1946,23 +1966,37 @@ class ExcelWizard
 
         $magic = 5;
         $sheets = 0;
-        if ((count($lessons) > $inputData->getSheetCount()*42))
-            var_dump("Форма не может быть выгружена, т.к. количество академических часов в образовательной программе больше, чем количество занятий в расписании");
         foreach ($lessons as $lesson)
         {
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(25, $magic, date("d.m.y", strtotime($lesson->trainingGroupLesson->lesson_date)));
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, $magic, $lesson->theme);
             $magic++;
-            if ($magic > 46)
+
+            if ($magic > 20 * (1 + $flag) + 5 + $flag)
             {
                 $sheets++;
+                if ($sheets > $inputData->getSheetCount())
+                    break;
                 $magic = 5;
             }
         }
 
-        //$order = OrderGroupWork::find()->where(['training_group_id' => $training_group_id])->all();
-        //$status = DocumentOrderWork::find()->joinWith(['numenclature'])
-        //$inputData->getActiveSheet()->setCellValueByColumnAndRow(26,$magic, )
+        $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.training_group_id' => $training_group_id])->orderBy(['order_date' => SORT_ASC])->all();
+        for ($i = 0, $magic = 25; $i < count($orders); )
+        {
+            if ($orders[$i]->order_postfix == null)
+                for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id);
+            else
+                for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic, 51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id.'/'.$orders[$i]->order_postfix);
+
+            if ($i == count($orders) - 1)
+                break;
+            else
+                $i = count($orders) - 1;
+            $magic = 29;
+        }
 
         header("Pragma: public");
         header("Expires: 0");

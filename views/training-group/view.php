@@ -73,14 +73,14 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         ?>
         <?php
             \yii\bootstrap\Modal::begin([
-                'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Список печатных форм электронного журнала</p>',
-                'toggleButton' => ['label' => 'Прочее', 'class' => 'btn btn-success', 'style' => 'float: right;'],
+                'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Список печатных форм учебной группы</p>',
+                'toggleButton' => ['label' => 'Скачать отчётные документы', 'class' => 'btn btn-success', 'style' => 'float: right;'],
             ]);
-            echo Html::a("Скачать КУГ", \yii\helpers\Url::to(['training-group/get-kug', 'training_group_id' => $model->id]), ['class' => 'btn btn-success']);
+            echo Html::a("Скачать календарный учебный график", \yii\helpers\Url::to(['training-group/get-kug', 'training_group_id' => $model->id]), ['class' => 'btn btn-success']);
             echo '<br><br>';
-            echo Html::a("Скачать журнал", \yii\helpers\Url::to(['training-group/download-excel', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
-            echo '<br><br>';
-            echo Html::a("Скачать электронный журнал (форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
+            //echo Html::a("Скачать журнал", \yii\helpers\Url::to(['training-group/download-excel', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
+            //echo '<br><br>';
+            echo Html::a("Скачать электронный журнал (печатная форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
             \yii\bootstrap\Modal::end();
         ?>
     </p>
