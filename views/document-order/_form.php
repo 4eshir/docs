@@ -289,7 +289,7 @@ $session = Yii::$app->session;
         let nom = document.getElementById('rS').value;
         if (nom === '09-01' || nom === '10-01' || nom === '11-01' || nom === '12-01' || nom === '13-01' || nom === '09-22' || nom === '10-26' || nom === '11-26')
         {
-            document.getElementById('documentorderwork-order_name').value = 'О зачислении';
+            document.getElementById('documentorderwork-order_name').value = 'О зачислении на обучение по дополнительным общеразвивающим программам';
             document.getElementById('study-type').style.display = 'none';
             document.getElementById("study_type-0").checked = false;
         }
