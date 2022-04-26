@@ -16,4 +16,6 @@ echo '<div style="padding-top: 7px"></div>';
 echo Html::a("Отчет гос. задание", \yii\helpers\Url::to(['report-form/gz']), ['class'=>'btn btn-success']);
 echo '<div style="padding-top: 7px"></div>';
 echo Html::a("Отчет ДО", \yii\helpers\Url::to(['report-form/do']), ['class'=>'btn btn-success']);
+echo '<div style="padding-top: 7px"></div>';
+echo Html::a("Расчет нагрузки преподавателей", \yii\helpers\Url::to(['report-form/teacher']), ['class'=>'btn btn-success']);
 ?>

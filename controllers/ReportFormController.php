@@ -103,6 +103,19 @@ class ReportFormController extends Controller
         ]);
     }
 
+    public function actionTeacher()
+    {
+        $model = new ReportFormModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ExcelWizard::DownloadTeacher($model->year, $model->branch);
+        }
+
+        return $this->render('teacher', [
+            'model' => $model,
+        ]);
+    }
+
 
     //Проверка на права доступа к CRUD-операциям
     public function beforeAction($action)

@@ -229,6 +229,7 @@ class RoleBaseAccess
             "do-dop-1" => [25, 26],
             "gz" => [25, 26],
             "do" => [25, 26],
+            "teacher" => [25, 26],
         ],
         //------
 

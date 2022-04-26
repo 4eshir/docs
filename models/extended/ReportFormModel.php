@@ -32,12 +32,13 @@ class ReportFormModel extends \yii\base\Model
     public $prize;
     public $level;
     public $method;
+    public $year;
 
 
     public function rules()
     {
         return [
-            [['start_date', 'end_date'], 'string'],
+            [['start_date', 'end_date', 'year'], 'string'],
             [['focus', 'branch', 'budget', 'prize', 'level', 'method'], 'safe'],
 
         ];

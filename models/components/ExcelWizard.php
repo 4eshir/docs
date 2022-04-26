@@ -1598,6 +1598,11 @@ class ExcelWizard
         exit;
     }
 
+    static public function DownloadTeacher($year, $branch)
+    {
+
+    }
+
 
     /*
     static private function GetParticipantsByAge($age, $participants, $date)
