@@ -189,6 +189,14 @@ class DocumentOrderWork extends DocumentOrder
         $fioRegister = explode(" ", $this->registerString);
         $fioBring = explode(" ", $this->bringString);
 
+        if (mb_substr($this->order_name, 0, 12) === 'О зачислении')
+        {
+            if (count($this->groups_check) > 1)
+                $this->order_name = 'О зачислении на обучение по дополнительным общеразвивающим программам';
+            else
+                $this->order_name = 'О зачислении на обучение по дополнительной общеразвивающей программе';
+        }
+
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
             ->andWhere(['firstname' => $fioSigned[1]])
             ->andWhere(['patronymic' => $fioSigned[2]])->one();
@@ -230,6 +238,7 @@ class DocumentOrderWork extends DocumentOrder
         for ($i = 0; $i < strlen($date); ++$i)
             if ($date[$i] != '-')
                 $new_date = $new_date.$date[$i];
+
         $filename = '';
         if ($this->order_postfix == null)
             $filename = 'П.'.$new_date.'_'.$this->order_number.'-'.$this->order_copy_id.'_'.$this->order_name;

@@ -8,6 +8,8 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\OrderGroupParticipantWork;
 use app\models\work\OrderGroupWork;
 use app\models\components\petrovich\Petrovich;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\PositionWork;
 use app\models\work\ResponsibleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -89,7 +91,7 @@ class WordWizard
         $cell = $table->addCell(22000);
         $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
         //----------
-        $section->addTextBreak(2);
+        $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
         $section->addTextBreak(1);
 
@@ -103,6 +105,8 @@ class WordWizard
         $part = ForeignEventParticipantsWork::find();
         $gPart = TrainingGroupParticipantWork::find();
         $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
+        $pos = PeoplePositionBranchWork::find();
+        $positionName = PositionWork::find();
 
         $table = $section->addTable();
         $table->addRow();
@@ -125,36 +129,70 @@ class WordWizard
         $cell->addTextBreak(1);
 
         $section->addTextBreak(1);
-        $text = '          В соответствии с ч. 1 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Правилами приема обучающихся в государственное автономное образовательное учреждение Астраханской области дополнительного образования «Региональный школьный технопарк» на обучение по дополнительным общеразвивающим программам, на основании заявлений о приеме на обучение по дополнительным общеразвивающим программам';
-        //$text = '          В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном 
-//автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
-        $section->addText($text, null, array('align' => 'both'));
-        $section->addText('ПРИКАЗЫВАЮ:');
-        $section->addText('1.   Зачислить обучающихся согласно Приложению к настоящему приказу.');
+        if ($trG->where(['id' => $groups[0]->training_group_id])->one()->budget === 1)
+            $text = '          В соответствии с ч. 1 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Правилами приема обучающихся в государственное автономное образовательное учреждение Астраханской области дополнительного образования «Региональный школьный технопарк» на обучение по дополнительным общеразвивающим программам, на основании заявлений о приеме на обучение по дополнительным общеразвивающим программам';
+        else
+            $text = '          В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
+        $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
+        $text .= '<w:br/>          1.	Зачислить обучающихся с «' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г.' . ' в учебные группы ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
 
-        $petrovich = new Petrovich();
-        $text = '';
-        $text2 = '';
-        foreach ($groups as $group)
-        {
-            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
-            $temp = $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_ACCUSATIVE).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
-            if (strpos($text, $temp) === false)
+        $countTeacher = 0;
+        if (count($groups) == 1) {
+            $countTeacher = count($teacher->where(['training_group_id' => $groups[0]->training_group_id])->all());
+            if ($countTeacher == 1)
+                $text .= '<w:br/>          2.	Назначить руководителем учебной группы работника ГАОУ АО ДО «РШТ», указанного в Приложении к настоящему приказу.';
+            else
             {
-                $text .= $petrovich->lastname($teacherTrG->teacherWork->secondname, Petrovich::CASE_ACCUSATIVE).' '.mb_substr($teacherTrG->teacherWork->firstname, 0, 1).'.'.mb_substr($teacherTrG->teacherWork->patronymic, 0, 1).'., ';
+                $text .= '<w:br/>          2.	Назначить руководителями учебной группы работников ГАОУ АО ДО «РШТ», указанных в Приложении к настоящему приказу.';
             }
         }
-        $text2 .= $petrovich->lastname($order->executor->secondname, Petrovich::CASE_INSTRUMENTAL).' '. mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. ';
-        $section->addText('2. Назначить ' . $text . 'руководителем учебной группы, указанной в Приложении к настоящему приказу.', null, array('align' => 'both'));
-        $section->addText('3. ' . $text2 . 'обеспечить:', null, array('align' => 'both'));//'<w:br/>'
-        $section->addText('        3.1. своевременное ознакомление руководителя учебной группы с', null, array('align' => 'both'));
-        $section->addText('        настоящим приказом;', null, array('align' => 'both'));
-        $section->addText('        3.2. контроль за соблюдением расписания занятий и соответствии ', null, array('align' => 'both'));
-        $section->addText('        тематике проводимых учебных занятий дополнительной', null, array('align' => 'both'));
-        $section->addText('        общеразвивающей программы – постоянно.', null, array('align' => 'both'));
-        $section->addText('4. Руководителю учебной группы проводить с обучающимися инструктажи по технике безопасности в соответствии с дополнительной общеразвивающей программой.', null, array('align' => 'both'));
-        $section->addText('5. Контроль за исполнением приказа оставляю за собой.', null, array('align' => 'both'));
-        $section->addTextBreak(2);
+        else
+        {
+            $teachers = [];
+            foreach ($groups as $group)
+            {
+                $trGs = $teacher->where(['training_group_id' => $group->training_group_id])->all();
+                foreach ($trGs as $trGr)
+                {
+                    $teachers [] = $trGr->teacher_id;
+                }
+            }
+            $countTeacher = count(array_unique($teachers));
+
+            if ($countTeacher == 1)
+                $text .= '<w:br/>          2.	Назначить руководителем учебных групп работника ГАОУ АО ДО «РШТ», указанного в Приложении к настоящему приказу.';
+            else
+                $text .= '<w:br/>          2.	Назначить руководителями учебных групп работников ГАОУ АО ДО «РШТ», указанных в Приложении к настоящему приказу.';
+        }
+
+        $posOne = $pos->where(['people_id' => $order->executor])->one();
+        $text .= '<w:br/>          3.	Ответственным за контроль соблюдения расписания учебных групп и соответствия тематике проводимых учебных занятий';
+        if (count($groups) == 1)
+            $text .= ' дополнительной общеразвивающей программе назначить работника: ';
+        else
+            $text .= 'дополнительным общеразвивающим программам назначить работника: ';
+        $text .= mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ' . $order->executor->secondname;
+
+        if ($countTeacher === 1)
+            $text .= '<w:br/>          4.	Руководителем ';
+        else
+            $text .= '<w:br/>          4.	Руководителям ';
+        if (count($groups) == 1)
+            $text .= 'учебной группы ';
+        else
+            $text .= 'учебных групп ';
+        $text .= 'проводить с обучающимися инструктажи по технике безопасности в соответствии с дополнительными общеразвивающими программами.';
+
+        $posOne = $pos->where(['people_id' => $order->bring])->one();
+        $text .= '<w:br/>          5.	Ответственным за своевременное ознакомление руководителей учебных групп с настоящим приказом назначить работника: '
+            . mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->bring->firstname, 0, 1) . '. ' . mb_substr($order->bring->patronymic, 0, 1) . '. ' . $order->bring->secondname;
+
+        $text .= '<w:br/>          6.	Контроль исполнения приказа оставляю за собой.';
+
+
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both'));
+        $section->addTextBreak(1);
 
         $table = $section->addTable();
         $table->addRow();
@@ -225,23 +263,39 @@ class WordWizard
             $trGroup = $trG->where(['id' => $group->training_group_id])->one();
             $section->addText('Учебная группа: ' . $trGroup->number);
 
-            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->one();
-            $section->addText('Руководитель: ' . $teacherTrG->teacherWork->shortName);
+            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->all();
+            $text = 'Руководитель: ';
+
+            foreach ($teacherTrG as $trg)
+            {
+                $post = [];
+                $pPosB = $pos->where(['people_id' => $trg->teacher_id])->all();
+                foreach ($pPosB as $posOne)
+                {
+                    $post [] = $posOne->position_id;
+                }
+                $post = array_unique($post);    // выкинули все повторы
+                $post = array_intersect($post, [15, 16, 35, 44]);   // оставили только преподские должности
+
+                if (count($post) > 0)
+                {
+                    $posName = $positionName->where(['id' => $post[0]])->one();
+                    $text .= mb_strtolower($posName->name) . ' ' . $trg->teacherWork->shortName . ', ';
+                }
+                else
+                    $text .= $trg->teacherWork->shortName . ', ';
+            }
+            $text = mb_substr($text, 0, -2);
+            $section->addText($text);
 
             $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
             $section->addText('Дополнительная общеразвивающая программа: ' . $programTrG->name);
             $section->addText('Направленность: ' . $programTrG->stringFocus);
 
-            $out = '';
-            if ($programTrG->allow_remote == 0) $out = 'Только очная форма';
-            if ($programTrG->allow_remote == 1) $out = 'Очная форма, с применением дистанционных технологий';
-            if ($programTrG->allow_remote == 2) $out = 'Только дистанционная форма';
-            $section->addText('Форма обучения: ' . $out);
+            $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения с дистанционными образовательными технологиями).');
 
             $section->addText('Срок освоения: ' . $programTrG->capacity . ' академ. ч.');
-            $section->addText('Дата зачисления: ' . date("d", strtotime($order->order_date)) . ' '
-                                                        . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
-                                                        . date("Y", strtotime($order->order_date)) . ' г. ');
+
             $section->addText('Обучающиеся: ');
             $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
             for ($i = 0; $i < count($pasta); $i++)
@@ -253,7 +307,7 @@ class WordWizard
             $section->addTextBreak(2);
         }
 
-        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 20);
+        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . mb_substr($order->order_name, 0, 20);
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $text . '.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
