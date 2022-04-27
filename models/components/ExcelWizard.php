@@ -1600,6 +1600,12 @@ class ExcelWizard
 
     static public function DownloadTeacher($year, $branch)
     {
+        $teachers = UserWork::find()->joinWith(['userRole userRole'])->where(['userRole.role_id' => 1])->all();
+        $akaIds = [];
+        foreach ($teachers as $teacher) $akaIds[] = $teacher->aka;
+
+        $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
+        
 
     }
 

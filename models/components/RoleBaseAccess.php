@@ -185,6 +185,8 @@ class RoleBaseAccess
             "delete" => 19,
             "view" => 17,
             "find-model" => 17,
+            "merge-participant" => 50,
+            "info" => 50,
         ],
         //--------------------------------------
 

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
 use app\models\extended\LoadParticipants;
+use app\models\extended\MergeParticipantModel;
 use app\models\work\PersonalDataForeignEventParticipantWork;
 use Yii;
 use app\models\work\ForeignEventParticipantsWork;
@@ -152,6 +153,30 @@ class ForeignEventParticipantsController extends Controller
         $model = new ForeignEventParticipantsWork();
         $model->checkCorrect();
         return $this->redirect(['index']);
+    }
+
+    public function actionMergeParticipant()
+    {
+        $model = new MergeParticipantModel();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('merge-participant', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionInfo($id1, $id2)
+    {
+        $p1 = ForeignEventParticipantsWork::find()->where(['id' => $id1])->one();
+        $p2 = ForeignEventParticipantsWork::find()->where(['id' => $id2])->one();
+        $result = '<table class="table table-striped" style="width: 91%">';
+        $result .= '<tr><td style="width: 45%">'.$p1->secondname.'</td><td style="width: 45%">'.$p2->secondname.'</td></tr>';
+        $result .= '</table><br>';
+        return $result;
     }
 
     /**
