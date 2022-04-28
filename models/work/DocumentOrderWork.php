@@ -191,7 +191,7 @@ class DocumentOrderWork extends DocumentOrder
 
         if (mb_substr($this->order_name, 0, 12) === 'О зачислении')
         {
-            if ($this->groups_check != NULL);
+            if ($this->groups_check != NULL)
                 if (count($this->groups_check) > 1)
                     $this->order_name = 'О зачислении на обучение по дополнительным общеразвивающим программам';
                 else
