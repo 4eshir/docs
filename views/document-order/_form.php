@@ -516,6 +516,7 @@ $session = Yii::$app->session;
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
+        'prompt' => '',
     ];
     echo $form->field($model, 'bring_id')->dropDownList($items,$params)->label('Проект вносит');
 
@@ -525,6 +526,7 @@ $session = Yii::$app->session;
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
     $params = [
+        'prompt' => '',
     ];
     echo $form->field($model, 'executor_id')->dropDownList($items,$params)->label('Кто исполнил');
 
