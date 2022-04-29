@@ -9,11 +9,15 @@ use app\models\extended\MergeParticipantModel;
 use app\models\work\PersonalDataForeignEventParticipantWork;
 use Yii;
 use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\ParticipantAchievementWork;
 use app\models\SearchForeignEventParticipants;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Html;
 
 /**
  * ForeignEventParticipantsController implements the CRUD actions for ForeignEventParticipants model.
@@ -173,8 +177,91 @@ class ForeignEventParticipantsController extends Controller
     {
         $p1 = ForeignEventParticipantsWork::find()->where(['id' => $id1])->one();
         $p2 = ForeignEventParticipantsWork::find()->where(['id' => $id2])->one();
-        $result = '<table class="table table-striped" style="width: 91%">';
-        $result .= '<tr><td style="width: 45%">'.$p1->secondname.'</td><td style="width: 45%">'.$p2->secondname.'</td></tr>';
+        $result = '<table class="table table-striped table-bordered detail-view" style="width: 91%">';
+        $result .= '<tr><td><b>Фамилия</b></td><td style="width: 45%">'.$p1->secondname.'</td><td><b>Фамилия</b></td><td style="width: 45%">'.$p2->secondname.'</td></tr>';
+        $result .= '<tr><td><b>Имя</b></td><td style="width: 45%">'.$p1->firstname.'</td><td><b>Имя</b></td><td style="width: 45%">'.$p2->firstname.'</td></tr>';
+        $result .= '<tr><td><b>Отчество</b></td><td style="width: 45%">'.$p1->patronymic.'</td><td><b>Отчество</b></td><td style="width: 45%">'.$p2->patronymic.'</td></tr>';
+        $result .= '<tr><td><b>Пол</b></td><td style="width: 45%">'.$p1->sex.'</td><td><b>Пол</b></td><td style="width: 45%">'.$p2->sex.'</td></tr>';
+        $result .= '<tr><td><b>Дата рождения</b></td><td style="width: 45%">'.$p1->birthdate.'</td><td><b>Дата рождения</b></td><td style="width: 45%">'.$p2->birthdate.'</td></tr>';
+
+        $events = TrainingGroupParticipantWork::find()->where(['participant_id' => $id1])->all();
+        $eventsLink1 = '';
+        $eventsLink2 = '';
+        
+        foreach ($events as $event)
+        {
+            $eventsLink1 .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
+            $eventsLink1 = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
+
+            if ($event->trainingGroup->finish_date < date("Y-m-d"))
+                $eventsLink1 .= ' (группа завершила обучение)';
+            else
+                $eventsLink1 .= ' <div style="background-color: green; display: inline"><font color="white"> (проходит обучение)</font></div>';
+
+            if ($event->status === 2)
+                $eventsLink1 .= ' | Переведен';
+
+            if ($event->status === 1)
+                $eventsLink1 .= ' | Отчислен';
+
+            $eventsLink1 .= '<br>';
+        }
+
+        $events = TrainingGroupParticipantWork::find()->where(['participant_id' => $id2])->all();
+        
+        foreach ($events as $event)
+        {
+            $eventsLink2 .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
+            $eventsLink2 = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
+
+            if ($event->trainingGroup->finish_date < date("Y-m-d"))
+                $eventsLink2 .= ' (группа завершила обучение)';
+            else
+                $eventsLink2 .= ' <div style="background-color: green; display: inline"><font color="white"> (проходит обучение)</font></div>';
+
+            if ($event->status === 2)
+                $eventsLink2 .= ' | Переведен';
+
+            if ($event->status === 1)
+                $eventsLink2 .= ' | Отчислен';
+
+            $eventsLink2 .= '<br>';
+        }
+
+        $result .= '<tr><td><b>Группы</b></td><td style="width: 45%">'.$eventsLink1.'</td><td><b>Группы</b></td><td style="width: 45%">'.$eventsLink2.'</td></tr>';
+
+
+        $events = TeacherParticipantWork::find()->where(['participant_id' => $id1])->all();
+        $eventsLink1 = '';
+        foreach ($events as $event)
+            $eventsLink1 = $eventsLink1.Html::a($event->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $event->foreign_event_id])).'<br>';
+
+        $events = TeacherParticipantWork::find()->where(['participant_id' => $id2])->all();
+        $eventsLink2 = '';
+        foreach ($events as $event)
+            $eventsLink2 = $eventsLink2.Html::a($event->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $event->foreign_event_id])).'<br>';
+
+        $result .= '<tr><td><b>Мепроприятия</b></td><td style="width: 45%">'.$eventsLink1.'</td><td><b>Мепроприятия</b></td><td style="width: 45%">'.$eventsLink2.'</td></tr>';
+
+        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id1])->all();
+        $achievesLink1 = '';
+        foreach ($achieves as $achieveOne)
+        {
+            $achievesLink1 = $achievesLink1.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
+                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
+        }
+
+        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id1])->all();
+        $achievesLink2 = '';
+        foreach ($achieves as $achieveOne)
+        {
+            $achievesLink2 = $achievesLink2.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
+                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
+        }
+
+        $result .= '<tr><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink1.'</td><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink2.'</td></tr>';
+
+
         $result .= '</table><br>';
         return $result;
     }
