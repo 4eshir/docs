@@ -258,7 +258,7 @@ $session = Yii::$app->session;
             {
                 if (rows[i].getElementsByTagName("td")[3].textContent > date)
                 {
-                    document.getElementById("study_type-0").checked = true;
+                    //document.getElementById("study_type-0").checked = true;
                     break;
                 }
             }
@@ -297,12 +297,20 @@ $session = Yii::$app->session;
         {
             document.getElementById('documentorderwork-order_name').value = 'Об отчислении';
             document.getElementById('study-type').style.display = '';
+            document.getElementById('study-type').innerHTML = `<label class="control-label">Преамбула</label><div id="documentorderwork-study_type" role="radiogroup">
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="0" tabindex="3" style="margin-right: 5px" ><i></i><span>По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ </span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>В связи с завершением обучения</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>В связи с досрочным прекращением образовательных отношений</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="3" tabindex="3" style="margin-right: 5px" ><i></i><span>В связи с досрочным прекращением образовательных отношений (по соглашению сторон)</span></label><br><br></div>`;
         }
         if (nom === '11-31')
         {
             document.getElementById('documentorderwork-order_name').value = 'О переводе';
-            document.getElementById('study-type').style.display = 'none';
-            document.getElementById("study_type-0").checked = false;
+            document.getElementById('study-type').style.display = '';
+            document.getElementById('study-type').innerHTML = `<label class="control-label">Преамбула</label><div id="documentorderwork-study_type" role="radiogroup">
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="0" tabindex="3" style="margin-right: 5px" ><i></i><span>На следующий год обучения</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>С одной ДОП на другую ДОП</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>Из одной учебной группы в другую</span></label><br><br></div>`;
         }
     }
 </script>
@@ -399,6 +407,34 @@ $session = Yii::$app->session;
 
     <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
+    </div>
+
+    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'hidden' : null ?>">
+        <?php
+        if ($model->id !== null)
+        {
+            $radioArr = [0 => 'По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ ', 1 => 'В связи с завершением обучения', 2 => 'В связи с досрочным прекращением образовательных отношений', 3 => 'В связи с досрочным прекращением образовательных отношений (по соглашению сторон)'];
+            $noms = \app\models\work\NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
+            if ($noms->type == 2)
+                $radioArr = [0 => 'На следующий год обучения', 1 => 'С одной ДОП на другую ДОП', 2 => 'Из одной учебной группы в другую'];
+            echo $form->field($model, 'study_type')->radioList($radioArr,
+                [
+                    'item' => function($index, $label, $name, $checked, $value) {
+                        if ($checked == true)
+                            $checkedStr = 'checked=""';
+                        else
+                            $checkedStr = '';
+                        $return = '<label class="modal-radio">';
+                        $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" style="margin-right: 5px" '.$checkedStr.'>';
+                        $return .= '<i></i>';
+                        $return .= '<span>' . ucwords($label) . '</span>';
+                        $return .= '</label><br>';
+
+                        return $return;
+                    }
+                ])->label('Преамбула');
+        }
+        ?>
     </div>
 
     <div id="group_table" style="margin-bottom: 1em;" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
@@ -506,13 +542,13 @@ $session = Yii::$app->session;
             /*----------------*/
             echo '</tbody></table></div>';
 
-            echo '<br>';
+            /*echo '<br>';
             echo '<div id="study-type">' . $form->field($model, 'study_type')->checkbox([
                 'id' => 'study_type-0',
                 'label' => 'По заявлению родителя или законного представителя',
                 'labelOptions' => [
                 ],
-            ]) . '</div>';
+            ]) . '</div>'*/;
         }
 
         ?>
