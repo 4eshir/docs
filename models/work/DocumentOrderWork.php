@@ -524,7 +524,9 @@ class DocumentOrderWork extends DocumentOrder
                         // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
                         if ($status === 2)
                         {
+                            var_dump('ВНИМАНИЕ! Идёт отладка системы ');
                             $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
+                            var_dump($newGroup);
                             if ($newGroup === null)
                             {
                                 $trPr = new TrainingGroupParticipantWork();
@@ -536,6 +538,7 @@ class DocumentOrderWork extends DocumentOrder
                                 $trPr->addVisits($this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0], $group->participant_id);
                                 $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
                             }
+                            var_dump($newGroup);
                             $link = OrderGroupParticipantWork::find()->where(['order_group_id' => $orderGroup->id])->andWhere(['group_participant_id' => $this->participants_check[$i]])->andWhere(['status' => $status])->one();
                             $pasta = new OrderGroupParticipantWork();
                             $pasta->order_group_id = $orderGroup->id;
@@ -543,6 +546,8 @@ class DocumentOrderWork extends DocumentOrder
                             $pasta->status = 0;
                             $pasta->link_id = $link->id;
                             $pasta->save();
+                            var_dump($link);
+                            var_dump($pasta);
                         }
                     }
                 }
