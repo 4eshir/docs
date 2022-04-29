@@ -328,7 +328,7 @@ class DocumentOrderWork extends DocumentOrder
                         if ($macaroni->status == 2) // перевод
                         {
                             $defector = OrderGroupParticipantWork::find()->where(['link_id' => $macaroni->id])->one();
-                            $tempId = $defector->group_participant_id;
+                            $tempId = $defector->link_id;
                             $edit = TrainingGroupParticipantWork::find()->where(['id' => $macaroni->group_participant_id])->one();
                             if ($edit !== NULL)
                             {
@@ -342,7 +342,7 @@ class DocumentOrderWork extends DocumentOrder
                         if ($macaroni->link_id !== NULL)       // перевод-зачисление
                         {
                             $noDefector = OrderGroupParticipantWork::find()->where(['id' => $macaroni->link_id])->one();
-                            $tempId = $macaroni->group_participant_id;
+                            $tempId = $macaroni->link_id;
                             $edit = TrainingGroupParticipantWork::find()->where(['id' => $noDefector->group_participant_id])->one();
                             if ($edit !== NULL)
                             {
@@ -508,7 +508,6 @@ class DocumentOrderWork extends DocumentOrder
                     }
 
                     //-------------
-
                     if ($pasta === null)
                     {
                         $pasta = new OrderGroupParticipantWork();
@@ -523,7 +522,7 @@ class DocumentOrderWork extends DocumentOrder
 
                         // отдельная песня с переводом. если перевод, то это статус 2 (т.е. перевод) и новая запись со статусом 0 (т.е. зачисление)
                         // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
-                        if ($status === 2)
+                        if ($status == 2)
                         {
                             $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
                             if ($newGroup === null)
@@ -546,6 +545,13 @@ class DocumentOrderWork extends DocumentOrder
                             $pasta->save();
                         }
                     }
+                    else if ($status == 2)
+                    {
+                        $macaroni = OrderGroupParticipantWork::find()->where(['link_id' => $pasta->id])->one();
+                        $newGroup = $groups->where(['participant_id' => $group->participant_id])->andWhere(['training_group_id' => $this->new_groups_check[$this->participants_check[$i]][$group->participant_id][0]])->one();
+                        $macaroni->group_participant_id = $newGroup->id;
+                        $macaroni->save();
+                    }
                 }
             }
 
@@ -562,15 +568,18 @@ class DocumentOrderWork extends DocumentOrder
                 if ($pasta->status == 2)    // перевод
                 {
                     $defector = $orderGroupParticipant->where(['link_id' => $pasta->id])->one();
-                    $tempId = $defector->group_participant_id;
+                    //var_dump($orderGroupParticipant->where(['link_id' => $pasta->id])->createCommand()->getRawSql());
+                    $tempId = $defector->link_id;
                     $edit = $groups->where(['id' => $pasta->group_participant_id])->one();
                     $edit->status = 0;
                     $edit->save();
                     if ($defector !== NULL)
                         $defector->delete();
                     $delGr = $groups->where(['id' => $tempId])->one();
+                    //var_dump($delGr->id);
                     if ($delGr !== NULL)
                         $delGr->delete();
+                    //var_dump($delGr->getErrors());
                 }
 
                 if ($pasta->status === 1) // отчисление

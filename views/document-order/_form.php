@@ -459,12 +459,27 @@ $session = Yii::$app->session;
                 echo $gr->number;
                 //{
                 echo '</td><td style="width: auto; display: none">';
-                //$pastaAlDente = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
-                //    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
+                $pastaAlDente = \app\models\work\OrderGroupParticipantWork::find()->where(['IS NOT', 'link_id', null])->andWhere(['IN', 'order_group_id',
+                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
+
                 $newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
                 $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
-                $params = [
-                ];
+                $params = [];
+                if (count($ordersParticipant) !== 0)
+                {
+                    foreach ($pastaAlDente as $macaroni)
+                    {
+                        if ($macaroni->groupParticipant->participant_id == $groupParticipant->participant_id)
+                        {
+                            $params = [
+                                'value' =>  $macaroni->groupParticipant->training_group_id,
+                            ];
+                            break;
+                        }
+                    }
+                }
+
+
                 //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
                 echo $form->field($model, "new_groups_check[$groupParticipant->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
                 //}
