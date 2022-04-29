@@ -181,7 +181,6 @@ class DocumentOrderController extends Controller
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post())) {
-            //var_dump('kek');
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
@@ -216,6 +215,7 @@ class DocumentOrderController extends Controller
 
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
             if ($sideCall === null)
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -266,9 +266,12 @@ class DocumentOrderController extends Controller
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
     {
         $model = DocumentOrderWork::find()->where(['id' => $modelId])->one();
-
+        $model->groups_check = ['nope'];
+        $model->participants_check = ['nope'];
+        $model->new_groups_check = ['nope'];
         if ($type == 'scan')
         {
+
             $model->scan = '';
             $model->save(false);
             return $this->redirect('index?r=document-order/update&id='.$model->id);
@@ -308,6 +311,7 @@ class DocumentOrderController extends Controller
         $resp = ResponsibleWork::find()->where(['people_id' => $peopleId])->andWhere(['document_order_id' => $orderId])->one();
         if ($resp != null)
             $resp->delete();
+
 
         return $this->actionUpdate($orderId, 1);
 
@@ -413,7 +417,9 @@ class DocumentOrderController extends Controller
                 echo $gr->number;
                 //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
                 //{
-                echo '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check"><select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check]">';
+                $text = '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check">'
+                    . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check]['.$groupParticipant->id.']['.$groupParticipant->participant_id.'][]">';
+                echo $text;
                 $newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
                 if (count($newGroups) > 0) {
                     foreach ($newGroups as $newGroup)

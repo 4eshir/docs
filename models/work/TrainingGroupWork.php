@@ -409,7 +409,7 @@ class TrainingGroupWork extends TrainingGroup
         foreach ($this->workDataFile as $file) {
             if ($file->size > _MAX_FILE_SIZE)
             {
-                var_dump('its so big!');
+                var_dump('Внимание: загружаемый файл (-ы) слишком большой! Максимальный размер загружаемых файлов 25Мб');
             }
 
             $counter++;
