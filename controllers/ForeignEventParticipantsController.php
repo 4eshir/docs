@@ -162,10 +162,12 @@ class ForeignEventParticipantsController extends Controller
     public function actionMergeParticipant()
     {
         $model = new MergeParticipantModel();
+        $model->edit_model = new ForeignEventParticipantsWork();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->edit_model->load(Yii::$app->request->post())) {
             $model->save();
-            return $this->redirect(['index']);
+            Yii::$app->session->setFlash('success', 'Объединение произведено успешно!');
+            return $this->redirect(['view', 'id' => $model->id1]);
         }
 
         return $this->render('merge-participant', [
@@ -178,20 +180,22 @@ class ForeignEventParticipantsController extends Controller
         $p1 = ForeignEventParticipantsWork::find()->where(['id' => $id1])->one();
         $p2 = ForeignEventParticipantsWork::find()->where(['id' => $id2])->one();
         $result = '<table class="table table-striped table-bordered detail-view" style="width: 91%">';
-        $result .= '<tr><td><b>Фамилия</b></td><td style="width: 45%">'.$p1->secondname.'</td><td><b>Фамилия</b></td><td style="width: 45%">'.$p2->secondname.'</td></tr>';
-        $result .= '<tr><td><b>Имя</b></td><td style="width: 45%">'.$p1->firstname.'</td><td><b>Имя</b></td><td style="width: 45%">'.$p2->firstname.'</td></tr>';
-        $result .= '<tr><td><b>Отчество</b></td><td style="width: 45%">'.$p1->patronymic.'</td><td><b>Отчество</b></td><td style="width: 45%">'.$p2->patronymic.'</td></tr>';
-        $result .= '<tr><td><b>Пол</b></td><td style="width: 45%">'.$p1->sex.'</td><td><b>Пол</b></td><td style="width: 45%">'.$p2->sex.'</td></tr>';
-        $result .= '<tr><td><b>Дата рождения</b></td><td style="width: 45%">'.$p1->birthdate.'</td><td><b>Дата рождения</b></td><td style="width: 45%">'.$p2->birthdate.'</td></tr>';
+        $result .= '<tr><td><b>Фамилия</b></td><td id="td-secondname-1" style="width: 45%">'.$p1->secondname.'</td><td><b>Фамилия</b></td><td style="width: 45%">'.$p2->secondname.'</td></tr>';
+        $result .= '<tr><td><b>Имя</b></td><td id="td-firstname-1" style="width: 45%">'.$p1->firstname.'</td><td><b>Имя</b></td><td style="width: 45%">'.$p2->firstname.'</td></tr>';
+        $result .= '<tr><td><b>Отчество</b></td><td id="td-patronymic-1" style="width: 45%">'.$p1->patronymic.'</td><td><b>Отчество</b></td><td style="width: 45%">'.$p2->patronymic.'</td></tr>';
+        $result .= '<tr><td><b>Пол</b></td><td id="td-sex-1" style="width: 45%">'.$p1->sex.'</td><td><b>Пол</b></td><td style="width: 45%">'.$p2->sex.'</td></tr>';
+        $result .= '<tr><td><b>Дата рождения</b></td><td id="td-birthdate-1" style="width: 45%">'.$p1->birthdate.'</td><td><b>Дата рождения</b></td><td style="width: 45%">'.$p2->birthdate.'</td></tr>';
 
         $events = TrainingGroupParticipantWork::find()->where(['participant_id' => $id1])->all();
+
         $eventsLink1 = '';
         $eventsLink2 = '';
         
         foreach ($events as $event)
         {
+
             $eventsLink1 .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
-            $eventsLink1 = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
+            $eventsLink1 = $eventsLink1.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
 
             if ($event->trainingGroup->finish_date < date("Y-m-d"))
                 $eventsLink1 .= ' (группа завершила обучение)';
@@ -212,7 +216,7 @@ class ForeignEventParticipantsController extends Controller
         foreach ($events as $event)
         {
             $eventsLink2 .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
-            $eventsLink2 = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
+            $eventsLink2 = $eventsLink2.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
 
             if ($event->trainingGroup->finish_date < date("Y-m-d"))
                 $eventsLink2 .= ' (группа завершила обучение)';
@@ -251,7 +255,7 @@ class ForeignEventParticipantsController extends Controller
                 ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
         }
 
-        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id1])->all();
+        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id2])->all();
         $achievesLink2 = '';
         foreach ($achieves as $achieveOne)
         {
@@ -261,8 +265,32 @@ class ForeignEventParticipantsController extends Controller
 
         $result .= '<tr><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink1.'</td><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink2.'</td></tr>';
 
+        $resultN = "<table class='table table-bordered'>";
+        $pds = PersonalDataForeignEventParticipantWork::find()->where(['foreign_event_participant_id' => $id1])->orderBy(['id' => SORT_ASC])->all();
+        foreach ($pds as $pd)
+        {
+            $resultN .= '<tr><td style="width: 350px">';
+            if ($pd->status == 0) $resultN .= $pd->personalData->name.'</td><td style="width: 250px"><span class="badge badge-success b1">Разрешено</span></td>';
+            else $resultN .= $pd->personalData->name.'</td><td style="width: 250px"><span class="badge badge-error b1">Запрещено</span></td>';
+            $resultN .= '</td></tr>';
+        }
+        $resultN .= "</table>";
+
+        $resultN1 = "<table class='table table-bordered'>";
+        $pds = PersonalDataForeignEventParticipantWork::find()->where(['foreign_event_participant_id' => $id2])->orderBy(['id' => SORT_ASC])->all();
+        foreach ($pds as $pd)
+        {
+            $resultN1 .= '<tr><td style="width: 350px">';
+            if ($pd->status == 0) $resultN1 .= $pd->personalData->name.'</td><td style="width: 250px"><span class="badge badge-success">Разрешено</span></td>';
+            else $resultN1 .= $pd->personalData->name.'</td><td style="width: 250px"><span class="badge badge-error">Запрещено</span></td>';
+            $resultN1 .= '</td></tr>';
+        }
+        $resultN1 .= "</table>";
+
+        $result .= '<tr><td><b>Разглашение ПД</b></td><td style="width: 45%">'.$resultN.'</td><td><b>Разглашение ПД</b></td><td style="width: 45%">'.$resultN1.'</td></tr>';
 
         $result .= '</table><br>';
+
         return $result;
     }
 
