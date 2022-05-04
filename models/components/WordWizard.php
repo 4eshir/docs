@@ -253,7 +253,7 @@ class WordWizard
         $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
         if ($order->order_postfix !== NULL)
             $text .= '/' .  $order->order_postfix;
-        $cell->addText('от ' . date("d", strtotime($order->order_date)) . ' '
+        $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
                 . $text);
@@ -503,7 +503,7 @@ class WordWizard
             $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
             if ($order->order_postfix !== NULL)
                 $text .= '/' . $order->order_postfix;
-            $cell->addText('от ' . date("d", strtotime($order->order_date)) . ' '
+            $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
                 . $text);
@@ -604,7 +604,8 @@ class WordWizard
         exit;
     }
 
-    static public function Transfer ($order_id) {
+    static public function Transfer ($order_id)
+    {
         ini_set('memory_limit', '512M');
 
         $inputData = new PhpWord();
@@ -616,7 +617,7 @@ class WordWizard
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
             'marginLeft' => WordWizard::convertMillimetersToTwips(30),
             'marginBottom' => WordWizard::convertMillimetersToTwips(20),
-            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+            'marginRight' => WordWizard::convertMillimetersToTwips(15)));
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
@@ -624,14 +625,14 @@ class WordWizard
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
         $cell->addText(' школьный', array('name' => 'Calibri', 'size' => '16'));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right'));
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
+        $cell->addImage(Yii::$app->basePath . '/templates/logo.png', array('width' => 100, 'height' => 40, 'align' => 'left'));
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right'));
         //----------
         $section->addTextBreak(2);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -655,7 +656,7 @@ class WordWizard
         $cell = $table->addCell(12000);
         $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
         if ($order->order_postfix !== NULL)
-            $text .= '/' .  $order->order_postfix;
+            $text .= '/' . $order->order_postfix;
         $cell->addText($text, null, array('align' => 'right'));
         $section->addTextBreak(1);
 
@@ -666,14 +667,31 @@ class WordWizard
         $cell = $table->addCell(6000);
         $cell->addTextBreak(1);
 
-        $section->addTextBreak(1);
-        $text = '          На   основании   заявления   родителя (законного представителя) _____________________________ от ______________, в соответствии с п. 2.1.3 
-Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области 
-дополнительного образования «Региональный школьный технопарк»';
-        $section->addText($text, null, array('align' => 'both'));
-        $section->addText('          ПРИКАЗЫВАЮ:');
+        $countPasta = count($pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->all());
 
-        $petrovich = new Petrovich();
+        $section->addTextBreak(1);
+        if ($order->study_type == 0)
+            $text = '          На основании решения Педагогического совета ГАОУ АО ДО «РШТ» от «____»_________ 20___ г. № ______, в соответствии с п. 2.1.1 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
+
+        $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
+
+        if ($order->study_type == 0)
+        {
+            if ($countPasta == 1)
+                $text .= '<w:br/>          1.   Перевести обучающегося, успешно прошедшего итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+            else if (count($groups) == 1)
+                $text .= '<w:br/>          1.   Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+            else
+                $text .= '<w:br/>          1.   Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+        }
+
+
+        $text .= '<w:br/>          2.   Контроль за исполнением приказа оставляю за собой.';
+
+        $section->addText($text, null, array('align' => 'both'));
+
+
+        /*$petrovich = new Petrovich();
         $name = '';
         $oldGr = '';
         $newGr = '';
@@ -703,7 +721,7 @@ class WordWizard
             mb_substr(mb_strtolower($programTrG->stringFocus), 0, mb_strlen($programTrG->stringFocus) - 2, "utf-8")
              . 'ой направленности «' . $programTrG->name . '».',null, array('align' => 'both'));
         $section->addText('          2.   Контроль за исполнением приказа оставляю за собой.', null, array('align' => 'both'));
-        $section->addTextBreak(2);
+        $section->addTextBreak(2);*/
 
         $table = $section->addTable();
         $table->addRow();
@@ -712,6 +730,41 @@ class WordWizard
         $cell = $table->addCell(12000);
         $cell->addText('В.В. Войков', null, array('align' => 'right'));
         $section->addTextBreak(1);
+
+        /*if ($order->study_type == 0)
+        {
+            $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+                'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+                'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+                'marginRight' => WordWizard::convertMillimetersToTwips(15)));
+            $table = $section->addTable();
+            $table->addRow();
+            $cell = $table->addCell(6500);
+            $cell->addTextBreak(1);
+            $cell = $table->addCell(10900);
+            $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»');
+            $table->addRow();
+            $cell = $table->addCell(6500);
+            $cell->addTextBreak(1);
+            $cell = $table->addCell(10900);
+            $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+            if ($order->order_postfix !== NULL)
+                $text .= '/' . $order->order_postfix;
+            $cell->addText('от ' . date("d", strtotime($order->order_date)) . ' '
+                . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+                . date("Y", strtotime($order->order_date)) . ' г. '
+                . $text);
+            $section->addTextBreak(2);
+
+            $text = '';
+            for ($i = 0; $i < count($groups); $i++)
+            {
+                //$newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
+                //$programTrG = $program->where(['id' => $oldGr->training_program_id])->one();
+                $text .= '<w:br/>Дополнительная общеразвивающая программа: «' . $programTrG->stringFocus . '';
+            }
+            $section->addText($text, null, array('align' => 'both'));
+        }*/
 
         $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 20);
         header("Content-Description: File Transfer");
