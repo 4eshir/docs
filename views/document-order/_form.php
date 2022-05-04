@@ -1,5 +1,6 @@
 <?php
 
+use app\models\work\NomenclatureWork;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -411,10 +412,11 @@ $session = Yii::$app->session;
 
     <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'hidden' : null ?>">
         <?php
-        if ($model->id !== null)
+        $noms = NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
+        if ($model->id !== null && $noms->type != 0)
         {
             $radioArr = [0 => 'По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты', 1 => 'Не прошедшим итоговую форму контроля', 2 => 'По заявлению родителя', 3 => 'По соглашению сторон'];
-            $noms = \app\models\work\NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
+
             if ($noms->type == 2)
                 $radioArr = [0 => 'На следующий год обучения', 1 => 'С одной ДОП на другую ДОП', 2 => 'Из одной учебной группы в другую'];
             echo $form->field($model, 'study_type')->radioList($radioArr,
