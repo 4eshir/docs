@@ -107,7 +107,7 @@ class ReportFormController extends Controller
     {
         $model = new ReportFormModel();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             ExcelWizard::DownloadTeacher($model->year, $model->branch);
         }
 

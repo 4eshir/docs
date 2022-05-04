@@ -27,6 +27,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\PeopleWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\db\ActiveQuery;
@@ -1600,13 +1601,45 @@ class ExcelWizard
 
     static public function DownloadTeacher($year, $branch)
     {
-        $teachers = UserWork::find()->joinWith(['userRole userRole'])->where(['userRole.role_id' => 1])->all();
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
+
+        //получаем количество групп по направленностям
+
+        $start_date = $year.'-01-01';
+        $end_date = ($year + 1).'-01-01';
+
+
+        $teachers = TeacherGroupWork::find()->select('teacher_id')->distinct()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
+            ->all();
         $akaIds = [];
-        foreach ($teachers as $teacher) $akaIds[] = $teacher->aka;
+        foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
 
         $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
-        
 
+        $startRow = 2;
+        $startColumn = 0;
+
+
+        foreach ($teachersPeople as $teacher)
+        {
+
+        }
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
+        exit;
     }
 
 

@@ -38,9 +38,12 @@ $this->title = 'Нагрузка преподавателей';
         $yearArr[] = $currentYear - 1;
         $yearArr[] = $currentYear;
         $yearArr[] = $currentYear + 1;
+        $items = [];
+        foreach ($yearArr as $ye)
+            $items += [$ye => $ye];
         $params = [
         ];
-        echo $form->field($model, 'year', ['template' => '{label}&nbsp;{input}', 'options' => ['class' => 'form-group form-inline']])->dropDownList($yearArr,$params)->label('Год');
+        echo $form->field($model, 'year', ['template' => '{label}&nbsp;{input}', 'options' => ['class' => 'form-group form-inline']])->dropDownList($items,$params)->label('Год');
         ?>
 
     </div>

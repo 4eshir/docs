@@ -290,6 +290,7 @@ class ForeignEventParticipantsController extends Controller
         $result .= '<tr><td><b>Разглашение ПД</b></td><td style="width: 45%">'.$resultN.'</td><td><b>Разглашение ПД</b></td><td style="width: 45%">'.$resultN1.'</td></tr>';
 
         $result .= '</table><br>';
+        $result .= '<a id="fill1" style="display: block; width: 91%" onclick="FillEditForm()" class="btn btn-primary">Открыть форму редактирования</a>';
 
         return $result;
     }

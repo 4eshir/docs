@@ -12,7 +12,7 @@ use yii\jui\DatePicker;
 /* @var $model app\models\work\ForeignEventParticipantsWork */
 
 $this->title = 'Слияние участников деятельности';
-$this->params['breadcrumbs'][] = ['label' => 'Слияние участников деятельности', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Участники деятельности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Слияние', 'url' => ['merge-participant']];
 ?>
 <style>
@@ -128,8 +128,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Слияние', 'url' => ['merge-
 
     <div id="commonBlock" style="display: none">
     </div>
-    <a id="fill1" style="display: none" onclick="FillEditForm()" class="btn btn-primary" style="width: 90%">Открыть форму редактирования</a>
-    <div id="editBlock" style="display: none">
+    
+    <div id="editBlock" style="display: none; width: 91%;">
         <?= $form->field($model->edit_model, 'secondname')->textInput() ?>
 
         <?= $form->field($model->edit_model, 'firstname')->textInput() ?>
@@ -222,8 +222,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Слияние', 'url' => ['merge-
         {
             let main = document.getElementById('commonBlock');
             main.style.display = 'block';
-            main = document.getElementById('fill1');
-            main.style.display = 'block';
+            //main = document.getElementById('fill1');
+            //main.style.display = 'block';
             main = document.getElementById('sub');
             main.removeAttribute('disabled');
             main = document.getElementById('mergeparticipantmodel-fio1');
