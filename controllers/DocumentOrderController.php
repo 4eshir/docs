@@ -473,17 +473,14 @@ class DocumentOrderController extends Controller
     }
 
     // Новый функционал - генерация образовательных приказов
-    public function actionGenerationWord($order_id, $type, $flag)
+    public function actionGenerationWord($order_id, $type)
     {
         //ExcelWizard::Enrolment($order_id);
         if ($type === '0')
             WordWizard::Enrolment($order_id);
         else if ($type === '1')
         {
-            if ($flag === '0')
-                WordWizard::Deduction($order_id);
-            else
-                WordWizard::DeductionAll($order_id);
+            WordWizard::Deduction($order_id);
         }
         else if ($type === '2')
             WordWizard::Transfer($order_id);

@@ -298,10 +298,10 @@ $session = Yii::$app->session;
             document.getElementById('documentorderwork-order_name').value = 'Об отчислении';
             document.getElementById('study-type').style.display = '';
             document.getElementById('study-type').innerHTML = `<label class="control-label">Преамбула</label><div id="documentorderwork-study_type" role="radiogroup">
-                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="0" tabindex="3" style="margin-right: 5px" ><i></i><span>По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ </span></label><br>
-                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>В связи с завершением обучения</span></label><br>
-                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>В связи с досрочным прекращением образовательных отношений</span></label><br>
-                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="3" tabindex="3" style="margin-right: 5px" ><i></i><span>В связи с досрочным прекращением образовательных отношений (по соглашению сторон)</span></label><br><br></div>`;
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="0" tabindex="3" style="margin-right: 5px" ><i></i><span>По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>Не прошедшим итоговую форму контроля</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>По заявлению родителя</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="3" tabindex="3" style="margin-right: 5px" ><i></i><span>По соглашению сторон</span></label><br><br></div>`;
         }
         if (nom === '11-31')
         {
@@ -413,7 +413,7 @@ $session = Yii::$app->session;
         <?php
         if ($model->id !== null)
         {
-            $radioArr = [0 => 'По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ ', 1 => 'В связи с завершением обучения', 2 => 'В связи с досрочным прекращением образовательных отношений', 3 => 'В связи с досрочным прекращением образовательных отношений (по соглашению сторон)'];
+            $radioArr = [0 => 'По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты', 1 => 'Не прошедшим итоговую форму контроля', 2 => 'По заявлению родителя', 3 => 'По соглашению сторон'];
             $noms = \app\models\work\NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
             if ($noms->type == 2)
                 $radioArr = [0 => 'На следующий год обучения', 1 => 'С одной ДОП на другую ДОП', 2 => 'Из одной учебной группы в другую'];
