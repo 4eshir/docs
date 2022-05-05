@@ -207,6 +207,23 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
                 $parts[$i]->save();
                 $parts[$i + 1]->save();
             }
+
+            /*for ($j = $i + 1; $j != count($parts) - 2; $j++)
+            {
+                $lev = levenshtein($parts[$i]->secondname.' '.$parts[$i]->firstname.' '.$parts[$i]->patronymic, $parts[$j]->secondname.' '.$parts[$j]->firstname.' '.$parts[$j]->patronymic);
+                if ($lev <= 2)
+                {
+                    $parts[$i]->is_true = 0;
+                    $parts[$i]->guaranted_true = 0;
+                    $parts[$i]->save();
+
+                    $parts[$j]->is_true = 0;
+                    $parts[$j]->guaranted_true = 0;
+                    $parts[$j]->save();
+                }
+                if ($lev > 5)
+                    break;
+            }*/
         }
 
         $newDate = new \DateTime('-3 year');
