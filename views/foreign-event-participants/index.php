@@ -26,12 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
 
     $gridColumns = [
-        'secondname',
+            'secondname',
             'firstname',
             'patronymic',
             'sex',
             ['attribute' => 'birthdate', 'value' => function($model){return date("d.m.Y", strtotime($model->birthdate));}],
-
+            ['attribute' => 'eventsExcel', 'format' => 'raw'],
+            'studiesExcel',
             ['class' => 'yii\grid\ActionColumn'],
 
     ];

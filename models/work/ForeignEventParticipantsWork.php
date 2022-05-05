@@ -91,6 +91,16 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
         return $eventsLink;
     }
 
+    public function getEventsExcel()
+    {
+        $events = TeacherParticipant::find()->where(['participant_id' => $this->id])->all();
+        $eventsLink = '';
+        foreach ($events as $event)
+            $eventsLink = $eventsLink.'['.$event->foreignEvent->name.'] ';
+
+        return $eventsLink;
+    }
+
     public function getStudies()
     {
         $events = TrainingGroupParticipant::find()->where(['participant_id' => $this->id])->all();
@@ -112,6 +122,20 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
                 $eventsLink .= ' | Отчислен';
 
             $eventsLink .= '<br>';
+        }
+
+        return $eventsLink;
+    }
+
+     public function getStudiesExcel()
+    {
+        $events = TrainingGroupParticipant::find()->where(['participant_id' => $this->id])->all();
+        $eventsLink = '';
+        foreach ($events as $event)
+        {
+            $eventsLink .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
+            $eventsLink = $eventsLink.'[Группа '.$event->trainingGroup->number;
+            $eventsLink .= '] ';
         }
 
         return $eventsLink;
