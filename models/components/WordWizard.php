@@ -667,61 +667,77 @@ class WordWizard
         $cell = $table->addCell(6000);
         $cell->addTextBreak(1);
 
-        $countPasta = count($pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->all());
+        $pasta = $pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->andWhere(['status' => 0])->all();
+        $countPasta = count($pasta);
 
         $section->addTextBreak(1);
         if ($order->study_type == 0)
             $text = '          На основании решения Педагогического совета ГАОУ АО ДО «РШТ» от «____»_________ 20___ г. № ______, в соответствии с п. 2.1.1 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
+        if ($order->study_type == 1)
+            $text = '          На основании заявления родителя (или законного представителя) _____________________________________________________ от ________ г., и решения Педагогического совета ГАОУ АО ДО «РШТ» от «____»_________ 20___ г. № ______, в соответствии с п. 2.1.2 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
+        if ($order->study_type == 2)
+            $text = '          На основании заявления родителя (или законного представителя) _____________________________________________________ от ________ г., в соответствии с п. 2.1.3 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
 
         $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
 
         if ($order->study_type == 0)
         {
             if ($countPasta == 1)
-                $text .= '<w:br/>          1.   Перевести обучающегося, успешно прошедшего итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+                $text .= '<w:br/>          1. Перевести обучающегося, успешно прошедшего итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
             else if (count($groups) == 1)
-                $text .= '<w:br/>          1.   Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+                $text .= '<w:br/>          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
             else
-                $text .= '<w:br/>          1.   Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+                $text .= '<w:br/>          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+        }
+        else
+        {
+            $name = '';
+            $oldGr = '';
+            $newGr = '';
+            foreach ($groups as $group)
+            {
+                $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
+                foreach ($pasta as $macaroni)
+                {
+                    $groupParticipant = $gPart->where(['id' => $macaroni->group_participant_id])->one();
+                    $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
+                    $temp = $participant->getFullName() . ' и ';
+                    if (strpos($name, $temp) === false)
+                        $name .= $temp;
+                    if ($macaroni->status === 2)
+                        $oldGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
+                    else
+                        $newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
+                }
+                $name = mb_substr($name, 0, mb_strlen($name) - 2, "utf-8");
+            }
+            $oldProgramTrG = $program->where(['id' => $oldGr->training_program_id])->one();
+            $newProgramTrG = $program->where(['id' => $newGr->training_program_id])->one();
+
+            if ($order->study_type == 1)
+            {
+                $text .= '<w:br/>          1. Перевести с обучения по дополнительной общеразвивающей программе «' . $oldProgramTrG->name . '» на обучение по дополнительной общеразвивающей программе «'
+                    . $newProgramTrG->name . '» ';
+            }
+
+            if ($order->study_type == 2)
+            {
+                $text .= '<w:br/>          1. Перевести из учебной группы ' . $oldGr->number . ' в учебную группу '
+                    . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $newProgramTrG->name . '», '
+                    . mb_substr(mb_strtolower($newProgramTrG->stringFocus), 0, mb_strlen($newProgramTrG->stringFocus) - 2, "utf-8")
+                    . 'ой направленности ';
+            }
+
+            if ($countPasta > 1)
+                $text .= 'обучающихся: ' . $name . '.';
+            else
+                $text .= 'обучающегося: ' . $name . '.';
         }
 
-
-        $text .= '<w:br/>          2.   Контроль за исполнением приказа оставляю за собой.';
+        $text .= '<w:br/>          2. Контроль за исполнением приказа оставляю за собой.';
 
         $section->addText($text, null, array('align' => 'both'));
-
-
-        /*$petrovich = new Petrovich();
-        $name = '';
-        $oldGr = '';
-        $newGr = '';
-        foreach ($groups as $group)
-        {
-            $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
-            foreach ($pasta as $macaroni)
-            {
-                $groupParticipant = $gPart->where(['id' => $macaroni->group_participant_id])->one();
-                $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
-                $temp = $petrovich->lastname($participant->secondname, Petrovich::CASE_ACCUSATIVE) . ' ' .
-                    $petrovich->firstname($participant->firstname, Petrovich::CASE_ACCUSATIVE) . ' ' .
-                    $petrovich->firstname($participant->patronymic,Petrovich::CASE_ACCUSATIVE) . ' и ';
-                if (strpos($name, $temp) === false)
-                    $name .= $temp;
-                if ($macaroni->status === 2)
-                    $oldGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-                else
-                    $newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-            }
-            $name = mb_substr($name, 0, mb_strlen($name) - 2, "utf-8");
-        }
-        $programTrG = $program->where(['id' => $oldGr->training_program_id])->one();
-
-        $section->addText('          1.   Перевести обучающегося ' . $name . 'из учебной группы '. $oldGr->number . ' в учебную группу ' .
-            $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе ' .
-            mb_substr(mb_strtolower($programTrG->stringFocus), 0, mb_strlen($programTrG->stringFocus) - 2, "utf-8")
-             . 'ой направленности «' . $programTrG->name . '».',null, array('align' => 'both'));
-        $section->addText('          2.   Контроль за исполнением приказа оставляю за собой.', null, array('align' => 'both'));
-        $section->addTextBreak(2);*/
+        $section->addTextBreak(2);
 
         $table = $section->addTable();
         $table->addRow();
@@ -731,7 +747,7 @@ class WordWizard
         $cell->addText('В.В. Войков', null, array('align' => 'right'));
         $section->addTextBreak(1);
 
-        /*if ($order->study_type == 0)
+        if ($order->study_type == 0)
         {
             $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
                 'marginLeft' => WordWizard::convertMillimetersToTwips(30),
@@ -750,21 +766,47 @@ class WordWizard
             $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
             if ($order->order_postfix !== NULL)
                 $text .= '/' . $order->order_postfix;
-            $cell->addText('от ' . date("d", strtotime($order->order_date)) . ' '
+            $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
                 . $text);
             $section->addTextBreak(2);
 
-            $text = '';
-            for ($i = 0; $i < count($groups); $i++)
+
+            $newGroup = [];
+            foreach ($pasta as $macaroni)
             {
-                //$newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-                //$programTrG = $program->where(['id' => $oldGr->training_program_id])->one();
-                $text .= '<w:br/>Дополнительная общеразвивающая программа: «' . $programTrG->stringFocus . '';
+                $groupPart = $gPart->where(['id' => $macaroni->group_participant_id])->one();
+                $trGPart = $trG->where(['id' => $groupPart->training_group_id])->one();
+                $programPart = $program->where(['id' => $trGPart->training_program_id])->one();
+                $partName = $part->where(['id' => $groupPart->participant->id])->one();
+
+                $newGroup[$programPart->name][$trGPart->number][] = $partName->getFullName();
             }
-            $section->addText($text, null, array('align' => 'both'));
-        }*/
+
+            for ($i = 0; $i < count($newGroup); $i++)
+            {
+                //$text = 'Дополнительная общеразвивающая программа: «' . key($newGroup) . '»';
+                $section->addText('Дополнительная общеразвивающая программа: «' . key($newGroup) . '»', array('bold' => true), array('align' => 'both'));
+
+                for ($j = 0; $j < count($newGroup[key($newGroup)]); $j++)
+                {
+                    //$text .= '<w:br/>Учебная группа: ' . key($newGroup[key($newGroup)]);
+                    $section->addText('Учебная группа: ' . key($newGroup[key($newGroup)]), null, array('align' => 'both'));
+
+                    for ($k = 0; $k < count($newGroup[key($newGroup)][key($newGroup[key($newGroup)])]); $k++)
+                    {
+                        //$text .= '<w:br/>   ' . ($k + 1) . '. ' . $newGroup[key($newGroup)][key($newGroup[key($newGroup)])][$k];
+                        $section->addText('   ' . ($k + 1) . '. ' . $newGroup[key($newGroup)][key($newGroup[key($newGroup)])][$k] . ', 2-й год обучения', null, array('align' => 'both'));
+                    }
+
+                    next($newGroup[key($newGroup)]);
+                }
+                next($newGroup);
+                //$section->addText($text, null, array('align' => 'both'));
+                $section->addTextBreak(1);
+            }
+        }
 
         $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 20);
         header("Content-Description: File Transfer");
