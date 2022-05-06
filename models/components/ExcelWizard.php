@@ -1599,9 +1599,45 @@ class ExcelWizard
         exit;
     }
 
+    static private function GetParticipantsByMonth($training_group_id)
+    {
+        
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+
+        $orders = OrderGroupWork::find()->joinWith(['documentOrder documentOrder'])->where(['training_group_id' => $training_group_id])->orderBy(['documentOrder.order_date' => SORT_ASC])->all();
+
+        $start_date = $orders[0]->documentOrder->order_date;
+        $end_date = $group->finish_date;
+
+        $ordersId = [];
+        foreach ($orders as $order) $ordersId[] = $order->document_order_id;
+        
+        $months = [];
+        $yearDistance = ((explode("-", $end_date)[0]) * 1) - ((explode("-", $start_date)[0]) * 1);
+
+        $startYear = explode("-", $start_date)[0];
+        $startMonth = (explode("-", $start_date)[1]) * 1;
+        $endMonth = (explode("-", $end_date)[1]) * 1;
+
+        $yearCounter = 0;
+        while ($yearCounter < $yearDistance + 1)
+        {
+            $currentMonth = $yearCounter == 0 ? $startMonth : 1;
+            while ($currentMonth < 13 && !($currentMonth - 1 == $endMonth && $yearCounter == $yearDistance))
+            {
+                $strMonth = $currentMonth > 9 ? $currentMonth : '0'.$currentMonth;
+                $month[] = ($startYear + $yearCounter).'-'.$strMonth;
+                $currentMonth++;
+            }
+            $yearCounter++;
+        }
+
+        return $month;
+    }
+
     static public function DownloadTeacher($year, $branch)
     {
-
+        var_dump(ExcelWizard::GetParticipantsByMonth(26));
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
@@ -1612,24 +1648,68 @@ class ExcelWizard
         $end_date = ($year + 1).'-01-01';
 
 
-        $teachers = TeacherGroupWork::find()->select('teacher_id')->distinct()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
+        $teachers = TeacherGroupWork::find()->select('teacher_id')->distinct()->where(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
             ->all();
         $akaIds = [];
         foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
 
         $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
 
-        $startRow = 2;
-        $startColumn = 0;
+        $currentRow = 2;
+        $currentColumn = 0;
 
 
         foreach ($teachersPeople as $teacher)
         {
+            $currentMonth = 1;
+            $dayMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+            $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $teacher->fullName);
+            $currentRow += 3; //пропускаем шапку таблицы
+
+            $tgs = TeacherGroupWork::find()->where(['teacher_id' => $teacher->id])->andWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
+            ->all();
+
+            $gIds = [];
+            foreach ($tgs as $tg) $gIds[] = $tg->training_group_id;
+
+            //var_dump($gIds);
+
+            $tgs = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
+
+            //заполняем таблицу с группами
+            foreach ($tgs as $tg)
+            {
+                $currentColumn = 0;
+                $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $tg->number);
+                $currentColumn++;
+                $currentMonth = 1;
+
+                for ($currentMonth; $currentMonth < 13; $currentMonth++)
+                {
+                    $strMonth = $currentMonth > 9 ? $currentMonth : '0'.$currentMonth;
+                    $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $tg->id])->andWhere(['>=', 'lesson_date', $year.'-'.$strMonth.'-01'])->andWhere(['<=', 'lesson_date', $year % 4 == 0 && $currentMonth == 2 ? $year.'-'.$strMonth.'-'.'29' : $year.'-'.$strMonth.'-'.$dayMonth[$currentMonth - 1]])->all();
+
+                    $lIds = [];
+                    foreach ($lessons as $lesson) $lIds[] = $lesson->id;
+
+                    $lessonTeacher = LessonThemeWork::find()->where(['IN', 'training_group_lesson_id', $lIds])->andWhere(['teacher_id' => $teacher->id])->all();
+
+                    $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, count($lessonTeacher));
+                    $currentColumn += 2;
+                }
+                
+
+                $currentRow++;
+            }
         }
 
 

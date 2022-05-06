@@ -1,0 +1,2485 @@
+2022-05-06 09:15:18 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\TrainingGroupWork::trainingGroup in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('trainingGroup')
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1650): yii\db\BaseActiveRecord->__get('trainingGroup')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 09:15:18 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'cYuqXA-2C6RjLP-dsnWe1zFQOAk7QAWxMRxskpjEDFQov-gkevlh_jNazPyALKu4SCpdP00LVtZzaViq4L5JIA=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56630'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651817718.116
+    'REQUEST_TIME' => 1651817718
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 09:18:14 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1645) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1658
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1658, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1658): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 09:18:13 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'cv4NEhTxUqw_6Co0TK-RCHbh_xt6Bli4B7EWGqTfvfgryk9qYb449m-eGVV-9qRnD5uaLQxNC99FxCIi3KX4jA=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56675'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651817893.771
+    'REQUEST_TIME' => 1651817893
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 09:24:46 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\db\IntegrityException] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'teacher_id' in field list is ambiguous in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT DISTINCT...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1620): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#7 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#13 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#14 {main}
+
+Next yii\db\IntegrityException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'teacher_id' in field list is ambiguous
+The SQL being executed was: SELECT DISTINCT `teacher_id` FROM `teacher_group` LEFT JOIN `training_group` `trainingGroup` ON `teacher_group`.`training_group_id` = `trainingGroup`.`id` WHERE ((((`training_group_id` IN (SELECT `id` FROM `training_group` WHERE (`start_date` >= '2021-01-01') AND (`finish_date` >= '2022-01-01') AND (`start_date` <= '2022-01-01'))) OR (`training_group_id` IN (SELECT `id` FROM `training_group` WHERE (`start_date` <= '2021-01-01') AND (`finish_date` <= '2022-01-01') AND (`finish_date` >= '2021-01-01')))) OR (`training_group_id` IN (SELECT `id` FROM `training_group` WHERE (`start_date` <= '2021-01-01') AND (`finish_date` >= '2022-01-01')))) OR (`training_group_id` IN (SELECT `id` FROM `training_group` WHERE (`start_date` >= '2021-01-01') AND (`finish_date` <= '2022-01-01')))) AND (`training_group_id` IN (17, 15)) in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT DISTINCT...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT DISTINCT...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1620): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#7 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#13 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#14 {main}
+Additional Information:
+Array
+(
+    [0] => 23000
+    [1] => 1052
+    [2] => Column 'teacher_id' in field list is ambiguous
+)
+
+2022-05-06 09:24:46 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'cv4NEhTxUqw_6Co0TK-RCHbh_xt6Bli4B7EWGqTfvfgryk9qYb449m-eGVV-9qRnD5uaLQxNC99FxCIi3KX4jA=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56756'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651818286.553
+    'REQUEST_TIME' => 1651818286
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 09:25:01 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1645) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1658
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1658, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1658): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 09:25:00 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'cv4NEhTxUqw_6Co0TK-RCHbh_xt6Bli4B7EWGqTfvfgryk9qYb449m-eGVV-9qRnD5uaLQxNC99FxCIi3KX4jA=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56757'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651818300.737
+    'REQUEST_TIME' => 1651818300
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 10:32:20 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1662) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1668
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1668, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1668): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 10:32:20 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57740'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651822339.998
+    'REQUEST_TIME' => 1651822339
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 10:33:02 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1662) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1668
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1668, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1668): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 10:33:02 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57740'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651822382.244
+    'REQUEST_TIME' => 1651822382
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 10:33:25 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1662) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1668
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1668, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1668): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 10:33:25 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57740'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651822405.131
+    'REQUEST_TIME' => 1651822405
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 10:36:40 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1662) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1668
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1668, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1668): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 10:36:40 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57740'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651822600.554
+    'REQUEST_TIME' => 1651822600
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 11:00:08 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1664) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1676
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1676, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1676): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 11:00:08 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58238'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651824008.635
+    'REQUEST_TIME' => 1651824008
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 11:00:19 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1664) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1676
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1676, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1676): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2021', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 11:00:19 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'J_YLNp1ZT4wxazGHHQnQaLfObcMtbjXrFacJ5mLFmNl-wklO6BYl1mEdAuYvUOUHzrQI9VslZoxX0j3eGr_drQ=='
+    'ReportFormModel' => [
+        'year' => '2021'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58238'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651824019.628
+    'REQUEST_TIME' => 1651824019
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:40:03 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1637) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1713
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1713, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1713): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:40:02 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840802.953
+    'REQUEST_TIME' => 1651840802
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:40:20 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1619) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1714
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1714, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1714): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:40:20 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840820.546
+    'REQUEST_TIME' => 1651840820
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:40:41 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1625) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1714
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1714, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1714): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:40:41 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840841.01
+    'REQUEST_TIME' => 1651840841
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:41:52 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1625) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1714
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1714, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1714): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:41:52 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840912.245
+    'REQUEST_TIME' => 1651840912
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:42:06 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1625) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1714
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1714, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1714): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:42:06 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840926.045
+    'REQUEST_TIME' => 1651840926
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:42:16 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1625) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1714
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1714, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1714): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:42:16 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840936.763
+    'REQUEST_TIME' => 1651840936
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:42:25 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1637) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1713
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1713, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1713): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:42:25 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840945.588
+    'REQUEST_TIME' => 1651840945
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:42:47 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1637) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1713
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1713, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1713): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 15:42:47 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'SrRxysTsiuRIPo36_deDoyqC-Du_6oNzJJZEZhnV7CsTgDOysaPgvhhIvpvPjrbMU_idDcmh0BRm43BeYa-pXw=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61206'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651840967.06
+    'REQUEST_TIME' => 1651840967
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:57:34 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\controllers\TrainingGroupController.php on line 545. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-05-06 15:57:34 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'training-group/subcat'
+]
+
+$_POST = [
+    'id' => '1'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '4'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_CSRF_TOKEN' => 'UrVwIwrvXEZdWBakZaqvV6gC77wfutRQA6NERZDf3_ILgTJbf6A2HA0uJcVX85o40XiKimnxhzdB1nB96KWahg=='
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ORIGIN' => 'http://docs'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fupdate&id=26'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61523'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=training-group%2Fsubcat'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fsubcat'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651841854.492
+    'REQUEST_TIME' => 1651841854
+    'argv' => [
+        0 => 'r=training-group%2Fsubcat'
+    ]
+    'argc' => 1
+]
+2022-05-06 15:59:24 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\controllers\DocumentOrderController.php on line 359. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-05-06 15:59:24 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'document-order/subattr'
+]
+
+$_POST = [
+    'id' => '1'
+    'date' => '2021-12-20'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '20'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_CSRF_TOKEN' => 'lkQeSfKw-3sUynNZNZTfbNKPFtdfbqnta1qac_YaSfjPcFwxh_-RIUS8QDgHzeoDq_Vz4Skl-oopL65LjmAMjA=='
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ORIGIN' => 'http://docs'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61513'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=document-order%2Fsubattr'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fsubattr'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651841964.58
+    'REQUEST_TIME' => 1651841964
+    'argv' => [
+        0 => 'r=document-order%2Fsubattr'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:00:43 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\controllers\DocumentOrderController.php on line 359. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-05-06 16:00:43 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'document-order/subattr'
+]
+
+$_POST = [
+    'id' => '1'
+    'date' => '2022-02-08'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '2'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '20'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_CSRF_TOKEN' => 'y05vT3e0r--RWLt_ipmR8eO0TAGSRY388bd-u-Ow9LmSei03AvvFtcEuiB64wKSems4pN-QO3puzwkqDm8qxzQ=='
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ORIGIN' => 'http://docs'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61513'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=document-order%2Fsubattr'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fsubattr'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842043.565
+    'REQUEST_TIME' => 1651842043
+    'argv' => [
+        0 => 'r=document-order%2Fsubattr'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:01:19 [127.0.0.1][1][-][error][yii\web\HeadersAlreadySentException] yii\web\HeadersAlreadySentException: Headers already sent in C:\OpenServer\domains\localhost\docs\controllers\DocumentOrderController.php on line 359. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php:368
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Response.php(341): yii\web\Response->sendHeaders()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(390): yii\web\Response->send()
+#2 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#3 {main}
+2022-05-06 16:01:19 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'document-order/subattr'
+]
+
+$_POST = [
+    'id' => '1'
+    'date' => '2022-05-18'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '20'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_X_CSRF_TOKEN' => '37H07RjCF_hZQBZIEi1C-t5TSpJIybYLjQ1GkxJ9TriGhbaVbY19ogk2JSkgdHeVpykvpD6C5WzPeHKragcLzA=='
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_ORIGIN' => 'http://docs'
+    'HTTP_REFERER' => 'http://docs/index.php?r=document-order%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61616'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=document-order%2Fsubattr'
+    'REQUEST_URI' => '/index.php?r=document-order%2Fsubattr'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842079.468
+    'REQUEST_TIME' => 1651842079
+    'argv' => [
+        0 => 'r=document-order%2Fsubattr'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:12:38 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'order_date' in 'order clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#7 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#8 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#14 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#15 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'order_date' in 'order clause'
+The SQL being executed was: SELECT * FROM `order_group` WHERE `training_group_id`=26 ORDER BY `order_date` in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT * FROM `...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#7 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#8 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#14 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#15 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'order_date' in 'order clause'
+)
+
+2022-05-06 16:12:38 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'lKuhpKbYmPO3Xg25qLO74ezl0RFhSBZipNLho8MokA7Nn-Pc05fyqecoPtia6o6OlZ-0JxcDRQXmp9Wbu1LVeg=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61759'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842758.534
+    'REQUEST_TIME' => 1651842758
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:12:57 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'order_date' in 'order clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#7 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#8 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#14 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#15 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'order_date' in 'order clause'
+The SQL being executed was: SELECT * FROM `order_group` WHERE `training_group_id`=26 ORDER BY `order_date` in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT * FROM `...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#6 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#7 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#8 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#14 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#15 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'order_date' in 'order clause'
+)
+
+2022-05-06 16:12:57 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'lKuhpKbYmPO3Xg25qLO74ezl0RFhSBZipNLho8MokA7Nn-Pc05fyqecoPtia6o6OlZ-0JxcDRQXmp9Wbu1LVeg=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61760'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842777.323
+    'REQUEST_TIME' => 1651842777
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:13:26 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\base\InvalidArgumentException] yii\base\UnknownMethodException: Calling unknown method: app\models\work\OrderGroupWork::getorder() in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:300
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(1243): yii\base\Component->__call('getorder', Array)
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(562): yii\db\BaseActiveRecord->getRelation('order')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(462): yii\db\ActiveQuery->joinWithRelations(Object(app\models\work\OrderGroupWork), Array, 'LEFT JOIN')
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(146): yii\db\ActiveQuery->buildJoinWith()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\QueryBuilder.php(227): yii\db\ActiveQuery->prepare(Object(yii\db\mysql\QueryBuilder))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(328): yii\db\QueryBuilder->build(Object(yii\db\ActiveQuery))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\ActiveQuery->createCommand(Object(yii\db\Connection))
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#8 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#9 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#10 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#11 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#17 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#18 {main}
+
+Next yii\base\InvalidArgumentException: app\models\work\OrderGroupWork has no relation named "order". in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php:1246
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(562): yii\db\BaseActiveRecord->getRelation('order')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(462): yii\db\ActiveQuery->joinWithRelations(Object(app\models\work\OrderGroupWork), Array, 'LEFT JOIN')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(146): yii\db\ActiveQuery->buildJoinWith()
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\QueryBuilder.php(227): yii\db\ActiveQuery->prepare(Object(yii\db\mysql\QueryBuilder))
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(328): yii\db\QueryBuilder->build(Object(yii\db\ActiveQuery))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\ActiveQuery->createCommand(Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#7 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1607): yii\db\ActiveQuery->all()
+#8 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#9 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#10 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#17 {main}
+2022-05-06 16:13:26 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'lKuhpKbYmPO3Xg25qLO74ezl0RFhSBZipNLho8MokA7Nn-Pc05fyqecoPtia6o6OlZ-0JxcDRQXmp9Wbu1LVeg=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61771'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842806.624
+    'REQUEST_TIME' => 1651842806
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:14:27 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\OrderGroupWork::order in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('order')
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1609): yii\db\BaseActiveRecord->__get('order')
+#2 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1640): app\models\components\ExcelWizard::GetParticipantsByMonth(26)
+#3 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#4 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#10 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#11 {main}
+2022-05-06 16:14:27 [127.0.0.1][1][iro23001gmb2dihmjvb2nnom85c5ltdl][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'lKuhpKbYmPO3Xg25qLO74ezl0RFhSBZipNLho8MokA7Nn-Pc05fyqecoPtia6o6OlZ-0JxcDRQXmp9Wbu1LVeg=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61777'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842867.105
+    'REQUEST_TIME' => 1651842867
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:14:33 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1640) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1716
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1716, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1716): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 16:14:33 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'lKuhpKbYmPO3Xg25qLO74ezl0RFhSBZipNLho8MokA7Nn-Pc05fyqecoPtia6o6OlZ-0JxcDRQXmp9Wbu1LVeg=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61786'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842873.01
+    'REQUEST_TIME' => 1651842873
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
+2022-05-06 16:15:11 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1640) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1716
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1716, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1716): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(111): app\models\components\ExcelWizard::DownloadTeacher('2020', '1')
+#3 [internal function]: app\controllers\ReportFormController->actionTeacher()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('teacher', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/tea...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-05-06 16:15:10 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/teacher'
+]
+
+$_POST = [
+    '_csrf' => 'rBMVvRAejIHjaIMN_eN1Nwvpz0bs_MHJzLe8hUmbxNX1J1fFZVHm27MesGzPukBYcpOqcJq3kq6Owoi9MeGBoQ=='
+    'ReportFormModel' => [
+        'year' => '2020'
+        'branch' => '1'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'iro23001gmb2dihmjvb2nnom85c5ltdl'
+    '_csrf' => 'b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+    'type' => '0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '159'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fteacher'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=iro23001gmb2dihmjvb2nnom85c5ltdl; _csrf=b838d58f2b8dab68d11e90c09168687276c9afcedab5c2331c06363264ba887fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22Y4BxuOjZPv3a2Y5oyze6vKSgBu48xzEt%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61786'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fteacher'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fteacher'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1651842910.87
+    'REQUEST_TIME' => 1651842910
+    'argv' => [
+        0 => 'r=report-form%2Fteacher'
+    ]
+    'argc' => 1
+]
