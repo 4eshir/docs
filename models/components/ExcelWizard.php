@@ -628,6 +628,9 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($participants2));
 
 
+        foreach ($participants as $participant)
+            echo $participant->fullName.'<br>';
+
 
         //Делим учеников по возрастам
 
@@ -708,6 +711,9 @@ class ExcelWizard
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, count($participants2));
+
+        foreach ($participants as $participant)
+            echo $participant->fullName.'<br>';
 
         //Делим учеников по возрастам
 
@@ -790,6 +796,10 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($participants2));
 
+
+        foreach ($participants as $participant)
+            echo $participant->fullName.'<br>';
+
         //Делим учеников по возрастам
 
         $participantsId = [];
@@ -865,6 +875,10 @@ class ExcelWizard
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, count($participants));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, count($participants2));
+
+
+        foreach ($participants as $participant)
+            echo $participant->fullName.'<br>';
 
         //Делим учеников по возрастам
 
@@ -1599,7 +1613,7 @@ class ExcelWizard
         exit;
     }
 
-    static private function GetParticipantsByMonth($training_group_id)
+    static private function GetParticipantsByMonth($training_group_id, $year)
     {
         
         $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
@@ -1638,15 +1652,17 @@ class ExcelWizard
         $ogIds = [];
         foreach ($orders as $order) $ogIds[] = $order->id;
         
+
         $temp = 0;
         for ($i = 0; $i < count($month); $i++)
         {
             if ($i == 0)
                 $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['<=', 'documentOrder.order_date', $month[$i].'-31'])->all();
+            else if ($i == count($month) - 1)
+                $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['>=', 'documentOrder.order_date', $month[$i].'-01'])->andWhere(['<', 'documentOrder.order_date', $month[$i].'-'.$end_date])->all();
             else
                 $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['>=', 'documentOrder.order_date', $month[$i].'-01'])->andWhere(['<=', 'documentOrder.order_date', $month[$i].'-31'])->all();
-            var_dump(count($pasta).' '.OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['<=', 'documentOrder.order_date', $month[$i].' '])->createCommand()->getRawSql());
-            var_dump('<br>');
+
             
             foreach ($pasta as $makaroni)
             {
@@ -1656,24 +1672,18 @@ class ExcelWizard
             $participantsCount[] = $temp;
         }
 
-        //debug
-
+        $resParts = [];
         for ($i = 0; $i < count($month); $i++)
-            echo $month[$i].' ';
+            if (explode("-", $month[$i])[0] == $year)
+                $resParts[] = $participantsCount[$i];
 
-        echo '<br>';
-
-        for ($i = 0; $i < count($participantsCount); $i++)
-            echo $participantsCount[$i].' ';
-
-        //-----
 
         return $participantsCount;
     }
 
     static public function DownloadTeacher($year, $branch)
     {
-        ExcelWizard::GetParticipantsByMonth(26);
+        
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
@@ -1688,7 +1698,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
+            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])
             ->all();
         $akaIds = [];
         foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
@@ -1711,7 +1721,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, null)])
+            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])
             ->all();
 
             $gIds = [];
@@ -1721,6 +1731,7 @@ class ExcelWizard
 
             $tgs = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
 
+
             //заполняем таблицу с группами
             foreach ($tgs as $tg)
             {
@@ -1728,6 +1739,15 @@ class ExcelWizard
                 $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $tg->number);
                 $currentColumn++;
                 $currentMonth = 1;
+                $tempMonthCounter = 0;
+
+                $parts = ExcelWizard::GetParticipantsByMonth($tg->id, $year);
+
+                $diff = 0;
+                if (explode("-", $tg->start_date)[0] < $year) //если группа начала занятия в прошлом году, накручиваем счетчик до текущего года
+                    $diff = 13 - explode("-", $tg->start_date)[1] * 1;
+
+                $tempMonthCounter += $diff;
 
                 for ($currentMonth; $currentMonth < 13; $currentMonth++)
                 {
@@ -1740,7 +1760,24 @@ class ExcelWizard
                     $lessonTeacher = LessonThemeWork::find()->where(['IN', 'training_group_lesson_id', $lIds])->andWhere(['teacher_id' => $teacher->id])->all();
 
                     $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, count($lessonTeacher));
-                    $currentColumn += 2;
+                    $currentColumn++;
+
+                    
+
+
+                    
+
+                    if ($tempMonthCounter < count($parts) && ($strMonth >= explode("-", $tg->start_date)[1] || $diff > 0))
+                    {
+                        $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $parts[$tempMonthCounter]);
+                        $tempMonthCounter++;
+                    }
+                    else
+                    {
+                        $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, 0);
+                    }
+                    $currentColumn++;
+
                 }
                 
 
