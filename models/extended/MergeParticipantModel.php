@@ -8,7 +8,6 @@ use app\models\work\TeacherParticipantWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\ForeignEventParticipantsWork;
-use app\models\work\TeacherParticipantWork;
 use app\models\work\VisitWork;
 use app\models\work\PersonalDataWork;
 use app\models\work\PersonalDataForeignEventParticipantWork;
