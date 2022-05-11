@@ -1606,13 +1606,13 @@ class ExcelWizard
 
         $orders = OrderGroupWork::find()->joinWith(['documentOrder documentOrder'])->where(['training_group_id' => $training_group_id])->orderBy(['documentOrder.order_date' => SORT_ASC])->all();
 
-        $start_date = $orders[0]->documentOrder->order_date;
+        $start_date = $group->start_date;
         $end_date = $group->finish_date;
 
         $ordersId = [];
         foreach ($orders as $order) $ordersId[] = $order->document_order_id;
         
-        $months = [];
+        $month = [];
         $yearDistance = ((explode("-", $end_date)[0]) * 1) - ((explode("-", $start_date)[0]) * 1);
 
         $startYear = explode("-", $start_date)[0];
@@ -1637,19 +1637,43 @@ class ExcelWizard
         $orders = TrainingGroupParticipantWork::find()->where(['training_group_id' => $training_group_id])->all();
         $ogIds = [];
         foreach ($orders as $order) $ogIds[] = $order->id;
-        $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'order_group_id', $ogIds])->orderBy(['documentOrder.order_date' => SORT_ASC])->all();
+        
+        $temp = 0;
+        for ($i = 0; $i < count($month); $i++)
+        {
+            if ($i == 0)
+                $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['<=', 'documentOrder.order_date', $month[$i].'-31'])->all();
+            else
+                $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['>=', 'documentOrder.order_date', $month[$i].'-01'])->andWhere(['<=', 'documentOrder.order_date', $month[$i].'-31'])->all();
+            var_dump(count($pasta).' '.OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['<=', 'documentOrder.order_date', $month[$i].' '])->createCommand()->getRawSql());
+            var_dump('<br>');
+            
+            foreach ($pasta as $makaroni)
+            {
+                if ($makaroni->status == 0) $temp++;
+                if ($makaroni->status == 1 || $makaroni->status == 2) $temp--;
+            }
+            $participantsCount[] = $temp;
+        }
 
-        $c = 0;
-        while ($pasta[$c]->status !== )
+        //debug
 
-        $currentPartsCount = ;
+        for ($i = 0; $i < count($month); $i++)
+            echo $month[$i].' ';
 
-        return $month;
+        echo '<br>';
+
+        for ($i = 0; $i < count($participantsCount); $i++)
+            echo $participantsCount[$i].' ';
+
+        //-----
+
+        return $participantsCount;
     }
 
     static public function DownloadTeacher($year, $branch)
     {
-        var_dump(ExcelWizard::GetParticipantsByMonth(26));
+        ExcelWizard::GetParticipantsByMonth(26);
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_Teacher.xlsx');
