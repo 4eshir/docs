@@ -629,7 +629,7 @@ class ExcelWizard
 
 
         foreach ($participants as $participant)
-            echo $participant->participant->fullName.'<br>';
+            echo $participant->participantWork->fullName.'<br>';
 
 
         //Делим учеников по возрастам
@@ -713,7 +713,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, count($participants2));
 
         foreach ($participants as $participant)
-            echo $participant->participant->fullName.'<br>';
+            echo $participant->participantWork->fullName.'<br>';
 
         //Делим учеников по возрастам
 
@@ -798,7 +798,7 @@ class ExcelWizard
 
 
         foreach ($participants as $participant)
-            echo $participant->participant->fullName.'<br>';
+            echo $participant->participantWork->fullName.'<br>';
 
         //Делим учеников по возрастам
 
@@ -878,7 +878,7 @@ class ExcelWizard
 
 
         foreach ($participants as $participant)
-            echo $participant->participant->fullName.'<br>';
+            echo $participant->participantWork->fullName.'<br>';
 
         //Делим учеников по возрастам
 
