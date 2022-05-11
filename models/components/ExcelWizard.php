@@ -1632,6 +1632,18 @@ class ExcelWizard
             $yearCounter++;
         }
 
+        $participantsCount = [];
+
+        $orders = TrainingGroupParticipantWork::find()->where(['training_group_id' => $training_group_id])->all();
+        $ogIds = [];
+        foreach ($orders as $order) $ogIds[] = $order->id;
+        $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'order_group_id', $ogIds])->orderBy(['documentOrder.order_date' => SORT_ASC])->all();
+
+        $c = 0;
+        while ($pasta[$c]->status !== )
+
+        $currentPartsCount = ;
+
         return $month;
     }
 

@@ -8,6 +8,7 @@ use app\models\work\TeacherParticipantWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\TeacherParticipantWork;
 use app\models\work\VisitWork;
 use app\models\work\PersonalDataWork;
 use app\models\work\PersonalDataForeignEventParticipantWork;
@@ -90,6 +91,17 @@ class MergeParticipantModel extends \yii\base\Model
         foreach ($tps as $tp)
         {
             $tp->foreign_event_participant_id = $this->id1;
+            $tp->save(false);
+        }
+
+        //-----------------------------------------
+
+        //Получаем связку с педагогом второго участника
+
+        $tps = TeacherParticipantWork::find()->where(['participant_id' => $this->id2])->all();
+        foreach ($tps as $tp)
+        {
+            $tp->participant_id = $this->id1;
             $tp->save(false);
         }
 
