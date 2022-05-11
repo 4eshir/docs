@@ -584,7 +584,7 @@ class DocumentOrderWork extends DocumentOrder
         {
             $errorsCheck = new GroupErrorsWork();
             $errorsCheck->CheckOrderTrainingGroup($this->groups_check);
-        
+
         }
         // тут должны работать проверки на ошибки
         $errorsCheck = new OrderErrorsWork();
