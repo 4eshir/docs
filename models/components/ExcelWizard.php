@@ -596,9 +596,6 @@ class ExcelWizard
 
     static public function DownloadDoDop1($start_date, $end_date, $budget)
     {
-        $sql = "SELECT `foreign_event_participants`.`secondname`, `foreign_event_participants`.`firstname`, `foreign_event_participants`.`patronymic` FROM `visit` JOIN `training_group_lesson` on `training_group_lesson`.`id` = `visit`.`training_group_lesson_id` JOIN `training_group` on `training_group`.`id` = `training_group_lesson`.`training_group_id` JOIN `foreign_event_participants` on `foreign_event_participants`.`id` = `visit`.`foreign_event_participant_id` WHERE `visit`.`status` = 0 and `training_group`.`start_date` > '2019-12-31' and `training_group`.`start_date` < '2021-12-31' GROUP BY `visit`.`foreign_event_participant_id` HAVING count(`status`) > 4";
-        $result = Yii::$app->db->createCommand($sql)->execute();
-        var_dump($result);
 
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOP.xlsx');
