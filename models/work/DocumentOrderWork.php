@@ -449,17 +449,6 @@ class DocumentOrderWork extends DocumentOrder
             }
         }
 
-        // если в группе была ошибка об отсутствии приказа, то тут она уйдет
-        if ($this->groups_check !== null && count($this->groups_check) > 0)
-        {
-            $errorsCheck = new GroupErrorsWork();
-            $errorsCheck->CheckOrderTrainingGroup($this->groups_check);
-        }
-
-        // тут должны работать проверки на ошибки
-        $errorsCheck = new OrderErrorsWork();
-        $errorsCheck->CheckErrorsDocumentOrderWithoutAmnesty($this->id);
-
         // тут новая таблица связка двух связок (паста)
 
         if ($this->participants_check[0] !== 'nope')
@@ -589,6 +578,17 @@ class DocumentOrderWork extends DocumentOrder
 
             }
         }
+
+        // если в группе была ошибка об отсутствии приказа, то тут она уйдет
+        if ($this->groups_check !== null && count($this->groups_check) > 0)
+        {
+            $errorsCheck = new GroupErrorsWork();
+            $errorsCheck->CheckOrderTrainingGroup($this->groups_check);
+
+        }
+        // тут должны работать проверки на ошибки
+        $errorsCheck = new OrderErrorsWork();
+        $errorsCheck->CheckErrorsDocumentOrderWithoutAmnesty($this->id);
     }
 
     public function beforeDelete()

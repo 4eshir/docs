@@ -242,11 +242,23 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getOrdersName()
     {
-        $orders = OrderGroupWork::find()->where(['training_group_id' => $this->id])->all();
+        /*$orders = OrderGroupWork::find()->where(['training_group_id' => $this->id])->all();
         $result = '';
         foreach ($orders as $order)
         {
             $result .= Html::a($order->documentOrderWork->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->documentOrderWork->id])).'<br>';
+        }
+        return $result;*/
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $partSet = [];
+        foreach ($parts as $part) $partSet[] = $part->id;
+        $pasta = OrderGroupParticipantWork::find()->where(['IN','group_participant_id', $partSet])->all();
+        $pastaSet = [];
+        foreach ($pasta as $macaroni) $pastaSet[] = $macaroni->order_group_id;
+        $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['IN', 'orderGroups.id', $pastaSet])->orderBy(['order_date' => SORT_ASC])->all();
+        foreach ($orders as $order)
+        {
+            $result .= Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id])).'<br>';
         }
         return $result;
     }

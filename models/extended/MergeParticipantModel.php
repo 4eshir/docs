@@ -95,6 +95,17 @@ class MergeParticipantModel extends \yii\base\Model
 
         //-----------------------------------------
 
+        //Получаем связку с педагогом второго участника
+
+        $tps = TeacherParticipantWork::find()->where(['participant_id' => $this->id2])->all();
+        foreach ($tps as $tp)
+        {
+            $tp->participant_id = $this->id1;
+            $tp->save(false);
+        }
+
+        //-----------------------------------------
+
         //удаляем второго участника
 
         $part = ForeignEventParticipantsWork::find()->where(['id' => $this->id2])->one();
