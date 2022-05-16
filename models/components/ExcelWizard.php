@@ -1700,11 +1700,11 @@ class ExcelWizard
         $akaIds = [];
         foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
 
-        var_dump($akaIds);
+        //var_dump($akaIds);
 
         $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
 
-        var_dump(count($teachersPeople));
+        //var_dump(count($teachersPeople));
 
         $currentRow = 2;
         
