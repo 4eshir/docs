@@ -1695,11 +1695,7 @@ class ExcelWizard
             ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])
             ->all();
 
-        var_dump(TeacherGroupWork::find()->select('teacher_id')->distinct()->where(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])->createCommand()->getRawSql());
+        var_dump(count($teachers));
 
         $akaIds = [];
         foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
