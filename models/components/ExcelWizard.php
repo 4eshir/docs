@@ -32,6 +32,7 @@ use app\models\work\VisitWork;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Query;
+use \PHPExcel_Style_Border;
 
 class ExcelWizard
 {
@@ -1699,28 +1700,104 @@ class ExcelWizard
         $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
 
         $currentRow = 2;
-        $currentColumn = 0;
+        
+        $styleArray = array('fill'    => array(
+                    'type'      => 'solid',
+                    'color'     => array('rgb' => 'FFFFFF')
+                ),
+                    'borders' => array(
+                        'bottom'    => array('style' => 'thin'),
+                        'right'     => array('style' => 'thin'),
+                        'top'     => array('style' => 'thin'),
+                        'left'     => array('style' => 'thin')
 
+                    )
+                );
 
         foreach ($teachersPeople as $teacher)
         {
+            $currentColumn = 0;
             $currentMonth = 1;
             $dayMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            $strMonth = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
+            $inputData->getSheet(0)->mergeCells('A'.$currentRow.':Z'.$currentRow);
             $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $teacher->fullName);
-            $currentRow += 3; //пропускаем шапку таблицы
+            $inputData->getSheet(0)->getStyle('A'.$currentRow.':Z'.$currentRow)->applyFromArray($styleArray);
 
-            $tgs = TeacherGroupWork::find()->where(['teacher_id' => $teacher->id])->andWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            $currentRow++;
+
+            $inputData->getSheet(0)->getStyle('A'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('B'.$currentRow.':C'.$currentRow);
+            $inputData->getSheet(0)->getStyle('B'.$currentRow.':C'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('D'.$currentRow.':E'.$currentRow);
+            $inputData->getSheet(0)->getStyle('D'.$currentRow.':E'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('F'.$currentRow.':G'.$currentRow);
+            $inputData->getSheet(0)->getStyle('F'.$currentRow.':G'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('H'.$currentRow.':I'.$currentRow);
+            $inputData->getSheet(0)->getStyle('H'.$currentRow.':I'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('J'.$currentRow.':K'.$currentRow);
+            $inputData->getSheet(0)->getStyle('J'.$currentRow.':K'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('L'.$currentRow.':M'.$currentRow);
+            $inputData->getSheet(0)->getStyle('L'.$currentRow.':M'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('N'.$currentRow.':O'.$currentRow);
+            $inputData->getSheet(0)->getStyle('N'.$currentRow.':O'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('P'.$currentRow.':Q'.$currentRow);
+            $inputData->getSheet(0)->getStyle('P'.$currentRow.':Q'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('R'.$currentRow.':S'.$currentRow);
+            $inputData->getSheet(0)->getStyle('R'.$currentRow.':S'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('T'.$currentRow.':U'.$currentRow);
+            $inputData->getSheet(0)->getStyle('T'.$currentRow.':U'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('V'.$currentRow.':W'.$currentRow);
+            $inputData->getSheet(0)->getStyle('V'.$currentRow.':W'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->mergeCells('X'.$currentRow.':Y'.$currentRow);
+            $inputData->getSheet(0)->getStyle('X'.$currentRow.':Y'.$currentRow)->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('Z'.$currentRow)->applyFromArray($styleArray);
+
+            $currentColumn++;
+            for ($i = 0; $i < 24; $i += 2, $currentColumn++)
+                $inputData->getSheet(0)->setCellValueByColumnAndRow($i + 1, $currentRow, $strMonth[$currentColumn - 1].' '.$year);
+
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(25, $currentRow, 'ИТОГО');
+            $currentRow++;
+
+            $currentColumn = 0;
+            $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, 'Группа');
+            $inputData->getSheet(0)->getStyleByColumnAndRow($currentColumn, $currentRow)->applyFromArray($styleArray);
+            for ($i = 1; $i < 25; $i++)
+            {
+                if ($i % 2 == 0)
+                    $inputData->getSheet(0)->setCellValueByColumnAndRow($i, $currentRow, 'Кол-во чел.');
+                else
+                    $inputData->getSheet(0)->setCellValueByColumnAndRow($i, $currentRow, 'Кол-во ак. часов');
+                $inputData->getSheet(0)->getStyleByColumnAndRow($i, $currentRow)->applyFromArray($styleArray);
+            }
+
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(25, $currentRow, 'ИТОГО');
+            $inputData->getSheet(0)->getStyleByColumnAndRow(25, $currentRow)->applyFromArray($styleArray);
+                
+
+            $inputData->getSheet(0)->getStyle('A'.($currentRow - 2).':Z'.$currentRow)->getFont()->setBold(true);
+            $inputData->getSheet(0)->getRowDimension($currentRow)->setRowHeight(40);
+            $inputData->getSheet(0)->getStyle('A'.$currentRow.':Z'.$currentRow)->getAlignment()->setWrapText(true);
+            $inputData->getSheet(0)->getStyle('A'.($currentRow - 2).':Z'.$currentRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $inputData->getSheet(0)->getStyle('A'.($currentRow - 2).':Z'.$currentRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            
+
+            $currentRow++; //пропускаем шапку таблицы
+
+
+            $tgs = TeacherGroupWork::find()->where(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'training_group_id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
             ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])
+            ->andWhere(['teacher_id' => $teacher->id])
             ->all();
 
             $gIds = [];
             foreach ($tgs as $tg) $gIds[] = $tg->training_group_id;
 
-            //var_dump($gIds);
 
             $tgs = TrainingGroupWork::find()->where(['IN', 'id', $gIds])->all();
 
@@ -1755,10 +1832,6 @@ class ExcelWizard
                     $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, count($lessonTeacher));
                     $currentColumn++;
 
-                    
-
-
-                    
 
                     if ($tempMonthCounter < count($parts) && ($strMonth >= explode("-", $tg->start_date)[1] || $diff > 0))
                     {
@@ -1773,9 +1846,19 @@ class ExcelWizard
 
                 }
                 
+                $temp = 0;
+                $str = '=СУММ(B'.$t.'*C'.$t.';D'.$t.'*E'.$t.';F'.$t.'*G'.$t.';H'.$t.'*I'.$t.';J'.$t.'*K'.$t.';L'.$t.'*M'.$t.';N'.$t.'*O'.$t.';P'.$t.'*Q'.$t.';R'.$t.'*S'.$t.';T'.$t.'*U'.$t.';V'.$t.'*W'.$t.';X'.$t.'*Y'.$t.')';
+                
+                for ($i = 1; $i < 24; $i += 2)
+                {
+                    $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
+                }
+                    //$temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow) * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow);
 
+                $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $temp);
                 $currentRow++;
             }
+            $currentRow++;
         }
 
 
@@ -1784,6 +1867,7 @@ class ExcelWizard
         header('Cache-Control: max-age=0');
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        //$writer->setPreCalculateFormulas(true);
         $writer->save('php://output');
         exit;
     }
