@@ -1695,12 +1695,16 @@ class ExcelWizard
             ->andWhere(['IN', 'training_group_id', ExcelWizard::GetGroupsByBranchAndFocus($branch, 0, [0, 1])])
             ->all();
 
-        var_dump(count($teachers));
+        
 
         $akaIds = [];
         foreach ($teachers as $teacher) $akaIds[] = $teacher->teacher_id;
 
+        var_dump($akaIds);
+
         $teachersPeople = PeopleWork::find()->where(['IN', 'id', $akaIds])->all();
+
+        var_dump(count($teachersPeople));
 
         $currentRow = 2;
         
