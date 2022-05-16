@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'patronymic',
             'sex',
             ['attribute' => 'birthdate', 'value' => function($model){return date("d.m.Y", strtotime($model->birthdate));}],
-            ['attribute' => 'eventsExcel', 'format' => 'raw'],
-            'studiesExcel',
+            ['attribute' => 'eventsExcel', 'label' => 'Мероприятия', 'format' => 'raw'],
+            ['attribute' => 'studiesExcel', 'label' => 'Учебные группы'],
             ['class' => 'yii\grid\ActionColumn'],
 
     ];

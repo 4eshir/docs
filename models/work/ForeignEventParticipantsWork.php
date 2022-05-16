@@ -133,7 +133,6 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
         $eventsLink = '';
         foreach ($events as $event)
         {
-            $eventsLink .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
             $eventsLink = $eventsLink.'[Группа '.$event->trainingGroup->number;
             $eventsLink .= '] ';
         }
