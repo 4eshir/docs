@@ -62,11 +62,6 @@ class AsAdminController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $searchModel = new SearchAsAdmin();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -101,11 +96,6 @@ class AsAdminController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = new AsAdminWork();
         $modelUseYears = [new UseYearsWork()];
         $modelAsInstall = [new AsInstallWork()];
@@ -160,11 +150,6 @@ class AsAdminController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = $this->findModel($id);
         $modelAsInstall = [new AsInstallWork];
         $res = \app\models\common\UseYears::find()->where(['as_admin_id' => $model->id])->one();
@@ -217,11 +202,6 @@ class AsAdminController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -265,22 +245,12 @@ class AsAdminController extends Controller
 
     public function actionIndexCompany()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = AsCompanyWork::find()->all();
         return $this->render('index-company', ['model' => $model]);
     }
 
     public function actionAddCompany()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = new AsCompanyWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
@@ -294,12 +264,6 @@ class AsAdminController extends Controller
 
     public function actionDeleteCompany($model_id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            var_dump('lol');
-            return $this->render('/site/error');
-        }
         $model = AsCompanyWork::find()->where(['id' => $model_id])->one();
         if (count(AsAdminWork::find()->where(['as_company_id' => $model_id])->all()) == 0)
             $model->delete();
@@ -312,22 +276,12 @@ class AsAdminController extends Controller
 
     public function actionIndexCountry()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = CountryWork::find()->all();
         return $this->render('index-country', ['model' => $model]);
     }
 
     public function actionAddCountry()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = new CountryWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
@@ -341,11 +295,6 @@ class AsAdminController extends Controller
 
     public function actionDeleteCountry($model_id)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = CountryWork::find()->where(['id' => $model_id])->one();
         if (count(AsAdminWork::find()->where(['country_prod_id' => $model_id])->all()) == 0)
             $model->delete();
@@ -358,22 +307,12 @@ class AsAdminController extends Controller
 
     public function actionIndexAsType()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = AsTypeWork::find()->all();
         return $this->render('index-as-type', ['model' => $model]);
     }
 
     public function actionAddAsType()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = new AsTypeWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
@@ -399,22 +338,12 @@ class AsAdminController extends Controller
 
     public function actionIndexLicense()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = LicenseWork::find()->all();
         return $this->render('index-license', ['model' => $model]);
     }
 
     public function actionAddLicense()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
         $model = new LicenseWork;
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
@@ -511,11 +440,7 @@ class AsAdminController extends Controller
 
     public function actionRefreshLicense()
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
-        if (!UserRBAC::CheckAccess(Yii::$app->user->identity->getId(), Yii::$app->controller->action->id, Yii::$app->controller->id)) {
-            return $this->render('/site/error');
-        }
+        
         $as = AsAdminWork::find()->all();
         $date = new DateTime(date("Y-m-d"));
         foreach ($as as $asOne)
@@ -528,5 +453,17 @@ class AsAdminController extends Controller
             $asOne->save(false);
         }
         return $this->redirect('index.php?r=as-admin/index');
+    }
+
+    //Проверка на права доступа к CRUD-операциям
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest)
+            return $this->redirect(['/site/login']);
+        if (Yii::$app->user->identity->getId() !== 26){//!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId())) {
+            $this->redirect(['/site/error-access']);
+            return false;
+        }
+        return parent::beforeAction($action); // TODO: Change the autogenerated stub
     }
 }
