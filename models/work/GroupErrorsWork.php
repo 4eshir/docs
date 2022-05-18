@@ -143,6 +143,7 @@ var_dump($pastaCount);
     public function CheckOrderTrainingGroup ($groupsID)     // проверка всех групп которые были отмечены в образовательном приказе при его создании/редактировании
     {
         $now_time = date("Y-m-d");
+        var_dump($groupsID);
         foreach ($groupsID as $groupID)
         {
             $group = TrainingGroupWork::find()->where(['id' => $groupID])->one();
