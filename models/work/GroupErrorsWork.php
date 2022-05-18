@@ -122,7 +122,13 @@ class GroupErrorsWork extends GroupErrors
                 $oneErr->save();
             }
         }
-
+var_dump('Внимание, идет отладка системы!');
+var_dump(count($err));
+var_dump($midStudy);
+var_dump($now_time);
+var_dump($end_time);
+var_dump($partCount);
+var_dump($pastaCount);
         if ((count($err) == 0) && !$midStudy)
         {
             $this->training_group_id = $modelGroupID;
