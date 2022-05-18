@@ -122,13 +122,7 @@ class GroupErrorsWork extends GroupErrors
                 $oneErr->save();
             }
         }
-var_dump('Внимание, идет отладка системы!');
-var_dump(count($err));
-var_dump($midStudy);
-var_dump($now_time);
-var_dump($end_time);
-var_dump($partCount);
-var_dump($pastaCount);
+
         if ((count($err) == 0) && !$midStudy)
         {
             $this->training_group_id = $modelGroupID;
@@ -143,7 +137,6 @@ var_dump($pastaCount);
     public function CheckOrderTrainingGroup ($groupsID)     // проверка всех групп которые были отмечены в образовательном приказе при его создании/редактировании
     {
         $now_time = date("Y-m-d");
-        var_dump($groupsID);
         foreach ($groupsID as $groupID)
         {
             $group = TrainingGroupWork::find()->where(['id' => $groupID])->one();
@@ -472,13 +465,11 @@ var_dump($pastaCount);
         $this->CheckAuditorium($modelGroupID);
         $this->IncorrectDates($modelGroupID, $group);
         $this->CheckArchive($modelGroupID, $group, $now_time);
-        if ($group->start_date >= "2022-03-01")
-            $this->CheckPasta($modelGroupID, $group, $now_time);
+        $this->CheckPasta($modelGroupID, $group, $now_time);
     }
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
     {
-        var_dump($modelGroupID);
         $this->NoAmnesty($modelGroupID);
         $this->CheckErrorsTrainingGroup($modelGroupID);
         $this->CheckErrorsJournal($modelGroupID);
