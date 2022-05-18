@@ -260,7 +260,7 @@ class TrainingGroupWork extends TrainingGroup
             $ogs = OrderGroupWork::find()->where(['training_group_id' => $this->id])->all();
             $ogsId = [];
             foreach ($ogs as $og) $ogsId[] = $og->document_order_id;
-            $orders = DocumentOrder::find()->where(['IN', 'id', $ogsId])->orderBy(['order_date' => SORT_ASC])->all();
+            $orders = DocumentOrderWork::find()->where(['IN', 'id', $ogsId])->orderBy(['order_date' => SORT_ASC])->all();
         }
         else
             $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['IN', 'orderGroups.id', $pastaSet])->orderBy(['order_date' => SORT_ASC])->all();
