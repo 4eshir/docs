@@ -478,6 +478,7 @@ var_dump($pastaCount);
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
     {
+        var_dump($modelGroupID);
         $this->NoAmnesty($modelGroupID);
         $this->CheckErrorsTrainingGroup($modelGroupID);
         $this->CheckErrorsJournal($modelGroupID);
