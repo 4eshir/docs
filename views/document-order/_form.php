@@ -300,7 +300,7 @@ $session = Yii::$app->session;
             document.getElementById('study-type').style.display = '';
             document.getElementById('study-type').innerHTML = `<label class="control-label">Преамбула</label><div id="documentorderwork-study_type" role="radiogroup">
                 <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="0" tabindex="3" style="margin-right: 5px" ><i></i><span>По решению аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты</span></label><br>
-                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>Не прошедшим итоговую форму контроля</span></label><br>
+                <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="1" tabindex="3" style="margin-right: 5px" checked=""><i></i><span>В связи с завершением обучения без успешного прохождения итоговой формы контроля</span></label><br>
                 <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>По заявлению родителя</span></label><br>
                 <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="3" tabindex="3" style="margin-right: 5px" ><i></i><span>По соглашению сторон</span></label><br><br></div>`;
         }
