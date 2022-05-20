@@ -167,7 +167,7 @@ class WordWizard
                 $text .= '<w:br/>          2.	Назначить руководителями учебных групп работников ГАОУ АО ДО «РШТ», указанных в Приложении к настоящему приказу.';
         }
 
-        $posOne = $pos->where(['people_id' => $order->executor])->one();
+        $posOne = $pos->where(['people_id' => $order->executor_id])->one();
         $text .= '<w:br/>          3.	Ответственным за контроль соблюдения расписания учебных групп и соответствия тематике проводимых учебных занятий';
         if (count($groups) == 1)
             $text .= ' дополнительной общеразвивающей программе назначить работника: ';
@@ -185,7 +185,7 @@ class WordWizard
             $text .= 'учебных групп ';
         $text .= 'проводить с обучающимися инструктажи по технике безопасности в соответствии с дополнительными общеразвивающими программами.';
 
-        $posOne = $pos->where(['people_id' => $order->bring])->one();
+        $posOne = $pos->where(['people_id' => $order->bring_id])->one();
         $text .= '<w:br/>          5.	Ответственным за своевременное ознакомление руководителей учебных групп с настоящим приказом назначить работника: '
             . mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->bring->firstname, 0, 1) . '. ' . mb_substr($order->bring->patronymic, 0, 1) . '. ' . $order->bring->secondname;
 
