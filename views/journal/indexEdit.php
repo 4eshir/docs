@@ -255,6 +255,9 @@ $this->params['breadcrumbs'][] = $this->title;
             echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a disabled class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a disabled class="btn btn-default">Все --</a>'."</th>";
         $c++;
     }
+    //echo '<th style="vertical-align: middle;">Тема проекта</th>';
+    //echo '<th style="vertical-align: middle;">Оценка</th>';
+    //echo '<th style="vertical-align: middle;">Успешное завершение</th>';
     echo '</thead><tbody>';
     foreach ($parts as $part)
     {
@@ -304,6 +307,9 @@ $this->params['breadcrumbs'][] = $this->title;
             $c++;
             $counter++;
         }
+        //echo '<td>--</td>';
+        //echo '<td>'.$form->field($model, 'projectThemes[]')->textInput(['type' => 'number', 'value' => 0, $group->archive ? 'disabled' : '' => '', 'style' => 'min-width: 70px'])->label(false).'</td>';
+        //echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null]).'</td>';
         echo '</tr>';
     }
     echo '</tbody></table></div><br>';

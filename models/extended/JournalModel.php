@@ -19,6 +19,10 @@ class JournalModel extends \yii\base\Model
     public $controls; //список форм контроля
     public $visits_id; //id записей о посещении
 
+    public $projectThemes; //темы проектов
+    public $cwPoints; //оценки
+    public $successes; //успешное завершение
+
     function __construct($group_id = null)
     {
         $this->trainingGroup = $group_id;
@@ -27,7 +31,7 @@ class JournalModel extends \yii\base\Model
     public function rules()
     {
         return [
-            [['visits', 'participants', 'lessons', 'themes', 'teachers', 'visits_id', 'controls'], 'safe'],
+            [['visits', 'participants', 'lessons', 'themes', 'teachers', 'visits_id', 'controls', 'projectThemes', 'cwPoints', 'successes'], 'safe'],
             [['trainingGroup'], 'integer'],
         ];
     }
