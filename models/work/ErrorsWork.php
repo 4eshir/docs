@@ -415,7 +415,8 @@ class ErrorsWork extends Errors
             $events = EventWork::find()->where(['IN', 'id',
                             (new Query())->select('id')->from('event_branch')->where(['branch_id' => $branch])])->all();
         }
-        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))   // значит админ
+        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+                \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6))   // значит админ или суперконтролер
         {
             $events = EventWork::find()->all();
         }
@@ -473,7 +474,8 @@ class ErrorsWork extends Errors
             $foreignEvents = ForeignEventWork::find()->where(['IN', 'id',
                 (new Query())->select('id')->from('teacher_participant')->where(['branch_id' => $branch])])->all();
         }
-        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))   // значит админ
+        else if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+                \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6))   // значит админ или суперконтролер
         {
             $foreignEvents = ForeignEventWork::find()->all();
         }
