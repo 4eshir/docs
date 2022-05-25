@@ -6,6 +6,7 @@ namespace app\models\extended;
 
 use app\models\common\LessonTheme;
 use app\models\common\Visit;
+use app\models\work\TrainingGroupParticipantWork;
 
 class JournalModel extends \yii\base\Model
 {
@@ -22,6 +23,9 @@ class JournalModel extends \yii\base\Model
     public $projectThemes; //темы проектов
     public $cwPoints; //оценки
     public $successes; //успешное завершение
+    public $tpIds; //айдишники group_participant
+
+    public $groupProjectThemes;
 
     function __construct($group_id = null)
     {
@@ -31,7 +35,7 @@ class JournalModel extends \yii\base\Model
     public function rules()
     {
         return [
-            [['visits', 'participants', 'lessons', 'themes', 'teachers', 'visits_id', 'controls', 'projectThemes', 'cwPoints', 'successes'], 'safe'],
+            [['visits', 'participants', 'lessons', 'themes', 'teachers', 'visits_id', 'controls', 'projectThemes', 'cwPoints', 'successes', 'tpIds', 'groupProjectThemes'], 'safe'],
             [['trainingGroup'], 'integer'],
         ];
     }
@@ -86,6 +90,22 @@ class JournalModel extends \yii\base\Model
                     $theme->save();
                 }
             }
+        }
+
+        $tempSuccess = [];
+        for ($i = 0; $i < count($this->successes) - 1; $i++)
+            if ($this->successes[$i] == 0 && $this->successes[$i + 1] != 0)
+                $tempSuccess[] = $this->successes[$i + 1];
+            else if ($this->successes[$i] == 0)
+                $tempSuccess[] = $this->successes[$i];
+
+        for ($i = 0; $i < count($this->tpIds); $i++)
+        {
+            $tp = TrainingGroupParticipantWork::find()->where(['id' => $this->tpIds[$i]])->one();
+            $tp->points = $this->cwPoints[$i];
+            if ($this->tpIds[$i] == $tempSuccess[$i]) $tp->success = 1;
+            else $tp->success = false;
+            $tp->save();
         }
 
     }

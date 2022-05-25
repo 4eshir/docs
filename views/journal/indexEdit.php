@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\extended\JournalModel */
@@ -223,9 +224,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php
-    $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC])->all();
+    $parts = \app\models\work\TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->trainingGroup])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();
     $lessons = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC, 'id' => SORT_ASC])->all();
-    $form = ActiveForm::begin();
+    $form = ActiveForm::begin(['id' => 'dynamic-form']);
     //echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary md-trigger', 'data-modal' => 'modal-12', 'style' => "margin-left: 55em; margin-top: -4em;"]);
     $counter = 0;
 
@@ -255,9 +256,9 @@ $this->params['breadcrumbs'][] = $this->title;
             echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a disabled class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a disabled class="btn btn-default">Все --</a>'."</th>";
         $c++;
     }
-    //echo '<th style="vertical-align: middle;">Тема проекта</th>';
-    //echo '<th style="vertical-align: middle;">Оценка</th>';
-    //echo '<th style="vertical-align: middle;">Успешное завершение</th>';
+    echo '<th style="vertical-align: middle;">Тема проекта</th>';
+    echo '<th style="vertical-align: middle;">Оценка</th>';
+    echo '<th style="vertical-align: middle;">Успешное завершение</th>';
     echo '</thead><tbody>';
     foreach ($parts as $part)
     {
@@ -307,9 +308,25 @@ $this->params['breadcrumbs'][] = $this->title;
             $c++;
             $counter++;
         }
-        //echo '<td>--</td>';
-        //echo '<td>'.$form->field($model, 'projectThemes[]')->textInput(['type' => 'number', 'value' => 0, $group->archive ? 'disabled' : '' => '', 'style' => 'min-width: 70px'])->label(false).'</td>';
-        //echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null]).'</td>';
+
+        $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
+        $tId = [];
+        foreach ($themes as $theme) $tId[] = $theme->theme_id;
+
+        $themes = \app\models\work\ProjectThemeWork::find()->where(['IN', 'id', $tId])->all();
+
+        $items = \yii\helpers\ArrayHelper::map($themes,'id','name');
+        $params = [
+            'prompt' => '--',
+            'style' => 'min-width: 200px'
+        ];
+
+        echo '<td>'.$form->field($model, "projectThemes[]")->dropDownList($items,$params)->label(false).'</td>';
+        echo '<td>'.$form->field($model, 'cwPoints[]')->textInput(['type' => 'number', 'value' => $part->points, $group->archive ? 'disabled' : '' => '', 'style' => 'min-width: 70px'])->label(false).'</td>';
+        if ($part->success == 1)
+            echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'checked' => 'checked', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+        else
+            echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
         echo '</tr>';
     }
     echo '</tbody></table></div><br>';
@@ -362,7 +379,70 @@ $this->params['breadcrumbs'][] = $this->title;
             $form->field($model, "teachers[]")->dropDownList($items,$params)->label(false).
             '</td></tr>';
     }
-    echo '</table></div>';
+    echo '</table></div>';?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Темы проектов</p></div>
+            <?php
+            $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
+            if ($themes != null)
+            {
+                echo '<table>';
+                foreach ($themes  as $theme) {
+                    echo '<tr><td style="padding-left: 20px"><h4>"'.$theme->projectTheme->name.'"</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-external-event', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items1', // required: css class selector
+                    'widgetItem' => '.item1', // required: css class
+                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelProjectThemes[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'eventExternalName',
+                    ],
+                ]); ?>
+
+                <div class="container-items1" ><!-- widgetContainer -->
+                    <?php foreach ($modelProjectThemes as $i => $modelProjectTheme): ?>
+                        <div class="item1 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <div class="pull-right">
+                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <?php
+
+                                    $branch = \app\models\work\EventExternalWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
+                                    echo $form->field($modelProjectTheme, "[{$i}]themeName")->textInput($items,$params)->label('Тема проекта');
+                                    ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+    <?php 
     echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary md-trigger', 'data-modal' => 'modal-12']);
     ActiveForm::end();
     ?>

@@ -1,0 +1,71 @@
+<?php
+
+namespace app\models\common;
+
+use Yii;
+
+/**
+ * This is the model class for table "group_project_themes".
+ *
+ * @property int $id
+ * @property int $training_group_id
+ * @property int $project_theme_id
+ *
+ * @property ProjectTheme $projectTheme
+ * @property TrainingGroup $trainingGroup
+ */
+class GroupProjectThemes extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'group_project_themes';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['training_group_id', 'project_theme_id'], 'required'],
+            [['training_group_id', 'project_theme_id'], 'integer'],
+            [['project_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProjectTheme::className(), 'targetAttribute' => ['project_theme_id' => 'id']],
+            [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'training_group_id' => 'Training Group ID',
+            'project_theme_id' => 'Project Theme ID',
+        ];
+    }
+
+    /**
+     * Gets query for [[ProjectTheme]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProjectTheme()
+    {
+        return $this->hasOne(ProjectTheme::className(), ['id' => 'project_theme_id']);
+    }
+
+    /**
+     * Gets query for [[TrainingGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroup()
+    {
+        return $this->hasOne(TrainingGroup::className(), ['id' => 'training_group_id']);
+    }
+}

@@ -8,6 +8,8 @@ use app\models\work\LessonThemeWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\GroupProjectThemesWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\extended\AccessTrainingGroup;
@@ -19,6 +21,7 @@ use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\DynamicModel;
 
 /**
  * CompanyController implements the CRUD actions for Company model.
@@ -102,6 +105,10 @@ class JournalController extends Controller
         $model->visits_id = $newVisitsId;
         if ($model->load(Yii::$app->request->post()))
         {
+            $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
+            $model->groupProjectThemes = $modelProjectThemes;
+
             $model->save();
             $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен журнал группы '.$group->number);
@@ -113,6 +120,7 @@ class JournalController extends Controller
         }        $model->trainingGroup = $group_id;
         return $this->render('indexEdit', [
             'model' => $model,
+            'modelProjectThemes' => (empty($modelProjectThemes)) ? [new GroupProjectThemesWork] : $modelProjectThemes,
         ]);
     }
 
