@@ -9,14 +9,19 @@ use Yii;
  *
  * @property int $id
  * @property int $participant_id
- * @property string|null $certificat_number
+ * @property int|null $certificat_number
  * @property int|null $send_method_id
  * @property int $training_group_id
  * @property int $status
+ * @property int|null $success
+ * @property int|null $points
+ * @property int|null $group_project_themes_id
  *
+ * @property OrderGroupParticipant[] $orderGroupParticipants
  * @property ForeignEventParticipants $participant
  * @property SendMethod $sendMethod
  * @property TrainingGroup $trainingGroup
+ * @property GroupProjectThemes $groupProjectThemes
  */
 class TrainingGroupParticipant extends \yii\db\ActiveRecord
 {
@@ -34,12 +39,12 @@ class TrainingGroupParticipant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['training_group_id'], 'required'],
-            [['participant_id', 'send_method_id', 'training_group_id', 'status'], 'integer'],
-            [['certificat_number'], 'string', 'max' => 11],
+            [['participant_id', 'training_group_id'], 'required'],
+            [['participant_id', 'certificat_number', 'send_method_id', 'training_group_id', 'status', 'success', 'points', 'group_project_themes_id'], 'integer'],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
+            [['group_project_themes_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProjectThemes::className(), 'targetAttribute' => ['group_project_themes_id' => 'id']],
         ];
     }
 
@@ -54,7 +59,21 @@ class TrainingGroupParticipant extends \yii\db\ActiveRecord
             'certificat_number' => 'Certificat Number',
             'send_method_id' => 'Send Method ID',
             'training_group_id' => 'Training Group ID',
+            'status' => 'Status',
+            'success' => 'Success',
+            'points' => 'Points',
+            'group_project_themes_id' => 'Group Project Themes ID',
         ];
+    }
+
+    /**
+     * Gets query for [[OrderGroupParticipants]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderGroupParticipants()
+    {
+        return $this->hasMany(OrderGroupParticipant::className(), ['group_participant_id' => 'id']);
     }
 
     /**
@@ -85,5 +104,15 @@ class TrainingGroupParticipant extends \yii\db\ActiveRecord
     public function getTrainingGroup()
     {
         return $this->hasOne(TrainingGroup::className(), ['id' => 'training_group_id']);
+    }
+
+    /**
+     * Gets query for [[GroupProjectThemes]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroupProjectThemes()
+    {
+        return $this->hasOne(GroupProjectThemes::className(), ['id' => 'group_project_themes_id']);
     }
 }

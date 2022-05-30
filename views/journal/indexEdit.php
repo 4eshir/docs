@@ -311,14 +311,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
         $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
         $tId = [];
-        foreach ($themes as $theme) $tId[] = $theme->theme_id;
+        foreach ($themes as $theme) $tId[] = $theme->project_theme_id;
 
-        $themes = \app\models\work\ProjectThemeWork::find()->where(['IN', 'id', $tId])->all();
+        //$themes = \app\models\work\ProjectThemeWork::find()->where(['IN', 'id', $tId])->all();
 
-        $items = \yii\helpers\ArrayHelper::map($themes,'id','name');
+        $items = \yii\helpers\ArrayHelper::map($themes,'id','projectTheme.name');
         $params = [
             'prompt' => '--',
-            'style' => 'min-width: 200px'
+            'style' => 'min-width: 200px',
+            'options' => [
+                    $part->group_project_themes_id => ['selected' => true]
+                ]
         ];
 
         echo '<td>'.$form->field($model, "projectThemes[]")->dropDownList($items,$params)->label(false).'</td>';
@@ -384,12 +387,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default">
             <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Темы проектов</p></div>
             <?php
-            $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
+            $themes = \app\models\work\GroupProjectThemesWork::find()->joinWith(['projectTheme projectTheme'])->where(['training_group_id' => $model->trainingGroup])->all();
             if ($themes != null)
             {
                 echo '<table>';
-                foreach ($themes  as $theme) {
-                    echo '<tr><td style="padding-left: 20px"><h4>"'.$theme->projectTheme->name.'"</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-external-event', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                foreach ($themes as $theme) {
+                    echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['journal/delete-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }

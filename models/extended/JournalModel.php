@@ -7,6 +7,8 @@ namespace app\models\extended;
 use app\models\common\LessonTheme;
 use app\models\common\Visit;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\ProjectThemeWork;
+use app\models\work\GroupProjectThemesWork;
 
 class JournalModel extends \yii\base\Model
 {
@@ -99,12 +101,29 @@ class JournalModel extends \yii\base\Model
             else if ($this->successes[$i] == 0)
                 $tempSuccess[] = $this->successes[$i];
 
+        for ($i = 0; $i < count($this->groupProjectThemes); $i++)
+        {
+            $tempId = -1;
+
+            $pt = new ProjectThemeWork();
+            $pt->name = $this->groupProjectThemes[$i]->themeName;
+            if ($pt->save())
+                $tempId = $pt->id;
+                
+
+            $gpt = new GroupProjectThemesWork();
+            $gpt->training_group_id = $this->trainingGroup;
+            $gpt->project_theme_id = $tempId;
+            $gpt->save();
+        }
+
         for ($i = 0; $i < count($this->tpIds); $i++)
         {
             $tp = TrainingGroupParticipantWork::find()->where(['id' => $this->tpIds[$i]])->one();
             $tp->points = $this->cwPoints[$i];
             if ($this->tpIds[$i] == $tempSuccess[$i]) $tp->success = 1;
             else $tp->success = false;
+            $tp->group_project_themes_id = $this->projectThemes[$i];
             $tp->save();
         }
 

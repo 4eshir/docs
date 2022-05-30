@@ -129,6 +129,9 @@ $this->params['breadcrumbs'][] = $this->title;
     {
         echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
     }
+    echo '<th style="vertical-align: middle;">Тема проекта</th>';
+    echo '<th style="vertical-align: middle;">Оценка</th>';
+    echo '<th style="vertical-align: middle;">Успешное завершение</th>';
     echo '</tr>';
     $counter = 0;
     foreach ($parts as $part)
@@ -145,6 +148,12 @@ $this->params['breadcrumbs'][] = $this->title;
             echo $visits->prettyStatus;
             $counter++;
         }
+        echo '<td style="text-align: left; min-width: 500px">'.$part->groupProjectThemes->projectTheme->name.'</td>';
+        echo '<td>'.$part->points.'</td>';
+        if ($part->success == 1)
+            echo '<td style="width: 10px">'.$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'checked' => 'checked', 'label' => '', 'value' => $part->id,]).'</td>';
+        else
+            echo '<td style="width: 10px">'.$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'label' => '', 'value' => $part->id,]).'</td>';
         echo '</tr>';
     }
     echo '</table></div><br><br>';
@@ -159,4 +168,18 @@ $this->params['breadcrumbs'][] = $this->title;
              <td>'.$result.'</td><td>'.$theme->controlType->name.'</td><td>'.$theme->teacherWork->shortName.'</td></tr>';
     }
     echo '</table></div>';
+
+    echo '<h4>Темы проектов</h4>';
+
+    $themes = \app\models\work\GroupProjectThemesWork::find()->joinWith(['projectTheme projectTheme'])->where(['training_group_id' => $model->trainingGroup])->all();
+    if ($themes != null)
+    {
+        echo '<table class="table table-responsive">';
+        foreach ($themes as $theme) {
+            echo '<tr><td style="padding-left: 20px; text-align: left"><h5>Тема: '.$theme->projectTheme->name.'</h5></td></tr>';
+        }
+        echo '</table>';
+    }
+    //echo '</div>';
 ?>
+    
