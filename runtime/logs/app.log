@@ -83,3 +83,77 @@ $_SERVER = [
     ]
     'argc' => 1
 ]
+2022-05-31 16:03:46 [127.0.0.1][1][g0qmohbe5oho8hm32rij022orqe7jsmp][error][Error] Error: Class 'app\controllers\RoleBaseAccess' not found in C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php:133
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(176): app\controllers\CertificatController->beforeAction(Object(yii\base\InlineAction))
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('create', Array)
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/crea...', Array)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#4 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#5 {main}
+2022-05-31 16:03:46 [127.0.0.1][1][g0qmohbe5oho8hm32rij022orqe7jsmp][info][application] $_GET = [
+    'r' => 'certificat/create'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'g0qmohbe5oho8hm32rij022orqe7jsmp'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => 'dd05a9833c8db7be212b2e79b3d8039c57c51c866f7e7e02a4da35283f651e85a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"BfCH6xTsgWiAtjsWouYhDv7abrkWObRE\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=site%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=g0qmohbe5oho8hm32rij022orqe7jsmp; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=dd05a9833c8db7be212b2e79b3d8039c57c51c866f7e7e02a4da35283f651e85a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22BfCH6xTsgWiAtjsWouYhDv7abrkWObRE%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '64025'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=certificat%2Fcreate'
+    'REQUEST_URI' => '/index.php?r=certificat%2Fcreate'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1654002226.705
+    'REQUEST_TIME' => 1654002226
+    'argv' => [
+        0 => 'r=certificat%2Fcreate'
+    ]
+    'argc' => 1
+]

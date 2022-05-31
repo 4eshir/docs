@@ -180,6 +180,7 @@ $this->title = 'ЦСХД';
                         <ul>
                             <li><?php echo Html::a('Учебные группы', \yii\helpers\Url::to(['training-group/index'])) ?></li>
                             <li><?php echo Html::a('Журнал', \yii\helpers\Url::to(['journal/index'])) ?></li>
+                            <li><?php echo Html::a('Генерация сертификатов', \yii\helpers\Url::to(['certificat/create'])) ?></li>
                         </ul>
                     </div>
                 </a>
