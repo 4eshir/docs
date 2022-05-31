@@ -80,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
+            ['attribute' => 'certificatTypeString', 'label' => 'Итоговая фомра контроля'],
             'key_words',
             ['attribute' => function($model) {return $model->actual == 0 ? 'Нет' : 'Да';}, 'label' => 'Образовательная программа актуальна'],
         ],

@@ -272,6 +272,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'hour_capacity')->textInput() ?>
 
+    <?php
+    $cont = \app\models\work\CertificatTypeWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($cont,'id','name');
+    $params = [
+    ];
+    echo $form->field($model, 'certificat_type_id')->dropDownList($items,$params)->label('Итоговая форма контроля');
+    ?>
+
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'actual')->checkbox(); ?>

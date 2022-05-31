@@ -39,7 +39,7 @@ class TrainingProgramWork extends TrainingProgram
             [['name', 'author_id', 'focus', 'hour_capacity', 'capacity'], 'required'],
             [['ped_council_date'], 'safe'],
             [['student_left_age'], 'double'],
-            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat', 'certificat_type_id'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
@@ -91,6 +91,11 @@ class TrainingProgramWork extends TrainingProgram
     public function getActualExport()
     {
         return $this->actual == 0 ? 'Не актуальна' : 'Актуальна';
+    }
+
+    public function getCertificatTypeString()
+    {
+        return $this->certificatType->name;
     }
 
     public function getNameX()
