@@ -107,7 +107,7 @@ class GroupErrorsWork extends GroupErrors
         $partCount = count(TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->all());
         $end_time = $group->finish_date;
         $midStudy = $now_time < $end_time && $partCount <= $pastaCount;     // если ещё не конец обучения, то на каждого ребенка минимум один приказ
-        $graduation = $now_time > $end_time && (2 * $partCount) <= $pastaCount;     // если конец обучения, то на каждого ребенка два приказа - зачислени и отчисление
+        $graduation = $now_time >= $end_time && (2 * $partCount) <= $pastaCount;     // если конец обучения, то на каждого ребенка два приказа - зачислени и отчисление
 
         foreach ($err as $oneErr)
         {
