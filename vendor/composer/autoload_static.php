@@ -7,26 +7,24 @@ namespace Composer\Autoload;
 class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
 {
     public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'e3b2795a8a512b6083af088fb53afe6c' => __DIR__ . '/..' . '/codeception/codeception/functions.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
-        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -43,6 +41,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'w' => 
         array (
             'wbraganca\\dynamicform\\' => 22,
+        ),
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
         ),
         'p' => 
         array (
@@ -103,26 +105,29 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
+            'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
             'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
         ),
-        'O' => 
-        array (
-            'Opis\\Closure\\' => 13,
-        ),
         'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
+            'Mpdf\\' => 5,
             'Matrix\\' => 7,
         ),
         'L' => 
         array (
             'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\Escaper\\' => 16,
+        ),
+        'H' => 
+        array (
+            'Http\\Message\\' => 13,
         ),
         'G' => 
         array (
@@ -180,6 +185,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         array (
             0 => __DIR__ . '/..' . '/wbraganca/yii2-dynamicform/src',
         ),
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -204,7 +213,7 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         ),
         'kartik\\mpdf\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf/src',
         ),
         'kartik\\grid\\' => 
         array (
@@ -326,10 +335,14 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -338,6 +351,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Psr\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Prophecy\\' => 
         array (
@@ -351,13 +368,13 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'Opis\\Closure\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/opis/closure/src',
-        ),
         'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
         ),
         'Matrix\\' => 
         array (
@@ -370,6 +387,10 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Laminas\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
+        ),
+        'Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -405,8 +426,8 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         ),
         'Codeception\\' => 
         array (
-            0 => __DIR__ . '/..' . '/codeception/verify/src/Codeception',
-            1 => __DIR__ . '/..' . '/codeception/stub/src',
+            0 => __DIR__ . '/..' . '/codeception/stub/src',
+            1 => __DIR__ . '/..' . '/codeception/verify/src/Codeception',
             2 => __DIR__ . '/..' . '/codeception/codeception/src/Codeception',
         ),
     );
@@ -451,12 +472,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
-        'CGIF' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'CGIFCOLORTABLE' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'CGIFFILEHEADER' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'CGIFIMAGE' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'CGIFIMAGEHEADER' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'CGIFLZW' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
         'Codeception\\Exception\\ExternalUrlException' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Exception/ExternalUrlException.php',
         'Codeception\\Lib\\Connector\\Yii2' => __DIR__ . '/..' . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php',
         'Codeception\\Lib\\Connector\\Yii2\\ConnectionWatcher' => __DIR__ . '/..' . '/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2/ConnectionWatcher.php',
@@ -474,17 +489,8 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'Codeception\\Util\\Shared\\Asserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/Asserts.php',
         'Codeception\\Util\\Shared\\InheritedAsserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/InheritedAsserts.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'FPDF_TPL' => __DIR__ . '/..' . '/setasign/fpdi/fpdf_tpl.php',
-        'FPDI' => __DIR__ . '/..' . '/setasign/fpdi/fpdi.php',
-        'FilterASCII85' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterASCII85.php',
-        'FilterASCIIHexDecode' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterASCIIHexDecode.php',
-        'FilterLZW' => __DIR__ . '/..' . '/setasign/fpdi/filters/FilterLZW.php',
-        'INDIC' => __DIR__ . '/..' . '/mpdf/mpdf/classes/indic.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
-        'MYANMAR' => __DIR__ . '/..' . '/mpdf/mpdf/classes/myanmar.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
-        'OTLdump' => __DIR__ . '/..' . '/mpdf/mpdf/classes/otl_dump.php',
-        'PDFBarcode' => __DIR__ . '/..' . '/mpdf/mpdf/classes/barcode.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/AssertionFailedError.php',
@@ -684,6 +690,7 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'PHPUnit\\Util\\PHP\\DefaultPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/DefaultPhpProcess.php',
         'PHPUnit\\Util\\PHP\\WindowsPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/WindowsPhpProcess.php',
         'PHPUnit\\Util\\Printer' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Printer.php',
+        'PHPUnit\\Util\\Reflection' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Reflection.php',
         'PHPUnit\\Util\\RegularExpression' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/RegularExpression.php',
         'PHPUnit\\Util\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Test.php',
         'PHPUnit\\Util\\TestDox\\CliTestDoxPrinter' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/TestDox/CliTestDoxPrinter.php',
@@ -915,7 +922,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'PharIo\\Manifest\\ManifestLoader' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestLoader.php',
         'PharIo\\Manifest\\ManifestLoaderException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/ManifestLoaderException.php',
         'PharIo\\Manifest\\ManifestSerializer' => __DIR__ . '/..' . '/phar-io/manifest/src/ManifestSerializer.php',
-        'PharIo\\Manifest\\NoEmailAddressException' => __DIR__ . '/..' . '/phar-io/manifest/src/exceptions/NoEmailAdressException.php',
         'PharIo\\Manifest\\PhpElement' => __DIR__ . '/..' . '/phar-io/manifest/src/xml/PhpElement.php',
         'PharIo\\Manifest\\PhpExtensionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpExtensionRequirement.php',
         'PharIo\\Manifest\\PhpVersionRequirement' => __DIR__ . '/..' . '/phar-io/manifest/src/values/PhpVersionRequirement.php',
@@ -947,8 +953,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'PharIo\\Version\\VersionConstraintValue' => __DIR__ . '/..' . '/phar-io/version/src/VersionConstraintValue.php',
         'PharIo\\Version\\VersionNumber' => __DIR__ . '/..' . '/phar-io/version/src/VersionNumber.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'SEA' => __DIR__ . '/..' . '/mpdf/mpdf/classes/sea.php',
-        'SVG' => __DIR__ . '/..' . '/mpdf/mpdf/classes/svg.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',
@@ -1062,8 +1066,6 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'TTFontFile' => __DIR__ . '/..' . '/mpdf/mpdf/classes/ttfontsuni.php',
-        'TTFontFile_Analysis' => __DIR__ . '/..' . '/mpdf/mpdf/classes/ttfontsuni_analysis.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
@@ -1073,21 +1075,8 @@ class ComposerStaticInitf0d85a17d2e6ad1230f62cc6ca81921d
         'TheSeer\\Tokenizer\\TokenCollectionException' => __DIR__ . '/..' . '/theseer/tokenizer/src/TokenCollectionException.php',
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
-        'UCDN' => __DIR__ . '/..' . '/mpdf/mpdf/classes/ucdn.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'bmp' => __DIR__ . '/..' . '/mpdf/mpdf/classes/bmp.php',
-        'cssmgr' => __DIR__ . '/..' . '/mpdf/mpdf/classes/cssmgr.php',
-        'directw' => __DIR__ . '/..' . '/mpdf/mpdf/classes/directw.php',
-        'fpdi_pdf_parser' => __DIR__ . '/..' . '/setasign/fpdi/fpdi_pdf_parser.php',
-        'grad' => __DIR__ . '/..' . '/mpdf/mpdf/classes/grad.php',
-        'mPDF' => __DIR__ . '/..' . '/mpdf/mpdf/mpdf.php',
-        'meter' => __DIR__ . '/..' . '/mpdf/mpdf/classes/meter.php',
-        'mpdfform' => __DIR__ . '/..' . '/mpdf/mpdf/classes/mpdfform.php',
-        'otl' => __DIR__ . '/..' . '/mpdf/mpdf/classes/otl.php',
-        'pdf_context' => __DIR__ . '/..' . '/setasign/fpdi/pdf_context.php',
-        'tocontents' => __DIR__ . '/..' . '/mpdf/mpdf/classes/tocontents.php',
-        'wmf' => __DIR__ . '/..' . '/mpdf/mpdf/classes/wmf.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

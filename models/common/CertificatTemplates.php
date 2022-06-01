@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "certificat_templates".
  *
  * @property int $id
+ * @property string $name
  * @property string $path
  *
  * @property Certificat[] $certificats
@@ -28,8 +29,8 @@ class CertificatTemplates extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['path'], 'required'],
-            [['path'], 'string', 'max' => 1000],
+            [['name', 'path'], 'required'],
+            [['name', 'path'], 'string', 'max' => 1000],
         ];
     }
 
@@ -40,6 +41,7 @@ class CertificatTemplates extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'name' => 'Name',
             'path' => 'Path',
         ];
     }

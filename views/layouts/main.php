@@ -92,7 +92,7 @@ AppAsset::register($this);
                     ['label' => 'Эл. журнал', 'items' => [
                         ['label' => 'Учебные группы', 'url' => ['training-group/index']],
                         ['label' => 'Журнал', 'url' => ['journal/index']],
-                        ['label' => 'Генерация сертификатов', 'url' => ['certificat/create']],
+                        ['label' => 'Генерация сертификатов', 'url' => ['certificat/main-index']],
                     ]],
                     ['label' => 'Документооборот', 'items' => [
                         ['label' => 'Исходящая документация', 'url' => ['docs-out/index']],

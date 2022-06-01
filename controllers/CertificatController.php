@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\common\Certificat;
+use app\models\work\CertificatWork;
 use app\models\SearchCertificat;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -45,6 +46,11 @@ class CertificatController extends Controller
         ]);
     }
 
+    public function actionMainIndex()
+    {
+        return $this->render('main-index');
+    }
+
     /**
      * Displays a single Certificat model.
      * @param integer $id
@@ -65,9 +71,10 @@ class CertificatController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Certificat();
+        $model = new CertificatWork();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->mass_save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -119,7 +126,7 @@ class CertificatController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Certificat::findOne($id)) !== null) {
+        if (($model = CertificatWork::findOne($id)) !== null) {
             return $model;
         }
 

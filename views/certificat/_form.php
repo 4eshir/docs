@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\work\TrainingGroupParticipantWork;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\Certificat */
@@ -12,11 +13,48 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'certificat_number')->textInput() ?>
 
-    <?= $form->field($model, 'certificat_template_id')->textInput() ?>
+    <?php
+    $templates = \app\models\work\CertificatTemplatesWork::find()->orderBy(['id' => SORT_DESC])->all();
+    $items = \yii\helpers\ArrayHelper::map($templates,'id','name');
+    $params = [];
 
-    <?= $form->field($model, 'training_group_participant_id')->textInput() ?>
+    echo $form->field($model, 'certificat_template_id')->dropDownList($items,$params)->label('Шаблон сертификатов');
+
+    ?>
+
+    <?php
+    $groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
+    $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
+    $params = [
+        'prompt' => '---',
+        'id' => 'groupList',
+        'onchange' => 'changeGroup()',
+    ];
+
+    echo $form->field($model, 'group_id')->dropDownList($items,$params)->label('Группа');
+
+    ?>
+
+    <?php
+
+    $cert = \app\models\work\CertificatWork::find()->all();
+
+    $cIds = [];
+    foreach($cert as $one) $cIds[] = $one->training_group_participant_id;
+
+    $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->all();
+
+    echo '<table class="table table-striped">';
+    foreach($tps as $tp)
+    {
+        echo '<tr>';
+        echo '<td class="parts '.$tp->training_group_id.'" style="display: none">'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -25,3 +63,17 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script type="text/javascript">
+    function changeGroup()
+    {
+        let elem = document.getElementById('groupList');
+        let parts = document.getElementsByClassName('parts');
+        for (let i = 0; i < parts.length; i++)
+            parts[i].style.display = 'none';
+
+        parts = document.getElementsByClassName(elem.value);
+        for (let i = 0; i < parts.length; i++)
+            parts[i].style.display = 'block';
+    }
+</script>

@@ -26,7 +26,8 @@
         "phpoffice/phpspreadsheet": "^1.17",
       	"ext-json": "*",
         "la-haute-societe/yii2-save-relations-behavior": "*",
-        "phpoffice/phpword": "0.19.x-dev"
+        "phpoffice/phpword": "0.19.x-dev",
+        "kartik-v/yii2-mpdf": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
