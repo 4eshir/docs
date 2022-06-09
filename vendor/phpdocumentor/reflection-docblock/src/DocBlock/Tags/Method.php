@@ -57,9 +57,6 @@ final class Method extends BaseTag implements Factory\StaticMethod
     /** @var Type */
     private $returnType;
 
-    /** @var bool */
-    private $returnsReference;
-
     /**
      * @param array<int, array<string, Type|string>> $arguments
      * @phpstan-param array<int, array{name: string, type: Type}|string> $arguments
@@ -69,8 +66,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
         array $arguments = [],
         ?Type $returnType = null,
         bool $static = false,
-        ?Description $description = null,
-        bool $returnsReference = false
+        ?Description $description = null
     ) {
         Assert::stringNotEmpty($methodName);
 
@@ -78,12 +74,11 @@ final class Method extends BaseTag implements Factory\StaticMethod
             $returnType = new Void_();
         }
 
-        $this->methodName       = $methodName;
-        $this->arguments        = $this->filterArguments($arguments);
-        $this->returnType       = $returnType;
-        $this->isStatic         = $static;
-        $this->description      = $description;
-        $this->returnsReference = $returnsReference;
+        $this->methodName  = $methodName;
+        $this->arguments   = $this->filterArguments($arguments);
+        $this->returnType  = $returnType;
+        $this->isStatic    = $static;
+        $this->description = $description;
     }
 
     public static function create(
@@ -100,13 +95,11 @@ final class Method extends BaseTag implements Factory\StaticMethod
         // 2. optionally the keyword "static" followed by whitespace
         // 3. optionally a word with underscores followed by whitespace : as
         //    type for the return value
-        // 4. optionally an ampersand followed or not by whitespace : as
-        //    a reference
-        // 5. then optionally a word with underscores followed by () and
+        // 4. then optionally a word with underscores followed by () and
         //    whitespace : as method name as used by phpDocumentor
-        // 6. then a word with underscores, followed by ( and any character
+        // 5. then a word with underscores, followed by ( and any character
         //    until a ) and whitespace : as method name with signature
-        // 7. any remaining text : as description
+        // 6. any remaining text : as description
         if (
             !preg_match(
                 '/^
@@ -129,11 +122,6 @@ final class Method extends BaseTag implements Factory\StaticMethod
                     )
                     \s+
                 )?
-                # Returns reference
-                (?:
-                    (&)
-                    \s*
-                )?
                 # Method name
                 ([\w_]+)
                 # Arguments
@@ -151,15 +139,13 @@ final class Method extends BaseTag implements Factory\StaticMethod
             return null;
         }
 
-        [, $static, $returnType, $returnsReference, $methodName, $argumentLines, $description] = $matches;
+        [, $static, $returnType, $methodName, $argumentLines, $description] = $matches;
 
         $static = $static === 'static';
 
         if ($returnType === '') {
             $returnType = 'void';
         }
-
-        $returnsReference = $returnsReference === '&';
 
         $returnType  = $typeResolver->resolve($returnType, $context);
         $description = $descriptionFactory->create($description, $context);
@@ -186,7 +172,7 @@ final class Method extends BaseTag implements Factory\StaticMethod
             }
         }
 
-        return new static($methodName, $arguments, $returnType, $static, $description, $returnsReference);
+        return new static($methodName, $arguments, $returnType, $static, $description);
     }
 
     /**
@@ -221,11 +207,6 @@ final class Method extends BaseTag implements Factory\StaticMethod
         return $this->returnType;
     }
 
-    public function returnsReference(): bool
-    {
-        return $this->returnsReference;
-    }
-
     public function __toString(): string
     {
         $arguments = [];
@@ -247,11 +228,9 @@ final class Method extends BaseTag implements Factory\StaticMethod
 
         $methodName = $this->methodName;
 
-        $reference = $this->returnsReference ? '&' : '';
-
         return $static
             . ($returnType !== '' ? ($static !== '' ? ' ' : '') . $returnType : '')
-            . ($methodName !== '' ? ($static !== '' || $returnType !== '' ? ' ' : '') . $reference . $methodName : '')
+            . ($methodName !== '' ? ($static !== '' || $returnType !== '' ? ' ' : '') . $methodName : '')
             . $argumentStr
             . ($description !== '' ? ' ' . $description : '');
     }

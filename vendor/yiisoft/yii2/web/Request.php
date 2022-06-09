@@ -597,8 +597,8 @@ class Request extends \yii\base\Request
 
     /**
      * Sets the request body parameters.
-     *
-     * @param array|object $values the request body parameters (name-value pairs)
+     * @param array $values the request body parameters (name-value pairs)
+     * @see getBodyParam()
      * @see getBodyParams()
      */
     public function setBodyParams($values)
@@ -608,9 +608,7 @@ class Request extends \yii\base\Request
 
     /**
      * Returns the named request body parameter value.
-     *
      * If the parameter does not exist, the second parameter passed to this method will be returned.
-     *
      * @param string $name the parameter name
      * @param mixed $defaultValue the default parameter value if the parameter does not exist.
      * @return mixed the parameter value
@@ -624,7 +622,7 @@ class Request extends \yii\base\Request
         if (is_object($params)) {
             // unable to use `ArrayHelper::getValue()` due to different dots in key logic and lack of exception handling
             try {
-                return isset($params->{$name}) ? $params->{$name} : $defaultValue;
+                return $params->{$name};
             } catch (\Exception $e) {
                 return $defaultValue;
             }
@@ -751,20 +749,13 @@ class Request extends \yii\base\Request
                 $this->_hostInfo = $http . '://' . trim(explode(',', $this->headers->get('X-Forwarded-Host'))[0]);
             } elseif ($this->headers->has('X-Original-Host')) {
                 $this->_hostInfo = $http . '://' . trim(explode(',', $this->headers->get('X-Original-Host'))[0]);
-            } else {
-                if ($this->headers->has('Host')) {
-                    $this->_hostInfo = $http . '://' . $this->headers->get('Host');
-                } elseif (filter_has_var(INPUT_SERVER, 'SERVER_NAME')) {
-                    $this->_hostInfo = $http . '://' . filter_input(INPUT_SERVER, 'SERVER_NAME');
-                } elseif (isset($_SERVER['SERVER_NAME'])) {
-                    $this->_hostInfo = $http . '://' . $_SERVER['SERVER_NAME'];
-                }
-
-                if ($this->_hostInfo !== null && !preg_match('/:\d+$/', $this->_hostInfo)) {
-                    $port = $secure ? $this->getSecurePort() : $this->getPort();
-                    if (($port !== 80 && !$secure) || ($port !== 443 && $secure)) {
-                        $this->_hostInfo .= ':' . $port;
-                    }
+            } elseif ($this->headers->has('Host')) {
+                $this->_hostInfo = $http . '://' . $this->headers->get('Host');
+            } elseif (isset($_SERVER['SERVER_NAME'])) {
+                $this->_hostInfo = $http . '://' . $_SERVER['SERVER_NAME'];
+                $port = $secure ? $this->getSecurePort() : $this->getPort();
+                if (($port !== 80 && !$secure) || ($port !== 443 && $secure)) {
+                    $this->_hostInfo .= ':' . $port;
                 }
             }
         }
@@ -1117,7 +1108,7 @@ class Request extends \yii\base\Request
 
     /**
      * Returns the server name.
-     * @return string|null server name, null if not available
+     * @return string server name, null if not available
      */
     public function getServerName()
     {
@@ -1759,7 +1750,7 @@ class Request extends \yii\base\Request
 
     /**
      * Loads the CSRF token from cookie or session.
-     * @return string|null the CSRF token loaded from cookie or session. Null is returned if the cookie or session
+     * @return string the CSRF token loaded from cookie or session. Null is returned if the cookie or session
      * does not have CSRF token.
      */
     protected function loadCsrfToken()
@@ -1789,7 +1780,7 @@ class Request extends \yii\base\Request
     }
 
     /**
-     * @return string|null the CSRF token sent via [[CSRF_HEADER]] by browser. Null is returned if no such header is sent.
+     * @return string the CSRF token sent via [[CSRF_HEADER]] by browser. Null is returned if no such header is sent.
      */
     public function getCsrfTokenFromHeader()
     {
@@ -1822,7 +1813,7 @@ class Request extends \yii\base\Request
      * Note that the method will NOT perform CSRF validation if [[enableCsrfValidation]] is false or the HTTP method
      * is among GET, HEAD or OPTIONS.
      *
-     * @param string|null $clientSuppliedToken the user-provided CSRF token to be validated. If null, the token will be retrieved from
+     * @param string $clientSuppliedToken the user-provided CSRF token to be validated. If null, the token will be retrieved from
      * the [[csrfParam]] POST field or HTTP header.
      * This parameter is available since version 2.0.4.
      * @return bool whether CSRF token is valid. If [[enableCsrfValidation]] is false, this method will return true.

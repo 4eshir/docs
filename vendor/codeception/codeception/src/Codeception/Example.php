@@ -15,7 +15,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Whether a offset exists
-     * @link https://php.net/manual/en/arrayaccess.offsetexists.php
+     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
      * An offset to check for.
      * </p>
@@ -33,7 +33,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Offset to retrieve
-     * @link https://php.net/manual/en/arrayaccess.offsetget.php
+     * @link http://php.net/manual/en/arrayaccess.offsetget.php
      * @param mixed $offset <p>
      * The offset to retrieve.
      * </p>
@@ -51,7 +51,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Offset to set
-     * @link https://php.net/manual/en/arrayaccess.offsetset.php
+     * @link http://php.net/manual/en/arrayaccess.offsetset.php
      * @param mixed $offset <p>
      * The offset to assign the value to.
      * </p>
@@ -69,7 +69,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Offset to unset
-     * @link https://php.net/manual/en/arrayaccess.offsetunset.php
+     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset <p>
      * The offset to unset.
      * </p>
@@ -84,7 +84,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Count elements of an object
-     * @link https://php.net/manual/en/countable.count.php
+     * @link http://php.net/manual/en/countable.count.php
      * @return int The custom count as an integer.
      * </p>
      * <p>
@@ -99,7 +99,7 @@ class Example implements \ArrayAccess, \Countable, \IteratorAggregate
     #[\ReturnTypeWillChange]
     /**
      * Retrieve an external iterator
-     * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      * @since 5.0.0

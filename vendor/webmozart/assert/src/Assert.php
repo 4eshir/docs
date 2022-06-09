@@ -1822,23 +1822,10 @@ class Assert
      */
     public static function isList($array, $message = '')
     {
-        if (!\is_array($array)) {
+        if (!\is_array($array) || $array !== \array_values($array)) {
             static::reportInvalidArgument(
                 $message ?: 'Expected list - non-associative array.'
             );
-        }
-
-        if ($array === \array_values($array)) {
-            return;
-        }
-
-        $nextKey = -1;
-        foreach ($array as $k => $v) {
-            if ($k !== ++$nextKey) {
-                static::reportInvalidArgument(
-                    $message ?: 'Expected list - non-associative array.'
-                );
-            }
         }
     }
 

@@ -132,7 +132,7 @@ return array (
     'given' => 'Дадено|*',
     'name' => 'Bulgarian',
     'native' => 'български',
-    'rule' => 'Правило',
+    'rule' => 'Rule',
     'scenario' => 'Сценарий|Пример',
     'scenario_outline' => 'Рамка на сценарий',
     'then' => 'То|*',
@@ -344,7 +344,7 @@ return array (
     'scenario' => 'Swa',
     'scenario_outline' => 'Swa hwaer swa|Swa hwær swa',
     'then' => 'Tha the|Ða ðe|Þa þe|Tha|Ða|Þa|*',
-    'when' => 'Bæþsealfa|Bæþsealfe|Bæþsealf|Ciricæwa|Ciricæwe|Ciricæw|*',
+    'when' => 'Tha|Ða|Þa|*',
   ),
   'en-pirate' => 
   array (
@@ -844,7 +844,7 @@ return array (
   ),
   'ne' => 
   array (
-    'and' => 'अनि|*|र',
+    'and' => 'अनी|*|र',
     'background' => 'पृष्ठभूमी',
     'but' => 'तर|*',
     'examples' => 'उदाहरणहरु|उदाहरण',
@@ -1185,7 +1185,7 @@ return array (
     'but' => 'Бирок|Лекин|Аммо|*',
     'examples' => 'Мисоллар',
     'feature' => 'Функционал',
-    'given' => 'Belgilangan|*',
+    'given' => 'Агар|*',
     'name' => 'Uzbek',
     'native' => 'Узбекча',
     'rule' => 'Rule',

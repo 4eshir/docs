@@ -563,7 +563,10 @@ $session = Yii::$app->session;
             echo $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа');
         else
         {
-            echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true])->label('Наименование приказа');
+            if ($model->id != NULL)
+                echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true])->label('Наименование приказа');
+            else
+                echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true, 'value' => 'О зачислении'])->label('Наименование приказа');
         }
     ?>
 

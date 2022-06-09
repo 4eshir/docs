@@ -17,8 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Cancel' => 'キャンセル',
-    'Confirmation' => '確認',
-    'Information' => '情報',
-    'Ok' => 'OK',
+    'Cancel' => '',
+    'Confirmation' => '',
+    'Information' => '',
+    'Ok' => '',
 ];
