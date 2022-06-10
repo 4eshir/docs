@@ -184,13 +184,13 @@ class TrainingGroupWork extends TrainingGroup
             else
                 $result .= '<div class="hoverless" data-html="true" id="tooltip'.$part->participant_id.'" style="width: 20px; height: 20px; padding: 0; margin-right: 5px; margin-top: 2px; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px" title="Ограничений нет">&#10004;</div>';
             $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+            if ($part->certificat_number != '')
+                $result .= ' Сертификат № ' . $part->certificat_number;
             if ($part->status == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
             else if ($part->status == 2)
                 $result .= ' <font color=red><i>ПЕРЕВЕДЕН</i></font>';
-            else
-                if ($part->certificat_number != '')
-                    $result .= ' Сертификат № ' . $part->certificat_number;
+
             $result .= '<br>';
         }
         return $result;

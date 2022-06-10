@@ -25,6 +25,7 @@ use yii\db\ActiveQuery;
 use yii\db\Query;
 use yii\helpers\Html;
 
+
 class WordWizard
 {
 
@@ -638,7 +639,7 @@ class WordWizard
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
         $section->addTextBreak(1);
 
-        /*----------------*/
+        //----------------
         $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
         $groups = OrderGroupWork::find()->where(['document_order_id' => $order->id])->all();
         $pastaAlDente = OrderGroupParticipantWork::find();
@@ -820,4 +821,5 @@ class WordWizard
         $writer->save("php://output");
         exit;
     }
+
 }

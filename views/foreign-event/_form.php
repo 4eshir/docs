@@ -333,7 +333,7 @@ use yii\widgets\ActiveForm;
         $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->all();
         $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
         $params = [
-            'prompt' => '--',
+            'prompt' => 'не выбрано',
         ];
         echo $form->field($model, 'escort_id')->dropDownList($items,$params);
 
