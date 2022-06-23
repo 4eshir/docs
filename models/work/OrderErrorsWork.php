@@ -156,7 +156,6 @@ class OrderErrorsWork extends OrderErrors
 
         foreach ($groups as $group) $groups_check[] = $group->training_group_id;
 
-        var_dump($groups_check);
 
         if ($groups_check !== null && count($groups_check) > 0)
         {
