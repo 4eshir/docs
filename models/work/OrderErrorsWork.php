@@ -156,6 +156,8 @@ class OrderErrorsWork extends OrderErrors
 
         foreach ($groups as $group) $groups_check[] = $group->training_group_id;
 
+        var_dump($groups_check);
+
         if ($groups_check !== null && count($groups_check) > 0)
         {
             $errorsCheck = new GroupErrorsWork();
@@ -164,7 +166,7 @@ class OrderErrorsWork extends OrderErrors
         }
 
         //-------------------------------------------------
-        
+
         $order = DocumentOrderWork::find()->where(['id' => $modelOrderID])->one();
         $this->CheckScan($modelOrderID, $order);
         if ($order->type === 1 || $order->type == 10)   // неучебный
