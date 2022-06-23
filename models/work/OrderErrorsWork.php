@@ -122,6 +122,22 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckPasta ($modelOrderID)
     {
+        //ТУТ ГРУППЫ ДЕРГАЕМ МАКСИМАЛЬНО КОСТЫЛЬНЫМ ОБРАЗОМ
+
+        $groups = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
+        $groups_check = [];
+
+        foreach ($groups as $group) $groups_check[] = $group->training_group_id;
+
+        if ($groups_check !== null && count($groups_check) > 0)
+        {
+            $errorsCheck = new GroupErrorsWork();
+            $errorsCheck->CheckOrderTrainingGroup($groups_check);
+
+        }
+
+        //-------------------------------------------------
+
         $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 37])->all();
         $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $modelOrderID])->all());
 
