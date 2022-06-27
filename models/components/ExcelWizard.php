@@ -1109,13 +1109,7 @@ class ExcelWizard
 
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
-        //Отдел ЦОД (тех. направленность - очная)
         
-        ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1);
-
-        //--------------------------------------
-
-        /*
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
@@ -1347,7 +1341,6 @@ class ExcelWizard
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
         exit;
-        */
     }
 
     static public function GetParticipantsFromGroup($training_group_ids, $sex)
