@@ -311,6 +311,8 @@ class ExcelWizard
 
         }
 
+        var_dump($counterPart1);
+
         return $counterPart1;
     }
 
@@ -1055,7 +1057,7 @@ class ExcelWizard
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
 
-        var_dump($all);
+        //var_dump($all);
         
         if ($all == 0) return 0;
         return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
