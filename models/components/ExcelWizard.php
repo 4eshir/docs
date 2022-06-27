@@ -303,7 +303,7 @@ class ExcelWizard
                 $tpIds[] = $tId->participant_id;
 
             //var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->createCommand()->getRawSql());
-
+            var_dump($counterTeam);
             if ($partsLink !== null)
                 $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
@@ -311,7 +311,7 @@ class ExcelWizard
 
         }
 
-        var_dump($counterPart1);
+        //var_dump($counterPart1);
 
         return $counterPart1;
     }
