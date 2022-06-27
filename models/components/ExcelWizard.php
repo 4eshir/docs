@@ -280,6 +280,8 @@ class ExcelWizard
         {
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
             var_dump(count($teams));
+            var_dump($partsLink !== null);
+            var_dump('<br>');
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
