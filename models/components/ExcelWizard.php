@@ -279,9 +279,6 @@ class ExcelWizard
         foreach ($events1 as $event)
         {
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
-            var_dump(count($teams));
-            var_dump($pIds);
-            var_dump('<br>');
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
@@ -292,7 +289,7 @@ class ExcelWizard
                 if ($teamName != $team->name)
                 {
                     $teamName = $team->name;
-                    if ($partsLink !== null)
+                    if (count($partsLink) !== 0)
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
@@ -307,7 +304,7 @@ class ExcelWizard
 
             //var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->createCommand()->getRawSql());
             //var_dump($counterTeam);
-            if ($partsLink !== null)
+            if (count($partsLink) !== 0)
                 $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
                 $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
