@@ -667,7 +667,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                             <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_date")->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])->label('Дата занятия') ?>
                                         </div>
                                         <div class="col-xs-2">
-                                            <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['type' => 'time', 'class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+                                            <?= $form->field($modelTrainingGroupLessonOne, "[{$i}]lesson_start_time")->textInput(['type' => 'time', 'class' => 'form-control def', 'value' => '08:00', 'min'=>'08:00', 'max'=>'20:00'])->label('Начало занятия') ?>
 
                                         </div>
                                         <div class="col-xs-2">
@@ -800,7 +800,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                             ?>
                                         </div>
                                         <div class="col-xs-2">
-                                            <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['type' => 'time','class' => 'form-control def', 'value' => '08:30', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+                                            <?= $form->field($modelTrainingGroupAutoOne, "[{$i}]start_time")->textInput(['type' => 'time','class' => 'form-control def', 'value' => '08:00', 'min'=>'08:00', 'max'=>'20:00'])->label('Начало занятия') ?>
 
                                         </div>
                                         <div class="col-xs-2">
