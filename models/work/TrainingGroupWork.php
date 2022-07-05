@@ -28,6 +28,8 @@ use Yii;
 use yii\helpers\Html;
 use yii\queue\db\Queue;
 use app\models\common;
+use app\models\components\Logger;
+
 
 const _MAX_FILE_SIZE = 26214400;
 
@@ -385,7 +387,8 @@ class TrainingGroupWork extends TrainingGroup
             $this->photos = $result;
         else
             $this->photos = $this->photos.$result;
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->number.' добавлены файлы фотоматериалов '.$result);
+        if (strlen($result) > 3)
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены файлы фотоматериалов '.$result);
         return true;
     }
 
@@ -417,7 +420,8 @@ class TrainingGroupWork extends TrainingGroup
             $this->present_data = $result;
         else
             $this->present_data = $this->present_data.$result;
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->number.' добавлены файлы презентационных материалов '.$result);
+        if (strlen($result) > 3)
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены файлы презентационных материалов '.$result);
         return true;
     }
 
@@ -454,7 +458,8 @@ class TrainingGroupWork extends TrainingGroup
             $this->work_data = $result;
         else
             $this->work_data = $this->work_data.$result;
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->number.' добавлены файлы рабочих материалов '.$result);
+        if (strlen($result) > 3)
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены файлы рабочих материалов '.$result);
         return true;
     }
 
@@ -463,14 +468,14 @@ class TrainingGroupWork extends TrainingGroup
         $this->fileParticipants->saveAs('@app/upload/files/bitrix/groups/' . $this->fileParticipants->name);
         $parts = ExcelWizard::GetAllParticipants($this->fileParticipants->name);
         $this->addParticipants($parts);
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->number.' добавлены ученики из файла '.$this->fileParticipants->name);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены ученики из файла '.$this->fileParticipants->name);
     }
 
     public function uploadFileCert()
     {
         $this->certFile->saveAs('@app/upload/files/bitrix/groups/' . $this->certFile->name);
         ExcelWizard::WriteAllCertNumbers($this->certFile->name, $this->id);
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->number.' добавлены сертификаты из файла '.$this->certFile->name);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены сертификаты из файла '.$this->certFile->name);
     }
 
     private function addParticipants($participants)
@@ -526,6 +531,8 @@ class TrainingGroupWork extends TrainingGroup
                 $index = $counter;
             }
         }
+
+        return $this->number;
     }
 
     public function cmp($a, $b)
@@ -650,7 +657,7 @@ class TrainingGroupWork extends TrainingGroup
                         $trainingParticipant->send_method_id = $participant->send_method_id;
                         $trainingParticipant->training_group_id = $this->id;
                         $trainingParticipant->save();
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу добавлен обучающийся (TrainingGroupParticipant: id '.$trainingParticipant->id().')');
+                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлен обучающийся (TrainingGroupParticipant: id '.$trainingParticipant->id.')');
                         $partsArr[] = $trainingParticipant->participant_id;
                     }
                     else
@@ -689,7 +696,7 @@ class TrainingGroupWork extends TrainingGroup
                     if ($newLesson->checkCopyLesson())
                     {
                         $newLesson->save(false);
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу добавлено занятие (вручную, TrainingGroupLesson: id '.$newLesson->id().')');
+                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (вручную, TrainingGroupLesson: id '.$newLesson->id().')');
                     }
                 }
             }
@@ -711,7 +718,7 @@ class TrainingGroupWork extends TrainingGroup
                         if ($newLesson->checkCopyLesson())
                         {
                             $newLesson->save(false);
-                            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу добавлено занятие (авто, TrainingGroupLesson: id '.$newLesson->id().')');
+                            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (авто, TrainingGroupLesson: id '.$newLesson->id().')');
                         }
                     }
                 }
@@ -724,7 +731,7 @@ class TrainingGroupWork extends TrainingGroup
                     $newOrder->training_group_id = $this->id;
                     $newOrder->comment = $order->comment;
                     $newOrder->save();
-                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе прикреплен приказ (OrderGroup: id '.$newOrder->id().')');
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен приказ (OrderGroup: id '.$newOrder->id().')');
                 }
             }
             if ($this->teachers !== null && $this->teachers[0]->teacher_id !== "") {
@@ -735,7 +742,7 @@ class TrainingGroupWork extends TrainingGroup
                     $teacherGroup->teacher_id = $teacher->teacher_id;
                     $teacherGroup->training_group_id = $this->id;
                     $teacherGroup->save();
-                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе прикреплен педагог (TeacherGroup: id '.$teacherGroup->id().')');
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен педагог (TeacherGroup: id '.$teacherGroup->id().')');
                 }
             }
 
@@ -784,7 +791,7 @@ class TrainingGroupWork extends TrainingGroup
                         $theme->training_group_lesson_id = $lessons[$i]->id;
                         $theme->teacher_id = $teachers[0]->teacher_id;
                         $theme->save(false);
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе прикреплена тема занятия (LessonTheme: id '.$theme->id().')');
+                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплена тема занятия (LessonTheme: id '.$theme->id().')');
                     }
                 }
             }
