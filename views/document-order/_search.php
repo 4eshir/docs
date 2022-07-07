@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
     $branchs = \app\models\work\BranchWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
     $params = [
+        'prompt' => '',
     ];
 
     if ($session->get('type') != 1)

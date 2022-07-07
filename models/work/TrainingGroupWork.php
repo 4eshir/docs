@@ -169,6 +169,7 @@ class TrainingGroupWork extends TrainingGroup
     public function getParticipantNames()
     {
         $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $orders = OrderGroupParticipantWork::find()->joinWith(['groupParticipant group_participant']);
         $result = '';
         foreach ($parts as $part)
         {
@@ -185,7 +186,14 @@ class TrainingGroupWork extends TrainingGroup
             }
             else
                 $result .= '<div class="hoverless" data-html="true" id="tooltip'.$part->participant_id.'" style="width: 20px; height: 20px; padding: 0; margin-right: 5px; margin-top: 2px; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px" title="Ограничений нет">&#10004;</div>';
-            $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+
+            $orderStatus = count($orders->where(['group_participant.participant_id' => $part->participant_id])->andWhere(['group_participant.training_group_id' => $this->id])->all());
+            $now_time = date("Y-m-d");
+            if (($now_time < $this->finish_date && $orderStatus < 1) || ($now_time >= $this->finish_date && $orderStatus < 2))
+                $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]), ['style' => 'color:red']);
+            else
+                $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+
             if ($part->certificat_number != '')
                 $result .= ' Сертификат № ' . $part->certificat_number;
             if ($part->status == 1)
