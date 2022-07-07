@@ -157,7 +157,7 @@ class TrainingProgramController extends Controller
             $group = TrainingProgramWork::find()->where(['id' => $modelId])->one();
             $modelAuthor = [new AuthorProgramWork];
             $modelThematicPlan = [new ThematicPlanWork];
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен тематический план образовательно программы '.$model->trainingProgram->name);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен тематический план образовательной программы '.$model->trainingProgram->name);
             return $this->render('update', [
                 'model' => $group,
                 'modelAuthor' => $modelAuthor,
@@ -313,6 +313,10 @@ class TrainingProgramController extends Controller
         $allPrograms = TrainingProgramWork::find()->all();
         //$errors = new GroupErrorsWork();
         foreach ($allPrograms as $program) {
+            if (!$this->InArray($program->id, $selections) && $program->actual == 1)
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$program->name.' (id: '.$program->id.') больше не актуальна');
+            if ($this->InArray($program->id, $selections) && $program->actual == 0)
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$program->name.' (id: '.$program->id.') теперь актуальна');
             $program->actual = 0;
             $program->isCod = 2;
             $program->save(false);
@@ -334,6 +338,14 @@ class TrainingProgramController extends Controller
             }
         Yii::$app->session->setFlash("success", 'Изменение статуса программ произведено успешно');
         return $this->redirect(['/training-program/index']);
+    }
+
+    private function InArray($id, $array)
+    {
+        for ($i = 0; $i < count($array); $i++)
+            if ($id == $array[$i])
+                return true;
+        return false;
     }
 
     //Проверка на права доступа к CRUD-операциям

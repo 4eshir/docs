@@ -518,16 +518,22 @@ class TrainingGroupController extends Controller
 
     public function actionGetKug($training_group_id)
     {
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен КУГ группы ' . $group->number);
         ExcelWizard::DownloadKUG($training_group_id);
     }
 
     public function actionDownloadExcel($group_id)
     {
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен журнал группы ' . $group->number);
         ExcelWizard::DownloadJournal($group_id);
     }
 
     public function actionDownloadJournal($group_id)
     {
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен журнал и КУГ группы ' . $group->number);
         ExcelWizard::DownloadJournalAndKUG($group_id);
     }
 

@@ -9,6 +9,9 @@ use app\models\common\Visit;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ProjectThemeWork;
 use app\models\work\GroupProjectThemesWork;
+use app\models\components\Logger;
+use app\models\work\TrainingGroupWork;
+use Yii;
 
 class JournalModel extends \yii\base\Model
 {
@@ -57,9 +60,12 @@ class JournalModel extends \yii\base\Model
     {
         $j = 0;
         $k = 0;
+        $strVis = "";
         for ($i = 0; $i !== count($this->visits); $i++, $k++)
         {
             $vis = Visit::find()->where(['id' => $this->visits_id[$i]])->one();
+            if ($vis->status != $this->visits[$i])
+                $strVis .= $this->visits_id[$i].': '.$this->visits[$i].', ';
             $vis->status = $this->visits[$i];
             $vis->save(false);
             /*if ($i % count($this->lessons) == 0 && $i !== 0)
@@ -75,6 +81,10 @@ class JournalModel extends \yii\base\Model
             $vis->status = $this->visits[$i];
             $vis->save(false);*/
         }
+        $strVis = substr($strVis,0,-2);
+
+        $group = TrainingGroupWork::find()->where(['id' => $this->trainingGroup])->one();
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменены явки в журнале группы '.$group->number.'. Visit('.$strVis.')');
 
         if ($this->themes !== null)
         {
@@ -92,6 +102,7 @@ class JournalModel extends \yii\base\Model
                     $theme->save();
                 }
             }
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен тематический план группы '.$group->number);
         }
 
         $tempSuccess = [];
