@@ -350,7 +350,8 @@ class ExcelWizard
         }
 
         if ($branch_id == 1 && $event_level == 7)
-            var_dump($events1);
+            foreach ($events1 as $event)
+                var_dump($event->id);
 
 
         $counter1 = 0;
