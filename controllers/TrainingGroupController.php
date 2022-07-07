@@ -14,6 +14,7 @@ use app\models\work\OrderGroupWork;
 use app\models\work\PeopleWork;
 use app\models\work\PersonalDataTrainingParticipantGroupWork;
 use app\models\work\TeacherGroupWork;
+use app\models\work\OrderGroupParticipantWork;
 use app\models\work\ThematicPlanWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
