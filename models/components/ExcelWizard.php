@@ -350,8 +350,9 @@ class ExcelWizard
         }
 
         if ($branch_id == 1 && $event_level == 7)
-            foreach ($events1 as $event)
-                var_dump($event->id);
+            var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->createCommand()->getRawSql());
+            //foreach ($events1 as $event)
+            //    var_dump($event->id);
 
 
         $counter1 = 0;
