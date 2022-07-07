@@ -173,7 +173,7 @@ class WordWizard
         if (count($groups) == 1)
             $text .= ' дополнительной общеразвивающей программе назначить работника: ';
         else
-            $text .= 'дополнительным общеразвивающим программам назначить работника: ';
+            $text .= ' дополнительным общеразвивающим программам назначить работника: ';
         $text .= mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ' . $order->executor->secondname;
 
         if ($countTeacher === 1)

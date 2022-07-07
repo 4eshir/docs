@@ -126,7 +126,8 @@ class DocumentOrderController extends Controller
                     $model->uploadDocFiles();
 
                 $model->save(false);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
+                Logger::WriteLog(Yii::$app->user->identity->getId(),
+                    'Создан приказ '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -331,7 +332,7 @@ class DocumentOrderController extends Controller
         $name = $order->order_name;
         if (!$order->checkForeignKeys())
         {
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ '.$name);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ '.$name . ' ' . $order->order_number . '/' . $order->order_copy_id . (empty($model->order_postfix) ? '/' . $order->order_postfix : ''));
             $order->delete();
             Yii::$app->session->addFlash('success', 'Приказ "' . $name . '" успешно удален');
         }
@@ -448,7 +449,7 @@ class DocumentOrderController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует(');
     }
 
     //Проверка на права доступа к CRUD-операциям
@@ -467,15 +468,22 @@ class DocumentOrderController extends Controller
     }
     public function actionAmnesty ($id)
     {
+        $model = $this->findModel($id);
+
         $errorsAmnesty = new OrderErrorsWork();
         $errorsAmnesty->OrderAmnesty($id);
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(),
+            'Прощены ошибки в приказе '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
+
         return $this->redirect('index?r=document-order/view&id='.$id);
     }
 
     // Новый функционал - генерация образовательных приказов
     public function actionGenerationWord($order_id, $type)
     {
-        //ExcelWizard::Enrolment($order_id);
+        $model = $this->findModel($order_id);
+
         if ($type === '0')
             WordWizard::Enrolment($order_id);
         else if ($type === '1')
@@ -484,5 +492,8 @@ class DocumentOrderController extends Controller
         }
         else if ($type === '2')
             WordWizard::Transfer($order_id);
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(),
+            'Сгенерирован и выгружен файл приказа '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
     }
 }
