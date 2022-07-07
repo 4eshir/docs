@@ -151,7 +151,7 @@ class OrderErrorsWork extends OrderErrors
     {
         //ТУТ ГРУППЫ ДЕРГАЕМ МАКСИМАЛЬНО КОСТЫЛЬНЫМ ОБРАЗОМ
 
-        $groups = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
+        /*$groups = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
         $groups_check = [];
 
         foreach ($groups as $group) $groups_check[] = $group->training_group_id;
@@ -162,7 +162,7 @@ class OrderErrorsWork extends OrderErrors
             $errorsCheck = new GroupErrorsWork();
             $errorsCheck->CheckOrderTrainingGroup($groups_check);
 
-        }
+        }*/
 
         //-------------------------------------------------
 
