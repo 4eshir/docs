@@ -332,7 +332,6 @@ class ExcelWizard
         else
             $events1 = ForeignEventWork::find()->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
 
-
         $partsLink = null;
         $pIds = [];
         if ($branch_id !== 0)
@@ -349,6 +348,11 @@ class ExcelWizard
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
         }
+
+        //if ($branch_id == 1 && $event_level == 7)
+        //    var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->createCommand()->getRawSql());
+            //foreach ($events1 as $event)
+            //    var_dump($event->id);
 
 
         $counter1 = 0;
@@ -1055,6 +1059,8 @@ class ExcelWizard
         $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
+        //if ($branch_id == 1)
+        //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
         $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
 
         //var_dump($all);
