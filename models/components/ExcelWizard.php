@@ -349,8 +349,8 @@ class ExcelWizard
 
         }
 
-        if ($branch_id == 1)
-            var_dump(count($pIds));
+        if ($branch_id == 1 && $event_level == 7)
+            var_dump($events1);
 
 
         $counter1 = 0;
