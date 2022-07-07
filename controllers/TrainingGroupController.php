@@ -364,7 +364,11 @@ class TrainingGroupController extends Controller
         $participant = TrainingGroupParticipantWork::find()->where(['id' => $id])->one();
         $name = $participant->participantWork->secondname . ' ' . $participant->participantWork->firstname . ' ' . $participant->participantWork->patronymic;
         $group = $participant->trainingGroupWork->number;
-        $participant->delete();
+        $pasta = OrderGroupParticipantWork::find()->where(['group_participant_id' => $id])->all();
+        if (count($pasta) == 0)
+            $participant->delete();
+        else
+            Yii::$app->session->setFlash("danger", "Невозможно удалить ученика, фигурирующего в одном или нескольких приказах!");
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален обучающийся '.$name.' из группы '.$group);
         return $this->redirect('index?r=training-group/update&id='.$modelId);
     }

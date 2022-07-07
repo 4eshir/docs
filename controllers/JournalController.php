@@ -140,6 +140,15 @@ class JournalController extends Controller
     public function actionDeleteTheme($id, $modelId)
     {
         $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+
+        $tgps = TrainingGroupParticipantWork::find()->where(['group_project_themes_id' => $id])->all();
+
+        foreach ($tgps as $tgp)
+        {
+            $tgp->group_project_themes_id = null;
+            $tgp->save();
+        }
+
         $gpt->delete();
 
         $model = new JournalModel($modelId);
