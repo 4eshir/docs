@@ -194,7 +194,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
 
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
@@ -226,7 +226,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $allTeams += $counterTeam;
 
                 //ОТЛАДКА
-                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
@@ -277,7 +277,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
 
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
@@ -309,7 +309,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $allTeams += $counterTeam;
 
                 //ОТЛАДКА
-                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
@@ -367,7 +367,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
 
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
@@ -399,7 +399,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $allTeams += $counterTeam;
 
                 //ОТЛАДКА
-                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
@@ -448,7 +448,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
 
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
@@ -480,7 +480,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $allTeams += $counterTeam;
 
                 //ОТЛАДКА
-                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
@@ -529,7 +529,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
 
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
@@ -561,7 +561,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $allTeams += $counterTeam;
 
                 //ОТЛАДКА
-                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
+                $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
                 $s1 = count($achieves1) + $counterTeamPrizes;
                 $s2 = count($achieves2) + $counterTeamWinners;
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
