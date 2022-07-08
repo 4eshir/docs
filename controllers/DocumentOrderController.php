@@ -121,9 +121,17 @@ class DocumentOrderController extends Controller
                 }
 
                 if ($model->scanFile !== null)
+                {
+                    Logger::WriteLog(Yii::$app->user->identity->getId(),
+                        'Добавлен скан к приказу ' . $model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
                     $model->uploadScanFile();
+                }
                 if ($model->docFiles != null)
+                {
+                    Logger::WriteLog(Yii::$app->user->identity->getId(),
+                        'Добавлен редактируемый файл к приказу ' . $model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
                     $model->uploadDocFiles();
+                }
 
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(),
@@ -278,7 +286,6 @@ class DocumentOrderController extends Controller
             return $this->redirect('index?r=document-order/update&id='.$model->id);
         }
 
-
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null) {
 
             $result = '';
@@ -291,8 +298,9 @@ class DocumentOrderController extends Controller
                     $deleteFile = $split[$i];
             }
             $model->doc = $result;
+
             $model->save(false);
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
         }
         return $this->redirect('index?r=document-order/update&id='.$model->id);
     }
@@ -303,7 +311,7 @@ class DocumentOrderController extends Controller
         if (file_exists($file)) {
             return \Yii::$app->response->sendFile($file);
         }
-        throw new \Exception('File not found');
+        throw new \Exception('Файл не найден.');
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
@@ -313,7 +321,8 @@ class DocumentOrderController extends Controller
         if ($resp != null)
             $resp->delete();
 
-
+        $model = $this->findModel($orderId);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален ответственный (id='.$peopleId.') из приказа '.$model->order_name.' '.$model->order_number.'/'.$model->order_postfix. (empty($model->order_postfix) ? '/'.$model->order_postfix : ''));
         return $this->actionUpdate($orderId, 1);
 
         //return $this->redirect('index.php?r=document-order/update&id='.$orderId);

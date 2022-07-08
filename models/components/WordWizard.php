@@ -136,8 +136,11 @@ class WordWizard
         else
             $text = '<w:br/>          В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
         $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
-        $text .= '<w:br/>          1.	Зачислить обучающихся с «' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
-            . date("Y", strtotime($order->order_date)) . ' г.' . ' в учебные группы ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+        $text .= '<w:br/>          1.	Зачислить обучающихся с «' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' ' . date("Y", strtotime($order->order_date)) . ' г.';
+        if (count($groups) == 1)
+            $text .= ' в учебную группу ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+        else
+            $text .= ' в учебные группы ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
 
         $countTeacher = 0;
         if (count($groups) == 1) {
@@ -171,10 +174,10 @@ class WordWizard
         $posOne = $pos->where(['people_id' => $order->executor_id])->one();
         $text .= '<w:br/>          3.	Ответственным за контроль соблюдения расписания учебных групп и соответствия тематике проводимых учебных занятий';
         if (count($groups) == 1)
-            $text .= ' дополнительной общеразвивающей программе назначить работника: ';
+            $text .= 'по дополнительной общеразвивающей программе назначить работника: ';
         else
-            $text .= ' дополнительным общеразвивающим программам назначить работника: ';
-        $text .= mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ' . $order->executor->secondname;
+            $text .= 'по дополнительным общеразвивающим программам назначить работника: ';
+        $text .= mb_strtolower(mb_substr($posOne->position->name, 0, 1)) . mb_substr($posOne->position->name, 1) . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ' . $order->executor->secondname;
 
         if ($countTeacher === 1)
             $text .= '<w:br/>          4.	Руководителем ';
