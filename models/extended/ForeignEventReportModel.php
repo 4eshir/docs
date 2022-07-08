@@ -65,9 +65,14 @@ class ForeignEventReportModel extends \yii\base\Model
 
         //Получаем мероприятия с выбранными учениками
 
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
+
+        $eventIds = [];
+        foreach ($events as $event) $eventIds[] = $event->id;
+
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
-        $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->all();
+        $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
 
 
         $eIds = [];
@@ -76,7 +81,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
+        
 
         //var_dump(count($events->all()));
 
@@ -145,7 +150,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
                 $teamPrizeStr = $counterTeamPrizes > 0 ? ' (в т.ч. команды - '.$counterTeamPrizes.')' : '';
                 $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
-                $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2.$achieves2[0]->id. $teamWinnersStr."\r\n";
+                $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
 
             }
