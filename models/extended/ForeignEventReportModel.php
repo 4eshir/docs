@@ -112,7 +112,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 //ОТЛАДКА
                 $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
                 //ОТЛАДКА
-                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
+                $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $eIds2])->all();
                 $tIds = [];
                 $teamName = '';
                 $counterTeamWinners = 0;
