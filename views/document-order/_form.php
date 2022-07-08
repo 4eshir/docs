@@ -501,7 +501,7 @@ $session = Yii::$app->session;
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
 
                 //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
-                $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
+                $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->andWhere(['branch_id' => $gr->branch_id])->all();
                 $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
                 $params = [];
                 if (count($ordersParticipant) !== 0)
