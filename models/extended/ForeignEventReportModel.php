@@ -104,7 +104,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
-            foreach ($events2 as $event) $e2[] = $event->id;
+            foreach ($events1 as $event) $e2[] = $event->id;
 
             $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
 
@@ -294,8 +294,9 @@ class ForeignEventReportModel extends \yii\base\Model
         {
 
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            
             $e2 = [];
-            foreach ($events2 as $event) $e2[] = $event->id;
+            foreach ($events3 as $event) $e2[] = $event->id;
 
             $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
 
@@ -394,7 +395,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
-            foreach ($events2 as $event) $e2[] = $event->id;
+            foreach ($events3 as $event) $e2[] = $event->id;
 
             $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
 
@@ -484,7 +485,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
-            foreach ($events2 as $event) $e2[] = $event->id;
+            foreach ($events3 as $event) $e2[] = $event->id;
 
             $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
 
@@ -574,7 +575,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
-            foreach ($events2 as $event) $e2[] = $event->id;
+            foreach ($events3 as $event) $e2[] = $event->id;
 
             $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
 
