@@ -187,6 +187,15 @@ class ForeignEventReportModel extends \yii\base\Model
         {
             $events2 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
+
 
             $counter3 = 0;
             $counter4 = 0;
