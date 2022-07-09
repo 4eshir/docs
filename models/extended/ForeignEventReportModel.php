@@ -185,7 +185,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (всероссийских)
         if (array_search(7, $this->level) !== false)
         {
-            $events2 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->all();
+            $events2 = ForeignEventWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch_id])->all();
 
 
             $counter3 = 0;
