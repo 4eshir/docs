@@ -101,7 +101,16 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level) !== false)
         {
-            $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
             $counter1 = 0;
             $counter2 = 0;
@@ -250,7 +259,7 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
                 $teamPrizeStr = $counterTeamPrizes > 0 ? ' (в т.ч. команды - '.$counterTeamPrizes.')' : '';
                 $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
-                $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr.';'.ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $eIds2])->createCommand()->getRawSql()."\r\n";
+                $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 
                 //ОТЛАДКА
             }
@@ -284,7 +293,15 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(6, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->all();
+            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
             $counter5 = 0;
             $counter6 = 0;
@@ -374,7 +391,16 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(5, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->all();
+            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
             $counter7 = 0;
             $counter8 = 0;
@@ -455,7 +481,16 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(4, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->all();
+            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
             $counter9 = 0;
             $counter10 = 0;
@@ -536,7 +571,16 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(3, $this->level) !== false)
         {
 
-            $events3 = ForeignEventWork::find()->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->all();
+            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+
+            $e2 = [];
+            foreach ($events2 as $event) $e2[] = $event->id;
+
+            $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'foreign_event_id', $e2])->all();
+
+
+            $eIds2 = [];
+            foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
             $counter11 = 0;
             $counter12 = 0;
