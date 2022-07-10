@@ -328,9 +328,9 @@ class ExcelWizard
     static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
     {
         if ($events_id == 0)
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->all();
         else
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->all();
 
         $partsLink = null;
         $pIds = [];
