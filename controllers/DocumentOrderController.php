@@ -280,7 +280,7 @@ class DocumentOrderController extends Controller
         $model->new_groups_check = ['nope'];
         if ($type == 'scan')
         {
-
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален скан-файл ' . $model->scan . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
             $model->scan = '';
             $model->save(false);
             return $this->redirect('index?r=document-order/update&id='.$model->id);
@@ -300,7 +300,7 @@ class DocumentOrderController extends Controller
             $model->doc = $result;
 
             $model->save(false);
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален редактируемый файл ' . $deleteFile . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
         }
         return $this->redirect('index?r=document-order/update&id='.$model->id);
     }
@@ -341,7 +341,7 @@ class DocumentOrderController extends Controller
         $name = $order->order_name;
         if (!$order->checkForeignKeys())
         {
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ '.$name . ' ' . $order->order_number . '/' . $order->order_copy_id . (empty($model->order_postfix) ? '/' . $order->order_postfix : ''));
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален приказ (id='.$order->id.') '.$name . ' № ' . $order->order_number . '/' . $order->order_copy_id . (empty($model->order_postfix) ? '/' . $order->order_postfix : ''));
             $order->delete();
             Yii::$app->session->addFlash('success', 'Приказ "' . $name . '" успешно удален');
         }
@@ -407,7 +407,7 @@ class DocumentOrderController extends Controller
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Текущая учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
-            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()/*->where(['status' => 0])*/->andWhere(['IN', 'training_group_id',
+            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['status' => 0])->andWhere(['IN', 'training_group_id',
                 (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])])->all();//->orderBy('training_group_id')->all();
             $part = \app\models\work\ForeignEventParticipantsWork::find();
             $stud = \app\models\work\TrainingGroupWork::find();

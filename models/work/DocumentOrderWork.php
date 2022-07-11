@@ -11,6 +11,7 @@ use app\models\components\FileWizard;
 use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
+use app\models\components\Logger;
 
 
 class DocumentOrderWork extends DocumentOrder
@@ -241,6 +242,8 @@ class DocumentOrderWork extends DocumentOrder
         $res = FileWizard::CutFilename($res);
         $this->scan = $res . '.' . $this->scanFile->extension;
         $this->scanFile->saveAs( $path . $res . '.' . $this->scanFile->extension);
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен скан документа ' . $filename . ' в приказ (id=' .$this->id . ')');
     }
 
     public function uploadDocFiles($upd = null)
@@ -272,6 +275,9 @@ class DocumentOrderWork extends DocumentOrder
             $this->doc = $result;
         else
             $this->doc = $this->doc.$result;
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен редактируемый документ ' . $filename . ' в приказ (id=' .$this->id . ')');
+
         return true;
     }
 
@@ -281,6 +287,7 @@ class DocumentOrderWork extends DocumentOrder
 
         $nom = NomenclatureWork::find()->where(['number' => $this->order_number])->andWhere(['actuality' => 0])->one();
         $status = $nom->type;    // 0 - зачислен, 1 - отчислен, 2 - перевод
+        $gr = TrainingGroupWork::find();
 
         //прикрепление и открепление приказов к/от групп(-ам)
         if ($this->groups_check[0] !== 'nope')   // тут было условие которое ловило баг, теперь всё работает как надо
@@ -291,11 +298,14 @@ class DocumentOrderWork extends DocumentOrder
             {
                 $groupsId[] = $group_check;
                 $order = OrderGroupWork::find()->where(['training_group_id' => $group_check])->andWhere(['document_order_id' => $this->id])->one();
+                $grName = $gr->where(['id' => $group_check])->one();
                 if ($order === null)
                 {
                     $order = new OrderGroupWork();
                     $order->training_group_id = $group_check;
                     $order->document_order_id = $this->id;
+                    Logger::WriteLog(Yii::$app->user->identity->getId(),
+                        'К приказу '.$this->order_name . ' № ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : '') . ' добавлена учебная группа ' . $grName->number);
                     $order->save();
                 }
             }
@@ -657,6 +667,7 @@ class DocumentOrderWork extends DocumentOrder
                 }
             }
             /**/
+
             $order->delete();
         }
 
