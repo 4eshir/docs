@@ -726,7 +726,7 @@ class TrainingGroupWork extends TrainingGroup
                         if ($newLesson->checkCopyLesson())
                         {
                             $newLesson->save(false);
-                            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (авто, TrainingGroupLesson: id '.$newLesson->id().')');
+                            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (авто, TrainingGroupLesson: id '.$newLesson->id.')');
                         }
                     }
                 }
@@ -739,7 +739,7 @@ class TrainingGroupWork extends TrainingGroup
                     $newOrder->training_group_id = $this->id;
                     $newOrder->comment = $order->comment;
                     $newOrder->save();
-                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен приказ (OrderGroup: id '.$newOrder->id().')');
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен приказ (OrderGroup: id '.$newOrder->id.')');
                 }
             }
             if ($this->teachers !== null && $this->teachers[0]->teacher_id !== "") {
@@ -799,7 +799,7 @@ class TrainingGroupWork extends TrainingGroup
                         $theme->training_group_lesson_id = $lessons[$i]->id;
                         $theme->teacher_id = $teachers[0]->teacher_id;
                         $theme->save(false);
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплена тема занятия (LessonTheme: id '.$theme->id().')');
+                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплена тема занятия (LessonTheme: id '.$theme->id.')');
                     }
                 }
             }
