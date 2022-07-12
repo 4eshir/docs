@@ -750,7 +750,7 @@ class TrainingGroupWork extends TrainingGroup
                     $teacherGroup->teacher_id = $teacher->teacher_id;
                     $teacherGroup->training_group_id = $this->id;
                     $teacherGroup->save();
-                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен педагог (TeacherGroup: id '.$teacherGroup->id().')');
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'К группе '.$this->GenerateNumber().' прикреплен педагог (TeacherGroup: id '.$teacherGroup->id.')');
                 }
             }
 
