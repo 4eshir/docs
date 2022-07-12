@@ -338,28 +338,36 @@ class ForeignEventWork extends ForeignEvent
 
     private function uploadTeacherParticipants()
     {
+        $str = '';
         if ($this->participants !== null)
         {
             foreach ($this->participants as $participantOne)
             {
-                $part = new TeacherParticipantWork();
-                $part->foreign_event_id = $this->id;
-                $part->participant_id = $participantOne->fio;
-                $part->teacher_id = $participantOne->teacher;
-                $part->teacher2_id = $participantOne->teacher2;
-                $part->focus = $participantOne->focus;
-                $tpbs = [];
-                if ($participantOne->branch !== "")
-                    for ($i = 0; $i < count($participantOne->branch); $i++)
-                    {
-                        $tpb = new TeacherParticipantBranchWork();
-                        $tpb->branch_id = $participantOne->branch[$i];
-                        $tpbs[] = $tpb;
-                    }
-                $part->teacherParticipantBranches = $tpbs;
-                $part->branchs = $participantOne->branch;
-                $part->save();
+                $duplicate = TeacherParticipantWork::find()->where(['participant_id' => $participantOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
+                if (count($duplicate) == 0)
+                {
+                    $part = new TeacherParticipantWork();
+                    $part->foreign_event_id = $this->id;
+                    $part->participant_id = $participantOne->fio;
+                    $part->teacher_id = $participantOne->teacher;
+                    $part->teacher2_id = $participantOne->teacher2;
+                    $part->focus = $participantOne->focus;
+                    $tpbs = [];
+                    if ($participantOne->branch !== "")
+                        for ($i = 0; $i < count($participantOne->branch); $i++)
+                        {
+                            $tpb = new TeacherParticipantBranchWork();
+                            $tpb->branch_id = $participantOne->branch[$i];
+                            $tpbs[] = $tpb;
+                        }
+                    $part->teacherParticipantBranches = $tpbs;
+                    $part->branchs = $participantOne->branch;
+                    $part->save();
+                }
+                else
+                    $str .= 'Попытка добавления дублитката.<br>';
             }
+            Yii::$app->session->setFlash('danger', $str);
         }
     }
 
@@ -380,17 +388,26 @@ class ForeignEventWork extends ForeignEvent
 
     private function uploadParticipantAchievement()
     {
+        $str = '';
         if ($this->achievement)
         {
             foreach ($this->achievement as $achievementOne)
             {
-                $part = new ParticipantAchievement();
-                $part->foreign_event_id = $this->id;
-                $part->participant_id = $achievementOne->fio;
-                $part->achievment = $achievementOne->achieve;
-                $part->winner = $achievementOne->winner;
-                $part->save();
+                $duplicate = ParticipantAchievementWork::find()->where(['participant_id' => $achievementOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
+                if (count($duplicate) == 0)
+                {
+                    $part = new ParticipantAchievement();
+                    $part->foreign_event_id = $this->id;
+                    $part->participant_id = $achievementOne->fio;
+                    $part->achievment = $achievementOne->achieve;
+                    $part->winner = $achievementOne->winner;
+                    $part->save();
+                }
+                else
+                    $str .= 'Попытка добавления дублитката.<br>';
+                
             }
+            Yii::$app->session->setFlash('danger', $str);
         }
     }
 

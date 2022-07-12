@@ -827,10 +827,17 @@ class TrainingGroupWork extends TrainingGroup
 
     public function beforeDelete()
     {
+        $orders = OrderGroup::find()->where(['training_group_id' => $this->id])->all();
+
+        if (count($orders) > 0)
+        {
+            Yii::$app->session->setFlash('danger', 'Невозможно удалить группу, т.к. имеются связанные с ней приказы!');
+            return;
+        }
+
         $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
         $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
-        $orders = OrderGroup::find()->where(['training_group_id' => $this->id])->all();
         $visits = Visit::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $this->id])->all();
         foreach ($visits as $visit) $visit->delete();
         foreach ($teachers as $teacher) $teacher->delete();
