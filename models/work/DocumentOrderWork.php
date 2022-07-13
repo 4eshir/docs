@@ -317,6 +317,7 @@ class DocumentOrderWork extends DocumentOrder
             foreach ($delGroups as $delGroup)
             {
                 $order = OrderGroupWork::find()->where(['training_group_id' => $delGroup->id])->andWhere(['document_order_id' => $this->id])->one();
+                $grName = $gr->where(['id' => $delGroup->id])->one();
                 if ($order !== null)
                 {
                     /**/ // удаление из связки
@@ -377,6 +378,8 @@ class DocumentOrderWork extends DocumentOrder
 
                     }
                     /**/
+                    Logger::WriteLog(Yii::$app->user->identity->getId(),
+                        'От приказа '.$this->order_name . ' № ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : '') . ' откреплена учебная группа ' . $grName->number . ' и все её ученики');
                     $order->delete();
                 }
             }
@@ -489,6 +492,9 @@ class DocumentOrderWork extends DocumentOrder
                         foreach ($lessons as $lesson) $lessonIds[] = $lesson->id;
 
                         $visits = VisitWork::find()->where(['foreign_event_participant_id' => $group->participant_id])->andWhere(['IN', 'training_group_lesson_id', $lessonIds])->all();
+                        if (empty($visits))
+                            Logger::WriteLog(Yii::$app->user->identity->getId(),
+                                'Были удалены лишние явки у participant_id='.$group->participant_id.' в связи с несовпадением дат занятий и даты приказа '.$this->order_name . ' № ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : ''));
 
                         foreach ($visits as $visit)
                         {
@@ -509,6 +515,10 @@ class DocumentOrderWork extends DocumentOrder
                         // изменяем статус ученика
                         $group->status = $status;
                         $group->save();
+
+                        Logger::WriteLog(Yii::$app->user->identity->getId(),
+                            '');
+
 
                         // отдельная песня с переводом. если перевод, то это статус 2 (т.е. перевод) и новая запись со статусом 0 (т.е. зачисление)
                         // дополнительно тут же проверяем есть ли запись в связке первого уровня, и только после этого формируем пасту
