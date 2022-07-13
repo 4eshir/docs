@@ -273,6 +273,66 @@ class JournalController extends Controller
         return $this->redirect('index.php?r=journal/index-edit&group_id='.$group_id);
     }
 
+    public function actionConfirmTheme($id, $modelId)
+    {
+        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+        $gpt->confirm = 1;
+        $gpt->save();
+
+        $model = new JournalModel($modelId);
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+
+        $newVisits = array();
+        $newVisitsId = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+        $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+        
+        return $this->render('indexEdit', [
+            'model' => $model,
+            'modelProjectThemes' => [new GroupProjectThemesWork],
+        ]);
+    }
+
+    public function actionDeclineTheme($id, $modelId)
+    {
+        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+
+        $tgp = TrainingGroupParticipantWork::find()->where(['group_project_themes_id' => $gpt->project_theme_id])->all();
+
+        if (count($tgp) > 0)
+            Yii::$app->session->setFlash('danger', 'Невозможно отклонить тему, прикрепленную к одному или нескольким ученикам группы!');
+        else
+        {
+            $gpt->confirm = 0;
+            $gpt->save();
+        }
+
+        $model = new JournalModel($modelId);
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
+        $newLessons = array();
+        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
+        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+
+
+        $newVisits = array();
+        $newVisitsId = array();
+        foreach ($visits as $visit) $newVisits[] = $visit->status;
+        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
+        $model->visits = $newVisits;
+        $model->visits_id = $newVisitsId;
+        
+        return $this->render('indexEdit', [
+            'model' => $model,
+            'modelProjectThemes' => [new GroupProjectThemesWork],
+        ]);
+    }
+
     /**
      * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

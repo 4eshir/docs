@@ -10,9 +10,11 @@ use Yii;
  * @property int $id
  * @property int $training_group_id
  * @property int $project_theme_id
+ * @property int $confirm
  *
  * @property ProjectTheme $projectTheme
  * @property TrainingGroup $trainingGroup
+ * @property TrainingGroupParticipant[] $trainingGroupParticipants
  */
 class GroupProjectThemes extends \yii\db\ActiveRecord
 {
@@ -31,7 +33,7 @@ class GroupProjectThemes extends \yii\db\ActiveRecord
     {
         return [
             [['training_group_id', 'project_theme_id'], 'required'],
-            [['training_group_id', 'project_theme_id'], 'integer'],
+            [['training_group_id', 'project_theme_id', 'confirm'], 'integer'],
             [['project_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProjectTheme::className(), 'targetAttribute' => ['project_theme_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
         ];
@@ -46,6 +48,7 @@ class GroupProjectThemes extends \yii\db\ActiveRecord
             'id' => 'ID',
             'training_group_id' => 'Training Group ID',
             'project_theme_id' => 'Project Theme ID',
+            'confirm' => 'Confirm',
         ];
     }
 
@@ -67,5 +70,15 @@ class GroupProjectThemes extends \yii\db\ActiveRecord
     public function getTrainingGroup()
     {
         return $this->hasOne(TrainingGroup::className(), ['id' => 'training_group_id']);
+    }
+
+    /**
+     * Gets query for [[TrainingGroupParticipants]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroupParticipants()
+    {
+        return $this->hasMany(TrainingGroupParticipant::className(), ['group_project_themes_id' => 'id']);
     }
 }

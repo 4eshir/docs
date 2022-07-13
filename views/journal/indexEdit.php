@@ -13,6 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <script>
+    function allThemes()
+    {
+        var main = document.getElementById('themeSelect1');
+        var selects = document.getElementsByClassName('themeSide');
+
+        for (let i = 0; i < selects.length; i++)
+            selects[i].value = main.value;
+    }
+
     function changeColor(obj)
     {
         if (obj.value == 0) obj.style.background = "green";
@@ -256,7 +265,24 @@ $this->params['breadcrumbs'][] = $this->title;
             echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a disabled class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a disabled class="btn btn-default">Все --</a>'."</th>";
         $c++;
     }
-    echo '<th style="vertical-align: middle;">Тема проекта</th>';
+
+    $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->andWhere(['confirm' => 1])->all();
+    $tId = [];
+    foreach ($themes as $theme) $tId[] = $theme->project_theme_id;
+
+    //$themes = \app\models\work\ProjectThemeWork::find()->where(['IN', 'id', $tId])->all();
+
+    $items = \yii\helpers\ArrayHelper::map($themes,'id','projectTheme.name');
+    $params = [
+        'prompt' => '--',
+        'id' => 'themeSelect1',
+        'style' => 'min-width: 200px; margin: 0',
+        'options' => [
+                $part->group_project_themes_id => ['selected' => true]
+            ]
+    ];
+
+    echo '<th style="vertical-align: middle;"><span style="display: inline-block">Тема проекта</span>'.$form->field($model, "projectThemes[]", ['template' => "{label}\n{input}", 'options' => ['style' => 'margin-bottom: 5px']])->dropDownList($items,$params)->label(false).'<a onclick="return allThemes();" class="btn btn-success"" style="min-width: 200px">Установить для всех</a></th>';
     echo '<th style="vertical-align: middle;">Оценка</th>';
     echo '<th style="vertical-align: middle;">Успешное завершение</th>';
     echo '</thead><tbody>';
@@ -309,17 +335,11 @@ $this->params['breadcrumbs'][] = $this->title;
             $counter++;
         }
 
-        $themes = \app\models\work\GroupProjectThemesWork::find()->where(['training_group_id' => $model->trainingGroup])->all();
-        $tId = [];
-        foreach ($themes as $theme) $tId[] = $theme->project_theme_id;
-
-        //$themes = \app\models\work\ProjectThemeWork::find()->where(['IN', 'id', $tId])->all();
-
-        $items = \yii\helpers\ArrayHelper::map($themes,'id','projectTheme.name');
         $params = [
-            'prompt' => '--',
-            'style' => 'min-width: 200px',
-            'options' => [
+        'prompt' => '--',
+        'class' => 'form-control themeSide',
+        'style' => 'min-width: 200px; margin: 0',
+        'options' => [
                     $part->group_project_themes_id => ['selected' => true]
                 ]
         ];
@@ -392,7 +412,24 @@ $this->params['breadcrumbs'][] = $this->title;
             {
                 echo '<table>';
                 foreach ($themes as $theme) {
-                    echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['journal/delete-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    $confirmButton = '';
+                    $strConfirm = '';
+                    if ($theme->confirm == 0)
+                    {
+                        $confirmButton .= Html::a('Утвердить', \yii\helpers\Url::to(['journal/confirm-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-success', 'style' => 'margin-right: 20px']);
+                        $strConfirm .= '<span style="font-size: 12pt; color: red; margin-left: 10px; margin-right: 10px; padding: 0">Не утверждена</span>';
+                    }
+                    else
+                    {
+                        $confirmButton .= Html::a('Отклонить', \yii\helpers\Url::to(['journal/decline-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-warning', 'style' => 'margin-right: 20px']);
+                        $strConfirm .= '<span style="font-size: 12pt; color: green; margin-left: 10px; margin-right: 10px; padding: 0">Утверждена</span>';
+                    }
+
+                    $role = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['IN', 'role_id', [5, 6, 7]])->one();
+                    if ($role == null)
+                        $confirmButton = '';
+
+                    echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td><td>'.$strConfirm.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['journal/delete-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }

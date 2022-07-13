@@ -176,7 +176,12 @@ $this->params['breadcrumbs'][] = $this->title;
     {
         echo '<table class="table table-responsive">';
         foreach ($themes as $theme) {
-            echo '<tr><td style="padding-left: 20px; text-align: left"><h5>Тема: '.$theme->projectTheme->name.'</h5></td></tr>';
+            $strConfirm = '';
+            if ($theme->confirm == 1)
+                $strConfirm .= '<span style="font-size: 12pt; color: green; margin-left: 10px; margin-right: 10px; padding: 0">Утверждена</span>';
+            else
+                $strConfirm .= '<span style="font-size: 12pt; color: red; margin-left: 10px; margin-right: 10px; padding: 0">Не утверждена</span>';
+            echo '<tr><td style="padding-left: 20px; text-align: left"><h5>Тема: '.$theme->projectTheme->name.'</h5></td><td>'.$strConfirm.'</td></tr>';
         }
         echo '</table>';
     }
