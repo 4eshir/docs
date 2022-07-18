@@ -27,6 +27,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\GroupProjectThemesWork;
 use app\models\work\PeopleWork;
 use app\models\work\VisitWork;
 use Yii;
@@ -2267,15 +2268,30 @@ class ExcelWizard
             }
         }
 
+        $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
+        $strThemes = 'Тема проекта: ';
+        foreach ($themes as $theme)
+            $strThemes .= $theme->projectTheme->name.', ';
+
+        $strThemes = substr($strThemes, 0, -2);
+
         $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.training_group_id' => $training_group_id])->orderBy(['order_date' => SORT_ASC])->all();
         for ($i = 0, $magic = 25; $i < count($orders); )
         {
             if ($orders[$i]->order_postfix == null)
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+                {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id);
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
+                }
             else
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+                {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic, 51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id.'/'.$orders[$i]->order_postfix);
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
+                }
+
+            
 
             if ($i == count($orders) - 1)
                 break;
@@ -2283,6 +2299,10 @@ class ExcelWizard
                 $i = count($orders) - 1;
             $magic = 29;
         }
+
+        
+
+
 
         header("Pragma: public");
         header("Expires: 0");

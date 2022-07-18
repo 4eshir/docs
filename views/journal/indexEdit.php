@@ -429,7 +429,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($role == null)
                         $confirmButton = '';
 
-                    echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td><td>'.$strConfirm.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['journal/delete-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td><td>'.$strConfirm.'</td><td>'.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['journal/delete-theme', 'id' => $theme->id, 'modelId' => $model->trainingGroup]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }

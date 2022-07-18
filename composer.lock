@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35988a857668b38a816fe8bb007fea1c",
+    "content-hash": "9581170c11385a386211bf85c5453897",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -7300,7 +7300,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "kartik-v/yii2-widget-depdrop": 20,
-        "phpoffice/phpword": 20
+        "phpoffice/phpword": 20,
+        "kartik-v/yii2-mpdf": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
