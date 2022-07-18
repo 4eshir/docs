@@ -407,7 +407,7 @@ class DocumentOrderController extends Controller
             echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Текущая учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
-            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()->where(['status' => 0])->andWhere(['IN', 'training_group_id',
+            $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()/*->where(['status' => 0])*/->andWhere(['IN', 'training_group_id',
                 (new Query())->select('id')->from('training_group')->where(['order_stop' => 0])->andWhere(['archive' => 0])->andWhere(['branch_id' => $id])])->all();//->orderBy('training_group_id')->all();
             $part = \app\models\work\ForeignEventParticipantsWork::find();
             $stud = \app\models\work\TrainingGroupWork::find();

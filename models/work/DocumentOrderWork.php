@@ -516,8 +516,8 @@ class DocumentOrderWork extends DocumentOrder
                         $group->status = $status;
                         $group->save();
 
-                        Logger::WriteLog(Yii::$app->user->identity->getId(),
-                            '');
+                        /*Logger::WriteLog(Yii::$app->user->identity->getId(),
+                            '');*/
 
 
                         // отдельная песня с переводом. если перевод, то это статус 2 (т.е. перевод) и новая запись со статусом 0 (т.е. зачисление)
