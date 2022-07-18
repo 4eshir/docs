@@ -27,5 +27,5 @@ echo Html::a("Расчет выработки ак.ч. пед. работник�
                                 'class'=>'btn btn-default',
                                 'target'=>'_blank', 
                                 'data-toggle'=>'tooltip', 
-                                'title'=>'Will open the generated PDF file in a new window'*/
-                            ]);?>
+                                'title'=>'Will open the generated PDF file in a new window'
+                            ]);*/?>
