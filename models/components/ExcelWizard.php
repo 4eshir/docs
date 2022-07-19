@@ -1533,18 +1533,7 @@ class ExcelWizard
 
         //----------------------------------------------------------
 
-        $temp1 = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
-        $temp2 = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[1], ['Мужской', 'Женский']);
-        $temp3 = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[2], ['Мужской', 'Женский']);
-
-        foreach ($temp1 as $one)
-            echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
-        foreach ($temp2 as $one)
-            echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
-        foreach ($temp3 as $one)
-            echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
+        
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 21, $allParts);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 21, $allPartsDouble/* + $allPartsDoubleCom*/);
