@@ -343,8 +343,8 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->participants as $participantOne)
             {
-                $duplicate = TeacherParticipantWork::find()->where(['participant_id' => $participantOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
-                if (count($duplicate) == 0)
+                //$duplicate = TeacherParticipantWork::find()->where(['participant_id' => $participantOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
+                if (true)//(count($duplicate) == 0)
                 {
                     $part = new TeacherParticipantWork();
                     $part->foreign_event_id = $this->id;
@@ -367,7 +367,8 @@ class ForeignEventWork extends ForeignEvent
                 else
                     $str .= 'Попытка добавления дублитката.<br>';
             }
-            Yii::$app->session->setFlash('danger', $str);
+            if ($str != '')
+                Yii::$app->session->setFlash('danger', $str);
         }
     }
 
@@ -407,7 +408,8 @@ class ForeignEventWork extends ForeignEvent
                     $str .= 'Попытка добавления дублитката.<br>';
                 
             }
-            Yii::$app->session->setFlash('danger', $str);
+            if ($str != '')
+                Yii::$app->session->setFlash('danger', $str);
         }
     }
 
