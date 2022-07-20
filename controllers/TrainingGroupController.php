@@ -81,14 +81,21 @@ class TrainingGroupController extends Controller
         $err = new GroupErrorsWork();
         $arch = explode(',', $arch);
         $unarch = explode(',', $unarch);
+        $status = "<br><br>";
         if ($arch[0] !== "")
         {
             for ($i = 0; $i < count($arch); $i++)
             {
                 $group = TrainingGroupWork::find()->where(['id' => $arch[$i]])->one();
-                $group->archive = 1;
-                $group->save();
-                $err->CheckArchiveTrainingGroup($arch[$i]);
+
+                $errors = GroupErrorsWork::find()->where(['training_group_id' => $arch[$i]])->andWhere(['time_the_end' => null])->andWhere(['amnesty' => null])->all();
+                if (count($errors) > 0)
+                    $status .= 'Учебная группа ' . $group->number . ' содержит ошибки и не может быть отправлена в архив <br>';
+                else {
+                    $group->archive = 1;
+                    $group->save();
+                    $err->CheckArchiveTrainingGroup($arch[$i]);
+                }
             }
         }
         
@@ -102,7 +109,7 @@ class TrainingGroupController extends Controller
             }
         }
         
-        Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно');
+        Yii::$app->session->setFlash("success", 'Изменение статуса групп произведено успешно' . $status);
         return $this->redirect(['/training-group/index']);
         /*
         $searchModel = new SearchTrainingGroup();

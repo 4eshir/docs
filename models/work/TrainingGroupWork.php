@@ -704,7 +704,7 @@ class TrainingGroupWork extends TrainingGroup
                     if ($newLesson->checkCopyLesson())
                     {
                         $newLesson->save(false);
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (вручную, TrainingGroupLesson: id '.$newLesson->id().')');
+                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлено занятие (вручную, TrainingGroupLesson: id '.$newLesson->id.')');
                     }
                 }
             }

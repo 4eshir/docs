@@ -20,7 +20,7 @@ echo Html::a("Отчет гос. задание", \yii\helpers\Url::to(['report-
 echo '<div style="padding-top: 7px"></div>';
 echo Html::a("Отчет ДО", \yii\helpers\Url::to(['report-form/do']), ['class'=>'btn btn-success']);
 echo '<div style="padding-top: 7px"></div>';
-echo Html::a("Расчет выработки ак.ч. пед. работников", \yii\helpers\Url::to(['report-form/teacher']), ['class'=>'btn btn-success']);
+echo Html::a("Расчет выработки пед. работников", \yii\helpers\Url::to(['report-form/teacher']), ['class'=>'btn btn-success']);
 ?>
 
 <?php /*echo Html::a('<img class="left" width="30px"/> Распечатать .PDF', ['/report-form/mpdf-blog'], [

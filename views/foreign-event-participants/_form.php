@@ -45,13 +45,16 @@ use yii\widgets\ActiveForm;
             'Женский' => 'Женский', 'Другое' => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>
     </div>
 
-    <div <?php echo $model->is_true === 1 || $model->guaranted_true === 1 ? 'hidden' : ''; ?>>
-        <?php
+    <?php
+    if ($model->id === null || $model->is_true === 1 || $model->guaranted_true === 1)
+        echo '<div hidden>'; //echo $model->is_true === 1 || $model->guaranted_true === 1 ? 'hidden' : '';
+    else
+        echo '<div>';
         $value = $model->guaranted_true === 1 ? true : false;
-        ?>
-
-        <?= $form->field($model, 'guaranted_true')->checkbox(['checked' => $value]) ?>
-    </div>
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
+            echo $form->field($model, 'guaranted_true')->checkbox(['checked' => $value]) ;
+    echo '</div>';
+    ?>
 
 
     <?php

@@ -235,13 +235,13 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
                         if ($lev <= $accuracy || ($lev == 0 && ($parts[$i]->patronymic == NULL || $parts[$j]->patronymic == NULL)))
                         {
                             $parts[$i]->is_true = 0;
-                            if ($lev == 0)
-                                $parts[$i]->guaranted_true = 0;
+                            /*if ($lev == 0)
+                                $parts[$i]->guaranted_true = 0;*/
                             $parts[$i]->save();
 
                             $parts[$j]->is_true = 0;
-                            if ($lev == 0)
-                                $parts[$j]->guaranted_true = 0;
+                            /*if ($lev == 0)
+                                $parts[$j]->guaranted_true = 0;*/
                             $parts[$j]->save();
                         }
                         else
