@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $options['checked'] = $model->actual ? true : false;
                     return $options;
                 }],
-            'nameX',
+            'name',//'nameX',
             ['attribute' => 'level', 'label' => 'Ур. сложности','value' => function ($model) {return $model->level+1;}],
             ['attribute' => 'branchs', 'label' => 'Место реализации', 'format' => 'html'],
             ['attribute' => 'ped_council_date', 'label' => 'Дата пед. сов.'],
