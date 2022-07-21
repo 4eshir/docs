@@ -88,7 +88,7 @@ class TrainingGroupController extends Controller
             {
                 $group = TrainingGroupWork::find()->where(['id' => $arch[$i]])->one();
 
-                $errors = GroupErrorsWork::find()->where(['training_group_id' => $arch[$i]])->andWhere(['time_the_end' => null])->andWhere(['amnesty' => null])->all();
+                $errors = GroupErrorsWork::find()->where(['training_group_id' => $arch[$i]])->andWhere(['time_the_end' => null])->andWhere(['amnesty' => null])->andWhere(['!=', 'errors_id', 21])->all();
                 if (count($errors) > 0)
                     $status .= 'Учебная группа ' . $group->number . ' содержит ошибки и не может быть отправлена в архив <br>';
                 else {

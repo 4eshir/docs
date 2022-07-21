@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
     {
         echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
     }
-    echo '<th style="vertical-align: middle;">Тема проекта</th>';
+    echo '<th style="vertical-align: middle; min-width: 500px;">Тема проекта</th>';
     echo '<th style="vertical-align: middle;">Оценка</th>';
     echo '<th style="vertical-align: middle;">Успешное завершение</th>';
     echo '</tr>';
@@ -148,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo $visits->prettyStatus;
             $counter++;
         }
-        echo '<td style="text-align: left; min-width: 500px">'.$part->groupProjectThemes->projectTheme->name.'</td>';
+        echo '<td style="text-align: left; ">'.$part->groupProjectThemes->projectTheme->name.'</td>';
         echo '<td>'.$part->points.'</td>';
         if ($part->success == 1)
             echo '<td style="width: 10px">'.$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'checked' => 'checked', 'label' => '', 'value' => $part->id,]).'</td>';
