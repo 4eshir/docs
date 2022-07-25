@@ -34,7 +34,7 @@ class MergeParticipantModel extends \yii\base\Model
         return [
             [['firstname', 'secondname', 'patronymic', 'fio1', 'fio2'], 'string'],
             [['pd', 'edit_model'], 'safe'],
-            [['sex', 'target_id', 'id1', 'id2'], 'integer'],
+            [['sex', 'target_id', 'id1', 'id2', 'guaranted_true'], 'integer'],
         ];
     }
 
@@ -121,6 +121,7 @@ class MergeParticipantModel extends \yii\base\Model
         $part->patronymic = $this->edit_model->patronymic;
         $part->birthdate = $this->edit_model->birthdate;
         $part->sex = $this->edit_model->sex;
+        $part->guaranted_true = 1;
 
         $part->save();
 
