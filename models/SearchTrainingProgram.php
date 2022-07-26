@@ -63,9 +63,9 @@ class SearchTrainingProgram extends TrainingProgramWork
             $aIds = [];
             foreach ($branchs as $branch) $aIds[] = $branch->training_program_id;
             if ($params["SearchTrainingProgram"]["authorSearch"] != null)
-                $query = TrainingProgramWork::find()->andWhere(['IN', 'training_program.id', $aIds]);
+                $query = $query->andWhere(['IN', 'training_program.id', $aIds]);
             else
-                $query = TrainingProgramWork::find()->where(['IN', 'training_program.id', $aIds]);
+                $query = $query->where(['IN', 'training_program.id', $aIds]);
         }
 
         // add conditions that should always apply here
