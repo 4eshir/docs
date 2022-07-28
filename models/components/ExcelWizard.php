@@ -1878,7 +1878,7 @@ class ExcelWizard
             // добавили в конце таблицы с группами итоговые по столбцам
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $currentRow, 'ИТОГО');
             $inputData->getSheet(0)->getStyleByColumnAndRow(0, $currentRow)->applyFromArray($styleArray);
-            for ($tempCurrentColumn = 1; $tempCurrentColumn < 25; $tempCurrentColumn++)
+            for ($tempCurrentColumn = 1; $tempCurrentColumn < 26; $tempCurrentColumn++)
             {
                 $temp = 0;
                 for ($i = 0; $i < count($tgs); $i++)
@@ -1894,6 +1894,7 @@ class ExcelWizard
             {
                 $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
             }
+            $temp = $temp / $inputData->getSheet(0)->getCellByColumnAndRow(26, $tempCurrentRow + count($tgs))->getValue();
             $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $temp);
 
             $tempCurrentRow += 5 + count($tgs);
