@@ -1656,7 +1656,7 @@ class ExcelWizard
         
 
         $temp = 0;
-        var_dump(count($month));
+        //var_dump(count($month));
         for ($i = 0; $i < count($month); $i++)
         {
             if ($i == 0)
@@ -1670,6 +1670,7 @@ class ExcelWizard
             {
                 if ($makaroni->status == 0) $temp++;
                 if ((count($month) == 1) && ($makaroni->status == 2 || $makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
+                else if ($i == count($month) && count($month) != 1 && ($makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
                 else if (($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1) $temp--;
             }
             $participantsCount[] = $temp;
