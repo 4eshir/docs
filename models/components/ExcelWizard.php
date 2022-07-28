@@ -1665,11 +1665,11 @@ class ExcelWizard
             else
                 $pasta = OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->joinWith(['orderGroup.documentOrder documentOrder'])->where(['IN', 'group_participant_id', $ogIds])->andWhere(['>=', 'documentOrder.order_date', $month[$i].'-01'])->andWhere(['<=', 'documentOrder.order_date', $month[$i].'-31'])->all();
 
-            
             foreach ($pasta as $makaroni)
             {
                 if ($makaroni->status == 0) $temp++;
-                if ($makaroni->status == 1 || $makaroni->status == 2) $temp--;
+                if (count($month) == 1 && ($makaroni->status == 2 || $makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
+                else if (($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1) $temp--;
             }
             $participantsCount[] = $temp;
         }
@@ -1715,6 +1715,7 @@ class ExcelWizard
         //var_dump(count($teachersPeople));
 
         $currentRow = 2;
+        $tempCurrentRow = 5;
         
         $styleArray = array('fill'    => array(
                     'type'      => 'solid',
@@ -1862,7 +1863,7 @@ class ExcelWizard
                 }
                 
                 $temp = 0;
-                $str = '=СУММ(B'.$t.'*C'.$t.';D'.$t.'*E'.$t.';F'.$t.'*G'.$t.';H'.$t.'*I'.$t.';J'.$t.'*K'.$t.';L'.$t.'*M'.$t.';N'.$t.'*O'.$t.';P'.$t.'*Q'.$t.';R'.$t.'*S'.$t.';T'.$t.'*U'.$t.';V'.$t.'*W'.$t.';X'.$t.'*Y'.$t.')';
+                //$str = '=СУММ(B'.$t.'*C'.$t.';D'.$t.'*E'.$t.';F'.$t.'*G'.$t.';H'.$t.'*I'.$t.';J'.$t.'*K'.$t.';L'.$t.'*M'.$t.';N'.$t.'*O'.$t.';P'.$t.'*Q'.$t.';R'.$t.'*S'.$t.';T'.$t.'*U'.$t.';V'.$t.'*W'.$t.';X'.$t.'*Y'.$t.')';
                 
                 for ($i = 1; $i < 24; $i += 2)
                 {
@@ -1873,7 +1874,30 @@ class ExcelWizard
                 $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $temp);
                 $currentRow++;
             }
-            $currentRow++;
+
+            // добавили в конце таблицы с группами итоговые по столбцам
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $currentRow, 'ИТОГО');
+            $inputData->getSheet(0)->getStyleByColumnAndRow(0, $currentRow)->applyFromArray($styleArray);
+            for ($tempCurrentColumn = 1; $tempCurrentColumn < 25; $tempCurrentColumn++)
+            {
+                $temp = 0;
+                for ($i = 0; $i < count($tgs); $i++)
+                {
+                    $temp += $inputData->getSheet(0)->getCellByColumnAndRow($tempCurrentColumn, $tempCurrentRow + $i)->getValue();
+                }
+                $inputData->getSheet(0)->setCellValueByColumnAndRow($tempCurrentColumn, $currentRow, $temp);
+                $inputData->getSheet(0)->getStyleByColumnAndRow($tempCurrentColumn, $currentRow)->applyFromArray($styleArray);
+            }
+
+            $temp = 0;
+            for ($i = 1; $i < 24; $i += 2)
+            {
+                $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
+            }
+            $inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $temp);
+
+            $tempCurrentRow += 5 + count($tgs);
+            $currentRow += 2;
         }
 
 
