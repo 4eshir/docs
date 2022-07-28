@@ -1888,14 +1888,14 @@ class ExcelWizard
                 $inputData->getSheet(0)->setCellValueByColumnAndRow($tempCurrentColumn, $currentRow, $temp);
                 $inputData->getSheet(0)->getStyleByColumnAndRow($tempCurrentColumn, $currentRow)->applyFromArray($styleArray);
             }
-var_dump($inputData->getSheet(0)->getCellByColumnAndRow(26, $tempCurrentRow + count($tgs))->getValue());
+
             $temp = 0;
             for ($i = 1; $i < 24; $i += 2)
             {
                 $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
             }
-            //$temp = $temp / $inputData->getSheet(0)->getCellByColumnAndRow(26, $tempCurrentRow + count($tgs))->getValue();
-            //$inputData->getSheet(0)->setCellValueByColumnAndRow($currentColumn, $currentRow, $temp);
+            $temp = $temp / $inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue();
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(25, $currentRow, $temp);
 
             $tempCurrentRow += 5 + count($tgs);
             $currentRow += 2;
