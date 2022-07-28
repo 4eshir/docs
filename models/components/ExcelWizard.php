@@ -1656,7 +1656,7 @@ class ExcelWizard
         
 
         $temp = 0;
-        //var_dump(count($month));
+        $exception = 0; // необходимо для граничных состояний, когда отчисление по группе и её завершение выпало на один месяц
         for ($i = 0; $i < count($month); $i++)
         {
             if ($i == 0)
@@ -1670,10 +1670,17 @@ class ExcelWizard
             {
                 if ($makaroni->status == 0) $temp++;
                 if ((count($month) == 1) && ($makaroni->status == 2 || $makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
-                else if ($i == count($month) && count($month) != 1 && ($makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
                 else if (($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1) $temp--;
+                if ($i == count($month)-1 && ($makaroni->orderGroup->documentOrder->study_type == 0 || $makaroni->orderGroup->documentOrder->study_type == 1) && ($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1) $exception++;
             }
-            $participantsCount[] = $temp;
+            
+            if ($exception != 0)
+            {
+                $participantsCount[] = $exception;
+                $exception = 0;
+            }
+            else
+                $participantsCount[] = $temp;
         }
 
         $resParts = [];
