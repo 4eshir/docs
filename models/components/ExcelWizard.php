@@ -1898,18 +1898,6 @@ class ExcelWizard
                 $inputData->getSheet(0)->getStyleByColumnAndRow($tempCurrentColumn, $currentRow)->applyFromArray($styleArray);
             }
 
-            $temp = 0;
-            for ($i = 1; $i < 24; $i += 2)
-            {
-                $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
-            }
-
-            if ($inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue() != 0)
-                $temp /= $inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue();
-            else
-                $temp = -1;
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(25, $currentRow, $temp);
-
             $tempCurrentRow += 5 + count($tgs);
             $currentRow += 2;
         }
