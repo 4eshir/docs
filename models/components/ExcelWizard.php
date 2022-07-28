@@ -1656,6 +1656,7 @@ class ExcelWizard
         
 
         $temp = 0;
+        var_dump(count($month));
         for ($i = 0; $i < count($month); $i++)
         {
             if ($i == 0)
@@ -1669,7 +1670,7 @@ class ExcelWizard
             {
                 if ($makaroni->status == 0) $temp++;
                 if ((count($month) == 1) && ($makaroni->status == 2 || $makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
-                else if (($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1 && ($makaroni->orderGroup->documentOrder->study_type == 2 || $makaroni->orderGroup->documentOrder->study_type == 3)) $temp--;
+                else if (($makaroni->status == 1 || $makaroni->status == 2) && count($month) != 1) $temp--;
             }
             $participantsCount[] = $temp;
         }
@@ -1894,7 +1895,11 @@ class ExcelWizard
             {
                 $temp += $inputData->getSheet(0)->getCellByColumnAndRow($i, $currentRow)->getValue() * $inputData->getSheet(0)->getCellByColumnAndRow($i + 1, $currentRow)->getValue();
             }
-            $temp = $temp / $inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue();
+
+            if ($inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue() != 0)
+                $temp /= $inputData->getSheet(0)->getCellByColumnAndRow(25, $tempCurrentRow + count($tgs))->getValue();
+            else
+                $temp = -1;
             $inputData->getSheet(0)->setCellValueByColumnAndRow(25, $currentRow, $temp);
 
             $tempCurrentRow += 5 + count($tgs);
