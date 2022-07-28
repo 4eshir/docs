@@ -202,7 +202,10 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $focus = \app\models\work\FocusWork::find()->all();
+    if (count(\app\models\work\BranchProgramWork::find()->where(['branch_id' => 7])->andWhere(['training_program_id' => $model->id])->all()) > 0)
+        $focus = \app\models\work\FocusWork::find()->all();
+    else
+        $focus = \app\models\work\FocusWork::find()->where(['!=', 'id', 6])->all();
     $items = \yii\helpers\ArrayHelper::map($focus,'id','name');
     $params = [
     ];
