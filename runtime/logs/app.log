@@ -1,0 +1,721 @@
+2022-08-01 09:16:36 [127.0.0.1][-][mmaa2frd4ir546lkf7n2jovs410nlr13][error][yii\web\HttpException:403] yii\web\ForbiddenHttpException: Требуется вход. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\User.php:460
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\filters\AccessControl.php(156): yii\web\User->loginRequired()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\filters\AccessControl.php(140): yii\filters\AccessControl->denyAccess(Object(yii\web\User))
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\ActionFilter.php(77): yii\filters\AccessControl->beforeAction(Object(yii\base\InlineAction))
+#3 [internal function]: yii\base\ActionFilter->beforeFilter(Object(yii\base\ActionEvent))
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php(633): call_user_func(Array, Object(yii\base\ActionEvent))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(297): yii\base\Component->trigger('beforeAction', Object(yii\base\ActionEvent))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Controller.php(221): yii\base\Controller->beforeAction(Object(yii\base\InlineAction))
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(176): yii\web\Controller->beforeAction(Object(yii\base\InlineAction))
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('', Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('', Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#11 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#12 {main}
+2022-08-01 09:16:36 [127.0.0.1][-][mmaa2frd4ir546lkf7n2jovs410nlr13][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'mmaa2frd4ir546lkf7n2jovs410nlr13'
+    '_csrf' => '3eb8a5b7f19e7d95627483b3f8283400c296acdc8a293a3a625e7f8c8ce48f85a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"So6hcOJ3-ZoQ-9l94uPqK4ZIjQDY9Lsd\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+    'HTTP_REFERER' => 'http://docs/web/index.php?r=site%2Flogin'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=mmaa2frd4ir546lkf7n2jovs410nlr13; _csrf=3eb8a5b7f19e7d95627483b3f8283400c296acdc8a293a3a625e7f8c8ce48f85a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22So6hcOJ3-ZoQ-9l94uPqK4ZIjQDY9Lsd%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63200'
+    'REDIRECT_URL' => '/web/favicon.ico'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/web/favicon.ico'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659334596.578
+    'REQUEST_TIME' => 1659334596
+    'argv' => []
+    'argc' => 0
+]
+2022-08-01 09:16:52 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][error][yii\web\HttpException:400] yii\web\BadRequestHttpException: Не удалось проверить переданные данные. in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Controller.php:223
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(176): yii\web\Controller->beforeAction(Object(yii\base\InlineAction))
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('login', Array)
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('site/login', Array)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#4 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#5 {main}
+2022-08-01 09:16:51 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][info][application] $_GET = [
+    'r' => 'site/login'
+]
+
+$_POST = [
+    '_csrf' => 'n6dwDYUOdPISGGgUunQyCBI8u0B46K0dvm7EWXPYakvMyEZl5kE-wT9CB0WXTV4xJknrMTPc91TUP4AASpQZLw=='
+    'LoginForm' => [
+        'username' => 'admin'
+        'password' => 'admin'
+        'rememberMe' => '1'
+    ]
+    'login-button' => ''
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '228'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/web/index.php?r=site%2Flogin'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63199'
+    'REDIRECT_URL' => '/web/index.php'
+    'REDIRECT_QUERY_STRING' => 'r=site%2Flogin'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=site%2Flogin'
+    'REQUEST_URI' => '/web/index.php?r=site%2Flogin'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659334611.985
+    'REQUEST_TIME' => 1659334611
+    'argv' => [
+        0 => 'r=site%2Flogin'
+    ]
+    'argc' => 1
+]
+2022-08-01 09:57:16 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1433) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1617
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1617, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1617): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(124): app\models\components\ExcelWizard::DownloadDO('2021-01-01', '2022-01-01')
+#3 [internal function]: app\controllers\ReportFormController->actionDo()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('do', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/do', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-08-01 09:57:15 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/do'
+]
+
+$_POST = [
+    '_csrf' => 'FSnW2PTLxl-RgWqaW1yQmAiUsa9xI_x3UcUznwq05-0tW7mwneaRZsGwXf52MenyQfb66hhFszYYiH3oa8OO3w=='
+    'ReportFormModel' => [
+        'start_date' => '2021-01-01'
+        'end_date' => '2022-01-01'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '182'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fdo'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63451'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fdo'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fdo'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659337035.799
+    'REQUEST_TIME' => 1659337035
+    'argv' => [
+        0 => 'r=report-form%2Fdo'
+    ]
+    'argc' => 1
+]
+2022-08-01 09:58:15 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1433) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1617
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError(2, 'Cannot modify h...', 'C:\\OpenServer\\d...', 1617, Array)
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1617): header('Content-Type: a...')
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(124): app\models\components\ExcelWizard::DownloadDO('2021-01-01', '2022-01-01')
+#3 [internal function]: app\controllers\ReportFormController->actionDo()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('do', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('report-form/do', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-08-01 09:58:15 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/do'
+]
+
+$_POST = [
+    '_csrf' => 'FSnW2PTLxl-RgWqaW1yQmAiUsa9xI_x3UcUznwq05-0tW7mwneaRZsGwXf52MenyQfb66hhFszYYiH3oa8OO3w=='
+    'ReportFormModel' => [
+        'start_date' => '2021-01-01'
+        'end_date' => '2022-01-01'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '182'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Fdo'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63451'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Fdo'
+    'REQUEST_URI' => '/index.php?r=report-form%2Fdo'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659337095.358
+    'REQUEST_TIME' => 1659337095
+    'argv' => [
+        0 => 'r=report-form%2Fdo'
+    ]
+    'argc' => 1
+]
+2022-08-01 13:37:17 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: yii\web\View::id in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\views\event\index.php(39): yii\base\Component->__get('id')
+#1 [internal function]: yii\base\View->{closure}(Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\DataColumn.php(250): call_user_func(Object(Closure), Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#3 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1387): yii\grid\DataColumn->getDataCellValue(Object(app\models\work\EventWork), 22, 0)
+#4 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1331): kartik\export\ExportMenu->generateRow(Object(app\models\work\EventWork), 22, 0)
+#5 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(778): kartik\export\ExportMenu->generateBody()
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): kartik\export\ExportMenu->run()
+#7 C:\OpenServer\domains\localhost\docs\views\event\index.php(74): yii\base\Widget::widget(Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', Array)
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\EventController))
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\EventController))
+#12 C:\OpenServer\domains\localhost\docs\controllers\EventController.php(55): yii\base\Controller->render('index', Array)
+#13 [internal function]: app\controllers\EventController->actionIndex()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('event/index', Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#19 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#20 {main}
+2022-08-01 13:37:17 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][info][application] $_GET = [
+    'r' => 'event/index'
+]
+
+$_POST = [
+    '_csrf' => '3pWQrYDBaZKeLLMtQlotD1CdchAhkhqx9MM8BI-WP67m5__F6ew-q84dhElvN1RlGf85VUj0VfC9jnJz7uFWnA=='
+    'export_type' => 'Xlsx'
+    'exportFull_w1' => '1'
+    'export_columns' => '[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\"]'
+    'column_selector_enabled' => '1'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '331'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '64048'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=event%2Findex'
+    'REQUEST_URI' => '/index.php?r=event%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659350237.431
+    'REQUEST_TIME' => 1659350237
+    'argv' => [
+        0 => 'r=event%2Findex'
+    ]
+    'argc' => 1
+]
+2022-08-01 13:37:30 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\EventParticipantsWork::childs in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('childs')
+#1 C:\OpenServer\domains\localhost\docs\views\event\index.php(39): yii\db\BaseActiveRecord->__get('childs')
+#2 [internal function]: yii\base\View->{closure}(Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\DataColumn.php(250): call_user_func(Object(Closure), Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#4 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1387): yii\grid\DataColumn->getDataCellValue(Object(app\models\work\EventWork), 22, 0)
+#5 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1331): kartik\export\ExportMenu->generateRow(Object(app\models\work\EventWork), 22, 0)
+#6 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(778): kartik\export\ExportMenu->generateBody()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): kartik\export\ExportMenu->run()
+#8 C:\OpenServer\domains\localhost\docs\views\event\index.php(74): yii\base\Widget::widget(Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\EventController))
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\EventController))
+#13 C:\OpenServer\domains\localhost\docs\controllers\EventController.php(55): yii\base\Controller->render('index', Array)
+#14 [internal function]: app\controllers\EventController->actionIndex()
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('event/index', Array)
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#21 {main}
+2022-08-01 13:37:30 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][info][application] $_GET = [
+    'r' => 'event/index'
+]
+
+$_POST = [
+    '_csrf' => 'BFcecekQLhCV1y3_lpXJAU5yhydCIk0-fe3JAd6hZuc8JXEZgD15KcXmGpu7-LBrBxDMYitEAn80oId2v9YP1Q=='
+    'export_type' => 'Xlsx'
+    'exportFull_w1' => '1'
+    'export_columns' => '[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\"]'
+    'column_selector_enabled' => '1'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '331'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '64054'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=event%2Findex'
+    'REQUEST_URI' => '/index.php?r=event%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659350250.599
+    'REQUEST_TIME' => 1659350250
+    'argv' => [
+        0 => 'r=event%2Findex'
+    ]
+    'argc' => 1
+]
+2022-08-01 13:38:02 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\EventParticipantsWork::childs_participants in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('childs_particip...')
+#1 C:\OpenServer\domains\localhost\docs\views\event\index.php(39): yii\db\BaseActiveRecord->__get('childs_particip...')
+#2 [internal function]: yii\base\View->{closure}(Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\DataColumn.php(250): call_user_func(Object(Closure), Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#4 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1387): yii\grid\DataColumn->getDataCellValue(Object(app\models\work\EventWork), 22, 0)
+#5 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1331): kartik\export\ExportMenu->generateRow(Object(app\models\work\EventWork), 22, 0)
+#6 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(778): kartik\export\ExportMenu->generateBody()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): kartik\export\ExportMenu->run()
+#8 C:\OpenServer\domains\localhost\docs\views\event\index.php(74): yii\base\Widget::widget(Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\EventController))
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\EventController))
+#13 C:\OpenServer\domains\localhost\docs\controllers\EventController.php(55): yii\base\Controller->render('index', Array)
+#14 [internal function]: app\controllers\EventController->actionIndex()
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('event/index', Array)
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#21 {main}
+2022-08-01 13:38:01 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][info][application] $_GET = [
+    'r' => 'event/index'
+]
+
+$_POST = [
+    '_csrf' => 'DLNvnO35DsEhCqrDkzZTrheJvpSx9bh-ono6aYjuVtc0wQD0hNRZ-HE7nae-WyrEXuv10diT9z_rN3Qe6Zk_5Q=='
+    'export_type' => 'Xlsx'
+    'exportFull_w1' => '1'
+    'export_columns' => '[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\"]'
+    'column_selector_enabled' => '1'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '331'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '64061'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=event%2Findex'
+    'REQUEST_URI' => '/index.php?r=event%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659350281.758
+    'REQUEST_TIME' => 1659350281
+    'argv' => [
+        0 => 'r=event%2Findex'
+    ]
+    'argc' => 1
+]
+2022-08-01 13:38:35 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\EventParticipantsWork::childs_participants in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('childs_particip...')
+#1 C:\OpenServer\domains\localhost\docs\views\event\index.php(39): yii\db\BaseActiveRecord->__get('childs_particip...')
+#2 [internal function]: yii\base\View->{closure}(Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\DataColumn.php(250): call_user_func(Object(Closure), Object(app\models\work\EventWork), 22, 0, Object(kartik\grid\DataColumn))
+#4 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1387): yii\grid\DataColumn->getDataCellValue(Object(app\models\work\EventWork), 22, 0)
+#5 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(1331): kartik\export\ExportMenu->generateRow(Object(app\models\work\EventWork), 22, 0)
+#6 C:\OpenServer\domains\localhost\docs\vendor\kartik-v\yii2-export\src\ExportMenu.php(778): kartik\export\ExportMenu->generateBody()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): kartik\export\ExportMenu->run()
+#8 C:\OpenServer\domains\localhost\docs\views\event\index.php(74): yii\base\Widget::widget(Array)
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', Array)
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\EventController))
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\EventController))
+#13 C:\OpenServer\domains\localhost\docs\controllers\EventController.php(55): yii\base\Controller->render('index', Array)
+#14 [internal function]: app\controllers\EventController->actionIndex()
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('event/index', Array)
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#21 {main}
+2022-08-01 13:38:35 [127.0.0.1][1][qqpg1c02se7baktukhc9k5to2iop3d95][info][application] $_GET = [
+    'r' => 'event/index'
+]
+
+$_POST = [
+    '_csrf' => '3emOZcSfCqJ7UUvTIhkXAVewn9al_S4zt1RUcH2YJ2flm-ENrbJdmytgfLcPdG5rHtLUk8ybYXL-GRoHHO9OVQ=='
+    'export_type' => 'Xlsx'
+    'exportFull_w1' => '1'
+    'export_columns' => '[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\"]'
+    'column_selector_enabled' => '1'
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'qqpg1c02se7baktukhc9k5to2iop3d95'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => '6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8rohi-W9P17d-myjIbKEifOAIMNwawi2\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '331'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=qqpg1c02se7baktukhc9k5to2iop3d95; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=6d999c7705637e9af47f6f8629272aea98453b2d722b331948359eb5db10e358a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228rohi-W9P17d-myjIbKEifOAIMNwawi2%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '64069'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=event%2Findex'
+    'REQUEST_URI' => '/index.php?r=event%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1659350315.511
+    'REQUEST_TIME' => 1659350315
+    'argv' => [
+        0 => 'r=event%2Findex'
+    ]
+    'argc' => 1
+]

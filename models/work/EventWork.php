@@ -119,6 +119,32 @@ class EventWork extends Event
         if ($this->format === 2) return 'Очно-заочный';
     }
 
+    public function getChildsString()
+    {
+        $parts = EventParticipantsWork::find()->where(['event_id' => $this->id])->one();
+        var_dump($parts);
+        var_dump($this->id);
+        return $parts->childs;
+    }
+
+    public function getChildsRstString()
+    {
+        $parts = EventParticipantsWork::find()->where(['event_id' => $this->id])->one();
+        return $parts->childs_rst;
+    }
+
+    public function getTeachersString()
+    {
+        $parts = EventParticipantsWork::find()->where(['event_id' => $this->id])->one();
+        return $parts->teachers;
+    }
+
+    public function getOthersString()
+    {
+        $parts = EventParticipantsWork::find()->where(['event_id' => $this->id])->one();
+        return $parts->others;
+    }
+
     public function getEventTypeString()
     {
         return EventTypeWork::find()->where(['id' => $this->event_type_id])->one()->name;

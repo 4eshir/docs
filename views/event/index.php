@@ -35,7 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'eventLevelString', 'label' => 'Уровень мероприятия', 'value' => function($model){
             return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
         }, 'encodeLabel' => false],
-        ['attribute' => 'participants_count'],
+        ['attribute' => 'childs', 'value' => function($model){
+            return \app\models\work\EventParticipantsWork::find()->where(['event_id' => $model->id])->one()->child_participants;
+        }, 'encodeLabel' => false],
+        ['attribute' => 'childs_rst', 'value' => function($model){
+            return \app\models\work\EventParticipantsWork::find()->where(['event_id' => $model->id])->one()->child_rst_participants;
+        }, 'encodeLabel' => false],
+        ['attribute' => 'teachers', 'value' => function($model){
+            return \app\models\work\EventParticipantsWork::find()->where(['event_id' => $model->id])->one()->teacher_participants;
+        }, 'encodeLabel' => false],
+        ['attribute' => 'others', 'value' => function($model){
+            return \app\models\work\EventParticipantsWork::find()->where(['event_id' => $model->id])->one()->other_participants;
+        }, 'encodeLabel' => false],
+        //['attribute' => 'participants_count'],
         ['attribute' => 'is_federal', 'value' => function($model){
             if ($model->is_federal == 1)
                 return 'Да';

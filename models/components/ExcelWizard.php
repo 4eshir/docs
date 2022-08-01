@@ -931,6 +931,92 @@ class ExcelWizard
 
         //----------------------------------
 
+        //Получаем количество учеников по физкультурно-спортивным программам
+        $groupsId = [];
+
+        $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
+            ->all();
+
+        //var_dump(count($groups));
+        
+        foreach ($groups as $group) $groupsId[] = $group->id;
+
+        $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
+
+        $pIds = [];
+        foreach ($participants as $participant) $pIds[] = $participant->participant_id;
+
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $pIds])->all();
+
+        $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
+        $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 12, count($participants2));
+
+
+
+
+        //Делим учеников по возрастам
+
+        $participantsId = [];
+        foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
+
+        $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
+
+
+
+
+        //$newParticipants = $participants;
+
+        //var_dump($newParticipants);
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 12, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(4, 12, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 12, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(6, 12, ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(7, 12, ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(8, 12, ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 12, ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(11, 12, ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(12, 12, ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(13, 12, ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(14, 12, ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 12, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 12, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 12, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+        
+
+        //Добавляем детей по финансированию
+        $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->andWhere(['IN', 'trainingGroup.id', $groupsId])
+            ->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])
+            ->all();
+
+        //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->all();
+
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 12, count($participants));
+
+        $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'trainingGroup.id', $groupsId])
+            ->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])
+            ->all();
+
+        
+        $ids = [];
+        foreach ($participants2 as $p) $ids[] = $p->participant_id;
+        $tempP = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
+        //foreach ($tempP as $p) echo $p->fullName.'<br>';
+        
+
+        //$participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 0])->all();
+
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 12, count($participants2) - count($participants));
+
+        //----------------------------------
+
         $inputData->getSheet(2)->setCellValueByColumnAndRow(13, 3, substr($start_date, 2, 2));
 
 
@@ -1430,12 +1516,13 @@ class ExcelWizard
             $sumArrCom[] = $sumCom;
         }
 
+        //var_dump($sumArr);
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3] + $sumArrCom[4]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 30, $sumArrCom[0] + $sumArrCom[1] + $sumArrCom[2] + $sumArrCom[3] + $sumArrCom[4]);
 
         //техническая направленность
 
@@ -1457,6 +1544,13 @@ class ExcelWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 29, $sumArr[2] + $sumArr[3]);
 
         //----------------------------------------------------------------------------
+
+        //физкультурно-спортивная направленность
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 26, $sumArr[4]);
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 26, $sumArr[4]);
+
+        //--------------------------------------
 
         //--------------------------------------------
 
@@ -1529,6 +1623,30 @@ class ExcelWizard
         }
         else
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, 0);
+        
+
+        //----------------------------------------------------------
+
+        //получаем количество детей по физкультурно-спортивной направленности
+
+        if ($allGroups[4] !== null)
+        {
+            $sex = ['Мужской', 'Женский'];
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[4], $sex));
+            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[4], $sex));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[4], $sex));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[4], $sex));
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 26, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 26, $temp1);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
+            $allParts += $temp;
+            $allPartsDouble += $temp1;
+            $allPartsCom += $temp2;
+            $allPartsDoubleCom += $temp3;
+        }
+        else
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 26, 0);
+
         
 
         //----------------------------------------------------------
