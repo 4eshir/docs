@@ -68,7 +68,7 @@ class GroupErrorsWork extends GroupErrors
 
     private function CheckOrder ($modelGroupID, $group, $now_time)
     {
-        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 2])->all();
+        /*$err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 2])->all();
         $ordersCount = count(OrderGroupWork::find()->where(['training_group_id' => $modelGroupID])->all());
         $start_time = $group->start_date;
         $end_time = $group->finish_date;
@@ -97,7 +97,7 @@ class GroupErrorsWork extends GroupErrors
             if ($end_time <= $now_time)
                 $this->critical = 1;
             $this->save();
-        }
+        }*/
     }
 
     private function CheckPasta ($modelGroupID, $group, $now_time)

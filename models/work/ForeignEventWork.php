@@ -201,7 +201,36 @@ class ForeignEventWork extends ForeignEvent
 
     public function getParticipantCount()
     {
-        return count(TeacherParticipant::find()->where(['foreign_event_id' => $this->id])->all());
+        $result = '';
+        $teachPart = TeacherParticipant::find()->where(['foreign_event_id' => $this->id])->all();
+        $allPart = [];
+        foreach ($teachPart as $tP)
+            $allPart[] = $tP->id;
+
+        $result .= count($teachPart);
+        $tech = TeacherParticipantBranchWork::find()->where(['branch_id' => 2])->andWhere(['IN', 'teacher_participant_id', $allPart])->all();
+        $kvant =  TeacherParticipantBranchWork::find()->where(['branch_id' => 1])->andWhere(['IN', 'teacher_participant_id', $allPart])->all();
+        $cdntt =  TeacherParticipantBranchWork::find()->where(['branch_id' => 3])->andWhere(['IN', 'teacher_participant_id', $allPart])->all();
+        $mobKvant =  TeacherParticipantBranchWork::find()->where(['branch_id' => 4])->andWhere(['IN', 'teacher_participant_id', $allPart])->all();
+        $cod =  TeacherParticipantBranchWork::find()->where(['branch_id' => 7])->andWhere(['IN', 'teacher_participant_id', $allPart])->all();
+
+        if ($tech != null || $kvant != null || $cdntt != null || $mobKvant != null || $cod != null)
+            $result .= '<br> ( ';
+        if ($tech != null)
+            $result .= count($tech) . ' - из отдела Технопарк; <br>';
+        if ($kvant != null)
+            $result .= count($kvant) . ' - из отдела Кванториум; <br>';
+        if ($cdntt != null)
+            $result .= count($cdntt) . ' - из отдела ЦДНТТ; <br>';
+        if ($mobKvant != null)
+            $result .= count($mobKvant) . ' - из отдела Мобильный кванториум; <br>';
+        if ($cod != null)
+            $result .= count($cod) . ' - из отдела ЦОД; <br>';
+        $result = substr($result, 0, -6);
+        if ($tech != null || $kvant != null || $cdntt != null || $mobKvant != null || $cod != null)
+            $result .= ')';
+
+        return $result;
     }
 
     public function getTeachers()
