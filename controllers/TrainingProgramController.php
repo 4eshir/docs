@@ -316,6 +316,7 @@ class TrainingProgramController extends Controller
             $tag = TrainingProgramWork::findOne($arch[$i]);
             $tag->actual = 1;
             $tag->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') теперь актуальна');
         }
 
         for ($i = 0; $i < count($unarch) && $unarch[0] != ''; $i++)
@@ -323,6 +324,7 @@ class TrainingProgramController extends Controller
             $tag = TrainingProgramWork::findOne($unarch[$i]);
             $tag->actual = 0;
             $tag->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') больше не актуальна');
         }
 /*
         $selections = explode(',', $ids);
