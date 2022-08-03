@@ -17,7 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
     function archive() {
         var keys = $('#grid').yiiGridView('getSelectedRows');
-        window.location.href='<?php echo Url::to(['training-program/archive']); ?>&ids='+keys.join();
+        //var p = getUrlParameter('page');
+        //if (p == false) p = 1;
+        var checkboxes = document.getElementsByClassName('check');
+        var archive = [];
+        var unarchive = [];
+        for (var index = 0; index < checkboxes.length; index++) {
+            if (checkboxes[index].checked)
+                archive.push(checkboxes[index].value);
+            else
+                unarchive.push(checkboxes[index].value);
+        }
+        window.location.href='<?php echo Url::to(['training-program/archive']); ?>&arch='+archive.join()+'&unarch='+unarchive.join();
         //$('#grid').yiiGridView('getSelectedRows')
     }
 </script>
@@ -90,6 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     //$options['onclick'] = 'myStatus('.$model->id.');';
                     $options['checked'] = $model->actual ? true : false;
+                    $options['class'] = 'check';
                     return $options;
                 }],
             'name',//'nameX',

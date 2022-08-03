@@ -306,8 +306,25 @@ class TrainingProgramController extends Controller
         return $this->redirect('index?r=training-program/view&id='.$id);
     }
 
-    public function actionArchive($ids)
+    public function actionArchive($arch, $unarch)
     {
+        $arch = explode(',', $arch);
+        $unarch = explode(',', $unarch);
+
+        for ($i = 0; $i < count($arch) && $arch[0] != ''; $i++)
+        {
+            $tag = TrainingProgramWork::findOne($arch[$i]);
+            $tag->actual = 1;
+            $tag->save(false);
+        }
+
+        for ($i = 0; $i < count($unarch) && $unarch[0] != ''; $i++)
+        {
+            $tag = TrainingProgramWork::findOne($unarch[$i]);
+            $tag->actual = 0;
+            $tag->save(false);
+        }
+/*
         $selections = explode(',', $ids);
         $flashStr = "";
         $allPrograms = TrainingProgramWork::find()->all();
@@ -335,7 +352,7 @@ class TrainingProgramController extends Controller
                     $flashStr .= "Программа ".$tag->name." теперь актуальна\n";
 
                 //$errors->CheckArchiveTrainingGroup($tag->id);
-            }
+            }*/
         Yii::$app->session->setFlash("success", 'Изменение статуса программ произведено успешно');
         return $this->redirect(['/training-program/index']);
     }
