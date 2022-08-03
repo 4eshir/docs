@@ -33,11 +33,13 @@ class TrainingProgramWork extends TrainingProgram
 
     public $archStat;
 
+    public $linkGroups;
+
     public function rules()
     {
         return [
             [['name', 'author_id', 'focus', 'hour_capacity', 'capacity'], 'required'],
-            [['ped_council_date'], 'safe'],
+            [['ped_council_date', 'linkGroups'], 'safe'],
             [['student_left_age'], 'double'],
             [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat', 'certificat_type_id'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
@@ -101,6 +103,36 @@ class TrainingProgramWork extends TrainingProgram
     public function getNameX()
     {
         return $this->name.' ('.$this->id.')';
+    }
+
+    public function getLinkGroups()
+    {
+        $groups = TrainingGroupWork::find()->where(['training_program_id' => $this->id])->orderBy(['start_date' => SORT_DESC])->all();
+        $res = '<table>';
+        
+        foreach ($groups as $group)
+        {
+            $style = "";
+            $strStatus = '(группа завершила обучение)';
+            if (date("Y-m-d") > $group->start_date && date("Y-m-d") < $group->finish_date)
+            {
+                $style .= "background: #77DD77";
+                $strStatus = '(группа проходит обучение)';
+            }
+            if (date("Y-m-d") < $group->start_date)
+            {
+                $style .= "background: #FFBA00";
+                $strStatus = '(группа не начала обучение)';
+            }
+            $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px">'.Html::a($group->number, \yii\helpers\Url::to(['training-group/view', 'id' => $group->id])).'</td><td style="padding-right: 15px">'.$group->start_date.'&mdash;'.$group->finish_date.'</td><td style="'.$style.'"><i><b>'.$strStatus.'<b></i></td>';
+        }
+        $res .= '</table>';
+        return $res;
+    }
+
+    public function getGroupsCount()
+    {
+        return '<span>Всего групп: <b>'.count(TrainingGroupWork::find()->where(['training_program_id' => $this->id])->all()).'</b></span>';
     }
 
     public function getFullName()

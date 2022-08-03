@@ -253,7 +253,6 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'allow_remote')->radioList([
             0 => 'Только очная форма',
             1 => 'Очная форма, с применением дистанционных технологий',
-            2 => 'Только дистанционная форма'
         ],
         [
             'item' => function($index, $label, $name, $checked, $value) {
