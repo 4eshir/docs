@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchTrainingGroup */
@@ -52,6 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </script>
 
+
+
 <div class="training-group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -65,6 +68,32 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    <div style="margin-bottom: 10px;">
+        <?php
+
+        $gridColumns = [
+            ['attribute' => 'numberView', 'format' => 'html'],
+                ['attribute' => 'programName', 'format' => 'html'],
+                ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
+                ['attribute' => 'teachersList', 'format' => 'html'],
+                'start_date',
+                'finish_date',
+                ['attribute' => 'budgetText', 'label' => 'Бюджет', 'filter' => [ 1 => "Бюджет", 0 => "Внебюджет"]],
+
+        ];
+        echo '<b>Скачать файл </b>';
+        echo ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => $gridColumns,
+            'options' => [
+                'padding-bottom: 100px',
+            ]
+        ]);
+
+        ?>
+    </div>
+    
 
     <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 10) || \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)){
         echo GridView::widget([
