@@ -592,12 +592,15 @@ $session = Yii::$app->session;
     ?>
     <br>
     <?php
-    echo $form->field($model, 'allResp')
-    ->checkbox([
-        'label' => 'Добавить всех работников в ответственных',
-        'labelOptions' => [
-        ],
-    ]);
+    if ($session->get('type') === '1')
+    {
+        echo $form->field($model, 'allResp')
+            ->checkbox([
+                'label' => 'Добавить всех работников в ответственных',
+                'labelOptions' => [
+                ],
+            ]);
+    }
     ?>
     <div class="row" style="overflow-y: scroll; height: 250px">
         <div class="panel panel-default">
