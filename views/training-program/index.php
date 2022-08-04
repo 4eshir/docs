@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'capacity',
         'studentAge',
         'stringFocus',
-        ['attribute' => 'allowRemote', 'label' => 'Дист. тех.'],
+        ['attribute' => 'allowRemote', 'label' => 'Форма реализации'],
 
     ];
     echo '<b>Скачать файл </b>';
@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'capacity',
             'studentAge',
             'stringFocus',
-            ['attribute' => 'allowRemote', 'label' => 'Дист. тех.'],
+            ['attribute' => 'allowRemote', 'label' => 'Форма реализации'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

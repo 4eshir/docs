@@ -10,6 +10,7 @@ use app\models\work\BranchProgramWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\TrainingProgramWork;
+use app\models\work\AllowRemoteWork;
 
 /**
  * SearchTrainingProgram represents the model behind the search form of `app\models\common\TrainingProgram`.
@@ -24,7 +25,7 @@ class SearchTrainingProgram extends TrainingProgramWork
     public function rules()
     {
         return [
-            [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote', 'name'], 'safe'],
+            [['id', 'ped_council_date', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'allow_remote_id', 'name'], 'safe'],
             [['authorSearch', 'branchSearch'], 'integer'],
         ];
     }
@@ -91,13 +92,11 @@ class SearchTrainingProgram extends TrainingProgramWork
             'student_left_age' => $this->student_left_age,
             'student_right_age' => $this->student_right_age,
             'focus_id' => $this->focus_id,
-            'allow_remote' => $this->allow_remote,
+            'allow_remote_id' => $this->allow_remote_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'ped_council_number', $this->ped_council_number])
-
-        ;
+            ->andFilterWhere(['like', 'ped_council_number', $this->ped_council_number]);
         return $dataProvider;
     }
 }

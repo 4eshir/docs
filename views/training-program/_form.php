@@ -202,10 +202,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    if (count(\app\models\work\BranchProgramWork::find()->where(['branch_id' => 7])->andWhere(['training_program_id' => $model->id])->all()) > 0)
-        $focus = \app\models\work\FocusWork::find()->all();
-    else
-        $focus = \app\models\work\FocusWork::find()->where(['!=', 'id', 6])->all();
+    $focus = \app\models\work\FocusWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($focus,'id','name');
     $params = [
     ];
@@ -244,7 +241,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $prog = \app\models\work\TrainingProgramWork::find()->where(['id' => $model->id])->one();
+    /*$prog = \app\models\work\TrainingProgramWork::find()->where(['id' => $model->id])->one();
     $value = false;
     if ($prog !== null)
     {
@@ -269,7 +266,15 @@ use yii\widgets\ActiveForm;
                 return $return;
             }
         ])->label('Форма реализации');
-    
+    */
+    ?>
+
+    <?php
+    $allowRemote = \app\models\work\AllowRemoteWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($allowRemote,'id','name');
+    $params = [
+    ];
+    echo $form->field($model, "allow_remote_id")->dropDownList($items,$params);
     ?>
 
     <?= $form->field($model, 'hour_capacity')->textInput() ?>

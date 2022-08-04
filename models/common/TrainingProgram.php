@@ -18,7 +18,8 @@ use Yii;
  * @property int $student_left_age
  * @property int $student_right_age
  * @property string|null $focus
- * @property int $allow_remote
+ //* @property int $allow_remote
+ * @property int $allow_remote_id
  * @property string|null $doc_file
  * @property string|null $edit_docs
  * @property string|null $key_words
@@ -35,6 +36,7 @@ use Yii;
  * @property ThematicDirection $thematicDirection
  * @property Focus $focus0
  * @property CertificatType $certificatType
+ * @property AllowRemote $allowRemote
  */
 class TrainingProgram extends \yii\db\ActiveRecord
 {
@@ -53,7 +55,7 @@ class TrainingProgram extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'thematic_direction_id', 'focus_id'], 'required'],
-            [['thematic_direction_id', 'level', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote', 'focus_id', 'hour_capacity', 'actual', 'certificat_type_id'], 'integer'],
+            [['thematic_direction_id', 'level', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote_id', 'focus_id', 'hour_capacity', 'actual', 'certificat_type_id'], 'integer'],
             [['ped_council_date'], 'safe'],
             [['name', 'ped_council_number', 'focus', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
@@ -169,5 +171,15 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public function getCertificatType()
     {
         return $this->hasOne(CertificatType::className(), ['id' => 'certificat_type_id']);
+    }
+
+    /**
+     * Gets query for [[AllowRemote]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAllowRemote()
+    {
+        return $this->hasOne(AllowRemote::className(), ['id' => 'allow_remote_id']);
     }
 }

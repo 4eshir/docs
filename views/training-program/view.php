@@ -95,11 +95,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'hour_capacity',
             ['attribute' => 'themesPlan', 'value' => '<button class="accordion">Показать учебно-тематический план</button><div class="panel">'.$model->themesPlan.'</div>', 'format' => 'raw', 'format' => 'raw', 'label' => 'Учебно-тематический план'],
             ['attribute' => 'branchs', 'format' => 'raw'],
-            ['attribute' => 'allow_remote', 'label' => 'Форма реализации', 'value' => function($model) {
+            ['attribute' => 'allowRemote', 'format' => 'raw'],
+            /*['attribute' => 'allow_remote', 'label' => 'Форма реализации', 'value' => function($model) {
                 $out = '';
                 if ($model->allow_remote == 0) $out = 'Только очная форма';
                 if ($model->allow_remote == 1) $out = 'Очная форма, с применением дистанционных технологий';
-                return $out;}],
+                return $out;}],*/
             ['attribute' => 'doc_file', 'value' => function ($model) {
                 return Html::a($model->doc_file, \yii\helpers\Url::to(['training-program/get-file', 'fileName' => $model->doc_file, 'modelId' => $model->id, 'type' => 'doc']));
             }, 'format' => 'raw'],
@@ -111,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
-            ['attribute' => 'certificatTypeString', 'label' => 'Итоговая фомра контроля'],
+            ['attribute' => 'certificatTypeString', 'label' => 'Итоговая форма контроля'],
             'key_words',
             ['attribute' => function($model) {return $model->actual == 0 ? 'Нет' : 'Да';}, 'label' => 'Образовательная программа актуальна'],
             ['attribute' => 'linkGroups', 'value' => '<div style="float: left; width: 20%; height: 100%; line-height: 250%">'.$model->getGroupsCount().'</div><div style="float: left; width: 80%"><button class="accordion" style="display: flex; float: left">Показать учебные группы</button><div class="panel">'.$model->getLinkGroups().'</div></div>', 'format' => 'raw', 'label' => 'Учебные группы'],
