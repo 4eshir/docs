@@ -137,39 +137,7 @@ class JournalController extends Controller
         ]);
     }
 
-    public function actionDeleteTheme($id, $modelId)
-    {
-        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
-
-        $tgps = TrainingGroupParticipantWork::find()->where(['group_project_themes_id' => $id])->all();
-
-        foreach ($tgps as $tgp)
-        {
-            $tgp->group_project_themes_id = null;
-            $tgp->save();
-        }
-
-        $gpt->delete();
-
-        $model = new JournalModel($modelId);
-        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
-        $newLessons = array();
-        foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
-
-
-        $newVisits = array();
-        $newVisitsId = array();
-        foreach ($visits as $visit) $newVisits[] = $visit->status;
-        foreach ($visits as $visit) $newVisitsId[] = $visit->id;
-        $model->visits = $newVisits;
-        $model->visits_id = $newVisitsId;
-        
-        return $this->render('indexEdit', [
-            'model' => $model,
-            'modelProjectThemes' => [new GroupProjectThemesWork],
-        ]);
-    }
+    
 
     /**
      * Creates a new Company model.

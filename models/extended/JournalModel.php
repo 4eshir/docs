@@ -112,21 +112,7 @@ class JournalModel extends \yii\base\Model
             else if ($this->successes[$i] == 0)
                 $tempSuccess[] = $this->successes[$i];
 
-        for ($i = 0; $i < count($this->groupProjectThemes); $i++)
-        {
-            $tempId = -1;
-
-            $pt = new ProjectThemeWork();
-            $pt->name = $this->groupProjectThemes[$i]->themeName;
-            if ($pt->save())
-                $tempId = $pt->id;
-                
-
-            $gpt = new GroupProjectThemesWork();
-            $gpt->training_group_id = $this->trainingGroup;
-            $gpt->project_theme_id = $tempId;
-            $gpt->save();
-        }
+        
 
         for ($i = 0; $i < count($this->tpIds); $i++)
         {

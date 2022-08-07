@@ -23,6 +23,7 @@ use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\TrainingGroupExpertWork;
 use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\Html;
@@ -47,6 +48,8 @@ class TrainingGroupWork extends TrainingGroup
     public $auto;
     public $orders;
     public $teachers;
+    public $themes;
+    public $experts;
 
     public $fileParticipants;
 
@@ -66,7 +69,7 @@ class TrainingGroupWork extends TrainingGroup
         return [
             [['start_date', 'finish_date', 'budget'], 'required'],
             [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id'], 'integer'],
-            [['start_date', 'finish_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
+            [['start_date', 'finish_date', 'protection_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
             [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
@@ -92,6 +95,7 @@ class TrainingGroupWork extends TrainingGroup
             'teacherName' => 'Педагог',
             'start_date' => 'Дата начала занятий',
             'finish_date' => 'Дата окончания занятий',
+            'protection_date' => 'Дата защиты',
             'photos' => 'Фотоматериалы',
             'photosFile' => 'Фотоматериалы',
             'present_data' => 'Презентационные материалы',
@@ -811,6 +815,26 @@ class TrainingGroupWork extends TrainingGroup
                     $cert->send_method_id = $this->sendMethodArr[$i];
                     $cert->certificat_number = $this->certificatArr[$i];
                     $cert->save();
+                }
+            }
+
+            //блок сохранения тем проектов
+            if ($this->themes !== null)
+            {
+                for ($i = 0; $i < count($this->themes); $i++)
+                {
+                    $tempId = -1;
+
+                    $pt = new ProjectThemeWork();
+                    $pt->name = $this->themes[$i]->themeName;
+                    if ($pt->save())
+                        $tempId = $pt->id;
+                        
+
+                    $gpt = new GroupProjectThemesWork();
+                    $gpt->training_group_id = $this->id;
+                    $gpt->project_theme_id = $tempId;
+                    $gpt->save();
                 }
             }
 

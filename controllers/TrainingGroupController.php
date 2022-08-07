@@ -10,6 +10,8 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\NomenclatureWork;
+use app\models\work\ExperWork;
+use app\models\work\GroupProjectThemesWork;
 use app\models\work\OrderGroupWork;
 use app\models\work\PeopleWork;
 use app\models\work\PersonalDataTrainingParticipantGroupWork;
@@ -21,6 +23,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
+use app\models\work\TrainingGroupExpertWork;
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
@@ -182,6 +185,8 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroupWork];
         $modelTeachers = [new TeacherGroupWork];
+        $modelProjectThemes = [new GroupProjectThemesWork];
+        $modelExperts = [new TrainingGroupExpertWork];
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -202,6 +207,12 @@ class TrainingGroupController extends Controller
             $modelOrderGroup = DynamicModel::createMultiple(OrderGroupWork::classname());
             DynamicModel::loadMultiple($modelOrderGroup, Yii::$app->request->post());
             $model->orders = $modelOrderGroup;
+            $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
+            $model->themes = $modelProjectThemes;
+            $modelExperts = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            DynamicModel::loadMultiple($modelExperts, Yii::$app->request->post());
+            $model->experts = $modelExperts;
 
             $modelTeachers = DynamicModel::createMultiple(TeacherGroupWork::classname());
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
@@ -233,6 +244,8 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
             'modelOrderGroup' => $modelOrderGroup,
             'modelTeachers' => $modelTeachers,
+            'modelProjectThemes' => $modelProjectThemes,
+            'modelExperts' => $modelExperts,
         ]);
     }
 
@@ -257,6 +270,9 @@ class TrainingGroupController extends Controller
         $modelTrainingGroupAuto = [new TrainingGroupAuto];
         $modelOrderGroup = [new OrderGroupWork];
         $modelTeachers = [new TeacherGroupWork];
+        $modelProjectThemes = [new GroupProjectThemesWork];
+        $modelExperts = [new TrainingGroupExpertWork];
+
         $extEvents = TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['training_group_id' => $model->id])->orderBy(['participant.secondname' => SORT_ASC, 'participant.firstname' => SORT_ASC, 'participant.patronymic' => SORT_ASC])->all();
         if ($extEvents != null)
         {
@@ -290,6 +306,13 @@ class TrainingGroupController extends Controller
             $modelTeachers = DynamicModel::createMultiple(TeacherGroupWork::classname());
             DynamicModel::loadMultiple($modelTeachers, Yii::$app->request->post());
             $model->teachers = $modelTeachers;
+            $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
+            $model->themes = $modelProjectThemes;
+            $modelExperts = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            DynamicModel::loadMultiple($modelExperts, Yii::$app->request->post());
+            $model->experts = $modelExperts;
+
             $model->fileParticipants = UploadedFile::getInstance($model, 'fileParticipants');
             $model->certFile = UploadedFile::getInstance($model, 'certFile');
             //$model->save();
@@ -330,6 +353,8 @@ class TrainingGroupController extends Controller
             'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
             'modelOrderGroup' => $modelOrderGroup,
             'modelTeachers' => $modelTeachers,
+            'modelProjectThemes' => $modelProjectThemes,
+            'modelExperts' => $modelExperts,
         ]);
     }
 
@@ -617,6 +642,49 @@ class TrainingGroupController extends Controller
         $errorsAmnesty = new GroupErrorsWork();
         $errorsAmnesty->GroupAmnesty($id);
         return $this->redirect('index?r=training-group/view&id='.$id);
+    }
+
+    public function actionDeleteTheme($id, $modelId)
+    {
+        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+
+        $tgps = TrainingGroupParticipantWork::find()->where(['group_project_themes_id' => $id])->all();
+
+        foreach ($tgps as $tgp)
+        {
+            $tgp->group_project_themes_id = null;
+            $tgp->save();
+        }
+
+        $gpt->delete();
+        
+        return $this->redirect('index?r=training-group/update&id=' . $modelId);
+    }
+
+    public function actionConfirmTheme($id, $modelId)
+    {
+        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+        $gpt->confirm = 1;
+        $gpt->save();
+        
+        return $this->redirect('index?r=training-group/update&id=' . $modelId);
+    }
+
+    public function actionDeclineTheme($id, $modelId)
+    {
+        $gpt = GroupProjectThemesWork::find()->where(['id' => $id])->one();
+
+        $tgp = TrainingGroupParticipantWork::find()->where(['group_project_themes_id' => $gpt->project_theme_id])->all();
+
+        if (count($tgp) > 0)
+            Yii::$app->session->setFlash('danger', 'Невозможно отклонить тему, прикрепленную к одному или нескольким ученикам группы!');
+        else
+        {
+            $gpt->confirm = 0;
+            $gpt->save();
+        }
+        
+        return $this->redirect('index?r=training-group/update&id=' . $modelId);
     }
 
     //Проверка на права доступа к CRUD-операциям

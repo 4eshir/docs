@@ -271,6 +271,9 @@ class RoleBaseAccess
             "archive" => [8, 9], //пока что архивировать может тот же, кто и удаляет
             "amnesty" => [8, 9], //пока амнистию может давать тот же, кто и удаляет
             "download-journal" => [8, 9],
+            "delete-theme" => [5, 6, 7],
+            "decline-theme" => [5, 6, 7],
+            "confirm-theme" => [5, 6, 7],
         ],
         //--------------
 

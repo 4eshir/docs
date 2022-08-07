@@ -192,6 +192,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
         {
             echo Html::button('Показать список учеников', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("parts")']);
             echo Html::button('Показать расписание', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("schedule")']);
+            echo Html::button('Показать сведения о защите работ', ['class' => 'btn btn-primary training-btn', 'onclick' => 'switchBlock("protection")']);
         }
     ?>
     <div style="height: 20px"></div>
@@ -853,6 +854,179 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
         <?php echo $form->field($model, 'open')->checkbox() ?>
     </div>
 
+    <div id="protection" hidden>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Темы проектов</p></div>
+                <?php
+                $themes = \app\models\work\GroupProjectThemesWork::find()->joinWith(['projectTheme projectTheme'])->where(['training_group_id' => $model->id])->all();
+                if ($themes != null)
+                {
+                    echo '<table>';
+                    foreach ($themes as $theme) {
+                        $confirmButton = '';
+                        $strConfirm = '';
+                        if ($theme->confirm == 0)
+                        {
+                            $confirmButton .= Html::a('Утвердить', \yii\helpers\Url::to(['training-group/confirm-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-success', 'style' => 'margin-right: 20px']);
+                            $strConfirm .= '<span style="font-size: 12pt; color: red; margin-left: 10px; margin-right: 10px; padding: 0">Не утверждена</span>';
+                        }
+                        else
+                        {
+                            $confirmButton .= Html::a('Отклонить', \yii\helpers\Url::to(['training-group/decline-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning', 'style' => 'margin-right: 20px']);
+                            $strConfirm .= '<span style="font-size: 12pt; color: green; margin-left: 10px; margin-right: 10px; padding: 0">Утверждена</span>';
+                        }
+
+                        $role = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['IN', 'role_id', [5, 6, 7]])->one();
+                        if ($role == null)
+                            $confirmButton = '';
+
+                        echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td><td>'.$strConfirm.'</td><td>'.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    }
+                    echo '</table>';
+                }
+                ?>
+                <div class="panel-body">
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper8', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items8', // required: css class selector
+                        'widgetItem' => '.item8', // required: css class
+                        'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item', // css class
+                        'deleteButton' => '.remove-item', // css class
+                        'model' => $modelProjectThemes[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'eventExternalName',
+                        ],
+                    ]); ?>
+
+                    <div class="container-items8" ><!-- widgetContainer -->
+                        <?php foreach ($modelProjectThemes as $i => $modelProjectTheme): ?>
+                            <div class="item8 panel panel-default"><!-- widgetBody -->
+                                <div class="panel-heading">
+                                    <div class="pull-right">
+                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <?php
+
+                                        $branch = \app\models\work\EventExternalWork::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+                                        $params = [
+                                            'prompt' => '',
+                                        ];
+                                        echo $form->field($modelProjectTheme, "[{$i}]themeName")->textInput($items,$params)->label('Тема проекта');
+                                        ?>
+
+                                    </div>
+
+                                    
+                                    
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php DynamicFormWidget::end(); ?>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <?php echo $form->field($model, 'protection_date')->widget(\yii\jui\DatePicker::class,
+            [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'placeholder' => 'Дата защиты',
+                    'class'=> 'form-control',
+                    'autocomplete'=>'off',
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2050',
+                ]]) 
+        ?>
+    </div>
+
+    <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Приглашенные эксперты</p></div>
+                <?php
+                $experts = \app\models\work\TrainingGroupExpertWork::find()->where(['training_group_id' => $model->id])->all();
+                if ($experts != null)
+                {
+                    echo '<table>';
+                    foreach ($experts as $expert) {
+                        }
+                    echo '</table>';
+                }
+                ?>
+                <div class="panel-body">
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper9', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items9', // required: css class selector
+                        'widgetItem' => '.item9', // required: css class
+                        'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item', // css class
+                        'deleteButton' => '.remove-item', // css class
+                        'model' => $modelExperts[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'eventExternalName',
+                        ],
+                    ]); ?>
+
+                    <div class="container-items9" ><!-- widgetContainer -->
+                        <?php foreach ($modelExperts as $i => $modelExpert): ?>
+                            <div class="item9 panel panel-default"><!-- widgetBody -->
+                                <div class="panel-heading">
+                                    <div class="pull-right">
+                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div>
+                                        <?php
+                                        $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                        $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
+                                        $params = [
+                                            'prompt' => ''
+                                        ];
+                                        echo $form->field($modelExperts, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО');
+
+                                        ?>
+
+                                    </div>
+
+                                    
+                                    
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php DynamicFormWidget::end(); ?>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success md-trigger', 'data-modal' => 'modal-12']) ?>
     </div>
@@ -882,6 +1056,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
         document.querySelector('#common').hidden = true;
         document.querySelector('#parts').hidden = true;
         document.querySelector('#schedule').hidden = true;
+        document.querySelector('#protection').hidden = true;
         block = '#' + idBlock;
         document.querySelector(block).hidden = false;
     }

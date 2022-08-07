@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
         'modelOrderGroup' => $modelOrderGroup,
         'modelTeachers' => $modelTeachers,
+        'modelProjectThemes' => $modelProjectThemes,
+        'modelExperts' => $modelExperts,
     ]) ?>
 
 </div>
