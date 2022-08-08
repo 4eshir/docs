@@ -274,6 +274,7 @@ class RoleBaseAccess
             "delete-theme" => [5, 6, 7],
             "decline-theme" => [5, 6, 7],
             "confirm-theme" => [5, 6, 7],
+            "delete-expert" => [5, 6, 7],
         ],
         //--------------
 

@@ -93,6 +93,7 @@ class TrainingGroupWork extends TrainingGroup
             'programNameNoLink' => 'Образовательная программа',
             'teacher_id' => 'Педагог',
             'teacherName' => 'Педагог',
+
             'start_date' => 'Дата начала занятий',
             'finish_date' => 'Дата окончания занятий',
             'protection_date' => 'Дата защиты',
@@ -830,12 +831,38 @@ class TrainingGroupWork extends TrainingGroup
                     if ($pt->save())
                         $tempId = $pt->id;
                         
-
                     $gpt = new GroupProjectThemesWork();
                     $gpt->training_group_id = $this->id;
                     $gpt->project_theme_id = $tempId;
+                    $gpt->project_type_id = $this->themes[$i]->project_type_id;
                     $gpt->save();
                 }
+            }
+
+            //блок сохранения приглашенных экспертов
+            if ($this->experts !== null && $this->experts[0]->expert_id !== '')
+            {
+                $exs = TrainingGroupExpertWork::find()->where(['training_group_id' => $this->id])->all();
+                if (count($exs) + count($this->experts))
+                {
+                    Yii::$app->session->setFlash('danger', 'Попытка добавить более 5 экспертов! Некоторые эксперты не будут добавлены');
+                    for ($i = 0; $i < count($this->experts) && $i + count($exs) < 5; $i++)
+                    {
+                        $ex = new TrainingGroupExpertWork();
+                        if (TrainingGroupExpertWork::find()->where(['expert_id' => $this->experts[$i]->expert_id])->andWhere(['training_group_id' => $this->id])->one() !== null)
+                            Yii::$app->session->setFlash('danger', 'Попытка добавить дубликат эксперта!');
+                        else
+                        {
+                            $ex->expert_id = $this->experts[$i]->expert_id;
+                            $ex->expert_type_id = $this->experts[$i]->expert_type_id + 1;
+                            $ex->training_group_id = $this->id;
+
+                            $ex->save();
+                        }
+                        
+                    }
+                }
+                    
             }
 
             // тут должны работать проверки на ошибки

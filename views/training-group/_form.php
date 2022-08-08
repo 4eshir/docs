@@ -855,6 +855,25 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
     </div>
 
     <div id="protection" hidden>
+
+        <div>
+            <?php echo $form->field($model, 'protection_date')->widget(\yii\jui\DatePicker::class,
+                [
+                    'dateFormat' => 'php:Y-m-d',
+                    'language' => 'ru',
+                    'options' => [
+                        'placeholder' => 'Дата защиты',
+                        'class'=> 'form-control',
+                        'autocomplete'=>'off',
+                    ],
+                    'clientOptions' => [
+                        'changeMonth' => true,
+                        'changeYear' => true,
+                        'yearRange' => '2000:2050',
+                    ]]) 
+            ?>
+        </div>
+
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Темы проектов</p></div>
@@ -881,7 +900,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         if ($role == null)
                             $confirmButton = '';
 
-                        echo '<tr><td style="padding-left: 20px; text-align: left"><h4>Тема: '.$theme->projectTheme->name.'</h4></td><td>'.$strConfirm.'</td><td>'.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td style="padding-left: 20px; text-align: left; padding-right: 15px"><h4>Тема: '.$theme->projectTheme->name.' </td><td><h5>('.$theme->projectType->name.' проект)</h5>'.'</h4></td><td>'.$strConfirm.'</td><td>'.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -913,7 +932,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="panel-body">
-                                    <div>
+                                    <div style="float:left; width: 60%">
                                         <?php
 
                                         $branch = \app\models\work\EventExternalWork::find()->all();
@@ -926,6 +945,17 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
                                     </div>
 
+                                    <div style="float:left; margin-left: 20px; width: 30%">
+                                        <?php
+                                        $people = \app\models\work\ProjectTypeWork::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($people,'id','name');
+                                        $params = [
+                                            'prompt' => ''
+                                        ];
+                                        echo $form->field($modelProjectTheme, "[{$i}]project_type_id")->dropDownList($items,$params)->label('Тип проекта');
+
+                                        ?>
+                                    </div>
                                     
                                     
 
@@ -939,25 +969,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
             </div>
         </div>
-    </div>
 
-    <div>
-        <?php echo $form->field($model, 'protection_date')->widget(\yii\jui\DatePicker::class,
-            [
-                'dateFormat' => 'php:Y-m-d',
-                'language' => 'ru',
-                'options' => [
-                    'placeholder' => 'Дата защиты',
-                    'class'=> 'form-control',
-                    'autocomplete'=>'off',
-                ],
-                'clientOptions' => [
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                    'yearRange' => '2000:2050',
-                ]]) 
-        ?>
-    </div>
+        
 
     <div class="row">
             <div class="panel panel-default">
@@ -968,7 +981,10 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                 {
                     echo '<table>';
                     foreach ($experts as $expert) {
-                        }
+                        $color = $expert->expertType->name == 'Внутренний' ? '#f4c430' : 'green';
+                        $expertTyprStr = '<span style="font-size: 12pt; color: red; margin-left: 10px; margin-right: 10px; padding: 0; color: '.$color.'"">'.$expert->expertType->name.'</span>';
+                        echo '<tr><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->secondname.' '.$expert->expert->firstname.' '.$expert->expert->patronymic.'</h4></td><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->company->name.'</h4></td><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->position->name.'</td><td style="padding-left: 20px; width: 15%">'.$expertTyprStr.'</td><td style="padding-left: 20px; width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-expert', 'id' => $expert->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    }
                     echo '</table>';
                 }
                 ?>
@@ -999,21 +1015,23 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="panel-body">
-                                    <div>
+                                    <div style="float:left">
                                         <?php
                                         $people = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
-                                        $items = \yii\helpers\ArrayHelper::map($people,'fullName','fullName');
+                                        $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                         $params = [
                                             'prompt' => ''
                                         ];
-                                        echo $form->field($modelExperts, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО');
+                                        echo $form->field($modelExpert, "[{$i}]expert_id")->dropDownList($items,$params)->label('ФИО эксперта');
 
                                         ?>
 
+                                        
                                     </div>
 
-                                    
-                                    
+                                    <div style="float:left; margin-left: 20px; margin-top: 30px">
+                                        <?= $form->field($modelExpert, "[{$i}]expert_type_id")->checkbox() ?>
+                                    </div>       
 
                                 </div>
                             </div>
@@ -1026,6 +1044,10 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             </div>
         </div>
     </div>
+
+    </div>
+
+    
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success md-trigger', 'data-modal' => 'modal-12']) ?>

@@ -19,7 +19,7 @@ class GroupProjectThemesWork extends GroupProjectThemes
     {
         return [
             [['training_group_id', 'project_theme_id'], 'required'],
-            [['training_group_id', 'project_theme_id'], 'integer'],
+            [['training_group_id', 'project_theme_id', 'project_type_id'], 'integer'],
             [['project_theme_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProjectTheme::className(), 'targetAttribute' => ['project_theme_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
             ['themeName', 'string'],

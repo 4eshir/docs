@@ -210,7 +210,7 @@ class TrainingGroupController extends Controller
             $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
             DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
             $model->themes = $modelProjectThemes;
-            $modelExperts = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            $modelExperts = DynamicModel::createMultiple(TrainingGroupExpertWork::classname());
             DynamicModel::loadMultiple($modelExperts, Yii::$app->request->post());
             $model->experts = $modelExperts;
 
@@ -309,7 +309,7 @@ class TrainingGroupController extends Controller
             $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
             DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
             $model->themes = $modelProjectThemes;
-            $modelExperts = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
+            $modelExperts = DynamicModel::createMultiple(TrainingGroupExpertWork::classname());
             DynamicModel::loadMultiple($modelExperts, Yii::$app->request->post());
             $model->experts = $modelExperts;
 
@@ -338,7 +338,7 @@ class TrainingGroupController extends Controller
             $model->GenerateNumber();
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена группа '.$model->number);
-            if (array_key_exists('deleteChoose', $_POST))
+            if (array_key_exists('deleteChoose', $_POST) && $_POST['deleteChoose'] !== "")
             {
                 return $this->redirect('index?r=training-group/update&id=' . $model->id);
             }
@@ -655,6 +655,15 @@ class TrainingGroupController extends Controller
             $tgp->group_project_themes_id = null;
             $tgp->save();
         }
+
+        $gpt->delete();
+        
+        return $this->redirect('index?r=training-group/update&id=' . $modelId);
+    }
+
+    public function actionDeleteExpert($id, $modelId)
+    {
+        $gpt = TrainingGroupExpertWork::find()->where(['id' => $id])->one();
 
         $gpt->delete();
         
