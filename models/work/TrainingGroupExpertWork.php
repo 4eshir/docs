@@ -29,4 +29,9 @@ class TrainingGroupExpertWork extends TrainingGroupExpert
         ];
     }
 
+    public function getExpertWork()
+    {
+        return $this->hasOne(PeopleWork::className(), ['id' => 'expert_id']);
+    }
+
 }

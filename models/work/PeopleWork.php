@@ -159,6 +159,14 @@ class PeopleWork extends People
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.substr($positions, 0, -2).')';
     }
 
+    public function getFullNameWithCompany()
+    {
+        $positions = '';
+        $pos = PeopleWork::find()->where(['id' => $this->id])->one();
+        $positions .= $pos->company->name.' - '.$pos->position->name;
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$positions.')';
+    }
+
     public function beforeSave($insert)
     {
         if (strlen($this->short) > 2)

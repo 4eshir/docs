@@ -24,6 +24,7 @@ use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\TrainingGroupExpertWork;
+use app\models\work\GroupProjectThemesWork;
 use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\Html;
@@ -116,8 +117,36 @@ class TrainingGroupWork extends TrainingGroup
             'branch_id' => 'Отдел производящий учёт',
             'order_status' => 'Статус добавления приказов',
             'order_stop' => 'Завершить загрузку приказов о зачислении/отчислении',
-            'creatorString' => 'Создатель группы'
+            'creatorString' => 'Создатель группы',
+            'expertsString' => 'Эксперты',
+            'projectThemes' => 'Темы проектов',
         ];
+    }
+
+    public function getExpertsString()
+    {
+        $exps = TrainingGroupExpertWork::find()->where(['training_group_id' => $this->id])->all();
+        $res = '';
+        
+        foreach ($exps as $exp)
+        {
+            $res .= Html::a($exp->expertWork->fullNameWithCompany, \yii\helpers\Url::to(['people/view', 'id' => $exp->expert_id])) . '<br>';
+        }
+
+        return $res;
+    }
+
+    public function getProjectThemes()
+    {
+        $themes = GroupProjectThemesWork::find()->where(['training_group_id' => $this->id])->all();
+        $res = '';
+
+        foreach ($themes as $theme)
+        {
+            $res .= $theme->projectTheme->name.' ('.$theme->projectType->name.' проект)<br>';
+        }
+
+        return $res;
     }
 
     public function getTeacherWork()
@@ -843,24 +872,26 @@ class TrainingGroupWork extends TrainingGroup
             if ($this->experts !== null && $this->experts[0]->expert_id !== '')
             {
                 $exs = TrainingGroupExpertWork::find()->where(['training_group_id' => $this->id])->all();
-                if (count($exs) + count($this->experts))
+                if (count($exs) + count($this->experts) > 5)
                 {
                     Yii::$app->session->setFlash('danger', 'Попытка добавить более 5 экспертов! Некоторые эксперты не будут добавлены');
-                    for ($i = 0; $i < count($this->experts) && $i + count($exs) < 5; $i++)
-                    {
-                        $ex = new TrainingGroupExpertWork();
-                        if (TrainingGroupExpertWork::find()->where(['expert_id' => $this->experts[$i]->expert_id])->andWhere(['training_group_id' => $this->id])->one() !== null)
-                            Yii::$app->session->setFlash('danger', 'Попытка добавить дубликат эксперта!');
-                        else
-                        {
-                            $ex->expert_id = $this->experts[$i]->expert_id;
-                            $ex->expert_type_id = $this->experts[$i]->expert_type_id + 1;
-                            $ex->training_group_id = $this->id;
+                    
+                }
 
-                            $ex->save();
-                        }
-                        
+                for ($i = 0; $i < count($this->experts) && $i + count($exs) < 5; $i++)
+                {
+                    $ex = new TrainingGroupExpertWork();
+                    if (TrainingGroupExpertWork::find()->where(['expert_id' => $this->experts[$i]->expert_id])->andWhere(['training_group_id' => $this->id])->one() !== null)
+                        Yii::$app->session->setFlash('danger', 'Попытка добавить дубликат эксперта!');
+                    else
+                    {
+                        $ex->expert_id = $this->experts[$i]->expert_id;
+                        $ex->expert_type_id = $this->experts[$i]->expert_type_id + 1;
+                        $ex->training_group_id = $this->id;
+
+                        $ex->save();
                     }
+                    
                 }
                     
             }

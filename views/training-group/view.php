@@ -142,6 +142,16 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         ],
     ]) ?>
 
+    <h4><u>Сведения о защите работ</u></h4>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'protection_date'],
+            ['attribute' => 'projectThemes', 'format' => 'html'],
+            ['attribute' => 'expertsString', 'format' => 'raw'],
+        ],
+    ]) ?>
+
 </div>
 
 
