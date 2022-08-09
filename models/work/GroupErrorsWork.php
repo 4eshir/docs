@@ -430,6 +430,121 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
+    private function CheckDateProtection ($modelGroupID, $group, $now_time)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 38])->all();
+        $finishDate = date('Y-m-d', strtotime($group->finish_date . '-1 week'));
+
+        foreach ($err as $oneErr)
+        {
+            if ($now_time < $finishDate || $group->protection_date != null)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+            else if ($now_time >= $finishDate && $group->protection_date == null)
+            {
+                $oneErr->critical = 1;
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $now_time >= $finishDate && $group->protection_date == null)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 38;
+            $this->time_start = date("Y.m.d H:i:s");
+            if ($now_time >= $finishDate)
+                $this->critical = 1;
+            $this->save();
+        }
+    }
+
+    private function CheckDateProtectionAndDateFinish ($modelGroupID, $group)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 41])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($group->protection_date >= $group->finish_date )     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $group->protection_date < $group->finish_date)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 41;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckThemeProject ($modelGroupID, $group, $now_time)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 39])->all();
+        $grProj = GroupProjectThemesWork::find()->where(['training_group_id' => $modelGroupID]);
+        $grProjCount = count($grProj->all());
+        $grProjConfirmCount = count($grProj->andWhere(['confirm' => 1])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($grProjCount != 0 && ($grProjConfirmCount != 0 || $group->finish_date > $now_time))     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+            else if ($grProjConfirmCount == 0 && $group->finish_date >= $now_time)
+            {
+                $oneErr->critical = 1;
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $grProjCount == 0)
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 39;
+            $this->time_start = date("Y.m.d H:i:s");
+            if ($grProjConfirmCount == 0 && $group->finish_date >= $now_time)
+                $this->critical = 1;
+            $this->save();
+        }
+    }
+
+    private function CheckExpert ($modelGroupID, $group, $now_time)
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 40])->all();
+        $grExpertCount = count(TrainingGroupExpertWork::find()->where(['training_group_id' => $modelGroupID])->all());
+        $finishDate = date('Y-m-d', strtotime($group->finish_date . '-1 week'));
+
+        foreach ($err as $oneErr)
+        {
+            if ($grExpertCount != 0 || $group->finish_date > $now_time)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+            else if ($group->finish_date < $now_time)
+            {
+                $oneErr->critical = 1;
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && ($grExpertCount == 0 && $finishDate <= $now_time))
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 40;
+            $this->time_start = date("Y.m.d H:i:s");
+            if ($group->finish_date <= $now_time)
+                $this->critical = 1;
+            $this->save();
+        }
+    }
+
     /*-------------------------------------------------*/
 
     public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)   // для проверки при изменении типа помещения
@@ -466,6 +581,11 @@ class GroupErrorsWork extends GroupErrors
         $this->IncorrectDates($modelGroupID, $group);
         $this->CheckArchive($modelGroupID, $group, $now_time);
         $this->CheckPasta($modelGroupID, $group, $now_time);
+        $this->CheckDateProtection($modelGroupID, $group, $now_time);
+        if (empty($group->protection_date) == false)
+            $this->CheckDateProtectionAndDateFinish($modelGroupID, $group);
+        $this->CheckThemeProject($modelGroupID, $group, $now_time);
+        $this->CheckExpert($modelGroupID, $group, $now_time);
     }
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
