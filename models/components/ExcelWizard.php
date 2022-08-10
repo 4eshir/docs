@@ -89,7 +89,6 @@ class ExcelWizard
                 'right'     => array('style' => 'thin'),
                 'top'     => array('style' => 'thin'),
                 'left'     => array('style' => 'thin')
-
             )
         );
 
@@ -110,7 +109,16 @@ class ExcelWizard
             $c++;
         }
 
-        $inputData->getSheet(0)->getStyle('A12:G'. (12 + count($lessons)))->applyFromArray($styleArray);
+        for ($i = 11; $i < 11 + count($lessons); $i++)
+        {
+            $inputData->getSheet(0)->getStyle('A'.$i.':B'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('B'.$i.':C'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('C'.$i.':D'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('D'.$i.':E'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('E'.$i.':F'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('F'.$i.':G'.($i+1))->applyFromArray($styleArray);
+        }
+        $inputData->getSheet(0)->getStyle('A12:G'. (11 + count($lessons)))->applyFromArray($styleArray);
 
         header("Pragma: public");
         header("Expires: 0");
