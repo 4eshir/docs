@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\CertificatTemplates */
 
-$this->title = 'Create Certificat Templates';
-$this->params['breadcrumbs'][] = ['label' => 'Certificat Templates', 'url' => ['index']];
+$this->title = 'Создать шаблон сертификата';
+$this->params['breadcrumbs'][] = ['label' => 'Шаблоны сертификатов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="certificat-templates-create">

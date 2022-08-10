@@ -129,6 +129,15 @@ class CertificatTemplatesController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Страница не найдена');
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/certificat_templates/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('Файл не найден');
     }
 }
