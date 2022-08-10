@@ -15,6 +15,7 @@ use app\models\common\Log;
 use app\models\work\PeoplePositionBranchWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
+use app\models\work\TrainingProgramWork;
 use app\models\work\UserWork;
 use app\models\components\Logger;
 use app\models\extended\FeedbackAnswer;
