@@ -202,7 +202,20 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $start_date = '2021-01-01';
+        $programs = TrainingProgramWork::find()->all();
+
+        $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$programs[0]->name])->one();
+        $programs[0]->creator_id = $log->user_id;
+        $programs[0]->save();
+
+        /*foreach ($programs as $program)
+        {
+            $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->one();
+            $program->creator_id = $log->user_id;
+            $program->save();
+        }*/
+
+        /*$start_date = '2021-01-01';
         $end_date = '2021-12-31';
         $groups = TrainingGroupWork::find()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
@@ -239,7 +252,7 @@ class SiteController extends Controller
         foreach ($fps as $fp)
             echo $fp->fullName.' '.$fp->birthdate.'<br>';
 
-        return null;
+        return null;*/
         
         /*
         $tp = TeacherParticipantWork::find()->all();
