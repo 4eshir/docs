@@ -2421,6 +2421,7 @@ class ExcelWizard
             $strThemes .= $theme->projectTheme->name.', ';
 
         $strThemes = substr($strThemes, 0, -2);
+        var_dump($strThemes);
 
         $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.training_group_id' => $training_group_id])->orderBy(['order_date' => SORT_ASC])->all();
         for ($i = 0, $magic = 25; $i < count($orders); )
