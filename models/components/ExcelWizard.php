@@ -2425,6 +2425,7 @@ class ExcelWizard
             $strThemes .= $theme->projectTheme->name.', ';
 
         $strThemes = substr($strThemes, 0, -2);
+        
 
         $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.training_group_id' => $training_group_id])->orderBy(['order_date' => SORT_ASC])->all();
         for ($i = 0, $magic = 25; $i < count($orders); )
@@ -2433,13 +2434,12 @@ class ExcelWizard
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
                 {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id);
-                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
+                    
                 }
             else
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
                 {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic, 51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id.'/'.$orders[$i]->order_postfix);
-                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
                 }
 
             
@@ -2451,8 +2451,8 @@ class ExcelWizard
             $magic = 29;
         }
 
-        
-
+        for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
 
 
         header("Pragma: public");
