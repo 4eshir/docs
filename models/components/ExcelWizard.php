@@ -2415,13 +2415,13 @@ class ExcelWizard
         }
 
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
-        var_dump($themes);
+        //var_dump($themes);
         $strThemes = 'Тема проекта: ';
         foreach ($themes as $theme)
             $strThemes .= $theme->projectTheme->name.', ';
 
         $strThemes = substr($strThemes, 0, -2);
-        var_dump($strThemes);
+        
 
         $orders = DocumentOrderWork::find()->joinWith(['orderGroups orderGroups'])->where(['orderGroups.training_group_id' => $training_group_id])->orderBy(['order_date' => SORT_ASC])->all();
         for ($i = 0, $magic = 25; $i < count($orders); )
@@ -2430,6 +2430,7 @@ class ExcelWizard
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
                 {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id);
+                    var_dump($strThemes);
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
                 }
             else
