@@ -19,12 +19,14 @@ class ForeignEventParticipantsExtended extends Model
     public $team;
     public $fileString;
 
+    public $allow_remote_id;
+
     public function rules()
     {
         return [
             [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['teacher', 'teacher2', 'fileString', 'focus', 'team'], 'string'],
-            [['fio', 'branch'], 'integer'],
+            [['fio', 'branch', 'allow_remote_id'], 'integer'],
         ];
     }
 

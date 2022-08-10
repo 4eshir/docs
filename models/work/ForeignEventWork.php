@@ -381,6 +381,7 @@ class ForeignEventWork extends ForeignEvent
                     $part->teacher_id = $participantOne->teacher;
                     $part->teacher2_id = $participantOne->teacher2;
                     $part->focus = $participantOne->focus;
+                    $part->allow_remote_id = $participantOne->allow_remote_id;
                     $tpbs = [];
                     if ($participantOne->branch !== "")
                         for ($i = 0; $i < count($participantOne->branch); $i++)

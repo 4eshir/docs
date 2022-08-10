@@ -190,9 +190,16 @@ use yii\widgets\ActiveForm;
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
                                     $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
-                                            $items, ['separator' => '<br>', 'class' => 'base']
-                                    )->label('<u>Отдел(-ы)</u>')
+                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]", ['options' => ['class' => 'base']])->checkboxList(
+                                            $items, ['item' => function ($index, $label, $name, $checked, $value) {
+                                                return
+                                                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                                                        <label for="branch-'. $index .'">
+                                                            <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                                            '. $label .'
+                                                        </label>
+                                                    </div>';
+                                            }])->label('<u>Отдел(-ы)</u>')
                                     ?>
                                 </div>
                             </div>
@@ -212,6 +219,13 @@ use yii\widgets\ActiveForm;
                                         'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]focus")->dropDownList($items,$params)->label('Направленность');
+                                    $realizes = \app\models\work\AllowRemoteWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($realizes,'id','name');
+                                    $params = [
+                                        //'prompt' => ''
+                                        'disabled' => true,
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]allow_remote_id")->dropDownList($items,$params)->label('Форма реализации');
                                     ?>
                                 </div>
                             </div>
@@ -388,7 +402,10 @@ use yii\widgets\ActiveForm;
 
 
 <script>
-    
+    function ClickCod()
+    {
+
+    }
 
     function checkTrip()
     {
@@ -420,6 +437,22 @@ $js =<<< JS
                 if (elems[j].children[i].childElementCount > 0)
                    elems[j].children[i].children[0].value = values[i]; 
     });
+
+JS;
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+
+$js =<<< JS
+    $('#branch-5').click(function(){
+        let elem = document.getElementById('foreigneventparticipantsextended-0-allow_remote_id');
+        if (elem.hasAttribute('disabled') && $(this).is(':checked') == true)
+            elem.removeAttribute('disabled');
+        if (!elem.hasAttribute('disabled') && $(this).is(':checked') == false)
+        {
+            elem.value = 1;
+            elem.setAttribute('disabled', 'disabled');
+        }
+    });
+
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
