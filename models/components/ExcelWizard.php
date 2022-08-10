@@ -78,7 +78,7 @@ class ExcelWizard
 
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
                                         ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
-        $c = 0;
+        $c = 1;
 
         $styleArray = array('fill'    => array(
             'type'      => 'solid',
@@ -95,18 +95,21 @@ class ExcelWizard
 
         foreach ($lessons as $lesson)
         {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 12 + $c, $c);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 11 + $c, $c);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 12 + $c, $lesson->trainingGroupLesson->lesson_date);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 11 + $c, $lesson->trainingGroupLesson->lesson_date);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 12 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 11 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 12 + $c, $lesson->theme);
-            $inputData->getActiveSheet()->getRowDimension(12 + $c)->setRowHeight(1.5 * (strlen($lesson->theme) / 30) + 1);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11 + $c, $lesson->theme);
+            var_dump(strlen($lesson->theme) / 30);
+            var_dump(strlen($lesson->theme));
+            var_dump($lesson->theme);
+            $inputData->getActiveSheet()->getRowDimension(11 + $c)->setRowHeight(1.5 * (strlen($lesson->theme) / 30) + 1);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 12 + $c, $lesson->trainingGroupLesson->duration);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 12 + $c, "Групповая");
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 12 + $c, $lesson->controlType->name);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 11 + $c, $lesson->trainingGroupLesson->duration);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 11 + $c, "Групповая");
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 11 + $c, $lesson->controlType->name);
             $c++;
         }
 
