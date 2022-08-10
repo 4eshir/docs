@@ -2430,14 +2430,12 @@ class ExcelWizard
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
                 {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id);
-                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
+                    
                 }
             else
                 for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
                 {
                     $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic, 51, $orders[$i]->order_number.'/'.$orders[$i]->order_copy_id.'/'.$orders[$i]->order_postfix);
-                    var_dump($strThemes);
-                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
                 }
 
             
@@ -2449,8 +2447,8 @@ class ExcelWizard
             $magic = 29;
         }
 
-        
-
+        for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow($magic,1, $strThemes);
 
 
         header("Pragma: public");
