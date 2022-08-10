@@ -14,6 +14,7 @@ use Yii;
  * @property int $foreign_event_id
  * @property int|null $branch_id
  * @property int|null $focus
+ * @property int $allow_remote_id
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
@@ -21,6 +22,7 @@ use Yii;
  * @property People $teacher2
  * @property Branch $branch
  * @property Focus $focus0
+ * @property AllowRemote $allowRemote
  * @property TeacherParticipantBranch[] $teacherParticipantBranches
  */
 class TeacherParticipant extends \yii\db\ActiveRecord
@@ -40,13 +42,14 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     {
         return [
             [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
-            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'branch_id', 'focus'], 'integer'],
+            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'branch_id', 'focus', 'allow_remote_id'], 'integer'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['teacher2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher2_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['focus'], 'exist', 'skipOnError' => true, 'targetClass' => Focus::className(), 'targetAttribute' => ['focus' => 'id']],
+            [['allow_remote_id'], 'exist', 'skipOnError' => true, 'targetClass' => AllowRemote::className(), 'targetAttribute' => ['allow_remote_id' => 'id']],
         ];
     }
 
@@ -59,10 +62,11 @@ class TeacherParticipant extends \yii\db\ActiveRecord
             'id' => 'ID',
             'participant_id' => 'Participant ID',
             'teacher_id' => 'Teacher ID',
-            'teacher2_id' => 'Teacher2 ID',
+            'teacher2_id' => 'Teacher 2 ID',
             'foreign_event_id' => 'Foreign Event ID',
             'branch_id' => 'Branch ID',
             'focus' => 'Focus',
+            'allow_remote_id' => 'Allow Remote ID',
         ];
     }
 
@@ -124,6 +128,16 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function getFocus0()
     {
         return $this->hasOne(Focus::className(), ['id' => 'focus']);
+    }
+
+    /**
+     * Gets query for [[AllowRemote]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAllowRemote()
+    {
+        return $this->hasOne(AllowRemote::className(), ['id' => 'allow_remote_id']);
     }
 
     /**
