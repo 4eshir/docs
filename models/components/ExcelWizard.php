@@ -102,7 +102,7 @@ class ExcelWizard
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 12 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
 
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 12 + $c, $lesson->theme);
-            $inputData->getActiveSheet()->getRowDimension(12 + $c)->setRowHeight(0.5 * (strlen($lesson->theme) / 31) + 1);
+            $inputData->getActiveSheet()->getRowDimension(12 + $c)->setRowHeight(1.5 * (strlen($lesson->theme) / 31) + 1);
 
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 12 + $c, $lesson->trainingGroupLesson->duration);
             $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 12 + $c, "Групповая");
