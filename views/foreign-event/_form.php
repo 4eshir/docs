@@ -124,6 +124,8 @@ use yii\widgets\ActiveForm;
 
     ?>
 
+    <?php $c = 0; ?>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
@@ -170,7 +172,8 @@ use yii\widgets\ActiveForm;
                 ]); ?>
 
                 <div class="container-items" style="padding: 0; margin: 0"><!-- widgetContainer -->
-                    <?php foreach ($modelParticipants as $i => $modelParticipantsOne): ?>
+                    <?php foreach ($modelParticipants as $i => $modelParticipantsOne): 
+                             ?>
                         <div class="item panel panel-default" style="padding: 0; margin: 0"><!-- widgetBody -->
                             <div class="panel-heading" style="padding: 0; margin: 0">
                                 <div class="pull-right">
@@ -190,17 +193,20 @@ use yii\widgets\ActiveForm;
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
                                     $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]", ['options' => ['class' => 'base']])->checkboxList(
+                                    echo '<div class="'.$i.'">';
+                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
                                             $items, ['item' => function ($index, $label, $name, $checked, $value) {
                                                 return
                                                     '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
                                                         <label for="branch-'. $index .'">
-                                                            <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                                            <input onclick="ClickBranch(this, '.$index.')" class="check_branch" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
                                                             '. $label .'
                                                         </label>
                                                     </div>';
-                                            }])->label('<u>Отдел(-ы)</u>')
+                                            }, 'class' => 'base'])->label('<u>Отдел(-ы)</u>');
+                                    echo '</div>';
                                     ?>
+
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -250,7 +256,8 @@ use yii\widgets\ActiveForm;
                             <div class="panel-body" style="padding: 0; margin: 0"></div>
 
                         </div>
-                    <?php endforeach; ?>
+                    <?php
+                    endforeach; ?>
                 </div>
                 <?php DynamicFormWidget::end(); ?>
             </div>
@@ -402,9 +409,25 @@ use yii\widgets\ActiveForm;
 
 
 <script>
-    function ClickCod()
-    {
+    var counter = 1;
 
+    function ClickBranch($this, $index)
+    {
+        if ($index == 5)
+        {
+            let parent = $this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+            let childs = parent.querySelectorAll('.col-xs-4');
+            let first_gen = childs[1].querySelectorAll('.form-group');
+            let second_gen = first_gen[3].querySelectorAll('.form-control');
+            if (second_gen[0].hasAttribute('disabled'))
+                second_gen[0].removeAttribute('disabled');
+            else
+            {
+                second_gen[0].value = 1;
+                second_gen[0].setAttribute('disabled', 'disabled');
+            }
+        }
+        
     }
 
     function checkTrip()
@@ -427,6 +450,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        
         let elems = document.getElementsByClassName('base');
         let values = [];
         for (let i = 0; i < elems[0].children.length; i++)
@@ -436,23 +460,28 @@ $js =<<< JS
             for (let i = 0; i < elems[1].children.length; i++)
                 if (elems[j].children[i].childElementCount > 0)
                    elems[j].children[i].children[0].value = values[i]; 
+
+
     });
 
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 $js =<<< JS
-    $('#branch-5').click(function(){
-        let elem = document.getElementById('foreigneventparticipantsextended-0-allow_remote_id');
+    $('.check_branch').click(function(){
+        
+    });
+
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+
+/*let elem = document.getElementById('foreigneventparticipantsextended-0-allow_remote_id');
         if (elem.hasAttribute('disabled') && $(this).is(':checked') == true)
             elem.removeAttribute('disabled');
         if (!elem.hasAttribute('disabled') && $(this).is(':checked') == false)
         {
             elem.value = 1;
             elem.setAttribute('disabled', 'disabled');
-        }
-    });
-
-JS;
-$this->registerJs($js, \yii\web\View::POS_LOAD);
+        }*/
 ?>
