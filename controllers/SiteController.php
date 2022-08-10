@@ -209,6 +209,7 @@ class SiteController extends Controller
         foreach ($programs as $program)
         {
             $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->one();
+            var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
             $program->creator_id = $log->user_id;
             $program->save();
         }
