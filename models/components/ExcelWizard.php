@@ -2415,7 +2415,7 @@ class ExcelWizard
         }
 
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
-        //var_dump($themes);
+        var_dump($themes);
         $strThemes = 'Тема проекта: ';
         foreach ($themes as $theme)
             $strThemes .= $theme->projectTheme->name.', ';
