@@ -209,9 +209,10 @@ class SiteController extends Controller
         foreach ($programs as $program)
         {
             $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->one();
-            var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
+            //var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
             $program->creator_id = $log->user_id;
             $program->save();
+            var_dump($program->getErrors());
         }
 
         /*$start_date = '2021-01-01';
