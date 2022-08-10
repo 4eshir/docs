@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\work\TeacherParticipantBranchWork;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\TeacherParticipantWork */
@@ -46,12 +47,38 @@ $this->params['breadcrumbs'][] = 'Редактирование';
                 return
                     '<div class="checkbox" class="form-control">
                             <label style="margin-bottom: 0px" for="branch-' . $index .'">
-                                <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                <input onclick="ClickBranch(this, '.$index.')" id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
                                 '. $label .'
                             </label>
                         </div>';
             }]
     )->label('<u>Отдел(-ы)</u>')
+    ?>
+
+    <?php 
+
+        $realizes = \app\models\work\AllowRemoteWork::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($realizes,'id','name');
+        $tps = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $model->id])->all();
+        $flag = false;
+        foreach ($tps as $tp)
+            if ($tp->branch_id == 7)
+                $flag = true;
+        if ($flag)
+            $params = [
+                //'prompt' => ''
+                'id' => 'allow_id',
+            ];
+        else
+            $params = [
+                //'prompt' => ''
+                'disabled' => true,
+                'id' => 'allow_id',
+            ];
+
+        
+
+        echo $form->field($model, 'allow_remote_id')->dropDownList($items,$params)->label('Форма реализации'); 
     ?>
 
     <?= $form->field($model, 'team')->textInput()->label('Команда') ?>
@@ -71,3 +98,25 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<script>
+
+    function ClickBranch($this, $index)
+    {
+        if ($index == 5)
+        {
+            
+            let second_gen = document.getElementById('allow_id');
+            console.log($this.checked);
+            if (second_gen.hasAttribute('disabled') && $this.checked == true)
+                second_gen.removeAttribute('disabled');
+            else
+            {
+                second_gen.value = 1;
+                second_gen.setAttribute('disabled', 'disabled');
+            }
+        }
+        
+    }
+</script>

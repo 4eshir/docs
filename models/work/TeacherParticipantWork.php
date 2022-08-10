@@ -27,7 +27,7 @@ class TeacherParticipantWork extends TeacherParticipant
     {
         return [
             [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
-            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id'], 'integer'],
+            [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'allow_remote_id'], 'integer'],
             [['focus', 'team'], 'string'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
