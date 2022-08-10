@@ -353,7 +353,6 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->participants as $partOne)
             {
-                var_dump($partOne->team);
                 if (strlen($partOne->team) > 0)
                 {
                     $part = new Team();

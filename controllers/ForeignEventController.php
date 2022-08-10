@@ -217,6 +217,9 @@ class ForeignEventController extends Controller
         $files = ParticipantFilesWork::find()->where(['participant_id' => $p_id])->one();
         if ($files !== null)
             $files->delete();
+        $team = TeamWork::find()->where(['participant_id' => $p_id])->all();
+        foreach ($team as $one)
+            $team->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
 
