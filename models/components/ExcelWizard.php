@@ -70,15 +70,6 @@ class ExcelWizard
     static public function DownloadKUG($training_group_id)
     {
         ini_set('memory_limit', '512M');
-        //header('Content-Type: application/vnd.ms-excel');
-        //header('Content-Disposition: attachment;filename="kug.xlsx"');
-        //header('Cache-Control: max-age=0');
-
-// If you're serving to IE over SSL, then the following may be needed
-        //header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        //header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-        //header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        //header ('Pragma: public'); // HTTP/1.0
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
@@ -89,23 +80,37 @@ class ExcelWizard
                                         ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
         $c = 1;
 
+        $styleArray = array('fill'    => array(
+            'type'      => 'solid',
+            'color'     => array('rgb' => 'FFFFFF')
+        ),
+            'borders' => array(
+                'bottom'    => array('style' => 'thin'),
+                'right'     => array('style' => 'thin'),
+                'top'     => array('style' => 'thin'),
+                'left'     => array('style' => 'thin')
+
+            )
+        );
+
         foreach ($lessons as $lesson)
         {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 11 + $c, $c);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 12 + $c, $c);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 11 + $c, $lesson->trainingGroupLesson->lesson_date);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 12 + $c, $lesson->trainingGroupLesson->lesson_date);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 11 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 12 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11 + $c, $lesson->theme);
+            $inputData->getActiveSheet()->getRowDimension(11 + $c)->setRowHeight(12.5 * (strlen($lesson->theme) / 60) + 15);
 
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 12 + $c, $lesson->theme);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 12 + $c, $lesson->trainingGroupLesson->duration);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 12 + $c, "Групповая");
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 12 + $c, $lesson->controlType->name);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 11 + $c, $lesson->trainingGroupLesson->duration);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 11 + $c, "Групповая");
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 11 + $c, $lesson->controlType->name);
             $c++;
         }
 
-
+        $inputData->getSheet(0)->getStyle('A12:G'. (12 + count($lessons)))->applyFromArray($styleArray);
 
         header("Pragma: public");
         header("Expires: 0");
@@ -114,7 +119,6 @@ class ExcelWizard
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");;
         header("Content-Disposition: attachment;filename=kug.xls");
-//header("Content-Disposition: attachment;filename=test.xls");
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
