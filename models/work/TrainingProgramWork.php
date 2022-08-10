@@ -39,7 +39,7 @@ class TrainingProgramWork extends TrainingProgram
     public function rules()
     {
         return [
-            [['name', 'focus', 'hour_capacity', 'capacity'], 'required'],
+            [['name', 'hour_capacity', 'capacity'], 'required'],
             [['ped_council_date', 'linkGroups'], 'safe'],
             [['student_left_age'], 'double'],
             [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote_id', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat', 'certificat_type_id'], 'integer'],

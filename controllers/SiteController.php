@@ -213,8 +213,8 @@ class SiteController extends Controller
             {
                 $program->creator_id = $log->user_id;
                 $program->save();
-                var_dump($program->getErrors());
-                var_dump(' - '.$program->id.'<br>');
+                //var_dump($program->getErrors());
+                //var_dump(' - '.$program->id.'<br>');
             }
             //var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
             
