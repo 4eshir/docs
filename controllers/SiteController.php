@@ -205,18 +205,13 @@ class SiteController extends Controller
     {
         $programs = TrainingProgramWork::find()->all();
 
-        $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$programs[0]->name])->one();
-        var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$programs[0]->name])->createCommand()->getRawSql());
-        $programs[0]->creator_id = $log->user_id;
-        $programs[0]->save();
 
-
-        /*foreach ($programs as $program)
+        foreach ($programs as $program)
         {
             $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->one();
             $program->creator_id = $log->user_id;
             $program->save();
-        }*/
+        }
 
         /*$start_date = '2021-01-01';
         $end_date = '2021-12-31';
