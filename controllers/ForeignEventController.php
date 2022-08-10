@@ -8,6 +8,7 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\ResponsibleWork;
+use app\models\work\TeamWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\components\Logger;

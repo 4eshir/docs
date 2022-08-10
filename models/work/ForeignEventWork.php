@@ -355,6 +355,9 @@ class ForeignEventWork extends ForeignEvent
             {
                 if (strlen($partOne->team) > 0)
                 {
+                    $split = explode(" ", $partOne->team);
+                    if ($split[0] == 'Команда' || $split[0] = 'команда')
+                        $partOne = $partOne->team.substr(0, 8);
                     $part = new Team();
                     $part->foreign_event_id = $this->id;
                     $part->participant_id = $partOne->fio;
