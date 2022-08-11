@@ -515,8 +515,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         'widgetItem' => '.item1', // required: css class
                         'limit' => 100, // the maximum times, an element can be cloned (default 999)
                         'min' => 1, // 0 or 1 (default 1)
-                        'insertButton' => '.add-item', // css class
-                        'deleteButton' => '.remove-item', // css class
+                        'insertButton' => '.add-item1', // css class
+                        'deleteButton' => '.remove-item1', // css class
                         'model' => $modelTrainingGroupParticipant[0],
                         'formId' => 'dynamic-form',
                         'formFields' => [
@@ -530,8 +530,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                 <div class="panel-heading">
                                     <h3 class="panel-title pull-left">Учащийся</h3>
                                     <div class="pull-right">
-                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                        <button type="button" class="add-item1 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item1 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -912,8 +912,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         'widgetItem' => '.item8', // required: css class
                         'limit' => 10, // the maximum times, an element can be cloned (default 999)
                         'min' => 1, // 0 or 1 (default 1)
-                        'insertButton' => '.add-item', // css class
-                        'deleteButton' => '.remove-item', // css class
+                        'insertButton' => '.add-item8', // css class
+                        'deleteButton' => '.remove-item8', // css class
                         'model' => $modelProjectThemes[0],
                         'formId' => 'dynamic-form',
                         'formFields' => [
@@ -926,8 +926,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                             <div class="item8 panel panel-default"><!-- widgetBody -->
                                 <div class="panel-heading">
                                     <div class="pull-right">
-                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                        <button type="button" class="add-item8 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item8 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -995,8 +995,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         'widgetItem' => '.item9', // required: css class
                         'limit' => 10, // the maximum times, an element can be cloned (default 999)
                         'min' => 1, // 0 or 1 (default 1)
-                        'insertButton' => '.add-item', // css class
-                        'deleteButton' => '.remove-item', // css class
+                        'insertButton' => '.add-item9', // css class
+                        'deleteButton' => '.remove-item9', // css class
                         'model' => $modelExperts[0],
                         'formId' => 'dynamic-form',
                         'formFields' => [
@@ -1009,8 +1009,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                             <div class="item9 panel panel-default"><!-- widgetBody -->
                                 <div class="panel-heading">
                                     <div class="pull-right">
-                                        <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                        <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                        <button type="button" class="add-item9 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                        <button type="button" class="remove-item9 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -1118,10 +1118,13 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
 <?php
 
+$people = \app\models\work\ForeignEventParticipantsWork::find()->select(['CONCAT(secondname, \' \', firstname, \' \', patronymic) as value', "CONCAT(secondname, ' ', firstname, ' ', patronymic, ' ', birthdate) as label", 'id as id'])->where(['is_true' => 1])->orWhere(['guaranted_true' => 1])->asArray()->all();
+
 $children = json_encode($people);
 
 $js =<<< JS
     $(".dynamicform_wrapper1").on("click", ".on", function(e) {
+        console.log($children);
       if ( !$(this).data("autocomplete") ) {
           e.preventDefault();
           $(this).autocomplete({
