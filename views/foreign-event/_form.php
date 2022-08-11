@@ -450,16 +450,16 @@ use yii\widgets\ActiveForm;
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-        
         let elems = document.getElementsByClassName('base');
+        
         let values = [];
         for (let i = 0; i < elems[0].children.length; i++)
             if (elems[1].children[i].childElementCount > 0)
-                values[i] = elems[0].children[i].children[0].value;
+                values[i] = elems[0].children[i].children[0].children[0].value;
         for (let j = 1; j < elems.length; j++)
             for (let i = 0; i < elems[1].children.length; i++)
                 if (elems[j].children[i].childElementCount > 0)
-                   elems[j].children[i].children[0].value = values[i]; 
+                   elems[j].children[i].children[0].children[0].value = values[i]; 
 
 
     });
