@@ -5,11 +5,12 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\CertificatTemplates;
+use app\models\work\CertificatTemplatesWork;
 
 /**
  * SearchCertificatTemplates represents the model behind the search form of `app\models\common\CertificatTemplates`.
  */
-class SearchCertificatTemplates extends CertificatTemplates
+class SearchCertificatTemplates extends CertificatTemplatesWork
 {
     /**
      * {@inheritdoc}
@@ -40,7 +41,7 @@ class SearchCertificatTemplates extends CertificatTemplates
      */
     public function search($params)
     {
-        $query = CertificatTemplates::find();
+        $query = CertificatTemplatesWork::find();
 
         // add conditions that should always apply here
 

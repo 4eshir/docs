@@ -27,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
             'certificat_number',
-            'certificat_template_id',
-            'participantName',
-            ['attribute' => 'participantName', 'value' => $searchModel->getParticipantName(), 'format' => 'raw'],
+            ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
+            //'participantName',
+            ['attribute' => 'participantName', 'format' => 'raw'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

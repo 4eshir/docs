@@ -8,6 +8,7 @@ use app\models\work\CertificatTemplatesWork;
 use app\models\work\TrainingGroupParticipantWork;
 
 use Yii;
+use yii\helpers\Html;
 
 
 class CertificatWork extends Certificat
@@ -33,6 +34,7 @@ class CertificatWork extends Certificat
             'id' => 'ID',
             'certificat_number' => 'Номер сертификата',
             'certificat_template_id' => 'Шаблон сертификата',
+            'certificatTemplateName' => 'Шаблон сертификата',
             'training_group_participant_id' => 'Учащийся',
             'participantName' => 'Учащийся',
         ];
@@ -40,10 +42,16 @@ class CertificatWork extends Certificat
 
     public function getParticipantName()
     {
-        //$part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
-        //$result = Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
-        //var_dump('booobs');
-        return 'booobs';
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
+        $result = Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+        return $result;
+    }
+
+    public function getCertificatTemplateName()
+    {
+        $templates = CertificatTemplatesWork::find()->where(['id' => $this->certificat_template_id])->one();
+        $result = Html::a($templates->name, \yii\helpers\Url::to(['certificat-templates/view', 'id' => $templates->id]));
+        return $result;
     }
 
     public function mass_save()
