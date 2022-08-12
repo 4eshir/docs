@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\common\CertificatTemplates;
 use app\models\SearchCertificatTemplates;
+use app\models\components\Logger;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -140,4 +141,18 @@ class CertificatTemplatesController extends Controller
         }
         throw new \Exception('Файл не найден');
     }
+
+    /*public function actionDeleteFile($modelId = null)
+    {
+        $model = CertificatTemplatesWork::find()->where(['id' => $modelId])->one();
+
+        if (!Yii::$app->user->isGuest && $modelId !== null)
+        {
+            $deleteFile = $model->path;
+            $model->path = null;
+            $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален файл ' . $deleteFile);
+        }
+        return $this->redirect('index?r=certificat_templates/update&id='.$model->id);
+    }*/
 }
