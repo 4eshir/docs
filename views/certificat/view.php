@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Certificat */
+/* @var $model app\models\work\CertificatWork */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Certificats', 'url' => ['index']];
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'certificat_number', 'label' => 'Номер сертификата', 'format' => 'raw'],
             ['attribute' => 'certificat_template_id', 'label' => 'Шаблон сертификата', 'format' => 'raw'],
             ['attribute' => 'training_group_participant_id', 'label' => 'Учащийся', 'format' => 'raw'],
+            'participantName',
         ],
     ]) ?>
 

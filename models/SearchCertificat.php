@@ -5,11 +5,12 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\Certificat;
+use app\models\work\CertificatWork;
 
 /**
  * SearchCertificat represents the model behind the search form of `app\models\common\Certificat`.
  */
-class SearchCertificat extends Certificat
+class SearchCertificat extends CertificatWork
 {
     /**
      * {@inheritdoc}
@@ -18,6 +19,7 @@ class SearchCertificat extends Certificat
     {
         return [
             [['id', 'certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'integer'],
+            
         ];
     }
 
@@ -39,7 +41,7 @@ class SearchCertificat extends Certificat
      */
     public function search($params)
     {
-        $query = Certificat::find();
+        $query = CertificatWork::find();
 
         // add conditions that should always apply here
 

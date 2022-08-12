@@ -20,7 +20,7 @@ class CertificatWork extends Certificat
         return [
             [['certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'required'],
             [['certificat_number', 'certificat_template_id', 'training_group_participant_id', 'group_id'], 'integer'],
-            ['participant_id', 'safe'],
+            [['participant_id'], 'safe'],
             [['certificat_template_id'], 'exist', 'skipOnError' => true, 'targetClass' => CertificatTemplatesWork::className(), 'targetAttribute' => ['certificat_template_id' => 'id']],
             [['training_group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipantWork::className(), 'targetAttribute' => ['training_group_participant_id' => 'id']],
         ];
@@ -42,7 +42,7 @@ class CertificatWork extends Certificat
     {
         //$part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
         //$result = Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
-        var_dump('booobs');
+        //var_dump('booobs');
         return 'booobs';
     }
 
