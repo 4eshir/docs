@@ -25,6 +25,7 @@ use Yii;
  * @property string|null $docs_achievement
  * @property int $copy
  * @property int|null $creator_id
+ * @property int $is_minpros
  *
  * @property Company $company
  * @property EventWay $eventWay
@@ -35,7 +36,6 @@ use Yii;
  * @property ForeignEventErrors[] $foreignEventErrors
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
- * @property ParticipantForeignEvent[] $participantForeignEvents
  * @property TeacherParticipant[] $teacherParticipants
  * @property Team[] $teams
  * @property TemporaryJournal[] $temporaryJournals
@@ -57,7 +57,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'start_date', 'finish_date', 'event_level_id'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'copy', 'creator_id'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'copy', 'creator_id', 'is_minpros'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
@@ -93,6 +93,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'docs_achievement' => 'Docs Achievement',
             'copy' => 'Copy',
             'creator_id' => 'Creator ID',
+            'is_minpros' => 'Is Minpros',
         ];
     }
 
@@ -184,16 +185,6 @@ class ForeignEvent extends \yii\db\ActiveRecord
     public function getParticipantFiles()
     {
         return $this->hasMany(ParticipantFiles::className(), ['foreign_event_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[ParticipantForeignEvents]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParticipantForeignEvents()
-    {
-        return $this->hasMany(ParticipantForeignEvent::className(), ['foreign_event_id' => 'id']);
     }
 
     /**

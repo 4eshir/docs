@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'city',
                 'eventWayString',
                 'eventLevelString',
+                'isMinpros',
                 ['attribute' => 'participantsLink', 'format' => 'raw'],
                 ['attribute' => 'achievementsLink', 'format' => 'raw'],
                 'ageRange',

@@ -123,6 +123,15 @@ class TrainingGroupWork extends TrainingGroup
         ];
     }
 
+    public function getNumberExtended()
+    {
+        $teachersStr = '';
+        $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
+        foreach ($teachers as $teacher)
+            $teachersStr .= $teacher->shortName.' ';
+        return $this->number.' ('.$teachersStr.$this->trainingProgram->name.')';
+    }
+
     public function getExpertsString()
     {
         $exps = TrainingGroupExpertWork::find()->where(['training_group_id' => $this->id])->all();

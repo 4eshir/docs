@@ -29,7 +29,7 @@ class ForeignEventWork extends ForeignEvent
     {
         return [
             [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'order_participation_id', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy', 'is_minpros'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['docs_achievement'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
@@ -78,8 +78,15 @@ class ForeignEventWork extends ForeignEvent
             'businessTrips' => 'Командировка',
             'participantCount' => 'Кол-во участников',
             'participants' => 'Участники',
-            'creatorString' => 'Создатель карточки'
+            'creatorString' => 'Создатель карточки',
+            'is_minpros' => 'Входит в перечень Минпросвещения РФ',
+            'isMinpros' => 'Входит в перечень Минпросвещения РФ',
         ];
+    }
+
+    public function getIsMinpros()
+    {
+        return $this->is_minpros == 0 ? 'Нет' : 'Да';
     }
 
     public function getCompanyString()

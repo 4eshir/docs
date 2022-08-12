@@ -124,6 +124,8 @@ use yii\widgets\ActiveForm;
 
     ?>
 
+    <?= $form->field($model, 'is_minpros')->checkbox(); ?>
+
     <?php $c = 0; ?>
 
     <div class="row">

@@ -249,6 +249,71 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Связанные учебные группы</h4></div>
+            <?php
+            $groups = \app\models\work\EventTrainingGroupWork::find()->where(['event_id' => $model->id])->all();
+            if ($groups != null)
+            {
+                echo '<table>';
+                foreach ($groups  as $group) {
+                    echo '<tr><td style="padding-left: 20px"><h4>Группа '.$group->trainingGroupWork->numberExtended.'</h4></td> <td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['event/delete-group', 'id' => $group->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                }
+                echo '</table>';
+            }
+            ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper2', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items2', // required: css class selector
+                    'widgetItem' => '.item2', // required: css class
+                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item2', // css class
+                    'deleteButton' => '.remove-item2', // css class
+                    'model' => $modelGroups[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'eventExternalName',
+                    ],
+                ]); ?>
+
+                <div class="container-items2" ><!-- widgetContainer -->
+                    <?php foreach ($modelGroups as $i => $modelGroup): ?>
+                        <div class="item2 panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Учебная группа</h3>
+                                <div class="pull-right">
+                                    <button type="button" class="add-item2 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item2 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <?php
+
+                                    $groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['start_date' => SORT_DESC])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($groups,'id','numberExtended');
+                                    $params = [
+                                        'prompt' => '',
+                                    ];
+                                    echo $form->field($modelGroup, "[{$i}]training_group_id")->dropDownList($items,$params)->label('Номер группы');
+                                    ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+
     <?= $form->field($model, 'contains_education')->radioList(array(0 => 'Не содержит образовательных программ',
                                                                            1 => 'Содержит образовательные программы'), ['value'=>$model->contains_education ])->label('') ?>
 

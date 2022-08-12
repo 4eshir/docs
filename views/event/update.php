@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <?= $this->render('_form', [
         'model' => $model,
         'modelEventsLinks' => $modelEventsLinks,
+        'modelGroups' => $modelGroups,
     ]) ?>
 
 </div>

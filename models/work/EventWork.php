@@ -16,6 +16,7 @@ use app\models\common\People;
 use app\models\common\Regulation;
 use app\models\components\FileWizard;
 use Yii;
+use yii\helpers\Html;
 
 
 class EventWork extends Event
@@ -25,6 +26,7 @@ class EventWork extends Event
     public $reportingFile;
     public $otherFiles;
     public $eventsLink;
+    public $groups;
 
     public $isTechnopark;
     public $isQuantorium;
@@ -108,7 +110,8 @@ class EventWork extends Event
             'leftAge' => 'Возраст детей: минимальный, лет',
             'rightAge' => 'Возраст детей: максимальный, лет',
             'formatString' => 'Формат проведения',
-            'creatorString' => 'Создатель карточки'
+            'creatorString' => 'Создатель карточки',
+            'linkGroups' => 'Связанные группы',
         ];
     }
 
@@ -117,6 +120,16 @@ class EventWork extends Event
         if ($this->format === 0) return 'Очный';
         if ($this->format === 1) return 'Заочный';
         if ($this->format === 2) return 'Очно-заочный';
+    }
+
+    public function getLinkGroups()
+    {
+        $result = '';
+        $groups = EventTrainingGroupWork::find()->where(['event_id' => $this->id])->all();
+        foreach ($groups as $group)
+            $result .= Html::a($group->trainingGroupWork->numberExtended, \yii\helpers\Url::to(['training-group/view', 'id' => $group->training_group_id])) . '<br>';
+
+        return $result;
     }
 
     public function getChildsString()
@@ -378,6 +391,22 @@ class EventWork extends Event
 
             }
         }
+
+        if ($this->groups !== null)
+        {
+            foreach ($this->groups as $group)
+            {
+                if ($group->training_group_id !== '')
+                {
+                    $newGroup = new EventTrainingGroupWork();
+                    $newGroup->training_group_id = $group->training_group_id;
+                    $newGroup->event_id = $this->id;
+                    $newGroup->save();
+                }
+
+            }
+        }
+
         $edT = new EventBranch();
         if ($this->isTechnopark == 1)
         {

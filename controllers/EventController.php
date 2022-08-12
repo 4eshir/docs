@@ -8,6 +8,7 @@ use app\models\work\EventExternalWork;
 use app\models\work\EventParticipantsWork;
 use app\models\work\EventsLinkWork;
 use app\models\work\UseYearsWork;
+use app\models\work\EventTrainingGroupWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
@@ -85,6 +86,7 @@ class EventController extends Controller
     {
         $model = new EventWork();
         $modelEventsLinks = [new EventsLinkWork];
+        $modelGroups = [new EventTrainingGroupWork];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
@@ -101,6 +103,9 @@ class EventController extends Controller
             $modelEventsLinks = DynamicModel::createMultiple(EventsLinkWork::classname());
             DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
             $model->eventsLink = $modelEventsLinks;
+            $modelGroups = DynamicModel::createMultiple(EventTrainingGroupWork::classname());
+            DynamicModel::loadMultiple($modelGroups, Yii::$app->request->post());
+            $model->groups = $modelGroups;
 
             if ($model->validate(false))
             {
@@ -125,6 +130,7 @@ class EventController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLinkWork] : $modelEventsLinks,
+            'modelGroups' => (empty($modelGroups)) ? [new EventTrainingGroupWork] : $modelGroups,
         ]);
     }
 
@@ -139,6 +145,8 @@ class EventController extends Controller
     {
         $model = $this->findModel($id);
         $modelEventsLinks = [new EventsLinkWork];
+        $modelGroups = [new EventTrainingGroupWork];
+
         $eventP = EventParticipantsWork::find()->where(['event_id' => $model->id])->one();
         $model->childs = $eventP->child_participants;
         $model->childs_rst = $eventP->child_rst_participants;
@@ -160,6 +168,9 @@ class EventController extends Controller
                 $modelEventsLinks = DynamicModel::createMultiple(EventsLinkWork::classname());
                 DynamicModel::loadMultiple($modelEventsLinks, Yii::$app->request->post());
                 $model->eventsLink = $modelEventsLinks;
+                $modelGroups = DynamicModel::createMultiple(EventTrainingGroupWork::classname());
+                DynamicModel::loadMultiple($modelGroups, Yii::$app->request->post());
+                $model->groups = $modelGroups;
 
                 if ($model->validate(false))
                 {
@@ -181,6 +192,7 @@ class EventController extends Controller
         return $this->render('update', [
             'model' => $model,
             'modelEventsLinks' => (empty($modelEventsLinks)) ? [new EventsLinkWork] : $modelEventsLinks,
+            'modelGroups' => (empty($modelGroups)) ? [new EventTrainingGroupWork] : $modelGroups,
         ]);
     }
 
@@ -204,6 +216,13 @@ class EventController extends Controller
 
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleteGroup($id, $modelId)
+    {
+        $group = EventTrainingGroupWork::find()->where(['id' => $id])->one();
+        $group->delete();
+        return $this->redirect('index?r=event/update&id='.$modelId);
     }
 
     public function actionDeleteExternalEvent($id, $modelId)
