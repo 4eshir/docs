@@ -1,0 +1,3609 @@
+2022-08-11 09:10:02 [127.0.0.1][-][e1ot0fr5ih2k743rtktkcdlqmnn0hktp][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 09:10:01 [127.0.0.1][-][e1ot0fr5ih2k743rtktkcdlqmnn0hktp][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '54925'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660198201.148
+    'REQUEST_TIME' => 1660198201
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 09:20:01 [127.0.0.1][-][b0vims6n1hk87agr54cc9eoh66srb45i][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 09:20:01 [127.0.0.1][-][b0vims6n1hk87agr54cc9eoh66srb45i][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55174'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660198801.048
+    'REQUEST_TIME' => 1660198801
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 09:30:01 [127.0.0.1][-][oud9i94kdr2f3nmvkcbo3e3cs8v8jbjl][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 09:30:01 [127.0.0.1][-][oud9i94kdr2f3nmvkcbo3e3cs8v8jbjl][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55432'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660199401.049
+    'REQUEST_TIME' => 1660199401
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 09:40:01 [127.0.0.1][-][7vspflnit857jcgv7semhid71n2ddr98][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 09:40:01 [127.0.0.1][-][7vspflnit857jcgv7semhid71n2ddr98][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55661'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660200001.061
+    'REQUEST_TIME' => 1660200001
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 09:50:01 [127.0.0.1][-][s3p373qa199sugq7sok2nhsvtg115did][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 09:50:01 [127.0.0.1][-][s3p373qa199sugq7sok2nhsvtg115did][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55903'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660200601.055
+    'REQUEST_TIME' => 1660200601
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:00:01 [127.0.0.1][-][dj26at4bt3rmvdo4h96ocbs6pmpo1lam][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:00:01 [127.0.0.1][-][dj26at4bt3rmvdo4h96ocbs6pmpo1lam][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56133'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660201201.056
+    'REQUEST_TIME' => 1660201201
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:10:01 [127.0.0.1][-][mvck342bd138n00u21vfq6nn89t0leld][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:10:01 [127.0.0.1][-][mvck342bd138n00u21vfq6nn89t0leld][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56371'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660201801.046
+    'REQUEST_TIME' => 1660201801
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:20:01 [127.0.0.1][-][lhq9fb2d1dd73r9cebtn3a0egi6pjrt2][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:20:01 [127.0.0.1][-][lhq9fb2d1dd73r9cebtn3a0egi6pjrt2][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56601'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660202401.05
+    'REQUEST_TIME' => 1660202401
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:30:01 [127.0.0.1][-][06ko771fsj4uubcdpt69rh3aouitc7j1][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:30:01 [127.0.0.1][-][06ko771fsj4uubcdpt69rh3aouitc7j1][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '56835'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660203001.059
+    'REQUEST_TIME' => 1660203001
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:40:01 [127.0.0.1][-][iim9oged18u931s5ip53pak5tt23c3nc][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:40:01 [127.0.0.1][-][iim9oged18u931s5ip53pak5tt23c3nc][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57066'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660203601.054
+    'REQUEST_TIME' => 1660203601
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 10:50:01 [127.0.0.1][-][lvhg6qo5ksleu2a9om2eeechq9s35oqt][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 10:50:01 [127.0.0.1][-][lvhg6qo5ksleu2a9om2eeechq9s35oqt][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57315'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660204201.048
+    'REQUEST_TIME' => 1660204201
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:00:01 [127.0.0.1][-][fkj9lvnbl806lagtf4fo9v4ihijmg6c6][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:00:01 [127.0.0.1][-][fkj9lvnbl806lagtf4fo9v4ihijmg6c6][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57539'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660204801.057
+    'REQUEST_TIME' => 1660204801
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:10:01 [127.0.0.1][-][b2kbmuateint4j5u8r3dv947jheihnn3][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:10:01 [127.0.0.1][-][b2kbmuateint4j5u8r3dv947jheihnn3][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57810'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660205401.046
+    'REQUEST_TIME' => 1660205401
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:20:01 [127.0.0.1][-][3h47er20bjb9cn8m10qlnjfnfdlpsn8v][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:20:01 [127.0.0.1][-][3h47er20bjb9cn8m10qlnjfnfdlpsn8v][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58033'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660206001.05
+    'REQUEST_TIME' => 1660206001
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:30:01 [127.0.0.1][-][vsqe37454lbpc3pvu224dvv7o5ulg4a8][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:30:01 [127.0.0.1][-][vsqe37454lbpc3pvu224dvv7o5ulg4a8][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58255'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660206601.055
+    'REQUEST_TIME' => 1660206601
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:40:00 [127.0.0.1][-][o33c76c6cj2bhmmjvqhs54dd982bp7sc][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:40:00 [127.0.0.1][-][o33c76c6cj2bhmmjvqhs54dd982bp7sc][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58476'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660207200.57
+    'REQUEST_TIME' => 1660207200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 11:50:01 [127.0.0.1][-][ke10k05icdu0dl4qu139jldkbm7q8o5d][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 11:50:01 [127.0.0.1][-][ke10k05icdu0dl4qu139jldkbm7q8o5d][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58695'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660207801.067
+    'REQUEST_TIME' => 1660207801
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:00:00 [127.0.0.1][-][1mppn47l6qea5gee9bnnk1m3kbt3ao9r][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:00:00 [127.0.0.1][-][1mppn47l6qea5gee9bnnk1m3kbt3ao9r][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58938'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660208400.559
+    'REQUEST_TIME' => 1660208400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:10:00 [127.0.0.1][-][ipnpmq51rbfvps5mb6fl4tkpac0cvhng][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:10:00 [127.0.0.1][-][ipnpmq51rbfvps5mb6fl4tkpac0cvhng][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59171'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660209000.549
+    'REQUEST_TIME' => 1660209000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:20:00 [127.0.0.1][-][7kv8cjjhq6krer4akv031gbie3h7o7g2][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:20:00 [127.0.0.1][-][7kv8cjjhq6krer4akv031gbie3h7o7g2][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59403'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660209600.572
+    'REQUEST_TIME' => 1660209600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:30:00 [127.0.0.1][-][9sms765p585apvi1ihme0j653goq7hrs][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:30:00 [127.0.0.1][-][9sms765p585apvi1ihme0j653goq7hrs][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59633'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660210200.062
+    'REQUEST_TIME' => 1660210200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:40:00 [127.0.0.1][-][5cq95egcmikhfvqkne4ccarr8mgeq6p2][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:40:00 [127.0.0.1][-][5cq95egcmikhfvqkne4ccarr8mgeq6p2][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59893'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660210800.568
+    'REQUEST_TIME' => 1660210800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 12:50:00 [127.0.0.1][-][fshul5ursg908s21pvamapvqbpv68pus][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 12:50:00 [127.0.0.1][-][fshul5ursg908s21pvamapvqbpv68pus][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '60197'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660211400.568
+    'REQUEST_TIME' => 1660211400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:00:00 [127.0.0.1][-][v29nnavteasj5i8udisskr89thffbpqv][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:00:00 [127.0.0.1][-][v29nnavteasj5i8udisskr89thffbpqv][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '60418'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660212000.567
+    'REQUEST_TIME' => 1660212000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:10:00 [127.0.0.1][-][liomsqkupelg267sjfqbm7iu6cm6odfp][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:10:00 [127.0.0.1][-][liomsqkupelg267sjfqbm7iu6cm6odfp][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '60644'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660212600.574
+    'REQUEST_TIME' => 1660212600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:19:25 [127.0.0.1][31][eks8mdai2dhhle7dnoosfdkk857fmpg2][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Setting unknown property: app\models\work\TeacherParticipantWork::allow_remote_id in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:209
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(322): yii\base\Component->__set('allow_remote_id', NULL)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\models\work\ForeignEventWork.php(387): yii\db\BaseActiveRecord->__set('allow_remote_id', NULL)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\models\work\ForeignEventWork.php(339): app\models\work\ForeignEventWork->uploadTeacherParticipants()
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(823): app\models\work\ForeignEventWork->afterSave(false, Array)
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveRecord.php(680): yii\db\BaseActiveRecord->updateInternal(NULL)
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(679): yii\db\ActiveRecord->update(false, NULL)
+#6 E:\OpenServer\OpenServer\domains\localhost\docs\controllers\ForeignEventController.php(161): yii\db\BaseActiveRecord->save(false)
+#7 [internal function]: app\controllers\ForeignEventController->actionUpdate('23')
+#8 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#9 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#10 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('update', Array)
+#11 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('foreign-event/u...', Array)
+#12 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#13 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#14 {main}
+2022-08-11 13:19:25 [127.0.0.1][31][eks8mdai2dhhle7dnoosfdkk857fmpg2][info][application] $_GET = [
+    'r' => 'foreign-event/update'
+    'id' => '23'
+]
+
+$_POST = [
+    '_csrf' => '-QHm5eVUWAeCFCTZ7JdYWgVufx_pXmutXixRB5ko_WSaOdWJsxkpMLsgV7eawQsYQldOZd80M9kYSD9X-1y6JQ=='
+    'ForeignEventWork' => [
+        'name' => 'Всероссийский конкурс детских инженерных команд \"Кванториада\"'
+        'company_id' => '32'
+        'start_date' => '2020-11-11'
+        'finish_date' => '2020-12-20'
+        'city' => 'Москва'
+        'event_way_id' => '2'
+        'event_level_id' => '7'
+        'min_participants_age' => '5'
+        'max_participants_age' => '18'
+        'business_trip' => '0'
+        'escort_id' => ''
+        'order_business_trip_id' => ''
+        'order_participation_id' => '79'
+        'key_words' => 'Кванториада'
+        'docsAchievement' => ''
+    ]
+    'ForeignEventParticipantsExtended' => [
+        0 => [
+            'fio' => '3381'
+            'branch' => [
+                0 => '2'
+            ]
+            'teacher' => '49'
+            'teacher2' => '68'
+            'focus' => '1'
+            'file' => ''
+            'team' => ''
+        ]
+    ]
+    'ParticipantsAchievementExtended' => [
+        0 => [
+            'fio' => ''
+            'achieve' => ''
+            'winner' => '0'
+        ]
+    ]
+]
+
+$_FILES = [
+    'ForeignEventParticipantsExtended' => [
+        'name' => [
+            0 => [
+                'file' => ''
+            ]
+        ]
+        'type' => [
+            0 => [
+                'file' => ''
+            ]
+        ]
+        'tmp_name' => [
+            0 => [
+                'file' => ''
+            ]
+        ]
+        'error' => [
+            0 => [
+                'file' => 4
+            ]
+        ]
+        'size' => [
+            0 => [
+                'file' => 0
+            ]
+        ]
+    ]
+    'ForeignEventWork' => [
+        'name' => [
+            'docsAchievement' => ''
+        ]
+        'type' => [
+            'docsAchievement' => ''
+        ]
+        'tmp_name' => [
+            'docsAchievement' => ''
+        ]
+        'error' => [
+            'docsAchievement' => 4
+        ]
+        'size' => [
+            'docsAchievement' => 0
+        ]
+    ]
+]
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'eks8mdai2dhhle7dnoosfdkk857fmpg2'
+    '_csrf' => '4b2540e752379cba46a3cd1e1d81b9c801fb413cbaa7060d7a2244745f0640dca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"c83lVMq794snvVSBG91z6jXtFdnPbtGA\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '4088'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'multipart/form-data; boundary=----WebKitFormBoundaryEg66SUnYfF4qknxA'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Fupdate&id=23'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=eks8mdai2dhhle7dnoosfdkk857fmpg2; _csrf=4b2540e752379cba46a3cd1e1d81b9c801fb413cbaa7060d7a2244745f0640dca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22c83lVMq794snvVSBG91z6jXtFdnPbtGA%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '60851'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=foreign-event%2Fupdate&id=23'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fupdate&id=23'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660213165.389
+    'REQUEST_TIME' => 1660213165
+    'argv' => [
+        0 => 'r=foreign-event%2Fupdate&id=23'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:20:00 [127.0.0.1][-][hehhfll3oooiace0rr4atrtgetep7s38][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:20:00 [127.0.0.1][-][hehhfll3oooiace0rr4atrtgetep7s38][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '60892'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660213200.572
+    'REQUEST_TIME' => 1660213200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:30:00 [127.0.0.1][-][lb7pa508ur2cmknigt38f159rc3t8uem][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:30:00 [127.0.0.1][-][lb7pa508ur2cmknigt38f159rc3t8uem][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61127'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660213800.575
+    'REQUEST_TIME' => 1660213800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:40:00 [127.0.0.1][-][q5qkaev32j3cg0cfqf4j3nckdc87truj][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:40:00 [127.0.0.1][-][q5qkaev32j3cg0cfqf4j3nckdc87truj][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61370'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660214400.572
+    'REQUEST_TIME' => 1660214400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:41:00 [127.0.0.1][-][oc0ogso0kmke3oabit3hfhkgqaug0ga5][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:41:00 [127.0.0.1][-][oc0ogso0kmke3oabit3hfhkgqaug0ga5][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61393'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660214460.061
+    'REQUEST_TIME' => 1660214460
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 13:50:01 [127.0.0.1][-][6h6orucdrhne6l7kr6h0dluj9bocc89f][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 13:50:01 [127.0.0.1][-][6h6orucdrhne6l7kr6h0dluj9bocc89f][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61604'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660215001.053
+    'REQUEST_TIME' => 1660215001
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:00:01 [127.0.0.1][-][rkhbr0vc33vnkeh13cbguvm5d4jaelj6][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:00:01 [127.0.0.1][-][rkhbr0vc33vnkeh13cbguvm5d4jaelj6][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '61855'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660215601.058
+    'REQUEST_TIME' => 1660215601
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:10:00 [127.0.0.1][-][41iuk5rijnvof5mc1ir6djntrd0au545][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:10:00 [127.0.0.1][-][41iuk5rijnvof5mc1ir6djntrd0au545][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62161'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660216200.073
+    'REQUEST_TIME' => 1660216200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:20:00 [127.0.0.1][-][3llf398hqutk7bh73ros8f8le72o12k3][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:20:00 [127.0.0.1][-][3llf398hqutk7bh73ros8f8le72o12k3][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62431'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660216800.092
+    'REQUEST_TIME' => 1660216800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:30:00 [127.0.0.1][-][3ll79fs3447i9r95j51r96ns1grq46nq][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:30:00 [127.0.0.1][-][3ll79fs3447i9r95j51r96ns1grq46nq][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62717'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660217400.084
+    'REQUEST_TIME' => 1660217400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:40:00 [127.0.0.1][-][02n8177eoqrqbs1624atecvcbcemogos][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:40:00 [127.0.0.1][-][02n8177eoqrqbs1624atecvcbcemogos][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62955'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660218000.069
+    'REQUEST_TIME' => 1660218000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 14:50:00 [127.0.0.1][-][97q5a71rhcihelmllo9rdk4fjc6eusv8][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 14:50:00 [127.0.0.1][-][97q5a71rhcihelmllo9rdk4fjc6eusv8][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63192'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660218600.088
+    'REQUEST_TIME' => 1660218600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 15:00:00 [127.0.0.1][-][pc6p921hnf59pqhrq1oieheut0v7pj30][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 15:00:00 [127.0.0.1][-][pc6p921hnf59pqhrq1oieheut0v7pj30][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63439'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660219200.078
+    'REQUEST_TIME' => 1660219200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-11 15:10:00 [127.0.0.1][-][u7dgi12bk3jce4pc9l98lpk3i6qac4k6][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-11 15:10:00 [127.0.0.1][-][u7dgi12bk3jce4pc9l98lpk3i6qac4k6][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '63684'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660219800.09
+    'REQUEST_TIME' => 1660219800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 09:35:06 [127.0.0.1][31][ojcottm5slccsdtdftrv4n6mpqic5fog][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Setting unknown property: app\models\work\TeacherParticipantWork::allow_remote_id in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:209
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(322): yii\base\Component->__set('allow_remote_id', NULL)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\models\work\ForeignEventWork.php(387): yii\db\BaseActiveRecord->__set('allow_remote_id', NULL)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\models\work\ForeignEventWork.php(339): app\models\work\ForeignEventWork->uploadTeacherParticipants()
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(823): app\models\work\ForeignEventWork->afterSave(false, Array)
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveRecord.php(680): yii\db\BaseActiveRecord->updateInternal(NULL)
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(679): yii\db\ActiveRecord->update(false, NULL)
+#6 E:\OpenServer\OpenServer\domains\localhost\docs\controllers\ForeignEventController.php(161): yii\db\BaseActiveRecord->save(false)
+#7 [internal function]: app\controllers\ForeignEventController->actionUpdate('28')
+#8 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#9 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#10 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('update', Array)
+#11 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('foreign-event/u...', Array)
+#12 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#13 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#14 {main}
+2022-08-12 09:35:06 [127.0.0.1][31][ojcottm5slccsdtdftrv4n6mpqic5fog][info][application] $_GET = [
+    'r' => 'foreign-event/update'
+    'id' => '28'
+]
+
+$_POST = [
+    '_csrf' => 'nWPMw0d9iT9q4FrALoqNEJ606fDLzIXfl6ygM9wVZ7LIFbiIBgqwDSmTIvJ33uVmqPzRpfiJ34vT4MNEukA95A=='
+    'ForeignEventWork' => [
+        'company_id' => '141'
+        'city' => ''
+        'event_way_id' => '3'
+        'min_participants_age' => '11'
+        'max_participants_age' => '11'
+        'business_trip' => '0'
+        'escort_id' => ''
+        'order_business_trip_id' => ''
+        'order_participation_id' => '79'
+        'key_words' => 'подводная робототехника, соревнование'
+        'docsAchievement' => ''
+    ]
+    'ForeignEventParticipantsExtended' => [
+        0 => [
+            'fio' => '4815'
+            'branch' => [
+                0 => '2'
+            ]
+            'teacher' => '180'
+            'teacher2' => ''
+            'focus' => '2'
+            'file' => ''
+            'team' => ''
+        ]
+        1 => [
+            'fio' => '7356'
+            'branch' => [
+                0 => '3'
+            ]
+            'teacher' => '26'
+            'teacher2' => ''
+            'focus' => '3'
+            'file' => ''
+            'team' => 'Команда 1'
+        ]
+        2 => [
+            'fio' => '5395'
+            'branch' => [
+                0 => '3'
+            ]
+            'teacher' => '26'
+            'teacher2' => ''
+            'focus' => '3'
+            'file' => ''
+            'team' => 'Команда 1'
+        ]
+    ]
+    'ParticipantsAchievementExtended' => [
+        0 => [
+            'fio' => ''
+            'achieve' => ''
+            'winner' => '0'
+        ]
+    ]
+]
+
+$_FILES = [
+    'ForeignEventParticipantsExtended' => [
+        'name' => [
+            0 => [
+                'file' => ''
+            ]
+            1 => [
+                'file' => ''
+            ]
+            2 => [
+                'file' => ''
+            ]
+        ]
+        'type' => [
+            0 => [
+                'file' => ''
+            ]
+            1 => [
+                'file' => ''
+            ]
+            2 => [
+                'file' => ''
+            ]
+        ]
+        'tmp_name' => [
+            0 => [
+                'file' => ''
+            ]
+            1 => [
+                'file' => ''
+            ]
+            2 => [
+                'file' => ''
+            ]
+        ]
+        'error' => [
+            0 => [
+                'file' => 4
+            ]
+            1 => [
+                'file' => 4
+            ]
+            2 => [
+                'file' => 4
+            ]
+        ]
+        'size' => [
+            0 => [
+                'file' => 0
+            ]
+            1 => [
+                'file' => 0
+            ]
+            2 => [
+                'file' => 0
+            ]
+        ]
+    ]
+    'ForeignEventWork' => [
+        'name' => [
+            'docsAchievement' => ''
+        ]
+        'type' => [
+            'docsAchievement' => ''
+        ]
+        'tmp_name' => [
+            'docsAchievement' => ''
+        ]
+        'error' => [
+            'docsAchievement' => 4
+        ]
+        'size' => [
+            'docsAchievement' => 0
+        ]
+    ]
+]
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ojcottm5slccsdtdftrv4n6mpqic5fog'
+    '_csrf' => '4863c99ed9625fa1a6daec4c1c6752581c0444725f33bedc2fce04dd42b05f6ca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"UvtKAw92Csx2YThv6H8U3EZTDLcwfUZV\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '6271'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'multipart/form-data; boundary=----WebKitFormBoundaryczaITWew93pOSZMQ'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Fupdate&id=28'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ojcottm5slccsdtdftrv4n6mpqic5fog; _csrf=4863c99ed9625fa1a6daec4c1c6752581c0444725f33bedc2fce04dd42b05f6ca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22UvtKAw92Csx2YThv6H8U3EZTDLcwfUZV%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57008'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=foreign-event%2Fupdate&id=28'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fupdate&id=28'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660286106.106
+    'REQUEST_TIME' => 1660286106
+    'argv' => [
+        0 => 'r=foreign-event%2Fupdate&id=28'
+    ]
+    'argc' => 1
+]
+2022-08-12 09:40:00 [127.0.0.1][-][esephkcr8i18csir48p3qb5sb99crjgd][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 09:40:00 [127.0.0.1][-][esephkcr8i18csir48p3qb5sb99crjgd][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57239'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660286400.885
+    'REQUEST_TIME' => 1660286400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 09:50:00 [127.0.0.1][-][vgdpljr46ctqmgcg74p6gk58bvuei792][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 09:50:00 [127.0.0.1][-][vgdpljr46ctqmgcg74p6gk58bvuei792][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57449'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660287000.824
+    'REQUEST_TIME' => 1660287000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:00:00 [127.0.0.1][-][i9erg5d642mh9pl508bpv0e03ik5mbnn][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:00:00 [127.0.0.1][-][i9erg5d642mh9pl508bpv0e03ik5mbnn][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57712'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660287600.825
+    'REQUEST_TIME' => 1660287600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:10:00 [127.0.0.1][-][c239odmg6ufikbe3vb1c1kqgs3ekjopi][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:10:00 [127.0.0.1][-][c239odmg6ufikbe3vb1c1kqgs3ekjopi][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57959'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660288200.813
+    'REQUEST_TIME' => 1660288200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:20:00 [127.0.0.1][-][ddjjbp535nb5ad5ib3cnfbn48jjbiain][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:20:00 [127.0.0.1][-][ddjjbp535nb5ad5ib3cnfbn48jjbiain][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58228'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660288800.85
+    'REQUEST_TIME' => 1660288800
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:30:00 [127.0.0.1][-][q8frh34oh070jgdlcf3afro18169kr7l][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:30:00 [127.0.0.1][-][q8frh34oh070jgdlcf3afro18169kr7l][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58561'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660289400.869
+    'REQUEST_TIME' => 1660289400
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:30:13 [127.0.0.1][31][ojcottm5slccsdtdftrv4n6mpqic5fog][error][yii\web\HttpException:400] yii\web\BadRequestHttpException: Отсутствуют обязательные параметры: id in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Controller.php:201
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(51): yii\web\Controller->bindActionParams(Object(yii\base\InlineAction), Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('view', Array)
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/view', Array)
+#4 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#5 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#6 {main}
+2022-08-12 10:30:13 [127.0.0.1][31][ojcottm5slccsdtdftrv4n6mpqic5fog][info][application] $_GET = [
+    'r' => 'certificat/view'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ojcottm5slccsdtdftrv4n6mpqic5fog'
+    '_csrf' => '4863c99ed9625fa1a6daec4c1c6752581c0444725f33bedc2fce04dd42b05f6ca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"UvtKAw92Csx2YThv6H8U3EZTDLcwfUZV\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_REFERER' => 'http://docs/index.php?r=certificat%2Fcreate'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ojcottm5slccsdtdftrv4n6mpqic5fog; _csrf=4863c99ed9625fa1a6daec4c1c6752581c0444725f33bedc2fce04dd42b05f6ca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22UvtKAw92Csx2YThv6H8U3EZTDLcwfUZV%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58557'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=certificat%2Fview'
+    'REQUEST_URI' => '/index.php?r=certificat%2Fview'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660289413.181
+    'REQUEST_TIME' => 1660289413
+    'argv' => [
+        0 => 'r=certificat%2Fview'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:40:00 [127.0.0.1][-][he9au1gebr1n2l9a34ru02hj1u9rl1d5][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:40:00 [127.0.0.1][-][he9au1gebr1n2l9a34ru02hj1u9rl1d5][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58858'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660290000.867
+    'REQUEST_TIME' => 1660290000
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 10:50:00 [127.0.0.1][-][dpgbsrjlqhldo081g1qbavocj3qvsin1][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 10:50:00 [127.0.0.1][-][dpgbsrjlqhldo081g1qbavocj3qvsin1][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59132'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660290600.854
+    'REQUEST_TIME' => 1660290600
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]
+2022-08-12 11:00:00 [127.0.0.1][-][r4flm958g8eea3oql1o43ia2ious3mq3][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request: daemon/program-erros in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php:149
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('program-erros', Array)
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('daemon/program-...', Array)
+#2 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#3 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#4 {main}
+
+Next yii\web\NotFoundHttpException: Страница не найдена. in E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php:115
+Stack trace:
+#0 E:\OpenServer\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 E:\OpenServer\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#2 {main}
+2022-08-12 11:00:00 [127.0.0.1][-][r4flm958g8eea3oql1o43ia2ious3mq3][info][application] $_GET = [
+    'r' => 'daemon/program-erros'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_USER_AGENT' => 'Wget/1.20.3 (mingw32)'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_ENCODING' => 'identity'
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'Keep-Alive'
+    'PATH' => 'e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\ext;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear;e:\\openserver\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;e:\\openserver\\openserver\\modules\\php\\PHP_7.2;e:\\openserver\\openserver\\modules\\wget\\bin;e:\\openserver\\openserver\\modules\\database\\MariaDB-10.3\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;e:\\openserver\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64;C:\\Program Files\\Git\\cmd'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OpenServer/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '59399'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=daemon/program-erros'
+    'REQUEST_URI' => '/index.php?r=daemon/program-erros'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1660291200.859
+    'REQUEST_TIME' => 1660291200
+    'argv' => [
+        0 => 'r=daemon/program-erros'
+    ]
+    'argc' => 1
+]

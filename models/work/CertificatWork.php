@@ -3,37 +3,18 @@
 namespace app\models\work;
 
 use app\models\common\Certificat;
+use app\models\common\ForeignEventParticipants;
 use app\models\work\CertificatTemplatesWork;
 use app\models\work\TrainingGroupParticipantWork;
 
 use Yii;
 
-/**
- * This is the model class for table "certificat".
- *
- * @property int $id
- * @property int $certificat_number
- * @property int $certificat_template_id
- * @property int $training_group_participant_id
- *
- * @property CertificatTemplates $certificatTemplate
- * @property TrainingGroupParticipant $trainingGroupParticipant
- */
+
 class CertificatWork extends Certificat
 {
     public $group_id;
     public $participant_id;
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'certificat';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -45,37 +26,24 @@ class CertificatWork extends Certificat
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'certificat_number' => 'Certificat Number',
-            'certificat_template_id' => 'Certificat Template ID',
-            'training_group_participant_id' => 'Training Group Participant ID',
+            'certificat_number' => 'Номер сертификата',
+            'certificat_template_id' => 'Шаблон сертификата',
+            'training_group_participant_id' => 'Учащийся',
+            'participantName' => 'Учащийся',
         ];
     }
 
-    /**
-     * Gets query for [[CertificatTemplate]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCertificatTemplate()
+    public function getParticipantName()
     {
-        return $this->hasOne(CertificatTemplates::className(), ['id' => 'certificat_template_id']);
-    }
-
-    /**
-     * Gets query for [[TrainingGroupParticipant]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTrainingGroupParticipant()
-    {
-        return $this->hasOne(TrainingGroupParticipant::className(), ['id' => 'training_group_participant_id']);
+        //$part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
+        //$result = Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
+        var_dump('booobs');
+        return 'booobs';
     }
 
     public function mass_save()
@@ -101,4 +69,5 @@ class CertificatWork extends Certificat
         }
         
     }
+
 }

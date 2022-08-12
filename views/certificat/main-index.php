@@ -8,11 +8,14 @@ use yii\helpers\Html;
 $this->title = 'Генерация сертификатов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="certificat-create">
+
+<h3>Генерация сертификатов</h3>
+
+<div class="certificat-create" style="margin-top: 30px;">
 
     <?php
-        echo Html::a('Генератор сертификатов', \yii\helpers\Url::to(['certificat/index']));
-        echo '<br>';
-        echo Html::a('База шаблонов сертификатов', \yii\helpers\Url::to(['certificat-templates/index']));
+        echo Html::a('Генератор сертификатов', \yii\helpers\Url::to(['certificat/index']), ['class'=>'btn btn-success']);
+        echo '<div style="padding-top: 7px"></div>';
+        echo Html::a('База шаблонов сертификатов', \yii\helpers\Url::to(['certificat-templates/index']), ['class'=>'btn btn-success']);
     ?>
 </div>

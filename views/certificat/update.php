@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\Certificat */
 
-$this->title = 'Update Certificat: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Certificats', 'url' => ['index']];
+$this->title = 'Редактировать сертификат: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Сертификаты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="certificat-update">
 

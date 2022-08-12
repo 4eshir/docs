@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchCertificat */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Certificats';
+$this->title = 'Сертификаты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="certificat-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Certificat', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить новый сертифкат', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,11 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            //'id',
             'certificat_number',
             'certificat_template_id',
-            'training_group_participant_id',
+            ['attribute' => 'participantName', 'format' => 'raw'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
