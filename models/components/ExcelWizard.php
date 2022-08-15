@@ -1583,6 +1583,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
 
+            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
                 echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
 
@@ -1609,6 +1610,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 27, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
 
+            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
                 echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
 
@@ -1637,6 +1639,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
 
+            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
                 echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
 
@@ -1664,6 +1667,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 26, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
 
+            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
                 echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
 
