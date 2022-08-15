@@ -1585,7 +1585,7 @@ class ExcelWizard
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
-                echo $one->participantWork->secondname.' '.$one->participantWork->firstname.' '.$one->participantWork->patronymic.'<br>';
+                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
 
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -1612,7 +1612,7 @@ class ExcelWizard
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
-                echo $one->participantWork->secondname.' '.$one->participantWork->firstname.' '.$one->participantWork->patronymic.'<br>';
+                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
 
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -1641,7 +1641,7 @@ class ExcelWizard
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
-                echo $one->participantWork->secondname.' '.$one->participantWork->firstname.' '.$one->participantWork->patronymic.'<br>';
+                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
 
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -1669,7 +1669,7 @@ class ExcelWizard
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
             foreach ($temp as $one)
-                echo $one->participantWork->secondname.' '.$one->participantWork->firstname.' '.$one->participantWork->patronymic.'<br>';
+                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
 
             $allParts += $temp;
             $allPartsDouble += $temp1;
