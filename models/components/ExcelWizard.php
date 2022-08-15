@@ -1582,6 +1582,10 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 22, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
+
+            foreach ($temp as $one)
+                echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
+
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1604,6 +1608,10 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 27, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 27, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
+
+            foreach ($temp as $one)
+                echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
+
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1628,6 +1636,10 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
+
+            foreach ($temp as $one)
+                echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
+
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1651,6 +1663,10 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 26, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 26, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
+
+            foreach ($temp as $one)
+                echo $one->participant->secondname.' '.$one->participant->firstname.' '.$one->participant->patronymic.'<br>';
+
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
