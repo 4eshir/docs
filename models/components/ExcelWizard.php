@@ -1479,6 +1479,8 @@ class ExcelWizard
         $resIds = [];
         foreach ($result as $one)
         {
+            if ($one->participant_id == 8963)
+                var_dump(count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()));
             if (count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()) > 1)
                 $resIds[] = $one->participant_id;
         }
