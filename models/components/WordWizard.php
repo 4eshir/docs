@@ -61,6 +61,7 @@ class WordWizard
     static public function convertMillimetersToTwips($millimeters)
     {
         return floor($millimeters * 56.7);
+        // переход на новую строку в едином тексте "<w:br/>"
     }
 
     static public function Enrolment ($order_id)
@@ -68,8 +69,6 @@ class WordWizard
         ini_set('memory_limit', '512M');
 
         $inputData = new PhpWord();
-        //$reader = \PhpOffice\PhpWord\IOFactory::createReader('Word2007');
-        //$inputData = $reader->load(Yii::$app->basePath.'\templates\order_study.docx');
         $inputData->setDefaultFontName('Times New Roman');
         $inputData->setDefaultFontSize(14);
 
@@ -80,18 +79,18 @@ class WordWizard
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addText('Региональный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText(' школьный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
         $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
         $table->addRow();
         $cell = $table->addCell(2000);
         $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
         $cell = $table->addCell(2000, array('valign' => 'top'));
-        $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
+        $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -129,75 +128,112 @@ class WordWizard
         $cell->addText($order->order_name, null, array('align' => 'left'));
         $cell = $table->addCell(6000);
         $cell->addTextBreak(1);
+        $section->addTextBreak(1);
 
-        //$section->addTextBreak(1);
-        if ($trG->where(['id' => $groups[0]->training_group_id])->one()->budget === 1)
-            $text = '<w:br/>          В соответствии с ч. 1 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Правилами приема обучающихся в государственное автономное образовательное учреждение Астраханской области дополнительного образования «Региональный школьный технопарк» на обучение по дополнительным общеразвивающим программам, на основании заявлений о приеме на обучение по дополнительным общеразвивающим программам';
-        else
-            $text = '<w:br/>          В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
-        $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
-        $text .= '<w:br/>          1.	Зачислить обучающихся с «' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' ' . date("Y", strtotime($order->order_date)) . ' г.';
-        if (count($groups) == 1)
-            $text .= ' в учебную группу ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
-        else
-            $text .= ' в учебные группы ГАОУ АО ДО «РШТ» на обучение по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+        $countGroup = count($groups);
 
-        $countTeacher = 0;
-        if (count($groups) == 1) {
-            $countTeacher = count($teacher->where(['training_group_id' => $groups[0]->training_group_id])->all());
-            if ($countTeacher == 1)
-                $text .= '<w:br/>          2.	Назначить руководителем учебной группы работника ГАОУ АО ДО «РШТ», указанного в Приложении к настоящему приказу.';
-            else
-            {
-                $text .= '<w:br/>          2.	Назначить руководителями учебной группы работников ГАОУ АО ДО «РШТ», указанных в Приложении к настоящему приказу.';
-            }
-        }
-        else
+        $groupsID = [];
+        foreach ($groups as $group)
+            $groupsID[] = $group->training_group_id;
+        $allGroups = $trG->where(['in', 'id', $groupsID])->all();
+        $programsID = [];
+        foreach ($allGroups as $oneGroup)
+            $programsID[] = $oneGroup->training_program_id;
+        $countProgram = count($program->where(['in', 'id', $programsID])->all());
+
+        $teachersID = [];
+        foreach ($groups as $group)
         {
-            $teachers = [];
-            foreach ($groups as $group)
-            {
-                $trGs = $teacher->where(['training_group_id' => $group->training_group_id])->all();
-                foreach ($trGs as $trGr)
-                {
-                    $teachers [] = $trGr->teacher_id;
-                }
-            }
-            $countTeacher = count(array_unique($teachers));
-
-            if ($countTeacher == 1)
-                $text .= '<w:br/>          2.	Назначить руководителем учебных групп работника ГАОУ АО ДО «РШТ», указанного в Приложении к настоящему приказу.';
-            else
-                $text .= '<w:br/>          2.	Назначить руководителями учебных групп работников ГАОУ АО ДО «РШТ», указанных в Приложении к настоящему приказу.';
+            $trGs = $teacher->where(['training_group_id' => $group->training_group_id])->all();
+            foreach ($trGs as $trGr)
+                $teachersID [] = $trGr->teacher_id;
         }
+        $countTeacher = count(array_unique($teachersID));
 
-        $posOne = $pos->where(['people_id' => $order->executor_id])->one();
-        $text .= '<w:br/>          3.	Ответственным за контроль соблюдения расписания учебных групп и соответствия тематике проводимых учебных занятий';
-        if (count($groups) == 1)
-            $text .= 'по дополнительной общеразвивающей программе назначить работника: ';
+        if ($trG->where(['id' => $groups[0]->training_group_id])->one()->budget === 1)
+        {
+            $text = 'В соответствии с ч. 1 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Правилами приема обучающихся в государственное автономное образовательное учреждение Астраханской области дополнительного образования «Региональный школьный технопарк» на обучение по дополнительным общеразвивающим программам, на основании заявлений о приеме на обучение по ';
+            if ($countProgram == 1)
+                $text .= 'дополнительной общеразвивающей программе';
+            else
+                $text .= 'дополнительным общеразвивающим программам';
+        }
         else
-            $text .= 'по дополнительным общеразвивающим программам назначить работника: ';
-        $text .= mb_strtolower(mb_substr($posOne->position->name, 0, 1)) . mb_substr($posOne->position->name, 1) . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ' . $order->executor->secondname;
+            $text = 'В соответствии с ч. 1, ч. 2 ст. 53 Федерального закона от 29.12.2012                    № 273-ФЗ «Об образовании в Российской Федерации», Положением об оказании платных дополнительных образовательных услуг в государственном автономном образовательном учреждении Астраханской области дополнительного образования «Региональный школьный технопарк», на основании договоров об оказании дополнительных платных образовательных услуг и представленных документов';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
 
-        if ($countTeacher === 1)
-            $text .= '<w:br/>          4.	Руководителем ';
+        $section->addText('ПРИКАЗЫВАЮ:', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+
+        $text = '          1.	Зачислить обучающихся с «' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' ' . date("Y", strtotime($order->order_date)) . ' г.';
+        if ($countGroup == 1)
+            $text .= ' в учебную группу ';
         else
-            $text .= '<w:br/>          4.	Руководителям ';
-        if (count($groups) == 1)
+            $text .= ' в учебные группы ';
+        $text .= 'ГАОУ АО ДО «РШТ» на обучение по ';
+        if ($countProgram == 1)
+            $text .= 'дополнительной общеразвивающей программе ';
+        else
+            $text .= 'дополнительным общеразвивающим программам ';
+        $text .= 'согласно Приложению № 1 к настоящему приказу.';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+
+        if ($countTeacher == 1)
+            $text = '          2.	Назначить руководителем ';
+        else
+            $text = '          2.	Назначить руководителями ';
+        if ($countGroup == 1)
             $text .= 'учебной группы ';
         else
             $text .= 'учебных групп ';
-        $text .= 'проводить с обучающимися инструктажи по технике безопасности в соответствии с дополнительными общеразвивающими программами.';
+        if ($countTeacher == 1)
+            $text .= 'работника ГАОУ АО ДО «РШТ», указанного в Приложении № 1 к настоящему приказу.';
+        else
+            $text .= 'работников ГАОУ АО ДО «РШТ», указанных в Приложении № 1 к настоящему приказу.';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
-        $posOne = $pos->where(['people_id' => $order->bring_id])->one();
-        $text .= '<w:br/>          5.	Ответственным за своевременное ознакомление руководителей учебных групп с настоящим приказом назначить работника: '
-            . mb_strtolower($posOne->position->name) . ' ' . mb_substr($order->bring->firstname, 0, 1) . '. ' . mb_substr($order->bring->patronymic, 0, 1) . '. ' . $order->bring->secondname;
+        if ($order->executor_id == $order->bring_id)
+            $text = '          3.	Назначить работника, ответственного за организацию образовательного процесса и контроль соблюдения расписания ';
+        else
+            $text = '          3.	Назначить работников, ответственных за организацию образовательного процесса и контроль соблюдения расписания ';
+        if ($countGroup == 1)
+            $text .= 'учебной группы согласно Приложению № 2 к настоящему приказу.';
+        else
+            $text .= 'учебных групп согласно Приложению № 2 к настоящему приказу.';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
-        $text .= '<w:br/>          6.	Контроль исполнения приказа оставляю за собой.';
+        if ($countTeacher === 1)
+            $text = '          4.	Руководителю ';
+        else
+            $text = '          4.	Руководителям ';
+        if ($countGroup == 1)
+            $text .= 'учебной группы ';
+        else
+            $text .= 'учебных групп ';
+        $text .= 'проводить с обучающимися инструктажи по технике безопасности в соответствии с ';
+        if ($countProgram == 1)
+            $text .= 'дополнительной общеразвивающей программой.';
+        else
+            $text .= 'дополнительными общеразвивающими программами.';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
+        if ($order->executor_id == $order->bring_id)
+            $text = '          5.	Назначить работника, ответственного за своевременное ознакомление ';
+        else
+            $text = '          5.	Назначить работников, ответственных за своевременное ознакомление ';
+        if ($countTeacher === 1)
+            $text .= 'руководителя ';
+        else
+            $text .= 'руководителей ';
+        if ($countGroup == 1)
+            $text .= 'учебной группы ';
+        else
+            $text .= 'учебных групп ';
+        $text .= 'с настоящим приказом согласно Приложению № 2 к настоящему приказу.';
 
-        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both'));
-        $section->addTextBreak(1);
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          6.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+
+        $section->addTextBreak(2);
 
         $table = $section->addTable();
         $table->addRow();
@@ -205,7 +241,6 @@ class WordWizard
         $cell->addText('Директор');
         $cell = $table->addCell(12000);
         $cell->addText('В.В. Войков', null, array('align' => 'right'));
-        $section->addTextBreak(1);
 
 
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
@@ -223,7 +258,7 @@ class WordWizard
         $cell->addText('Исполнитель:');
         $cell = $table->addCell(12000);
         $cell->addText(mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. '.$order->executor->secondname, null, array('align' => 'right'));
-        $section->addTextBreak(1);
+
         $section->addText('Ознакомлены:');
         $table = $section->addTable();
         for ($i = 0; $i != count($res); $i++, $c++)
@@ -246,30 +281,35 @@ class WordWizard
             'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
         $table = $section->addTable();
         $table->addRow();
-        $cell = $table->addCell(8000);
-        $cell->addTextBreak(1);
         $cell = $table->addCell(10000);
-        $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»', null, array('align' => 'right'));
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('Приложение №1', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $table->addRow();
-        $cell = $table->addCell(8000);
-        $cell->addTextBreak(1);
         $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
         $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
         if ($order->order_postfix !== NULL)
             $text .= '/' .  $order->order_postfix;
         $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
-                . $text);
-        $section->addTextBreak(2);
+                . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
 
         foreach ($groups as $group)
         {
             $trGroup = $trG->where(['id' => $group->training_group_id])->one();
-            $section->addText('Учебная группа: ' . $trGroup->number);
+            $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
 
             $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->all();
-            $text = 'Руководитель: ';
+            $text = 'Руководитель учебной группы: ';
 
             foreach ($teacherTrG as $trg)
             {
@@ -294,12 +334,12 @@ class WordWizard
             $section->addText($text);
 
             $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
-            $section->addText('Дополнительная общеразвивающая программа: ' . $programTrG->name);
-            $section->addText('Направленность: ' . $programTrG->stringFocus);
+            $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
+            $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
 
-            $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения с дистанционными образовательными технологиями).');
+            $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения, дистанционных образовательных технологий).');
 
-            $section->addText('Срок освоения: ' . $programTrG->capacity . ' академ. ч.');
+            $section->addText('Срок освоения (ак.ч.): ' . $programTrG->capacity);
 
             $section->addText('Обучающиеся: ');
             $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
@@ -311,6 +351,87 @@ class WordWizard
             }
             $section->addTextBreak(2);
         }
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('Приложение №2', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+        if ($order->order_postfix !== NULL)
+            $text .= '/' .  $order->order_postfix;
+        $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г. '
+            . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
+
+        $section->addText('Список работников, ответственных за организацию образовательного процесса и контроль соблюдения расписания учебных групп', array('bold' => true), array('align' => 'center'));
+        $section->addTextBreak(1);
+
+        $table = $section->addTable(array('borderColor' => '000000', 'borderSize' => '6'));
+        $table->addRow();
+        $cell = $table->addCell(1000);
+        $cell->addText('№', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(4000);
+        $cell->addText('Ф.И.О. ответственного работника', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(4000);
+        $cell->addText('Должность', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(9000);
+        $cell->addText('Зона ответственности', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(1000);
+        $cell->addText('1', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(4000);
+        $posOne = $pos->where(['people_id' => $order->executor_id])->one();
+        $cell->addText($order->executor->secondname . ' ' . mb_substr($order->executor->firstname, 0, 1) . '. ' . mb_substr($order->executor->patronymic, 0, 1) . '. ', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(3000);
+        $cell->addText(mb_strtolower(mb_substr($posOne->position->name, 0, 1)) . mb_substr($posOne->position->name, 1), array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(10000);
+        $text = '- контроль соблюдения расписания ';
+        if ($countGroup == 1)
+            $text .= 'учебной группы и соответствия тематики проводимых учебных занятий ';
+        else
+            $text .= 'учебных групп и соответствия тематики проводимых учебных занятий ';
+        if ($countProgram == 1)
+            $text .= 'дополнительной общеразвивающей программе';
+        else
+            $text .= 'дополнительным общеразвивающим программам';
+        $cell->addText($text, array('size' => '12'), array('align' => 'both', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(1000);
+        $cell->addText('2', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(4000);
+        $posOne = $pos->where(['people_id' => $order->bring_id])->one();
+        $cell->addText($order->bring->secondname . ' ' . mb_substr($order->bring->firstname, 0, 1) . '. ' . mb_substr($order->bring->patronymic, 0, 1) . '. ', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(4000);
+        $cell->addText(mb_strtolower(mb_substr($posOne->position->name, 0, 1)) . mb_substr($posOne->position->name, 1), array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell = $table->addCell(9000);
+        $text = '- своевременное ознакомление ';
+        if ($countTeacher == 1)
+            $text .= 'руководителя ';
+        else
+            $text .= 'руководителей ';
+        if ($countGroup == 1)
+            $text .= 'учебной группы с настоящим приказом';
+        else
+            $text .= 'учебных групп с настоящим приказом';
+        $cell->addText($text, array('size' => '12'), array('align' => 'both', 'spaceAfter' => 0));
+
 
         $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . mb_substr($order->order_name, 0, 20);
         header("Content-Description: File Transfer");
@@ -339,18 +460,18 @@ class WordWizard
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addText('Региональный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText(' школьный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
         $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
         $table->addRow();
         $cell = $table->addCell(2000);
         $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
         $cell = $table->addCell(2000, array('valign' => 'top'));
-        $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
+        $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -393,10 +514,10 @@ class WordWizard
 
         $countPasta = count($pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->all());
 
-        if ($order->study_type == 0)
+        if ($order->study_type == 0)        // Ф-3
             $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ», на основании решения аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты от ' .
                 '«' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' ' . date("Y", strtotime($order->order_date)) . ' г.';
-        else if ($order->study_type == 1)
+        else if ($order->study_type == 1)    //Ф-4
             $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ»';
         else if ($order->study_type == 2)
         {
@@ -409,42 +530,84 @@ class WordWizard
         else
             $text = '          В связи с досрочным прекращением образовательных отношений на основании статьи 61 Федерального закона от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации», п. 6.2.3 договоров об оказании платных дополнительных образовательных услуг,  ';
 
-        $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('ПРИКАЗЫВАЮ:', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
         if ($order->study_type == 0 && $countPasta > 1)
-            $text .= '<w:br/>          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающимся, указанным в Приложении к настоящему приказу, сертификаты об успешном завершении обучения.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
+        {
+            $section->addText('          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            $section->addText('          2.	Выдать обучающимся, указанным в Приложении к настоящему приказу, сертификаты об успешном завершении обучения.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        }
         if ($order->study_type == 0 && $countPasta == 1)
-            $text .= '<w:br/>          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающемуся, указанному в Приложении к настоящему приказу, сертификат об успешном завершении обучения.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
-
+        {
+            $section->addText('          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            $section->addText('          2.	Выдать обучающемуся, указанному в Приложении к настоящему приказу, сертификат об успешном завершении обучения.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        }
         if ($order->study_type == 1 && $countPasta > 1)
-            $text .= '<w:br/>          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающимся, не прошедшим итоговую форму контроля и указанным в Приложении к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
+        {
+            $section->addText('          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            $section->addText('          2.	Выдать обучающимся, не прошедшим итоговую форму контроля и указанным в Приложении к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        }
         if ($order->study_type == 1 && $countPasta == 1)
-            $text .= '<w:br/>          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающемуся, не прошедшему итоговую форму контроля и указанному в Приложении к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
+        {
+            $section->addText('          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            $section->addText('          2.	Выдать обучающемуся, не прошедшему итоговую форму контроля и указанному в Приложении к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        }
+        if ($order->study_type == 0 || $order->study_type == 1)
+            $section->addText('          3.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
         if ($order->study_type == 2)
         {
             if ($trG->where(['id' => $groups[0]->training_group_id])->one()->budget === 1)
             {
                 if ($countPasta > 1)
-                    $text .= '<w:br/>          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающимся, указанным в Приложении к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
+                {
+                    $section->addText('          1.	Отчислить обучающихся согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          2.	Выдать обучающимся, указанным в Приложении к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                }
                 else
-                    $text .= '<w:br/>          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.<w:br/>          2.	Выдать обучающемуся, указанному в Приложении к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.<w:br/>          3.	Контроль исполнения приказа оставляю за собой.';
+                {
+                    $section->addText('          1.	Отчислить обучающегося согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          2.	Выдать обучающемуся, указанному в Приложении к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного учреждением образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                }
+                $section->addText('          3.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
             }
             else
             {
                 if ($countPasta > 1)
-                    $text .= '<w:br/>          1.	Расторгнуть договора об оказании платных дополнительных образовательных услуг согласно Приложению № 1.<w:br/>          2.	Отчислить обучающихся согласно Приложению № 2 к настоящему приказу.<w:br/>          3.	Выдать обучающимся, указанным в Приложении № 2 к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного образца.<w:br/>          4.	Контроль исполнения приказа оставляю за собой.';
+                {
+                    $section->addText('          1.	Расторгнуть договора об оказании платных дополнительных образовательных услуг согласно Приложению № 1.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          2.	Отчислить обучающихся согласно Приложению № 2 к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          3.	Выдать обучающимся, указанным в Приложении № 2 к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                }
                 else
-                    $text .= '<w:br/>          1.	Расторгнуть договор об оказании платных дополнительных образовательных услуг согласно Приложению № 1.<w:br/>          2.	Отчислить обучающегося согласно Приложению № 2 к настоящему приказу.<w:br/>          3.	Выдать обучающемуся, указанному в Приложении № 2 к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного образца.<w:br/>          4.	Контроль исполнения приказа оставляю за собой.';
+                {
+                    $section->addText('          1.	Расторгнуть договор об оказании платных дополнительных образовательных услуг согласно Приложению № 1.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          2.	Отчислить обучающегося согласно Приложению № 2 к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          3.	Выдать обучающемуся, указанному в Приложении № 2 к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                }
+                $section->addText('          4.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
             }
         }
 
-        if ($order->study_type == 3 && $countPasta > 1)
-            $text .= '<w:br/>          1.	Расторгнуть договора об оказании платных дополнительных образовательных услуг согласно Приложению № 1.<w:br/>          2.	Отчислить обучающихся согласно Приложению № 2 к настоящему приказу. <w:br/>          3.	Выдать обучающимся, указанным в Приложении № 2 к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного образца. <w:br/>          4.	Контроль исполнения приказа оставляю за собой.';
-        if ($order->study_type == 3 && $countPasta == 1)
-            $text .= '<w:br/>          1.	Расторгнуть договор об оказании платных дополнительных образовательных услуг согласно Приложению № 1.<w:br/>          2.	Отчислить обучающегося согласно Приложению № 2 к настоящему приказу. <w:br/>          3.	Выдать обучающемуся, указанному в Приложении № 2 к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного образца. <w:br/>          4.	Контроль исполнения приказа оставляю за собой.';
+        if ($order->study_type == 3)
+        {
+            if ($countPasta > 1)
+            {
+                $section->addText('          1.	Расторгнуть договора об оказании платных дополнительных образовательных услуг согласно Приложению № 1.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                $section->addText('          2.	Отчислить обучающихся согласно Приложению № 2 к настоящему приказу. ', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                $section->addText('          3.	Выдать обучающимся, указанным в Приложении № 2 к настоящему приказу, справки об обучении в ГАОУ АО ДО «РШТ» установленного образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            }
+            else
+            {
+                $section->addText('          1.	Расторгнуть договор об оказании платных дополнительных образовательных услуг согласно Приложению № 1.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                $section->addText('          2.	Отчислить обучающегося согласно Приложению № 2 к настоящему приказу. ', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+                $section->addText('          3.	Выдать обучающемуся, указанному в Приложении № 2 к настоящему приказу, справку об обучении в ГАОУ АО ДО «РШТ» установленного образца.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+            }
+            $section->addText('          4.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        }
 
-        $section->addText($text, null, array('align' => 'both'));
+        //$section->addText($text, null, array('align' => 'both'));
 
 
         $section->addTextBreak(2);
@@ -496,21 +659,26 @@ class WordWizard
                 'marginRight' => WordWizard::convertMillimetersToTwips(15)));
             $table = $section->addTable();
             $table->addRow();
-            $cell = $table->addCell(6500);
-            $cell->addTextBreak(1);
-            $cell = $table->addCell(10900);
-            $cell->addText('Приложение № 1 к приказу ГАОУ АО ДО «РШТ»');
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('Приложение №1', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $table->addRow();
-            $cell = $table->addCell(6500);
-            $cell->addTextBreak(1);
-            $cell = $table->addCell(10900);
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            $table->addRow();
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
             $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
             if ($order->order_postfix !== NULL)
                 $text .= '/' . $order->order_postfix;
             $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
-                . $text);
+                . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $section->addTextBreak(2);
 
             $text = '';
@@ -527,33 +695,38 @@ class WordWizard
             'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
         $table = $section->addTable();
         $table->addRow();
-        $cell = $table->addCell(6500);
-        $cell->addTextBreak(1);
-        $cell = $table->addCell(10900);
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
         if (($order->study_type == 2 && $trG->where(['id' => $groups[0]->training_group_id])->one()->budget !== 1) || $order->study_type == 3)
-            $cell->addText('Приложение № 2 к приказу ГАОУ АО ДО «РШТ»');
+            $cell->addText('Приложение №2', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         else
-            $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»', null, array('align' => 'right'));
+            $cell->addText('Приложение', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $table->addRow();
-        $cell = $table->addCell(6500);//8000 10000
-        $cell->addTextBreak(1);
-        $cell = $table->addCell(10900);
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);//8000 10000
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
         $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
         if ($order->order_postfix !== NULL)
             $text .= '/' .  $order->order_postfix;
         $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
             . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
             . date("Y", strtotime($order->order_date)) . ' г. '
-            . $text);
+            . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(2);
 
         foreach ($groups as $group)
         {
             $trGroup = $trG->where(['id' => $group->training_group_id])->one();
-            $section->addText('Учебная группа: ' . $trGroup->number);
+            $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
 
             $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->all();
-            $text = 'Руководитель: ';
+            $text = 'Руководитель учебной группы: ';
 
             foreach ($teacherTrG as $trg)
             {
@@ -578,8 +751,8 @@ class WordWizard
             $section->addText($text);
 
             $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
-            $section->addText('Дополнительная общеразвивающая программа: ' . $programTrG->name);
-            $section->addText('Направленность: ' . $programTrG->stringFocus);
+            $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
+            $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
 
             $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения с дистанционными образовательными технологиями).');
 
@@ -613,32 +786,30 @@ class WordWizard
         ini_set('memory_limit', '512M');
 
         $inputData = new PhpWord();
-        //$reader = \PhpOffice\PhpWord\IOFactory::createReader('Word2007');
-        //$inputData = $reader->load(Yii::$app->basePath.'\templates\order_study.docx');
         $inputData->setDefaultFontName('Times New Roman');
         $inputData->setDefaultFontSize(14);
 
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
             'marginLeft' => WordWizard::convertMillimetersToTwips(30),
             'marginBottom' => WordWizard::convertMillimetersToTwips(20),
-            'marginRight' => WordWizard::convertMillimetersToTwips(15)));
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addText('Региональный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText(' школьный', array('name' => 'Calibri', 'size' => '16'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addImage(Yii::$app->basePath . '/templates/logo.png', array('width' => 100, 'height' => 40, 'align' => 'left'));
+        $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
         $cell = $table->addCell(2000, array('valign' => 'top'));
-        $cell->addText('технопарк', array('name' => 'Calibri', 'size' => '16'), array('align' => 'center'));
+        $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru• www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right'));
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
-        $section->addTextBreak(2);
+        $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
         $section->addTextBreak(1);
 
@@ -681,17 +852,18 @@ class WordWizard
             $text = '          На основании заявления родителя (или законного представителя) _____________________________________________________ от ________ г., и решения Педагогического совета ГАОУ АО ДО «РШТ» от «____»_________ 20___ г. № ______, в соответствии с п. 2.1.2 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
         if ($order->study_type == 2)
             $text = '          На основании заявления родителя (или законного представителя) _____________________________________________________ от ________ г., в соответствии с п. 2.1.3 Положения о порядке и основаниях перевода, отчисления и восстановления обучающихся государственного автономного образовательного учреждения Астраханской области дополнительного образования «Региональный школьный технопарк»';
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
-        $text .= '<w:br/>          ПРИКАЗЫВАЮ:';
+        $section->addText('ПРИКАЗЫВАЮ:', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
         if ($order->study_type == 0)
         {
             if ($countPasta == 1)
-                $text .= '<w:br/>          1. Перевести обучающегося, успешно прошедшего итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+                $text = '          1. Перевести обучающегося, успешно прошедшего итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
             else if (count($groups) == 1)
-                $text .= '<w:br/>          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
+                $text = '          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительной общеразвивающей программе согласно Приложению к настоящему приказу.';
             else
-                $text .= '<w:br/>          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
+                $text = '          1. Перевести обучающихся, успешно прошедших итоговую аттестацию, на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
         }
         else
         {
@@ -720,13 +892,13 @@ class WordWizard
 
             if ($order->study_type == 1)
             {
-                $text .= '<w:br/>          1. Перевести с обучения по дополнительной общеразвивающей программе «' . $oldProgramTrG->name . '» на обучение по дополнительной общеразвивающей программе «'
+                $text = '          1. Перевести с обучения по дополнительной общеразвивающей программе «' . $oldProgramTrG->name . '» на обучение по дополнительной общеразвивающей программе «'
                     . $newProgramTrG->name . '» ';
             }
 
             if ($order->study_type == 2)
             {
-                $text .= '<w:br/>          1. Перевести из учебной группы ' . $oldGr->number . ' в учебную группу '
+                $text = '          1. Перевести из учебной группы ' . $oldGr->number . ' в учебную группу '
                     . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $newProgramTrG->name . '», '
                     . mb_substr(mb_strtolower($newProgramTrG->stringFocus), 0, mb_strlen($newProgramTrG->stringFocus) - 2, "utf-8")
                     . 'ой направленности ';
@@ -737,10 +909,9 @@ class WordWizard
             else
                 $text .= 'обучающегося: ' . $name . '.';
         }
+        $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          2. Контроль за исполнением приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
-        $text .= '<w:br/>          2. Контроль за исполнением приказа оставляю за собой.';
-
-        $section->addText($text, null, array('align' => 'both'));
         $section->addTextBreak(2);
 
         $table = $section->addTable();
@@ -760,12 +931,12 @@ class WordWizard
             $table = $section->addTable();
             $table->addRow();
             $cell = $table->addCell(6500);
-            $cell->addTextBreak(1);
+            $cell->addText('', null, array('spaceAfter' => 0));
             $cell = $table->addCell(10900);
-            $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»');
+            $cell->addText('Приложение к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $table->addRow();
             $cell = $table->addCell(6500);
-            $cell->addTextBreak(1);
+            $cell->addText('', null, array('spaceAfter' => 0));
             $cell = $table->addCell(10900);
             $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
             if ($order->order_postfix !== NULL)
@@ -773,7 +944,7 @@ class WordWizard
             $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
                 . date("Y", strtotime($order->order_date)) . ' г. '
-                . $text);
+                . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $section->addTextBreak(2);
 
 
@@ -790,24 +961,20 @@ class WordWizard
 
             for ($i = 0; $i < count($newGroup); $i++)
             {
-                //$text = 'Дополнительная общеразвивающая программа: «' . key($newGroup) . '»';
                 $section->addText('Дополнительная общеразвивающая программа: «' . key($newGroup) . '»', array('bold' => true), array('align' => 'both'));
 
                 for ($j = 0; $j < count($newGroup[key($newGroup)]); $j++)
                 {
-                    //$text .= '<w:br/>Учебная группа: ' . key($newGroup[key($newGroup)]);
                     $section->addText('Учебная группа: ' . key($newGroup[key($newGroup)]), null, array('align' => 'both'));
 
                     for ($k = 0; $k < count($newGroup[key($newGroup)][key($newGroup[key($newGroup)])]); $k++)
                     {
-                        //$text .= '<w:br/>   ' . ($k + 1) . '. ' . $newGroup[key($newGroup)][key($newGroup[key($newGroup)])][$k];
                         $section->addText('   ' . ($k + 1) . '. ' . $newGroup[key($newGroup)][key($newGroup[key($newGroup)])][$k] . ', 2-й год обучения', null, array('align' => 'both'));
                     }
 
                     next($newGroup[key($newGroup)]);
                 }
                 next($newGroup);
-                //$section->addText($text, null, array('align' => 'both'));
                 $section->addTextBreak(1);
             }
         }

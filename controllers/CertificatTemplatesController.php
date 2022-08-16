@@ -69,12 +69,12 @@ class CertificatTemplatesController extends Controller
     {
         $model = new CertificatTemplatesWork();
 
-
         if ($model->load(Yii::$app->request->post())) {
             $model->templateFile = UploadedFile::getInstance($model, 'templateFile');
-            $model->path = 'temp';
-            $model->save();
-            //var_dump($model->getErrors());
+            //$model->path =
+            if ($model->templateFile !== null)
+                $model->uploadTemplateFile();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -95,6 +95,11 @@ class CertificatTemplatesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->templateFile = UploadedFile::getInstance($model, 'templateFile');
+            if ($model->templateFile !== null)
+                $model->uploadTemplateFile();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
