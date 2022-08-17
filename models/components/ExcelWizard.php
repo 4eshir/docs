@@ -397,7 +397,7 @@ class ExcelWizard
             }
 
             if ($branch_id == 7 && $focus_id == 5)
-                var_dump($counterTeamPrizes, $counterTeamWinners, $counterTeam);
+                var_dump($teams);
 
 
             $tpIds = [];
