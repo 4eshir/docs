@@ -358,7 +358,7 @@ class ExcelWizard
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
             
             if ($branch_id == 7 && $focus_id == 5)
-                var_dump($partsLink);
+                var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->createCommand()->getRawSql());
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
