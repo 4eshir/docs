@@ -1335,7 +1335,7 @@ class ExcelWizard
         //Отдел ЦОД (физкул.-спортивная направленность)
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 5));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 5));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 5, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 60)->getStyle()->getAlignment()->setVertical('top');
