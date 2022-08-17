@@ -369,7 +369,7 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
-            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->all();
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
