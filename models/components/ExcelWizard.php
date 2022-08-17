@@ -357,6 +357,8 @@ class ExcelWizard
             else
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
             
+            if ($branch_id == 7 && $focus_id == 5)
+                var_dump($partsLink);
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
@@ -396,8 +398,7 @@ class ExcelWizard
                 $tIds[] = $team;
             }
 
-            if ($branch_id == 7 && $focus_id == 5)
-                var_dump($pIds);
+            
 
 
             $tpIds = [];
