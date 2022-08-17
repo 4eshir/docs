@@ -415,7 +415,7 @@ use yii\widgets\ActiveForm;
 
     function ClickBranch($this, $index)
     {
-        if ($index == 5)
+        if ($index == 4)
         {
             let parent = $this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
             let childs = parent.querySelectorAll('.col-xs-4');
