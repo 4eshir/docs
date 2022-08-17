@@ -396,10 +396,6 @@ class ExcelWizard
                 $tIds[] = $team;
             }
 
-            if ($branch_id == 7 && $focus_id == 5)
-                var_dump(TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->createCommand()->getRawSql());
-
-
             $tpIds = [];
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
