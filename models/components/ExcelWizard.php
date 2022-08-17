@@ -1389,7 +1389,7 @@ class ExcelWizard
 
         $gIds = [];
         $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote', [0, 1]])->all();
+        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
         foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
         $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
         foreach ($groups as $group) $gIds[] = $group->id;
