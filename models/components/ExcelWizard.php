@@ -345,10 +345,6 @@ class ExcelWizard
         else
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->all();
 
-
-        if ($branch_id == 7 && $focus_id == 5)
-            var_dump($events1);
-
         $partsLink = null;
         $pIds = [];
         if ($branch_id !== 0)
@@ -399,6 +395,10 @@ class ExcelWizard
                 }
                 $tIds[] = $team;
             }
+
+            if ($branch_id == 7 && $focus_id == 5)
+                var_dump($counterTeamPrizes, $counterTeamWinners, $counterTeam);
+
 
             $tpIds = [];
             foreach ($tIds as $tId)
