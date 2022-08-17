@@ -193,7 +193,7 @@ use yii\widgets\ActiveForm;
                                         'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-                                    $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
+                                    $branchs = \app\models\work\BranchWork::find()->where(['!=', 'id', '5'])->orderBy(['id' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
                                     echo '<div class="'.$i.'">';
                                     echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
