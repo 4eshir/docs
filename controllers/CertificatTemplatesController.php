@@ -69,15 +69,20 @@ class CertificatTemplatesController extends Controller
     {
         $model = new CertificatTemplatesWork();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()))
+        {
             $model->templateFile = UploadedFile::getInstance($model, 'templateFile');
             //$model->path =
             if ($model->templateFile !== null)
+            {
                 $model->uploadTemplateFile();
-            $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+                $model->save(false);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
+        Yii::$app->session->setFlash('danger', 'Невозможно добавить шаблон без подложки');
         return $this->render('create', [
             'model' => $model,
         ]);

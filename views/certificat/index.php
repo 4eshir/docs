@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn', 'header' => '№ п/п'],
             //'id',
             'certificat_number',
             ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
