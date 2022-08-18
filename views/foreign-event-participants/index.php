@@ -53,7 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'summary' => false,
         'rowOptions' => function($data) {
             if ($data['sex'] == 'Другое')
                 return ['class' => 'danger'];

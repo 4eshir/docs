@@ -113,9 +113,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['attribute' => 'certificatTypeString', 'label' => 'Итоговая форма контроля'],
+            ['attribute' => 'description', 'label' => 'Описание'],
             'key_words',
             ['attribute' => function($model) {return $model->actual == 0 ? 'Нет' : 'Да';}, 'label' => 'Образовательная программа актуальна'],
             ['attribute' => 'linkGroups', 'value' => '<div style="float: left; width: 20%; height: 100%; line-height: 250%">'.$model->getGroupsCount().'</div><div style="float: left; width: 80%"><button class="accordion" style="display: flex; float: left">Показать учебные группы</button><div class="panel">'.$model->getLinkGroups().'</div></div>', 'format' => 'raw', 'label' => 'Учебные группы'],
+            ['attribute' => 'creatorString', 'format' => 'raw'],
+            ['attribute' => 'lastUpdateString', 'format' => 'raw'],
         ],
     ]) ?>
 

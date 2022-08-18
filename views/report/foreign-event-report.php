@@ -112,6 +112,24 @@ $this->title = 'Генерация отчета по мероприятиям';
 
     <div class="col-xs-8 block-report">
         <?php
+        $focus = \app\models\work\AllowRemoteWork::find()->all();
+        $arr = \yii\helpers\ArrayHelper::map($focus, 'id', 'name');
+        echo $form->field($model, 'allow_remote')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+            return
+                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                    <label for="allow-'. $index .'">
+                        <input id="allow-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        '. $label .'
+                    </label>
+                </div>';
+        }])->label('Форма реализации');
+        ?>
+    </div>
+
+    <div class="panel-body" style="padding: 0; margin: 0"></div>
+
+    <div class="col-xs-8 block-report">
+        <?php
         $arr = ['1' => 'Победители', '0' => 'Призеры'];
         echo $form->field($model, 'prize')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
             return

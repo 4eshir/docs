@@ -32,6 +32,7 @@ class ManHoursReportModel extends \yii\base\Model
     public $budget;
     public $teacher;
     public $focus;
+    public $allow_remote;
     public $method;
 
 
@@ -39,7 +40,7 @@ class ManHoursReportModel extends \yii\base\Model
     {
         return [
             [['start_date', 'end_date'], 'string'],
-            [['type', 'branch', 'budget', 'focus'], 'safe'],
+            [['type', 'branch', 'budget', 'focus', 'allow_remote'], 'safe'],
             [['method', 'teacher', 'unic'], 'integer']
         ];
     }
@@ -76,7 +77,7 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $lessons = $lessons->andWhere(['IN', 'trainingGroup.branch_id', $this->branch]);
 
-                $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->all();
+                $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all();
                 $progsId = [];
                 foreach ($progs as $prog) $progsId[] = $prog->id;
 
@@ -214,7 +215,8 @@ class ManHoursReportModel extends \yii\base\Model
                         ->where(['<', 'start_date', $this->start_date])->andWhere(['>', 'finish_date', $this->start_date])->andWhere(['<', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
+                    ->andWhere(['IN', 'budget', $this->budget])
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 $groupsId = [];
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
@@ -257,7 +259,8 @@ class ManHoursReportModel extends \yii\base\Model
                         ->where(['>', 'start_date', $this->start_date])->andWhere(['<', 'start_date', $this->end_date])->andWhere(['>', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
+                    ->andWhere(['IN', 'budget', $this->budget])
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
@@ -291,7 +294,8 @@ class ManHoursReportModel extends \yii\base\Model
                         ->where(['>', 'start_date', $this->start_date])->andWhere(['<', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
+                    ->andWhere(['IN', 'budget', $this->budget])
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 $groupsId = [];
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
@@ -327,7 +331,8 @@ class ManHoursReportModel extends \yii\base\Model
                         ->where(['<', 'start_date', $this->start_date])->andWhere(['>', 'finish_date', $this->end_date])])
                     ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-                    ->andWhere(['IN', 'budget', $this->budget])->all();
+                    ->andWhere(['IN', 'budget', $this->budget])
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)

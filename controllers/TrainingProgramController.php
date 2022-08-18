@@ -95,7 +95,7 @@ class TrainingProgramController extends Controller
                 $model->uploadEditFiles();
             if ($model->fileUtp !== null)
                 $model->uploadExcelUtp();
-
+            $model->creator_id = Yii::$app->user->identity->getId();
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена образовательная программа '.$model->name);
             return $this->redirect(['view', 'id' => $model->id]);

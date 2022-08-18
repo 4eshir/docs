@@ -135,14 +135,15 @@ class TrainingGroupWork extends TrainingGroup
     public function getExpertsString()
     {
         $exps = TrainingGroupExpertWork::find()->where(['training_group_id' => $this->id])->all();
-        $res = '';
-        
+        $res = '<table>';
+
         foreach ($exps as $exp)
         {
-            $res .= Html::a($exp->expertWork->fullNameWithCompany, \yii\helpers\Url::to(['people/view', 'id' => $exp->expert_id])) . '<br>';
+            $color = $exp->expertType->name == 'Внутренний' ? '#f0ad4e' : 'green';
+            $res .= '<tr><td style="color: '.$color.'; padding-right: 10px"><b>'.$exp->expertType->name.'</b></td><td>'.Html::a($exp->expertWork->fullNameWithCompany, \yii\helpers\Url::to(['people/view', 'id' => $exp->expert_id])).'</td></tr>';
         }
 
-        return $res;
+        return $res.'</table>';
     }
 
     public function getProjectThemes()

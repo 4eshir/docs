@@ -63,67 +63,85 @@ $this->title = 'Генерация отчета по обучающимся';
             ]])->label('По') ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report">
-        <?php
-        $branchs = \app\models\work\BranchWork::find()->all();
-        $arr = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
-        echo $form->field($model, 'branch')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
-            return
-                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="branch-'. $index .'">
-                        <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
-                        '. $label .'
-                    </label>
-                </div>';
-        }])->label('Отдел');
-        ?>
+    <div style="max-width: 100%">
+        <div class="col-xs-8 block-report">
+            <?php
+            $branchs = \app\models\work\BranchWork::find()->all();
+            $arr = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
+            echo $form->field($model, 'branch')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+                return
+                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="branch-'. $index .'">
+                            <input id="branch-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+            }])->label('Отдел');
+            ?>
+        </div>
+        <div class="col-xs-8 block-report">
+            <?php
+            $focus = \app\models\work\FocusWork::find()->all();
+            $arr = \yii\helpers\ArrayHelper::map($focus, 'id', 'name');
+            echo $form->field($model, 'focus')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+                return
+                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="focus-'. $index .'">
+                            <input id="focus-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+            }])->label('Направленность');
+            ?>
+        </div>
+        <div class="col-xs-8 block-report">
+            <?php
+            $focus = \app\models\work\AllowRemoteWork::find()->all();
+            $arr = \yii\helpers\ArrayHelper::map($focus, 'id', 'name');
+            echo $form->field($model, 'allow_remote')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+                return
+                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="allow-'. $index .'">
+                            <input id="allow-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+            }])->label('Форма реализации');
+            ?>
+        </div>
+        <div class="col-xs-8 block-report">
+            <?php
+            $arr = ['1' => 'Бюджет', '0' => 'Внебюджет'];
+            echo $form->field($model, 'budget')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
+                return
+                    '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                        <label for="budget-'. $index .'">
+                            <input id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                            '. $label .'
+                        </label>
+                    </div>';
+            }])->label('Основа');
+            ?>
+        </div>
     </div>
-    <div class="col-xs-8 block-report">
-        <?php
-        $focus = \app\models\work\FocusWork::find()->all();
-        $arr = \yii\helpers\ArrayHelper::map($focus, 'id', 'name');
-        echo $form->field($model, 'focus')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
-            return
-                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="focus-'. $index .'">
-                        <input id="focus-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
-                        '. $label .'
-                    </label>
-                </div>';
-        }])->label('Направленность');
-        ?>
-    </div>
-    <div class="col-xs-8 block-report">
-        <?php
-        $arr = ['1' => 'Бюджет', '0' => 'Внебюджет'];
-        echo $form->field($model, 'budget')->checkboxList($arr, ['item' => function ($index, $label, $name, $checked, $value) {
-            return
-                '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
-                    <label for="budget-'. $index .'">
-                        <input id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
-                        '. $label .'
-                    </label>
-                </div>';
-        }])->label('Основа');
-        ?>
-    </div>
-
     <div class="panel-body" style="padding: 0; margin: 0"></div>
-    <div class="col-xs-8 block-report">
-        <?= $form->field($model, 'type')->checkboxList(['0' => 'Кол-ву человеко-часов', '1' => 'Кол-ву обучающихся, начавших обучение до начала заданного периода и завершивших обучение в заданный период', '2' => 'Кол-ву обучающихся, начавших обучение в заданный период и заверших обучение после окончания заданного периода',
-                                                        '3' => 'Кол-ву обучающихся, начавших обучение после начала заданного периода и завершивших обучение до окончания заданного периода', '4' => 'Кол-ву обучающихся, начавших обучение до начала заданного периода и завершивших обучение после окончания заданного периода'],
-            [
-                'item' => function($index, $label, $name, $checked, $value)
-                {
-                    return '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black">
-                                <label for="interview-'. $index .'">
-                                    <input onchange="showHours()" id="interview-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
-                                    <span></span>
-                                    '. $label .'
-                                </label>
-                            </div>';
-                }
-            ])->label('Сгенерировать отчет по'); ?>
+    <div style="min-width: 100%">
+        <div class="col-xs-8 block-report" style="width: 96%">
+            <?= $form->field($model, 'type')->checkboxList(['0' => 'Кол-ву человеко-часов', '1' => 'Кол-ву обучающихся, начавших обучение до начала заданного периода и завершивших обучение в заданный период', '2' => 'Кол-ву обучающихся, начавших обучение в заданный период и заверших обучение после окончания заданного периода',
+                                                            '3' => 'Кол-ву обучающихся, начавших обучение после начала заданного периода и завершивших обучение до окончания заданного периода', '4' => 'Кол-ву обучающихся, начавших обучение до начала заданного периода и завершивших обучение после окончания заданного периода'],
+                [
+                    'item' => function($index, $label, $name, $checked, $value)
+                    {
+                        return '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black">
+                                    <label for="interview-'. $index .'">
+                                        <input onchange="showHours()" id="interview-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                        <span></span>
+                                        '. $label .'
+                                    </label>
+                                </div>';
+                    }
+                ])->label('Сгенерировать отчет по'); ?>
+        </div>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
     <div class="col-xs-8 block-report" id="unic" style="display: none">

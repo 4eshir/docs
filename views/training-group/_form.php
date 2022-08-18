@@ -981,7 +981,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                 {
                     echo '<table>';
                     foreach ($experts as $expert) {
-                        $color = $expert->expertType->name == 'Внутренний' ? '#f4c430' : 'green';
+                        $color = $expert->expertType->name == 'Внутренний' ? '#f0ad4e' : 'green';
                         $expertTyprStr = '<span style="font-size: 12pt; color: red; margin-left: 10px; margin-right: 10px; padding: 0; color: '.$color.'"">'.$expert->expertType->name.'</span>';
                         echo '<tr><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->secondname.' '.$expert->expert->firstname.' '.$expert->expert->patronymic.'</h4></td><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->company->name.'</h4></td><td style="padding-left: 20px; width: 25%"><h4>'.$expert->expert->position->name.'</td><td style="padding-left: 20px; width: 15%">'.$expertTyprStr.'</td><td style="padding-left: 20px; width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-expert', 'id' => $expert->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
