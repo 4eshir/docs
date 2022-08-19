@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\PdfWizard;
 use Yii;
 use app\models\common\Certificat;
 use app\models\work\CertificatWork;
@@ -132,6 +133,11 @@ class CertificatController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGenerationPdf($certificat_id)
+    {
+        PdfWizard::DownloadCertificat($certificat_id);
     }
 
     //Проверка на права доступа к CRUD-операциям

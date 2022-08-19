@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\work\CertificatWork */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Certificats', 'url' => ['index']];
+$this->title = 'Сертификат №'. $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Сертификаты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,8 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?php //Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) // редактирование не доступно?>
+        <?php   // удаление доступно только суперу или админу
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
+            echo Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить сертификат?',
@@ -30,10 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             //'id',
-            ['attribute' => 'certificat_number', 'label' => 'Номер сертификата', 'format' => 'raw'],
-            ['attribute' => 'certificat_template_id', 'label' => 'Шаблон сертификата', 'format' => 'raw'],
-            ['attribute' => 'training_group_participant_id', 'label' => 'Учащийся', 'format' => 'raw'],
-            'participantName',
+            ['attribute' => 'certificat_number', 'format' => 'raw'],
+            ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
+            ['attribute' => 'participantName', 'format' => 'raw'],
+            ['attribute' => 'participantGroup', 'format' => 'raw'],
+            ['attribute' => 'pdfFile', 'format' => 'raw'],
         ],
     ]) ?>
 

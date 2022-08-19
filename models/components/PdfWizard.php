@@ -2,6 +2,8 @@
 
 namespace app\models\components;
 
+use app\models\work\CertificatWork;
+use app\models\work\TrainingGroupParticipantWork;
 use Yii;
 use kartik\mpdf\Pdf;
 
@@ -59,5 +61,56 @@ class PdfWizard
             ]
         ]);
         return $pdf->render();
+    }
+
+    static public function DownloadCertificat ($certificat_id)
+    {
+        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+
+        $content = '<body style="
+                                 background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path .') no-repeat ;
+                                 background-size: cover;">
+            <div>
+             <p style="font-size: 19px;">Министерство образования и науки Астраханской области
+                <br>государственное автономное образовательное учреждение Астраханской области 
+                <br>дополнительного образования "Региональный школьный технопарк"
+                <br>отдел "Кванториум" ГАОУ АО ДО "РШТ"
+             </p>
+             <p style="font-size: 19px; color: gray">24 мая 2022 года</p>
+             <p style="font-size: 60px; color: #427fa2; font-style: italic;">СЕРТИФИКАТ</p>
+             <p style="font-size: 16px; font-style: italic;">удостоверяет, что</p>
+             <p style="font-size: 37px; text-decoration: none; color: black;">'.$part->participantWork->fullName.'</p>
+             <p style="font-size: 19px; text-align: justify;">успешно прошел обучение по дополнительной общеразвивающей программе
+                <br>"Основы конструирования и пилотирования мультикоптеров", выполнил 
+                <br>научно-технический проект "Разработка прототипа квадрокоптера с 
+                <br>эхолотом для изучения рельефа дна водоемов" и выступил на научной 
+                <br>конференции "SсhoolTech Conference".
+             </p>
+             <p>Рег. номер '.$certificat->certificat_number.'</p>
+             <img src="'.Yii::$app->basePath . '/upload/files/certificat_templates/' .'pict.png">
+            </div>
+            </body>';
+
+        $pdf = $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'options' => [
+                // any mpdf options you wish to set
+            ],
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            'methods' => [
+                'SetTitle' => 'Privacy Policy - Krajee.com',
+                'SetSubject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+                'SetFooter' => ['|Page {PAGENO}|'],
+                'SetAuthor' => 'ЦСХД (с) РШТ',
+                'SetCreator' => 'ЦСХД (с) РШТ',
+                'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
+            ]
+        ]);
+        $mpdf = $pdf->api; // fetches mpdf api
+        $mpdf->WriteHtml($content); // call mpdf write html
+        $mpdf->Output('Сертификат №'. $certificat->certificat_number . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+        exit;
     }
 }

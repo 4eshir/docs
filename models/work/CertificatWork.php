@@ -33,11 +33,32 @@ class CertificatWork extends Certificat
         return [
             'id' => 'ID',
             'certificat_number' => 'Номер сертификата',
+            'certificatView' => 'Номер сертификата',
             'certificat_template_id' => 'Шаблон сертификата',
             'certificatTemplateName' => 'Шаблон сертификата',
             'training_group_participant_id' => 'Учащийся',
             'participantName' => 'Учащийся',
+            'participantGroup' => 'Учебная группа учащегося',
+            'pdfFile' => 'Сертификат',
         ];
+    }
+
+    public function getCertificatView()
+    {
+        return Html::a($this->certificat_number, \yii\helpers\Url::to(['certificat/view', 'id' => $this->id]));
+    }
+
+    public function getPdfFile()
+    {
+        $result = Html::a("Сгенерировать и выгрузить", \yii\helpers\Url::to(['certificat/generation-pdf', 'certificat_id' => $this->id]), ['class'=>'btn btn-success']);
+        return $result;
+    }
+
+    public function  getParticipantGroup()
+    {
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
+        $result = Html::a($part->trainingGroupWork->number, \yii\helpers\Url::to(['training-group/view', 'id' => $part->training_group_id]));
+        return $result;
     }
 
     public function getParticipantName()

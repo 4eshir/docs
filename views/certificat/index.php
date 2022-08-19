@@ -15,7 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить новый сертифкат', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
+            echo Html::a('Добавить новый сертифкат', ['create'], ['class' => 'btn btn-success'])
+        ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'header' => '№ п/п'],
             //'id',
-            'certificat_number',
+            ['attribute' => 'certificatView', 'format' => 'raw'],
             ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
             //'participantName',
             ['attribute' => 'participantName', 'format' => 'raw'],
+            ['attribute' => 'participantGroup', 'format' => 'raw'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
