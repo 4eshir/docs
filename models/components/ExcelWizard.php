@@ -345,9 +345,7 @@ class ExcelWizard
         else
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
 
-        foreach ($events1 as $event)
-            echo $event->name.' '.$event->eventLevel->name.'<br>';
-
+        
         $partsLink = null;
         $pIds = [];
         if ($branch_id !== 0)
@@ -1618,9 +1616,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
-            foreach ($temp as $one)
-                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
+            
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1645,9 +1641,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
-            foreach ($temp as $one)
-                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
+            
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1674,9 +1668,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
-            foreach ($temp as $one)
-                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
+           
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
@@ -1702,9 +1694,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
 
             $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
-            foreach ($temp as $one)
-                echo $one->secondname.' '.$one->firstname.' '.$one->patronymic.'<br>';
-
+            
             $allParts += $temp;
             $allPartsDouble += $temp1;
             $allPartsCom += $temp2;
