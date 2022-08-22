@@ -575,7 +575,6 @@ class ExcelWizard
 
         $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
-        var_dump($events->all());
 
         //-------------------------------------------
 
@@ -600,6 +599,8 @@ class ExcelWizard
         //Региональные победители и призеры
 
         $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0);
+
+        var_dump($result);
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
