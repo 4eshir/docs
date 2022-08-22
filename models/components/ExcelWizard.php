@@ -346,7 +346,7 @@ class ExcelWizard
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->all();
 
         if ($event_level == 6)
-            var_dump($events1);
+            var_dump(ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])->createCommand()->getRawSql());
 
         $partsLink = null;
         $pIds = [];
