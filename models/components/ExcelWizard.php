@@ -518,10 +518,10 @@ class ExcelWizard
         $tgIds = [];
 
 
-        $trainingGroups1 = TrainingGroupWork::find()/*->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])])
+        $trainingGroups1 = TrainingGroupWork::find()->where(['IN', 'budget', $budget])/*->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['IN', 'budget', $budget])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])*/
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])*/
             ->all();
 
 
@@ -575,6 +575,8 @@ class ExcelWizard
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
         $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
+
+        var_dump(count($events->all()));
 
 
         //-------------------------------------------
