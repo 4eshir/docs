@@ -84,7 +84,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        
+        var_dump(count($events->all()));
 
         //-------------------------------------------
 
