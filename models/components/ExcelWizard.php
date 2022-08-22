@@ -575,6 +575,8 @@ class ExcelWizard
 
         $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
+        var_dump($events->all());
+
         //-------------------------------------------
 
         //Международные победители и призеры
