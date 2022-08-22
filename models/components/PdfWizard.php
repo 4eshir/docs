@@ -69,31 +69,63 @@ class PdfWizard
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
 
         $content = '<body style="
-                                 background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path .') no-repeat ;
+                                 background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
                                  background-size: 10%;">
             <div>
-             <span style="font-size: 19px;">Министерство образования и науки Астраханской области
-                <br>государственное автономное образовательное учреждение Астраханской области 
-                <br>дополнительного образования "Региональный школьный технопарк"
-                <br>отдел "Кванториум" ГАОУ АО ДО "РШТ"
-             </span>
-             <br><br>
-             <span style="font-size: 19px; color: gray">24 мая 2022 года</span>
-             <br><br><br><br>
-             <span style="font-size: 60px; color: #427fa2; font-style: italic;">СЕРТИФИКАТ</span>
-             <span style="font-size: 16px; font-style: italic;">удостоверяет, что</span>
-             <br>
-             <span style="font-size: 37px; text-decoration: none; color: black;">'.$part->participantWork->fullName.'</span>
-             <br>
-             <span style="font-size: 19px; text-align: justify;">успешно прошел обучение по дополнительной общеразвивающей программе
-                <br>"Основы конструирования и пилотирования мультикоптеров", выполнил 
-                <br>научно-технический проект "Разработка прототипа квадрокоптера с 
-                <br>эхолотом для изучения рельефа дна водоемов" и выступил на научной 
-                <br>конференции "SсhoolTech Conference".
-             </span>
-             <br>
-             <span>Рег. номер '.$certificat->certificat_number.'</span>
-             <img src="'.Yii::$app->basePath . '/upload/files/certificat_templates/' .'pict.png">
+            <table>
+                <tr>
+                    <td style="width: 780px; height: 130px; font-size: 19px; vertical-align: top;">
+                        Министерство образования и науки Астраханской области<br>
+                        государственное автономное образовательное учреждение Астраханской области<br>
+                        дополнительного образования "Региональный школьный технопарк"<br>
+                        отдел "Кванториум" ГАОУ АО ДО "РШТ"<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 700px; font-size: 19px; color: #626262;">
+                        4 мая 2022 года 
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 56px; height: 110px; vertical-align: bottom; color: #427fa2;">
+                        СЕРТИФИКАТ
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 15px; font-style: italic; height: 50px; vertical-align: bottom;">
+                        удостоверяет, что
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 28px; text-decoration: none; color: black; font-weight: bold;">
+                        '. $part->participantWork->fullName .'
+                    </td>
+                </tr>
+                <tr>
+                    <td style="line-height: 3ex; font-size: 19px; text-align: justify; text-justify: inter-word; height: 160px; vertical-align: bottom;">
+                            успешно прошел обучение по дополнительной общеразвивающей программе
+                            "Основы конструирования и пилотирования мультикоптеров", выполнил
+                            научно-технический проект "Разработка прототипа квадрокоптера с
+                            эхолотом для изучения рельефа дна водоемов" и выступил на научной
+                            конференции "SсhoolTech Conference".
+                    </td>
+                </tr>
+                </table><table>
+                <tr>
+                    <td style="width: 850px; font-size: 20px; vertical-align: bottom">
+                        Рег. номер '.$certificat->certificat_number.'
+                    </td>
+                    <td style="width: 180px; font-size: 18px; vertical-align: bottom">
+                        В.В. Войков <br>
+                        директор <br>
+                        ГАОУ АО ДО "РШТ" <br>
+                        г. Астрахань - 2022
+                    </td>
+                    <td style="">
+                       <img width="282" height="202" src="'.Yii::$app->basePath . '/upload/files/certificat_templates/' .'pict.png">
+                    </td>
+                </tr>
+            </table>
             </div>
             </body>';
 
