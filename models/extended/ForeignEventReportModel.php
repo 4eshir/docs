@@ -86,8 +86,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
         
 
-        //var_dump(count($events->all()));
-
         //-------------------------------------------
 
         //======РЕЗУЛЬТАТ======
