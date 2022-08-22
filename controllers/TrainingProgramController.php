@@ -131,6 +131,7 @@ class TrainingProgramController extends Controller
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             $model->fileUtp = UploadedFile::getInstance($model, 'fileUtp');
+            var_dump($model->certificat_type_id);
             if ($model->docFile !== null)
                 $model->uploadDocFile();
             if ($model->editDocs !== null)

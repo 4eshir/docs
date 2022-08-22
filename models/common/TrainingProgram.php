@@ -9,33 +9,35 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property int $thematic_direction_id
+ * @property int $level
  * @property string|null $ped_council_date
  * @property string|null $ped_council_number
  * @property int|null $author_id
  * @property int $capacity
  * @property int $student_left_age
  * @property int $student_right_age
- * @property int $focus_id
- * @property int $thematic_direction_id
- * @property int $hour_capacity
- * @property int $level
+ * @property string|null $focus
  * @property int $allow_remote_id
  * @property string|null $doc_file
  * @property string|null $edit_docs
  * @property string|null $key_words
- * @property string|null $description
+ * @property int $focus_id
+ * @property int $hour_capacity
  * @property int $actual
  * @property int|null $certificat_type_id
  * @property int|null $creator_id
- * @property int|null $last_update_id
+ * @property string|null $description
  *
  * @property AuthorProgram[] $authorPrograms
  * @property BranchProgram[] $branchPrograms
+ * @property ThematicPlan[] $thematicPlans
  * @property TrainingGroup[] $trainingGroups
  * @property People $author
- * @property Focus $focus
+ * @property ThematicDirection $thematicDirection
+ * @property Focus $focus0
+ * @property CertificatType $certificatType
  * @property AllowRemote $allowRemote
- * @property User $lastUpdate
  * @property User $creator
  */
 class TrainingProgram extends \yii\db\ActiveRecord
@@ -54,15 +56,16 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'focus_id', 'level'], 'required'],
+            [['name', 'thematic_direction_id', 'allow_remote_id', 'focus_id'], 'required'],
+            [['thematic_direction_id', 'level', 'author_id', 'capacity', 'student_left_age', 'student_right_age', 'allow_remote_id', 'focus_id', 'hour_capacity', 'actual', 'certificat_type_id', 'creator_id'], 'integer'],
             [['ped_council_date'], 'safe'],
-            [['author_id', 'capacity', 'student_left_age', 'student_right_age', 'focus_id', 'thematic_direction_id', 'hour_capacity', 'level', 'allow_remote_id', 'actual', 'certificat_type_id', 'creator_id', 'last_update_id'], 'integer'],
             [['description'], 'string'],
-            [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
+            [['name', 'ped_council_number', 'focus', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
             [['focus_id'], 'exist', 'skipOnError' => true, 'targetClass' => Focus::className(), 'targetAttribute' => ['focus_id' => 'id']],
+            [['certificat_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CertificatType::className(), 'targetAttribute' => ['certificat_type_id' => 'id']],
             [['allow_remote_id'], 'exist', 'skipOnError' => true, 'targetClass' => AllowRemote::className(), 'targetAttribute' => ['allow_remote_id' => 'id']],
-            [['last_update_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_update_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
         ];
     }
@@ -75,25 +78,25 @@ class TrainingProgram extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'thematic_direction_id' => 'Thematic Direction ID',
+            'level' => 'Level',
             'ped_council_date' => 'Ped Council Date',
             'ped_council_number' => 'Ped Council Number',
             'author_id' => 'Author ID',
             'capacity' => 'Capacity',
             'student_left_age' => 'Student Left Age',
             'student_right_age' => 'Student Right Age',
-            'focus_id' => 'Focus ID',
-            'thematic_direction_id' => 'Thematic Direction ID',
-            'hour_capacity' => 'Hour Capacity',
-            'level' => 'Level',
+            'focus' => 'Focus',
             'allow_remote_id' => 'Allow Remote ID',
             'doc_file' => 'Doc File',
             'edit_docs' => 'Edit Docs',
             'key_words' => 'Key Words',
-            'description' => 'Description',
+            'focus_id' => 'Focus ID',
+            'hour_capacity' => 'Hour Capacity',
             'actual' => 'Actual',
             'certificat_type_id' => 'Certificat Type ID',
             'creator_id' => 'Creator ID',
-            'last_update_id' => 'Last Update ID',
+            'description' => 'Description',
         ];
     }
 
@@ -118,6 +121,16 @@ class TrainingProgram extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[ThematicPlans]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getThematicPlans()
+    {
+        return $this->hasMany(ThematicPlan::className(), ['training_program_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[TrainingGroups]].
      *
      * @return \yii\db\ActiveQuery
@@ -138,13 +151,33 @@ class TrainingProgram extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Focus]].
+     * Gets query for [[ThematicDirection]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFocus()
+    public function getThematicDirection()
+    {
+        return $this->hasOne(ThematicDirection::className(), ['id' => 'thematic_direction_id']);
+    }
+
+    /**
+     * Gets query for [[Focus0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFocus0()
     {
         return $this->hasOne(Focus::className(), ['id' => 'focus_id']);
+    }
+
+    /**
+     * Gets query for [[CertificatType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCertificatType()
+    {
+        return $this->hasOne(CertificatType::className(), ['id' => 'certificat_type_id']);
     }
 
     /**
@@ -155,16 +188,6 @@ class TrainingProgram extends \yii\db\ActiveRecord
     public function getAllowRemote()
     {
         return $this->hasOne(AllowRemote::className(), ['id' => 'allow_remote_id']);
-    }
-
-    /**
-     * Gets query for [[LastUpdate]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLastUpdate()
-    {
-        return $this->hasOne(User::className(), ['id' => 'last_update_id']);
     }
 
     /**
