@@ -70,24 +70,29 @@ class PdfWizard
 
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path .') no-repeat ;
-                                 background-size: cover;">
+                                 background-size: 10%;">
             <div>
-             <p style="font-size: 19px;">Министерство образования и науки Астраханской области
+             <span style="font-size: 19px;">Министерство образования и науки Астраханской области
                 <br>государственное автономное образовательное учреждение Астраханской области 
                 <br>дополнительного образования "Региональный школьный технопарк"
                 <br>отдел "Кванториум" ГАОУ АО ДО "РШТ"
-             </p>
-             <p style="font-size: 19px; color: gray">24 мая 2022 года</p>
-             <p style="font-size: 60px; color: #427fa2; font-style: italic;">СЕРТИФИКАТ</p>
-             <p style="font-size: 16px; font-style: italic;">удостоверяет, что</p>
-             <p style="font-size: 37px; text-decoration: none; color: black;">'.$part->participantWork->fullName.'</p>
-             <p style="font-size: 19px; text-align: justify;">успешно прошел обучение по дополнительной общеразвивающей программе
+             </span>
+             <br><br>
+             <span style="font-size: 19px; color: gray">24 мая 2022 года</span>
+             <br><br><br><br>
+             <span style="font-size: 60px; color: #427fa2; font-style: italic;">СЕРТИФИКАТ</span>
+             <span style="font-size: 16px; font-style: italic;">удостоверяет, что</span>
+             <br>
+             <span style="font-size: 37px; text-decoration: none; color: black;">'.$part->participantWork->fullName.'</span>
+             <br>
+             <span style="font-size: 19px; text-align: justify;">успешно прошел обучение по дополнительной общеразвивающей программе
                 <br>"Основы конструирования и пилотирования мультикоптеров", выполнил 
                 <br>научно-технический проект "Разработка прототипа квадрокоптера с 
                 <br>эхолотом для изучения рельефа дна водоемов" и выступил на научной 
                 <br>конференции "SсhoolTech Conference".
-             </p>
-             <p>Рег. номер '.$certificat->certificat_number.'</p>
+             </span>
+             <br>
+             <span>Рег. номер '.$certificat->certificat_number.'</span>
              <img src="'.Yii::$app->basePath . '/upload/files/certificat_templates/' .'pict.png">
             </div>
             </body>';
