@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\work\CertificatWork */
 
-$this->title = 'Сертификат №'. $model->id;
+$this->title = 'Сертификат № '. $model->getCertificatLongNumber();//$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Сертификаты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             //'id',
-            ['attribute' => 'certificat_number', 'format' => 'raw'],
+            ['attribute' => 'certificatLongNumber', 'format' => 'raw'],
             ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
             ['attribute' => 'participantName', 'format' => 'raw'],
             ['attribute' => 'participantGroup', 'format' => 'raw'],

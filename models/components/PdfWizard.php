@@ -67,6 +67,14 @@ class PdfWizard
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+        $date = $part->trainingGroupWork->protection_date;
+        $certificatText = '';
+        if ($part->trainingGroupWork->trainingProgram->certificatType->id == 1)
+            $certificatText = ', выполнил '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
+                            . $part->groupProjectThemes->projectTheme->name . '" и выступил на научной конференции "SсhoolTech Conference".';
+        if ($part->trainingGroupWork->trainingProgram->certificatType->id == 2)
+            $certificatText = ' в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч., выполнил итоговую контрольную работу с оценкой '
+                            . $part->points .' баллов.';
 
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
@@ -78,12 +86,14 @@ class PdfWizard
                         Министерство образования и науки Астраханской области<br>
                         государственное автономное образовательное учреждение Астраханской области<br>
                         дополнительного образования "Региональный школьный технопарк"<br>
-                        отдел "Кванториум" ГАОУ АО ДО "РШТ"<br>
+                        отдел "'. $part->trainingGroupWork->pureBranch .'" ГАОУ АО ДО "РШТ"<br>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 700px; font-size: 19px; color: #626262;">
-                        4 мая 2022 года 
+                        '. date("d", strtotime($date)) . ' '
+                        . WordWizard::Month(date("m", strtotime($date))) . ' '
+                        . date("Y", strtotime($date)) . ' года
                     </td>
                 </tr>
                 <tr>
@@ -104,25 +114,22 @@ class PdfWizard
                 <tr>
                     <td style="line-height: 3ex; font-size: 19px; text-align: justify; text-justify: inter-word; height: 160px; vertical-align: bottom;">
                             успешно прошел обучение по дополнительной общеразвивающей программе
-                            "Основы конструирования и пилотирования мультикоптеров", выполнил
-                            научно-технический проект "Разработка прототипа квадрокоптера с
-                            эхолотом для изучения рельефа дна водоемов" и выступил на научной
-                            конференции "SсhoolTech Conference".
+                            "'.$part->trainingGroupWork->programNameNoLink.'" '. $certificatText .'
                     </td>
                 </tr>
                 </table><table>
                 <tr>
                     <td style="width: 850px; font-size: 20px; vertical-align: bottom">
-                        Рег. номер '.$certificat->certificat_number.'
+                        Рег. номер '.$certificat->certificatLongNumber.'
                     </td>
                     <td style="width: 180px; font-size: 18px; vertical-align: bottom">
                         В.В. Войков <br>
                         директор <br>
                         ГАОУ АО ДО "РШТ" <br>
-                        г. Астрахань - 2022
+                        г. Астрахань - ' . date("Y", strtotime($date)) . '
                     </td>
                     <td style="">
-                       <img width="282" height="202" src="'.Yii::$app->basePath . '/upload/files/certificat_templates/' .'pict.png">
+                       <img width="282" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal.png">
                     </td>
                 </tr>
             </table>
@@ -147,7 +154,7 @@ class PdfWizard
         ]);
         $mpdf = $pdf->api; // fetches mpdf api
         $mpdf->WriteHtml($content); // call mpdf write html
-        $mpdf->Output('Сертификат №'. $certificat->certificat_number . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+        $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
         exit;
     }
 }

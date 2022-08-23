@@ -33,6 +33,7 @@ class CertificatWork extends Certificat
         return [
             'id' => 'ID',
             'certificat_number' => 'Номер сертификата',
+            'certificatLongNumber' => 'Номер сертификата',
             'certificatView' => 'Номер сертификата',
             'certificat_template_id' => 'Шаблон сертификата',
             'certificatTemplateName' => 'Шаблон сертификата',
@@ -43,9 +44,15 @@ class CertificatWork extends Certificat
         ];
     }
 
+    public function getCertificatLongNumber()
+    {
+        $result = sprintf('%06d', $this->certificat_number);
+        return $result;
+    }
+
     public function getCertificatView()
     {
-        return Html::a($this->certificat_number, \yii\helpers\Url::to(['certificat/view', 'id' => $this->id]));
+        return Html::a($this->getCertificatLongNumber(), \yii\helpers\Url::to(['certificat/view', 'id' => $this->id]));
     }
 
     public function getPdfFile()
