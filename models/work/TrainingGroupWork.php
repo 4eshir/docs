@@ -128,7 +128,8 @@ class TrainingGroupWork extends TrainingGroup
         $teachersStr = '';
         $teachers = TeacherGroupWork::find()->where(['training_group_id' => $this->id])->all();
         foreach ($teachers as $teacher)
-            $teachersStr .= $teacher->shortName.' ';
+            $teachersStr .= $teacher->teacherWork->shortName.' ';
+
         return $this->number.' ('.$teachersStr.$this->trainingProgram->name.')';
     }
 
