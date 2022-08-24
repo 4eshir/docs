@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'participantName', 'format' => 'raw'],
             ['attribute' => 'participantGroup', 'format' => 'raw'],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
