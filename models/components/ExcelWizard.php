@@ -598,7 +598,7 @@ class ExcelWizard
 
         //Всероссийские победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0, []);
+        $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0, $result[2]);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $result[1]);
@@ -607,7 +607,7 @@ class ExcelWizard
 
         //Региональные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0, []);
+        $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0, $result[2]);
 
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
