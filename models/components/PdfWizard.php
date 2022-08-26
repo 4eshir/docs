@@ -67,14 +67,23 @@ class PdfWizard
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+        if ($part->participantWork->sex == "Женский")
+        {
+            $genderVerbs = ['прошла', 'выполнила', 'выступила'];
+        }
+        else
+            $genderVerbs = ['прошел', 'выполнил', 'выступил'];
+
+
         $date = $part->trainingGroupWork->protection_date;
         $certificatText = '';
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 1)
-            $certificatText = ', выполнил '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
-                            . $part->groupProjectThemes->projectTheme->name . '" и выступил на научной конференции "SсhoolTech Conference".';
+            $certificatText = ', ' . $genderVerbs[1] . ' '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
+                            . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[2] . ' на научной конференции "SсhoolTech Conference".';
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 2)
-            $certificatText = ' в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч., выполнил итоговую контрольную работу с оценкой '
-                            . $part->points .' баллов.';
+            $certificatText = ', ' . $genderVerbs[1] . ' итоговую контрольную работу с оценкой '
+                            . $part->points .' из 100 баллов.';
+
 
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
@@ -113,8 +122,8 @@ class PdfWizard
                 </tr>
                 <tr>
                     <td style="line-height: 3ex; font-size: 19px; text-align: justify; text-justify: inter-word; height: 160px; vertical-align: bottom;">
-                            успешно прошел обучение по дополнительной общеразвивающей программе
-                            "'.$part->trainingGroupWork->programNameNoLink.'" '. $certificatText .'
+                            успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
+                            "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText .'
                     </td>
                 </tr>
                 </table><table>

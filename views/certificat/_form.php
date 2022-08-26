@@ -24,7 +24,9 @@ use app\models\work\TrainingGroupParticipantWork;
     ?>
 
     <?php
-    $groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
+    $date = date("Y-m-d");
+    //$groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
+    $groups = \app\models\work\TrainingGroupWork::find()->where(['<=','finish_date', $date])->andWhere(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
     $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
     $params = [
         'prompt' => '---',

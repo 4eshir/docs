@@ -75,8 +75,9 @@ class CertificatController extends Controller
         $model = new CertificatWork();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->mass_save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model->mass_save();var_dump($model->getErrors());
+            return $this->redirect(['index']);
+            //return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
