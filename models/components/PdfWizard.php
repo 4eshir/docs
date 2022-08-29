@@ -161,9 +161,12 @@ class PdfWizard
                 'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
             ]
         ]);
+
         $mpdf = $pdf->api; // fetches mpdf api
         $mpdf->WriteHtml($content); // call mpdf write html
-        $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
-        exit;
+        return $content;
+        /*$mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+        exit;*/
     }
+
 }
