@@ -47,6 +47,7 @@ class JournalModel extends \yii\base\Model
 
     public function ClearVisits()
     {
+        var_dump();
         if ($this->visits !== null) {
             $size = count($this->visits);
             for ($i = 0; $i != $size; $i++)
@@ -112,7 +113,9 @@ class JournalModel extends \yii\base\Model
             else if ($this->successes[$i] == 0)
                 $tempSuccess[] = $this->successes[$i];
 
-        
+
+        for ($i = 0; $i < count($this->projectThemes) - 1; $i++)
+            $this->projectThemes[$i] = $this->projectThemes[$i + 1];
 
         for ($i = 0; $i < count($this->tpIds); $i++)
         {
@@ -121,6 +124,9 @@ class JournalModel extends \yii\base\Model
             if ($this->tpIds[$i] == $tempSuccess[$i]) $tp->success = 1;
             else $tp->success = false;
             $tp->group_project_themes_id = $this->projectThemes[$i];
+
+            //echo $tp->participantWork->shortName.' '.$this->projectThemes[$i].'<br>';
+
             $tp->save();
         }
 
