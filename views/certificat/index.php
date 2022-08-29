@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
-            echo Html::a('Добавить новый сертифкат', ['create'], ['class' => 'btn btn-success'])
+            echo Html::a('Добавить сертифкат(-ы)', ['create'], ['class' => 'btn btn-success'])
         ?>
     </p>
 

@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\components\PdfWizard;
 use Yii;
 
 /**
@@ -70,4 +71,5 @@ class Certificat extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TrainingGroupParticipant::className(), ['id' => 'training_group_participant_id']);
     }
+
 }
