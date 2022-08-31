@@ -3,7 +3,7 @@ namespace app\models\components;
 
 use app\models\components\createZip;
 
-class CreateDirZip extends createZip {
+class CreateDirZip extends CreateZip {
 
   function get_files_from_folder($directory, $put_into) {
     if ($handle = opendir($directory)) {
