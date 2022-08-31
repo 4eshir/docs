@@ -18,6 +18,7 @@ use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\UserWork;
 use app\models\components\Logger;
+use app\models\components\createDirZip;
 use app\models\extended\FeedbackAnswer;
 use app\models\ForgotPassword;
 use app\models\SearchDocumentOut;
@@ -203,7 +204,16 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $programs = TrainingProgramWork::find()->all();
+        $path = Yii::$app->basePath.'/download/';
+        $createZip = new createDirZip();
+        $createZip->get_files_from_folder($path, '');
+        $fileName = 'archive.zip';
+        $fd = fopen ($fileName, 'wb');
+        $out = fwrite ($fd, $createZip->getZippedfile());
+        fclose ($fd);
+        $createZip->forceDownload($fileName);
+
+        /*$programs = TrainingProgramWork::find()->all();
 
 
         foreach ($programs as $program)
@@ -218,7 +228,7 @@ class SiteController extends Controller
             }
             //var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
             
-        }
+        }*/
 
         /*$start_date = '2021-01-01';
         $end_date = '2021-12-31';
