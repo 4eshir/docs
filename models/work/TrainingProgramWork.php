@@ -273,6 +273,7 @@ class TrainingProgramWork extends TrainingProgram
 
         if (!(count($changedAttributes) == 0 || count($changedAttributes) == 1 || count($changedAttributes) == 2 && $changedAttributes["actual"] !== null))
         {
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
             $edT = new BranchProgram();
             if ($this->isTechnopark == 1)
             {

@@ -139,7 +139,7 @@ class TrainingProgramController extends Controller
                 $model->uploadExcelUtp();
 
             $model->save(false);
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
@@ -310,21 +310,31 @@ class TrainingProgramController extends Controller
     {
         $arch = explode(',', $arch);
         $unarch = explode(',', $unarch);
-
+        
         for ($i = 0; $i < count($arch) && $arch[0] != ''; $i++)
         {
             $tag = TrainingProgramWork::findOne($arch[$i]);
-            $tag->actual = 1;
-            $tag->save(false);
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') теперь актуальна');
+            if ($tag->actual != 1)
+            {
+                $tag->actual = 1;
+                $tag->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') теперь актуальна');
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
+            }
+            
         }
 
         for ($i = 0; $i < count($unarch) && $unarch[0] != ''; $i++)
         {
             $tag = TrainingProgramWork::findOne($unarch[$i]);
-            $tag->actual = 0;
-            $tag->save(false);
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') больше не актуальна');
+            if ($tag->actual != 0)
+            {
+                $tag->actual = 0;
+                $tag->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Программа '.$tag->name.' (id: '.$tag->id.') больше не актуальна');
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена образовательная программа '.$model->name);
+            }
+            
         }
 /*
         $selections = explode(',', $ids);
