@@ -75,8 +75,6 @@ class ForeignEventReportModel extends \yii\base\Model
             $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
-        if ($event_level == 7) var_dump(count($partsLink));
-
         foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         foreach ($pIds as $one) $not_include[] = $one;
 
@@ -433,7 +431,8 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (региональных)
         if (array_search(6, $this->level) !== false)
         {
-
+            $result = ForeignEventReportModel::GetPrizesWinners(6, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+/*
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
             
             $e2 = [];
@@ -495,26 +494,25 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
-            }
+            }*/
 
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter5 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter6 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter5 + $counter6) * 1.0) / ($counterPart1 * 1.0);
-
-                $bigCounter += $counterPart1;
-                $bigPrizes += $counter5 + $counter6;
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками региональных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$counter5."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$counter6."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
@@ -532,8 +530,9 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (городских)
         if (array_search(5, $this->level) !== false)
         {
+            $result = ForeignEventReportModel::GetPrizesWinners(5, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
 
-            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            /*$events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
             foreach ($events3 as $event) $e2[] = $event->id;
@@ -595,22 +594,25 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
             }
-
+*/
+            
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter7 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter8 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter7 + $counter8) * 1.0) / ($counterPart1 * 1.0);
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками городских конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".$counter7."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".$counter8."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
@@ -623,6 +625,8 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(4, $this->level) !== false)
         {
 
+            $result = ForeignEventReportModel::GetPrizesWinners(4, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+/*
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
@@ -685,22 +689,25 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
             }
-
+*/
+            
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter9 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter10 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter9 + $counter10) * 1.0) / ($counterPart1 * 1.0);
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками районных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".$counter9."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".$counter10."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
@@ -712,8 +719,9 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (внутренние)
         if (array_search(3, $this->level) !== false)
         {
+            $result = ForeignEventReportModel::GetPrizesWinners(3, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
 
-            $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            /*$events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
             foreach ($events3 as $event) $e2[] = $event->id;
@@ -774,23 +782,26 @@ class ForeignEventReportModel extends \yii\base\Model
                 $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
-            }
+            }*/
 
+            
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter11 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter12 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter11 + $counter12) * 1.0) / ($counterPart1 * 1.0);
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками внутренних конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".$counter11."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".$counter12."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";

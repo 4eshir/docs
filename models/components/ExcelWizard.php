@@ -367,9 +367,6 @@ class ExcelWizard
             $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
-
-        if ($event_level == 7) var_dump(count($partsLink));
-
         foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         foreach ($pIds as $one) $not_include[] = $one;
 
