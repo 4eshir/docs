@@ -335,6 +335,8 @@ class ForeignEventReportModel extends \yii\base\Model
         {
             $result = ForeignEventReportModel::GetPrizesWinners(7, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
             
+            var_dump($result);
+
             /*$events2 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
