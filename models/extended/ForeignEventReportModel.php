@@ -333,7 +333,9 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (всероссийских)
         if (array_search(7, $this->level) !== false)
         {
-            $events2 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
+            $result = ForeignEventReportModel::GetPrizesWinners(7, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+            
+            /*$events2 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
             foreach ($events2 as $event) $e2[] = $event->id;
@@ -401,26 +403,25 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 
                 //ОТЛАДКА
-            }
+            }*/
 
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter3 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter4 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter3 + $counter4) * 1.0) / ($counterPart1 * 1.0);
-
-                $bigCounter += $counterPart1;
-                $bigPrizes += $counter3 + $counter4;
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками всероссийских конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".$counter3."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".$counter4."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами всероссийских конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями всероссийских конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
