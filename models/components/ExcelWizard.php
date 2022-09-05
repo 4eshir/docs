@@ -347,6 +347,7 @@ class ExcelWizard
         else
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
 
+        var_dump(count($events1));
         
         $partsLink = null;
         $pIds = [];
@@ -599,8 +600,6 @@ class ExcelWizard
         //Всероссийские победители и призеры
 
         $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0, []);
-
-        var_dump($result);
         
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $result[0]);
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $result[1]);
