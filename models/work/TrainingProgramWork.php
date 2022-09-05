@@ -14,6 +14,7 @@ use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
+use app\models\components\Logger;
 
 
 class TrainingProgramWork extends TrainingProgram
