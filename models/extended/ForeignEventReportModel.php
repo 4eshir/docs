@@ -7,6 +7,7 @@ namespace app\models\extended;
 use app\models\common\ParticipantAchievement;
 use app\models\common\TrainingGroup;
 use app\models\work\ForeignEventWork;
+use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\LessonThemeWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\PeopleWork;
