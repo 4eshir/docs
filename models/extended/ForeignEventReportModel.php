@@ -44,7 +44,7 @@ class ForeignEventReportModel extends \yii\base\Model
         ];
     }
 
-    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include)
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote_id, $participants_not_include)
     {
         $debug = '';
 
@@ -167,7 +167,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
             $teamPrizeStr = $counterTeamPrizes > 0 ? ' (в т.ч. команды - '.$counterTeamPrizes.')' : '';
             $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
-            $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
+            $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
             //ОТЛАДКА
 
         }
@@ -238,7 +238,7 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level) !== false)
         {
-            $result = ForeignEventReportModel::GetPrizesWinners(8, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, []);
+            $result = ForeignEventReportModel::GetPrizesWinners(8, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
 /*
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
