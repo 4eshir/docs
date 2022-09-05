@@ -43,6 +43,148 @@ class ForeignEventReportModel extends \yii\base\Model
         ];
     }
 
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include)
+    {
+        $debug = '';
+
+        $not_include = $participants_not_include;
+
+        if ($events_id == 0)
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+        else
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+
+        
+        $partsLink = null;
+        $pIds = [];
+        $eIds = [];
+        foreach ($events1 as $event) $eIds[] = $event->id;
+        if ($branch_id !== 0)
+        {
+            
+            
+            if ($focus_id !== 0)
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['IN', 'teacherParticipant.focus', $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+            else
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+            
+
+        }
+        else
+        {
+            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+        }
+
+        foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
+        foreach ($pIds as $one) $not_include[] = $one;
+
+
+        $counter1 = 0;
+        $counter2 = 0;
+        $counterPart1 = 0;
+        $allTeams = 0;
+        foreach ($events1 as $event)
+        {
+            //ОТЛАДКА
+            $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
+            //ОТЛАДКА
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $tIds = [];
+            $teamName = '';
+            $counterTeamWinners = 0;
+            $counterTeamPrizes = 0;
+            $counterTeam = 0;
+            foreach ($teams as $team)
+            {
+                if ($teamName != $team->name)
+                {
+                    $teamName = $team->name;
+                    if ($partsLink !== null)
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->one();
+                    else
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+                    if ($res !== null) $counterTeamWinners++;
+                    else $counterTeamPrizes++;
+                    
+                    if ($partsLink !== null)
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                    else
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                    if ($res !== null) $counterTeam++;
+                }
+                $tIds[] = $team;
+            }
+
+            
+
+
+            $tpIds = [];
+            foreach ($tIds as $tId)
+                $tpIds[] = $tId->participant_id;
+
+            if ($partsLink !== null)
+            {
+                if ($events_id2 == 0)
+                {
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->all();
+                }
+                else
+                {
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
+                }
+                
+            }
+            else
+            {
+                if ($events_id2 == 0)
+                {
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->all();
+                }
+                else
+                {
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->all();
+                }
+                
+            }
+            
+
+
+            $counter1 += count($achieves1) + $counterTeamPrizes;
+            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $allTeams += $counterTeam;
+
+
+            //ОТЛАДКА
+            $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $eIds2])->all();
+            $s1 = count($achieves1) + $counterTeamPrizes;
+            $s2 = count($achieves2) + $counterTeamWinners;
+            $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
+            $teamPrizeStr = $counterTeamPrizes > 0 ? ' (в т.ч. команды - '.$counterTeamPrizes.')' : '';
+            $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
+            $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
+            //ОТЛАДКА
+
+        }
+
+        return [$counter1, $counter2, $not_include, $counterPart1, $debug];
+    }
+
+    static public function GetParticipantsIdsFromGroups($group_ids)
+    {
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
+
+        $result = [];
+        foreach ($participants as $participant) $result[] = $participant->participant_id;
+
+        return $result;
+
+    }
+
     public function generateReport()
     {
         $header = "Отчет по учету достижений в мероприятиях за период с ".$this->start_date." по ".$this->end_date;
@@ -52,31 +194,26 @@ class ForeignEventReportModel extends \yii\base\Model
 
         //Получаем группы и учеников
 
-        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
-            //->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
-            ->andWhere(['IN', 'budget', $this->budget])
+        $tgIds = [];
+
+
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $this->start_date])->andWhere(['>', 'finish_date', $this->end_date])->andWhere(['<', 'start_date', $this->end_date])->andWhere(['IN', 'budget', $this->budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $this->start_date])->andWhere(['<', 'finish_date', $this->end_date])->andWhere(['>', 'finish_date', $this->start_date])->andWhere(['IN', 'budget', $this->budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $this->start_date])->andWhere(['>', 'finish_date', $this->end_date])->andWhere(['IN', 'budget', $this->budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $this->start_date])->andWhere(['<', 'finish_date', $this->end_date])->andWhere(['IN', 'budget', $this->budget])])
             ->all();
 
+        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        $tgIds = [];
-        foreach ($trainingGroups as $trainingGroup) $tgIds[] = $trainingGroup->id;
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ForeignEventReportModel::GetParticipantsIdsFromGroups($tgIds)])->all();
 
         //--------------------------
 
         //Получаем мероприятия с выбранными учениками
 
-        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
-
-        $newEv = $events->all();
-
-        $eventIds = [];
-        foreach ($newEv as $event) $eventIds[] = $event->id;
-
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
-        $eventParticipants = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'participant_id', $pIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'focus', $this->focus])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->andWhere(['IN', 'foreign_event_id', $eventIds])->all();
-
+        $eventParticipants = TeacherParticipantWork::find()->where(['IN', 'participant_id', $pIds])->all();
 
         $eIds = [];
         foreach ($eventParticipants as $eventParticipant) $eIds[] = $eventParticipant->foreign_event_id;
@@ -84,6 +221,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
         //-------------------------------------------
 
@@ -99,6 +237,8 @@ class ForeignEventReportModel extends \yii\base\Model
         //Вывод количества призеров / победителей (международных)
         if (array_search(8, $this->level) !== false)
         {
+            $result = ForeignEventReportModel::GetPrizesWinners(8, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, []);
+/*
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
@@ -164,25 +304,25 @@ class ForeignEventReportModel extends \yii\base\Model
                 $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $this->branch])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
                 //ОТЛАДКА
 
-            }
+            }*/
 
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
-            if ($counterPart1 !== 0)
+            if ($result[3] !== 0)
             {
-                $r1 = ($counter1 * 1.0) / ($counterPart1 * 1.0);
-                $r2 = ($counter2 * 1.0) / ($counterPart1 * 1.0);
-                $r3 = (($counter1 + $counter2) * 1.0) / ($counterPart1 * 1.0);
-                $bigCounter += $counterPart1;
-                $bigPrizes += $counter1 + $counter2;
+                $r1 = ($result[0] * 1.0) / ($result[3] * 1.0);
+                $r2 = ($result[1] * 1.0) / ($result[3] * 1.0);
+                $r3 = (($result[0] + $result[1]) * 1.0) / ($result[3] * 1.0);
+                $bigCounter += $result[3];
+                $bigPrizes += $result[0] + $result[1];
             }
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$counterPart1.$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$counter1."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$counter2."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             //if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".round($r1, 2)."</td></tr>";
             //if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".round($r2, 2)."</td></tr>";
