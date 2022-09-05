@@ -164,9 +164,8 @@ class PdfWizard
 
         $mpdf = $pdf->api; // fetches mpdf api
         $mpdf->WriteHtml($content); // call mpdf write html
-        return $content;
-        /*$mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
-        exit;*/
+        $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+        exit;
     }
 
 }

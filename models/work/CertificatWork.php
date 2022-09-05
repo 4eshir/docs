@@ -91,7 +91,7 @@ class CertificatWork extends Certificat
         $allCert = CertificatWork::find()->orderBy(['certificat_number' => SORT_DESC])->all();
         $startNumber = $allCert[0]->certificat_number + 1;
         $tc = 0;
-        $zip = new ZipStream('test.zip');
+        //$zip = new ZipStream('test.zip');
         if ($this->participant_id != null)
         {
             for ($i = 0; $i < count($this->participant_id); $i++)
@@ -103,14 +103,14 @@ class CertificatWork extends Certificat
                     $cert->certificat_template_id = $this->certificat_template_id;
                     $cert->training_group_participant_id = $this->participant_id[$i];
                     $cert->save();
-                    $zip->addFileFromPath($cert->certificat_number.'.png', Yii::$app->basePath.'/templates/logo.png');
+                    //$zip->addFileFromPath($cert->certificat_number.'.png', Yii::$app->basePath.'/templates/logo.png');
                     //var_dump($cert->boobs);
                     $tc++;
                 }
                 
             }
         }
-        $zip->finish();
+        //$zip->finish();
     }
 
 
