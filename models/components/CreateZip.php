@@ -1,10 +1,10 @@
 <?php
 
 /**
-* Class to dynamically create a zip file (archive)
-*
-* @author Rochak Chauhan
-*/
+ * Class to dynamically create a zip file (archive)
+ *
+ * @author Rochak Chauhan
+ */
 
 namespace app\models\components;
 
@@ -191,7 +191,7 @@ class CreateZip  {
         header("Content-Length: ".filesize($archiveName));
         readfile("$archiveName");
 
-     }
+    }
 
 }
 ?>

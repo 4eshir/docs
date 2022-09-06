@@ -311,12 +311,20 @@ class RoleBaseAccess
 
         //Генерация сертификаты
         "certificat" => [
-            "index" => 51,
             "main-index" => 51,
-            "create" => 51,
-            "update" => 51,
-            "delete" => 51,
+            "index" => 0,
+            "create" => 0,
+            "update" => 0,
+            "delete" => 0,
         ],
+
+        "certificat-templates" => [
+            "index" => 0,
+            "create" => 0,
+            "update" => 0,
+            "delete" => 0,
+        ],
+
         //---------------------
     ];
 

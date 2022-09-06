@@ -6,6 +6,7 @@ use app\models\work\CertificatWork;
 use app\models\work\TrainingGroupParticipantWork;
 use Yii;
 use kartik\mpdf\Pdf;
+use yii\helpers\FileHelper;
 
 class PdfWizard
 {
@@ -63,7 +64,36 @@ class PdfWizard
         return $pdf->render();
     }
 
-    static public function DownloadCertificat ($certificat_id)
+    static public function rus2translit($string) {
+        $converter = array(
+            'а' => 'a',   'б' => 'b',   'в' => 'v',
+            'г' => 'g',   'д' => 'd',   'е' => 'e',
+            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+            'и' => 'i',   'й' => 'j',   'к' => 'k',
+            'л' => 'l',   'м' => 'm',   'н' => 'n',
+            'о' => 'o',   'п' => 'p',   'р' => 'r',
+            'с' => 's',   'т' => 't',   'у' => 'u',
+            'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+            'ь' => '\'',  'ы' => 'y',   'ъ' => '\'',
+            'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
+
+            'А' => 'A',   'Б' => 'B',   'В' => 'V',
+            'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
+            'И' => 'I',   'Й' => 'J',   'К' => 'K',
+            'Л' => 'L',   'М' => 'M',   'Н' => 'N',
+            'О' => 'O',   'П' => 'P',   'Р' => 'R',
+            'С' => 'S',   'Т' => 'T',   'У' => 'U',
+            'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
+            'Ь' => '\'',  'Ы' => 'Y',   'Ъ' => '\'',
+            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+        );
+        return strtr($string, $converter);
+    }
+
+    static public function DownloadCertificat ($certificat_id, $destination)
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
@@ -84,6 +114,19 @@ class PdfWizard
             $certificatText = ', ' . $genderVerbs[1] . ' итоговую контрольную работу с оценкой '
                             . $part->points .' из 100 баллов.';
 
+        $trainedText = 'успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
+                            "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText;
+        $size = 19;
+        if (strlen($trainedText) >= 700)
+        {
+            $size = 17;
+            if (strlen($trainedText) >= 920)
+            {
+                $size = 15;
+                if (strlen($trainedText) >= 1070)
+                    $size = 13;
+            }
+        }
 
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
@@ -121,9 +164,8 @@ class PdfWizard
                     </td>
                 </tr>
                 <tr>
-                    <td style="line-height: 3ex; font-size: 19px; text-align: justify; text-justify: inter-word; height: 160px; vertical-align: bottom;">
-                            успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
-                            "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText .'
+                    <td style="line-height: 3ex; font-size: '.$size.'px; text-align: justify; text-justify: inter-word; height: 160px; vertical-align: bottom;">
+                            '. $trainedText .'
                     </td>
                 </tr>
                 </table><table>
@@ -164,8 +206,18 @@ class PdfWizard
 
         $mpdf = $pdf->api; // fetches mpdf api
         $mpdf->WriteHtml($content); // call mpdf write html
-        $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . '_'. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
-        exit;
+
+        if ($destination == 'download')
+        {
+            $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . ' '. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+            exit;
+        }
+        else {
+            $certificatName = 'Certificat #'. $certificat->certificatLongNumber . ' '. PdfWizard::rus2translit($part->participantWork->fullName);
+            $mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/'. $certificatName . '.pdf', 'F'); // call the mpdf api output as needed
+            //$mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/Certificat '. $certificat->certificatLongNumber . '.pdf', \Mpdf\Output\Destination::FILE);
+            return true;
+        }
     }
 
 }
