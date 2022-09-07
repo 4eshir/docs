@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Формы мероприятий';
+$this->params['breadcrumbs'][] = ['label' => 'Участники деятельности / Формы мероприятий / Отчетные мероприятия', 'url' => ['dictionaries/studies']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-form-index">

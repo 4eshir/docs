@@ -9,6 +9,7 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Участники деятельности';
+$this->params['breadcrumbs'][] = ['label' => 'Участники деятельности / Формы мероприятий / Отчетные мероприятия', 'url' => ['dictionaries/studies']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="foreign-event-participants-index">

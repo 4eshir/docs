@@ -196,17 +196,21 @@ $this->title = 'ЦСХД';
                             <h3><b>Справочники</b></h3>
                         </div>
                         <ul>
-                            <li><?php echo Html::a('Организации', \yii\helpers\Url::to(['company/index'])) ?></li>
+                            <li><?php echo Html::a('Организации/Должности/Люди', \yii\helpers\Url::to(['dictionaries/service'])) ?></li>
+                            <!-- <li><?php echo Html::a('Организации', \yii\helpers\Url::to(['company/index'])) ?></li>
                             <li><?php echo Html::a('Должности', \yii\helpers\Url::to(['position/index'])) ?></li>
-                            <li><?php echo Html::a('Люди', \yii\helpers\Url::to(['people/index'])) ?></li>
-                            <li><?php echo Html::a('Участники деятельности', \yii\helpers\Url::to(['foreign-event-participants/index'])) ?></li>
+                            <li><?php echo Html::a('Люди', \yii\helpers\Url::to(['people/index'])) ?></li> -->
+                            <li><?php echo Html::a('Учебная деят./Мероприятия', \yii\helpers\Url::to(['dictionaries/studies'])) ?></li>
+                            <!-- <li><?php echo Html::a('Участники деятельности', \yii\helpers\Url::to(['foreign-event-participants/index'])) ?></li>
                             <li><?php echo Html::a('Формы мероприятий', \yii\helpers\Url::to(['event-form/index'])) ?></li>
-                            <li><?php echo Html::a('Отчетные мероприятия', \yii\helpers\Url::to(['event-external/index'])) ?></li>
-                            <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
+                            <li><?php echo Html::a('Отчетные мероприятия', \yii\helpers\Url::to(['event-external/index'])) ?></li> -->
+                            <li><?php echo Html::a('Отделы/Помещения/Ответст.', \yii\helpers\Url::to(['dictionaries/premises'])) ?></li>
+                            <!-- <li><?php echo Html::a('Отделы', \yii\helpers\Url::to(['branch/index'])) ?></li>
                             <li><?php echo Html::a('Помещения', \yii\helpers\Url::to(['auditorium/index'])) ?></li>
-                            <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li>
-                            <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
-                            <li><?php echo Html::a('Роли', \yii\helpers\Url::to(['role/index'])) ?></li>
+                            <li><?php echo Html::a('Виды ответственности', \yii\helpers\Url::to(['responsibility-type/index'])) ?></li> -->
+                            <li><?php echo Html::a('Пользователи/Роли', \yii\helpers\Url::to(['dictionaries/users'])) ?></li>
+                            <!-- <li><?php echo Html::a('Список пользователей', \yii\helpers\Url::to(['user/index'])) ?></li>
+                            <li><?php echo Html::a('Роли', \yii\helpers\Url::to(['role/index'])) ?></li> -->
                         </ul>
                     </div>
                 </a>

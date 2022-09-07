@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Отделы';
+$this->params['breadcrumbs'][] = ['label' => 'Отделы / Помещения / Виды ответственности', 'url' => ['dictionaries/premises']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="branch-index">

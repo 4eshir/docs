@@ -9,6 +9,7 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Помещения';
+$this->params['breadcrumbs'][] = ['label' => 'Отделы / Помещения / Виды ответственности', 'url' => ['dictionaries/premises']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auditorium-index">

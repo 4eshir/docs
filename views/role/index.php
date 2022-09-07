@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Роли';
+$this->params['breadcrumbs'][] = ['label' => 'Список пользователей / Роли', 'url' => ['dictionaries/users']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="role-index">

@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Должности';
+$this->params['breadcrumbs'][] = ['label' => 'Организации / Должности / Люди', 'url' => ['dictionaries/service']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="position-index">
