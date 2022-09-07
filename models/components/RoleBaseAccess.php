@@ -312,17 +312,18 @@ class RoleBaseAccess
         //Генерация сертификаты
         "certificat" => [
             "main-index" => 51,
-            "index" => 0,
-            "create" => 0,
-            "update" => 0,
-            "delete" => 0,
+            "index" => 51,
+            "view" => 51,
+            "create" => 53,
+            "delete" => 54,
         ],
 
         "certificat-templates" => [
-            "index" => 0,
-            "create" => 0,
-            "update" => 0,
-            "delete" => 0,
+            "index" => 52,
+            "view" => 52,
+            "create" => 55,
+            "update" => 55,
+            "delete" => 55,
         ],
 
         //---------------------
@@ -372,7 +373,7 @@ class RoleBaseAccess
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
                     $allow = true;
             }
-            else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
+            else if ($special == "group" || $special == "certificat") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
                     if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])
