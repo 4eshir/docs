@@ -238,6 +238,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(8, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(8, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+            $debug .= $result[4];
 /*
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 8])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
@@ -333,7 +334,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(7, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(7, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
-
+            $debug .= $result[4];
             /*$events2 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 7])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
@@ -432,6 +433,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(6, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(6, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+            $debug .= $result[4];
 /*
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 6])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
             
@@ -531,7 +533,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(5, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(5, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
-
+            $debug .= $result[4];
             /*$events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 5])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
@@ -626,6 +628,7 @@ class ForeignEventReportModel extends \yii\base\Model
         {
 
             $result = ForeignEventReportModel::GetPrizesWinners(4, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
+            $debug .= $result[4];
 /*
             $events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 4])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
@@ -720,7 +723,7 @@ class ForeignEventReportModel extends \yii\base\Model
         if (array_search(3, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(3, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
-
+            $debug .= $result[4];
             /*$events3 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])->andWhere(['event_level_id' => 3])->andWhere(['teacherParticipantBranches.branch_id' => $this->branch])->all();
 
             $e2 = [];
