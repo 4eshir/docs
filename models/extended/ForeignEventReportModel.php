@@ -61,7 +61,8 @@ class ForeignEventReportModel extends \yii\base\Model
         foreach ($events1 as $event) $eIds[] = $event->id;
         if ($branch_id !== 0)
         {
-            
+            if ($event->id == 50)
+                var_dump($focus_id);
             
             if ($focus_id !== 0)
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['IN', 'teacherParticipant.focus', $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
@@ -72,8 +73,6 @@ class ForeignEventReportModel extends \yii\base\Model
         }
         else
         {
-            if ($event->id == 50)
-                var_dump('dd');
             $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
