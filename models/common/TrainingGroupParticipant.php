@@ -22,6 +22,7 @@ use Yii;
  * @property SendMethod $sendMethod
  * @property TrainingGroup $trainingGroup
  * @property GroupProjectThemes $groupProjectThemes
+ * @property Certificat $certificat
  */
 class TrainingGroupParticipant extends \yii\db\ActiveRecord
 {

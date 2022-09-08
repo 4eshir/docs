@@ -19,8 +19,6 @@ class CertificatWork extends Certificat
     public $group_id;
     public $participant_id;
 
-    public $boobs;
-
     public function rules()
     {
         return [
@@ -109,11 +107,11 @@ class CertificatWork extends Certificat
                 }
             }
         }
-        $this->ave();
+        $this->archiveDownload();
     }
 
 
-    public function ave()
+    public function archiveDownload()
     {
         $path = Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/';
         $createZip = new createDirZip();

@@ -5,8 +5,13 @@ use yii\widgets\ActiveForm;
 use app\models\work\TrainingGroupParticipantWork;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Certificat */
+/* @var $model app\models\work\CertificatWork */
 /* @var $form yii\widgets\ActiveForm */
+?>
+<?php
+if(isset($_GET['group_id'])) {
+    $model->group_id = $_GET['group_id'];
+}
 ?>
 
 <div class="certificat-form">
@@ -23,8 +28,10 @@ use app\models\work\TrainingGroupParticipantWork;
 
     ?>
 
+
+
     <?php
-    $date = date("Y-m-d");
+    $date = date("Y-m-d", strtotime('+3 days'));
     //$groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
     $groups = \app\models\work\TrainingGroupWork::find()->where(['<=','finish_date', $date])->andWhere(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
     $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
@@ -51,7 +58,10 @@ use app\models\work\TrainingGroupParticipantWork;
     foreach($tps as $tp)
     {
         echo '<tr>';
-        echo '<td class="parts '.$tp->training_group_id.'" style="display: none">'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
+        $style = '';
+        if ($model->group_id != $tp->training_group_id)
+            $style = '" style="display: none"';
+        echo '<td class="parts '.$tp->training_group_id.$style.'>'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
         echo '</tr>';
     }
     echo '</table>';

@@ -81,6 +81,11 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             //echo Html::a("Скачать журнал", \yii\helpers\Url::to(['training-group/download-excel', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
             //echo '<br><br>';
             echo Html::a("Скачать электронный журнал (печатная форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
+            echo '<br><br>';
+
+            echo Html::a("Перейти к выдаче сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class'=>'btn btn-success',
+                        /*'disabled' => $model->finish_date >= date("Y-m-d") ? 'disabled' : '',*/
+                        'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'pointer-events: none; cursor: not-allowed; opacity: 0.65;' : '']);
             \yii\bootstrap\Modal::end();
         ?>
     </p>

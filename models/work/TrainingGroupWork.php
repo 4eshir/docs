@@ -241,6 +241,8 @@ class TrainingGroupWork extends TrainingGroup
 
             if ($part->certificat_number != '')
                 $result .= ' Сертификат № ' . $part->certificat_number;
+            else if ($part->certificatWork->certificat_number != '')
+                $result .= ' Сертификат № ' . Html::a($part->certificatWork->CertificatLongNumber, \yii\helpers\Url::to(['certificat/view', 'id' => $part->certificatWork->id]));
             if ($part->status == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
             else if ($part->status == 2)
