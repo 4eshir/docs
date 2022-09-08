@@ -46,7 +46,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
     static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote_id, $participants_not_include)
     {
-        var_dump($branch_id);
         $debug = '';
 
         $not_include = $participants_not_include;
@@ -69,6 +68,7 @@ class ForeignEventReportModel extends \yii\base\Model
             else
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             
+            var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['IN', 'teacherParticipant.focus', $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->createCommand()->getRawSql());
 
         }
         else
