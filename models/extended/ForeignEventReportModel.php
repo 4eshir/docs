@@ -72,6 +72,8 @@ class ForeignEventReportModel extends \yii\base\Model
         }
         else
         {
+            if ($event->id == 50)
+                var_dump('dd');
             $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
