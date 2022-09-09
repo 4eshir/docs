@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\components\PdfWizard;
 use app\models\components\RoleBaseAccess;
 use app\models\work\AccessLevelWork;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
+use app\models\work\CertificatWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\LessonThemeWork;
@@ -34,6 +36,7 @@ use PHPExcel_Shared_Date;
 use stdClass;
 use Yii;
 use app\models\SearchTrainingGroup;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -560,16 +563,39 @@ class TrainingGroupController extends Controller
         ExcelWizard::DownloadKUG($training_group_id);
     }
 
+    public function actionGetArchive($group_id)
+    {
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group_id])->all();
+        $partsID = [];
+        foreach ($parts as $part)
+            $partsID[] = $part->id;
+        $certificats = CertificatWork::find()->where(['IN', 'training_group_participant_id', $partsID])->all();
+
+        if (empty($certificats))
+        {
+            Yii::$app->session->setFlash('danger', 'Невозможно скачать архив сертификатов, если сертификаты не выданы!');
+            return $this->redirect('index?r=training-group/view&id='.$group_id);
+        }
+        else
+        {
+            FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/');
+            foreach ($certificats as $certificat)
+                PdfWizard::DownloadCertificat($certificat->certificat_number, 'server');
+            $archive = new CertificatWork();
+            $archive->archiveDownload();
+        }
+    }
+
     public function actionDownloadExcel($group_id)
     {
-        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен журнал группы ' . $group->number);
         ExcelWizard::DownloadJournal($group_id);
     }
 
     public function actionDownloadJournal($group_id)
     {
-        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен журнал и КУГ группы ' . $group->number);
         ExcelWizard::DownloadJournalAndKUG($group_id);
     }

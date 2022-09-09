@@ -275,6 +275,7 @@ class RoleBaseAccess
             "decline-theme" => [5, 6, 7],
             "confirm-theme" => [5, 6, 7],
             "delete-expert" => [5, 6, 7],
+            "get-archive" => [51, 52],
         ],
         //--------------
 
@@ -373,7 +374,7 @@ class RoleBaseAccess
                 if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$special - 1])
                     $allow = true;
             }
-            else if ($special == "group" || $special == "certificat") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
+            else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
                     if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])
