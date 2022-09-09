@@ -181,6 +181,7 @@ class CreateZip  {
             exit;
         }
 
+
         header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -190,6 +191,8 @@ class CreateZip  {
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: ".filesize($archiveName));
         readfile("$archiveName");
+
+        //header('Location: https://docs/index.php?r=certificat/index');
 
     }
 

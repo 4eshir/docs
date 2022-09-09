@@ -76,14 +76,16 @@ class CertificatController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->mass_save();
-            return $this->redirect(['index']);
-            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index?r=certificat/download');
+            //return $this->redirect(['index', 'ok' => 'ok']);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
+
 
     /**
      * Updates an existing Certificat model.
@@ -138,6 +140,12 @@ class CertificatController extends Controller
     public function actionGenerationPdf($certificat_id)
     {
         PdfWizard::DownloadCertificat($certificat_id, 'download');
+    }
+
+    public function actionDownload()
+    {
+        /*$cert = new CertificatWork();
+        $cert->archiveDownload();*/
     }
 
     //Проверка на права доступа к CRUD-операциям

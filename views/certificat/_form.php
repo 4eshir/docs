@@ -16,7 +16,9 @@ if(isset($_GET['group_id'])) {
 
 <div class="certificat-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'options' => ['target' => '_blank', 'id' => 'form1']
+    ]); ?>
 
 
     <?php
@@ -62,6 +64,7 @@ if(isset($_GET['group_id'])) {
         if ($model->group_id != $tp->training_group_id)
             $style = '" style="display: none"';
         echo '<td class="parts '.$tp->training_group_id.$style.'>'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
+
         echo '</tr>';
     }
     echo '</table>';
@@ -69,7 +72,10 @@ if(isset($_GET['group_id'])) {
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+            //echo Html::a('Сохранить', \yii\helpers\Url::to(['certificat/download']), ['class' => 'btn btn-success', 'style' => 'target="_blank"']);
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -87,5 +93,12 @@ if(isset($_GET['group_id'])) {
         parts = document.getElementsByClassName(elem.value);
         for (let i = 0; i < parts.length; i++)
             parts[i].style.display = 'block';
+    }
+
+    document.getElementById("form1").onsubmit = function()
+    {
+        console.log($_POST);
+        //window.open("https://google.ru", '_blank');
+        //window.location.href = "https://docs/index.php?r=certificat/index";
     }
 </script>

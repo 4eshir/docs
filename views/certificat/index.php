@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Сертификаты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="certificat-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -40,3 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+
+
+<?php
+/*if(isset($_GET['ok'])) {
+    $cert = new \app\models\work\CertificatWork();
+    $cert->archiveDownload();
+}*/
+?>
