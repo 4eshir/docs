@@ -93,6 +93,26 @@ class RoleBaseAccess
         ],
         //--------------------------------------------
 
+        //Генерация сертификаты
+        "certificat" => [
+            "main-index" => 51,
+            "index" => 51,
+            "view" => 51,
+            "create" => 53,
+            "delete" => 54,
+            "download" => 51,
+        ],
+
+        "certificat-templates" => [
+            "index" => 52,
+            "view" => 52,
+            "create" => 55,
+            "update" => 55,
+            "delete" => 55,
+        ],
+
+        //---------------------
+
         //Приказы
         //0 - основная деятельность; 1 - учебные
         "document-order" => [
@@ -310,24 +330,6 @@ class RoleBaseAccess
         ],
         //------------
 
-        //Генерация сертификаты
-        "certificat" => [
-            "main-index" => 51,
-            "index" => 51,
-            "view" => 51,
-            "create" => 53,
-            "delete" => 54,
-        ],
-
-        "certificat-templates" => [
-            "index" => 52,
-            "view" => 52,
-            "create" => 55,
-            "update" => 55,
-            "delete" => 55,
-        ],
-
-        //---------------------
     ];
 
     //----------------------------------------------------

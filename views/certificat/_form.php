@@ -97,8 +97,13 @@ if(isset($_GET['group_id'])) {
 
     document.getElementById("form1").onsubmit = function()
     {
-        console.log($_POST);
         //window.open("https://google.ru", '_blank');
         //window.location.href = "https://docs/index.php?r=certificat/index";
+        setTimeout(redirectHandler, 500);
     }
+
+    function redirectHandler()
+    {
+        window.location = "https://docs/index.php?r=certificat/index";
+    } 
 </script>

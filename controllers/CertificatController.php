@@ -144,8 +144,8 @@ class CertificatController extends Controller
 
     public function actionDownload()
     {
-        /*$cert = new CertificatWork();
-        $cert->archiveDownload();*/
+        $cert = new CertificatWork();
+        $cert->archiveDownload();
     }
 
     //Проверка на права доступа к CRUD-операциям
