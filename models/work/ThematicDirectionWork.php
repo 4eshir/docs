@@ -8,6 +8,14 @@ use Yii;
 
 class ThematicDirectionWork extends ThematicDirection
 {
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Краткое наименование',
+            'full_name' => 'Полное наименование',
+        ];
+    }
 
     public function getTrueName()
     {

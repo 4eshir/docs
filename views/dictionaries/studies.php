@@ -6,14 +6,15 @@ use yii\helpers\Html;
 ?>
 
 <?php
-$this->title = 'Участники деятельности / Формы мероприятий / Отчетные мероприятия';
+$this->title = 'Учебная деятельность / Мероприятия';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h3><u>Участники деятельности / Формы мероприятий / Отчетные мероприятия</u></h3>
+<h3><u>Учебная деятельность / Мероприятия</u></h3>
 
 <ol class="ball" style="list-style-type: none;">
     <li><?php echo Html::a('Участники деятельности', \yii\helpers\Url::to(['foreign-event-participants/index'])) ?></li>
+    <li><?php echo Html::a('Тематические направления', \yii\helpers\Url::to(['thematic-direction/index'])) ?></li>
     <li><?php echo Html::a('Формы мероприятий', \yii\helpers\Url::to(['event-form/index'])) ?></li> 
     <li><?php echo Html::a('Отчетные мероприятия', \yii\helpers\Url::to(['event-external/index'])) ?></li>                  
 </ol>
@@ -64,7 +65,7 @@ top: 7px;
 }
 
 .ball a:hover:after, .ball a:focus:after {
-    width: 22%;
+    width: 24%;
 }
 
 .ball li {position: relative;}

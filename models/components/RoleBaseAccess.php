@@ -91,6 +91,13 @@ class RoleBaseAccess
             "view" => 43,
             "find-model" => 43,
         ],
+        "thematic-direction" => [
+            "index" => 56,
+            "create" => 57,
+            "update" => 57,
+            "delete" => 57,
+            "view" => 56,
+        ],
         //--------------------------------------------
 
         //Генерация сертификаты
