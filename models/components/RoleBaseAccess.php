@@ -355,16 +355,16 @@ class RoleBaseAccess
     public static function CheckAccess($controllerName, $actionName, $userId, $special = -1)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
-        $accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
+        //$accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
         $accessArray = [];
         foreach ($userAccess as $access)
         {
             $functions = RoleFunctionRoleWork::find()->where(['role_id' => $access->role_id])->all();
             foreach ($functions as $function)
                 $accessArray[] = $function->role_function_id;
-            if ($accesses !== null)
+            /*if ($accesses !== null)
                 foreach ($accesses as $acc)
-                    $accessArray[] = $acc->role_function_id;
+                    $accessArray[] = $acc->role_function_id;*/
         }
         $allow = false;
         for ($i = 0; $i < count($accessArray); $i++){
