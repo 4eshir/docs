@@ -5,13 +5,20 @@ use yii\widgets\ActiveForm;
 use app\models\work\TrainingGroupParticipantWork;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Certificat */
+/* @var $model app\models\work\CertificatWork */
 /* @var $form yii\widgets\ActiveForm */
+?>
+<?php
+if(isset($_GET['group_id'])) {
+    $model->group_id = $_GET['group_id'];
+}
 ?>
 
 <div class="certificat-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'options' => ['target' => '_blank', 'id' => 'form1']
+    ]); ?>
 
 
     <?php
@@ -23,8 +30,10 @@ use app\models\work\TrainingGroupParticipantWork;
 
     ?>
 
+
+
     <?php
-    $date = date("Y-m-d");
+    $date = date("Y-m-d", strtotime('+3 days'));
     //$groups = \app\models\work\TrainingGroupWork::find()->where(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
     $groups = \app\models\work\TrainingGroupWork::find()->where(['<=','finish_date', $date])->andWhere(['archive' => 0])->orderBy(['id' => SORT_DESC])->all();
     $items = \yii\helpers\ArrayHelper::map($groups,'id','number');
@@ -51,7 +60,11 @@ use app\models\work\TrainingGroupParticipantWork;
     foreach($tps as $tp)
     {
         echo '<tr>';
-        echo '<td class="parts '.$tp->training_group_id.'" style="display: none">'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
+        $style = '';
+        if ($model->group_id != $tp->training_group_id)
+            $style = '" style="display: none"';
+        echo '<td class="parts '.$tp->training_group_id.$style.'>'.$form->field($model, 'participant_id[]')->checkbox(['label' => $tp->participantWork->fullName, 'value' => $tp->id])->label(false).'</td>';
+
         echo '</tr>';
     }
     echo '</table>';
@@ -59,7 +72,10 @@ use app\models\work\TrainingGroupParticipantWork;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']);
+            //echo Html::a('Сохранить', \yii\helpers\Url::to(['certificat/download']), ['class' => 'btn btn-success', 'style' => 'target="_blank"']);
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -77,5 +93,12 @@ use app\models\work\TrainingGroupParticipantWork;
         parts = document.getElementsByClassName(elem.value);
         for (let i = 0; i < parts.length; i++)
             parts[i].style.display = 'block';
+    }
+
+    document.getElementById("form1").onsubmit = function()
+    {
+        console.log($_POST);
+        //window.open("https://google.ru", '_blank');
+        //window.location.href = "https://docs/index.php?r=certificat/index";
     }
 </script>
