@@ -495,11 +495,22 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                     'value' => $model->sendMethodArr[$c],
                                 ];
                                 //echo '<tr><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
-                                echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>' . $form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) . $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' . $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' . Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']) . '</td>' .
+                                echo '<tr><td><h5>' . $extEvent->participantWork->fullName . '</h5></td><td><h5>';
+                                        /*$form->field($model, 'certificatArr[]')->textInput(['value' => $model->certificatArr[$c]])->label(false) .*/
+                                if (!empty($model->certificatArr[$c]))
+                                    echo $model->certificatArr[$c];     // поддержка старых сертификатов
+                                else
+                                    echo $extEvent->certificatWork->CertificatLongNumber;   // новый вид сертификатов
+                                echo $form->field($model, 'idArr[]')->hiddenInput(['value' => $extEvent->id])->label(false). '</h5></td><td><h5>' .
+                                        $form->field($model, 'sendMethodArr[]')->dropDownList($items, $params)->label(false) . '</h5></td><td>&nbsp;' .
+                                        Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']) . '</td>' .
                                     //'<td>&nbsp;' . Html::a('Отчислить', \yii\helpers\Url::to(['training-group/remand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-warning']) . '</td>' .
                                     '<td>&nbsp;' . Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']) . '</td></tr>';
                             }else
-                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.$extEvent->certificat_number.'</h5></td><td><h5>'.$extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
+                                echo '<tr style="background: lightcoral"><td><h5>'.$extEvent->participantWork->fullName.'</h5></td><td><h5>'.
+                                    $extEvent->certificat_number.'</h5></td><td><h5>'.
+                                    $extEvent->sendMethod->name.'</h5></td><td>&nbsp;'.
+                                    Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-participant', 'id' => $extEvent->id]), ['class' => 'btn btn-primary']).'</td>'.
                                     //'<td>&nbsp;'.Html::a('Восстановить', \yii\helpers\Url::to(['training-group/unremand-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-success']).'</td>'.
                                     '<td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-participant', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']).'</td></tr>';
                             $c++;
@@ -542,7 +553,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                         echo Html::activeHiddenInput($modelTrainingGroupParticipantOne, "[{$i}]id");
                                     }
                                     ?>
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-6">
 
                                         <?php
 
@@ -567,9 +578,9 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
 
                                     </div>
-                                    <div class="col-xs-4">
-                                        <?= $form->field($modelTrainingGroupParticipantOne, "[{$i}]certificat_number")->textInput()->label('Номер сертификата') ?>
-                                    </div>
+                                    <!--<div class="col-xs-4">
+                                        <?php /*$form->field($modelTrainingGroupParticipantOne, "[{$i}]certificat_number")->textInput()->label('Номер сертификата')*/ ?>
+                                    </div>-->
                                     <div class="col-xs-4">
                                         <?php
                                         $sendMethod= \app\models\work\SendMethodWork::find()->orderBy(['name' => SORT_ASC])->all();
@@ -577,7 +588,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                                         $params = [
                                             'prompt' => ''
                                         ];
-                                        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]send_method_id")->dropDownList($items,$params)->label('Способ доставки');
+                                        echo $form->field($modelTrainingGroupParticipantOne, "[{$i}]send_method_id")->dropDownList($items,$params)->label('Способ доставки сертификата');
 
                                         ?>
                                     </div>

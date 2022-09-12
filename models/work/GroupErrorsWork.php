@@ -279,23 +279,37 @@ class GroupErrorsWork extends GroupErrors
     {
         $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 8])->all();
         $end_time = $group->finish_date;
-        $certificats = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID, 'status' => 0])->all();
+        /*$certificats = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID, 'status' => 0])->all();
         $certificatCount = 0;
 
         foreach ($certificats as $certificat)
             if ($certificat->certificat_number  === null)
-                $certificatCount++;
+                $certificatCount++;*/
+
+        $certificats = CertificatWork::find();
+        $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID, 'status' => 0])->all();
+        $flag = true;
+
+        foreach ($participants as $participant)
+        {
+            $certificat = $certificats->where(['training_group_participant_id' => $participant])->all();
+            if (count($certificat) == 0)
+            {
+                $flag = !$flag;
+                break;
+            }
+        }
 
         foreach ($err as $oneErr)
-        {
-            if ($certificatCount == 0)     // ошибка исправлена
+        {   //if ($certificatCount == 0)
+            if ($flag)     // ошибка исправлена
             {
                 $oneErr->time_the_end = date("Y.m.d H:i:s");
                 $oneErr->save();
             }
         }
-
-        if (count($err) == 0 && $certificatCount != 0 && $end_time <= $now_time)
+            // if (&& $certificatCount != 0)
+        if (count($err) == 0 && !$flag && $end_time <= $now_time)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 8;
@@ -581,11 +595,17 @@ class GroupErrorsWork extends GroupErrors
         $this->IncorrectDates($modelGroupID, $group);
         $this->CheckArchive($modelGroupID, $group, $now_time);
         $this->CheckPasta($modelGroupID, $group, $now_time);
+
         $this->CheckDateProtection($modelGroupID, $group, $now_time);
         if (empty($group->protection_date) == false)
             $this->CheckDateProtectionAndDateFinish($modelGroupID, $group);
-        $this->CheckThemeProject($modelGroupID, $group, $now_time);
-        $this->CheckExpert($modelGroupID, $group, $now_time);
+
+        $program = TrainingProgramWork::find()->where(['id' => $group->training_program_id])->one();
+        if ($program->certificat_type_id == 1)
+        {
+            $this->CheckThemeProject($modelGroupID, $group, $now_time);
+            $this->CheckExpert($modelGroupID, $group, $now_time);
+        }
     }
 
     public function CheckErrorsTrainingGroupWithoutAmnesty ($modelGroupID)  // ручная проверка учебной группы при сохранении изменений (забываем амнистию ошибок)
@@ -691,6 +711,34 @@ class GroupErrorsWork extends GroupErrors
         }
     }
 
+    private function CheckJournalThemeProject ($modelGroupID)        // проверка заполненности тем проектов в журнале
+    {
+        $err = GroupErrorsWork::find()->where(['training_group_id' => $modelGroupID, 'time_the_end' => null, 'errors_id' => 42])->all();
+        $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID])->andWhere(['status' => 0])->all();
+        $countTheme = 0;
+
+        foreach ($participants as $participant)
+            if (!empty($participant->group_project_themes_id))
+                $countTheme ++;
+
+        foreach ($err as $oneErr)
+        {
+            if ($countTheme == count($participants))     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && ($countTheme < count($participants)))
+        {
+            $this->training_group_id = $modelGroupID;
+            $this->errors_id = 42;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsJournal ($modelGroupID)  // проверка ошибок связанных с электронным журналом
     {
         $now_time = date("Y-m-d");
@@ -700,6 +748,13 @@ class GroupErrorsWork extends GroupErrors
 
         $this->CheckLesson($modelGroupID, $lessons);
         $this->CheckTheme($modelGroupID, $lessons);
+
+        $group = TrainingGroupWork::find()->where(['id' => $modelGroupID])->one();
+        $program = TrainingProgramWork::find()->where(['id' => $group->training_program_id])->one();
+        if ($program->certificat_type_id == 1 && $finish_date >= $now_time)
+        {
+            $this->CheckJournalThemeProject($modelGroupID);
+        }
     }
 
 }

@@ -54,7 +54,7 @@ if(isset($_GET['group_id'])) {
     $cIds = [];
     foreach($cert as $one) $cIds[] = $one->training_group_participant_id;
 
-    $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->all();
+    $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['status' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->all();
 
     echo '<table class="table table-striped">';
     foreach($tps as $tp)

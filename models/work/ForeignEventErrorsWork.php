@@ -106,18 +106,20 @@ class ForeignEventErrorsWork extends ForeignEventErrors
             $branchTrG = [];
 
             $branchSet = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $participant->id])->all();
-            foreach ($branchSet as $branch)
-                $branchEvent[] = $branch->branch_id;
-
-            $trG = TrainingGroupWork::find()->joinWith(['trainingGroupParticipants trainingGroupParticipants'])->where(['trainingGroupParticipants.participant_id' => $participant->participant_id])->all();
-
-            foreach ($trG as $group)
-                $branchTrG[] = $group->branch_id;
-
-            if (count(array_intersect($branchEvent, $branchTrG)) === 0)
+            if (count($branchSet) !== 0)
             {
-                $flag = false;
-                break;
+                foreach ($branchSet as $branch)
+                    $branchEvent[] = $branch->branch_id;
+
+                $trG = TrainingGroupWork::find()->joinWith(['trainingGroupParticipants trainingGroupParticipants'])->where(['trainingGroupParticipants.participant_id' => $participant->participant_id])->all();
+
+                foreach ($trG as $group)
+                    $branchTrG[] = $group->branch_id;
+
+                if (count(array_intersect($branchEvent, $branchTrG)) === 0) {
+                    $flag = false;
+                    break;
+                }
             }
         }
 
@@ -264,6 +266,41 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         }
     }
 
+    private function CheckBranch ($modelForeignEventID, $participants)
+    {
+        $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 43])->all();
+
+        $branch = TeacherParticipantBranchWork::find();
+        $flag = true;
+
+        foreach ($participants as $participant)
+        {
+            $branchPart = $branch->where(['teacher_participant_id' => $participant])->all();
+            if (count($branchPart) < 1)
+            {
+                $flag = !$flag;
+                break;
+            }
+        }
+
+        foreach ($err as $oneErr)
+        {
+            if ($flag)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $flag == false)
+        {
+            $this->foreign_event_id = $modelForeignEventID;
+            $this->errors_id = 43;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsForeignEvent ($modelForeignEventID)
     {
         $foreignEvent = ForeignEventWork::find()->where(['id' => $modelForeignEventID])->one();
@@ -272,7 +309,11 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         $this->CheckDate($modelForeignEventID, $foreignEvent);
         $this->CheckCity($modelForeignEventID, $foreignEvent);
         $this->CheckParticipant($modelForeignEventID, $participants);
-        $this->CheckParticipantGroup($modelForeignEventID, $participants);
+        if (count($participants) >= 1)
+        {
+            $this->CheckParticipantGroup($modelForeignEventID, $participants);
+            $this->CheckBranch($modelForeignEventID, $participants);
+        }
         $this->CheckAchievement($modelForeignEventID);
         $this->CheckDoc($modelForeignEventID, $foreignEvent);
         $this->CheckCompany($modelForeignEventID, $foreignEvent);
