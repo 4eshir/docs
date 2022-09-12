@@ -882,7 +882,7 @@ class WordWizard
                 $text .= 'обучающихся, успешно прошедших итоговую форму контроля, ';
             $text .= 'на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
         }
-        if ($order->study_type == 1 || $order->study_type == 2)
+        /*if ($order->study_type == 1 || $order->study_type == 2)
         {
             $oldGr = '';
             $newGr = '';
@@ -919,7 +919,7 @@ class WordWizard
                 $text .= 'обучающегося согласно Приложению к настоящему приказу.';
             else
                 $text .= 'обучающихся согласно Приложению к настоящему приказу.';
-        }
+        }*/
 
         $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('          2.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
