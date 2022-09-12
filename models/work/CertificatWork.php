@@ -47,6 +47,11 @@ class CertificatWork extends Certificat
         ];
     }
 
+    public function getTrainingGroupParticipantWork()
+    {
+        return $this->hasOne(TrainingGroupParticipantWork::className(), ['id' => 'training_group_participant_id']);
+    }
+
     public function getCertificatLongNumber()
     {
         $result = sprintf('%06d', $this->certificat_number);
@@ -64,7 +69,7 @@ class CertificatWork extends Certificat
         return $result;
     }
 
-    public function  getParticipantGroup()
+    public function getParticipantGroup()
     {
         $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
         $result = Html::a($part->trainingGroupWork->number, \yii\helpers\Url::to(['training-group/view', 'id' => $part->training_group_id]));

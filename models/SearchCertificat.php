@@ -12,6 +12,10 @@ use app\models\work\CertificatWork;
  */
 class SearchCertificat extends CertificatWork
 {
+    public $participantName;
+    public $participantGroup;
+    public $certificatView;
+    public $certificatTemplateName;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +23,7 @@ class SearchCertificat extends CertificatWork
     {
         return [
             [['id', 'certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'integer'],
-            
+            [['participantName', 'participantGroup', 'certificatView', 'certificatTemplateName'], 'string'],
         ];
     }
 
@@ -41,13 +45,33 @@ class SearchCertificat extends CertificatWork
      */
     public function search($params)
     {
-        $query = CertificatWork::find();
+        $query = CertificatWork::find()->joinWith(['trainingGroupParticipantWork trainingGroupParticipantWork'])->joinWith(['trainingGroupParticipantWork.participantWork participant'])->joinWith(['trainingGroupParticipantWork.trainingGroupWork group'])->joinWith(['certificatTemplate template']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['participantName'] = [
+            'asc' => ['participant.secondname' => SORT_ASC],
+            'desc' => ['participant.secondname' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['participantGroup'] = [
+            'asc' => ['group.number' => SORT_ASC],
+            'desc' => ['group.number' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['certificatView'] = [
+            'asc' => ['certificat_number' => SORT_ASC],
+            'desc' => ['certificat_number' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['certificatTemplateName'] = [
+            'asc' => ['template.name' => SORT_ASC],
+            'desc' => ['template.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -63,7 +87,11 @@ class SearchCertificat extends CertificatWork
             'certificat_number' => $this->certificat_number,
             'certificat_template_id' => $this->certificat_template_id,
             'training_group_participant_id' => $this->training_group_participant_id,
-        ]);
+        ])
+        ->andFilterWhere(['like', 'group.number', $this->participantGroup])
+        ->andFilterWhere(['like', 'certificat.certificat_number', $this->certificatView])
+        ->andFilterWhere(['like', 'template.name', $this->certificatTemplateName])
+        ->andFilterWhere(['like', 'CONCAT(participant.secondname, " ", participant.firstname, " ", participant.patronymic)', $this->participantName]);
 
         return $dataProvider;
     }

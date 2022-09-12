@@ -1,0 +1,2352 @@
+2022-09-12 10:23:50 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\SearchCertificat::programName in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get('programName')
+#1 C:\OpenServer\domains\localhost\docs\models\SearchCertificat.php(73): yii\db\BaseActiveRecord->__get('programName')
+#2 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(42): app\models\SearchCertificat->search(Array)
+#3 [internal function]: app\controllers\CertificatController->actionIndex()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2022-09-12 10:23:50 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '25'
+    'H2_STREAM_TAG' => '139-25'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967430.393
+    'REQUEST_TIME' => 1662967430
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:24:00 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participantName.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participantName.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` WHERE `participantName`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'participantName.secondname' in 'where clause'
+)
+
+2022-09-12 10:24:00 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '31'
+    'H2_STREAM_TAG' => '139-31'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967440.256
+    'REQUEST_TIME' => 1662967440
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:25:00 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` WHERE `trainingGroupParticipant`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+)
+
+2022-09-12 10:25:00 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '37'
+    'H2_STREAM_TAG' => '139-37'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967500.455
+    'REQUEST_TIME' => 1662967500
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:25:08 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` WHERE `trainingGroupParticipant`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+)
+
+2022-09-12 10:25:08 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '59'
+    'H2_STREAM_TAG' => '139-59'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967508.026
+    'REQUEST_TIME' => 1662967508
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:25:28 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_group_participant.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'training_group_participant.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` WHERE `training_group_participant`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'training_group_participant.secondname' in 'where clause'
+)
+
+2022-09-12 10:25:28 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '63'
+    'H2_STREAM_TAG' => '139-63'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967528.642
+    'REQUEST_TIME' => 1662967528
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:26:06 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` WHERE `trainingGroupParticipantWork`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause'
+)
+
+2022-09-12 10:26:06 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '69'
+    'H2_STREAM_TAG' => '139-69'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => '58ba4ce8e81f8245a90ad63c28407bbb9f19ea1592ba02035d2eb4a395034a91'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57565'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662967566.173
+    'REQUEST_TIME' => 1662967566
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:51:20 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipant` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipant`.`id` WHERE `trainingGroupParticipant`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+)
+
+2022-09-12 10:51:20 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '1'
+    'H2_STREAM_TAG' => '137-1'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Initial'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58063'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662969080.069
+    'REQUEST_TIME' => 1662969080
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:52:22 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` WHERE `trainingGroupParticipant`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipant.secondname' in 'where clause'
+)
+
+2022-09-12 10:52:22 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '7'
+    'H2_STREAM_TAG' => '137-7'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Initial'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58063'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662969142.122
+    'REQUEST_TIME' => 1662969142
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 10:52:31 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` WHERE `trainingGroupParticipantWork`.`secondname` LIKE '%грицай%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'trainingGroupParticipantWork.secondname' in 'where clause'
+)
+
+2022-09-12 10:52:31 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'participantName' => 'грицай'
+    ]
+    'r' => 'certificat/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '13'
+    'H2_STREAM_TAG' => '137-13'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Initial'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat/index'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58063'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662969151.434
+    'REQUEST_TIME' => 1662969151
+    'argv' => [
+        0 => 'SearchCertificat%5BparticipantName%5D=%D0%B3%D1%80%D0%B8%D1%86%D0%B0%D0%B9&r=certificat%2Findex'
+    ]
+    'argc' => 1
+]
+2022-09-12 11:04:22 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participantGroup.number' in 'order clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT `certifi...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(115): yii\db\ActiveQuery->all(NULL)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#13 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#17 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#20 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#22 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#23 [internal function]: app\controllers\CertificatController->actionIndex()
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#25 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#26 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#29 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#30 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participantGroup.number' in 'order clause'
+The SQL being executed was: SELECT `certificat`.* FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` LEFT JOIN `training_group_participant` ON `certificat`.`training_group_participant_id` = `training_group_participant`.`id` LEFT JOIN `foreign_event_participants` `participant` ON `training_group_participant`.`participant_id` = `participant`.`id` LEFT JOIN `training_group` `group` ON `training_group_participant`.`training_group_id` = `group`.`id` ORDER BY `participantGroup`.`number` LIMIT 20 in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT `certifi...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT `certifi...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all(NULL)
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(115): yii\db\ActiveQuery->all(NULL)
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#13 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#16 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#17 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#20 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#22 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#23 [internal function]: app\controllers\CertificatController->actionIndex()
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#25 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#26 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#29 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#30 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'participantGroup.number' in 'order clause'
+)
+
+2022-09-12 11:04:22 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'r' => 'certificat/index'
+    'SearchCertificat' => [
+        'participantName' => ''
+        'participantGroup' => ''
+    ]
+    'sort' => 'participantGroup'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '21'
+    'H2_STREAM_TAG' => '137-21'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-participantName'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58266'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=certificat%2Findex&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&sort=participantGroup'
+    'REQUEST_URI' => '/index.php?r=certificat%2Findex&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&sort=participantGroup'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662969862.777
+    'REQUEST_TIME' => 1662969862
+    'argv' => [
+        0 => 'r=certificat%2Findex&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&sort=participantGroup'
+    ]
+    'argc' => 1
+]
+2022-09-12 11:07:57 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\IntegrityException] PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'certificat_number' in where clause is ambiguous in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\IntegrityException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'certificat_number' in where clause is ambiguous
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` LEFT JOIN `training_group_participant` ON `certificat`.`training_group_participant_id` = `training_group_participant`.`id` LEFT JOIN `foreign_event_participants` `participant` ON `training_group_participant`.`participant_id` = `participant`.`id` LEFT JOIN `training_group` `group` ON `training_group_participant`.`training_group_id` = `group`.`id` WHERE `certificat_number` LIKE '%8%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 23000
+    [1] => 1052
+    [2] => Column 'certificat_number' in where clause is ambiguous
+)
+
+2022-09-12 11:07:56 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'certificatView' => '8'
+        'participantName' => ''
+        'participantGroup' => ''
+    ]
+    'r' => 'certificat/index'
+    'sort' => 'certificatView'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '29'
+    'H2_STREAM_TAG' => '137-29'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?r=certificat%2Findex&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&sort=certificatView'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58317'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BcertificatView%5D=8&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=certificatView'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BcertificatView%5D=8&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=certificatView'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662970076.9
+    'REQUEST_TIME' => 1662970076
+    'argv' => [
+        0 => 'SearchCertificat%5BcertificatView%5D=8&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=certificatView'
+    ]
+    'argc' => 1
+]
+2022-09-12 11:13:43 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIKE% 'коно'' at line 1 in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIKE% 'коно'' at line 1
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` LEFT JOIN `training_group_participant` ON `certificat`.`training_group_participant_id` = `training_group_participant`.`id` LEFT JOIN `foreign_event_participants` `participant` ON `training_group_participant`.`participant_id` = `participant`.`id` LEFT JOIN `training_group` `group` ON `training_group_participant`.`training_group_id` = `group`.`id` WHERE `participant`.`fullName` %LIKE% 'коно' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1064
+    [2] => You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIKE% 'коно'' at line 1
+)
+
+2022-09-12 11:13:42 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'certificatView' => ''
+        'participantName' => 'коно'
+        'participantGroup' => ''
+    ]
+    'r' => 'certificat/index'
+    'sort' => '-certificatView'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '1'
+    'H2_STREAM_TAG' => '137-1'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58443'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662970422.927
+    'REQUEST_TIME' => 1662970422
+    'argv' => [
+        0 => 'SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    ]
+    'argc' => 1
+]
+2022-09-12 11:15:08 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][error][yii\db\Exception] PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participant.fullName' in 'where clause' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1302
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1302): PDOStatement->execute()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+
+Next yii\db\Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'participant.fullName' in 'where clause'
+The SQL being executed was: SELECT COUNT(*) FROM `certificat` LEFT JOIN `training_group_participant` `trainingGroupParticipantWork` ON `certificat`.`training_group_participant_id` = `trainingGroupParticipantWork`.`id` LEFT JOIN `training_group_participant` ON `certificat`.`training_group_participant_id` = `training_group_participant`.`id` LEFT JOIN `foreign_event_participants` `participant` ON `training_group_participant`.`participant_id` = `participant`.`id` LEFT JOIN `training_group` `group` ON `training_group_participant`.`training_group_id` = `group`.`id` WHERE `participant`.`fullName` LIKE '%\\%коно\\%%' in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1307): yii\db\Schema->convertException(Object(PDOException), 'SELECT COUNT(*)...')
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1168): yii\db\Command->internalExecute('SELECT COUNT(*)...')
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(436): yii\db\Command->queryInternal('fetchColumn', 0)
+#3 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(497): yii\db\Command->queryScalar()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(352): yii\db\Query->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(368): yii\db\ActiveQuery->queryScalar('COUNT(*)', Object(yii\db\Connection))
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(168): yii\db\Query->count('*', NULL)
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(169): yii\data\ActiveDataProvider->prepareTotalCount()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\ActiveDataProvider.php(105): yii\data\BaseDataProvider->getTotalCount()
+#9 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(101): yii\data\ActiveDataProvider->prepareModels()
+#10 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(114): yii\data\BaseDataProvider->prepare()
+#11 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\data\BaseDataProvider.php(155): yii\data\BaseDataProvider->getModels()
+#12 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(190): yii\data\BaseDataProvider->getCount()
+#13 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(158): yii\widgets\BaseListView->renderSummary()
+#14 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(326): yii\widgets\BaseListView->renderSection('{summary}')
+#15 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(135): yii\grid\GridView->renderSection('{summary}')
+#16 [internal function]: yii\widgets\BaseListView->yii\widgets\{closure}(Array)
+#17 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\widgets\BaseListView.php(138): preg_replace_callback('/{\\w+}/', Object(Closure), '{summary}\n{item...')
+#18 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\grid\GridView.php(301): yii\widgets\BaseListView->run()
+#19 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Widget.php(146): yii\grid\GridView->run()
+#20 C:\OpenServer\domains\localhost\docs\views\certificat\index.php(27): yii\base\Widget::widget(Array)
+#21 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('C:\\OpenServer\\d...')
+#22 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\OpenServer\\d...', '[<span class="s...')
+#23 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\OpenServer\\d...', Array, Object(app\controllers\CertificatController))
+#24 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render('index', Array, Object(app\controllers\CertificatController))
+#25 C:\OpenServer\domains\localhost\docs\controllers\CertificatController.php(46): yii\base\Controller->render('index', Array)
+#26 [internal function]: app\controllers\CertificatController->actionIndex()
+#27 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#28 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#29 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction('index', Array)
+#30 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('certificat/inde...', Array)
+#31 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest(Object(yii\web\Request))
+#32 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#33 {main}
+Additional Information:
+Array
+(
+    [0] => 42S22
+    [1] => 1054
+    [2] => Unknown column 'participant.fullName' in 'where clause'
+)
+
+2022-09-12 11:15:08 [127.0.0.1][1][i9jikmurc9h2ptnh12e441fqm52kvqqu][info][application] $_GET = [
+    'SearchCertificat' => [
+        'certificatView' => ''
+        'participantName' => 'коно'
+        'participantGroup' => ''
+    ]
+    'r' => 'certificat/index'
+    'sort' => '-certificatView'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'i9jikmurc9h2ptnh12e441fqm52kvqqu'
+    '_csrf' => 'f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP2' => 'on'
+    'H2PUSH' => 'on'
+    'H2_PUSH' => 'on'
+    'H2_PUSHED' => ''
+    'H2_PUSHED_ON' => ''
+    'H2_STREAM_ID' => '7'
+    'H2_STREAM_TAG' => '137-7'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'docs'
+    'SSL_SERVER_S_DN_CN' => 'localhost'
+    'SSL_SERVER_I_DN_CN' => 'ospanel'
+    'SSL_VERSION_INTERFACE' => 'mod_ssl/2.4.41'
+    'SSL_VERSION_LIBRARY' => 'OpenSSL/1.0.2s'
+    'SSL_PROTOCOL' => 'TLSv1.2'
+    'SSL_SECURE_RENEG' => 'true'
+    'SSL_COMPRESS_METHOD' => 'NULL'
+    'SSL_CIPHER' => 'ECDHE-RSA-AES128-GCM-SHA256'
+    'SSL_CIPHER_EXPORT' => 'false'
+    'SSL_CIPHER_USEKEYSIZE' => '128'
+    'SSL_CIPHER_ALGKEYSIZE' => '128'
+    'SSL_CLIENT_VERIFY' => 'NONE'
+    'SSL_SERVER_M_VERSION' => '1'
+    'SSL_SERVER_M_SERIAL' => 'AF90673611D8DD9B'
+    'SSL_SERVER_V_START' => 'Dec 23 10:54:34 2016 GMT'
+    'SSL_SERVER_V_END' => 'Dec 20 10:54:34 2031 GMT'
+    'SSL_SERVER_S_DN' => 'CN=localhost'
+    'SSL_SERVER_I_DN' => 'CN=ospanel'
+    'SSL_SERVER_A_KEY' => 'rsaEncryption'
+    'SSL_SERVER_A_SIG' => 'sha256WithRSAEncryption'
+    'SSL_SESSION_ID' => 'ffbc59423c3802f7ce7fc64b27b588cf19c6f8333db5346274c009be332c4895'
+    'SSL_SESSION_RESUMED' => 'Resumed'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_SEC_CH_UA' => '\"Google Chrome\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"'
+    'HTTP_SEC_CH_UA_MOBILE' => '?0'
+    'HTTP_SEC_CH_UA_PLATFORM' => '\"Windows\"'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'https://docs/index.php?SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=i9jikmurc9h2ptnh12e441fqm52kvqqu; _csrf=f6cb941560454e3b6d22d9906f984e2943821ec685aadebd9fcc164263c4eb19a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22bBKf1lITAHdHhSfNdMyEV_0TZ5QdTswq%22%3B%7D'
+    'HTTP_HOST' => 'docs'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.2\\ext;c:\\openserver\\modules\\php\\PHP_7.2\\pear;c:\\openserver\\modules\\php\\PHP_7.2\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.2;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.0-7.1;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '58443'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/2.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'REQUEST_URI' => '/index.php?SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1662970508.416
+    'REQUEST_TIME' => 1662970508
+    'argv' => [
+        0 => 'SearchCertificat%5BcertificatView%5D=&SearchCertificat%5BparticipantName%5D=%D0%BA%D0%BE%D0%BD%D0%BE&SearchCertificat%5BparticipantGroup%5D=&r=certificat%2Findex&sort=-certificatView'
+    ]
+    'argc' => 1
+]
