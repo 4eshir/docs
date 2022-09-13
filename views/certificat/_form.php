@@ -104,6 +104,6 @@ if(isset($_GET['group_id'])) {
 
     function redirectHandler()
     {
-        window.location = "https://docs/index.php?r=certificat/index";
+        window.location = "https://index.schooltech.ru/docs/web/index.php?r=certificat/index";
     } 
 </script>
