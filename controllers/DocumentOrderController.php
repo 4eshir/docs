@@ -505,5 +505,9 @@ class DocumentOrderController extends Controller
 
         Logger::WriteLog(Yii::$app->user->identity->getId(),
             'Сгенерирован и выгружен файл приказа '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
+
+        return $this->render('view', [
+            'model' => $this->findModel($order_id),
+        ]);
     }
 }

@@ -58,7 +58,7 @@ class WordWizard
         else return '______';
     }
 
-    static public function convertMillimetersToTwips($millimeters)
+    static private function convertMillimetersToTwips($millimeters)
     {
         return floor($millimeters * 56.7);
         // переход на новую строку в едином тексте "<w:br/>"
@@ -816,12 +816,33 @@ class WordWizard
         //----------------
         $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
         $groups = OrderGroupWork::find()->where(['document_order_id' => $order->id])->all();
-        $pastaAlDente = OrderGroupParticipantWork::find();
-        $program = TrainingProgramWork::find();
-        $trG = TrainingGroupWork::find();
+
         $part = ForeignEventParticipantsWork::find();
-        $gPart = TrainingGroupParticipantWork::find();
         $teacher = TeacherGroupWork::find();
+
+        //зачисленные переводом дети
+        $gPartIN = TrainingGroupParticipantWork::find()
+            ->joinWith(['orderGroupParticipants pasta'])
+            ->joinWith(['orderGroupParticipants.orderGroup orderGr'])
+            ->joinWith(['orderGroupParticipants.orderGroup.documentOrder order'])
+            ->where(['order.id' => $order_id])
+            ->andWhere(['pasta.status' => 0])
+            ->andWhere(['IS NOT', 'pasta.link_id', null])
+            ->groupBy(['training_group_participant.id'])
+            ->all();
+        $countPart = count($gPartIN);
+
+        $groupsID = [];
+        foreach ($gPartIN as $tempPart)
+        {
+            if (!in_array($tempPart->training_group_id, $groupsID))
+                $groupsID[] = $tempPart->training_group_id;
+        }
+
+        $programsIN = TrainingProgramWork::find()->joinWith(['trainingGroups trG'])->where(['IN', 'trG.id', $groupsID])->groupBy('training_program.id')->all();
+        $programsOUT = TrainingProgramWork::find()->joinWith(['trainingGroups trG'])->joinWith(['trainingGroups.orderGroups orderGr'])->where(['orderGr.document_order_id' => $order_id])->all();
+
+        //var_dump($programsOUT->createCommand()->getRawSql());
 
         $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
         $pos = PeoplePositionBranchWork::find();
@@ -847,36 +868,6 @@ class WordWizard
         $cell = $table->addCell(6000);
         $cell->addTextBreak(1);
 
-        // отделили переведенных и зачисленных
-        $pastaIN = $pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->andWhere(['status' => 0])->all();
-        $tempID = [];
-        foreach ($pastaIN as $macaroni)
-            $tempID[] = $macaroni->link_id;
-        $pastaOUT = $pastaAlDente->where(['IN', 'id', $tempID])->all();
-        if (count($pastaIN) == count($pastaOUT))
-            $countPasta = count($pastaIN);
-        else
-        {
-            Yii::$app->session->setFlash('danger', 'Непредвиденная ошибка! Обратитесь к администратору системы.');
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'При генерации приказа ID='.$order_id.' произошло несовпадение переведенных и зачисленных');
-            exit;
-        }
-
-        // выделили training_group_participant которые зачислены
-        $tempID = [];
-        foreach ($pastaIN as $macaroni)
-            $tempID[] = $macaroni->group_participant_id;
-        $gPartIN = $gPart->where(['IN', 'id', $tempID])->all();
-
-        // выделили training_group_participant которые переведены
-        $tempID = [];
-        foreach ($pastaOUT as $macaroni)
-            $tempID[] = $macaroni->group_participant_id;
-        $gPartOUT = $gPart->where(['IN', 'id', $tempID])->all();
-
-        
-
-
         $section->addTextBreak(1);
         if ($order->study_type == 0)
         {
@@ -885,7 +876,7 @@ class WordWizard
         if ($order->study_type == 1 || $order->study_type == 2)
         {
             $text = 'На основании ';
-            if ($countPasta <= 1)
+            if ($countPart <= 1)
                 $text .= 'заявления родителя (или законного представителя) ';
             else
                 $text .= 'заявлений родителей (или законных представителей) ';
@@ -903,7 +894,7 @@ class WordWizard
         if ($order->study_type == 0)
         {
             $text = '          1.	Перевести ';
-            if ($countPasta <= 1)
+            if ($countPart <= 1)
                 $text .= 'обучающегося, успешно прошедшего итоговую форму контроля, ';
             else
                 $text .= 'обучающихся, успешно прошедших итоговую форму контроля, ';
@@ -911,44 +902,32 @@ class WordWizard
         }
         if ($order->study_type == 1 || $order->study_type == 2)
         {
-            /*if ($order->study_type && count($groups) > 1)
+            // если внезапно, по какой-то причине вошли в условие, значит регистратор приказа накосячил
+            if (((count($programsIN) > 1 || count($programsOUT) > 1) && $order->study_type == 1) || ((count($groups) > 1 || count($groupsID) > 1) && $order->study_type == 2))
             {
-                Yii::$app->session->setFlash('danger', 'Невозможно сгенерировать приказ, т.к. отсутствуют утвержденные формы! К приказу о переводе из одной группы в другую добавлено слишком много учебных групп.');
-                exit;
+                if ($order->study_type == 1)
+                    $message = ['Невозможно сгенерировать приказ, т.к. отсутствуют утвержденные формы! К приказу о переводе из одной ДОП в другую ДОП добавлено слишком много учебных групп с разными образовательными программами.', 'При генерации приказа ID='.$order_id.' обнаружена ошибка: у всех групп (из которой переводят) должна быть одна ДОП, у всех групп в которую переводят тоже должна быть одна ДОП. Регистратор приказа создает приказ по которому отсутствует утвержденная форма'];
+                else
+                    $message = ['Невозможно сгенерировать приказ, т.к. отсутствуют утвержденные формы! К приказу о переводе из одной группы в другую добавлено слишком много учебных групп.', 'При генерации приказа ID='.$order_id.' обнаружена ошибка: должна быть одна группа из которой переводят и одна группа в которую переводят. Регистратор приказа создает приказ по которому отсутствует утвержденная форма'];
+                Yii::$app->session->setFlash('danger', $message[0]);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), $message[1]);
+                return;
             }
-            if ()
-            $oldGr = '';
-            $newGr = '';
-            foreach ($groups as $group)
-            {
-                $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
-                foreach ($pasta as $macaroni)
-                {
-                    $groupParticipant = $gPart->where(['id' => $macaroni->group_participant_id])->one();
-                    if ($macaroni->status === 2)
-                        $oldGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-                    else
-                        $newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-                }
-            }
-            $newProgramTrG = $program->where(['id' => $newGr->training_program_id])->one();*/
-
-
 
             if ($order->study_type == 1)
             {
-                $oldProgramTrG = $program->where(['id' => $oldGr->training_program_id])->one();
-
-                $text = '          1.	Перевести с обучения по дополнительной общеразвивающей программе «' . $oldProgramTrG->name . '» ('. mb_substr(mb_strtolower($oldProgramTrG->stringFocus), 0, mb_strlen($oldProgramTrG->stringFocus) - 2, "utf-8")
-                    . 'ой направленности) на обучение по дополнительной общеразвивающей программе «' . $newProgramTrG->name . '» ('. mb_substr(mb_strtolower($newProgramTrG->stringFocus), 0, mb_strlen($newProgramTrG->stringFocus) - 2, "utf-8") . 'ой направленности) ';
+                $text = '          1.	Перевести с обучения по дополнительной общеразвивающей программе «' . $programsOUT[0]->name . '» ('. mb_substr(mb_strtolower($programsOUT[0]->stringFocus), 0, mb_strlen($programsOUT[0]->stringFocus) - 2, "utf-8")
+                    . 'ой направленности) на обучение по дополнительной общеразвивающей программе «' . $programsIN[0]->name . '» ('. mb_substr(mb_strtolower($programsIN[0]->stringFocus), 0, mb_strlen($programsIN[0]->stringFocus) - 2, "utf-8") . 'ой направленности) ';
             }
             else if ($order->study_type == 2)
             {
-                $text = '          1.	Перевести из учебной группы ' . $oldGr->number . ' в учебную группу ' . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $newProgramTrG->name . '», '
-                    . mb_substr(mb_strtolower($newProgramTrG->stringFocus), 0, mb_strlen($newProgramTrG->stringFocus) - 2, "utf-8") . 'ой направленности ';
+                $oldGr = TrainingGroupWork::find()->where(['id' => $groups[0]])->one();
+                $newGr = TrainingGroupWork::find()->where(['id' => $groupsID[0]])->one();
+                $text = '          1.	Перевести из учебной группы ' . $oldGr->number . ' в учебную группу ' . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $programsIN[0]->name . '», '
+                    . mb_substr(mb_strtolower($programsIN[0]->stringFocus), 0, mb_strlen($programsIN[0]->stringFocus) - 2, "utf-8") . 'ой направленности ';
             }
 
-            if ($countPasta <= 1)
+            if ($countPart <= 1)
                 $text .= 'обучающегося согласно Приложению к настоящему приказу.';
             else
                 $text .= 'обучающихся согласно Приложению к настоящему приказу.';
@@ -1028,12 +1007,12 @@ class WordWizard
             . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(1);
 
-        foreach ($groups as $group)
+        foreach ($groupsID as $group)
         {
-            $trGroup = $trG->where(['id' => $group->training_group_id])->one();
+            $trGroup = TrainingGroupWork::find()->where(['id' => $group])->one();
             $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
 
-            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->all();
+            $teacherTrG = $teacher->where(['training_group_id' => $group])->all();
             $text = 'Руководитель учебной группы: ';
 
             foreach ($teacherTrG as $trg)
@@ -1058,7 +1037,7 @@ class WordWizard
             $text = mb_substr($text, 0, -2);
             $section->addText($text);
 
-            $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
+            $programTrG = TrainingProgramWork::find()->where(['id' => $trGroup->training_program_id])->one();
             $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
             $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
 
@@ -1067,14 +1046,21 @@ class WordWizard
             $section->addText('Срок освоения (ак.ч.): ' . $programTrG->capacity);
 
             $section->addText('Обучающиеся: ');
-            $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
-            //$section->addText($name);
-            /*for ($i = 0; $i < count($pasta); $i++)
+            $participants = TrainingGroupParticipantWork::find()
+                ->joinWith(['orderGroupParticipants pasta'])
+                ->joinWith(['orderGroupParticipants.orderGroup orderGr'])
+                ->joinWith(['orderGroupParticipants.orderGroup.documentOrder order'])
+                ->where(['order.id' => $order_id])
+                ->andWhere(['pasta.status' => 0])
+                ->andWhere(['IS NOT', 'pasta.link_id', null])
+                ->andWhere(['training_group_participant.training_group_id' => $group])
+                ->groupBy(['training_group_participant.id'])
+                ->all();
+            for ($i = 0; $i < count($participants); $i++)
             {
-                $groupParticipant = $gPart->where(['id' => $pasta[$i]->group_participant_id])->one();
-                $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
+                $participant = ForeignEventParticipantsWork::find()->where(['id' => $participants[$i]->participant_id])->one();
                 $section->addText($i+1 . '. ' . $participant->getFullName());
-            }*/
+            }
             $section->addTextBreak(2);
         }
 
