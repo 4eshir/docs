@@ -864,6 +864,7 @@ class TrainingGroupWork extends TrainingGroup
             //блок сохранения тем проектов
             if ($this->themes !== null)
             {
+                $str = '';
                 for ($i = 0; $i < count($this->themes); $i++)
                 {
                     $tempId = -1;
@@ -877,8 +878,12 @@ class TrainingGroupWork extends TrainingGroup
                     $gpt->training_group_id = $this->id;
                     $gpt->project_theme_id = $tempId;
                     $gpt->project_type_id = $this->themes[$i]->project_type_id;
-                    $gpt->save();
+                    if ($this->themes[$i]->project_type_id == "")
+                        $str .= 'Не указан тип проекта для темы '.$this->themes[$i]->themeName.'<br>';
+                    else
+                        $gpt->save();
                 }
+                Yii::$app->session->setFlash('danger', $str);
             }
 
             //блок сохранения приглашенных экспертов
