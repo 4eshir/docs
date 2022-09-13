@@ -119,7 +119,7 @@ class CertificatWork extends Certificat
     public function archiveDownload()
     {
         $path = Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/';
-        $createZip = new createDirZip();
+        $createZip = new CreateDirZip();
         $createZip->get_files_from_folder($path, '');
         $fileName = 'archive_certificats_'.Yii::$app->user->identity->getId().'.zip';
 
