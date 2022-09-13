@@ -1,7 +1,7 @@
 <?php
 namespace app\models\components;
 
-use app\models\components\createZip;
+use app\models\components\CreateZip;
 
 class CreateDirZip extends CreateZip {
 
