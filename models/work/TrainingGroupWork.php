@@ -878,7 +878,7 @@ class TrainingGroupWork extends TrainingGroup
                     $gpt->training_group_id = $this->id;
                     $gpt->project_theme_id = $tempId;
                     $gpt->project_type_id = $this->themes[$i]->project_type_id;
-                    if ($this->themes[$i]->project_type_id == "")
+                    if ($this->themes[$i]->project_type_id == "" && $this->themes[$i]->themeName !== "")
                         $str .= 'Не указан тип проекта для темы '.$this->themes[$i]->themeName.'<br>';
                     else
                         $gpt->save();
