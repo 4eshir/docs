@@ -11,7 +11,7 @@ use app\models\work\TrainingGroupParticipantWork;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
-use app\models\components\createDirZip;
+use app\models\components\CreateDirZip;
 
 
 class CertificatWork extends Certificat
