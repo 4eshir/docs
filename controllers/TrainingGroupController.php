@@ -586,7 +586,7 @@ class TrainingGroupController extends Controller
             foreach ($certificats as $certificat)
                 PdfWizard::DownloadCertificat($certificat->certificat_number, 'server');
             $archive = new CertificatWork();
-            //$archive->archiveDownload();
+            $archive->archiveDownload();
         }
     }
 
