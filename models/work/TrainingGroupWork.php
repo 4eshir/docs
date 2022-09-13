@@ -883,7 +883,8 @@ class TrainingGroupWork extends TrainingGroup
                     else
                         $gpt->save();
                 }
-                Yii::$app->session->setFlash('danger', $str);
+                if ($str != "")
+                    Yii::$app->session->setFlash('danger', $str);
             }
 
             //блок сохранения приглашенных экспертов
