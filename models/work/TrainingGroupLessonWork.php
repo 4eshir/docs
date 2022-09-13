@@ -17,8 +17,8 @@ class TrainingGroupLessonWork extends TrainingGroupLesson
     {
         return [
             [['lesson_date', 'lesson_start_time', 'lesson_end_time'], 'string'],
-            [['duration', 'auditorium_id', 'training_group_id', 'branch_id'], 'integer'],
-            ['auds', 'safe'],
+            [['duration', 'training_group_id', 'branch_id'], 'integer'],
+            [['auds', 'auditorium_id'], 'safe'],
             [['lesson_start_time'], 'required'],
             ['lesson_start_time', 'time', 'min' => strtotime('08:30'), 'max' => strtotime('20:00')],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
