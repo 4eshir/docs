@@ -73,8 +73,8 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
         ?>
         <?php
             \yii\bootstrap\Modal::begin([
-                'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Список печатных форм учебной группы</p>',
-                'toggleButton' => ['label' => 'Скачать отчётные документы', 'class' => 'btn btn-success', 'style' => 'float: right;'],
+                'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Отчётные документы</p>',
+                'toggleButton' => ['label' => 'Отчётные документы', 'class' => 'btn btn-success', 'style' => 'float: right;'],
             ]);
             echo Html::a("Скачать календарный учебный график", \yii\helpers\Url::to(['training-group/get-kug', 'training_group_id' => $model->id]), ['class' => 'btn btn-success']);
             echo '<br><br>';
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             echo Html::a("Скачать электронный журнал (печатная форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
             echo '<br><br>';
 
-            echo Html::a("Перейти к выдаче сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class'=>'btn btn-success',
+            echo Html::a("Создание сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class'=>'btn btn-success',
                         /*'disabled' => $model->finish_date >= date("Y-m-d") ? 'disabled' : '',*/
                         'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'pointer-events: none; cursor: not-allowed; opacity: 0.65;' : '']);
             echo '<br><br>';
