@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
             ]])->label('Дата занятия') ?>
 
     <div class="col-xs-2" style="padding-left: 0;">
-        <?= $form->field($model, 'lesson_start_time')->textInput(['type' => 'time', 'class' => 'form-control def', 'min'=>'08:30', 'max'=>'20:00'])->label('Начало занятия') ?>
+        <?= $form->field($model, 'lesson_start_time')->textInput(['type' => 'time', 'class' => 'form-control def', 'min'=>'08:00', 'max'=>'20:00'])->label('Начало занятия') ?>
     </div>
     <div class="panel-body" style="padding: 0; margin: 0"></div>
 
