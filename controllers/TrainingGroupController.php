@@ -473,16 +473,20 @@ class TrainingGroupController extends Controller
             $modelTrainingGroupLesson = [new TrainingGroupLessonWork];
             $modelTrainingGroupAuto = [new TrainingGroupAuto];
             $modelOrderGroup = [new OrderGroupWork];
+            $modelProjectThemes = [new GroupProjectThemesWork];
+            $modelExperts = [new TrainingGroupExpertWork];
 
             $modelTeachers = [new TeacherGroupWork];
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено занятие '.$model->lesson_date.'('.$model->lesson_start_time.') группы '.$model->trainingGroup->number);
             return $this->render('update', [
-                'model' => $group,
+                'model' => $model,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
                 'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
                 'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
                 'modelOrderGroup' => $modelOrderGroup,
                 'modelTeachers' => $modelTeachers,
+                'modelProjectThemes' => $modelProjectThemes,
+                'modelExperts' => $modelExperts,
             ]);
         }
         return $this->render('update-lesson', [
