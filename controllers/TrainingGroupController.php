@@ -479,7 +479,7 @@ class TrainingGroupController extends Controller
             $modelTeachers = [new TeacherGroupWork];
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменено занятие '.$model->lesson_date.'('.$model->lesson_start_time.') группы '.$model->trainingGroup->number);
             return $this->render('update', [
-                'model' => $model,
+                'model' => $group,
                 'modelTrainingGroupParticipant' => $modelTrainingGroupParticipant,
                 'modelTrainingGroupLesson' => $modelTrainingGroupLesson,
                 'modelTrainingGroupAuto' => $modelTrainingGroupAuto,
