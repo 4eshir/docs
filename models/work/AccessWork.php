@@ -8,5 +8,5 @@ use Yii;
 
 class AccessWork extends Access
 {
-
+	//test
 }
