@@ -821,8 +821,8 @@ class WordWizard
         $trG = TrainingGroupWork::find();
         $part = ForeignEventParticipantsWork::find();
         $gPart = TrainingGroupParticipantWork::find();
-
         $teacher = TeacherGroupWork::find();
+
         $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
         $pos = PeoplePositionBranchWork::find();
         $positionName = PositionWork::find();
@@ -847,8 +847,35 @@ class WordWizard
         $cell = $table->addCell(6000);
         $cell->addTextBreak(1);
 
-        $pasta = $pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->andWhere(['status' => 0])->all();
-        $countPasta = count($pasta);
+        // отделили переведенных и зачисленных
+        $pastaIN = $pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->andWhere(['status' => 0])->all();
+        $tempID = [];
+        foreach ($pastaIN as $macaroni)
+            $tempID[] = $macaroni->link_id;
+        $pastaOUT = $pastaAlDente->where(['IN', 'id', $tempID])->all();
+        if (count($pastaIN) == count($pastaOUT))
+            $countPasta = count($pastaIN);
+        else
+        {
+            Yii::$app->session->setFlash('danger', 'Непредвиденная ошибка! Обратитесь к администратору системы.');
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'При генерации приказа ID='.$order_id.' произошло несовпадение переведенных и зачисленных');
+            exit;
+        }
+
+        // выделили training_group_participant которые зачислены
+        $tempID = [];
+        foreach ($pastaIN as $macaroni)
+            $tempID[] = $macaroni->group_participant_id;
+        $gPartIN = $gPart->where(['IN', 'id', $tempID])->all();
+
+        // выделили training_group_participant которые переведены
+        $tempID = [];
+        foreach ($pastaOUT as $macaroni)
+            $tempID[] = $macaroni->group_participant_id;
+        $gPartOUT = $gPart->where(['IN', 'id', $tempID])->all();
+
+        
+
 
         $section->addTextBreak(1);
         if ($order->study_type == 0)
@@ -882,8 +909,14 @@ class WordWizard
                 $text .= 'обучающихся, успешно прошедших итоговую форму контроля, ';
             $text .= 'на следующий год обучения по дополнительным общеразвивающим программам согласно Приложению к настоящему приказу.';
         }
-        /*if ($order->study_type == 1 || $order->study_type == 2)
+        if ($order->study_type == 1 || $order->study_type == 2)
         {
+            /*if ($order->study_type && count($groups) > 1)
+            {
+                Yii::$app->session->setFlash('danger', 'Невозможно сгенерировать приказ, т.к. отсутствуют утвержденные формы! К приказу о переводе из одной группы в другую добавлено слишком много учебных групп.');
+                exit;
+            }
+            if ()
             $oldGr = '';
             $newGr = '';
             foreach ($groups as $group)
@@ -896,11 +929,11 @@ class WordWizard
                         $oldGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
                     else
                         $newGr = $trG->where(['id' => $groupParticipant->training_group_id])->one();
-                    break 2;    // теперь на совести создателя приказа если в него попали группы с разными образовательными программами
                 }
             }
+            $newProgramTrG = $program->where(['id' => $newGr->training_program_id])->one();*/
 
-            $newProgramTrG = $program->where(['id' => $newGr->training_program_id])->one();
+
 
             if ($order->study_type == 1)
             {
@@ -919,7 +952,7 @@ class WordWizard
                 $text .= 'обучающегося согласно Приложению к настоящему приказу.';
             else
                 $text .= 'обучающихся согласно Приложению к настоящему приказу.';
-        }*/
+        }
 
         $section->addText($text, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('          2.	Контроль исполнения приказа оставляю за собой.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
@@ -1035,12 +1068,13 @@ class WordWizard
 
             $section->addText('Обучающиеся: ');
             $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
-            for ($i = 0; $i < count($pasta); $i++)
+            //$section->addText($name);
+            /*for ($i = 0; $i < count($pasta); $i++)
             {
                 $groupParticipant = $gPart->where(['id' => $pasta[$i]->group_participant_id])->one();
                 $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
                 $section->addText($i+1 . '. ' . $participant->getFullName());
-            }
+            }*/
             $section->addTextBreak(2);
         }
 
