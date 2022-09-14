@@ -223,7 +223,7 @@ class DocumentOrderController extends Controller
                     $model->uploadDocFiles(10);
 
                 $model->save(false);
-                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name.' '.$model->order_number.'/'.$model->order_postfix. (empty($model->order_postfix) ? '/'.$model->order_postfix : ''));
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             if ($sideCall === null)
