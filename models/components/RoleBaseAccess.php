@@ -303,6 +303,7 @@ class RoleBaseAccess
             "confirm-theme" => [5, 6, 7],
             "delete-expert" => [5, 6, 7],
             "get-archive" => [51, 52],
+            "send-certificats" => [51, 52],
         ],
         //--------------
 

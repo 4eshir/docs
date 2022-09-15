@@ -40,6 +40,9 @@ use yii\widgets\ActiveForm;
             //'buttonImageOnly' => true,
             //'buttonImage' => 'images/calendar.gif'
         ]]) ?>
+
+    <?= $form->field($model, 'email')->textInput() ?>
+
     <div>
         <?= $form->field($model, 'sex')->radioList(array('Мужской' => 'Мужской',
             'Женский' => 'Женский', 'Другое' => 'Другое'), ['value' => $model->sex, 'class' => 'i-checks']) ?>

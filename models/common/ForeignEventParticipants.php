@@ -3,7 +3,6 @@
 namespace app\models\common;
 
 use Yii;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "foreign_event_participants".
@@ -11,16 +10,21 @@ use yii\helpers\Html;
  * @property int $id
  * @property string $firstname
  * @property string $secondname
- * @property string $patronymic
+ * @property string|null $patronymic
  * @property string $birthdate
  * @property string $sex
+ * @property string|null $email
  * @property int $is_true
- * @property int $guaranted_true
+ * @property int|null $guaranted_true
  *
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
  * @property ParticipantForeignEvent[] $participantForeignEvents
+ * @property PersonalDataForeignEventParticipant[] $personalDataForeignEventParticipants
  * @property TeacherParticipant[] $teacherParticipants
+ * @property Team[] $teams
+ * @property TrainingGroupParticipant[] $trainingGroupParticipants
+ * @property Visit[] $visits
  */
 class ForeignEventParticipants extends \yii\db\ActiveRecord
 {
@@ -38,9 +42,11 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'sex'], 'required'],
+            [['firstname', 'secondname', 'birthdate'], 'required'],
+            [['birthdate'], 'safe'],
             [['is_true', 'guaranted_true'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'birthdate', 'sex'], 'string'],
+            [['firstname', 'secondname', 'patronymic'], 'string', 'max' => 1000],
+            [['sex', 'email'], 'string', 'max' => 100],
         ];
     }
 
@@ -51,17 +57,14 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'firstname' => 'Имя',
-            'secondname' => 'Фамилия',
-            'patronymic' => 'Отчество',
-            'documents' => 'Заявки',
-            'achievements' => 'Достижения',
-            'birthdate' => 'Дата рождения',
-            'sex' => 'Пол',
-            'events' => 'Участие в мероприятиях',
-            'studies' => 'Учебные группы участника',
-            'is_true' => 'Данные корректны',
-            'guaranted_true' => 'Данные корректны'
+            'firstname' => 'Firstname',
+            'secondname' => 'Secondname',
+            'patronymic' => 'Patronymic',
+            'birthdate' => 'Birthdate',
+            'sex' => 'Sex',
+            'email' => 'Email',
+            'is_true' => 'Is True',
+            'guaranted_true' => 'Guaranted True',
         ];
     }
 
@@ -96,6 +99,16 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[PersonalDataForeignEventParticipants]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonalDataForeignEventParticipants()
+    {
+        return $this->hasMany(PersonalDataForeignEventParticipant::className(), ['foreign_event_participant_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[TeacherParticipants]].
      *
      * @return \yii\db\ActiveQuery
@@ -105,4 +118,33 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
         return $this->hasMany(TeacherParticipant::className(), ['participant_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[Teams]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeams()
+    {
+        return $this->hasMany(Team::className(), ['participant_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TrainingGroupParticipants]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroupParticipants()
+    {
+        return $this->hasMany(TrainingGroupParticipant::className(), ['participant_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Visits]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVisits()
+    {
+        return $this->hasMany(Visit::className(), ['foreign_event_participant_id' => 'id']);
+    }
 }

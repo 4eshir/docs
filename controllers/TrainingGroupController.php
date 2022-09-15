@@ -494,6 +494,18 @@ class TrainingGroupController extends Controller
         ]);
     }
 
+    public function actionSendCertificats($group_id)
+    {
+        $certificats = CertificatWork::find()->joinWith(['trainingGroupParticipant tgp'])->where(['tgp.training_group_id' => $group_id])->all();
+
+        $pIds = [];
+        foreach ($certificats as $certificat) $pIds[] = $certificat->certificat_number;
+
+        $model = new CertificatWork();
+        $model->certificat_id = $pIds;
+        $model->mass_send();
+    }
+
     public function actionDeleteLesson($id, $modelId)
     {
         $participant = TrainingGroupLessonWork::find()->where(['id' => $id])->one();

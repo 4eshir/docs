@@ -2,7 +2,6 @@
 
 namespace app\models\common;
 
-use app\models\components\PdfWizard;
 use Yii;
 
 /**
@@ -12,6 +11,7 @@ use Yii;
  * @property int $certificat_number
  * @property int $certificat_template_id
  * @property int $training_group_participant_id
+ * @property int $status 0 - не отправлен, 1 - отправлен, 2 - ошибка отправки
  *
  * @property CertificatTemplates $certificatTemplate
  * @property TrainingGroupParticipant $trainingGroupParticipant
@@ -33,7 +33,7 @@ class Certificat extends \yii\db\ActiveRecord
     {
         return [
             [['certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'required'],
-            [['certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'integer'],
+            [['certificat_number', 'certificat_template_id', 'training_group_participant_id', 'status'], 'integer'],
             [['certificat_template_id'], 'exist', 'skipOnError' => true, 'targetClass' => CertificatTemplates::className(), 'targetAttribute' => ['certificat_template_id' => 'id']],
             [['training_group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipant::className(), 'targetAttribute' => ['training_group_participant_id' => 'id']],
         ];
@@ -49,6 +49,7 @@ class Certificat extends \yii\db\ActiveRecord
             'certificat_number' => 'Certificat Number',
             'certificat_template_id' => 'Certificat Template ID',
             'training_group_participant_id' => 'Training Group Participant ID',
+            'status' => 'Status',
         ];
     }
 
@@ -71,5 +72,4 @@ class Certificat extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TrainingGroupParticipant::className(), ['id' => 'training_group_participant_id']);
     }
-
 }

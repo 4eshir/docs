@@ -21,10 +21,26 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
     public function rules()
     {
         return [
-            [['firstname', 'secondname', 'sex'], 'required'],
+            [['firstname', 'secondname', 'sex', 'email'], 'required'],
             [['is_true', 'guaranted_true'], 'integer'],
             [['pd'], 'safe'],
+            ['email', 'email'],
             [['firstname', 'secondname', 'patronymic', 'birthdate', 'sex'], 'string'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'firstname' => 'Имя',
+            'secondname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+            'birthdate' => 'Дата рождения',
+            'sex' => 'Пол',
+            'email' => 'E-mail',
+            'is_true' => 'Is True',
+            'guaranted_true' => 'Guaranted True',
         ];
     }
 

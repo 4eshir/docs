@@ -93,7 +93,7 @@ class PdfWizard
         return strtr($string, $converter);
     }
 
-    static public function DownloadCertificat ($certificat_id, $destination)
+    static public function DownloadCertificat ($certificat_id, $destination, $path = null)
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
@@ -214,7 +214,10 @@ class PdfWizard
         }
         else {
             $certificatName = 'Certificat #'. $certificat->certificatLongNumber . ' '. PdfWizard::rus2translit($part->participantWork->fullName);
-            $mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/'. $certificatName . '.pdf', 'F'); // call the mpdf api output as needed
+            if ($path == null)
+                $mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/'. $certificatName . '.pdf', 'F'); // call the mpdf api output as needed
+            else
+                $mpdf->Output($path . $certificatName . '.pdf', 'F');
             //$mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/Certificat '. $certificat->certificatLongNumber . '.pdf', \Mpdf\Output\Destination::FILE);
             return true;
         }

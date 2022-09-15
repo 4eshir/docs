@@ -1845,6 +1845,7 @@
                 "kartik-v/yii2-krajee-base": ">=2.0.0"
             },
             "time": "2019-05-25T07:32:15+00:00",
+            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -1880,6 +1881,10 @@
                 "widget",
                 "yii2"
             ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-widget-depdrop/issues",
+                "source": "https://github.com/kartik-v/yii2-widget-depdrop/tree/master"
+            },
             "install-path": "../kartik-v/yii2-widget-depdrop"
         },
         {

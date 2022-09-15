@@ -18,13 +18,14 @@ class CertificatWork extends Certificat
 {
     public $group_id;
     public $participant_id;
+    public $certificat_id;
 
     public function rules()
     {
         return [
             [['certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'required'],
             [['certificat_number', 'certificat_template_id', 'training_group_participant_id', 'group_id'], 'integer'],
-            [['participant_id', 'boobs'], 'safe'],
+            [['participant_id', 'certificat_id', 'boobs'], 'safe'],
             [['certificat_template_id'], 'exist', 'skipOnError' => true, 'targetClass' => CertificatTemplatesWork::className(), 'targetAttribute' => ['certificat_template_id' => 'id']],
             [['training_group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipantWork::className(), 'targetAttribute' => ['training_group_participant_id' => 'id']],
         ];
@@ -113,6 +114,22 @@ class CertificatWork extends Certificat
             }
         }
         //$this->archiveDownload();
+    }
+
+    public function mass_send()
+    {
+        FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+        var_dump($this->certificat_id);
+        if ($this->certificat_id != null)
+        {
+            for ($i = 0; $i < count($this->certificat_id); $i++)
+            {
+                if ($this->certificat_id[$i] != 0)
+                {
+                    PdfWizard::DownloadCertificat($this->certificat_id[$i], 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+                }
+            }
+        }
     }
 
 
