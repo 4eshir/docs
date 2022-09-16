@@ -504,6 +504,10 @@ class TrainingGroupController extends Controller
         $model = new CertificatWork();
         $model->certificat_id = $pIds;
         $model->mass_send();
+
+        return $this->render('view', [
+            'model' => $this->findModel($group_id),
+        ]);
     }
 
     public function actionDeleteLesson($id, $modelId)

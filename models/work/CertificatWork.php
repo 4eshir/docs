@@ -119,17 +119,32 @@ class CertificatWork extends Certificat
     public function mass_send()
     {
         FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
-        var_dump($this->certificat_id);
         if ($this->certificat_id != null)
         {
             for ($i = 0; $i < count($this->certificat_id); $i++)
             {
+                $certificat = CertificatWork::find()->where(['certificat_number' => $this->certificat_id[$i]])->one();
+                $participant = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
                 if ($this->certificat_id[$i] != 0)
                 {
-                    PdfWizard::DownloadCertificat($this->certificat_id[$i], 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+                    $name = PdfWizard::DownloadCertificat($this->certificat_id[$i], 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+                    $result = Yii::$app->mailer->compose()
+                    ->setFrom('noreply@schooltech.ru')
+                    ->setTo($participant->participant->email)
+                    ->setSubject('Сертификат об успешном прохождении программы ДО')
+                    ->setTextBody($string)
+                    ->setHtmlBody('Сертификат находится в прикрепленном файле.<br><br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него. По всем вопросам обращайтесь по телефону 44-24-28 (единый номер).')
+                    ->attach(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/' . $name . '.pdf')
+                    ->send();
+                    if ($result)
+                        $certificat->status = 1;
+                    else
+                        $certificat->status = 2;
+                    $certificat->save();
                 }
             }
         }
+        FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
     }
 
 

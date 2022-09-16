@@ -95,7 +95,7 @@ class PdfWizard
 
     static public function DownloadCertificat ($certificat_id, $destination, $path = null)
     {
-        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        $certificat = CertificatWork::find()->where(['certificat_number' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
         if ($part->participantWork->sex == "Женский")
         {
@@ -219,7 +219,7 @@ class PdfWizard
             else
                 $mpdf->Output($path . $certificatName . '.pdf', 'F');
             //$mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/Certificat '. $certificat->certificatLongNumber . '.pdf', \Mpdf\Output\Destination::FILE);
-            return true;
+            return $certificatName;
         }
     }
 
