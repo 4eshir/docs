@@ -392,7 +392,7 @@ class ErrorsWork extends Errors
                     $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
                     $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
-                    $result .= '<td>' . Html::a($document->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $document->id])) . '</td>';
+                    $result .= '<td>' . Html::a('Приказ № '.$document->getDocumentNumberString().' '.$document->order_name, \yii\helpers\Url::to(['document-order/view', 'id' => $document->id])) . '</td>';
                     $result .= '<td>';
                     $branchName = BranchWork::find()->where(['id' => $document->nomenclature_id])->one();
                     $result .= Html::a($branchName->name, \yii\helpers\Url::to(['branch/view', 'id' => $document->nomenclature_id])) . '<br>';

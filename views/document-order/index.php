@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $gridColumns = [
         ['attribute' => 'order_date', 'label' => 'Дата приказа'],
-        ['attribute' => 'documentNumberStringgit ', 'label' => 'Номер приказа'],
+        ['attribute' => 'documentNumberString', 'label' => 'Номер приказа'],
         ['attribute' => 'order_name', 'label' => 'Наименование приказа'],
         ['attribute' => 'bringName', 'label' => 'Проект вносит', 'value' => function($model)
         {
