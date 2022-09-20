@@ -58,6 +58,9 @@ class ExcelWizard
             $theme = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue();
             $controlId = $inputData->getActiveSheet()->getCellByColumnAndRow(1, $index)->getValue();
             $tp = new ThematicPlanWork();
+            if (gettype($theme) == "object")
+                $theme = $theme->getPlainText();
+            $theme = preg_replace('/\s+/', ' ', $theme);
             $tp->theme = $theme;
             $tp->control_type_id = $controlId;
             $tp->training_program_id = $training_program_id;

@@ -280,9 +280,9 @@ class DocumentOrderController extends Controller
         $model->new_groups_check = ['nope'];
         if ($type == 'scan')
         {
-            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален скан-файл ' . $model->scan . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
             $model->scan = '';
             $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удален скан-файл ' . $model->scan . ' из приказа ' .$model->order_name . ' ' . $model->order_number.'/'.$model->order_postfix);
             return $this->redirect('index?r=document-order/update&id='.$model->id);
         }
 
