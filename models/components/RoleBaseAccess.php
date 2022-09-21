@@ -419,24 +419,30 @@ class RoleBaseAccess
                 $accessArray[] = $function->role_function_id;
         }
 
-        $groupArray = TrainingGroupWork::find()->where(['training_group.id' => -1]);
+        $groupArray = TrainingGroupWork::find();
+        $f = false;
         if (array_search(2, $accessArray) || array_search(5, $accessArray)) //свои учебные группы
         {
             $teachers = TeacherGroupWork::find()->where(['teacher_id' => $user->aka])->all();
             $tempId = [];
             foreach ($teachers as $teacher) $tempId[] = $teacher->training_group_id;
-            $groupArray = TrainingGroupWork::find()->where(['IN', 'training_group.id', $tempId]);
+            $groupArray = $groupArray->where(['IN', 'training_group.id', $tempId]);
+            $f = true;
         }
         if (array_search(3, $accessArray) || array_search(6, $accessArray)) //учебные группы своего отдела
         {
             $aka = PeopleWork::find()->where(['id' => $user->aka])->one();
-            $groupArray = TrainingGroupWork::find()->where(['branch_id' => $aka->branch_id]);
+            $groupArray = $groupArray->orWhere(['branch_id' => $aka->branch_id]);
+            $f = true;
         }
         if (array_search(4, $accessArray) || array_search(7, $accessArray)) //все учебные группы
         {
             $groupArray = TrainingGroupWork::find();
+            $f = true;
         }
 
+        if (!$f)
+            return TrainingGroupWork::find()->where(['training_group.id' => -1]);
         return $groupArray;
     }
 }
