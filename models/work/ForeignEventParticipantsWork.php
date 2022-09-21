@@ -40,7 +40,11 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             'sex' => 'Пол',
             'email' => 'E-mail',
             'is_true' => 'Is True',
-            'guaranted_true' => 'Guaranted True',
+            'guaranted_true' => 'Данные корректны',
+            'documents' => 'Заявки на меропрития',
+            'achievements' => 'Достижения',
+            'events' => 'Мероприятия',
+            'studies' => 'Учбные группы',
         ];
     }
 
