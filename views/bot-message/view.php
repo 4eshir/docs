@@ -47,6 +47,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Помощник', 'url' => ['inde
     }
 </style>
 
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
 <div class="bot-message-view">
 
      <div class="main">
@@ -68,4 +70,27 @@ $this->params['breadcrumbs'][] = ['label' => 'Помощник', 'url' => ['inde
 
      </div>
 
+     <button class="confirm_button" id="1">BUTTON</button>
+
 </div>
+
+<div id="comments">
+   <p>1</p>
+   <p>2</p>
+</div>
+
+
+<script type="text/javascript">
+    $(".confirm_button").click(function(){
+        var t = $(this).attr('id');
+        console.log(t);
+        $.ajax({
+            type: "POST",
+            url: '/index.php?r=bot-message/index&id='+t,
+            success: function (data) {
+              $('#comments').append(data);
+            }
+       });
+        return false;
+    });
+</script>

@@ -33,15 +33,19 @@ class BotMessageController extends Controller
      * Lists all BotMessage models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
-        $searchModel = new SearchBotMessage();
+        $str = '<p>'.$id.'</p>';
+        echo $str;
+        exit();
+        
+        /*$searchModel = new SearchBotMessage();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ]);*/
     }
 
     /**
