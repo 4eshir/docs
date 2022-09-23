@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\common\BotMessage;
+use app\models\work\BotMessageVariantWork;
 use app\models\SearchBotMessage;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -33,19 +34,16 @@ class BotMessageController extends Controller
      * Lists all BotMessage models.
      * @return mixed
      */
-    public function actionIndex($id = null)
+    public function actionNextMessage($id = null)
     {
-        $str = '<p>'.$id.'</p>';
-        echo $str;
+        if ($id !== null)
+        {
+            $answer = BotMessageVariantWork::find()->where(['id' => $id])->one();
+            $str = '<div class="message_user">'.$answer->text.'</div>'; //добавляем ответ пользователя в чат
+            echo $str;
+            
+        }
         exit();
-        
-        /*$searchModel = new SearchBotMessage();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);*/
     }
 
     /**

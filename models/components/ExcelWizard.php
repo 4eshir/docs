@@ -2210,6 +2210,7 @@ class ExcelWizard
         $participants = array();
         for ($i = 0; $i != count($names); $i++)
         {
+            $names[$i] = str_replace("\xC2\xA0", ' ', $names[$i]);
             $fio = explode(" ", $names[$i]);
             if (count($fio) == 3)
                 $newParticipant = ForeignEventParticipants::find()->where(['firstname' => $fio[1]])->andWhere(['secondname' => $fio[0]])->andWhere(['patronymic' => $fio[2]])->andWhere(['birthdate' => date("Y-m-d", strtotime($birthdates[$i]))])->one();
