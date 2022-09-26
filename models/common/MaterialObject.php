@@ -8,18 +8,34 @@ use Yii;
  * This is the model class for table "material_object".
  *
  * @property int $id
- * @property string $unique_id
- * @property int $material_object_type_id
  * @property string $name
- * @property string $acceptance_date
- * @property float $balance_price
+ * @property string|null $photo_local
+ * @property string|null $photo_cloud
  * @property int $count
- * @property int $main
- * @property string|null $files
+ * @property float $price стоимость за одну штуку
+ * @property int $number номер товарной накладной
+ * @property string $attribute ОС или ТМЦ
+ * @property int $finance_source_id источник финансирования
+ * @property string|null $inventory_number
+ * @property int $type тип - расходуемый или нет
+ * @property int $is_education учебно-материально-технический ресурс или нет
+ * @property int $state % расходования
+ * @property string|null $damage описание повреждений
+ * @property int|null $status рабочее или нет
+ * @property int $write_off Статус списания: 0 - всё ок. 1 - хочет списаться. 2 - списан
+ * @property string $lifetime срок эксплуатации (для неорганики)
+ * @property int $expiration_date срок годности
+ * @property string|null $create_date дата производства товара
  *
- * @property MaterialObjectType $materialObjectType
- * @property PeopleMaterialObject[] $peopleMaterialObjects
- * @property TemporaryJournal[] $temporaryJournals
+ * @property ComplexObject[] $complexObjects
+ * @property Container[] $containers
+ * @property ContainerObject[] $containerObjects
+ * @property EventObject[] $eventObjects
+ * @property HistoryObject[] $historyObjects
+ * @property FinanceSource $financeSource
+ * @property TemporaryObjectJournal[] $temporaryObjectJournals
+ * @property TrainingGroupObject[] $trainingGroupObjects
+ * @property UnionObject[] $unionObjects
  */
 class MaterialObject extends \yii\db\ActiveRecord
 {
@@ -37,12 +53,15 @@ class MaterialObject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['unique_id', 'material_object_type_id', 'name', 'acceptance_date', 'balance_price', 'count', 'main'], 'required'],
-            [['material_object_type_id', 'count', 'main'], 'integer'],
-            [['acceptance_date'], 'safe'],
-            [['balance_price'], 'number'],
-            [['unique_id', 'name', 'files'], 'string', 'max' => 1000],
-            [['material_object_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectType::className(), 'targetAttribute' => ['material_object_type_id' => 'id']],
+            [['name', 'count', 'price', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'lifetime', 'expiration_date'], 'required'],
+            [['count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
+            [['price'], 'number'],
+            [['lifetime', 'create_date'], 'safe'],
+            [['name', 'photo_local', 'photo_cloud'], 'string', 'max' => 1000],
+            [['attribute'], 'string', 'max' => 3],
+            [['inventory_number'], 'string', 'max' => 20],
+            [['damage'], 'string', 'max' => 2000],
+            [['finance_source_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinanceSource::className(), 'targetAttribute' => ['finance_source_id' => 'id']],
         ];
     }
 
@@ -53,44 +72,114 @@ class MaterialObject extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'unique_id' => 'Unique ID',
-            'material_object_type_id' => 'Material Object Type ID',
             'name' => 'Name',
-            'acceptance_date' => 'Acceptance Date',
-            'balance_price' => 'Balance Price',
+            'photo_local' => 'Photo Local',
+            'photo_cloud' => 'Photo Cloud',
             'count' => 'Count',
-            'main' => 'Main',
-            'files' => 'Files',
+            'price' => 'Price',
+            'number' => 'Number',
+            'attribute' => 'Attribute',
+            'finance_source_id' => 'Finance Source ID',
+            'inventory_number' => 'Inventory Number',
+            'type' => 'Type',
+            'is_education' => 'Is Education',
+            'state' => 'State',
+            'damage' => 'Damage',
+            'status' => 'Status',
+            'write_off' => 'Write Off',
+            'lifetime' => 'Lifetime',
+            'expiration_date' => 'Expiration Date',
+            'create_date' => 'Create Date',
         ];
     }
 
     /**
-     * Gets query for [[MaterialObjectType]].
+     * Gets query for [[ComplexObjects]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialObjectType()
+    public function getComplexObjects()
     {
-        return $this->hasOne(MaterialObjectType::className(), ['id' => 'material_object_type_id']);
+        return $this->hasMany(ComplexObject::className(), ['material_object_id' => 'id']);
     }
 
     /**
-     * Gets query for [[PeopleMaterialObjects]].
+     * Gets query for [[Containers]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPeopleMaterialObjects()
+    public function getContainers()
     {
-        return $this->hasMany(PeopleMaterialObject::className(), ['material_object_id' => 'id']);
+        return $this->hasMany(Container::className(), ['material_object_id' => 'id']);
     }
 
     /**
-     * Gets query for [[TemporaryJournals]].
+     * Gets query for [[ContainerObjects]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTemporaryJournals()
+    public function getContainerObjects()
     {
-        return $this->hasMany(TemporaryJournal::className(), ['material_object_id' => 'id']);
+        return $this->hasMany(ContainerObject::className(), ['material_object_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[EventObjects]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventObjects()
+    {
+        return $this->hasMany(EventObject::className(), ['material_object_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[HistoryObjects]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHistoryObjects()
+    {
+        return $this->hasMany(HistoryObject::className(), ['material_object_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[FinanceSource]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFinanceSource()
+    {
+        return $this->hasOne(FinanceSource::className(), ['id' => 'finance_source_id']);
+    }
+
+    /**
+     * Gets query for [[TemporaryObjectJournals]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTemporaryObjectJournals()
+    {
+        return $this->hasMany(TemporaryObjectJournal::className(), ['material_object_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TrainingGroupObjects]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroupObjects()
+    {
+        return $this->hasMany(TrainingGroupObject::className(), ['material_object_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[UnionObjects]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnionObjects()
+    {
+        return $this->hasMany(UnionObject::className(), ['material_object_id' => 'id']);
     }
 }

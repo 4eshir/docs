@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\common\MaterialObject;
-use app\models\SearchMaterialObject;
+use app\models\common\Container;
+use app\models\SearchContainer;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MaterialObjectController implements the CRUD actions for MaterialObject model.
+ * ContainerController implements the CRUD actions for Container model.
  */
-class MaterialObjectController extends Controller
+class ContainerController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Lists all MaterialObject models.
+     * Lists all Container models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SearchMaterialObject();
+        $searchModel = new SearchContainer();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Displays a single MaterialObject model.
+     * Displays a single Container model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Creates a new MaterialObject model.
+     * Creates a new Container model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MaterialObject();
+        $model = new Container();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Updates an existing MaterialObject model.
+     * Updates an existing Container model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Deletes an existing MaterialObject model.
+     * Deletes an existing Container model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class MaterialObjectController extends Controller
     }
 
     /**
-     * Finds the MaterialObject model based on its primary key value.
+     * Finds the Container model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MaterialObject the loaded model
+     * @return Container the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MaterialObject::findOne($id)) !== null) {
+        if (($model = Container::findOne($id)) !== null) {
             return $model;
         }
 

@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\models\work\MaterialObjectWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\MaterialObject;
@@ -10,7 +9,7 @@ use app\models\common\MaterialObject;
 /**
  * SearchMaterialObject represents the model behind the search form of `app\models\common\MaterialObject`.
  */
-class SearchMaterialObject extends MaterialObjectWork
+class SearchMaterialObject extends MaterialObject
 {
     /**
      * {@inheritdoc}
@@ -18,9 +17,9 @@ class SearchMaterialObject extends MaterialObjectWork
     public function rules()
     {
         return [
-            [['id', 'count', 'main'], 'integer'],
-            [['unique_id', 'name', 'acceptance_date', 'files'], 'safe'],
-            [['balance_price'], 'number'],
+            [['id', 'count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
+            [['name', 'photo_local', 'photo_cloud', 'attribute', 'inventory_number', 'damage', 'lifetime', 'create_date'], 'safe'],
+            [['price'], 'number'],
         ];
     }
 
@@ -42,7 +41,7 @@ class SearchMaterialObject extends MaterialObjectWork
      */
     public function search($params)
     {
-        $query = MaterialObjectWork::find();
+        $query = MaterialObject::find();
 
         // add conditions that should always apply here
 
@@ -61,15 +60,26 @@ class SearchMaterialObject extends MaterialObjectWork
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'acceptance_date' => $this->acceptance_date,
-            'balance_price' => $this->balance_price,
             'count' => $this->count,
-            'main' => $this->main,
+            'price' => $this->price,
+            'number' => $this->number,
+            'finance_source_id' => $this->finance_source_id,
+            'type' => $this->type,
+            'is_education' => $this->is_education,
+            'state' => $this->state,
+            'status' => $this->status,
+            'write_off' => $this->write_off,
+            'lifetime' => $this->lifetime,
+            'expiration_date' => $this->expiration_date,
+            'create_date' => $this->create_date,
         ]);
 
-        $query->andFilterWhere(['like', 'unique_id', $this->unique_id])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'files', $this->files]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'photo_local', $this->photo_local])
+            ->andFilterWhere(['like', 'photo_cloud', $this->photo_cloud])
+            ->andFilterWhere(['like', 'attribute', $this->attribute])
+            ->andFilterWhere(['like', 'inventory_number', $this->inventory_number])
+            ->andFilterWhere(['like', 'damage', $this->damage]);
 
         return $dataProvider;
     }
