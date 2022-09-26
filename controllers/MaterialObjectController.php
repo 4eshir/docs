@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\common\MaterialObject;
+use app\models\work\MaterialObjectWork;
 use app\models\SearchMaterialObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,7 +65,7 @@ class MaterialObjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MaterialObject();
+        $model = new MaterialObjectWork();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,9 +88,9 @@ class MaterialObjectController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -118,7 +119,7 @@ class MaterialObjectController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = MaterialObject::findOne($id)) !== null) {
+        if (($model = MaterialObjectWork::findOne($id)) !== null) {
             return $model;
         }
 

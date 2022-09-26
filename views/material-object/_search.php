@@ -17,19 +17,41 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'unique_id') ?>
-
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'acceptance_date') ?>
+    <?= $form->field($model, 'photo_local') ?>
 
-    <?= $form->field($model, 'balance_price') ?>
+    <?= $form->field($model, 'photo_cloud') ?>
 
-    <?php // echo $form->field($model, 'count') ?>
+    <?= $form->field($model, 'count') ?>
 
-    <?php // echo $form->field($model, 'main') ?>
+    <?php // echo $form->field($model, 'price') ?>
 
-    <?php // echo $form->field($model, 'files') ?>
+    <?php // echo $form->field($model, 'number') ?>
+
+    <?php // echo $form->field($model, 'attribute') ?>
+
+    <?php // echo $form->field($model, 'finance_source_id') ?>
+
+    <?php // echo $form->field($model, 'inventory_number') ?>
+
+    <?php // echo $form->field($model, 'type') ?>
+
+    <?php // echo $form->field($model, 'is_education') ?>
+
+    <?php // echo $form->field($model, 'state') ?>
+
+    <?php // echo $form->field($model, 'damage') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'write_off') ?>
+
+    <?php // echo $form->field($model, 'lifetime') ?>
+
+    <?php // echo $form->field($model, 'expiration_date') ?>
+
+    <?php // echo $form->field($model, 'create_date') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\HistoryObject;
+use app\models\work\HistoryObjectWork;
 
 /**
  * SearchHistoryObject represents the model behind the search form of `app\models\common\HistoryObject`.
@@ -39,7 +40,7 @@ class SearchHistoryObject extends HistoryObject
      */
     public function search($params)
     {
-        $query = HistoryObject::find();
+        $query = HistoryObjectWork::find();
 
         // add conditions that should always apply here
 

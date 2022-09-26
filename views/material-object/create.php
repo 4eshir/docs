@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\MaterialObjectWork */
+/* @var $model app\models\common\MaterialObject */
 
-$this->title = 'Create Material Object';
-$this->params['breadcrumbs'][] = ['label' => 'Material Objects', 'url' => ['index']];
+$this->title = 'Добавить объект';
+$this->params['breadcrumbs'][] = ['label' => 'Материальные ценности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-object-create">

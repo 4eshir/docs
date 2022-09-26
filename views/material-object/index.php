@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchMaterialObject */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Материальные ценности';
+$this->title = 'Материальные ценнности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-object-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить мат. ценность', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Material Object', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,15 +24,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-            'unique_id',
+            'id',
             'name',
-            'acceptance_date',
-            'balance_price',
+            'photo_local',
+            'photo_cloud',
             'count',
-            ['attribute' => 'currentResp', 'format' => 'raw'],
-            //'main',
-            //'files',
+            //'price',
+            //'number',
+            //'attribute',
+            //'finance_source_id',
+            //'inventory_number',
+            //'type',
+            //'is_education',
+            //'state',
+            //'damage',
+            //'status',
+            //'write_off',
+            //'lifetime',
+            //'expiration_date',
+            //'create_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

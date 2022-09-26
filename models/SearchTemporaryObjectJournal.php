@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\TemporaryObjectJournal;
+use app\models\work\TemporaryObjectJournalWork;
 
 /**
  * SearchTemporaryObjectJournal represents the model behind the search form of `app\models\common\TemporaryObjectJournal`.
@@ -40,7 +41,7 @@ class SearchTemporaryObjectJournal extends TemporaryObjectJournal
      */
     public function search($params)
     {
-        $query = TemporaryObjectJournal::find();
+        $query = TemporaryObjectJournalWork::find();
 
         // add conditions that should always apply here
 

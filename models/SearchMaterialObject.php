@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\MaterialObject;
+use app\models\work\MaterialObjectWork;
 
 /**
  * SearchMaterialObject represents the model behind the search form of `app\models\common\MaterialObject`.
@@ -41,7 +42,7 @@ class SearchMaterialObject extends MaterialObject
      */
     public function search($params)
     {
-        $query = MaterialObject::find();
+        $query = MaterialObjectWork::find();
 
         // add conditions that should always apply here
 

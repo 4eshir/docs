@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\MaterialObjectWork */
+/* @var $model app\models\common\MaterialObject */
 
-$this->title = 'Update Material Object: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Material Objects', 'url' => ['index']];
+$this->title = 'Редактировать объект: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Материальные ценности', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="material-object-update">
 

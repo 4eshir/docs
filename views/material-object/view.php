@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\MaterialObjectWork */
+/* @var $model app\models\common\MaterialObject */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Материальные ценности', 'url' => ['index']];
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить объект?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,15 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-
-            'unique_id',
             'name',
-            'acceptance_date',
-            'balance_price',
+            'photo_local',
+            'photo_cloud',
             'count',
-            ['attribute' => 'main', 'value' => function($model) { return $model->main === 1 ? 'Да' : 'Нет'; }],
-            ['attribute' => 'currentResp', 'format' => 'raw'],
-            ['attribute' => 'filesLink', 'format' => 'raw'],
+            'price',
+            'number',
+            'attribute',
+            'finance_source_id',
+            'inventory_number',
+            'type',
+            'is_education',
+            'state',
+            'damage',
+            'status',
+            'write_off',
+            'lifetime',
+            'expiration_date',
+            'create_date',
         ],
     ]) ?>
 
