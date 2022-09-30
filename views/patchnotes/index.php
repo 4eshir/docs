@@ -94,6 +94,7 @@ $notes = \app\models\work\PatchnotesWork::find()->orderBy(['date' => SORT_DESC])
 </div>
 
 
+
 <script>
     function showNotes()
     {
