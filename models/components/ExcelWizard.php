@@ -2157,7 +2157,7 @@ class ExcelWizard
         $startRow = 1;
 
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
-        while ($startRow < 100 && strlen($tempValue) < 4)
+        while ($startRow < 100 && strlen($tempValue) < 1)
         {
             $startRow++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
@@ -2168,6 +2168,7 @@ class ExcelWizard
 
         while ($fioColumnIndex < 100 && $tempValue !== 'Фамилия Имя Отчество проектанта')
         {
+
             $fioColumnIndex++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
         }
@@ -2179,6 +2180,8 @@ class ExcelWizard
             $birthdateColumnIndex++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         }
+
+
         $names = [];
         $curName = "_";
         $startIndex = $startRow + 1;
