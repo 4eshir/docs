@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\MaterialObjectWork */
@@ -44,6 +45,56 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?= $form->field($model, 'inventory_number')->textInput(['maxlength' => true, 'style' => 'width: 60%']) ?>
+
+    <?php
+    $kinds = \app\models\work\KindObjectWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($kinds,'id','name');
+
+    $params = [
+        'prompt' => '--',
+        'style' => 'width: 30%',
+        'onchange' => '
+        $.post(
+            "' . Url::toRoute(['subcat', 'modelId' => $model->id]) . '", 
+            {id: $(this).val()}, 
+            function(res){
+                let elem = document.getElementById("chars");
+                elem.innerHTML = res;
+            }
+        );
+    ',
+    ];
+    echo $form->field($model, 'kind_id')->dropDownList($items,$params);
+
+    ?>
+
+    <div id="chars">
+        <?php 
+
+        if ($model->kind_id !== null)
+        {
+            $characts = \app\models\work\KindCharacteristicWork::find()->where(['kind_object_id' => $model->kind_id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
+            echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 35%">';
+            foreach ($characts as $c)
+            {
+                $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->id])->andWhere(['characteristic_object_id' => $c->id])->one();
+                $val = null;
+                if ($value !== null)
+                {
+                    if ($value->integer_value !== null) $val = $value->integer_value;
+                    if ($value->double_value !== null) $val = $value->double_value;
+                    if (strlen($value->string_value) > 0) $val = $value->string_value;
+                }
+
+                $type = "text";
+                if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+                echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';
+            }
+            echo '</div>';
+        }
+
+        ?>
+    </div>
 
     <?php
     $items = [1 => 'Нерасходуемый', 2 => 'Расходуемый'];
@@ -123,7 +174,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
