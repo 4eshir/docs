@@ -49,7 +49,7 @@ class MaterialObjectWork extends MaterialObject
             'isEducationString' => 'Является учебным материально-техническим ресурсом',
             'state' => 'Остаток (в %)',
             'damage' => 'Описание повреждений (опционально)',
-            'status' => 'Состояние объекта',
+            'status' => 'Объект в работоспособном состоянии',
             'statusString' => 'Объект в работоспособном состоянии',
             'write_off' => 'Статус списания',
             'writeOffString' => 'Статус списания',
