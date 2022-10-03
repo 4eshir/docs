@@ -238,7 +238,7 @@ $this->title = 'ЦСХД';
             </div>
         </div>
 
-        <div class="portfolio-item">
+        <!-- <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
                     <img src="main-back.jpg">
@@ -252,6 +252,23 @@ $this->title = 'ЦСХД';
                             <li><?php echo Html::a('Типы ПО', \yii\helpers\Url::to(['as-admin/index-as-type'])) ?></li>
                             <li><?php echo Html::a('Компании', \yii\helpers\Url::to(['as-admin/index-company'])) ?></li>
                             <li><?php echo Html::a('Виды лицензий', \yii\helpers\Url::to(['as-admin/index-license'])) ?></li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div> -->
+
+        <div class="portfolio-item">
+            <div class="portfolio-item-wrap">
+                <a href="">
+                    <img src="main-back.jpg">
+                    <div class="portfolio-item-inner">
+                        <div class="portfolio-heading">
+                            <h3><b>Мат. ценности</b></h3>
+                        </div>
+                        <ul>
+                            <li><?php echo Html::a('Материальные объекты', \yii\helpers\Url::to(['material-object/index'])) ?></li>
+                            <li><?php echo Html::a('Контейнеры', \yii\helpers\Url::to(['container/index'])) ?></li>
                         </ul>
                     </div>
                 </a>

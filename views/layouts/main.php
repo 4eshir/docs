@@ -82,12 +82,16 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
 
-                    ['label' => 'Реестр ПО', 'items' => [
+                    /*['label' => 'Реестр ПО', 'items' => [
                         ['label' => 'Работа с базой ПО', 'url' => ['/as-admin/index']],
                         ['label' => 'Страны', 'url' => ['/as-admin/index-country']],
                         ['label' => 'Тип ПО', 'url' => ['/as-admin/index-as-type']],
                         ['label' => 'Компании', 'url' => ['/as-admin/index-company']],
                         ['label' => 'Вид лицензии', 'url' => ['/as-admin/index-license']],
+                    ]],*/
+                    ['label' => 'Мат. ценности', 'items' => [
+                        ['label' => 'Материальные объекты', 'url' => ['material-object/index']],
+                        ['label' => 'Контейнеры', 'url' => ['container/index']],
                     ]],
                     ['label' => 'Эл. журнал', 'items' => [
                         ['label' => 'Учебные группы', 'url' => ['training-group/index']],

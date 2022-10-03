@@ -125,7 +125,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success', 'id' => 'main_submit']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success', 'id' => 'main_submit', 'disabled' => 'disabled']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
