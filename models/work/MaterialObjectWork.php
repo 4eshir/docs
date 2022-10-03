@@ -50,7 +50,7 @@ class MaterialObjectWork extends MaterialObject
             'state' => 'Остаток (в %)',
             'damage' => 'Описание повреждений (опционально)',
             'status' => 'Состояние объекта',
-            'statusString' => 'Состояние объекта',
+            'statusString' => 'Объект в работоспособном состоянии',
             'write_off' => 'Статус списания',
             'writeOffString' => 'Статус списания',
             'lifetime' => 'Дата окончания эксплуатации',
