@@ -105,7 +105,7 @@ class MaterialObjectController extends Controller
 
 
     //генерируем набор input-ов в соответствии с выбранным типом
-    public function actionSubcat($modelId)
+    public function actionSubcat($modelId = null)
     {
         $id = Yii::$app->request->post('id');
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
