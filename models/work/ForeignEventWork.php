@@ -405,7 +405,7 @@ class ForeignEventWork extends ForeignEvent
                     $part->save();
                 }
                 else
-                    $str .= 'Попытка добавления дублитката.<br>';
+                    $str .= 'Попытка добавления дубликата.<br>';
             }
             if ($str != '')
                 Yii::$app->session->setFlash('danger', $str);
@@ -434,8 +434,8 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->achievement as $achievementOne)
             {
-                $duplicate = ParticipantAchievementWork::find()->where(['participant_id' => $achievementOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
-                if (count($duplicate) == 0)
+                //$duplicate = ParticipantAchievementWork::find()->where(['participant_id' => $achievementOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
+                if (true)//(count($duplicate) == 0)
                 {
                     $part = new ParticipantAchievement();
                     $part->foreign_event_id = $this->id;
@@ -445,7 +445,7 @@ class ForeignEventWork extends ForeignEvent
                     $part->save();
                 }
                 else
-                    $str .= 'Попытка добавления дублитката.<br>';
+                    $str .= 'Попытка добавления дубликата.<br>';
                 
             }
             if ($str != '')
