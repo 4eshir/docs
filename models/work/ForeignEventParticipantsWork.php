@@ -44,7 +44,7 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             'documents' => 'Заявки на меропрития',
             'achievements' => 'Достижения',
             'events' => 'Мероприятия',
-            'studies' => 'Учбные группы',
+            'studies' => 'Учебные группы',
         ];
     }
 
