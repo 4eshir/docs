@@ -120,6 +120,7 @@ class RoleBaseAccess
             "create" => 55,
             "update" => 55,
             "delete" => 55,
+            "getFile" => 52,
         ],
 
         //---------------------
