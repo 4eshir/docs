@@ -16,6 +16,7 @@ class SearchCertificat extends CertificatWork
     public $participantGroup;
     public $certificatView;
     public $certificatTemplateName;
+    public $participantProtection;
     /**
      * {@inheritdoc}
      */
@@ -24,6 +25,7 @@ class SearchCertificat extends CertificatWork
         return [
             [['id', 'certificat_number', 'certificat_template_id', 'training_group_participant_id'], 'integer'],
             [['participantName', 'participantGroup', 'certificatView', 'certificatTemplateName'], 'string'],
+            [['participantProtection'], 'safe'],
         ];
     }
 
@@ -63,6 +65,11 @@ class SearchCertificat extends CertificatWork
             'desc' => ['group.number' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['participantProtection'] = [
+            'asc' => ['group.protection_date' => SORT_ASC],
+            'desc' => ['group.protection_date' => SORT_DESC],
+        ];
+
         $dataProvider->sort->attributes['certificatView'] = [
             'asc' => ['certificat_number' => SORT_ASC],
             'desc' => ['certificat_number' => SORT_DESC],
@@ -87,6 +94,7 @@ class SearchCertificat extends CertificatWork
             'certificat_number' => $this->certificat_number,
             'certificat_template_id' => $this->certificat_template_id,
             'training_group_participant_id' => $this->training_group_participant_id,
+            'protection_date' => $this->participantProtection,
         ])
         ->andFilterWhere(['like', 'group.number', $this->participantGroup])
         ->andFilterWhere(['like', 'certificat.certificat_number', $this->certificatView])

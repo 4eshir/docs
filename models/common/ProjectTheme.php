@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $description
  *
  * @property GroupProjectThemes[] $groupProjectThemes
  */
@@ -30,6 +31,7 @@ class ProjectTheme extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 1000],
+            [['description'], 'string', 'max' => 2000],
         ];
     }
 
@@ -41,6 +43,7 @@ class ProjectTheme extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'description' => 'Description',
         ];
     }
 

@@ -69,7 +69,7 @@ class TrainingGroupWork extends TrainingGroup
     {
         return [
             [['start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id', 'protection_confirm'], 'integer'],
             [['start_date', 'finish_date', 'protection_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
@@ -98,6 +98,7 @@ class TrainingGroupWork extends TrainingGroup
             'start_date' => 'Дата начала занятий',
             'finish_date' => 'Дата окончания занятий',
             'protection_date' => 'Дата защиты',
+            'protection_confirm' => 'Учебная группа допущена к защите',
             'photos' => 'Фотоматериалы',
             'photosFile' => 'Фотоматериалы',
             'present_data' => 'Презентационные материалы',
@@ -874,6 +875,7 @@ class TrainingGroupWork extends TrainingGroup
 
                     $pt = new ProjectThemeWork();
                     $pt->name = $this->themes[$i]->themeName;
+                    $pt->description = $this->themes[$i]->themeDescription;
                     if ($pt->save())
                         $tempId = $pt->id;
                         

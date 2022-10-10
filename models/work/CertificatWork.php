@@ -44,6 +44,7 @@ class CertificatWork extends Certificat
             'training_group_participant_id' => 'Учащийся',
             'participantName' => 'Учащийся',
             'participantGroup' => 'Учебная группа учащегося',
+            'participantProtection' => 'Дата защиты',
             'pdfFile' => 'Сертификат',
         ];
     }
@@ -74,6 +75,13 @@ class CertificatWork extends Certificat
     {
         $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
         $result = Html::a($part->trainingGroupWork->number, \yii\helpers\Url::to(['training-group/view', 'id' => $part->training_group_id]));
+        return $result;
+    }
+
+    public function getParticipantProtection()
+    {
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
+        $result = substr($part->trainingGroupWork->protection_date, 0, strpos($part->trainingGroupWork->protection_date, ' '));
         return $result;
     }
 

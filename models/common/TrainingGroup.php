@@ -25,6 +25,7 @@ use Yii;
  * @property int $archive
  * @property int|null $creator_id
  * @property string|null $protection_date
+ * @property string|null $protection_confirm
  *
  * @property GroupErrors[] $groupErrors
  * @property GroupProjectThemes[] $groupProjectThemes
@@ -52,7 +53,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return [
             [['number', 'start_date', 'finish_date'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive', 'creator_id'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive', 'creator_id', 'protection_confirm'], 'integer'],
             [['start_date', 'finish_date', 'protection_date'], 'safe'],
             [['number'], 'string', 'max' => 100],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],
@@ -85,6 +86,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
             'archive' => 'Archive',
             'creator_id' => 'Creator ID',
             'protection_date' => 'Protection Date',
+            'protection_confirm' => 'Protection Confirm',
         ];
     }
 

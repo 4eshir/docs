@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -23,6 +24,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <div style="margin-bottom: 10px;">
+        <?php
+
+        $gridColumns = [
+            ['attribute' => 'certificatView', 'format' => 'raw'],
+            ['attribute' => 'certificatTemplateName', 'format' => 'raw'],
+            ['attribute' => 'participantName', 'label' => 'Отдел', 'format' => 'raw'],
+            ['attribute' => 'participantGroup', 'format' => 'raw'],
+            ['attribute' => 'participantProtection', 'format' => 'raw'],
+
+        ];
+        echo '<b>Скачать файл </b>';
+        echo ExportMenu::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => $gridColumns,
+            'options' => [
+                'padding-bottom: 100px',
+            ]
+        ]);
+
+        ?>
+    </div>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -34,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'participantName',
             ['attribute' => 'participantName', 'format' => 'raw'],
             ['attribute' => 'participantGroup', 'format' => 'raw'],
+            ['attribute' => 'participantProtection', 'format' => 'raw'],
 
             //['class' => 'yii\grid\ActionColumn'],
         ],

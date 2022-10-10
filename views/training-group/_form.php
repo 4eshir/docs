@@ -912,6 +912,10 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                             $confirmButton = '';
 
                         echo '<tr><td style="padding-left: 20px; text-align: left; padding-right: 15px"><h4>Тема: '.$theme->projectTheme->name.' </td><td><h5>('.$theme->projectType->name.' проект)</h5>'.'</h4></td><td>'.$strConfirm.'</td><td>'.$confirmButton.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-theme', 'id' => $theme->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        if (empty($theme->projectTheme->description))
+                            echo '<tr><td colspan="4" style="padding-left: 20px; text-align: left; padding-right: 15px; padding-bottom: 10px">Описание: <i style="color: red">отсутствует</i></td></tr>';
+                        else
+                            echo '<tr><td colspan="4" style="padding-left: 20px; text-align: left; padding-right: 15px; padding-bottom: 10px">Описание: '.$theme->projectTheme->description.'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -967,7 +971,17 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
                                         ?>
                                     </div>
-                                    
+
+                                    <div>
+                                        <?php
+                                        $branch = \app\models\work\EventExternalWork::find()->all();
+                                        $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
+                                        $params = [
+                                            'prompt' => '',
+                                        ];
+                                        echo $form->field($modelProjectTheme, "[{$i}]themeDescription")->textInput($items,$params)->label('Краткое описание проекта');
+                                        ?>
+                                    </div>
                                     
 
                                 </div>
@@ -1054,7 +1068,14 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
             </div>
         </div>
+
+        <div>
+            <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 6))
+                echo $form->field($model, 'protection_confirm')->checkbox(); ?>
+        </div>
     </div>
+
+
 
     </div>
 
