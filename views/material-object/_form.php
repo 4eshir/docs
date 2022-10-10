@@ -19,11 +19,17 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'photoFile')->fileInput(['multiple' => false]) ?>
 
-    <?= $form->field($model, 'count')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
-
     <?= $form->field($model, 'price')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
 
-    <?= $form->field($model, 'number')->textInput(['style' => 'width: 60%']) ?>
+    <?php
+    $invoices = \app\models\work\InvoiceWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($invoices,'id','number');
+    $params = [
+        'style' => 'width: 60%'
+    ];
+    echo $form->field($model, 'number')->dropDownList($items,$params);
+
+    ?>
 
     <?php
     $items = ['ОС' => 'ОС', 'ТМЦ' => 'ТМЦ'];

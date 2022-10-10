@@ -15,7 +15,7 @@ class MaterialObjectWork extends MaterialObject
 	public function rules()
     {
         return [
-            [['name', 'count', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
+            [['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
             [['count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id'], 'integer'],
             [['price'], 'number'],
             [['lifetime', 'create_date', 'characteristics'], 'safe'],

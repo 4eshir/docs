@@ -1,0 +1,297 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\Url;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\common\Invoice */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<div class="invoice-form">
+
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+
+    <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%', 'type' => 'number']) ?>
+
+    <?php
+    $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
+    $params = [
+        'style' => 'width: 60%'
+    ];
+    echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
+
+    ?>
+
+    <?php echo $form->field($model, 'date')->widget(\yii\jui\DatePicker::class,
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'style' => 'width: 60%',
+                'placeholder' => 'Дата',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2100',
+            ]]) 
+    ?>
+
+    <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт'), 
+                            [
+                                'item' => function($index, $label, $name, $checked, $value) {
+
+                                    $return = '<label class="modal-radio">';
+                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                                    $return .= '<i></i>';
+                                    $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
+                                    $return .= '</label><br>';
+
+                                    return $return;
+                                }
+                            ])->label('Вид документа') ?>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Записи</h4></div>
+            <div>
+                <!-- <?php
+                $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->id])->all();
+                if ($teachers != null)
+                {
+                    echo '<table class="table table-bordered">';
+                    echo '<tr><td><b>ФИО педагога</b></td></tr>';
+                    foreach ($teachers as $teacher) {
+                            echo '<tr><td><h5>'.$teacher->teacherWork->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    }
+                    echo '</table>';
+                }
+                ?> -->
+            </div>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items', // required: css class selector
+                    'widgetItem' => '.item', // required: css class
+                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelObjects[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'eventExternalName',
+                    ],
+                ]); ?>
+
+                <div class="container-items" ><!-- widgetContainer -->
+                    <?php foreach ($modelObjects as $i => $modelObject): ?>
+                        <div class="item panel panel-default"><!-- widgetBody -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Объект</h3>
+                                <div class="pull-right">
+                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-body">
+                                <?php
+                                // necessary for update action.
+                                if (!$modelObject->isNewRecord) {
+                                    echo Html::activeHiddenInput($modelObject, "[{$i}]id");
+                                }
+                                ?>
+                                <div class="col-xs-4">
+                                    
+                                        <?= $form->field($modelObject, 'name')->textInput(['maxlength' => true]) ?>
+
+                                        <?= $form->field($modelObject, 'photoFile')->fileInput(['multiple' => false]) ?>
+
+                                        <?= $form->field($modelObject, 'price')->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
+
+                                        <?php
+                                        $items = ['ОС' => 'ОС', 'ТМЦ' => 'ТМЦ'];
+                                        $params = [
+                                            'style' => 'width: 30%'
+                                        ];
+                                        echo $form->field($modelObject, 'attribute')->dropDownList($items,$params);
+
+                                        ?>
+
+                                        <?php
+                                        $finances = \app\models\work\FinanceSourceWork::find()->orderBy(['name' => SORT_ASC])->all();
+                                        $items = \yii\helpers\ArrayHelper::map($finances,'id','name');
+                                        $params = [
+                                            'style' => 'width: 70%'
+                                        ];
+                                        echo $form->field($modelObject, 'finance_source_id')->dropDownList($items,$params);
+
+                                        ?>
+
+                                        <?= $form->field($modelObject, 'inventory_number')->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
+
+                                        <?php
+                                        $kinds = \app\models\work\KindObjectWork::find()->orderBy(['name' => SORT_ASC])->all();
+                                        $items = \yii\helpers\ArrayHelper::map($kinds,'id','name');
+
+                                        $params = [
+                                            'prompt' => '--',
+                                            'style' => 'width: 70%',
+                                            'onchange' => '
+                                            $.post(
+                                                "' . Url::toRoute(['subcat', 'modelId' => $modelObject->id]) . '", 
+                                                {id: $(this).val()}, 
+                                                function(res){
+                                                    let elem = document.getElementById("chars");
+                                                    elem.innerHTML = res;
+                                                }
+                                            );
+                                        ',
+                                        ];
+                                        echo $form->field($modelObject, 'kind_id')->dropDownList($items,$params);
+
+                                        ?>
+
+                                        <div id="chars">
+                                            <?php 
+
+                                            if ($modelObject->kind_id !== null)
+                                            {
+                                                $characts = \app\models\work\KindCharacteristicWork::find()->where(['kind_object_id' => $modelObject->kind_id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
+                                                echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 35%">';
+                                                foreach ($characts as $c)
+                                                {
+                                                    $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $modelObject->id])->andWhere(['characteristic_object_id' => $c->id])->one();
+                                                    $val = null;
+                                                    if ($value !== null)
+                                                    {
+                                                        if ($value->integer_value !== null) $val = $value->integer_value;
+                                                        if ($value->double_value !== null) $val = $value->double_value;
+                                                        if (strlen($value->string_value) > 0) $val = $value->string_value;
+                                                    }
+
+                                                    $type = "text";
+                                                    if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+                                                    echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';
+                                                }
+                                                echo '</div>';
+                                            }
+
+                                            ?>
+                                        </div>
+
+                                        <?php
+                                        $items = [1 => 'Нерасходуемый', 2 => 'Расходуемый'];
+                                        $params = [
+                                            'id' => 'type-choose',
+                                            'style' => 'width: 50%'
+                                        ];
+                                        echo $form->field($modelObject, 'type')->dropDownList($items,$params);
+
+                                        ?>
+
+                                        <?= $form->field($modelObject, 'is_education', ['options' => ['style' => 'width: 200%']])->checkbox() ?>
+
+                                        <div id="state-div" style="display: <?php echo $modelObject->type == 2 ? 'block' : 'none'; ?>">
+                                            <?= $form->field($modelObject, 'state')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
+                                        </div>
+
+                                        <?= $form->field($modelObject, 'damage')->textarea(['rows' => '5']) ?>
+
+                                        <?= $form->field($modelObject, 'status')->checkbox(); ?>
+
+                                        <?php
+                                        $items = [0 => '-', 1 => 'Готов к списанию', 2 => 'Списан'];
+                                        $params = [
+                                            'style' => 'width: 50%'
+                                        ];
+                                        echo $form->field($modelObject, 'write_off')->dropDownList($items,$params);
+
+                                        ?>
+
+                                        <?php echo $form->field($modelObject, 'create_date')->widget(\yii\jui\DatePicker::class,
+                                            [
+                                                'dateFormat' => 'php:Y-m-d',
+                                                'language' => 'ru',
+                                                'options' => [
+                                                    'placeholder' => 'Дата производства',
+                                                    'class'=> 'form-control',
+                                                    'autocomplete'=>'off',
+                                                ],
+                                                'clientOptions' => [
+                                                    'changeMonth' => true,
+                                                    'changeYear' => true,
+                                                    'yearRange' => '2000:2100',
+                                                ]]) 
+                                        ?>
+
+                                        <?php echo $form->field($modelObject, 'lifetime')->widget(\yii\jui\DatePicker::class,
+                                            [
+                                                'dateFormat' => 'php:Y-m-d',
+                                                'language' => 'ru',
+                                                'options' => [
+                                                    'placeholder' => 'Дата окончания эксплуатации',
+                                                    'class'=> 'form-control',
+                                                    'autocomplete'=>'off',
+                                                ],
+                                                'clientOptions' => [
+                                                    'changeMonth' => true,
+                                                    'changeYear' => true,
+                                                    'yearRange' => '2000:2100',
+                                                ]]) 
+                                        ?>
+
+                                        <?php echo $form->field($modelObject, 'expirationDate')->widget(\yii\jui\DatePicker::class,
+                                            [
+                                                'dateFormat' => 'php:Y-m-d',
+                                                'language' => 'ru',
+                                                'options' => [
+                                                    'placeholder' => 'Дата окончания срока годности',
+                                                    'class'=> 'form-control',
+                                                    'autocomplete'=>'off',
+                                                ],
+                                                'clientOptions' => [
+                                                    'changeMonth' => true,
+                                                    'changeYear' => true,
+                                                    'yearRange' => '2000:2100',
+                                                ]]) 
+                                        ?>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+
+
+<script type="text/javascript">
+    $("#type-choose").change(function(){
+        var elem = document.getElementById("state-div");
+        if (this.value == 2)
+            elem.style.display = "block";
+        else
+            elem.style.display = "none";
+    });
+</script>
