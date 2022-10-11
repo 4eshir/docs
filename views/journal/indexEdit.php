@@ -19,7 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
         var selects = document.getElementsByClassName('themeSide');
 
         for (let i = 0; i < selects.length; i++)
-            selects[i].value = main.value;
+        {
+            if(selects[i].parentNode.parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%' && selects[i].parentNode.parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
+            {
+                selects[i].value = main.value;
+            }
+
+        }
+
     }
 
     function changeColor(obj)
@@ -37,12 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
         for (let i = 0; i < lessons.length; i++) {
             if (lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138) none repeat scroll 0% 0%' && lessons[i].parentNode.parentNode.style.background !== 'rgb(145, 138, 138)')
             {
-                console.log(lessons[i].parentNode.parentNode.style.background);
                 lessons[i].value = "0";
                 lessons[i].style.background = "green";
             }
-            else
-                console.log(lessons[i].parentNode.parentNode.style.background);
         }
     }
 
@@ -295,6 +299,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<th style="text-align: left; background: white;">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         $c = 0;
+        $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
 
         foreach ($lessons as $lesson)
         {
@@ -304,7 +309,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $date = new DateTime(date("Y-m-d"));
             $date->modify('-10 days');
             $roles = [5, 6, 7];
-            $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
+            //$group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
 
             $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
             $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
@@ -346,14 +351,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
         echo '<td>'.$form->field($model, "projectThemes[]")->dropDownList($items,$params)->label(false).'</td>';
         echo '<td>'.$form->field($model, 'cwPoints[]')->textInput(['type' => 'number', 'value' => $part->points, $group->archive ? 'disabled' : '' => '', 'style' => 'min-width: 70px'])->label(false).'</td>';
-        if ($part->success == 1)
-            echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'checked' => 'checked', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+
+        if ($group->protection_confirm != 1)
+        {
+            echo '<td><span style="font-size: 20px" title="Группа не допущена к защите! ">&#9888</span></td>';
+        }
         else
-            echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+        {
+            if ($part->success == 1)
+                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'checked' => 'checked', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+            else
+                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+        }
         echo '</tr>';
     }
     echo '</tbody></table></div><br>';
-    $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
+    //$group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
     //echo '<h4>Тематический план занятий</h4><br>';
     echo '<table>';
     echo '<tr>';

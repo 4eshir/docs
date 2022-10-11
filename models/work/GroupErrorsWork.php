@@ -300,6 +300,7 @@ class GroupErrorsWork extends GroupErrors
             }
         }
 
+
         foreach ($err as $oneErr)
         {   //if ($certificatCount == 0)
             if ($flag)     // ошибка исправлена
@@ -560,6 +561,13 @@ class GroupErrorsWork extends GroupErrors
     }
 
     /*-------------------------------------------------*/
+
+    public function CheckCertificateTrainingGroup($group_id)
+    {
+        $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
+        $now_time = date("Y-m-d");
+        $this->CheckCertificate($group_id, $group, $now_time);
+    }
 
     public function CheckAuditoriumTrainingGroup ($modelAuditoriumID)   // для проверки при изменении типа помещения
     {

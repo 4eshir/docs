@@ -57,6 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
         background: #FFF;
     }
 
+    input:disabled {
+        background: #0b58a2;
+    }
+
 </style>
 
 <?php
@@ -151,9 +155,9 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '<td style="text-align: left; ">'.$part->groupProjectThemes->projectTheme->name.'</td>';
         echo '<td>'.$part->points.'</td>';
         if ($part->success == 1)
-            echo '<td style="width: 10px">'.$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'checked' => 'checked', 'label' => '', 'value' => $part->id,]).'</td>';
+            echo '<td style="width: 10px">'.'&#9989'/*$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'checked' => 'checked', 'label' => '', 'value' => $part->id,])*/.'</td>';
         else
-            echo '<td style="width: 10px">'.$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'label' => '', 'value' => $part->id,]).'</td>';
+            echo '<td style="width: 10px">'.'&#10060'/*$form->field($model, 'successes[]')->checkbox(['disabled' => 'disabled', 'label' => '', 'value' => $part->id,])*/.'</td>';
         echo '</tr>';
     }
     echo '</table></div><br><br>';
