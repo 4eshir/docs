@@ -16,6 +16,13 @@ if(isset($_GET['group_id'])) {
 
 <div class="certificat-form">
 
+    <div style="margin: 0 103%;">
+        <div class="" data-html="true" style="position: fixed; z-index: 101; width: 30px; height: 30px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Если обучающийся не отображен в списке проверьте следующие возможные причины:
+                                                            &#10   &#10102 У обучающегося уже есть сертификат об окончании обучения в данной учебной группе
+                                                            &#10   &#10103 Обучающийся отчислен из учебногой группы
+                                                            &#10   &#10104 У обучающегося отсутствует галочка успешного окончания в журнале" >❔</div>
+    </div>
+
     <?php $form = ActiveForm::begin([
             'options' => ['target' => '_blank', 'id' => 'form1']
     ]); ?>
@@ -54,7 +61,7 @@ if(isset($_GET['group_id'])) {
     $cIds = [];
     foreach($cert as $one) $cIds[] = $one->training_group_participant_id;
 
-    $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['status' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->all();
+    $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['status' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->andWhere(['success' => 1])->all();
 
     echo '<table class="table table-striped">';
     foreach($tps as $tp)
