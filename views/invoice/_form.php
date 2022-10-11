@@ -12,6 +12,19 @@ use yii\helpers\Url;
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
+
+<?php
+
+$js =<<< JS
+    $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        alert('item');
+    })
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+
+?>
+
 <div class="invoice-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -80,7 +93,7 @@ use yii\helpers\Url;
                 <?php DynamicFormWidget::begin([
                     'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                     'widgetBody' => '.container-items', // required: css class selector
-                    'widgetItem' => '.item', // required: css class
+                    'widgetItem' => '.item1', // required: css class
                     'limit' => 10, // the maximum times, an element can be cloned (default 999)
                     'min' => 1, // 0 or 1 (default 1)
                     'insertButton' => '.add-item', // css class
@@ -94,11 +107,11 @@ use yii\helpers\Url;
 
                 <div class="container-items" ><!-- widgetContainer -->
                     <?php foreach ($modelObjects as $i => $modelObject): ?>
-                        <div class="item panel panel-default"><!-- widgetBody -->
+                        <div class="item1 panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
                                 <h3 class="panel-title pull-left">Объект</h3>
                                 <div class="pull-right">
-                                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="add-item btn btn-success btn-xs" onclick="ChangeIds()"><i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 </div>
                                 <div class="clearfix"></div>
@@ -115,6 +128,8 @@ use yii\helpers\Url;
                                         <?= $form->field($modelObject, 'name')->textInput(['maxlength' => true]) ?>
 
                                         <?= $form->field($modelObject, 'photoFile')->fileInput(['multiple' => false]) ?>
+
+                                        <?= $form->field($modelObject, 'amount')->textInput(['type' => 'number']) ?>
 
                                         <?= $form->field($modelObject, 'price')->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
 
@@ -151,8 +166,8 @@ use yii\helpers\Url;
                                                 "' . Url::toRoute(['subcat', 'modelId' => $modelObject->id]) . '", 
                                                 {id: $(this).val()}, 
                                                 function(res){
-                                                    let elem = document.getElementById("chars");
-                                                    elem.innerHTML = res;
+                                                    let elems = document.getElementsByClassName("chars");
+                                                    elems[elems.length - 1].innerHTML = res;
                                                 }
                                             );
                                         ',
@@ -161,7 +176,7 @@ use yii\helpers\Url;
 
                                         ?>
 
-                                        <div id="chars">
+                                        <div class="chars">
                                             <?php 
 
                                             if ($modelObject->kind_id !== null)
@@ -192,7 +207,8 @@ use yii\helpers\Url;
                                         <?php
                                         $items = [1 => 'Нерасходуемый', 2 => 'Расходуемый'];
                                         $params = [
-                                            'id' => 'type-choose',
+                                            'onchange' => 'OnChangeType(this, "state_0")',
+                                            'class' => 'form-control change-type',
                                             'style' => 'width: 50%'
                                         ];
                                         echo $form->field($modelObject, 'type')->dropDownList($items,$params);
@@ -201,7 +217,7 @@ use yii\helpers\Url;
 
                                         <?= $form->field($modelObject, 'is_education', ['options' => ['style' => 'width: 200%']])->checkbox() ?>
 
-                                        <div id="state-div" style="display: <?php echo $modelObject->type == 2 ? 'block' : 'none'; ?>">
+                                        <div id="state_0" class="state-div" style="display: <?php echo $modelObject->type == 2 ? 'block' : 'none'; ?>">
                                             <?= $form->field($modelObject, 'state')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
                                         </div>
 
@@ -287,11 +303,26 @@ use yii\helpers\Url;
 
 
 <script type="text/javascript">
-    $("#type-choose").change(function(){
-        var elem = document.getElementById("state-div");
-        if (this.value == 2)
-            elem.style.display = "block";
+    function ChangeIds()
+    {
+        let elems1 = document.getElementsByClassName('change-type');
+        let elems2 = document.getElementsByClassName('state-div');
+        for (let i = 0; i < elems1.length; i++)
+        {
+            elems1[i].id = 'type_'+ (elems1.length - i);
+            let str = 'state_'+ (elems1.length - i);
+            elems2[i].id = str;
+            elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str + "')");
+            console.log(str);
+        }
+    }
+
+    function OnChangeType(obj, elem)
+    {
+        let element = document.getElementById(elem);
+        if (obj.value == 2)
+            element.style.display = "block";
         else
-            elem.style.display = "none";
-    });
+            element.style.display = "none";
+    }
 </script>

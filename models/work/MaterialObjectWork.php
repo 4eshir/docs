@@ -8,17 +8,21 @@ use app\models\work\ObjectCharacteristicWork;
 
 class MaterialObjectWork extends MaterialObject
 {
+    const SCENARIO_DEFAULT = 'default';
+
 	public $photoFile; //поле для загрузки фотографии объекта
 	public $expirationDate; //дата окончания срока годности
     public $characteristics; //список характеристик объекта
 
+    public $amount; //количество объектов в записи накладной
+
 	public function rules()
     {
         return [
-            [['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id'], 'integer'],
+            //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
+            [['count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount'], 'integer'],
             [['price'], 'number'],
-            [['lifetime', 'create_date', 'characteristics'], 'safe'],
+            [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
             [['attribute'], 'string', 'max' => 3],
             [['inventory_number'], 'string', 'max' => 20],
@@ -37,6 +41,7 @@ class MaterialObjectWork extends MaterialObject
             'photo_cloud' => 'Фото объекта (hi-res)',
             'photoFile' => 'Фото объекта',
             'count' => 'Количество',
+            'amount' => 'Количество',
             'price' => 'Цена за единицу',
             'number' => 'Номер товарной накладной',
             'attribute' => 'Признак',
