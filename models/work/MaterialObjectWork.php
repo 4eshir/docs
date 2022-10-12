@@ -8,7 +8,6 @@ use app\models\work\ObjectCharacteristicWork;
 
 class MaterialObjectWork extends MaterialObject
 {
-    const SCENARIO_DEFAULT = 'default';
 
 	public $photoFile; //поле для загрузки фотографии объекта
 	public $expirationDate; //дата окончания срока годности

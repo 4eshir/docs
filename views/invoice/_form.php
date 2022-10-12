@@ -117,28 +117,22 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                 <div class="clearfix"></div>
                             </div>
                             <div class="panel-body">
-                                <?php
-                                // necessary for update action.
-                                if (!$modelObject->isNewRecord) {
-                                    echo Html::activeHiddenInput($modelObject, "[{$i}]id");
-                                }
-                                ?>
                                 <div class="col-xs-4">
                                     
-                                        <?= $form->field($modelObject, 'name')->textInput(['maxlength' => true]) ?>
+                                        <?= $form->field($modelObject, "[{$i}]name")->textInput(['maxlength' => true]) ?>
 
-                                        <?= $form->field($modelObject, 'photoFile')->fileInput(['multiple' => false]) ?>
+                                        <?= $form->field($modelObject, "[{$i}]photoFile")->fileInput(['multiple' => false]) ?>
 
-                                        <?= $form->field($modelObject, 'amount')->textInput(['type' => 'number']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
 
-                                        <?= $form->field($modelObject, 'price')->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]price")->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
 
                                         <?php
                                         $items = ['ОС' => 'ОС', 'ТМЦ' => 'ТМЦ'];
                                         $params = [
                                             'style' => 'width: 30%'
                                         ];
-                                        echo $form->field($modelObject, 'attribute')->dropDownList($items,$params);
+                                        echo $form->field($modelObject, "[{$i}]attribute")->dropDownList($items,$params);
 
                                         ?>
 
@@ -148,11 +142,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                         $params = [
                                             'style' => 'width: 70%'
                                         ];
-                                        echo $form->field($modelObject, 'finance_source_id')->dropDownList($items,$params);
+                                        echo $form->field($modelObject, "[{$i}]finance_source_id")->dropDownList($items,$params);
 
                                         ?>
 
-                                        <?= $form->field($modelObject, 'inventory_number')->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]inventory_number")->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
 
                                         <?php
                                         $kinds = \app\models\work\KindObjectWork::find()->orderBy(['name' => SORT_ASC])->all();
@@ -172,7 +166,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             );
                                         ',
                                         ];
-                                        echo $form->field($modelObject, 'kind_id')->dropDownList($items,$params);
+                                        echo $form->field($modelObject, "[{$i}]kind_id")->dropDownList($items,$params);
 
                                         ?>
 
@@ -211,30 +205,30 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             'class' => 'form-control change-type',
                                             'style' => 'width: 50%'
                                         ];
-                                        echo $form->field($modelObject, 'type')->dropDownList($items,$params);
+                                        echo $form->field($modelObject, "[{$i}]type")->dropDownList($items,$params);
 
                                         ?>
 
-                                        <?= $form->field($modelObject, 'is_education', ['options' => ['style' => 'width: 200%']])->checkbox() ?>
+                                        <?= $form->field($modelObject, "[{$i}]is_education", ['options' => ['style' => 'width: 200%']])->checkbox() ?>
 
                                         <div id="state_0" class="state-div" style="display: <?php echo $modelObject->type == 2 ? 'block' : 'none'; ?>">
-                                            <?= $form->field($modelObject, 'state')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
+                                            <?= $form->field($modelObject, "[{$i}]state")->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
                                         </div>
 
-                                        <?= $form->field($modelObject, 'damage')->textarea(['rows' => '5']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]damage")->textarea(['rows' => '5']) ?>
 
-                                        <?= $form->field($modelObject, 'status')->checkbox(); ?>
+                                        <?= $form->field($modelObject, "[{$i}]status")->checkbox(); ?>
 
                                         <?php
                                         $items = [0 => '-', 1 => 'Готов к списанию', 2 => 'Списан'];
                                         $params = [
                                             'style' => 'width: 50%'
                                         ];
-                                        echo $form->field($modelObject, 'write_off')->dropDownList($items,$params);
+                                        echo $form->field($modelObject, "[{$i}]write_off")->dropDownList($items,$params);
 
                                         ?>
 
-                                        <?php echo $form->field($modelObject, 'create_date')->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]create_date")->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',
@@ -250,7 +244,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                 ]]) 
                                         ?>
 
-                                        <?php echo $form->field($modelObject, 'lifetime')->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]lifetime")->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',
@@ -266,7 +260,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                 ]]) 
                                         ?>
 
-                                        <?php echo $form->field($modelObject, 'expirationDate')->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]expirationDate")->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',

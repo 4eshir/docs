@@ -6,6 +6,7 @@ use Yii;
 use app\models\common\Invoice;
 use app\models\work\InvoiceWork;
 use app\models\work\MaterialObjectWork;
+use app\models\extended\MaterialObjectDynamic;
 use app\models\work\KindCharacteristicWork;
 use app\models\work\ObjectCharacteristicWork;
 use app\models\SearchInvoice;
@@ -73,10 +74,12 @@ class InvoiceController extends Controller
         $modelObjects = [new MaterialObjectWork];
 
         if ($model->load(Yii::$app->request->post())) {
+            $modelObjects = DynamicModel::createMultiple(MaterialObjectWork::classname());
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
+            
 
-            $model->save();
+            $model->save(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -97,7 +100,7 @@ class InvoiceController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelObjects = [new MaterialObjectWork];
+        $modelObjects = [new MaterialObjectDynamic];
 
         if ($model->load(Yii::$app->request->post())) {
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
@@ -134,6 +137,15 @@ class InvoiceController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
+    {
+        if (($model = Invoice::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findObjectModelDynamic($id)
     {
         if (($model = Invoice::findOne($id)) !== null) {
             return $model;
