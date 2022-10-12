@@ -107,16 +107,20 @@ class JournalModel extends \yii\base\Model
         }
 
         $tempSuccess = [];
-        for ($i = 0; $i < count($this->successes) - 1; $i++)
+        if ($this->successes !== null)
+        {
+            for ($i = 0; $i < count($this->successes) - 1; $i++)
             if ($this->successes[$i] == 0 && $this->successes[$i + 1] != 0)
                 $tempSuccess[] = $this->successes[$i + 1];
             else if ($this->successes[$i] == 0)
                 $tempSuccess[] = $this->successes[$i];
+        }
 
 
         for ($i = 0; $i < count($this->projectThemes) - 1; $i++)
             $this->projectThemes[$i] = $this->projectThemes[$i + 1];
 
+        if ($this->tpIds !== null)
         for ($i = 0; $i < count($this->tpIds); $i++)
         {
             $tp = TrainingGroupParticipantWork::find()->where(['id' => $this->tpIds[$i]])->one();

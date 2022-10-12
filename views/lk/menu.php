@@ -75,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <li <?php if($curIndex === 4) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/token', 'id' => Yii::$app->user->identity->getId()]) ?>">Токены</a></li>
             <?php } ?>
 
+            <li <?php if($curIndex === 5) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/protection-group', 'id' => Yii::$app->user->identity->getId()]) ?>">Защита учебных групп</a></li>
             <li <?php if($curIndex === 2) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/trouble', 'id' => Yii::$app->user->identity->getId()]) ?>">Проблемы</a></li>
             <li <?php if($curIndex === 3) echo 'style="background-color: #ADD8E6"' ?>><a href="<?php echo \yii\helpers\Url::to(['/lk/change-password', 'id' => Yii::$app->user->identity->getId()]) ?>">Изменить пароль</a></li>
         </ul>

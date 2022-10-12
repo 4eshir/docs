@@ -78,6 +78,15 @@ class LkController extends Controller
         ]);
     }
 
+    public function actionProtectionGroup($id)
+    {
+        Yii::$app->session->set('lk-index', 5);
+        $model = UserWork::find()->where(['id' => $id])->one();
+        return $this->render('protection-group', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionDeleteToken($id)
     {
         $access = AccessLevelWork::find()->where(['id' => $id])->one();
