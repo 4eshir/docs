@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-        alert('item');
+        /*alert('item');*/
     })
 JS;
 
@@ -157,11 +157,19 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             'style' => 'width: 70%',
                                             'onchange' => '
                                             $.post(
-                                                "' . Url::toRoute(['subcat', 'modelId' => $modelObject->id]) . '", 
+                                                "' . Url::toRoute(['subcat', 'modelId' => $modelObject->id, 'dmId' => "{$i}"]) . '", 
                                                 {id: $(this).val()}, 
                                                 function(res){
                                                     let elems = document.getElementsByClassName("chars");
                                                     elems[elems.length - 1].innerHTML = res;
+                                                    elems = document.getElementsByClassName("main-ch");
+                                                    for (let i = 0; i < elems.length; i++)
+                                                    {
+                                                        let subs = elems[i].getElementsByClassName("ch");
+                                                        console.log(subs);
+                                                        for (let j = 0; j < subs.length; j++)
+                                                            subs[j].setAttribute("name", "MaterialObjectWork[" + i + "][characteristics][]");
+                                                    }
                                                 }
                                             );
                                         ',
@@ -190,7 +198,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
                                                     $type = "text";
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
-                                                    echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';
+                                                    //echo $form->field($modelObject, "[{$i}]characteristics[]")->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
+                                                    echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork['."{$i}".'][characteristics][]" value="'.$val.'"></div>';
                                                 }
                                                 echo '</div>';
                                             }

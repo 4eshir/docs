@@ -22,7 +22,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'price')->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
 
     <?php
-    $invoices = \app\models\work\InvoiceWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $invoices = \app\models\work\InvoiceWork::find()->orderBy(['number' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($invoices,'id','number');
     $params = [
         'style' => 'width: 60%'
@@ -94,7 +94,8 @@ use yii\helpers\Url;
 
                 $type = "text";
                 if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
-                echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';
+                echo $form->field($model, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
+                /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</div>';
         }

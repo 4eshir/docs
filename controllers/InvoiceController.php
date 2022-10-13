@@ -138,7 +138,7 @@ class InvoiceController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Invoice::findOne($id)) !== null) {
+        if (($model = InvoiceWork::findOne($id)) !== null) {
             return $model;
         }
 
@@ -155,11 +155,12 @@ class InvoiceController extends Controller
     }
 
     //генерируем набор input-ов в соответствии с выбранным типом
-    public function actionSubcat($modelId = null)
+    public function actionSubcat($modelId = null, $dmId = null)
     {
         $id = Yii::$app->request->post('id');
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 100%">';
+        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 100%" class="main-ch">';
+        $count = 0;
         foreach ($characts as $c)
         {
             $value = ObjectCharacteristicWork::find()->where(['material_object_id' => $modelId])->andWhere(['characteristic_object_id' => $c->id])->one();
@@ -173,7 +174,8 @@ class InvoiceController extends Controller
 
             $type = "text";
             if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
-            echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';
+            echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[0][characteristics][]" value="'.$val.'"></div>';
+            $count++;
         }
         echo '</div>';
         exit;

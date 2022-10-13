@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Invoice */
+/* @var $model app\models\work\InvoiceWork */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Invoices', 'url' => ['index']];
@@ -33,6 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
             'contractor_id',
             'date',
+        ],
+    ]) ?>
+
+    <h3><u>Записи</u></h3>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'entries', 'format' => 'raw'],
         ],
     ]) ?>
 

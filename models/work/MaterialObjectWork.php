@@ -15,6 +15,30 @@ class MaterialObjectWork extends MaterialObject
 
     public $amount; //количество объектов в записи накладной
 
+    function __construct($obj = null)
+    {
+        $this->id = $obj->id;
+        $this->name = $obj->name;
+        $this->photo_local = $obj->photo_local;
+        $this->photo_cloud = $obj->photo_cloud;
+        $this->count = $obj->count;
+        $this->price = $obj->price;
+        $this->number = $obj->number;
+        $this->attribute = $obj->attribute;
+        $this->finance_source_id = $obj->finance_source_id;
+        $this->inventory_number = $obj->inventory_number;
+        $this->type = $obj->type;
+        $this->kind_id = $obj->kind_id;
+        $this->is_education = $obj->is_education;
+        $this->state = $obj->state;
+        $this->damage = $obj->damage;
+        $this->status = $obj->status;
+        $this->write_off = $obj->write_off;
+        $this->lifetime = $obj->lifetime;
+        $this->expiration_date = $obj->expiration_date;
+        $this->create_date = $obj->create_date;
+    }
+
 	public function rules()
     {
         return [
