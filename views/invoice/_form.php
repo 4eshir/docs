@@ -61,9 +61,11 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт'), 
                             [
                                 'item' => function($index, $label, $name, $checked, $value) {
-
+                                    $checkStr = "";
+                                    if ($checked == 1)
+                                        $checkStr = "checked";
                                     $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" '.$checkStr.'>';
                                     $return .= '<i></i>';
                                     $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
                                     $return .= '</label><br>';
@@ -76,18 +78,18 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Записи</h4></div>
             <div>
-                <!-- <?php
-                $teachers = \app\models\work\TeacherGroupWork::find()->where(['training_group_id' => $model->id])->all();
-                if ($teachers != null)
+                <?php
+                $entries = \app\models\work\InvoiceEntryWork::find()->where(['invoice_id' => $model->id])->all();
+                if ($entries != null)
                 {
                     echo '<table class="table table-bordered">';
-                    echo '<tr><td><b>ФИО педагога</b></td></tr>';
-                    foreach ($teachers as $teacher) {
-                            echo '<tr><td><h5>'.$teacher->teacherWork->shortName.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-teacher', 'id' => $teacher->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td><b>Объект</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
+                    foreach ($entries as $entry) {
+                            echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
-                ?> -->
+                ?>
             </div>
             <div class="panel-body">
                 <?php DynamicFormWidget::begin([
@@ -121,20 +123,31 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                     
                                         <?= $form->field($modelObject, "[{$i}]name")->textInput(['maxlength' => true]) ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]photoFile")->fileInput(['multiple' => false]) ?>
-
-                                        <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
-
-                                        <?= $form->field($modelObject, "[{$i}]price")->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
-
                                         <?php
                                         $items = ['ОС' => 'ОС', 'ТМЦ' => 'ТМЦ'];
                                         $params = [
+                                            'class' => 'form-control oc-type',
+                                            'onchange' => 'OnChangeOC(this, "no-oc_0", "oc_0")',
                                             'style' => 'width: 30%'
                                         ];
                                         echo $form->field($modelObject, "[{$i}]attribute")->dropDownList($items,$params);
 
                                         ?>
+
+                                        <div id="no-oc_0" style="display: none" class="no-oc">
+                                            <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
+                                        </div>
+
+                                        <div id="oc_0" style="display: block" class="oc">
+                                            <?= $form->field($modelObject, "[{$i}]inventory_number")->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
+                                        </div>
+                                        
+
+                                        <?= $form->field($modelObject, "[{$i}]photoFile")->fileInput(['multiple' => false]) ?>
+
+                                        <?= $form->field($modelObject, "[{$i}]price")->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
+
+                                        
 
                                         <?php
                                         $finances = \app\models\work\FinanceSourceWork::find()->orderBy(['name' => SORT_ASC])->all();
@@ -146,7 +159,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
                                         ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]inventory_number")->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
+                                        
 
                                         <?php
                                         $kinds = \app\models\work\KindObjectWork::find()->orderBy(['name' => SORT_ASC])->all();
@@ -309,14 +322,21 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     function ChangeIds()
     {
         let elems1 = document.getElementsByClassName('change-type');
+        let elems11 = document.getElementsByClassName('oc-type');
         let elems2 = document.getElementsByClassName('state-div');
+        let elems3 = document.getElementsByClassName('no-oc');
+        let elems4 = document.getElementsByClassName('oc');
         for (let i = 0; i < elems1.length; i++)
         {
             elems1[i].id = 'type_'+ (elems1.length - i);
-            let str = 'state_'+ (elems1.length - i);
-            elems2[i].id = str;
-            elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str + "')");
-            console.log(str);
+            let str1 = 'state_'+ (elems1.length - i);
+            elems2[i].id = str1;
+            let str2 = 'no-oc_'+ (elems1.length - i);
+            elems3[i].id = str2;
+            let str3 = 'oc_'+ (elems1.length - i);
+            elems4[i].id = str3;
+            elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str1 + "')");
+            elems11[i].setAttribute("onchange", "OnChangeOC(this, '" + str2 + "', '" + str3 + "')");
         }
     }
 
@@ -327,5 +347,21 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
             element.style.display = "block";
         else
             element.style.display = "none";
+    }
+
+    function OnChangeOC(obj, elem1, elem2)
+    {
+        let element1 = document.getElementById(elem1);
+        let element2 = document.getElementById(elem2);
+        if (obj.value !== 'ОС')
+        {
+            element1.style.display = "block";
+            element2.style.display = "none";
+        }
+        else
+        {
+            element1.style.display = "none";
+            element2.style.display = "block";
+        }
     }
 </script>

@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\common\Invoice;
 use app\models\work\InvoiceWork;
+use app\models\work\InvoiceEntryWork;
+use app\models\work\EntryWork;
 use app\models\work\MaterialObjectWork;
 use app\models\extended\MaterialObjectDynamic;
 use app\models\work\KindCharacteristicWork;
@@ -100,9 +102,10 @@ class InvoiceController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelObjects = [new MaterialObjectDynamic];
+        $modelObjects = [new MaterialObjectWork];
 
         if ($model->load(Yii::$app->request->post())) {
+            $modelObjects = DynamicModel::createMultiple(MaterialObjectWork::classname());
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
 
@@ -112,6 +115,7 @@ class InvoiceController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'modelObjects' => $modelObjects,
         ]);
     }
 
@@ -127,6 +131,29 @@ class InvoiceController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeleteEntry($id, $modelId)
+    {
+        $invoiceEntry = InvoiceEntryWork::find()->where(['id' => $id])->one();
+        $entries = EntryWork::find()->where(['id' => $invoiceEntry->entry_id])->all();
+        $invoiceEntry->delete();
+
+        foreach ($entries as $entry)
+        {
+            $tempId = $entry->object_id;
+            $tempAmount = $entry->amount;
+            $entry->delete();
+
+            for ($i = $tempId; $i < $tempId + $tempAmount; $i++)
+            {
+                $object = MaterialObjectWork::find()->where(['id' => $i])->one();
+                $object->delete();
+            }
+            
+        }
+
+        return $this->redirect(['update', 'id' => $modelId]);
     }
 
     /**
