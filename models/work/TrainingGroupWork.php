@@ -1043,20 +1043,40 @@ class TrainingGroupWork extends TrainingGroup
                 $flag = true;
             else
             {
-                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо заполнить сведения о защите следующих учебных групп:</h4>';
+                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо заполнить сведения о защите для следующих учебных групп:</h4>';
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTeacher as $group)
                 {
-                    /*if ($group->protection_date == null || )
-                    if (!empty($group->groupProjectThemes))
-                    {
-                        foreach ($group->groupProjectThemes as $theme)
-                            if ($theme->confirm == 1)
-                            {
-                                $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
-                                break;
-                            }
-                    }*/
+                    $experts = TrainingGroupExpertWork::find()->where(['training_group_id' => $group->id])->all();
+                    $themes = GroupProjectThemesWork::find()->where(['training_group_id' => $group->id])->all();
+
+                    if ($group->protection_date == null || empty($experts) || empty($themes))
+                        $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->finish_date.'</td></tr>';
+
+                }
+                $result .= '</table>';
+
+
+                $result .= '<h4 style="font-size: 16px; font-weight: 600; max-width: 900px;">Необходимо заполнить одобренную тему проекта или оценку каждому обучающемуся в электронном журнале для следующих учебных групп:</h4>';
+                $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
+                foreach ($groupsTeacher as $group)
+                {
+                    $themes = GroupProjectThemesWork::find()->where(['training_group_id' => $group->id])->andWhere(['confirm' => 1])->all();
+                    $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->orWhere(['IS', 'points', null])->orWhere(['IS', 'success', null])->orWhere(['IS', 'group_project_themes_id', null])->all();
+                    
+                    if (empty($themes) || empty($parts))
+                        $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
+
+                }
+                $result .= '</table>';
+
+                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо проставить отметку успешного завершения обучения обучающимся (в электронном журнале)</h4>';
+                $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
+                foreach ($groupsTeacher as $group)
+                {
+                    if ($group->protection_confirm == 1)
+                        $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
+
                 }
                 $result .= '</table>';
             }

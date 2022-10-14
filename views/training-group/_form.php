@@ -1070,7 +1070,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
         </div>
 
         <div>
-            <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 6))
+            <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 5))
                 echo $form->field($model, 'protection_confirm')->checkbox(); ?>
         </div>
     </div>
