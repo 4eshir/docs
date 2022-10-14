@@ -19,6 +19,7 @@ use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use app\models\components\LessonDatesJob;
+use app\models\components\RoleBaseAccess;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -970,5 +971,108 @@ class TrainingGroupWork extends TrainingGroup
             if ($part->participant_id == $participant_id)
                 return false;
         return true;
+    }
+
+    public function InfoProtectionGroup($user_id)
+    {
+        $dateCheck = date('Y-m-d', strtotime(date("Y-m-d") . '-14 day'));
+        $groups = TrainingGroupWork::find()->joinWith(['groupProjectThemes theme'])
+            ->where(['archive' => 0])->andWhere(['>=','finish_date', $dateCheck]);
+
+        $flag = false;
+        $result = '';
+
+        if (RoleBaseAccess::CheckRole($user_id, 6))
+        {
+            $groupsTheme = $groups->all();
+
+            if (empty($groupsTheme))
+                $flag = true;
+            else
+            {
+                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо подтверждение (удаление) тем проектов для следующих учебных групп:</h4>';
+                $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
+                foreach ($groupsTheme as $group)
+                {
+                    if (!empty($group->groupProjectThemes))
+                    {
+                        foreach ($group->groupProjectThemes as $theme)
+                            if ($theme->confirm == 0)
+                            {
+                                $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
+                                break;
+                            }
+                    }
+                }
+                $result .= '</table>';
+            }
+        }
+        if (RoleBaseAccess::CheckRole($user_id, 5))
+        {
+            $user = UserWork::find()->where(['id' => $user_id])->one();
+            $branchID = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $groupsConfirm = $groups->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
+
+            if (empty($groupsConfirm))
+                $flag = true;
+            else
+            {
+                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо подтвердить допуск следующих учебных групп к защите:</h4>';
+                $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
+                foreach ($groupsConfirm as $group)
+                {
+                    if (!empty($group->groupProjectThemes))
+                    {
+                        foreach ($group->groupProjectThemes as $theme)
+                            if ($theme->confirm == 1)
+                            {
+                                $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
+                                break;
+                            }
+                    }
+                }
+                $result .= '</table>';
+            }
+        }
+        if (RoleBaseAccess::CheckRole($user_id, 1))
+        {
+            $user = UserWork::find()->where(['id' => $user_id])->one();
+            $groupsTeacher = $groups->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+
+            if(empty($groupsTeacher))
+                $flag = true;
+            else
+            {
+                $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо заполнить сведения о защите следующих учебных групп:</h4>';
+                $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата окончания занятий</td></tr></thead>';
+                foreach ($groupsTeacher as $group)
+                {
+                    /*if ($group->protection_date == null || )
+                    if (!empty($group->groupProjectThemes))
+                    {
+                        foreach ($group->groupProjectThemes as $theme)
+                            if ($theme->confirm == 1)
+                            {
+                                $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
+                                break;
+                            }
+                    }*/
+                }
+                $result .= '</table>';
+            }
+        }
+
+
+        if ($flag)
+            echo 'Данный раздел работает. Но для Вас информации не нашлось.';
+
+        return $result;
+            //->andWhere(['theme.confirm' => 0])->all();
+        /*$groupsID = [];
+        foreach ($groups as $group)
+            $groupsID[] = $group->id;*/
+
+        //$grPrTheme =
+
     }
 }

@@ -7,6 +7,7 @@ use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\LegacyResponsibleWork;
 use app\models\components\Logger;
+use app\models\work\TrainingGroupWork;
 use app\models\work\UserWork;
 use Mpdf\Tag\A;
 use Yii;
@@ -81,7 +82,7 @@ class LkController extends Controller
     public function actionProtectionGroup($id)
     {
         Yii::$app->session->set('lk-index', 5);
-        $model = UserWork::find()->where(['id' => $id])->one();
+        $model = TrainingGroupWork::find()->where(['id' => $id])->one();
         return $this->render('protection-group', [
             'model' => $model,
         ]);
