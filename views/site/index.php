@@ -267,6 +267,7 @@ $this->title = 'ЦСХД';
                             <h3><b>Мат. ценности</b></h3>
                         </div>
                         <ul>
+                            <li><?php echo Html::a('Накладные / акты', \yii\helpers\Url::to(['invoice/index'])) ?></li>
                             <li><?php echo Html::a('Материальные объекты', \yii\helpers\Url::to(['material-object/index'])) ?></li>
                             <li><?php echo Html::a('Контейнеры', \yii\helpers\Url::to(['container/index'])) ?></li>
                         </ul>
