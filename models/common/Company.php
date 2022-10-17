@@ -12,13 +12,14 @@ use Yii;
  * @property string $name
  * @property string $short_name
  * @property int $is_contractor
- * @property int|null $inn
+ * @property string|null $inn
  * @property int|null $category_smsp_id
  * @property string|null $comment
  *
  * @property AsAdmin[] $asAdmins
  * @property AsAdmin[] $asAdmins0
  * @property CategorySmsp $categorySmsp
+ * @property CompanyType $companyType
  * @property Destination[] $destinations
  * @property DocumentIn[] $documentIns
  * @property DocumentOut[] $documentOuts
@@ -42,10 +43,12 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_type_id', 'is_contractor', 'inn', 'category_smsp_id'], 'integer'],
+            [['company_type_id', 'is_contractor', 'category_smsp_id'], 'integer'],
             [['name', 'short_name'], 'required'],
             [['name', 'short_name', 'comment'], 'string', 'max' => 1000],
+            [['inn'], 'string', 'max' => 15],
             [['category_smsp_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategorySmsp::className(), 'targetAttribute' => ['category_smsp_id' => 'id']],
+            [['company_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyType::className(), 'targetAttribute' => ['company_type_id' => 'id']],
         ];
     }
 
@@ -94,6 +97,16 @@ class Company extends \yii\db\ActiveRecord
     public function getCategorySmsp()
     {
         return $this->hasOne(CategorySmsp::className(), ['id' => 'category_smsp_id']);
+    }
+
+    /**
+     * Gets query for [[CompanyType]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompanyType()
+    {
+        return $this->hasOne(CompanyType::className(), ['id' => 'company_type_id']);
     }
 
     /**

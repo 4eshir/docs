@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\common\Invoice */
 
-$this->title = 'Create Invoice';
-$this->params['breadcrumbs'][] = ['label' => 'Invoices', 'url' => ['index']];
+$this->title = 'Создать накладную / акт';
+$this->params['breadcrumbs'][] = ['label' => 'Накладные / акты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invoice-create">

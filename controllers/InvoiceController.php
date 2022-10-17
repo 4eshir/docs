@@ -145,7 +145,7 @@ class InvoiceController extends Controller
             $tempAmount = $entry->amount;
             $entry->delete();
 
-            for ($i = $tempId; $i < $tempId + $tempAmount; $i++)
+            for ($i = $tempId; $i < $tempId + $tempAmount - 1; $i++)
             {
                 $object = MaterialObjectWork::find()->where(['id' => $i])->one();
                 $object->delete();
@@ -155,6 +155,23 @@ class InvoiceController extends Controller
 
         return $this->redirect(['update', 'id' => $modelId]);
     }
+
+    public function actionUpdateEntry($id, $modelId)
+    {
+        $model = EntryWork::find()->where(['id' => $id])->one();
+        $model->fill();
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->save();
+            return $this->redirect(['update', 'id' => $modelId]);
+        }
+
+        return $this->render('update-entry', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * Finds the Invoice model based on its primary key value.

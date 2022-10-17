@@ -11,6 +11,26 @@ use Yii;
 
 class CompanyWork extends Company
 {
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'company_type_id' => 'Company Type ID',
+            'name' => 'Name',
+            'short_name' => 'Short Name',
+            'is_contractor' => 'Является контрагентом',
+            'inn' => 'Inn',
+            'category_smsp_id' => 'Category Smsp ID',
+            'comment' => 'Comment',
+        ];
+    }
+
+    public function getCategorySmspString()
+    {
+        $model = CategorySmspWork::find()->where(['id' => $this->category_smsp_id])->one();
+        return $model->name;
+    }
+
     public function checkForeignKeys()
     {
         $doc_out = DocumentOut::find()->where(['company_id' => $this->id])->all();

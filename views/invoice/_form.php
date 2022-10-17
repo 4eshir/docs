@@ -85,7 +85,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     echo '<table class="table table-bordered">';
                     echo '<tr><td><b>Объект</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
                     foreach ($entries as $entry) {
-                            echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
@@ -111,7 +111,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     <?php foreach ($modelObjects as $i => $modelObject): ?>
                         <div class="item1 panel panel-default"><!-- widgetBody -->
                             <div class="panel-heading">
-                                <h3 class="panel-title pull-left">Объект</h3>
+                                <h3 class="panel-title pull-left">Запись</h3>
                                 <div class="pull-right">
                                     <button type="button" class="add-item btn btn-success btn-xs" onclick="ChangeIds()"><i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>

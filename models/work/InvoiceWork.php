@@ -5,6 +5,7 @@ namespace app\models\work;
 use app\models\common\Invoice;
 use app\models\work\EntryWork;
 use app\models\work\InvoiceEntryWork;
+use app\models\work\CompanyWork;
 use yii\helpers\Html;
 use Yii;
 
@@ -27,12 +28,19 @@ class InvoiceWork extends Invoice
     public function attributeLabels()
     {
         return [
-            'number' => 'Номер накладной/акта',
+            'number' => 'Номер накладной / акта',
             'contractor_id' => 'Контрагент',
+            'contractString' => 'Контрагент',
             'date' => 'Дата',
             'type' => 'Type',
             'entries' => '',
         ];
+    }
+
+    public function getContractString()
+    {
+        $contractor = CompanyWork::find()->where(['id' => $this->contractor_id])->one();
+        return Html::a($contractor->name, \yii\helpers\Url::to(['company/view', 'id' => $contractor->id]));
     }
 
     public function getEntries()

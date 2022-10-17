@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\common\Invoice;
+use app\models\work\InvoiceWork;
 
 /**
  * SearchInvoice represents the model behind the search form of `app\models\common\Invoice`.
@@ -40,7 +41,7 @@ class SearchInvoice extends Invoice
      */
     public function search($params)
     {
-        $query = Invoice::find();
+        $query = InvoiceWork::find();
 
         // add conditions that should always apply here
 

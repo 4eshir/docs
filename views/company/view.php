@@ -37,4 +37,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?php
+    if ($model->is_contractor)
+    {
+        echo '<h4><u>Информация по контрагенту</u></h4>';
+
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['label' => 'ИНН организации', 'attribute' => 'inn'],
+                ['label' => 'Категория СМСП', 'attribute' => 'categorySmspString'],
+                ['label' => 'Комментарий', 'attribute' => 'comment'],
+            ],
+        ]);
+    }
+    ?>
+
 </div>

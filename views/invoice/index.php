@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchInvoice */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Invoices';
+$this->title = 'Накладные / акты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invoice-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Invoice', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить накладную / акт', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,9 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'number',
-            'contractor_id',
+            ['attribute' => 'contractString', 'format' => 'raw'],
             'date',
 
             ['class' => 'yii\grid\ActionColumn'],
