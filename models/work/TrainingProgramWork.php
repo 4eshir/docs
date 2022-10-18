@@ -200,9 +200,19 @@ class TrainingProgramWork extends TrainingProgram
         return $this->hasOne(Focus::className(), ['id' => 'author_id']);
     }
 
+    public function getFocusWork()
+    {
+        return $this->hasOne(FocusWork::className(), ['id' => 'focus_id']);
+    }
+
     public function getThematicDirection()
     {
         return $this->hasOne(ThematicDirection::className(), ['id' => 'thematic_direction_id']);
+    }
+
+    public function getThematicDirectionWork()
+    {
+        return $this->hasOne(ThematicDirectionWork::className(), ['id' => 'thematic_direction_id']);
     }
 
     public function getAuthorsList()

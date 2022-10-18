@@ -51,7 +51,7 @@ class ManHoursReportModel extends \yii\base\Model
         //$debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
         $debug = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
 
-        $debug2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Пол;Дата рождения;Раздел\r\n";
+        $debug2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Пол;Дата рождения;Направленность;Педагог;Основа;Тематическое направление;Образовательная программа;Тема проекта;Дата защиты;Тип проекта;Раздел\r\n";
 
         $header = "Отчет по <br>";
 
@@ -240,8 +240,14 @@ class ManHoursReportModel extends \yii\base\Model
                     if($this->unic == 1)
                         $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
 
+                    $teachers = TeacherGroupWork::find()->where(['training_group_id' => $part->training_group_id])->all();
+                    $strTeacher = '';
+                    foreach ($teachers as $teacher) $strTeacher .= $teacher->teacherWork->shortName.' ';
+
+                    $strTeacher = substr($strTeacher, 0, -1);
+
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";1\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->trainingGroupWork->groupProjectThemesWork->projectTypeWork->name.";1\r\n";
                      $c++;
 
                 }
@@ -280,8 +286,15 @@ class ManHoursReportModel extends \yii\base\Model
                 {
                     if($this->unic == 1)
                         $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+
+                    $teachers = TeacherGroupWork::find()->where(['training_group_id' => $part->training_group_id])->all();
+                    $strTeacher = '';
+                    foreach ($teachers as $teacher) $strTeacher .= $teacher->teacherWork->shortName.' ';
+
+                    $strTeacher = substr($strTeacher, 0, -1);
+
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";2\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->trainingGroupWork->groupProjectThemesWork->projectTypeWork->name.";2\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -317,8 +330,15 @@ class ManHoursReportModel extends \yii\base\Model
 
                     if($this->unic == 1)
                         $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+
+                    $teachers = TeacherGroupWork::find()->where(['training_group_id' => $part->training_group_id])->all();
+                    $strTeacher = '';
+                    foreach ($teachers as $teacher) $strTeacher .= $teacher->teacherWork->shortName.' ';
+
+                    $strTeacher = substr($strTeacher, 0, -1);
+
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";3\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemesWork->projectTypeWork->name.";3\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -353,8 +373,15 @@ class ManHoursReportModel extends \yii\base\Model
 
                     if($this->unic == 1)
                         $part = TrainingGroupParticipantWork::find()->where(['participant_id' => $part->participant_id])->andWhere(['IN', 'participant_id', $newParticipants])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+
+                    $teachers = TeacherGroupWork::find()->where(['training_group_id' => $part->training_group_id])->all();
+                    $strTeacher = '';
+                    foreach ($teachers as $teacher) $strTeacher .= $teacher->teacherWork->shortName.' ';
+
+                    $strTeacher = substr($strTeacher, 0, -1);
+
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";4\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->trainingGroupWork->groupProjectThemesWork->projectTypeWork->name.";4\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------

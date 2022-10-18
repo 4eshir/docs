@@ -30,5 +30,10 @@ class GroupProjectThemesWork extends GroupProjectThemes
     public function getProjectThemeWork()
     {
         return $this->hasOne(ProjectThemeWork::className(), ['id' => 'project_theme_id']);
+    }
+
+    public function getProjectTypeWork()
+    {
+        return $this->hasOne(ProjectTypeWork::className(), ['id' => 'project_type_id']);
     }   
 }

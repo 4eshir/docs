@@ -44,6 +44,11 @@ class TrainingGroupParticipantWork extends TrainingGroupParticipant
         return $this->hasOne(CertificatWork::className(), ['training_group_participant_id' => 'id']);
     }
 
+    public function getGroupProjectThemesWork()
+    {
+        return $this->hasOne(GroupProjectThemesWork::className(), ['id' => 'group_project_themes_id']);
+    }
+
     public function beforeDelete()
     {
         $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['foreign_event_participant_id' => $this->participant_id])->andWhere(['trainingGroupLesson.training_group_id' => $this->training_group_id])->all();
