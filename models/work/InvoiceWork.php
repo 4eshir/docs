@@ -86,6 +86,7 @@ class InvoiceWork extends Invoice
                 if ($entry == null) $entry = new EntryWork();
                 $entry->object_id = $objId;
                 $entry->amount = $object->amount;
+                $entry->fill();
                 $entry->save();
 
                 //связываем запись и накладную/акт

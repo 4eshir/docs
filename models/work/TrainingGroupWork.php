@@ -1063,7 +1063,8 @@ class TrainingGroupWork extends TrainingGroup
                 {
                     $themes = GroupProjectThemesWork::find()->where(['training_group_id' => $group->id])->andWhere(['confirm' => 1])->all();
                     $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->orWhere(['IS', 'points', null])->orWhere(['IS', 'success', null])->orWhere(['IS', 'group_project_themes_id', null])->all();
-                    
+
+                    if ($group->trainingProgram->certificat_type_id != 3)
                     if (empty($themes) || empty($parts))
                         $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
 
