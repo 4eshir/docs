@@ -8,6 +8,7 @@ use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use yii\jui\AutoComplete;
+use app\models\components\RoleBaseAccess;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\TrainingGroupWork */
@@ -1070,7 +1071,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
         </div>
 
         <div>
-            <?php if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 5))
+            <?php if (RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 5) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
                 echo $form->field($model, 'protection_confirm')->checkbox(); ?>
         </div>
     </div>
