@@ -1072,7 +1072,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
         <div>
             <?php 
-            var_dump(RoleBaseAccess::CheckRole(70, 5).' '.RoleBaseAccess::CheckRole(70, 6).' '.RoleBaseAccess::CheckRole(70, 7));
+            var_dump(RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 5) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7));
             if (RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 5) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
                 echo $form->field($model, 'protection_confirm')->checkbox(); ?>
         </div>
