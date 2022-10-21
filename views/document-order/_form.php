@@ -266,6 +266,44 @@ $session = Yii::$app->session;
         }
     }
 
+    function sortParticipant(index) {
+        // Получить текущее направление
+        const direction = directions[index] || 'asc';
+
+        // Фактор по направлению
+        const multiplier = (direction === 'asc') ? 1 : -1;
+
+        const newRows = Array.from(rowsPart);
+
+        newRows.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            const a = transform(index, cellA);
+            const b = transform(index, cellB);
+
+            switch (true) {
+                case a > b: return 1 * multiplier;
+                case a < b: return -1 * multiplier;
+                case a === b: return 0;
+            }
+        });
+
+        // Удалить старые строки
+        [].forEach.call(rowsPart, function(row) {
+            tableBodyPart.removeChild(row);
+        });
+
+        // Поменять направление
+        directions[index] = direction === 'asc' ? 'desc' : 'asc';
+
+        // Добавить новую строку
+        newRows.forEach(function(newRow) {
+            tableBodyPart.appendChild(newRow);
+        });
+
+    }
+
     function allCheck()
     {
         let elems = document.getElementsByClassName('check');
@@ -475,7 +513,7 @@ $session = Yii::$app->session;
 
             echo '<br><b>Учащиеся учебных групп: </b>';
             echo '<input type="text" id="participantSearch" onkeydown="return preventEnter(event.key)" onchange="searchParticipant()" placeholder="Поиск по учащимся..." title="Введите имя">';
-            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Текущая учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><a onclick="sortParticipant(1)"><b>Учащийся</b></a></th><th><a onclick="sortParticipant(2)"><b>Текущая учебная группа</b></a></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
             $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()/*->where(['!=', 'status', 1])*/->andWhere(['IN', 'training_group_id',

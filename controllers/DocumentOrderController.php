@@ -404,7 +404,8 @@ class DocumentOrderController extends Controller
             /*----------------------*/
 
             echo '<br><b>Учащиеся учебных групп: </b>';
-            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><b>Учащийся</b></th><th><b>Текущая учебная группа</b></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
+            echo '<input type="text" id="participantSearch" onkeydown="return preventEnter(event.key)" onchange="searchParticipant()" placeholder="Поиск по учащимся..." title="Введите имя">';
+            echo '<div style="max-height: 400px; overflow-y: scroll; margin-top: 1em;"><table id="order_participant" class="table table-bordered"><thead><tr><th><input type="checkbox" id="checker0" onclick="allCheck()"></th><th><a onclick="sortParticipant(1)"><b>Учащийся</b></a></th><th><a onclick="sortParticipant(1)"><b>Текущая учебная группа</b></a></th><th style="display: none;"><b>Новая учебная группа</b></th></tr></thead>';
             echo '';
             echo '<tbody>';
             $groupParticipants = \app\models\work\TrainingGroupParticipantWork::find()/*->where(['status' => 0])*/->andWhere(['IN', 'training_group_id',

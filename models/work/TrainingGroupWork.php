@@ -1083,7 +1083,8 @@ class TrainingGroupWork extends TrainingGroup
             }
         }
 
-        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) || RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
+        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) ||
+                RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
             $flag = true;
 
         if ($flag)
