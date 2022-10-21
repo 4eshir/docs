@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\common\TrainingGroup;
 use app\models\work\AccessLevelWork;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
@@ -82,7 +83,7 @@ class LkController extends Controller
     public function actionProtectionGroup($id)
     {
         Yii::$app->session->set('lk-index', 5);
-        $model = TrainingGroupWork::find()->where(['id' => $id])->one();
+        $model = new TrainingGroupWork();
         return $this->render('protection-group', [
             'model' => $model,
         ]);
