@@ -922,7 +922,7 @@ class WordWizard
             else if ($order->study_type == 2)
             {
                 $oldGr = TrainingGroupWork::find()->where(['id' => $groups[0]])->one();
-                $newGr = TrainingGroupWork::find()->where(['id' => $groupsID[0]])->one();
+                $newGr = TrainingGroupWork::find()->where(['id' => $groupsID[1]])->one();
                 $text = '          1.	Перевести из учебной группы ' . $oldGr->number . ' в учебную группу ' . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $programsIN[0]->name . '», '
                     . mb_substr(mb_strtolower($programsIN[0]->stringFocus), 0, mb_strlen($programsIN[0]->stringFocus) - 2, "utf-8") . 'ой направленности ';
             }
@@ -1009,59 +1009,56 @@ class WordWizard
 
         foreach ($groupsID as $group)
         {
-            $trGroup = TrainingGroupWork::find()->where(['id' => $group])->one();
-            $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
+            if ($groups[0] != $group) {
+                $trGroup = TrainingGroupWork::find()->where(['id' => $group])->one();
+                $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
 
-            $teacherTrG = $teacher->where(['training_group_id' => $group])->all();
-            $text = 'Руководитель учебной группы: ';
+                $teacherTrG = $teacher->where(['training_group_id' => $group])->all();
+                $text = 'Руководитель учебной группы: ';
 
-            foreach ($teacherTrG as $trg)
-            {
-                $post = [];
-                $pPosB = $pos->where(['people_id' => $trg->teacher_id])->all();
-                foreach ($pPosB as $posOne)
-                {
-                    $post [] = $posOne->position_id;
+                foreach ($teacherTrG as $trg) {
+                    $post = [];
+                    $pPosB = $pos->where(['people_id' => $trg->teacher_id])->all();
+                    foreach ($pPosB as $posOne) {
+                        $post [] = $posOne->position_id;
+                    }
+                    $post = array_unique($post);    // выкинули все повторы
+                    $post = array_intersect($post, [15, 16, 35, 44]);   // оставили только преподские должности
+
+                    if (count($post) > 0) {
+                        $posName = $positionName->where(['id' => $post[0]])->one();
+                        $text .= mb_strtolower($posName->name) . ' ' . $trg->teacherWork->shortName . ', ';
+                    } else
+                        $text .= $trg->teacherWork->shortName . ', ';
                 }
-                $post = array_unique($post);    // выкинули все повторы
-                $post = array_intersect($post, [15, 16, 35, 44]);   // оставили только преподские должности
+                $text = mb_substr($text, 0, -2);
+                $section->addText($text);
 
-                if (count($post) > 0)
-                {
-                    $posName = $positionName->where(['id' => $post[0]])->one();
-                    $text .= mb_strtolower($posName->name) . ' ' . $trg->teacherWork->shortName . ', ';
+                $programTrG = TrainingProgramWork::find()->where(['id' => $trGroup->training_program_id])->one();
+                $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
+                $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
+
+                $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения, дистанционных образовательных технологий).');
+
+                $section->addText('Срок освоения (ак.ч.): ' . $programTrG->capacity);
+
+                $section->addText('Обучающиеся: ');
+                $participants = TrainingGroupParticipantWork::find()
+                    ->joinWith(['orderGroupParticipants pasta'])
+                    ->joinWith(['orderGroupParticipants.orderGroup orderGr'])
+                    ->joinWith(['orderGroupParticipants.orderGroup.documentOrder order'])
+                    ->where(['order.id' => $order_id])
+                    ->andWhere(['pasta.status' => 0])
+                    ->andWhere(['IS NOT', 'pasta.link_id', null])
+                    ->andWhere(['training_group_participant.training_group_id' => $group])
+                    ->groupBy(['training_group_participant.id'])
+                    ->all();
+                for ($i = 0; $i < count($participants); $i++) {
+                    $participant = ForeignEventParticipantsWork::find()->where(['id' => $participants[$i]->participant_id])->one();
+                    $section->addText($i + 1 . '. ' . $participant->getFullName());
                 }
-                else
-                    $text .= $trg->teacherWork->shortName . ', ';
+                $section->addTextBreak(2);
             }
-            $text = mb_substr($text, 0, -2);
-            $section->addText($text);
-
-            $programTrG = TrainingProgramWork::find()->where(['id' => $trGroup->training_program_id])->one();
-            $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
-            $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
-
-            $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения, дистанционных образовательных технологий).');
-
-            $section->addText('Срок освоения (ак.ч.): ' . $programTrG->capacity);
-
-            $section->addText('Обучающиеся: ');
-            $participants = TrainingGroupParticipantWork::find()
-                ->joinWith(['orderGroupParticipants pasta'])
-                ->joinWith(['orderGroupParticipants.orderGroup orderGr'])
-                ->joinWith(['orderGroupParticipants.orderGroup.documentOrder order'])
-                ->where(['order.id' => $order_id])
-                ->andWhere(['pasta.status' => 0])
-                ->andWhere(['IS NOT', 'pasta.link_id', null])
-                ->andWhere(['training_group_participant.training_group_id' => $group])
-                ->groupBy(['training_group_participant.id'])
-                ->all();
-            for ($i = 0; $i < count($participants); $i++)
-            {
-                $participant = ForeignEventParticipantsWork::find()->where(['id' => $participants[$i]->participant_id])->one();
-                $section->addText($i+1 . '. ' . $participant->getFullName());
-            }
-            $section->addTextBreak(2);
         }
 
 
