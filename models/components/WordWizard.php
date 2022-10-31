@@ -828,9 +828,10 @@ class WordWizard
             ->where(['order.id' => $order_id])
             ->andWhere(['pasta.status' => 0])
             ->andWhere(['IS NOT', 'pasta.link_id', null])
-            ->groupBy(['training_group_participant.id'])
-            ->all();
-        $countPart = count($gPartIN);
+            ->groupBy(['training_group_participant.id']);
+            //->all();
+        //$countPart = count($gPartIN);
+        var_dump($gPartIN->createCommand()->getRawSql());
 
         $groupsID = [];
         foreach ($gPartIN as $tempPart)
@@ -1006,6 +1007,7 @@ class WordWizard
             . date("Y", strtotime($order->order_date)) . ' г. '
             . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(1);
+
 
         foreach ($groupsID as $group)
         {
