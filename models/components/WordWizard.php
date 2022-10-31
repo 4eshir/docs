@@ -1010,7 +1010,6 @@ class WordWizard
         foreach ($groupsID as $group)
         {
             if ($groups[0] !== $group) {
-                var_dump($groups[0] .' ' . $group);
                 $trGroup = TrainingGroupWork::find()->where(['id' => $group])->one();
                 $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
 
