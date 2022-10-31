@@ -828,10 +828,10 @@ class WordWizard
             ->where(['order.id' => $order_id])
             ->andWhere(['pasta.status' => 0])
             ->andWhere(['IS NOT', 'pasta.link_id', null])
-            ->groupBy(['training_group_participant.id']);
-            //->all();
-        //$countPart = count($gPartIN);
-        var_dump($gPartIN->createCommand()->getRawSql());
+            ->groupBy(['training_group_participant.id'])
+            ->all();
+        $countPart = count($gPartIN);
+        
 
         $groupsID = [];
         foreach ($gPartIN as $tempPart)
