@@ -21,7 +21,7 @@ class CompanyWork extends Company
             'is_contractor' => 'Является контрагентом',
             'inn' => 'Inn',
             'category_smsp_id' => 'Category Smsp ID',
-            'comment' => 'Comment',
+            'comment' => 'Комментарий',
         ];
     }
 

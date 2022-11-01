@@ -9,6 +9,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<script type="text/javascript">
+    window.onload = function() {
+        CheckLink();
+    }
+</script>
+
 <div class="container-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
