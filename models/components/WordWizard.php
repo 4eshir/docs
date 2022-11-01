@@ -831,7 +831,7 @@ class WordWizard
             ->groupBy(['training_group_participant.id'])
             ->all();
         $countPart = count($gPartIN);
-        
+
 
         $groupsID = [];
         foreach ($gPartIN as $tempPart)
