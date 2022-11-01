@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'photo_local',
             'photo_cloud',
-            'count',
+            //'count',
             'price',
             'number',
             'attribute',
