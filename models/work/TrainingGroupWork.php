@@ -213,6 +213,14 @@ class TrainingGroupWork extends TrainingGroup
         return Html::a($this->branchWork, \yii\helpers\Url::to(['training-program/view', 'id' => $this->branch_id]));
     }
 
+    public function getVisitsError()
+    {
+        $visits = Visit::find()->joinWith(['trainingGroupLesson lesson'])->where(['lesson.training_group_id' => $this->id])->all();
+        $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        return count($visits) !== count($lessons) * count($parts);
+    }
+
     public function getParticipantNames()
     {
         $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();

@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
 
 <div class="training-group-view">
 
-    <h1><?= Html::encode('Группа '.$this->title) ?><span class="badge badge-secondary" style="font-size: 18px; margin-bottom: 5px"><?php echo $model->archive == 1 ? 'Архив' : ''; ?></span></h1>
+    <h1><?= Html::encode('Группа '.$this->title) ?><span class="badge badge-secondary" style="font-size: 18px; margin-bottom: 5px;"><?php echo $model->archive == 1 ? 'Архив' : ''; ?></span><span class="badge badge-danger" style="font-size: 18px; margin-bottom: 5px; background: red"><?php echo $model->visitsError ? 'Произошел сбой при сохранении группы. Пожалуйста, выполните пересохранение группы в ближайшее время!' : ''; ?></span></h1>
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
