@@ -29,6 +29,22 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
+    <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт', '2' => 'УПД', '3' => 'Протокол'), 
+                            [
+                                'item' => function($index, $label, $name, $checked, $value) {
+                                    $checkStr = "";
+                                    if ($checked == 1)
+                                        $checkStr = "checked";
+                                    $return = '<label class="modal-radio">';
+                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" '.$checkStr.'>';
+                                    $return .= '<i></i>';
+                                    $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
+                                    $return .= '</label><br>';
+
+                                    return $return;
+                                }
+                            ])->label('Вид документа') ?>
+
     <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%', 'type' => 'number']) ?>
 
     <?php
@@ -58,21 +74,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
             ]]) 
     ?>
 
-    <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт'), 
-                            [
-                                'item' => function($index, $label, $name, $checked, $value) {
-                                    $checkStr = "";
-                                    if ($checked == 1)
-                                        $checkStr = "checked";
-                                    $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" '.$checkStr.'>';
-                                    $return .= '<i></i>';
-                                    $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
-                                    $return .= '</label><br>';
-
-                                    return $return;
-                                }
-                            ])->label('Вид документа') ?>
+    <?= $form->field($model, 'documentFile')->fileInput() ?>
 
     <div class="row">
         <div class="panel panel-default">

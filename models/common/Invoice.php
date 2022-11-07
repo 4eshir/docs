@@ -10,8 +10,10 @@ use Yii;
  * @property int $id
  * @property string $number
  * @property int $contractor_id
- * @property string $date
- * @property int $type 0 - не является контрагентом, 1 - является контрагентом
+ * @property string $date_product
+ * @property string $date_invoice
+ * @property int $type 0 - накладная, 1 - акт, 2 - УПД, 3 - протокол 
+ * @property string|null $document
  *
  * @property Company $contractor
  * @property InvoiceEntry[] $invoiceEntries
@@ -32,10 +34,11 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'contractor_id', 'date'], 'required'],
+            [['number', 'contractor_id', 'date_product', 'date_invoice'], 'required'],
             [['contractor_id', 'type'], 'integer'],
-            [['date'], 'safe'],
+            [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
+            [['document'], 'string', 'max' => 1000],
             [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
         ];
     }
@@ -49,8 +52,10 @@ class Invoice extends \yii\db\ActiveRecord
             'id' => 'ID',
             'number' => 'Number',
             'contractor_id' => 'Contractor ID',
-            'date' => 'Date',
+            'date_product' => 'Date Product',
+            'date_invoice' => 'Date Invoice',
             'type' => 'Type',
+            'document' => 'Document',
         ];
     }
 

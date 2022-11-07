@@ -13,27 +13,31 @@ use Yii;
 class InvoiceWork extends Invoice
 {
 	public $objects; //записи об объектах
+    public $documentFile; //документ основания
 
 	public function rules()
     {
         return [
-            [['number', 'contractor_id', 'date'], 'required'],
+            [['documentFile'], 'file', 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag, pdf', 'skipOnEmpty' => true],
+            [['number', 'contractor_id', 'date_product', 'date_invoice'], 'required'],
             [['contractor_id', 'type'], 'integer'],
-            [['date'], 'safe'],
+            [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
-            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyWork::className(), 'targetAttribute' => ['contractor_id' => 'id']],
+            [['document'], 'string', 'max' => 1000],
+            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'number' => 'Номер накладной / акта',
+            'number' => 'Номер документа',
             'contractor_id' => 'Контрагент',
             'contractString' => 'Контрагент',
-            'date' => 'Дата',
+            'date' => 'Дата приема товара в накладной',
             'type' => 'Type',
             'entries' => '',
+            'documentFile' => 'Документ основания'
         ];
     }
 
@@ -58,6 +62,30 @@ class InvoiceWork extends Invoice
             $result .= '<hr style="border-top: 1px solid gray; margin-top: 5px; margin-bottom: 5px">';
         }
         return $result;
+    }
+
+    public function uploadScanFile()
+    {
+        $path = '@app/upload/files/invoice/document/';
+        $date = $this->local_date;
+        $new_date = '';
+        $filename = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        if ($this->company->short_name !== '')
+        {
+            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$this->company->short_name.'_'.$this->document_theme;
+        }
+        else
+        {
+            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$this->company->name.'_'.$this->document_theme;
+        }
+        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
+        $res = FileWizard::CutFilename($res);
+        $this->scan = $res.'.'.$this->scanFile->extension;
+        $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
     }
 
     public function afterSave($insert, $changedAttributes)
