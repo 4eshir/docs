@@ -64,7 +64,7 @@ class InvoiceWork extends Invoice
         return $result;
     }
 
-    public function uploadScanFile()
+    public function uploadDocument()
     {
         $path = '@app/upload/files/invoice/document/';
         $date = $this->local_date;
