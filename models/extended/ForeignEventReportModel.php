@@ -123,11 +123,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
             if ($partsLink !== null)
             {
-                if ($event->id == 295)
-                {
-                    var_dump(ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $pIds])->createCommand()->getRawSql());
-                    var_dump(count($pIds));
-                }
 
                 if ($events_id2 == 0)
                 {
