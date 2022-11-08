@@ -15,6 +15,7 @@ use app\models\SearchInvoice;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use app\models\DynamicModel;
 
 /**
@@ -79,7 +80,12 @@ class InvoiceController extends Controller
             $modelObjects = DynamicModel::createMultiple(MaterialObjectWork::classname());
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
+            $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
             
+            $model->save(false);
+
+            if ($model->documentFile !== null)
+                $model->uploadDocument();
 
             $model->save(false);
 
@@ -108,8 +114,11 @@ class InvoiceController extends Controller
             $modelObjects = DynamicModel::createMultiple(MaterialObjectWork::classname());
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
-
-            $model->save();
+            $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
+            if ($model->documentFile !== null)
+                $model->uploadDocument();
+            
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -233,5 +242,26 @@ class InvoiceController extends Controller
         } else
             echo "<option>-</option>";*/
 
+    }
+
+
+    public function actionGetFile($fileName = null, $modelId = null, $type = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/invoice/document/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('File not found');
+        //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
+    {
+
+        $model = InvoiceWork::find()->where(['id' => $modelId])->one();
+        unlink(Yii::$app->basePath . '/upload/files/invoice/document/' . $fileName);
+        $model->document = '';
+        $model->save(false);
+        return $this->redirect('index?r=invoice/update&id='.$modelId);
     }
 }

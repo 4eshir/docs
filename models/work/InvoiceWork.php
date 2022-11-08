@@ -7,6 +7,7 @@ use app\models\work\EntryWork;
 use app\models\work\InvoiceEntryWork;
 use app\models\work\CompanyWork;
 use yii\helpers\Html;
+use app\models\components\FileWizard;
 use Yii;
 
 
@@ -24,7 +25,7 @@ class InvoiceWork extends Invoice
             [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['document'], 'string', 'max' => 1000],
-            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
+            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyWork::className(), 'targetAttribute' => ['contractor_id' => 'id']],
         ];
     }
 
@@ -34,17 +35,25 @@ class InvoiceWork extends Invoice
             'number' => 'Номер документа',
             'contractor_id' => 'Контрагент',
             'contractString' => 'Контрагент',
-            'date' => 'Дата приема товара в накладной',
+            'date_product' => 'Дата приема товара в накладной',
+            'date_invoice' => 'Дата накладной',
             'type' => 'Type',
             'entries' => '',
-            'documentFile' => 'Документ основания'
+            'documentFile' => 'Документ основания',
+            'documentLink' => 'Документ основания',
         ];
     }
 
     public function getContractString()
     {
         $contractor = CompanyWork::find()->where(['id' => $this->contractor_id])->one();
+        //return CompanyWork::find()->where(['id' => $this->contractor_id])->createCommand()->getRawSql();
         return Html::a($contractor->name, \yii\helpers\Url::to(['company/view', 'id' => $contractor->id]));
+    }
+
+    public function getDocumentLink()
+    {
+        return Html::a($this->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $this->document, 'modelId' => $this->id, 'type' => null]));
     }
 
     public function getEntries()
@@ -67,25 +76,13 @@ class InvoiceWork extends Invoice
     public function uploadDocument()
     {
         $path = '@app/upload/files/invoice/document/';
-        $date = $this->local_date;
-        $new_date = '';
         $filename = '';
-        for ($i = 0; $i < strlen($date); ++$i)
-            if ($date[$i] != '-')
-                $new_date = $new_date.$date[$i];
-        if ($this->company->short_name !== '')
-        {
-            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$this->company->short_name.'_'.$this->document_theme;
-        }
-        else
-        {
-            $filename = 'Вх.'.$new_date.'_'.$this->local_number.'_'.$this->company->name.'_'.$this->document_theme;
-        }
+        $filename = 'Нкл.'.$this->number.'_'.$this->id;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
-        $this->scan = $res.'.'.$this->scanFile->extension;
-        $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
+        $this->document = $res.'.'.$this->documentFile->extension;
+        $this->documentFile->saveAs( $path.$res.'.'.$this->documentFile->extension);
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -128,4 +125,5 @@ class InvoiceWork extends Invoice
 
     	}
     }
+
 }

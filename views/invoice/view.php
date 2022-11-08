@@ -32,7 +32,9 @@ $this->params['breadcrumbs'][] = '№'.$this->title;
             
             'number',
             ['attribute' => 'contractString', 'format' => 'raw'],
-            'date',
+            'date_product',
+            'date_invoice',
+            ['attribute' => 'documentLink', 'format' => 'raw'],
         ],
     ]) ?>
 

@@ -4,13 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\common\Invoice;
 use app\models\work\InvoiceWork;
 
 /**
  * SearchInvoice represents the model behind the search form of `app\models\common\Invoice`.
  */
-class SearchInvoice extends Invoice
+class SearchInvoice extends InvoiceWork
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,8 @@ class SearchInvoice extends Invoice
     public function rules()
     {
         return [
-            [['id', 'contractor_id'], 'integer'],
-            [['number', 'date'], 'safe'],
+            [['id', 'contractor_id', 'type'], 'integer'],
+            [['number', 'date_product', 'date_invoice', 'document'], 'safe'],
         ];
     }
 
@@ -61,10 +60,13 @@ class SearchInvoice extends Invoice
         $query->andFilterWhere([
             'id' => $this->id,
             'contractor_id' => $this->contractor_id,
-            'date' => $this->date,
+            'date_product' => $this->date_product,
+            'date_invoice' => $this->date_invoice,
+            'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number]);
+        $query->andFilterWhere(['like', 'number', $this->number])
+            ->andFilterWhere(['like', 'document', $this->document]);
 
         return $dataProvider;
     }

@@ -57,7 +57,24 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
     ?>
 
-    <?php echo $form->field($model, 'date')->widget(\yii\jui\DatePicker::class,
+    <?php echo $form->field($model, 'date_product')->widget(\yii\jui\DatePicker::class,
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'style' => 'width: 60%',
+                'placeholder' => 'Дата',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2100',
+            ]]) 
+    ?>
+
+    <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
         [
             'dateFormat' => 'php:Y-m-d',
             'language' => 'ru',
@@ -75,6 +92,10 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     ?>
 
     <?= $form->field($model, 'documentFile')->fileInput() ?>
+    <?php
+    if (strlen($model->document) > 2)
+        echo '<h5>Загруженный файл: '.Html::a($model->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $model->document, 'modelId' => $model->id])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['invoice/delete-file', 'fileName' => $model->document, 'modelId' => $model->id])).'</h5><br>';
+    ?>
 
     <div class="row">
         <div class="panel panel-default">
