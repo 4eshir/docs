@@ -191,6 +191,50 @@ class ProgramErrorsWork extends ProgramErrors
         }
     }
 
+    private function CheckDocs($modelProgramID, $program)
+    {
+        $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 44])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($program->doc_file != null)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $program->doc_file == null)
+        {
+            $this->training_program_id = $modelProgramID;
+            $this->errors_id = 44;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckEditDocs($modelProgramID, $program)
+    {
+        $err = ProgramErrorsWork::find()->where(['training_program_id' => $modelProgramID, 'time_the_end' => null, 'errors_id' => 45])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($program->edit_docs != null)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $program->edit_docs == null)
+        {
+            $this->training_program_id = $modelProgramID;
+            $this->errors_id = 45;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckErrorsTrainingProgram($modelProgramID)
     {
         $program = TrainingProgramWork::find()->where(['id' => $modelProgramID])->one();
@@ -203,6 +247,8 @@ class ProgramErrorsWork extends ProgramErrors
         $this->CheckAuthors($modelProgramID);
         $this->CheckBranch($modelProgramID);
         $this->CheckDatePedCouncil($modelProgramID, $program);
+        $this->CheckDocs($modelProgramID, $program);
+        $this->CheckEditDocs($modelProgramID, $program);
     }
 
     public function CheckErrorsTrainingProgramWithoutAmnesty($modelProgramID)
