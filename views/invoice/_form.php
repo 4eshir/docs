@@ -29,17 +29,6 @@ use yii\helpers\Url;
 
 </script>
 
-<?php
-
-$js =<<< JS
-    $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-        /*alert('item');*/
-    })
-JS;
-
-$this->registerJs($js, \yii\web\View::POS_LOAD);
-
-?>
 
 <div class="invoice-form">
 
@@ -180,20 +169,14 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                         $items = ['ОС' => 'ОС', 'ТМЦ' => 'ТМЦ'];
                                         $params = [
                                             'class' => 'form-control oc-type',
-                                            'onchange' => 'OnChangeOC(this, "no-oc_0", "oc_0")',
                                             'style' => 'width: 30%'
                                         ];
                                         echo $form->field($modelObject, "[{$i}]attribute")->dropDownList($items,$params);
 
                                         ?>
 
-                                        <div id="no-oc_0" style="display: none" class="no-oc">
-                                            <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
-                                        </div>
+                                        <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
 
-                                        <div id="oc_0" style="display: block" class="oc">
-                                            <?= $form->field($modelObject, "[{$i}]inventory_number")->textInput(['maxlength' => true, 'style' => 'width: 70%']) ?>
-                                        </div>
                                         
 
                                         <?= $form->field($modelObject, "[{$i}]photoFile")->fileInput(['multiple' => false]) ?>
@@ -273,6 +256,8 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                             ?>
                                         </div>
 
+                                        <?= $form->field($modelObject, "[{$i}]is_education", ['options' => ['style' => 'width: 200%']])->checkbox() ?>
+                                    
                                         <?php
                                         $items = [1 => 'Нерасходуемый', 2 => 'Расходуемый'];
                                         $params = [
@@ -284,7 +269,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
                                         ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]is_education", ['options' => ['style' => 'width: 200%']])->checkbox() ?>
+
 
                                         <div id="state_0" class="state-div" style="display: <?php echo $modelObject->type == 2 ? 'block' : 'none'; ?>">
                                             <?= $form->field($modelObject, "[{$i}]state")->textInput(['type' => 'number', 'style' => 'width: 30%']) ?>
@@ -382,21 +367,15 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
     function ChangeIds()
     {
         let elems1 = document.getElementsByClassName('change-type');
-        let elems11 = document.getElementsByClassName('oc-type');
         let elems2 = document.getElementsByClassName('state-div');
-        let elems3 = document.getElementsByClassName('no-oc');
-        let elems4 = document.getElementsByClassName('oc');
+
         for (let i = 0; i < elems1.length; i++)
         {
             elems1[i].id = 'type_'+ (elems1.length - i);
             let str1 = 'state_'+ (elems1.length - i);
             elems2[i].id = str1;
-            let str2 = 'no-oc_'+ (elems1.length - i);
-            elems3[i].id = str2;
-            let str3 = 'oc_'+ (elems1.length - i);
-            elems4[i].id = str3;
+
             elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str1 + "')");
-            elems11[i].setAttribute("onchange", "OnChangeOC(this, '" + str2 + "', '" + str3 + "')");
         }
     }
 
@@ -407,21 +386,5 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
             element.style.display = "block";
         else
             element.style.display = "none";
-    }
-
-    function OnChangeOC(obj, elem1, elem2)
-    {
-        let element1 = document.getElementById(elem1);
-        let element2 = document.getElementById(elem2);
-        if (obj.value !== 'ОС')
-        {
-            element1.style.display = "block";
-            element2.style.display = "none";
-        }
-        else
-        {
-            element1.style.display = "none";
-            element2.style.display = "block";
-        }
     }
 </script>
