@@ -166,7 +166,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
             $teamPrizeStr = $counterTeamPrizes > 0 ? ' (в т.ч. команды - '.$counterTeamPrizes.')' : '';
             $teamWinnersStr = $counterTeamWinners > 0 ? ' (в т.ч. команды - '.$counterTeamWinners.')' : '';
-            $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()) + $counterTeam).$teamStr.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
+            $debug .= (count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()).";".$counterTeam.";".$s1.$teamPrizeStr.";".$s2. $teamWinnersStr."\r\n";
             //ОТЛАДКА
 
         }
@@ -189,7 +189,7 @@ class ForeignEventReportModel extends \yii\base\Model
     {
         $header = "Отчет по учету достижений в мероприятиях за период с ".$this->start_date." по ".$this->end_date;
         //ОТЛАДКА
-        $debug = "Мероприятие;Уровень;Дата начала;Дата окончания;Кол-во участников;Призеры;Победители;\r\n";
+        $debug = "Мероприятие;Уровень;Дата начала;Дата окончания;Кол-во участников;Кол-во команд;Призеры;Победители;\r\n";
         //ОТЛАДКА
 
         //Получаем группы и учеников
