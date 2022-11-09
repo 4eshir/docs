@@ -155,7 +155,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
-            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $counterPart1 += count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
 
@@ -260,7 +260,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
         }
         //-----------------------------------------
-        //Вывод количества призеров / победителей (всероссийских)
+        //Вывод количества призеров / победителей (федеральных)
         if (array_search(7, $this->level) !== false)
         {
             $result = ForeignEventReportModel::GetPrizesWinners(7, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
