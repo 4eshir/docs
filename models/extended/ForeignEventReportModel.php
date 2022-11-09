@@ -280,9 +280,9 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками федеральных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами федеральных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями федеральных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
         }
         //-----------------------------------------
@@ -306,9 +306,9 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками региональных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами региональных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями региональных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
             if ($bigCounter == 0)
                 $bigPercent = 0;
@@ -339,9 +339,9 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками городских конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами городских конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями городских конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
         }
         //-----------------------------------------
@@ -366,9 +366,9 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками районных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами районных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями районных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
         }
         //-----------------------------------------
@@ -392,9 +392,9 @@ class ForeignEventReportModel extends \yii\base\Model
 
             $addStr = $allTeams > 0 ? ' (в т.ч. команд - '.$allTeams.')' : '';
 
-            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками международных конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
-            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами международных конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
-            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями международных конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками внутренних конкурсных мероприятий</td><td>".$result[3].$addStr."</td></tr>";
+            if (array_search(0, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся призерами внутренних конкурсных мероприятий</td><td>".$result[0]."</td></tr>";
+            if (array_search(1, $this->prize) !== false) $resultHTML .= "<tr><td>Число учащихся, являющихся победителями внутренних конкурсных мероприятий</td><td>".$result[1]."</td></tr>";
 
 
         }
