@@ -10,8 +10,24 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<style>
+    .invoice-btn {
+        margin-right: 10px;
+    }
+</style>
+
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
+<script>
+
+    function switchBlock(idBlock) {
+        document.querySelector('#invoice').hidden = true;
+        document.querySelector('#records').hidden = true;
+        block = '#' + idBlock;
+        document.querySelector(block).hidden = false;
+    }
+
+</script>
 
 <?php
 
@@ -27,108 +43,122 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 <div class="invoice-form">
 
+    <?php
+    echo Html::button('Показать данные документа', ['class' => 'btn btn-primary invoice-btn', 'onclick' => 'switchBlock("invoice")']);
+    if (!($model->number === null || $model->type === null || $model->date_invoice === null))
+    {
+        echo Html::button('Показать записи документа', ['class' => 'btn btn-primary invoice-btn', 'onclick' => 'switchBlock("records")']);
+    }
+    ?>
+    <div style="height: 20px"></div>
+
+
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт', '2' => 'УПД', '3' => 'Протокол'), 
-                            [
-                                'item' => function($index, $label, $name, $checked, $value) {
-                                    $checkStr = "";
-                                    if ($checked == 1)
-                                        $checkStr = "checked";
-                                    $return = '<label class="modal-radio">';
-                                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" '.$checkStr.'>';
-                                    $return .= '<i></i>';
-                                    $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
-                                    $return .= '</label><br>';
+    <div id="invoice">
+        <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт', '2' => 'УПД', '3' => 'Протокол'),
+                                [
+                                    'item' => function($index, $label, $name, $checked, $value) {
+                                        $checkStr = "";
+                                        if ($checked == 1)
+                                            $checkStr = "checked";
+                                        $return = '<label class="modal-radio">';
+                                        $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" tabindex="3" '.$checkStr.'>';
+                                        $return .= '<i></i>';
+                                        $return .= '<span style="margin-left: 5px">' . ucwords($label) . '</span>';
+                                        $return .= '</label><br>';
 
-                                    return $return;
-                                }
-                            ])->label('Вид документа') ?>
+                                        return $return;
+                                    }
+                                ])->label('Вид документа') ?>
 
-    <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%', 'type' => 'number']) ?>
+        <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%', 'type' => 'number']) ?>
 
-    <?php
-    $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
-    $params = [
-        'style' => 'width: 60%'
-    ];
-    echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
+        <?php
+        $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
+        $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
+        $params = [
+            'style' => 'width: 60%'
+        ];
+        echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
 
-    ?>
+        ?>
 
-    <?php echo $form->field($model, 'date_product')->widget(\yii\jui\DatePicker::class,
-        [
-            'dateFormat' => 'php:Y-m-d',
-            'language' => 'ru',
-            'options' => [
-                'style' => 'width: 60%',
-                'placeholder' => 'Дата',
-                'class'=> 'form-control',
-                'autocomplete'=>'off',
-            ],
-            'clientOptions' => [
-                'changeMonth' => true,
-                'changeYear' => true,
-                'yearRange' => '2000:2100',
-            ]]) 
-    ?>
+        <?php echo $form->field($model, 'date_product')->widget(\yii\jui\DatePicker::class,
+            [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'style' => 'width: 60%',
+                    'placeholder' => 'Дата',
+                    'class'=> 'form-control',
+                    'autocomplete'=>'off',
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2100',
+                ]])
+        ?>
 
-    <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
-        [
-            'dateFormat' => 'php:Y-m-d',
-            'language' => 'ru',
-            'options' => [
-                'style' => 'width: 60%',
-                'placeholder' => 'Дата',
-                'class'=> 'form-control',
-                'autocomplete'=>'off',
-            ],
-            'clientOptions' => [
-                'changeMonth' => true,
-                'changeYear' => true,
-                'yearRange' => '2000:2100',
-            ]]) 
-    ?>
+        <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
+            [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'style' => 'width: 60%',
+                    'placeholder' => 'Дата',
+                    'class'=> 'form-control',
+                    'autocomplete'=>'off',
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2100',
+                ]])
+        ?>
 
-    <?= $form->field($model, 'documentFile')->fileInput() ?>
-    <?php
-    if (strlen($model->document) > 2)
-        echo '<h5>Загруженный файл: '.Html::a($model->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $model->document, 'modelId' => $model->id])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['invoice/delete-file', 'fileName' => $model->document, 'modelId' => $model->id])).'</h5><br>';
-    ?>
+        <?= $form->field($model, 'documentFile')->fileInput() ?>
+        <?php
+        if (strlen($model->document) > 2)
+            echo '<h5>Загруженный файл: '.Html::a($model->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $model->document, 'modelId' => $model->id])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['invoice/delete-file', 'fileName' => $model->document, 'modelId' => $model->id])).'</h5><br>';
+        ?>
+    </div>
 
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Записи</h4></div>
-            <div>
-                <?php
-                $entries = \app\models\work\InvoiceEntryWork::find()->where(['invoice_id' => $model->id])->all();
-                if ($entries != null)
-                {
-                    echo '<table class="table table-bordered">';
-                    echo '<tr><td><b>Объект</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
-                    foreach ($entries as $entry) {
-                            echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+    <div id="records" hidden>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Записи</h4></div>
+                <div>
+                    <?php
+                    $entries = \app\models\work\InvoiceEntryWork::find()->where(['invoice_id' => $model->id])->all();
+                    if ($entries != null)
+                    {
+                        echo '<table class="table table-bordered">';
+                        echo '<tr><td><b>Объект</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
+                        foreach ($entries as $entry) {
+                                echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        }
+                        echo '</table>';
                     }
-                    echo '</table>';
-                }
-                ?>
-            </div>
-            <div class="panel-body">
-                <?php DynamicFormWidget::begin([
-                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                    'widgetBody' => '.container-items', // required: css class selector
-                    'widgetItem' => '.item1', // required: css class
-                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
-                    'min' => 1, // 0 or 1 (default 1)
-                    'insertButton' => '.add-item', // css class
-                    'deleteButton' => '.remove-item', // css class
-                    'model' => $modelObjects[0],
-                    'formId' => 'dynamic-form',
-                    'formFields' => [
-                        'eventExternalName',
-                    ],
-                ]); ?>
+                    ?>
+                </div>
+                <div class="panel-body">
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items', // required: css class selector
+                        'widgetItem' => '.item1', // required: css class
+                        'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item', // css class
+                        'deleteButton' => '.remove-item', // css class
+                        'model' => $modelObjects[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'eventExternalName',
+                        ],
+                    ]); ?>
+
 
                 <div class="container-items" ><!-- widgetContainer -->
                     <?php foreach ($modelObjects as $i => $modelObject): ?>
@@ -273,7 +303,9 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
                                         ?>
 
-                                        <?php echo $form->field($modelObject, "[{$i}]create_date")->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]create_date")
+                                            ->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])
+                                            /*->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',
@@ -286,10 +318,12 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                     'changeMonth' => true,
                                                     'changeYear' => true,
                                                     'yearRange' => '2000:2100',
-                                                ]]) 
+                                                ]]) */
                                         ?>
 
-                                        <?php echo $form->field($modelObject, "[{$i}]lifetime")->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]lifetime")
+                                            ->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])
+                                            /*->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',
@@ -302,10 +336,12 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                     'changeMonth' => true,
                                                     'changeYear' => true,
                                                     'yearRange' => '2000:2100',
-                                                ]]) 
+                                                ]]) */
                                         ?>
 
-                                        <?php echo $form->field($modelObject, "[{$i}]expirationDate")->widget(\yii\jui\DatePicker::class,
+                                        <?php echo $form->field($modelObject, "[{$i}]expirationDate")
+                                            ->textInput(['type' => 'date', 'id' => 'inputDate', 'class' => 'form-control inputDateClass'])
+                                            /*->widget(\yii\jui\DatePicker::class,
                                             [
                                                 'dateFormat' => 'php:Y-m-d',
                                                 'language' => 'ru',
@@ -318,7 +354,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                                                     'changeMonth' => true,
                                                     'changeYear' => true,
                                                     'yearRange' => '2000:2100',
-                                                ]]) 
+                                                ]]) */
                                         ?>
 
                                 </div>
@@ -328,6 +364,7 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
                     <?php endforeach; ?>
                 </div>
                 <?php DynamicFormWidget::end(); ?>
+                </div>
             </div>
         </div>
     </div>
