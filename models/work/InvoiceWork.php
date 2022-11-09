@@ -36,7 +36,7 @@ class InvoiceWork extends Invoice
             'contractor_id' => 'Контрагент',
             'contractString' => 'Контрагент',
             'date_product' => 'Дата приема товара в накладной',
-            'date_invoice' => 'Дата накладной',
+            'date_invoice' => 'Дата документа',
             'type' => 'Type',
             'entries' => '',
             'documentFile' => 'Документ основания',
