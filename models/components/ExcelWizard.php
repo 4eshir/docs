@@ -399,7 +399,7 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
-            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
