@@ -497,7 +497,7 @@ class ExcelWizard
 
         }
 
-        return [$counter1, $counter2, $not_include, $counterGZ];
+        return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
@@ -1223,14 +1223,7 @@ class ExcelWizard
         
         if ($all == 0) return 0;
 
-        if ($branch_id == 3 && $focus_id == 3)
-        {
-            var_dump($winners1[3]);
-            var_dump($winners2[3]);
-            var_dump($winners3[3]);
-        }
-
-        return round((($winners1[3] + $winners2[3] + $winners3[3]) / $all) * 100);
+        return round((($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4])) * 100);
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
