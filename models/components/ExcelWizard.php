@@ -458,6 +458,8 @@ class ExcelWizard
 
             if ($branch_id == 7 && $focus_id == 2)
             {
+                if (count($achievesId1) > 0)
+                    echo $event->name.' '.$event->id.'<br>';
                 for ($i = 0; $i < count($achievesId1); $i++)
                 {
                     $part = ForeignEventParticipantsWork::find()->where(['id' => $achievesId1[$i]])->one();
