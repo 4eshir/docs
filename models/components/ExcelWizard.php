@@ -1225,9 +1225,9 @@ class ExcelWizard
 
         if ($branch_id == 3 && $focus_id == 3)
         {
-            var_dump($winners1[4]);
-            var_dump($winners2[4]);
-            var_dump($winners3[4]);
+            var_dump(($winners1[3] + $winners2[3] + $winners3[3]));
+            var_dump(($winners1[4] + $winners2[4] + $winners3[4]));
+            var_dump(($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4]));
         }
 
         return round((($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4])) * 100);
