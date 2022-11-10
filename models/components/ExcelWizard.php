@@ -399,6 +399,10 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
+            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+            $pIds = [];
+            foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
+
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
             $tIds = [];
             $teamName = '';
@@ -1278,6 +1282,7 @@ class ExcelWizard
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
         ini_set('max_execution_time', '6000');
+        ini_set('memory_limit', '1024M');
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
