@@ -497,8 +497,6 @@ class ExcelWizard
 
         }
 
-        if ($branch_id == 3 && $focus_id == 3)
-            var_dump($counterPart1);
         return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
     }
 
@@ -1224,6 +1222,13 @@ class ExcelWizard
         //var_dump($all);
         
         if ($all == 0) return 0;
+
+        if ($branch_id == 3 && $focus_id == 3)
+        {
+            var_dump($winners1[4]);
+            var_dump($winners2[4]);
+            var_dump($winners3[4]);
+        }
 
         return round((($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4])) * 100);
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
