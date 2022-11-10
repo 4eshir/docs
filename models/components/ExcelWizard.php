@@ -380,6 +380,7 @@ class ExcelWizard
                 echo $part->teacherParticipant->foreign_event_id.' '.$part->teacherParticipantWork->participantWork->fullName.'<br>';
         }*/
 
+        $eIds = [];
         foreach ($partsLink as $part) 
         {
             $pIds[] = $part->teacherParticipant->participant_id;
