@@ -14,6 +14,14 @@ use yii\helpers\Url;
     .invoice-btn {
         margin-right: 10px;
     }
+
+    .btn-item {
+        width: 24px;
+    }
+
+    .i-item:before {
+        content: '↕';
+    }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -27,6 +35,43 @@ use yii\helpers\Url;
         document.querySelector(block).hidden = false;
     }
 
+    function blocksView(event) {
+        var item = event.target.parentNode.parentNode.parentNode.parentNode;
+        if (item.getElementsByClassName('panel-body')[0].style.display == 'none')
+            item.getElementsByClassName('panel-body')[0].style.display = '';
+        else
+            item.getElementsByClassName('panel-body')[0].style.display = 'none';
+
+        var name = item.getElementsByClassName('panel-body')[0].childNodes[1].childNodes[1].childNodes[3].value;
+        if (name != '')
+            item.getElementsByClassName('panel-title')[0].innerText = name;
+        else
+            item.getElementsByClassName('panel-title')[0].innerText = 'Пустая запись';
+    }
+
+    function ChangeIds()
+    {
+        let elems1 = document.getElementsByClassName('change-type');
+        let elems2 = document.getElementsByClassName('state-div');
+
+        for (let i = 0; i < elems1.length; i++)
+        {
+            elems1[i].id = 'type_'+ (elems1.length - i);
+            let str1 = 'state_'+ (elems1.length - i);
+            elems2[i].id = str1;
+
+            elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str1 + "')");
+        }
+    }
+
+    function OnChangeType(obj, elem)
+    {
+        let element = document.getElementById(elem);
+        if (obj.value == 2)
+            element.style.display = "block";
+        else
+            element.style.display = "none";
+    }
 </script>
 
 
@@ -151,10 +196,11 @@ use yii\helpers\Url;
 
                 <div class="container-items" ><!-- widgetContainer -->
                     <?php foreach ($modelObjects as $i => $modelObject): ?>
-                        <div class="item1 panel panel-default"><!-- widgetBody -->
+                        <div class="item1 panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title pull-left">Запись</h3>
                                 <div class="pull-right">
+                                    <button type="button" class="btn btn-primary btn-xs btn-item" onclick="blocksView(event)"><i class="glyphicon i-item"></i> </button>
                                     <button type="button" class="add-item btn btn-success btn-xs" onclick="ChangeIds()"><i class="glyphicon glyphicon-plus"></i></button>
                                     <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
                                 </div>
@@ -175,7 +221,7 @@ use yii\helpers\Url;
 
                                         ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]amount")->textInput(['type' => 'number', 'value' => 1]) ?>
 
                                         
 
@@ -277,7 +323,7 @@ use yii\helpers\Url;
 
                                         <?= $form->field($modelObject, "[{$i}]damage")->textarea(['rows' => '5']) ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]status")->checkbox(); ?>
+                                        <?= $form->field($modelObject, "[{$i}]status")->checkbox(['checked' => true]); ?>
 
                                         <?php
                                         $items = [0 => '-', 1 => 'Готов к списанию', 2 => 'Списан'];
@@ -361,30 +407,3 @@ use yii\helpers\Url;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-
-<script type="text/javascript">
-    function ChangeIds()
-    {
-        let elems1 = document.getElementsByClassName('change-type');
-        let elems2 = document.getElementsByClassName('state-div');
-
-        for (let i = 0; i < elems1.length; i++)
-        {
-            elems1[i].id = 'type_'+ (elems1.length - i);
-            let str1 = 'state_'+ (elems1.length - i);
-            elems2[i].id = str1;
-
-            elems1[i].setAttribute("onchange", "OnChangeType(this, '" + str1 + "')");
-        }
-    }
-
-    function OnChangeType(obj, elem)
-    {
-        let element = document.getElementById(elem);
-        if (obj.value == 2)
-            element.style.display = "block";
-        else
-            element.style.display = "none";
-    }
-</script>
