@@ -372,11 +372,11 @@ class ExcelWizard
             $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
-        if ($branch_id == 7 && $focus_id == 2)
+        /*if ($branch_id == 7 && $focus_id == 2)
         {
             foreach ($partsLink as $part)
                 echo $part->teacherParticipant->foreign_event_id.' '.$part->teacherParticipantWork->participantWork->fullName.'<br>';
-        }
+        }*/
 
         foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         foreach ($pIds as $one) $not_include[] = $one;
