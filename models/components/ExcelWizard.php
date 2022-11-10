@@ -451,10 +451,16 @@ class ExcelWizard
                 
             }
             
+            $achievesId1 = [];
+            foreach ($achieves1 as $achieve) $achievesId1[] = $achieve->participant_id;
+            $achievesId1 = array_unique($achievesId1);
 
+            $achievesId2 = [];
+            foreach ($achieves2 as $achieve) $achievesId2[] = $achieve->participant_id;
+            $achievesId2 = array_unique($achievesId2);
 
-            $counter1 += count($achieves1) + $counterTeamPrizes;
-            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counter1 += count($achievesId1) + $counterTeamPrizes;
+            $counter2 += count($achievesId2) + $counterTeamWinners;
             $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
