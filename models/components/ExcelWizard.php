@@ -1199,7 +1199,7 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
 
-        if ($branch_id == 7 && $focus_id == 2)
+        /*if ($branch_id == 7 && $focus_id == 2)
         {
             $newParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
@@ -1210,7 +1210,7 @@ class ExcelWizard
 
             foreach ($newParts as $part)
                 echo ForeignEventParticipantsWork::find()->where(['id' => $part->participant_id])->one()->fullName.'|'.TrainingGroupWork::find()->where(['id' => $part->training_group_id])->one()->number.'<br>';
-        }
+        }*/
 
         if (count($unicParts) == 0) return 0;
         return round((count($allParts) - count($unicParts)) / count($unicParts) * 100);
@@ -1333,9 +1333,9 @@ class ExcelWizard
 
         //Отдел ЦОД (худож. направленность)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 53, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 55, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 53, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 2));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 55, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 2));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 2, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 53)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 53)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 55)->getStyle()->getAlignment()->setVertical('top');
