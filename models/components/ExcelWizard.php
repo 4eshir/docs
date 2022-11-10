@@ -463,6 +463,7 @@ class ExcelWizard
                     $part = ForeignEventParticipantsWork::find()->where(['id' => $achievesId1[$i]])->one();
                     echo $part->fullName.'<br>';
                 }
+                echo '<br>---<br>';
             }
 
             $counter1 += count($achieves1) + $counterTeamPrizes;
