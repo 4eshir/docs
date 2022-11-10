@@ -361,7 +361,13 @@ class ExcelWizard
             
             
             if ($focus_id !== 0)
+            {
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+                if ($branch_id == 3 && $focus_id == 3)
+                {
+                    var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->createCommand()->getRawSql());
+                }
+            }
             else
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             
@@ -471,7 +477,7 @@ class ExcelWizard
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
             $counterGZ += count($achievesId1);
-            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
         }
