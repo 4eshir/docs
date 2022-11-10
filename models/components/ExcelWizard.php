@@ -471,7 +471,7 @@ class ExcelWizard
             foreach ($achieves2 as $achieve) $achievesId1[] = $achieve->participant_id;
             $achievesId1 = array_unique($achievesId1);
 
-            /*if ($branch_id == 3 && $focus_id == 3)
+            if ($branch_id == 3 && $focus_id == 3)
             {
                 if (count($achievesId1) > 0)
                     echo $event->name.' '.$event->id.'<br>';
@@ -480,8 +480,14 @@ class ExcelWizard
                     $part = ForeignEventParticipantsWork::find()->where(['id' => $achievesId1[$i]])->one();
                     echo $part->fullName.'<br>';
                 }
+                echo '<br> Все:<br>';
+                $alls = TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all();
+
+                foreach ($alls as $one)
+                    echo $one->participantWork->fullName.'<br>';
+
                 echo '<br>---<br>';
-            }*/
+            }
 
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
