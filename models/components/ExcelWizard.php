@@ -467,7 +467,7 @@ class ExcelWizard
             foreach ($achieves2 as $achieve) $achievesId1[] = $achieve->participant_id;
             $achievesId1 = array_unique($achievesId1);
 
-            if ($branch_id == 3 && $focus_id == 3)
+            /*if ($branch_id == 3 && $focus_id == 3)
             {
                 if (count($achievesId1) > 0)
                     echo $event->name.' '.$event->id.'<br>';
@@ -477,7 +477,7 @@ class ExcelWizard
                     echo $part->fullName.'<br>';
                 }
                 echo '<br>---<br>';
-            }
+            }*/
 
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
