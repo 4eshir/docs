@@ -453,20 +453,18 @@ class ExcelWizard
             
             $achievesId1 = [];
             foreach ($achieves1 as $achieve) $achievesId1[] = $achieve->participant_id;
+            foreach ($achieves2 as $achieve) $achievesId1[] = $achieve->participant_id;
             $achievesId1 = array_unique($achievesId1);
 
-            $achievesId2 = [];
-            foreach ($achieves2 as $achieve) $achievesId2[] = $achieve->participant_id;
-            $achievesId2 = array_unique($achievesId2);
-
-            $counter1 += count($achievesId1) + $counterTeamPrizes;
-            $counter2 += count($achievesId2) + $counterTeamWinners;
+            $counter1 += count($achieves1) + $counterTeamPrizes;
+            $counter2 += count($achieves2) + $counterTeamWinners;
+            $counterGZ += count($achievesId1);
             $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
         }
 
-        return [$counter1, $counter2, $not_include];
+        return [$counter1, $counter2, $not_include, $counterGZ];
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
@@ -1191,7 +1189,8 @@ class ExcelWizard
         //var_dump($all);
         
         if ($all == 0) return 0;
-        return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
+        return (($winners1[3] + $winners2[3] + $winners3[3]) / $all) * 100;
+        //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
     //получаем данные по людям, которые обучались в 2+ группах
