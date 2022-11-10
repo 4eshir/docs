@@ -385,7 +385,8 @@ class ExcelWizard
             $pIds[] = $part->teacherParticipant->participant_id;
             $eIds[] = $part->teacherParticipant->foreign_event_id;
         }
-        
+        var_dump($eIds);
+        //var_dump($partsLink);
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->all();
         
         foreach ($pIds as $one) $not_include[] = $one;
