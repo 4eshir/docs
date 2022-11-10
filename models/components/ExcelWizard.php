@@ -345,17 +345,17 @@ class ExcelWizard
     {
         $not_include = $participants_not_include;
 
-        if ($events_id == 0)
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+       /* if ($events_id == 0)
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*//*->all();
         else
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*//*->all();*/
 
 
         
         $partsLink = null;
         $pIds = [];
         $eIds = [];
-        foreach ($events1 as $event) $eIds[] = $event->id;
+        //foreach ($events1 as $event) $eIds[] = $event->id;
         if ($branch_id !== 0)
         {
             
@@ -363,10 +363,6 @@ class ExcelWizard
             if ($focus_id !== 0)
             {
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
-                if ($branch_id == 3 && $focus_id == 3)
-                {
-                    var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->createCommand()->getRawSql());
-                }
             }
             else
                 $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
@@ -384,7 +380,13 @@ class ExcelWizard
                 echo $part->teacherParticipant->foreign_event_id.' '.$part->teacherParticipantWork->participantWork->fullName.'<br>';
         }*/
 
-        foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
+        foreach ($partsLink as $part) 
+        {
+            $pIds[] = $part->teacherParticipant->participant_id;
+            $eIds[] = $part->teacherParticipant->foreign_event_id;
+        }
+        $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->all();
+        
         foreach ($pIds as $one) $not_include[] = $one;
 
 
