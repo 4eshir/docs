@@ -8,5 +8,8 @@ use Yii;
 
 class TeacherParticipantBranchWork extends TeacherParticipantBranch
 {
-
+	public function getTeacherParticipantWork()
+    {
+        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+    }
 }
