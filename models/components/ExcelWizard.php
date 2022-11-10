@@ -497,6 +497,8 @@ class ExcelWizard
 
         }
 
+        if ($branch_id == 3 && $focus_id == 3)
+            var_dump($counterPart1);
         return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
     }
 
