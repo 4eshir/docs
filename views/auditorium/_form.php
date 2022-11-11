@@ -43,6 +43,18 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'branch_id')->dropDownList($items,$params);
     ?>
 
+    <?php
+    $types = \app\models\work\AuditoriumTypeWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($types,'id','name');
+    $params = [];
+
+    echo $form->field($model, 'auditorium_type_id')->dropDownList($items,$params);
+    ?>
+
+    <?= $form->field($model, 'window_count')->textInput(['type' => 'number', 'style' => 'width: 40%']) ?>
+
+    <?= $form->field($model, 'include_square')->checkbox() ?>
+
     <?= $form->field($model, 'filesList[]')->fileInput(['multiple' => true]) ?>
 
     <div class="form-group">

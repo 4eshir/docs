@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\Auditorium;
+use app\models\work\AuditoriumTypeWork;
 use app\models\common\Branch;
 use app\models\components\FileWizard;
 use Yii;
@@ -18,17 +19,51 @@ class AuditoriumWork extends Auditorium
     {
         return [
             [['name', 'square', 'branch_id'], 'required'],
-            [['square'], 'number'],
-            [['is_education', 'branch_id', 'capacity'], 'integer'],
+            [['is_education', 'branch_id', 'capacity', 'auditorium_type_id', 'square', 'window_count', 'include_square'], 'integer'],
             [['name', 'text', 'files'], 'string', 'max' => 1000],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => BranchWork::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['auditorium_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AuditoriumTypeWork::className(), 'targetAttribute' => ['auditorium_type_id' => 'id']],
             [['filesList'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 10],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Уникальный глобальный номер',
+            'square' => 'Площадь (кв.м.)',
+            'text' => 'Имя',
+            'capacity' => 'Кол-во ученико-мест',
+            'files' => 'Файлы',
+            'filesList' => 'Файлы',
+            'is_education' => 'Предназначен для обр. деят.  ',
+            'branch_id' => 'Название отдела',
+            'include_square' => 'Учитывать при подсчете общей площади',
+            'window_count' => 'Количество оконных проемов',
+            'auditorium_type_id' => 'Тип помещения',
+            'auditoriumTypeString' => 'Тип помещения',
+        ];
+    }
+
+    public function GetAuditoriumTypeString()
+    {
+        return $this->auditoriumTypeWork->name;
+    }
+
+    public function GetAuditoriumTypeWork()
+    {
+        return $this->hasOne(AuditoriumTypeWork::className(), ['id' => 'auditorium_type_id']);
     }
 
     public function GetFullName()
     {
         return $this->name. ' (' . $this->text. ')' ;
+    }
+
+    public function GetIsIncludeSquare()
+    {
+        return $this->include_square ? 'Да' : 'Нет';
     }
 
     public function GetIsEducation()

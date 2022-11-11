@@ -36,6 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'isEducation', 'label' => 'Предназначен для обр. деят.'],
             ['attribute' => 'capacity', 'visible' => $model->is_education === 1],
             ['attribute' => 'branchName', 'label' => 'Название отдела', 'format' => 'html'],
+            ['attribute' => 'isIncludeSquare', 'label' => 'Учитывается при подсчете общей площади'],
+            'window_count',
+            'auditoriumTypeString',
             ['attribute' => 'files', 'value' => function ($model) {
                 $split = explode(" ", $model->files);
                 $result = '';
