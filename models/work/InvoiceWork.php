@@ -39,8 +39,8 @@ class InvoiceWork extends Invoice
             'date_invoice' => 'Дата документа',
             'type' => 'Type',
             'entries' => '',
-            'documentFile' => 'Документ основания',
-            'documentLink' => 'Документ основания',
+            'documentFile' => 'Документ основания поступления',
+            'documentLink' => 'Документ основания поступления',
         ];
     }
 

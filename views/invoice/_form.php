@@ -326,9 +326,9 @@ use yii\helpers\Url;
                                         <?= $form->field($modelObject, "[{$i}]status")->checkbox(['checked' => true]); ?>
 
                                         <?php
-                                        $items = [0 => '-', 1 => 'Готов к списанию', 2 => 'Списан'];
+                                        $items = [0 => 'Списание не требуется', 1 => 'Готов к списанию', 2 => 'Списан'];
                                         $params = [
-                                            'style' => 'width: 50%'
+                                            'style' => 'width: 60%'
                                         ];
                                         echo $form->field($modelObject, "[{$i}]write_off")->dropDownList($items,$params);
 

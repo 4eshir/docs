@@ -7,13 +7,16 @@ use yii\widgets\DetailView;
 /* @var $model app\models\work\InvoiceWork */
 
 $this->title = $model->number;
-$this->params['breadcrumbs'][] = ['label' => 'Накладные / акты', 'url' => ['index']];
-$this->params['breadcrumbs'][] = '№'.$this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Документы о поступлении', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Документ №'.$this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="invoice-view">
 
-    <h1><?= Html::encode('№'.$this->title) ?></h1>
+    <h1><?php
+        $type = $model->type;
+        $name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
+        echo Html::encode($name[$type] . ' №'.$this->title); ?></h1>
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

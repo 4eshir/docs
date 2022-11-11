@@ -71,8 +71,8 @@ class MaterialObjectWork extends MaterialObject
             'finance_source_id' => 'Источник финансирования',
             'financeSourceString' => 'Источник финансирования',
             'inventory_number' => 'Инвентарный номер',
-            'type' => 'Тип объекта',
-            'typeString' => 'Тип объекта',
+            'type' => 'Тип объекта по расходованию',
+            'typeString' => 'Тип объекта по расходованию',
             'is_education' => 'Является учебным материально-техническим ресурсом',
             'isEducationString' => 'Является учебным материально-техническим ресурсом',
             'state' => 'Остаток (в %)',
@@ -81,12 +81,12 @@ class MaterialObjectWork extends MaterialObject
             'statusString' => 'Объект в работоспособном состоянии',
             'write_off' => 'Статус списания',
             'writeOffString' => 'Статус списания',
-            'lifetime' => 'Дата окончания эксплуатации',
+            'lifetime' => 'Ожидаемая дата окончания эксплуатации (опционально)',
             'expiration_date' => 'Срок годности (в днях)',
-            'expirationDate' => 'Дата окончания срока годности',
+            'expirationDate' => 'Дата окончания срока годности (при наличии)',
             'create_date' => 'Дата производства объекта',
-            'kind_id' => 'Вид объекта',
-            'kindString' => 'Вид объекта',
+            'kind_id' => 'Класс объекта',
+            'kindString' => 'Класс объекта',
         ];
     }
 

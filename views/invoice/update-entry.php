@@ -7,7 +7,10 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\work\EntryWork */
 
 $this->title = 'Update Invoice: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Invoices', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Документы о поступлении', 'url' => ['index']];
+/*$type = $model->type;
+$name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
+$this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->number, 'url' => ['view', 'id' => $model->id]];*/
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

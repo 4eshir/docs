@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchInvoice */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Первичные документы';
+$this->title = 'Документы о поступлении материальных объектов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invoice-index">

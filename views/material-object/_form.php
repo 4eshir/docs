@@ -124,7 +124,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'status')->checkbox(); ?>
 
     <?php
-    $items = [0 => '-', 1 => 'Готов к списанию', 2 => 'Списан'];
+    $items = [0 => 'Списание не требуется', 1 => 'Готов к списанию', 2 => 'Списан'];
     $params = [
         'style' => 'width: 30%'
     ];

@@ -6,8 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\models\common\Invoice */
 
 $this->title = 'Редактировать документ: №' . $model->number;
-$this->params['breadcrumbs'][] = ['label' => 'Первичные документы', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' =>  '№' . $model->number, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Документ о поступлении', 'url' => ['index']];
+$type = $model->type;
+$name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
+$this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->number, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="invoice-update">

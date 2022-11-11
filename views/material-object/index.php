@@ -39,7 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'is_education',
             //'state',
             //'damage',
-            'statusString',
+            ['attribute' => 'status', 'value' => function($model){
+                return $model->status == 1 ? 'Рабочий' : 'Нерабочий';
+            }, 'filter' => [ 0 => 'Нерабочий', 1 => 'Рабочий']],
             //'write_off',
             //'lifetime',
             //'expiration_date',
