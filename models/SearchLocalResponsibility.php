@@ -57,8 +57,8 @@ class SearchLocalResponsibility extends LocalResponsibilityWork
         ]);
 
         $dataProvider->sort->attributes['responsibilityTypeStr'] = [
-            'asc' => ['responsibility_type.name' => SORT_ASC],
-            'desc' => ['responsibility_type.name' => SORT_DESC],
+            'asc' => ['responsibilityType.name' => SORT_ASC],
+            'desc' => ['responsibilityType.name' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['branchStr'] = [

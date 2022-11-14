@@ -229,6 +229,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </style>
 
+
+
+
 <div>
     <div class="form-group col-xs-5" style="padding-top: 1.75em;">
         <?php
@@ -250,7 +253,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '</tr></table>';
     echo '<div class="containerTable" id="tableId">';
     echo '<table class="table table-bordered"><thead><tr>';
-    echo '<th style="vertical-align: middle;">ФИО ученика / Даты занятий</th>';
+    echo '<th style="vertical-align: middle;"><button type="button" onclick="ChangeNames()" style="border-radius: 5px; border: 1px solid #46B2B4; background: #AFEEEE; font-size: 15px; font-weight: 600; margin-top: 3%;">ФИО ученика / Даты занятий</button></th>';
     $c = 0;
     foreach ($lessons as $lesson)
     {
@@ -296,7 +299,7 @@ $this->params['breadcrumbs'][] = $this->title;
             echo '<tr style="background:#918a8a">';
         else
             echo '<tr>';
-        echo '<th style="text-align: left; background: white;">' . $part->participantWork->shortName . "</th>";
+        echo '<th style="text-align: left; background: white;" class="fioStudies">' . $part->participantWork->shortName . "</th>";
         echo $form->field($model, 'participants[]')->hiddenInput(['value'=> $part->participant_id])->label(false);
         $c = 0;
         $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
@@ -434,6 +437,20 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
+<div id="full_names" style="display: none;">
+    <?php
+    foreach ($parts as $part)
+        echo $part->participantWork->secondname.' '.$part->participantWork->firstname.'|';
+    ?>
+</div>
+
+<div id="short_names" style="display: none;">
+    <?php
+    foreach ($parts as $part)
+        echo $part->participantWork->shortName.'|';
+    ?>
+</div>
+
 <?php
 $js2 =<<< JS
     $(".md-trigger").on('click', function() {
@@ -448,3 +465,33 @@ JS;
 $this->registerJs($js2, \yii\web\View::POS_LOAD);
 
 ?>
+
+
+<script type="text/javascript">
+    var change = true;
+
+    function ChangeNames()
+    {
+        let names = [];
+        if (change)
+        {
+            let elem = document.getElementById("full_names");
+            names = elem.innerHTML.split('|');
+            names.splice(0, 1);
+            names.splice(names.length - 1, 1);
+        }
+        else
+        {
+            let elem = document.getElementById("short_names");
+            names = elem.innerHTML.split('|');
+            names.splice(0, 1);
+            names.splice(names.length - 1, 1);
+        }
+
+        let elems = document.getElementsByClassName("fioStudies");
+        for (let i = 0; i < elems.length; i++)
+            elems[i].innerHTML = names[i];
+
+        change = !change;
+    }
+</script>

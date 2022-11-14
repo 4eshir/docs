@@ -143,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<br>';
     echo '<div class="containerTable" id="tableId">';
     echo '<table class="table table-bordered">';
-    echo '<tr><td><button onclick="ChangeNames()" style="border-radius: 5px; border: 1px solid #46B2B4; background: #AFEEEE">ФИО ученика / Даты занятий</button></td>';
+    echo '<tr><td><button onclick="ChangeNames()" style="border-radius: 5px; border: 1px solid #46B2B4; background: #AFEEEE; font-size: 15px; font-weight: 600; margin-top: 3%;">ФИО ученика / Даты занятий</button></td>';
     foreach ($lessons as $lesson)
     {
         echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
