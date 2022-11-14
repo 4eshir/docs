@@ -84,6 +84,18 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'event_level_id')->dropDownList($items,$params)->label('Уровень мероприятия');
 
     ?>
+
+    <?php
+    $scopes = \app\models\work\ParticipationScopeWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($scopes,'id','name');
+    $params = [
+        'prompt' => '',
+    ];
+
+    echo $form->field($model, 'participation_scope_id')->dropDownList($items,$params)->label('Сфера участия');
+
+    ?>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4>Участники</h4></div>

@@ -124,11 +124,26 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 </div>
 
+<div id="full_names" style="display: none;">
+    <?php
+    foreach ($parts as $part)
+        echo $part->participantWork->secondname.' '.$part->participantWork->firstname.'|';
+    ?>
+</div>
+
+<div id="short_names" style="display: none;">
+    <?php
+    foreach ($parts as $part)
+        echo $part->participantWork->shortName.'|';
+    ?>
+</div>
+
+
 <?php
     echo '<br>';
     echo '<div class="containerTable" id="tableId">';
     echo '<table class="table table-bordered">';
-    echo '<tr><td>ФИО ученика / Даты занятий</td>';
+    echo '<tr><td><button onclick="ChangeNames()" style="border-radius: 5px; border: 1px solid #46B2B4; background: #AFEEEE">ФИО ученика / Даты занятий</button></td>';
     foreach ($lessons as $lesson)
     {
         echo "<td>".date("d.m", strtotime($lesson->lesson_date))."</td>";
@@ -144,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if ($part->status == 1 || $part->status == 2)
             $tr = '<tr style="background:#f08080">';
         //echo $tr.'<td>'.$part->participantWork->shortName.'</td>';
-        echo $tr.'<td>'.Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participantWork->id])).'</td>';
+        echo $tr.'<td class="fioStudies">'.Html::a($part->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participantWork->id])).'</td>';
         foreach ($lessons as $lesson)
         {
             //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
@@ -192,3 +207,32 @@ $this->params['breadcrumbs'][] = $this->title;
     //echo '</div>';
 ?>
     
+
+<script type="text/javascript">
+    var change = true;
+
+    function ChangeNames()
+    {
+        let names = [];
+        if (change)
+        {
+            let elem = document.getElementById("full_names");
+            names = elem.innerHTML.split('|');
+            names.splice(0, 1);
+            names.splice(names.length - 1, 1);
+        }
+        else
+        {
+            let elem = document.getElementById("short_names");
+            names = elem.innerHTML.split('|');
+            names.splice(0, 1);
+            names.splice(names.length - 1, 1);
+        }
+
+        let elems = document.getElementsByClassName("fioStudies");
+        for (let i = 0; i < elems.length; i++)
+            elems[i].childNodes[0].innerHTML = names[i];
+
+        change = !change;
+    }
+</script>

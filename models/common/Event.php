@@ -32,8 +32,10 @@ use Yii;
  * @property string|null $other_files
  * @property int|null $event_way_id
  * @property int|null $creator_id
+ * @property int|null $participation_scope_id
  *
  * @property EventForm $eventForm
+ * @property ParticipationScope $participationScope
  * @property EventLevel $eventLevel
  * @property EventType $eventType
  * @property People $responsible
@@ -45,6 +47,7 @@ use Yii;
  * @property EventBranch[] $eventBranches
  * @property EventErrors[] $eventErrors
  * @property EventParticipants[] $eventParticipants
+ * @property EventTrainingGroup[] $eventTrainingGroups
  * @property EventsLink[] $eventsLinks
  * @property TemporaryJournal[] $temporaryJournals
  */
@@ -66,9 +69,10 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'key_words', 'comment', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'format', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'responsible2_id', 'order_id', 'regulation_id', 'contains_education', 'event_way_id', 'creator_id'], 'integer'],
+            [['event_type_id', 'event_form_id', 'format', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'responsible2_id', 'order_id', 'regulation_id', 'contains_education', 'event_way_id', 'creator_id', 'participation_scope_id'], 'integer'],
             [['name', 'old_name', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
+            [['participation_scope_id'], 'exist', 'skipOnError' => true, 'targetClass' => ParticipationScope::className(), 'targetAttribute' => ['participation_scope_id' => 'id']],
             [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
             [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
@@ -111,6 +115,7 @@ class Event extends \yii\db\ActiveRecord
             'other_files' => 'Other Files',
             'event_way_id' => 'Event Way ID',
             'creator_id' => 'Creator ID',
+            'participation_scope_id' => 'Participation Scope ID',
         ];
     }
 
@@ -122,6 +127,16 @@ class Event extends \yii\db\ActiveRecord
     public function getEventForm()
     {
         return $this->hasOne(EventForm::className(), ['id' => 'event_form_id']);
+    }
+
+    /**
+     * Gets query for [[ParticipationScope]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipationScope()
+    {
+        return $this->hasOne(ParticipationScope::className(), ['id' => 'participation_scope_id']);
     }
 
     /**
@@ -232,6 +247,16 @@ class Event extends \yii\db\ActiveRecord
     public function getEventParticipants()
     {
         return $this->hasMany(EventParticipants::className(), ['event_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[EventTrainingGroups]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventTrainingGroups()
+    {
+        return $this->hasMany(EventTrainingGroup::className(), ['event_id' => 'id']);
     }
 
     /**

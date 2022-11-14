@@ -51,15 +51,16 @@ class EventWork extends Event
             [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'protocol', 'contains_education', 'event_way_id'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
             [['responsibleString', 'eventLevelString'], 'string'],
-            [['format', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant','isCod', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst'], 'integer'],
+            [['format', 'event_type_id', 'event_form_id', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'isTechnopark', 'isQuantorium', 'isCDNTT', 'isMobQuant','isCod', 'contains_education', 'childs', 'teachers', 'others', 'leftAge', 'rightAge', 'childs_rst', 'participation_scope_id'], 'integer'],
             [['address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files', 'name', 'old_name'], 'string', 'max' => 1000],
-            [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
-            [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevel::className(), 'targetAttribute' => ['event_level_id' => 'id']],
-            [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventType::className(), 'targetAttribute' => ['event_type_id' => 'id']],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
-            [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['responsible2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['participation_scope_id'], 'exist', 'skipOnError' => true, 'targetClass' => ParticipationScopeWork::className(), 'targetAttribute' => ['participation_scope_id' => 'id']],
+            [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventFormWork::className(), 'targetAttribute' => ['event_form_id' => 'id']],
+            [['event_level_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventLevelWork::className(), 'targetAttribute' => ['event_level_id' => 'id']],
+            [['event_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventTypeWork::className(), 'targetAttribute' => ['event_type_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrderWork::className(), 'targetAttribute' => ['order_id' => 'id']],
+            [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => RegulationWork::className(), 'targetAttribute' => ['regulation_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['responsible2_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['responsible_id' => 'id']],
             [['protocolFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['photoFiles'], 'file', 'extensions' => 'jpg, png, jpeg, gi, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
             [['reportingFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
@@ -171,6 +172,11 @@ class EventWork extends Event
     public function getResponsibleWork()
     {
         return $this->hasOne(PeopleWork::className(), ['id' => 'responsible_id']);
+    }
+
+    public function getParticipationScopeWork()
+    {
+        return $this->hasOne(ParticipationScopeWork::className(), ['id' => 'participation_scope_id']);
     }
 
     public function getResponsibleWork2()
