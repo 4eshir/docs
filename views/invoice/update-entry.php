@@ -6,15 +6,16 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\work\EntryWork */
 
-$this->title = 'Update Invoice: ' . $model->id;
+$this->title = 'Редактировать материальные объекты';
 $this->params['breadcrumbs'][] = ['label' => 'Документы о поступлении', 'url' => ['index']];
-/*$type = $model->type;
+$type = $model->getInvoiceWork()->type;
 $name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
-$this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->number, 'url' => ['view', 'id' => $model->id]];*/
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->getInvoiceWork()->number, 'url' => ['view', 'id' => $model->getInvoiceWork()->id]];
+$this->params['breadcrumbs'][] = 'Редактирование ';
 ?>
 <div class="invoice-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(); ?>
 

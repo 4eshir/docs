@@ -204,14 +204,14 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $path = Yii::$app->basePath.'/download/';
+        /*$path = Yii::$app->basePath.'/download/';
         $createZip = new createDirZip();
         $createZip->get_files_from_folder($path, '');
         $fileName = 'archive.zip';
         $fd = fopen ($fileName, 'wb');
         $out = fwrite ($fd, $createZip->getZippedfile());
         fclose ($fd);
-        $createZip->forceDownload($fileName);
+        $createZip->forceDownload($fileName);*/
 
         /*$programs = TrainingProgramWork::find()->all();
 

@@ -169,9 +169,9 @@ use yii\helpers\Url;
                     if ($entries != null)
                     {
                         echo '<table class="table table-bordered">';
-                        echo '<tr><td><b>Объект</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
+                        echo '<tr><td><b>Объект</b></td><td><b>Признак</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
                         foreach ($entries as $entry) {
-                                echo '<tr><td style="width: 60%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 20%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                echo '<tr><td style="width: 50%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 15%">'.$entry->entryWork->objectWork->attribute.'</td><td style="width: 15%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         }
                         echo '</table>';
                     }

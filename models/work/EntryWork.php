@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\Entry;
+use app\models\work\InvoiceWork;
 use Yii;
 
 
@@ -24,6 +25,21 @@ class EntryWork extends Entry
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Наименование объекта',
+            'amount' => 'Количество',
+            'price' => 'Цена за единицу',
+            'number' => 'Номер товарной накладной',
+            'create_date' => 'Дата производства объекта/ов',
+            'expirationDate' => 'Дата окончания срока годности',
+            'lifetime' => 'Дата окончания эксплуатации',
+            'inventory_number' => 'Инвентарный номер',
+        ];
+    }
+
     public function fill()
     {
         $obj = MaterialObjectWork::find()->where(['id' => $this->object_id])->one();
@@ -38,6 +54,17 @@ class EntryWork extends Entry
 	public function getObjectWork()
     {
         return $this->hasOne(MaterialObjectWork::className(), ['id' => 'object_id']);
+    }
+
+    public function getInvoiceEntriesWork()
+    {
+        return $this->hasMany(InvoiceEntryWork::className(), ['entry_id' => 'id']);
+    }
+
+    public function getInvoiceWork()
+    {
+        $invoice = $this->invoiceEntriesWork[0]->invoiceWork;
+        return $invoice;
     }
 
     public function afterSave($insert, $changedAttributes)
