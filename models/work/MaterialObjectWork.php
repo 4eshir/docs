@@ -95,6 +95,11 @@ class MaterialObjectWork extends MaterialObject
         return $this->hasOne(KindObjectWork::className(), ['id' => 'kind_id']);
     }
 
+    public function getObjectEntryWork()
+    {
+        return $this->hasOne(ObjectEntryWork::className(), ['material_object_id' => 'id']);
+    }
+
     public function getFinanceSourceWork()
     {
         return $this->hasOne(FinanceSourceWork::className(), ['id' => 'finance_source_id']);

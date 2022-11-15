@@ -62,11 +62,12 @@ class InvoiceWork extends Invoice
         $result = '';
         foreach ($entries as $entry)
         {
-            $result .= '<b>'.$entry->entryWork->amount.'</b> '.$entry->entryWork->objectWork->name.'<br>';
-            for ($i = $entry->entryWork->object_id; $i < $entry->entryWork->object_id + $entry->entryWork->amount; $i++)
+            $objects = \app\models\work\ObjectEntryWork::find()->where(['entry_id' => $entry->entry_id])->orderBy(['id' => 'SORT_ASC'])->all();
+            $result .= '<b>'.$objects[0]->materialObject->name.'</b> '.' ('.$objects[0]->materialObject->attribute.') - '.$entry->entry->amount.' шт.'.'<br>';
+
+            foreach ($objects as $object)
             {
-                $obj = MaterialObjectWork::find()->where(['id' => $i])->one();
-                $result .= Html::a($obj->name, \yii\helpers\Url::to(['material-object/view', 'id' => $obj->id])).' - '.($i - $entry->entryWork->object_id + 1).'<br>';
+                $result .= Html::a($object->materialObject->name, \yii\helpers\Url::to(['material-object/view', 'id' => $object->materialObject->id]))./*' - '.($i - $entry->entryWork->object_id + 1).*/'<br>';
             }
             $result .= '<hr style="border-top: 1px solid gray; margin-top: 5px; margin-bottom: 5px">';
         }
@@ -94,25 +95,23 @@ class InvoiceWork extends Invoice
             //сохраняем все объекты из динамической формы
     		foreach ($this->objects as $object)
             {
-                //если ОС (нет количества)
-                if ($object->amount == "") $object->amount = 1;
+                //создаем запись для накладной
+                $entry = new EntryWork();
+                $entry->amount = $object->amount;
+                $entry->save();
 
-                $objId = -1;
+                // создаем материальные объекты и связку
                 for ($i = 0; $i < $object->amount; $i++)
                 {
                     $newObject = new MaterialObjectWork($object);
                     $newObject->number = $this->number;
                     $newObject->save();
-                    if ($objId == -1) $objId = $newObject->id;
-                }
 
-                //создаем запись для накладной
-                $entry = EntryWork::find()->where(['object_id' => $object->id])->one();
-                if ($entry == null) $entry = new EntryWork();
-                $entry->object_id = $objId;
-                $entry->amount = $object->amount;
-                $entry->fill();
-                $entry->save();
+                    $newObjectEntry = new ObjectEntryWork();
+                    $newObjectEntry->entry_id = $entry->id;
+                    $newObjectEntry->material_object_id = $newObject->id;
+                    $newObjectEntry->save();
+                }
 
                 //связываем запись и накладную/акт
                 $invoiceEntry = InvoiceEntryWork::find()->where(['invoice_id' => $this->id])->andWhere(['entry_id' => $entry->id])->one();

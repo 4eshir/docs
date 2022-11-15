@@ -35,6 +35,7 @@ use Yii;
  * @property ObjectCharacteristic[] $objectCharacteristics
  * @property PeopleMaterialObject[] $peopleMaterialObjects
  * @property TemporaryJournal[] $temporaryJournals
+ * @property ObjectEntry $objectEntry
  */
 class MaterialObject extends \yii\db\ActiveRecord
 {
@@ -132,6 +133,16 @@ class MaterialObject extends \yii\db\ActiveRecord
     public function getKind()
     {
         return $this->hasOne(KindObject::className(), ['id' => 'kind_id']);
+    }
+
+    /**
+     * Gets query for [[ObjectEntry]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObjectEntry()
+    {
+        return $this->hasOne(ObjectEntry::className(), ['material_object_id' => 'id']);
     }
 
     /**

@@ -51,13 +51,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?php /* Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить объект?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])*/ ?>
     </p>
 
     <?= DetailView::widget([

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить объект', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php /*Html::a('Добавить объект', ['create'], ['class' => 'btn btn-success'])*/ ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'expiration_date',
             //'create_date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
         ],
     ]); ?>
 

@@ -165,13 +165,20 @@ use yii\helpers\Url;
                 <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Записи</h4></div>
                 <div>
                     <?php
-                    $entries = \app\models\work\InvoiceEntryWork::find()->where(['invoice_id' => $model->id])->all();
-                    if ($entries != null)
+                    $inEntry = \app\models\work\InvoiceEntryWork::find()->where(['invoice_id' => $model->id])->all();
+
+                    if ($inEntry !== null)
                     {
                         echo '<table class="table table-bordered">';
                         echo '<tr><td><b>Объект</b></td><td><b>Признак</b></td><td><b>Кол-во</b></td><td></td><td></td></tr>';
-                        foreach ($entries as $entry) {
-                                echo '<tr><td style="width: 50%"><h5>'.$entry->entryWork->objectWork->name.'</h5></td><td style="width: 15%">'.$entry->entryWork->objectWork->attribute.'</td><td style="width: 15%">'.$entry->entryWork->amount.'</td><td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        foreach ($inEntry as $entry) {
+                            $object = \app\models\work\ObjectEntryWork::find()->where(['entry_id' => $entry->entry_id])->orderBy(['id' => 'SORT_ASC'])->all();
+                            if ($object !== null) {
+                                echo '<tr><td style="width: 50%"><h5>'.$object[0]->materialObject->name.'</h5></td>
+                                    <td style="width: 15%">'.$object[0]->materialObject->attribute.'</td>
+                                    <td style="width: 15%">'.$entry->entry->amount.'</td>
+                                    <td style="width: 10%">'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-entry', 'id' => $entry->entry->id,  'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td style="width: 10%">'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry', 'id' => $entry->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            }
                         }
                         echo '</table>';
                     }

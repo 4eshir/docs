@@ -8,11 +8,10 @@ use Yii;
  * This is the model class for table "entry".
  *
  * @property int $id
- * @property int $object_id
  * @property int $amount
  *
- * @property MaterialObject $object
  * @property InvoiceEntry[] $invoiceEntries
+ * @property ObjectEntry[] $objectEntries
  */
 class Entry extends \yii\db\ActiveRecord
 {
@@ -30,9 +29,8 @@ class Entry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_id', 'amount'], 'required'],
-            [['object_id', 'amount'], 'integer'],
-            [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['object_id' => 'id']],
+            [['amount'], 'required'],
+            [['amount'], 'integer'],
         ];
     }
 
@@ -43,19 +41,8 @@ class Entry extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'object_id' => 'Object ID',
             'amount' => 'Amount',
         ];
-    }
-
-    /**
-     * Gets query for [[Object]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getObject()
-    {
-        return $this->hasOne(MaterialObject::className(), ['id' => 'object_id']);
     }
 
     /**
@@ -66,5 +53,15 @@ class Entry extends \yii\db\ActiveRecord
     public function getInvoiceEntries()
     {
         return $this->hasMany(InvoiceEntry::className(), ['entry_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ObjectEntries]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObjectEntries()
+    {
+        return $this->hasMany(ObjectEntry::className(), ['entry_id' => 'id']);
     }
 }
