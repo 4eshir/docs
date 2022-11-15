@@ -65,9 +65,11 @@ class InvoiceWork extends Invoice
             $objects = \app\models\work\ObjectEntryWork::find()->where(['entry_id' => $entry->entry_id])->orderBy(['id' => 'SORT_ASC'])->all();
             $result .= '<b>'.$objects[0]->materialObject->name.'</b> '.' ('.$objects[0]->materialObject->attribute.') - '.$entry->entry->amount.' шт.'.'<br>';
 
+            $i = 1;
             foreach ($objects as $object)
             {
-                $result .= Html::a($object->materialObject->name, \yii\helpers\Url::to(['material-object/view', 'id' => $object->materialObject->id]))./*' - '.($i - $entry->entryWork->object_id + 1).*/'<br>';
+                $result .= $i .'. '. Html::a($object->materialObject->name, \yii\helpers\Url::to(['material-object/view', 'id' => $object->materialObject->id]))
+                    .'<br>';
             }
             $result .= '<hr style="border-top: 1px solid gray; margin-top: 5px; margin-bottom: 5px">';
         }
