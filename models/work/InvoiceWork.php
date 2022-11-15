@@ -69,7 +69,7 @@ class InvoiceWork extends Invoice
             foreach ($objects as $object)
             {
                 $result .= $i .'. '. Html::a($object->materialObject->name, \yii\helpers\Url::to(['material-object/view', 'id' => $object->materialObject->id]))
-                    .'<br>';
+                    .' (инв. номер: '.$object->materialObject->inventory_number.') - МОЛ'.'<br>';
             }
             $result .= '<hr style="border-top: 1px solid gray; margin-top: 5px; margin-bottom: 5px">';
         }
