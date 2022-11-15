@@ -41,7 +41,7 @@ class PdfWizard
 
     static public function DownloadCertificat ($certificat_id, $destination, $path = null)
     {
-        $certificat = CertificatWork::find()->where(['certificat_number' => $certificat_id])->one();
+        $certificat = CertificatWork::find()->where(['certificat_id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
         if ($part->participantWork->sex == "Женский")
         {
@@ -76,7 +76,7 @@ class PdfWizard
         }
 
 var_dump(Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path);
-var_dump($certificat->certificatTemplate);
+var_dump($certificat->id);
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
                                  background-size: 10%;">
