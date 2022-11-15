@@ -75,8 +75,6 @@ class PdfWizard
             }
         }
 
-/*var_dump(Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path);
-var_dump($certificat->id);*/
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
                                  background-size: 10%;">

@@ -600,7 +600,7 @@ class TrainingGroupController extends Controller
         {
             FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/');
             foreach ($certificats as $certificat)
-                PdfWizard::DownloadCertificat($certificat->certificat_number, 'server');
+                PdfWizard::DownloadCertificat($certificat->id, 'server');
             $archive = new CertificatWork();
             $archive->archiveDownload();
         }
