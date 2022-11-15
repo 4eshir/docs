@@ -477,14 +477,14 @@ $this->registerJs($js2, \yii\web\View::POS_LOAD);
         {
             let elem = document.getElementById("full_names");
             names = elem.innerHTML.split('|');
-            names.splice(0, 1);
+            //names.splice(0, 1);
             names.splice(names.length - 1, 1);
         }
         else
         {
             let elem = document.getElementById("short_names");
             names = elem.innerHTML.split('|');
-            names.splice(0, 1);
+            //names.splice(0, 1);
             names.splice(names.length - 1, 1);
         }
 
