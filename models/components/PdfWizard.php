@@ -117,8 +117,8 @@ class PdfWizard
         $trainedText = 'успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
                             "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText;
         $size = 19;
-        var_dump($trainedText);
-        if (strlen($trainedText) >= 700)
+
+        if (strlen($trainedText) >= 650)
         {
             $size = 17;
             if (strlen($trainedText) >= 920)
@@ -128,7 +128,7 @@ class PdfWizard
                     $size = 13;
             }
         }
-        var_dump($size);
+        
 
         $content = '<body style="
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
