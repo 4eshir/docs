@@ -81,7 +81,7 @@ class CertificatWork extends Certificat
     public function getParticipantProtection()
     {
         $part = TrainingGroupParticipantWork::find()->where(['id' => $this->training_group_participant_id])->one();
-        $result = substr($part->trainingGroupWork->protection_date, 0, strpos($part->trainingGroupWork->protection_date, ' '));
+        $result = $part->trainingGroupWork->protection_date;//substr($part->trainingGroupWork->protection_date, 0, strpos($part->trainingGroupWork->protection_date, ' '));
         return $result;
     }
 
