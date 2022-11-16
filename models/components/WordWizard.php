@@ -923,7 +923,8 @@ class WordWizard
             else if ($order->study_type == 2)
             {
                 $oldGr = TrainingGroupWork::find()->where(['id' => $groups[0]])->one();
-                $newGr = TrainingGroupWork::find()->where(['id' => $groupsID[1]])->one();
+                $newGr = TrainingGroupWork::find()->where(['id' => $groupsID[0]])->one();
+                
                 $text = '          1.	Перевести из учебной группы ' . $oldGr->number . ' в учебную группу ' . $newGr->number .  ' в рамках обучения по дополнительной общеразвивающей программе «' . $programsIN[0]->name . '», '
                     . mb_substr(mb_strtolower($programsIN[0]->stringFocus), 0, mb_strlen($programsIN[0]->stringFocus) - 2, "utf-8") . 'ой направленности ';
             }
