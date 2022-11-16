@@ -8,6 +8,7 @@ use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
 use app\models\work\PeopleWork;
+use app\models\work\LogWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -204,6 +205,21 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
+        $logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
+        foreach ($logs as $log)
+        {
+            $group = TrainingGroupWork::find()->where(['number' => explode(' ', $log->text)[2]])->one();
+            if ($group !== null)
+            {
+                if ($group->creator_id === null) $group->creator_id = $log->user->id;
+                $group->save();
+            }
+            else
+            {
+                var_dump($group->number);
+            }
+        }
+
         /*$path = Yii::$app->basePath.'/download/';
         $createZip = new createDirZip();
         $createZip->get_files_from_folder($path, '');
