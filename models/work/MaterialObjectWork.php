@@ -66,7 +66,9 @@ class MaterialObjectWork extends MaterialObject
             'count' => 'Количество',
             'amount' => 'Количество',
             'price' => 'Цена за единицу',
+            'priceString' => 'Цена за единицу',
             'number' => 'Номер товарной накладной',
+            'numberLink' => 'Номер товарной накладной',
             'attribute' => 'Признак',
             'finance_source_id' => 'Источник финансирования',
             'financeSourceString' => 'Источник финансирования',
@@ -136,6 +138,16 @@ class MaterialObjectWork extends MaterialObject
     public function getFinanceSourceString()
     {
         return $this->financeSourceWork->name;
+    }
+
+    public function getPriceString()
+    {
+        return $this->price . ' ₽';
+    }
+
+    public function getNumberLink()
+    {
+        return $this->number;
     }
 
     public function getWriteOffString()

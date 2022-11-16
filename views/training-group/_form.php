@@ -926,7 +926,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         'widgetContainer' => 'dynamicform_wrapper8', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                         'widgetBody' => '.container-items8', // required: css class selector
                         'widgetItem' => '.item8', // required: css class
-                        'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                        'limit' => 15, // the maximum times, an element can be cloned (default 999)
                         'min' => 1, // 0 or 1 (default 1)
                         'insertButton' => '.add-item8', // css class
                         'deleteButton' => '.remove-item8', // css class

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <div id="oc_0" style="display: block; margin-bottom: 5px;" class="oc">
+    <div id="oc_0" style="margin-bottom: 5px; display: <?php echo $model->attribute === "ОС" ? 'block' : 'none'; ?>" class="oc">
         <?php
             if ($model->amount == 1)
                 echo '<label class="control-label" for="entrywork-inventory_number">Инвентарный номер</label>';
