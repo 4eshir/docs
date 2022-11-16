@@ -4,6 +4,7 @@ namespace app\models\work;
 
 use app\models\common\MaterialObject;
 use app\models\work\ObjectCharacteristicWork;
+use yii\helpers\Html;
 
 
 class MaterialObjectWork extends MaterialObject
@@ -67,8 +68,8 @@ class MaterialObjectWork extends MaterialObject
             'amount' => 'Количество',
             'price' => 'Цена за единицу',
             'priceString' => 'Цена за единицу',
-            'number' => 'Номер товарной накладной',
-            'numberLink' => 'Номер товарной накладной',
+            'number' => 'Документ о поступлении',
+            'numberLink' => 'Документ о поступлении материального объекта',
             'attribute' => 'Признак',
             'finance_source_id' => 'Источник финансирования',
             'financeSourceString' => 'Источник финансирования',
@@ -110,13 +111,20 @@ class MaterialObjectWork extends MaterialObject
     public function getKindString()
     {
         $chars = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-        $res = '<table>';
-        
-        foreach ($chars as $char)
+        if (!empty($chars))
         {
-            $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px">'.$char->characteristicObjectWork->name.'</td><td>'.$char->getValue().'</td>';
+            $res = '<div style="float: left; width: 20%; height: 100%; line-height: 250%">'.$this->kindWork->name.'</div><div style="float: left; width: 80%"><button class="accordion" style="display: flex; float: left">Показать характеристики</button><div class="panel">';
+            $res .= '<table>';
+
+            foreach ($chars as $char)
+            {
+                $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px">'.$char->characteristicObjectWork->name.'</td><td>'.$char->getValue().'</td>';
+            }
+            $res .= '</table></div></div>';
         }
-        $res .= '</table>';
+        else
+            $res = '<span class="not-set">(не задано)</span>';
+
         return $res;
     }
 
@@ -147,7 +155,15 @@ class MaterialObjectWork extends MaterialObject
 
     public function getNumberLink()
     {
-        return $this->number;
+        $entry = ObjectEntryWork::find()->where(['material_object_id' => $this->id])->one();
+        $invoice = InvoiceEntryWork::find()->where(['entry_id' => $entry->entry_id])->one();
+
+        $type = $invoice->invoiceWork->type;
+        $name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
+
+        $fullName = $name[$type] . ' №' . $invoice->invoiceWork->number;
+
+        return Html::a($fullName, \yii\helpers\Url::to(['invoice/view', 'id' => $invoice->invoiceWork->id]));
     }
 
     public function getWriteOffString()
