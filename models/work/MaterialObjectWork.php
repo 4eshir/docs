@@ -24,7 +24,7 @@ class MaterialObjectWork extends MaterialObject
         $this->photo_cloud = $obj->photo_cloud;
         $this->count = $obj->count;
         $this->price = $obj->price;
-        $this->number = $obj->number;
+        //$this->number = $obj->number;
         $this->attribute = $obj->attribute;
         $this->finance_source_id = $obj->finance_source_id;
         $this->inventory_number = $obj->inventory_number;

@@ -224,10 +224,12 @@ class InvoiceController extends Controller
                 if ($value->integer_value !== null) $val = $value->integer_value;
                 if ($value->double_value !== null) $val = $value->double_value;
                 if (strlen($value->string_value) > 0) $val = $value->string_value;
+                if ($value->bool_value !== null) $val = $value->bool_value;
             }
 
             $type = "text";
             if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+            else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
             $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
             echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="width: 50%; float: left; margin-top: 10px;">
