@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\components\Logger;
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
 use app\models\extended\LoadParticipants;
@@ -166,6 +167,7 @@ class ForeignEventParticipantsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->edit_model->load(Yii::$app->request->post())) {
             $model->save();
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Объединены обучающиеся id1: '.$model->id1.' и id2: '.$model->id2);
             Yii::$app->session->setFlash('success', 'Объединение произведено успешно!');
             return $this->redirect(['view', 'id' => $model->id1]);
         }

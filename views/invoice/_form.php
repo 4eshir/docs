@@ -281,7 +281,7 @@ use yii\helpers\Url;
                                         ?>
 
                                         <div class="chars">
-                                            <?php 
+                                            <?php
 
                                             if ($modelObject->kind_id !== null)
                                             {
@@ -289,7 +289,7 @@ use yii\helpers\Url;
                                                 echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 35%">';
                                                 foreach ($characts as $c)
                                                 {
-                                                    $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $modelObject->id])->andWhere(['characteristic_object_id' => $c->id])->one();
+                                                    $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->id])->andWhere(['characteristic_object_id' => $c->id])->one();
                                                     $val = null;
                                                     if ($value !== null)
                                                     {
@@ -300,8 +300,8 @@ use yii\helpers\Url;
 
                                                     $type = "text";
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
-                                                    //echo $form->field($modelObject, "[{$i}]characteristics[]")->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
-                                                    echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork['."{$i}".'][characteristics][]" value="'.$val.'"></div>';
+                                                    echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
+                                                    /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
                                                 }
                                                 echo '</div>';
                                             }

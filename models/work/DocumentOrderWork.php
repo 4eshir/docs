@@ -369,12 +369,12 @@ class DocumentOrderWork extends DocumentOrder
                         if ($macaroni !== NULL)
                         {
                             $macaroni->delete();
-                            if ($tempId !== NULL)
+                            /*if ($tempId !== NULL)
                             {
                                 $delGr = TrainingGroupParticipantWork::find()->where(['id' => $tempId])->one();
                                 if ($delGr !== NULL)
                                 $delGr->delete();
-                            }
+                            }*/
                         }
 
                     }
@@ -584,8 +584,8 @@ class DocumentOrderWork extends DocumentOrder
                         $defector->delete();
                     $delGr = $groups->where(['id' => $tempId])->one();
                     //var_dump($delGr->id);
-                    if ($delGr !== NULL)
-                        $delGr->delete();
+                    /*if ($delGr !== NULL)
+                        $delGr->delete();*/
                     //var_dump($delGr->getErrors());
                 }
 
@@ -690,12 +690,12 @@ class DocumentOrderWork extends DocumentOrder
                 if ($macaroni !== NULL)
                 {
                     $macaroni->delete();
-                    if ($tempId !== NULL)
+                    /*if ($tempId !== NULL)
                     {
                         $delGr = TrainingGroupParticipantWork::find()->where(['id' => $tempId])->one();
                         if ($delGr !== NULL)
                             $delGr->delete();
-                    }
+                    }*/
                 }
             }
             /**/

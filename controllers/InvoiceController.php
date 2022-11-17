@@ -212,8 +212,32 @@ class InvoiceController extends Controller
     {
         $id = Yii::$app->request->post('id');
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 100%" class="main-ch">';
+        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 120%" class="main-ch">';
+        echo '<table>';
         $count = 0;
+        foreach ($characts as $c)
+        {
+            $value = ObjectCharacteristicWork::find()->where(['material_object_id' => $modelId])->andWhere(['characteristic_object_id' => $c->id])->one();
+            $val = null;
+            if ($value !== null)
+            {
+                if ($value->integer_value !== null) $val = $value->integer_value;
+                if ($value->double_value !== null) $val = $value->double_value;
+                if (strlen($value->string_value) > 0) $val = $value->string_value;
+            }
+
+            $type = "text";
+            if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+            $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
+            echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
+                 <th style="width: 50%; float: left; margin-top: 10px;">
+                 <input type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork['.$count.'][characteristics][]" value=""></th></tr>';
+            $count++;
+            //echo $form->field($model, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
+            /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
+        }
+        echo '</table>';
+        /*$count = 0;
         foreach ($characts as $c)
         {
             $value = ObjectCharacteristicWork::find()->where(['material_object_id' => $modelId])->andWhere(['characteristic_object_id' => $c->id])->one();
@@ -229,7 +253,7 @@ class InvoiceController extends Controller
             if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
             echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[0][characteristics][]" value="'.$val.'"></div>';
             $count++;
-        }
+        }*/
         echo '</div>';
         exit;
         /*if ($operationPosts > 0) {

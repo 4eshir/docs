@@ -96,7 +96,7 @@ class InvoiceWork extends Invoice
 
     	if ($this->objects !== null && $this->objects[0]->name != '')
     	{
-            //сохраняем все объекты из динамической формы
+    	    //сохраняем все объекты из динамической формы
     		foreach ($this->objects as $object)
             {
                 //создаем запись для накладной
