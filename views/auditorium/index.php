@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'branch_id', 'label' => 'Название отдела', 'value' => function($model){
                     return $model->branch->name;}],
         ['attribute' => 'capacity', 'label' => 'Кол-во ученико-мест'],
+        ['attribute' => 'auditoriumTypeString', 'label' => 'Тип помещения'],
+        ['attribute' => 'window_count', 'label' => 'Кол-во оконных проемов'],
     ];
     echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([

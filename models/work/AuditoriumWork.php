@@ -19,7 +19,8 @@ class AuditoriumWork extends Auditorium
     {
         return [
             [['name', 'square', 'branch_id'], 'required'],
-            [['is_education', 'branch_id', 'capacity', 'auditorium_type_id', 'square', 'window_count', 'include_square'], 'integer'],
+            [['is_education', 'branch_id', 'capacity', 'auditorium_type_id', 'window_count', 'include_square'], 'integer'],
+            [['square'], 'number'],
             [['name', 'text', 'files'], 'string', 'max' => 1000],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => BranchWork::className(), 'targetAttribute' => ['branch_id' => 'id']],
             [['auditorium_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AuditoriumTypeWork::className(), 'targetAttribute' => ['auditorium_type_id' => 'id']],

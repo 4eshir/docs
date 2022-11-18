@@ -108,7 +108,7 @@ class InvoiceWork extends Invoice
                 for ($i = 0; $i < $object->amount; $i++)
                 {
                     $newObject = new MaterialObjectWork($object);
-                    $newObject->number = $this->number;
+                    //$newObject->number = $this->number;
                     $newObject->save();
 
                     $newObjectEntry = new ObjectEntryWork();
