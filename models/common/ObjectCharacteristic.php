@@ -34,7 +34,7 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     {
         return [
             [['material_object_id', 'characteristic_object_id'], 'required'],
-            [['material_object_id', 'characteristic_object_id', 'integer_value'], 'integer'],
+            [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
             [['double_value'], 'number'],
             [['string_value'], 'string', 'max' => 1000],
             [['characteristic_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => CharacteristicObject::className(), 'targetAttribute' => ['characteristic_object_id' => 'id']],

@@ -232,7 +232,7 @@ class InvoiceController extends Controller
             else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
             $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
             echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
-                 <th style="width: 50%; float: left; margin-top: 10px;">
+                 <th style="float: left; margin-top: 10px;">
                  <input type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork['.$count.'][characteristics][]" value=""></th></tr>';
             $count++;
             //echo $form->field($model, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);

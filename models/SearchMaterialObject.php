@@ -18,7 +18,7 @@ class SearchMaterialObject extends MaterialObject
     public function rules()
     {
         return [
-            [['id', 'count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
+            [['id', 'count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
             [['name', 'photo_local', 'photo_cloud', 'attribute', 'inventory_number', 'damage', 'lifetime', 'create_date'], 'safe'],
             [['price'], 'number'],
         ];
@@ -63,7 +63,6 @@ class SearchMaterialObject extends MaterialObject
             'id' => $this->id,
             'count' => $this->count,
             'price' => $this->price,
-            'number' => $this->number,
             'finance_source_id' => $this->finance_source_id,
             'type' => $this->type,
             'is_education' => $this->is_education,

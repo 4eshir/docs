@@ -603,7 +603,8 @@ class DocumentOrderWork extends DocumentOrder
                 if ($pasta !== null)
                     $pasta->delete();
 
-                Logger::WriteLog(Yii::$app->user->identity->getId(),
+                if ($pasta->group_participant_id != '')
+                    Logger::WriteLog(Yii::$app->user->identity->getId(),
                     'Открепление part_id ' . $pasta->group_participant_id . ' от приказа '. $this->order_name . ' № ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : ''));
 
             }

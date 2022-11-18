@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'count',
             //'price',
             //'number',
-            'attribute',
+            ['attribute' => 'attribute'/*, 'filter' => [ 0 => 'ОС', 1 => 'ТМЦ']*/],
             //'finance_source_id',
             //'inventory_number',
             //'typeString',

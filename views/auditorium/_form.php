@@ -33,6 +33,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'capacity')->textInput() ?>
 
+    <?php
+    $types = \app\models\work\AuditoriumTypeWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($types,'id','name');
+    $params = [
+        'prompt' => '--',
+    ];
+
+    echo $form->field($model, 'auditorium_type_id')->dropDownList($items,$params);
+    ?>
+
     </div>
 
     <?php
@@ -43,13 +53,7 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'branch_id')->dropDownList($items,$params);
     ?>
 
-    <?php
-    $types = \app\models\work\AuditoriumTypeWork::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($types,'id','name');
-    $params = [];
 
-    echo $form->field($model, 'auditorium_type_id')->dropDownList($items,$params);
-    ?>
 
     <?= $form->field($model, 'window_count')->textInput(['type' => 'number', 'style' => 'width: 40%']) ?>
 

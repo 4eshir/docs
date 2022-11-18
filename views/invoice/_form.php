@@ -72,6 +72,11 @@ use yii\helpers\Url;
         else
             element.style.display = "none";
     }
+    
+    function hiddenBlock() {
+        let element = document.getElementsByClassName('main-ch');
+
+    }
 </script>
 
 
