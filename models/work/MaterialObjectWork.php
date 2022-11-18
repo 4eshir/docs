@@ -44,7 +44,7 @@ class MaterialObjectWork extends MaterialObject
     {
         return [
             //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'number', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount'], 'integer'],
+            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount'], 'integer'],
             [['price'], 'number'],
             [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
