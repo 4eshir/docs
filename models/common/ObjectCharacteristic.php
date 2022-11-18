@@ -13,6 +13,8 @@ use Yii;
  * @property int|null $integer_value
  * @property float|null $double_value
  * @property string|null $string_value
+ * @property int|null $bool_value
+ * @property string $date_value
  *
  * @property CharacteristicObject $characteristicObject
  * @property MaterialObject $materialObject
@@ -33,9 +35,10 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['material_object_id', 'characteristic_object_id'], 'required'],
+            [['material_object_id', 'characteristic_object_id', 'date_value'], 'required'],
             [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
             [['double_value'], 'number'],
+            [['date_value'], 'safe'],
             [['string_value'], 'string', 'max' => 1000],
             [['characteristic_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => CharacteristicObject::className(), 'targetAttribute' => ['characteristic_object_id' => 'id']],
             [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
@@ -54,6 +57,8 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
             'integer_value' => 'Integer Value',
             'double_value' => 'Double Value',
             'string_value' => 'String Value',
+            'bool_value' => 'Bool Value',
+            'date_value' => 'Date Value',
         ];
     }
 

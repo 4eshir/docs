@@ -302,11 +302,13 @@ use yii\helpers\Url;
                                                         if ($value->double_value !== null) $val = $value->double_value;
                                                         if (strlen($value->string_value) > 0) $val = $value->string_value;
                                                         if ($value->bool_value !== null) $val = $value->bool_value;
+                                                        if ($value->date_value !== null) $val = $value->date_value;
                                                     }
 
                                                     $type = "text";
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
                                                     else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
+                                                    else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                                                     echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
                                                     /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
                                                 }

@@ -72,6 +72,7 @@ class InvoiceWork extends Invoice
                 if ($object->materialObject->attribute === "ОС")
                     $result .= ' (инв. номер: '.$object->materialObject->inventory_number.')';
                 $result .= ' - МОЛ'.'<br>';
+                $i++;
             }
             $result .= '<hr style="border-top: 1px solid gray; margin-top: 5px; margin-bottom: 5px">';
         }
@@ -107,8 +108,9 @@ class InvoiceWork extends Invoice
                 // создаем материальные объекты и связку
                 for ($i = 0; $i < $object->amount; $i++)
                 {
+                    //var_dump($this->objects);
                     $newObject = new MaterialObjectWork($object);
-                    //$newObject->number = $this->number;
+                    //$newObject->characteristics = $object->characteristics;
                     $newObject->save();
 
                     $newObjectEntry = new ObjectEntryWork();

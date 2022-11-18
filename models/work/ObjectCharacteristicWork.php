@@ -24,5 +24,6 @@ class ObjectCharacteristicWork extends ObjectCharacteristic
     	if ($this->double_value !== null) return $this->double_value;
     	if ($this->string_value !== null && strlen($this->string_value) > 0) return $this->string_value;
     	if ($this->bool_value !== null) return $this->bool_value;
+    	if ($this->date_value !== null) return $this->date_value;
     }
 }

@@ -38,6 +38,7 @@ class MaterialObjectWork extends MaterialObject
         $this->lifetime = $obj->lifetime;
         $this->expiration_date = $obj->expiration_date;
         $this->create_date = $obj->create_date;
+        $this->characteristics = $obj->characteristics;
     }
 
 	public function rules()
@@ -189,36 +190,38 @@ class MaterialObjectWork extends MaterialObject
     public function afterSave($insert, $changedAttributes)
     {
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-
+var_dump($this->characteristics);
         if ($this->characteristics !== null)
         {
             $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
             foreach ($objChar as $c) $c->delete();
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
-                
 
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
                     $objChar = new ObjectCharacteristicWork();
+                    $objChar->integer_value = null;
+                    $objChar->double_value = null;
+                    $objChar->string_value = null;
+                    $objChar->bool_value = null;
+                    $objChar->date_value = null;
+
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
-                    {
                         $objChar->integer_value = $this->characteristics[$i];
-                        $objChar->double_value = null;
-                        $objChar->string_value = null;
-                    }
+
                     if ($characts[$i]->characteristicObjectWork->value_type == 2)
-                    {
-                        $objChar->integer_value = null;
                         $objChar->double_value = $this->characteristics[$i];
-                        $objChar->string_value = null;
-                    }
+
                     if ($characts[$i]->characteristicObjectWork->value_type == 3)
-                    {
-                        $objChar->integer_value = null;
-                        $objChar->double_value = null;
                         $objChar->string_value = $this->characteristics[$i];
-                    }
+
+                    if ($characts[$i]->characteristicObjectWork->value_type == 4)
+                        $objChar->bool_value = $this->characteristics[$i];
+
+                    if ($characts[$i]->characteristicObjectWork->value_type == 5)
+                        $objChar->bool_value = $this->characteristics[$i];
+
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->id;
