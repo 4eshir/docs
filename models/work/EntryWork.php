@@ -17,12 +17,13 @@ class EntryWork extends Entry
     public $expirationDate; //общая дата окончания срока годности для всех объектов
     public $inventory_number; //инвентарный номер (только для ОС)
     public $attribute; // ос или тмц
+    public $complex; //составной объект или нет
 
     public function rules()
     {
         return [
             [['name', 'create_date', 'lifetime', 'expirationDate'], 'string'],
-            [['amount', 'price'], 'integer'],
+            [['amount', 'price', 'complex'], 'integer'],
             [['inventory_number'], 'safe'],
             /*[['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectWork::className(), 'targetAttribute' => ['object_id' => 'id']],*/
         ];
@@ -40,6 +41,7 @@ class EntryWork extends Entry
             'expirationDate' => 'Дата окончания срока годности (при наличии)',
             'lifetime' => 'Дата окончания эксплуатации (опционально)',
             'inventory_number' => 'Инвентарный номер',
+            'complex' => 'Составной объект',
         ];
     }
 
@@ -89,6 +91,7 @@ class EntryWork extends Entry
             $object->materialObject->lifetime = $this->lifetime;
             $object->materialObject->expiration_date = $this->expirationDate;
             $object->materialObject->inventory_number = $this->inventory_number[$i];
+            $object->materialObject->complex = $this->complex;
             $object->materialObject->save();
             $i++;
         }

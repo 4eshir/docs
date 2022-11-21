@@ -11,9 +11,8 @@ use Yii;
  * @property string $name
  * @property string|null $photo_local
  * @property string|null $photo_cloud
- * @property int $count
+ * @property int|null $count
  * @property float $price стоимость за одну штуку
- * @property int $number номер товарной накладной
  * @property string $attribute ОС или ТМЦ
  * @property int $finance_source_id источник финансирования
  * @property string|null $inventory_number
@@ -22,20 +21,21 @@ use Yii;
  * @property int $is_education учебно-материально-технический ресурс или нет
  * @property int|null $state % расходования
  * @property string|null $damage описание повреждений
- * @property int|null $status рабочее или нет
+ * @property int|null $status 1 - нерабочее 2 - рабочее
  * @property int $write_off Статус списания: 0 - все ок, 1 - хочет списаться, 2 - списан
  * @property string|null $lifetime срок эксплуатации (для неорганики)
  * @property int|null $expiration_date срок годности
  * @property string|null $create_date дата производства товара
+ * @property int $complex
  *
  * @property ContainerObject[] $containerObjects
  * @property LegacyMaterialResponsibility[] $legacyMaterialResponsibilities
  * @property FinanceSource $financeSource
  * @property KindObject $kind
+ * @property MaterialObjectSubobject[] $materialObjectSubobjects
  * @property ObjectCharacteristic[] $objectCharacteristics
  * @property PeopleMaterialObject[] $peopleMaterialObjects
  * @property TemporaryJournal[] $temporaryJournals
- * @property ObjectEntry $objectEntry
  */
 class MaterialObject extends \yii\db\ActiveRecord
 {
@@ -53,8 +53,8 @@ class MaterialObject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'number', 'finance_source_id', 'type', 'kind_id', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
+            [['name', 'price', 'finance_source_id', 'type', 'is_education'], 'required'],
+            [['count', 'finance_source_id', 'type', 'kind_id', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'complex'], 'integer'],
             [['price'], 'number'],
             [['lifetime', 'create_date'], 'safe'],
             [['name', 'photo_local', 'photo_cloud'], 'string', 'max' => 1000],
@@ -78,7 +78,6 @@ class MaterialObject extends \yii\db\ActiveRecord
             'photo_cloud' => 'Photo Cloud',
             'count' => 'Count',
             'price' => 'Price',
-            'number' => 'Number',
             'attribute' => 'Attribute',
             'finance_source_id' => 'Finance Source ID',
             'inventory_number' => 'Inventory Number',
@@ -92,6 +91,7 @@ class MaterialObject extends \yii\db\ActiveRecord
             'lifetime' => 'Lifetime',
             'expiration_date' => 'Expiration Date',
             'create_date' => 'Create Date',
+            'complex' => 'Complex',
         ];
     }
 
@@ -136,13 +136,13 @@ class MaterialObject extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ObjectEntry]].
+     * Gets query for [[MaterialObjectSubobjects]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getObjectEntry()
+    public function getMaterialObjectSubobjects()
     {
-        return $this->hasOne(ObjectEntry::className(), ['material_object_id' => 'id']);
+        return $this->hasMany(MaterialObjectSubobject::className(), ['material_object_id' => 'id']);
     }
 
     /**
