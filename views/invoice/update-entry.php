@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                         <label class="control-label">Наименование объекта</label>
                         <input type="text" class="form-control" name="EntryWork[0][name]" value="" style="margin-bottom: 10px">
                         <label class="control-label">Описание объекта</label>
-                        <input type="text" class="form-control" name="EntryWork[0][text]" value="">
+                        <textarea class="form-control" rows="4" name="EntryWork[0][text]" value=""></textarea>
                     </div>                
                 </div>
                 <!-- ------------------------------------------------ -->
@@ -257,8 +257,8 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         {
             let template = this_elem.parentNode.parentNode.parentNode.getElementsByClassName("main_note")[0].cloneNode(true);
             template.style.display = "block";
-            template.getElementsByTagName("input")[0].name = "EntryWork[" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
-            template.getElementsByTagName("input")[1].name = "EntryWork[" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
+            template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
+            template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
             //template.
             let form = (this_elem).parentNode.parentNode.parentNode.getElementsByClassName("content_dynamic")[0];
             form.append(template);
@@ -271,8 +271,8 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 template.style.display = "block";
                 template.classList.add('inside');
 
-                 template.getElementsByTagName("input")[0].name = "EntryWork[" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
-                template.getElementsByTagName("input")[1].name = "EntryWork[" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
+                 template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
+                template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
 
 
                 let form = (this_elem).parentNode.parentNode.parentNode;

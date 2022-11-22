@@ -11,10 +11,12 @@ use Yii;
  * @property string $name
  * @property string|null $characteristics
  * @property int|null $parent_id
+ * @property int|null $material_object_id
  *
  * @property MaterialObjectSubobject[] $materialObjectSubobjects
  * @property Subobject $parent
  * @property Subobject[] $subobjects
+ * @property MaterialObject $materialObject
  */
 class Subobject extends \yii\db\ActiveRecord
 {
@@ -33,10 +35,11 @@ class Subobject extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['parent_id'], 'integer'],
+            [['parent_id', 'material_object_id'], 'integer'],
             [['name'], 'string', 'max' => 1000],
             [['characteristics'], 'string', 'max' => 2000],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subobject::className(), 'targetAttribute' => ['parent_id' => 'id']],
+            [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
         ];
     }
 
@@ -50,6 +53,7 @@ class Subobject extends \yii\db\ActiveRecord
             'name' => 'Name',
             'characteristics' => 'Characteristics',
             'parent_id' => 'Parent ID',
+            'material_object_id' => 'Material Object ID',
         ];
     }
 
@@ -81,5 +85,15 @@ class Subobject extends \yii\db\ActiveRecord
     public function getSubobjects()
     {
         return $this->hasMany(Subobject::className(), ['parent_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[MaterialObject]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaterialObject()
+    {
+        return $this->hasOne(MaterialObject::className(), ['id' => 'material_object_id']);
     }
 }
