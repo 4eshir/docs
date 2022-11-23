@@ -117,6 +117,7 @@ use yii\helpers\Url;
         $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
         $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
         $params = [
+            'prompt' => '--',
             'style' => 'width: 60%'
         ];
         echo $form->field($model, 'contractor_id')->dropDownList($items,$params);

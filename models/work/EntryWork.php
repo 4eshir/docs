@@ -19,6 +19,10 @@ class EntryWork extends Entry
     public $attribute; // ос или тмц
     public $complex; //составной объект или нет
 
+    public $kind_id;    // класс объекта
+    public $object_id; // материальный объект для вывода характеристик класса
+
+    public $characteristics; // массив характеристик класса
     public $dynamic; //массив объектов и подобъектов
 
     public function rules()
@@ -44,6 +48,7 @@ class EntryWork extends Entry
             'lifetime' => 'Дата окончания эксплуатации (опционально)',
             'inventory_number' => 'Инвентарный номер',
             'complex' => 'Составной объект',
+            'kind_id' => 'Класс объекта',
         ];
     }
 
@@ -61,6 +66,9 @@ class EntryWork extends Entry
             $this->inventory_number[] = $object->materialObject->inventory_number;
         }
         $this->attribute = $obj[0]->materialObject->attribute;
+        //$this->complex = $obj[0]->materialObject->complex;
+        $this->kind_id = $obj[0]->materialObject->kind_id;
+        $this->object_id = $obj[0]->materialObject->id;
     }
 
 	public function getObjectWork()
