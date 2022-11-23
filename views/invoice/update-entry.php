@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\work\SubobjectWork;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\EntryWork */
@@ -202,6 +203,33 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
 
     <div id="complex_block" style="display: <?php echo $model->complex == 1 ? 'block' : 'none' ?>; margin-bottom: 20px">
+        <div>
+            <table class="table table-bordered">
+                <?php
+
+                $parentObj = SubobjectWork::find()->where(['entry_id' => $model->id])->all();
+                if ($parentObj !== null)
+                {
+                    echo '<tr><td>Название</td><td>Описание</td><td>Состояние</td><td></td></tr>';
+                    foreach ($parentObj as $one)
+                    {
+                        echo '<tr><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        $subs = SubobjectWork::find()->where(['parent_id' => $one->id])->all();
+                        if ($subs !== null)
+                        {
+                            foreach ($subs as $sub)
+                            {
+                                echo '<tr><td>&#8735;'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                            }
+                        }
+                    }
+                }
+                
+
+                ?>
+            </table>
+        </div>
+
         <div class="main_dynamic">
             <div class="head_dynamic">
                 <div class="head_dynamic_text">Введите все составные части объекта</div>
@@ -217,10 +245,15 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                         <div class="head_note_action"><button type="button" class="add_button" onclick="AddHandler(this)">+</button><button type="button" class="remove_button" onclick="RemoveHandler(this)">&#10006;</button></div>
                     </div>
                     <div class="content_note">
-                        <label class="control-label">Наименование объекта</label>
+                        <label class="control-label">Наименование части объекта</label>
                         <input type="text" class="form-control" name="EntryWork[0][name]" value="" style="margin-bottom: 10px">
-                        <label class="control-label">Описание объекта</label>
-                        <textarea class="form-control" rows="4" name="EntryWork[0][text]" value=""></textarea>
+                        <label class="control-label">Описание части объекта</label>
+                        <textarea class="form-control" rows="4" name="EntryWork[0][text]" value="" style="margin-bottom: 12px"></textarea>
+                        
+                        <input type="hidden" name="EntryWork[0][state]" value="1">
+                        <label>
+                            <input type="checkbox" id="entrywork-complex" name="EntryWork[0][state]" value="1" aria-invalid="false" disabled checked> Часть в рабочем состоянии
+                        </label>
                     </div>                
                 </div>
                 <!-- ------------------------------------------------ -->
@@ -259,6 +292,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             template.style.display = "block";
             template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
             template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
+            template.getElementsByTagName("input")[1].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][state]";
             //template.
             let form = (this_elem).parentNode.parentNode.parentNode.getElementsByClassName("content_dynamic")[0];
             form.append(template);
@@ -273,6 +307,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
                  template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
                 template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
+                template.getElementsByTagName("input")[1].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][state]";
 
 
                 let form = (this_elem).parentNode.parentNode.parentNode;

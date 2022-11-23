@@ -10,13 +10,14 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string|null $characteristics
+ * @property int $state
  * @property int|null $parent_id
- * @property int|null $material_object_id
+ * @property int|null $entry_id
  *
  * @property MaterialObjectSubobject[] $materialObjectSubobjects
  * @property Subobject $parent
  * @property Subobject[] $subobjects
- * @property MaterialObject $materialObject
+ * @property Entry $entry
  */
 class Subobject extends \yii\db\ActiveRecord
 {
@@ -34,12 +35,12 @@ class Subobject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['parent_id', 'material_object_id'], 'integer'],
+            [['name', 'state'], 'required'],
+            [['state', 'parent_id', 'entry_id'], 'integer'],
             [['name'], 'string', 'max' => 1000],
             [['characteristics'], 'string', 'max' => 2000],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subobject::className(), 'targetAttribute' => ['parent_id' => 'id']],
-            [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
+            [['entry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Entry::className(), 'targetAttribute' => ['entry_id' => 'id']],
         ];
     }
 
@@ -52,8 +53,9 @@ class Subobject extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'characteristics' => 'Characteristics',
+            'state' => 'State',
             'parent_id' => 'Parent ID',
-            'material_object_id' => 'Material Object ID',
+            'entry_id' => 'Entry ID',
         ];
     }
 
@@ -88,12 +90,12 @@ class Subobject extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[MaterialObject]].
+     * Gets query for [[Entry]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialObject()
+    public function getEntry()
     {
-        return $this->hasOne(MaterialObject::className(), ['id' => 'material_object_id']);
+        return $this->hasOne(Entry::className(), ['id' => 'entry_id']);
     }
 }

@@ -10,4 +10,8 @@ use Yii;
 class SubobjectWork extends Subobject
 {
 
+	public function getStateString()
+	{
+		return $this->state == 0 ? 'Нерабочий' : 'Рабочий';
+	}
 }

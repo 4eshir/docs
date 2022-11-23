@@ -8,6 +8,8 @@ use app\models\work\InvoiceWork;
 use app\models\work\InvoiceEntryWork;
 use app\models\work\EntryWork;
 use app\models\work\MaterialObjectWork;
+use app\models\work\SubobjectWork;
+use app\models\work\MaterialObjectSubobjectWork;
 use app\models\extended\MaterialObjectDynamic;
 use app\models\work\KindCharacteristicWork;
 use app\models\work\ObjectCharacteristicWork;
@@ -206,6 +208,27 @@ class InvoiceController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionDeleteObject($id, $modelId)
+    {
+        $sub = SubobjectWork::find()->where(['id' => $id])->one();
+        $subsubs = SubobjectWork::find()->where(['parent_id' => $id])->all();
+        $mat_subs = MaterialObjectSubobjectWork::find()->where(['subobject_id' => $id])->all();
+
+        if ($mat_subs !== null)
+            foreach ($mat_subs as $one)
+                $one->delete();
+
+        if ($subsubs !== null)
+            foreach ($subsubs as $one)
+                $one->delete();
+
+        $sub->delete();
+
+        $invoiceId = InvoiceEntryWork::find()->where(['entry_id' => $modelId])->one()->invoice_id;
+
+        return $this->redirect('index?r=invoice/update-entry&id='.$modelId.'&modelId='.$invoiceId);
     }
 
     //генерируем набор input-ов в соответствии с выбранным типом
