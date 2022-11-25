@@ -45,7 +45,7 @@ class MaterialObjectWork extends MaterialObject
     {
         return [
             //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount'], 'integer'],
+            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount', 'complex'], 'integer'],
             [['price'], 'number'],
             [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
@@ -91,6 +91,7 @@ class MaterialObjectWork extends MaterialObject
             'create_date' => 'Дата производства объекта',
             'kind_id' => 'Класс объекта',
             'kindString' => 'Класс объекта',
+            'complexString' => '',
         ];
     }
 
@@ -119,7 +120,7 @@ class MaterialObjectWork extends MaterialObject
 
             foreach ($chars as $char)
             {
-                $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px">'.$char->characteristicObjectWork->name.'</td>';
+                $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px; width: 80%;">'.$char->characteristicObjectWork->name.'</td>';
                 if ($char->characteristicObjectWork->value_type == 4)
                     $res .= '<td>'.($char->getValue() == 1 ? 'Да' : 'Нет').'</td>';
                 else
@@ -148,11 +149,6 @@ class MaterialObjectWork extends MaterialObject
         return $this->status == 1 ? 'Рабочий' : 'Нерабочий';
     }
 
-    public function getFinanceSourceString()
-    {
-        return $this->financeSourceWork->name;
-    }
-
     public function getPriceString()
     {
         return $this->price . ' ₽';
@@ -176,6 +172,35 @@ class MaterialObjectWork extends MaterialObject
         if ($this->write_off == 0)
             return 'Доступен для эксплуатации';
         return $this->write_off == 1 ? 'Готов к списанию' : 'Списан';
+    }
+
+
+    public function getComplexString()
+    {
+        $parentObj = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $this->id])->all();
+        $res = '';
+        if ($parentObj !== null)
+        {
+            $res .= '<tr style="width: 30px; font-weight: 600;"><td style="width: 6%;">№ п/п</td><td>Название компонентов</td><td>Описание</td><td>Состояние</td></tr>';
+            $i = 1;
+            foreach ($parentObj as $one)
+            {
+                $res .= '<tr><td>'.$i.'</td><td>'.$one->subobjectWork->name.'</td><td>'.$one->subobjectWork->characteristics.'</td><td>'.$one->subobjectWork->stateString.'</td></tr>';
+                $subs = SubobjectWork::find()->where(['parent_id' => $one->subobjectWork->id])->all();
+                if ($subs !== null)
+                {
+                    $j = 1;
+                    foreach ($subs as $sub)
+                    {
+                        $res .= '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td></tr>';
+                        $j++;
+                    }
+                }
+                $i++;
+            }
+        }
+
+        return $res;
     }
 
     public function beforeSave($insert)

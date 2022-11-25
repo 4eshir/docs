@@ -30,7 +30,7 @@ class EntryWork extends Entry
         return [
             [['name', 'create_date', 'lifetime', 'expirationDate'], 'string'],
             [['amount', 'price', 'complex'], 'integer'],
-            [['inventory_number', 'dynamic'], 'safe'],
+            [['inventory_number', 'dynamic', 'characteristics'], 'safe'],
             /*[['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectWork::className(), 'targetAttribute' => ['object_id' => 'id']],*/
         ];
     }
@@ -66,7 +66,7 @@ class EntryWork extends Entry
             $this->inventory_number[] = $object->materialObject->inventory_number;
         }
         $this->attribute = $obj[0]->materialObject->attribute;
-        //$this->complex = $obj[0]->materialObject->complex;
+        $this->complex = $obj[0]->materialObject->complex;
         $this->kind_id = $obj[0]->materialObject->kind_id;
         $this->object_id = $obj[0]->materialObject->id;
     }
@@ -127,14 +127,15 @@ class EntryWork extends Entry
         $i = 0;
         foreach ($objects as $object)
         {
-            $object->materialObject->name = $this->name;
-            $object->materialObject->price = $this->price;
-            $object->materialObject->create_date = $this->create_date;
-            $object->materialObject->lifetime = $this->lifetime;
-            $object->materialObject->expiration_date = $this->expirationDate;
-            $object->materialObject->inventory_number = $this->inventory_number[$i];
-            $object->materialObject->complex = $this->complex;
-            $object->materialObject->save();
+            $object->materialObjectWork->name = $this->name;
+            $object->materialObjectWork->price = $this->price;
+            $object->materialObjectWork->create_date = $this->create_date;
+            $object->materialObjectWork->lifetime = $this->lifetime;
+            $object->materialObjectWork->expiration_date = $this->expirationDate;
+            $object->materialObjectWork->inventory_number = $this->inventory_number[$i];
+            $object->materialObjectWork->complex = $this->complex;
+            $object->materialObjectWork->characteristics = $this->characteristics;
+            $object->materialObjectWork->save();
 
             foreach ($parentSubobjectId as $one)
             {

@@ -85,6 +85,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <div <?php echo $model->complex == 1 ? '' : 'hidden'; ?>>
+        <h3><u>Компоненты объекта</u></h3>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['attribute' => 'complexString', 'format' => 'raw'],
+            ],
+        ]) ?>
+    </div>
 </div>
 
 

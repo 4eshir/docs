@@ -15,10 +15,11 @@ $this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->ge
 $this->params['breadcrumbs'][] = 'Редактирование ';
 ?>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style>
-    td:first-child {
+    tr:first-child {
         width: 30px;
         font-weight: 600;
     }
@@ -37,13 +38,11 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         background: #F5F5F5;
         border-radius: 4px;
         padding: 5px;
-        font-weight: bold;
-        font-size: 16px;
         height: 40px;
-
-        display: inline-flex
-        width: 100%
-        justify-content: space-between
+        font-weight: bold;
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-between;
     }
 
     .head_dynamic_text {
@@ -88,9 +87,12 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         padding: 5px;
         height: 40px;
 
-        display: inline-flex
-        width: 100%
-        justify-content: space-between
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-between;
+
+        font-weight: 700;
+        font-size: 16px;
     }
 
     .content_note {
@@ -209,7 +211,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             echo '<table>';
             foreach ($characts as $c)
             {
-                $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->object_id])->andWhere(['characteristic_object_id' => $c->id])->one();
+                $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->object_id])->andWhere(['characteristic_object_id' => $c->characteristic_object_id])->one();
                 $val = null;
                 if ($value !== null)
                 {
@@ -224,11 +226,10 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
                 else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
-                //echo $form->field($model, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="float: left; margin-top: 10px;">
-                 <input type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></th></tr>';
+                 <input type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'"></th></tr>';
                 /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</table>';
@@ -249,18 +250,22 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 $parentObj = SubobjectWork::find()->where(['entry_id' => $model->id])->all();
                 if ($parentObj !== null)
                 {
-                    echo '<tr><td>Название</td><td>Описание</td><td>Состояние</td><td></td></tr>';
+                    echo '<tr><td style="width: 6%;">№ п/п</td><td>Название компонентов</td><td>Описание</td><td>Состояние</td><td></td></tr>';
+                    $i = 1;
                     foreach ($parentObj as $one)
                     {
-                        echo '<tr><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td>'.$i.'</td><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                         $subs = SubobjectWork::find()->where(['parent_id' => $one->id])->all();
                         if ($subs !== null)
                         {
+                            $j = 1;
                             foreach ($subs as $sub)
                             {
-                                echo '<tr><td>&#8735;'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                $j++;
                             }
                         }
+                        $i++;
                     }
                 }
                 
@@ -271,7 +276,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
         <div class="main_dynamic">
             <div class="head_dynamic">
-                <div class="head_dynamic_text">Введите все составные части объекта</div>
+                <div class="head_dynamic_text"><h4><i class="fa fa-object-ungroup" aria-hidden="true"></i>Компоненты</h4></div>
                 <div class="head_dynamic_action"><button type="button" class="add_button" onclick="AddHandler(this)">+</button>
                 </div>
             </div>
@@ -280,18 +285,18 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 <!-- Шаблон динамической формы. ОБЯЗАТЕЛЕН ДЛЯ РАБОТЫ -->
                 <div class="main_note" style="display: none">
                     <div class="head_note">
-                        <div class="head_note_text">Часть объекта</div>
-                        <div class="head_note_action"><button type="button" class="add_button" onclick="AddHandler(this)">+</button><button type="button" class="remove_button" onclick="RemoveHandler(this)">&#10006;</button></div>
+                        <div class="head_note_text">Компонент объекта</div>
+                        <div class="head_note_action"><button type="button" class="add_button" onclick="AddHandler(this)"><i class="fa fa-level-down" aria-hidden="true"></i></button><button type="button" class="remove_button" onclick="RemoveHandler(this)">&#10006;</button></div>
                     </div>
                     <div class="content_note">
-                        <label class="control-label">Наименование части объекта</label>
+                        <label class="control-label">Наименование компонента</label>
                         <input type="text" class="form-control" name="EntryWork[0][name]" value="" style="margin-bottom: 10px">
-                        <label class="control-label">Описание части объекта</label>
+                        <label class="control-label">Описание компонента</label>
                         <textarea class="form-control" rows="4" name="EntryWork[0][text]" value="" style="margin-bottom: 12px"></textarea>
                         
                         <input type="hidden" name="EntryWork[0][state]" value="1">
                         <label>
-                            <input type="checkbox" id="entrywork-complex" name="EntryWork[0][state]" value="1" aria-invalid="false" disabled checked> Часть в рабочем состоянии
+                            <input type="checkbox" id="entrywork-complex" name="EntryWork[0][state]" value="1" aria-invalid="false" disabled checked> В рабочем состоянии
                         </label>
                     </div>                
                 </div>
@@ -344,13 +349,18 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 template.style.display = "block";
                 template.classList.add('inside');
 
-                 template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
+                template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
                 template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
                 template.getElementsByTagName("input")[1].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][state]";
 
 
                 let form = (this_elem).parentNode.parentNode.parentNode;
                 form.append(template);
+
+                template.getElementsByClassName("head_note_text")[0].textContent = "Подобъект компонента";
+                template.getElementsByClassName("content_note")[0].childNodes[1].textContent = "Наименование подобъекта";
+                template.getElementsByClassName("content_note")[0].childNodes[5].textContent = "Описание подобъекта";
+                template.previousElementSibling.previousElementSibling.getElementsByClassName("head_note_text")[0].innerHTML = "<i class='fa fa-object-group' aria-hidden='true'></i> Компонент объекта";
             }
             else
             {
