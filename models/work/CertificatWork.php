@@ -116,7 +116,7 @@ class CertificatWork extends Certificat
                     $cert->certificat_template_id = $this->certificat_template_id;
                     $cert->training_group_participant_id = $this->participant_id[$i];
                     $cert->save();
-                    PdfWizard::DownloadCertificat($cert->certificat_number, 'server');
+                    PdfWizard::DownloadCertificat($cert->id, 'server');
                     $tc++;
                 }
             }
