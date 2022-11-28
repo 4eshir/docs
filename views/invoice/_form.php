@@ -125,17 +125,6 @@ use yii\helpers\Url;
 
             ?>
         </div>
-        
-        <?php
-        $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
-        $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
-        $params = [
-            'prompt' => '--',
-            'style' => 'width: 60%'
-        ];
-        echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
-
-        ?>
 
         <?php echo $form->field($model, 'date_product')->widget(\yii\jui\DatePicker::class,
             [

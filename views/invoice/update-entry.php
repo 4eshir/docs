@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style>
-    td:first-child {
+    tr:first-child {
         width: 30px;
         font-weight: 600;
     }
@@ -38,13 +38,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         background: #F5F5F5;
         border-radius: 4px;
         padding: 5px;
-        font-weight: bold;
-        font-size: 16px;
-        height: 40px;
-
-        display: inline-flex
-        width: 100%
-        justify-content: space-between
         height: 40px;
         font-weight: bold;
         display: inline-flex;
@@ -94,18 +87,12 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         padding: 5px;
         height: 40px;
 
-<<<<<<< HEAD
-        display: inline-flex
-        width: 100%
-        justify-content: space-between
-=======
         display: inline-flex;
         width: 100%;
         justify-content: space-between;
 
         font-weight: 700;
         font-size: 16px;
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
     }
 
     .content_note {
@@ -263,18 +250,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 $parentObj = SubobjectWork::find()->where(['entry_id' => $model->id])->all();
                 if ($parentObj !== null)
                 {
-                    echo '<tr><td>Название</td><td>Описание</td><td>Состояние</td><td></td></tr>';
-                    foreach ($parentObj as $one)
-                    {
-                        echo '<tr><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
-                        $subs = SubobjectWork::find()->where(['parent_id' => $one->id])->all();
-                        if ($subs !== null)
-                        {
-                            foreach ($subs as $sub)
-                            {
-                                echo '<tr><td>&#8735;'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
-                            }
-                        }
                     echo '<tr><td style="width: 6%;">№ п/п</td><td>Название компонентов</td><td>Описание</td><td>Состояние</td><td></td></tr>';
                     $i = 1;
                     foreach ($parentObj as $one)
@@ -301,7 +276,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
         <div class="main_dynamic">
             <div class="head_dynamic">
-                <div class="head_dynamic_text">Введите все составные части объекта</div>
                 <div class="head_dynamic_text"><h4><i class="fa fa-object-ungroup" aria-hidden="true"></i>Компоненты</h4></div>
                 <div class="head_dynamic_action"><button type="button" class="add_button" onclick="AddHandler(this)">+</button>
                 </div>
@@ -311,13 +285,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 <!-- Шаблон динамической формы. ОБЯЗАТЕЛЕН ДЛЯ РАБОТЫ -->
                 <div class="main_note" style="display: none">
                     <div class="head_note">
-                        <div class="head_note_text">Часть объекта</div>
-                        <div class="head_note_action"><button type="button" class="add_button" onclick="AddHandler(this)">+</button><button type="button" class="remove_button" onclick="RemoveHandler(this)">&#10006;</button></div>
-                    </div>
-                    <div class="content_note">
-                        <label class="control-label">Наименование части объекта</label>
-                        <input type="text" class="form-control" name="EntryWork[0][name]" value="" style="margin-bottom: 10px">
-                        <label class="control-label">Описание части объекта</label>
                         <div class="head_note_text">Компонент объекта</div>
                         <div class="head_note_action"><button type="button" class="add_button" onclick="AddHandler(this)"><i class="fa fa-level-down" aria-hidden="true"></i></button><button type="button" class="remove_button" onclick="RemoveHandler(this)">&#10006;</button></div>
                     </div>
@@ -329,7 +296,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                         
                         <input type="hidden" name="EntryWork[0][state]" value="1">
                         <label>
-                            <input type="checkbox" id="entrywork-complex" name="EntryWork[0][state]" value="1" aria-invalid="false" disabled checked> Часть в рабочем состоянии
                             <input type="checkbox" id="entrywork-complex" name="EntryWork[0][state]" value="1" aria-invalid="false" disabled checked> В рабочем состоянии
                         </label>
                     </div>                
@@ -383,7 +349,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 template.style.display = "block";
                 template.classList.add('inside');
 
-                
                 template.getElementsByTagName("input")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][name]";
                 template.getElementsByTagName("textarea")[0].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][text]";
                 template.getElementsByTagName("input")[1].name = "EntryWork[dynamic][" + ((this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("main_note").length - (this_elem).parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("inside").length - 1) + "][" + ((this_elem).parentNode.parentNode.parentNode.getElementsByClassName("inside").length) + "][state]";

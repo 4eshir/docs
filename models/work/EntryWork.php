@@ -19,13 +19,10 @@ class EntryWork extends Entry
     public $attribute; // ос или тмц
     public $complex; //составной объект или нет
 
-<<<<<<< HEAD
-=======
     public $kind_id;    // класс объекта
     public $object_id; // материальный объект для вывода характеристик класса
 
     public $characteristics; // массив характеристик класса
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
     public $dynamic; //массив объектов и подобъектов
 
     public function rules()
@@ -33,11 +30,7 @@ class EntryWork extends Entry
         return [
             [['name', 'create_date', 'lifetime', 'expirationDate'], 'string'],
             [['amount', 'price', 'complex'], 'integer'],
-<<<<<<< HEAD
-            [['inventory_number', 'dynamic'], 'safe'],
-=======
             [['inventory_number', 'dynamic', 'characteristics'], 'safe'],
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
             /*[['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectWork::className(), 'targetAttribute' => ['object_id' => 'id']],*/
         ];
     }
@@ -55,10 +48,7 @@ class EntryWork extends Entry
             'lifetime' => 'Дата окончания эксплуатации (опционально)',
             'inventory_number' => 'Инвентарный номер',
             'complex' => 'Составной объект',
-<<<<<<< HEAD
-=======
             'kind_id' => 'Класс объекта',
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
         ];
     }
 
@@ -76,12 +66,9 @@ class EntryWork extends Entry
             $this->inventory_number[] = $object->materialObject->inventory_number;
         }
         $this->attribute = $obj[0]->materialObject->attribute;
-<<<<<<< HEAD
-=======
         $this->complex = $obj[0]->materialObject->complex;
         $this->kind_id = $obj[0]->materialObject->kind_id;
         $this->object_id = $obj[0]->materialObject->id;
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
     }
 
 	public function getObjectWork()
@@ -140,16 +127,6 @@ class EntryWork extends Entry
         $i = 0;
         foreach ($objects as $object)
         {
-<<<<<<< HEAD
-            $object->materialObject->name = $this->name;
-            $object->materialObject->price = $this->price;
-            $object->materialObject->create_date = $this->create_date;
-            $object->materialObject->lifetime = $this->lifetime;
-            $object->materialObject->expiration_date = $this->expirationDate;
-            $object->materialObject->inventory_number = $this->inventory_number[$i];
-            $object->materialObject->complex = $this->complex;
-            $object->materialObject->save();
-=======
             $object->materialObjectWork->name = $this->name;
             $object->materialObjectWork->price = $this->price;
             $object->materialObjectWork->create_date = $this->create_date;
@@ -159,7 +136,6 @@ class EntryWork extends Entry
             $object->materialObjectWork->complex = $this->complex;
             $object->materialObjectWork->characteristics = $this->characteristics;
             $object->materialObjectWork->save();
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
 
             foreach ($parentSubobjectId as $one)
             {

@@ -63,7 +63,20 @@ class InvoiceWork extends Invoice
         foreach ($entries as $entry)
         {
             $objects = \app\models\work\ObjectEntryWork::find()->where(['entry_id' => $entry->entry_id])->orderBy(['id' => 'SORT_ASC'])->all();
-            $result .= '<b>'.$objects[0]->materialObject->name.'</b> '.' ('.$objects[0]->materialObject->attribute.') - '.$entry->entry->amount.' шт.'.'<br>';
+            $symbol = null;
+            if ($objects[0]->materialObject->complex == 1)
+                $symbol = '<div class="hoverless" data-html="true" style="width: 26px; height: 26px; padding: 3px; margin-right: 5px; margin-top: 2px; background: #0d6efd; color: white; text-align: center; display: inline-block; border-radius: 4px" title="Составной объект">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z"/>
+                </svg></div>';
+            else
+                $symbol = '<div class="hoverless" data-html="true" style="width: 26px; height: 26px; padding: 3px; margin-right: 5px; margin-top: 2px; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px" title="Простой объект">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+                      <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+                    </svg>
+                </svg></div>';
+
+            $result .= $symbol.'<b>'.$objects[0]->materialObject->name.'</b> '.' ('.$objects[0]->materialObject->attribute.') - '.$entry->entry->amount.' шт.'.'<br>';
 
             $i = 1;
             foreach ($objects as $object)
