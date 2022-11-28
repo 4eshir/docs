@@ -14,7 +14,11 @@ use Yii;
  * @property float|null $double_value
  * @property string|null $string_value
  * @property int|null $bool_value
+<<<<<<< HEAD
  * @property string $date_value
+=======
+ * @property string|null $date_value
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
  *
  * @property CharacteristicObject $characteristicObject
  * @property MaterialObject $materialObject
@@ -35,7 +39,11 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+<<<<<<< HEAD
             [['material_object_id', 'characteristic_object_id', 'date_value'], 'required'],
+=======
+            [['material_object_id', 'characteristic_object_id'], 'required'],
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
             [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
             [['double_value'], 'number'],
             [['date_value'], 'safe'],

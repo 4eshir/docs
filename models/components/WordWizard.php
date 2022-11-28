@@ -817,6 +817,14 @@ class WordWizard
         $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
         $groups = OrderGroupWork::find()->where(['document_order_id' => $order->id])->all();
 
+<<<<<<< HEAD
+=======
+        $tempGID = [];
+        foreach ($groups as $g)
+            $tempGID[] = $g->training_group_id;
+        $tempGID[] = 0;
+
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
         $part = ForeignEventParticipantsWork::find();
         $teacher = TeacherGroupWork::find();
 
@@ -828,10 +836,18 @@ class WordWizard
             ->where(['order.id' => $order_id])
             ->andWhere(['pasta.status' => 0])
             ->andWhere(['IS NOT', 'pasta.link_id', null])
+<<<<<<< HEAD
             ->groupBy(['training_group_participant.id'])
             ->all();
         $countPart = count($gPartIN);
 
+=======
+            ->andWhere(['NOT IN', 'training_group_participant.training_group_id', $tempGID])
+            ->groupBy(['training_group_participant.id'])
+            ->all();
+        $countPart = count($gPartIN);
+        //var_dump($gPartIN->createCommand()->getRawSql());
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
 
         $groupsID = [];
         foreach ($gPartIN as $tempPart)

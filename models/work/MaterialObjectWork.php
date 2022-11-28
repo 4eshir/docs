@@ -45,7 +45,11 @@ class MaterialObjectWork extends MaterialObject
     {
         return [
             //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
+<<<<<<< HEAD
             [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount'], 'integer'],
+=======
+            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount', 'complex'], 'integer'],
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
             [['price'], 'number'],
             [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
@@ -91,6 +95,10 @@ class MaterialObjectWork extends MaterialObject
             'create_date' => 'Дата производства объекта',
             'kind_id' => 'Класс объекта',
             'kindString' => 'Класс объекта',
+<<<<<<< HEAD
+=======
+            'complexString' => '',
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
         ];
     }
 
@@ -119,7 +127,15 @@ class MaterialObjectWork extends MaterialObject
 
             foreach ($chars as $char)
             {
+<<<<<<< HEAD
                 $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px">'.$char->characteristicObjectWork->name.'</td><td>'.$char->getValue().'</td>';
+=======
+                $res .= '<tr><td style="padding-right: 15px; padding-bottom: 2px; width: 80%;">'.$char->characteristicObjectWork->name.'</td>';
+                if ($char->characteristicObjectWork->value_type == 4)
+                    $res .= '<td>'.($char->getValue() == 1 ? 'Да' : 'Нет').'</td>';
+                else
+                    $res .= '<td>'.$char->getValue().'</td>';
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
             }
             $res .= '</table></div></div>';
         }
@@ -144,11 +160,14 @@ class MaterialObjectWork extends MaterialObject
         return $this->status == 1 ? 'Рабочий' : 'Нерабочий';
     }
 
+<<<<<<< HEAD
     public function getFinanceSourceString()
     {
         return $this->financeSourceWork->name;
     }
 
+=======
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
     public function getPriceString()
     {
         return $this->price . ' ₽';
@@ -174,6 +193,38 @@ class MaterialObjectWork extends MaterialObject
         return $this->write_off == 1 ? 'Готов к списанию' : 'Списан';
     }
 
+<<<<<<< HEAD
+=======
+
+    public function getComplexString()
+    {
+        $parentObj = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $this->id])->all();
+        $res = '';
+        if ($parentObj !== null)
+        {
+            $res .= '<tr style="width: 30px; font-weight: 600;"><td style="width: 6%;">№ п/п</td><td>Название компонентов</td><td>Описание</td><td>Состояние</td></tr>';
+            $i = 1;
+            foreach ($parentObj as $one)
+            {
+                $res .= '<tr><td>'.$i.'</td><td>'.$one->subobjectWork->name.'</td><td>'.$one->subobjectWork->characteristics.'</td><td>'.$one->subobjectWork->stateString.'</td></tr>';
+                $subs = SubobjectWork::find()->where(['parent_id' => $one->subobjectWork->id])->all();
+                if ($subs !== null)
+                {
+                    $j = 1;
+                    foreach ($subs as $sub)
+                    {
+                        $res .= '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td></tr>';
+                        $j++;
+                    }
+                }
+                $i++;
+            }
+        }
+
+        return $res;
+    }
+
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
     public function beforeSave($insert)
     {
         if ($this->expirationDate == 0)
@@ -190,11 +241,16 @@ class MaterialObjectWork extends MaterialObject
     public function afterSave($insert, $changedAttributes)
     {
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
+<<<<<<< HEAD
 var_dump($this->characteristics);
+=======
+
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
         if ($this->characteristics !== null)
         {
             $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
             foreach ($objChar as $c) $c->delete();
+<<<<<<< HEAD
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
 
@@ -206,6 +262,14 @@ var_dump($this->characteristics);
                     $objChar->string_value = null;
                     $objChar->bool_value = null;
                     $objChar->date_value = null;
+=======
+
+            for ($i = 0; $i < count($this->characteristics); $i++)
+            {
+                if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
+                {
+                    $objChar = new ObjectCharacteristicWork();
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
                         $objChar->integer_value = $this->characteristics[$i];
@@ -220,11 +284,18 @@ var_dump($this->characteristics);
                         $objChar->bool_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 5)
+<<<<<<< HEAD
                         $objChar->bool_value = $this->characteristics[$i];
 
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->id;
+=======
+                        $objChar->date_value = $this->characteristics[$i];
+
+                    $objChar->material_object_id = $this->id;
+                    $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
                     $objChar->save();
                 }
             }

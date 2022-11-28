@@ -95,7 +95,10 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div id="invoice">
+<<<<<<< HEAD
         
+=======
+>>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
         <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт', '2' => 'УПД', '3' => 'Протокол'),
                                 [
                                     'item' => function($index, $label, $name, $checked, $value) {
@@ -126,6 +129,16 @@ use yii\helpers\Url;
             ?>
         </div>
         
+        <?php
+        $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
+        $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
+        $params = [
+            'prompt' => '--',
+            'style' => 'width: 60%'
+        ];
+        echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
+
+        ?>
 
         <?php echo $form->field($model, 'date_product')->widget(\yii\jui\DatePicker::class,
             [

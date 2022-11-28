@@ -1,5 +1,7 @@
 <?php
 
+use app\models\work\MaterialObjectSubobjectWork;
+use app\models\work\SubobjectWork;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
@@ -47,6 +49,41 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     echo $form->field($model, 'write_off')->dropDownList($items,$params);
 
     ?>
+
+    <div <?php echo $model->complex == 1 ? '' : 'hidden'; ?>>
+        <?php
+        $parentObj = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $model->id])->all();
+
+        if ($parentObj !== null)
+        {
+            echo '<table class="table table-bordered">';
+            echo '<tr style="width: 30px; font-weight: 600;"><td style="width: 6%;">№ п/п</td><td>Название компонентов</td><td>Описание</td><td>Состояние</td></tr>';
+            $i = 1;
+            foreach ($parentObj as $one)
+            {
+                echo '<tr><td>'.$i.'</td><td>'.$one->subobjectWork->name.'</td><td>'
+                    .$form->field($model, 'subObjectArr[]')->textInput(['value' => $one->subobjectWork->characteristics])->label(false)
+                    .'</td><td>'.'<select name="state"><option value="0">Не рабочий</option><option value="1">Рабочий</option></select>'
+
+                    /*$one->subobjectWork->stateString*/.'</td></tr>';
+                $subs = SubobjectWork::find()->where(['parent_id' => $one->subobjectWork->id])->all();
+                if ($subs !== null)
+                {
+                    $j = 1;
+                    foreach ($subs as $sub)
+                    {
+                        echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'./*$sub->characteristics*/
+                            $form->field($model, 'subObjectArr[]')->textInput(['value' => $sub->characteristics])->label(false)
+                            .'</td><td>'.$sub->stateString.'</td></tr>';
+                        $j++;
+                    }
+                }
+                $i++;
+            }
+            echo '</table>';
+        }
+        ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
