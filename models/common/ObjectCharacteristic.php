@@ -39,11 +39,7 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-<<<<<<< HEAD
-            [['material_object_id', 'characteristic_object_id', 'date_value'], 'required'],
-=======
             [['material_object_id', 'characteristic_object_id'], 'required'],
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
             [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
             [['double_value'], 'number'],
             [['date_value'], 'safe'],

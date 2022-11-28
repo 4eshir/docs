@@ -95,10 +95,7 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div id="invoice">
-<<<<<<< HEAD
-        
-=======
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
+
         <?= $form->field($model, 'type')->radioList(array('0' => 'Накладная', '1' => 'Акт', '2' => 'УПД', '3' => 'Протокол'),
                                 [
                                     'item' => function($index, $label, $name, $checked, $value) {
