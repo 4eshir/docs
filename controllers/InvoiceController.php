@@ -13,6 +13,7 @@ use app\models\work\MaterialObjectSubobjectWork;
 use app\models\extended\MaterialObjectDynamic;
 use app\models\work\KindCharacteristicWork;
 use app\models\work\ObjectCharacteristicWork;
+use app\models\extended\SubobjectWorkDuplicate;
 use app\models\SearchInvoice;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -184,6 +185,27 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function actionUpdateObject($id, $modelId)
+    {
+        $model = SubobjectWork::find()->where(['id' => $id])->one();
+        $modelSubobject = [new SubobjectWorkDuplicate];
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $modelSubobject = DynamicModel::createMultiple(SubobjectWorkDuplicate::classname());
+            DynamicModel::loadMultiple($modelSubobject, Yii::$app->request->post());
+            $model->subobjects = $modelSubobject;
+
+            $model->save(false);
+            return $this->redirect(['update-object', 'id' => $model->id, 'modelId' => $modelId]);
+        }
+
+        return $this->render('update-object', [
+            'model' => $model,
+            'modelSubobject' => $modelSubobject,
+        ]);
+    }
+
 
     /**
      * Finds the Invoice model based on its primary key value.
@@ -210,7 +232,7 @@ class InvoiceController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionDeleteObject($id, $modelId)
+    public function actionDeleteObject($id, $modelId, $from = null)
     {
         $sub = SubobjectWork::find()->where(['id' => $id])->one();
         $subsubs = SubobjectWork::find()->where(['parent_id' => $id])->all();
@@ -228,7 +250,12 @@ class InvoiceController extends Controller
 
         $invoiceId = InvoiceEntryWork::find()->where(['entry_id' => $modelId])->one()->invoice_id;
 
-        return $this->redirect('index?r=invoice/update-entry&id='.$modelId.'&modelId='.$invoiceId);
+        if ($from == "entry")
+            return $this->redirect('index?r=invoice/update-entry&id='.$modelId.'&modelId='.$invoiceId);
+        else if ($from == "object")
+            return $this->redirect('index?r=invoice/update-object&id='.$sub->parent_id.'&modelId='.$modelId);
+        else
+            return $this->redirect('index?r=invoice/update-entry&id='.$modelId.'&modelId='.$invoiceId);
     }
 
     //генерируем набор input-ов в соответствии с выбранным типом

@@ -271,14 +271,14 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     $i = 1;
                     foreach ($parentObj as $one)
                     {
-                        echo '<tr><td>'.$i.'</td><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td>'.$i.'</td><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
                         $subs = SubobjectWork::find()->where(['parent_id' => $one->id])->all();
                         if ($subs !== null)
                         {
                             $j = 1;
                             foreach ($subs as $sub)
                             {
-                                echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                                echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'disabled' => 'true', 'onclick' => 'return false']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
                                 $j++;
                             }
                         }
