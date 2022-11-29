@@ -247,7 +247,12 @@ class MaterialObjectWork extends MaterialObject
                         $objChar->string_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 4)
-                        $objChar->bool_value = $this->characteristics[$i];
+                    {
+                        if ($this->characteristics[$i] == 2)
+                            $objChar->bool_value = 0;
+                        else
+                            $objChar->bool_value = $this->characteristics[$i];
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 5)
                         $objChar->date_value = $this->characteristics[$i];
