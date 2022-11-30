@@ -185,7 +185,7 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function actionUpdateObject($id, $modelId)
+    public function actionUpdateObject($id)
     {
         $model = SubobjectWork::find()->where(['id' => $id])->one();
         $modelSubobject = [new SubobjectWorkDuplicate];
@@ -197,7 +197,7 @@ class InvoiceController extends Controller
             $model->subobjects = $modelSubobject;
 
             $model->save(false);
-            return $this->redirect(['update-object', 'id' => $model->id, 'modelId' => $modelId]);
+            return $this->redirect(['update-object', 'id' => $model->id]);
         }
 
         return $this->render('update-object', [
