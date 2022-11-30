@@ -4,24 +4,43 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use app\models\work\SubobjectWork;
+
+use app\models\work\InvoiceWork;
+use app\models\work\InvoiceEntryWork;
+use app\models\work\ObjectEntryWork;
+
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\common\Invoice */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->title = 'Редактировать компонент: ' . $model->name;
+
+$invoiceEntry = InvoiceEntryWork::find()->where(['entry_id' => $model->entry_id])->one();
+$invoice = InvoiceWork::find()->where(['id' => $invoiceEntry->invoice_id])->one();
+$object = ObjectEntryWork::find()->where(['entry_id' => $model->entry_id])->one();
+
+$type = $invoice->type;
+$name = ['Накладная', 'Акт', 'УПД', 'Протокол'];
+$this->params['breadcrumbs'][] = ['label' => 'Документы о поступлении', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $invoice->number, 'url' => ['update', 'id' => $invoice->id]];
+
+$this->params['breadcrumbs'][] = ['label' => 'Запись объекта "' . $object->materialObject->name . '"', 'url' => ['update-entry', 'id' => $model->entry_id]];
+$this->params['breadcrumbs'][] = 'Редактирование компонента "' . $model->name . '"';
 ?>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-
+<h1><?= Html::encode($this->title) ?></h1>
 
 <div class="invoice-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'name')->textInput() ?>
+    <?= $form->field($model, 'name')->textInput()->label('Наименование компонента') ?>
 
-    <?= $form->field($model, 'characteristics')->textInput() ?>
+    <?= $form->field($model, 'characteristics')->textInput()->label('Описание компонента') ?>
 
 
 

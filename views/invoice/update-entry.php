@@ -123,11 +123,6 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         font-size: 18px;
     }
 
-    .ch input {
-        border: 2px solid #D3D3D3;
-        border-radius: 2px;
-        min-width: 40%;
-    }
 </style>
 
 <div class="invoice-update">
@@ -232,22 +227,10 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
-
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
-                 <th style="float: left; margin-top: 10px; padding-left: 3%">';
-                if ($type == "checkbox")
-                {
-                    echo '<input type="'.$type.'" checked class="form-inline ch" name="EntryWork[characteristics][]" value="'.$val.'" hidden>';
-                    if ($val == 1)
-                        echo '<input onclick="handleClick(this)" type="'.$type.'" checked class="form-inline ch"></th></tr>';
-                    else
-                        echo '<input onclick="handleClick(this)" type="'.$type.'" class="form-inline ch"></th></tr>';
-                    //echo $form->field($model, 'characteristics[]')->checkbox()->label(false);
-                }
-                else
-                    echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="EntryWork[characteristics][]" value="'.$val.'"></th></tr>';
-                //echo $str;
-                    /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
+                 <th style="float: left; margin-top: 10px; padding-left: 3%">
+                 <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'"></th></tr>';
+                /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</table>';
             echo '</div>';
@@ -271,14 +254,14 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     $i = 1;
                     foreach ($parentObj as $one)
                     {
-                        echo '<tr><td>'.$i.'</td><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td>'.$i.'</td><td>'.$one->name.'</td><td>'.$one->characteristics.'</td><td>'.$one->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id]), ['class' => 'btn btn-primary']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $one->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
                         $subs = SubobjectWork::find()->where(['parent_id' => $one->id])->all();
                         if ($subs !== null)
                         {
                             $j = 1;
                             foreach ($subs as $sub)
                             {
-                                echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary', 'disabled' => 'true', 'onclick' => 'return false']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
+                                echo '<tr><td>'.$i.'.'.$j.'</td><td>'.$sub->name.'</td><td>'.$sub->characteristics.'</td><td>'.$sub->stateString.'</td><td>'.Html::a('Редактировать', \yii\helpers\Url::to(['invoice/update-object', 'id' => $one->id]), ['class' => 'btn btn-primary', 'disabled' => 'true', 'onclick' => 'return false']).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-object', 'id' => $sub->id, 'modelId' => $model->id, 'from' => 'entry']), ['class' => 'btn btn-danger']).'</td></tr>';
                                 $j++;
                             }
                         }
@@ -401,18 +384,4 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             suicide_elem.parentNode.removeChild(suicide_elem);
         }
     }
-
-    function handleClick(cb)
-    {
-        if (cb.checked == true)
-            cb.previousElementSibling.value = '1';
-        else
-            cb.previousElementSibling.value = '2';
-    }
-
-    /*let imputs = document.getElementsByClassName("chars")[0].getElementsByTagName("input");
-        for (let i = 0; i < inputs.length; i++)
-        {
-            imputs[i].checked = true;
-        }*/
 </script>
