@@ -407,7 +407,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         if (cb.checked == true)
             cb.previousElementSibling.value = '1';
         else
-            cb.previousElementSibling.value = '2';
+            cb.previousElementSibling.value = '0';
     }
 
     /*let imputs = document.getElementsByClassName("chars")[0].getElementsByTagName("input");

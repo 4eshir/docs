@@ -248,10 +248,10 @@ class MaterialObjectWork extends MaterialObject
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 4)
                     {
-                        if ($this->characteristics[$i] == 2)
+                        /*if ($this->characteristics[$i] == 2)
                             $objChar->bool_value = 0;
                         else
-                            $objChar->bool_value = $this->characteristics[$i];
+                            */$objChar->bool_value = $this->characteristics[$i];
                     }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 5)

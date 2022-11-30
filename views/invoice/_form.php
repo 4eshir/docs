@@ -22,6 +22,12 @@ use yii\helpers\Url;
     .i-item:before {
         content: '↕';
     }
+
+    .ch input {
+        border: 2px solid #D3D3D3;
+        border-radius: 2px;
+        min-width: 40%;
+    }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -276,9 +282,14 @@ use yii\helpers\Url;
                                                     for (let i = 0; i < elems.length; i++)
                                                     {
                                                         let subs = elems[i].getElementsByClassName("ch");
-                                                        console.log(subs);
+                                                        //console.log(subs);
                                                         for (let j = 0; j < subs.length; j++)
+                                                        {
                                                             subs[j].setAttribute("name", "MaterialObjectWork[" + i + "][characteristics][]");
+                                                            if (j != 0)
+                                                                if (subs[j-1].hidden == true)
+                                                                    subs[j].setAttribute("name", "CharacteristicInput");
+                                                        }        
                                                     }
                                                 }
                                             );
@@ -312,8 +323,24 @@ use yii\helpers\Url;
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
                                                     else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                                                     else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
-                                                    echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
+                                                    //echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
                                                     /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
+                                                    $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
+
+
+                                                    echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th><th style="float: left; margin-top: 10px; padding-left: 3%">';
+                                                    if ($type == "checkbox")
+                                                    {
+                                                        echo '<input type="'.$type.'" checked class="form-inline ch" name="EntryWork['.$count.'][characteristics][]" value="0" hidden>';
+                                                        if ($val == 1)
+                                                            echo '<input onclick="handleClick(this)" type="'.$type.'" checked class="form-inline ch"></th></tr>';
+                                                        else
+                                                            echo '<input onclick="handleClick(this)" type="'.$type.'" class="form-inline ch"></th></tr>';
+                                                        //echo $form->field($model, 'characteristics[]')->checkbox()->label(false);
+                                                    }
+                                                    else
+                                                        echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="EntryWork['.$count.'][characteristics][]" value="'.$val.'"></th></tr>';
+
                                                 }
                                                 echo '</div>';
                                             }
@@ -457,5 +484,13 @@ use yii\helpers\Url;
             elem.style.display = "block";
         }
 
-});
+    });
+
+    function handleClick(cb)
+    {
+        if (cb.checked == true)
+            cb.previousElementSibling.value = '1';
+        else
+            cb.previousElementSibling.value = '0';
+    }
 </script>
