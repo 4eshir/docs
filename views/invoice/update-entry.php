@@ -384,4 +384,19 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             suicide_elem.parentNode.removeChild(suicide_elem);
         }
     }
+
+    
+    function handleClick(cb)
+    {
+        if (cb.checked == true)
+            cb.previousElementSibling.value = '1';
+        else
+            cb.previousElementSibling.value = '0';
+    }
+
+    /*let imputs = document.getElementsByClassName("chars")[0].getElementsByTagName("input");
+        for (let i = 0; i < inputs.length; i++)
+        {
+            imputs[i].checked = true;
+        }*/
 </script>
