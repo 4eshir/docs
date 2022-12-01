@@ -263,7 +263,7 @@ class InvoiceController extends Controller
     {
         $id = Yii::$app->request->post('id');
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 120%" class="main-ch">';
+        echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 200%" class="main-ch">';
         echo '<table>';
         $count = 0;
         foreach ($characts as $c)
@@ -277,12 +277,14 @@ class InvoiceController extends Controller
                 if (strlen($value->string_value) > 0) $val = $value->string_value;
                 if ($value->bool_value !== null) $val = $value->bool_value;
                 if ($value->date_value !== null) $val = $value->date_value;
+                if (strlen($value->document_value) > 0) $val = $value->document_value;
             }
 
             $type = "text";
             if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
             else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
             else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
+            else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
             $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
 
             echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>

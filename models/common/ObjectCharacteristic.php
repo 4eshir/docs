@@ -14,11 +14,8 @@ use Yii;
  * @property float|null $double_value
  * @property string|null $string_value
  * @property int|null $bool_value
-<<<<<<< HEAD
- * @property string $date_value
-=======
  * @property string|null $date_value
->>>>>>> afd4af68d2f6bd11cbe6fec6ade082a579c4df5e
+ * @property string|null $document_value
  *
  * @property CharacteristicObject $characteristicObject
  * @property MaterialObject $materialObject
@@ -43,7 +40,7 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
             [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
             [['double_value'], 'number'],
             [['date_value'], 'safe'],
-            [['string_value'], 'string', 'max' => 1000],
+            [['string_value', 'document_value'], 'string', 'max' => 1000],
             [['characteristic_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => CharacteristicObject::className(), 'targetAttribute' => ['characteristic_object_id' => 'id']],
             [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
         ];
@@ -63,6 +60,7 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
             'string_value' => 'String Value',
             'bool_value' => 'Bool Value',
             'date_value' => 'Date Value',
+            'document_value' => 'Document Value',
         ];
     }
 

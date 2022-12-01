@@ -207,7 +207,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         if ($model->kind_id !== null)
         {
             $characts = \app\models\work\KindCharacteristicWork::find()->where(['kind_object_id' => $model->kind_id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-            echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 35%">';
+            echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 55%">';
             echo '<table>';
             foreach ($characts as $c)
             {
@@ -220,12 +220,14 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     if (strlen($value->string_value) > 0) $val = $value->string_value;
                     if ($value->bool_value !== null) $val = $value->bool_value;
                     if ($value->date_value !== null) $val = $value->date_value;
+                    if (strlen($value->document_value) > 0) $val = $value->document_value;
                 }
 
                 $type = "text";
                 if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
                 else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
+                else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="float: left; margin-top: 10px; padding-left: 3%">
@@ -393,10 +395,4 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         else
             cb.previousElementSibling.value = '0';
     }
-
-    /*let imputs = document.getElementsByClassName("chars")[0].getElementsByTagName("input");
-        for (let i = 0; i < inputs.length; i++)
-        {
-            imputs[i].checked = true;
-        }*/
 </script>

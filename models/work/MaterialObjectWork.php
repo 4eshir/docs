@@ -4,6 +4,7 @@ namespace app\models\work;
 
 use app\models\common\MaterialObject;
 use app\models\work\ObjectCharacteristicWork;
+use yii\web\UploadedFile;
 use yii\helpers\Html;
 
 
@@ -179,7 +180,6 @@ class MaterialObjectWork extends MaterialObject
         return $this->write_off == 1 ? 'Готов к списанию' : 'Списан';
     }
 
-
     public function getComplexString()
     {
         $parentObj = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $this->id])->all();
@@ -232,7 +232,6 @@ class MaterialObjectWork extends MaterialObject
 
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
-
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
                     $objChar = new ObjectCharacteristicWork();
@@ -247,15 +246,18 @@ class MaterialObjectWork extends MaterialObject
                         $objChar->string_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 4)
-                    {
-                        /*if ($this->characteristics[$i] == 2)
-                            $objChar->bool_value = 0;
-                        else
-                            */$objChar->bool_value = $this->characteristics[$i];
-                    }
+                        $objChar->bool_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 5)
                         $objChar->date_value = $this->characteristics[$i];
+
+                    if ($characts[$i]->characteristicObjectWork->value_type == 6)
+                    {
+                        $objChar->document_value = $this->characteristics[$i];
+                        $objChar->documentFile = UploadedFile::getInstance($objChar, 'characteristics['.$i.']');
+                        if ($objChar->documentFile !== null)
+                            $objChar->uploadDocument();
+                    }
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
@@ -265,6 +267,7 @@ class MaterialObjectWork extends MaterialObject
             }
         }
     }
+
 
 
 }

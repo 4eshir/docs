@@ -305,7 +305,7 @@ use yii\helpers\Url;
                                             if ($modelObject->kind_id !== null)
                                             {
                                                 $characts = \app\models\work\KindCharacteristicWork::find()->where(['kind_object_id' => $modelObject->kind_id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
-                                                echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 35%">';
+                                                echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 55%">';
                                                 foreach ($characts as $c)
                                                 {
                                                     $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->id])->andWhere(['characteristic_object_id' => $c->id])->one();
@@ -317,12 +317,14 @@ use yii\helpers\Url;
                                                         if (strlen($value->string_value) > 0) $val = $value->string_value;
                                                         if ($value->bool_value !== null) $val = $value->bool_value;
                                                         if ($value->date_value !== null) $val = $value->date_value;
+                                                        if (strlen($value->document_value) > 0) $val = $value->document_value;
                                                     }
 
                                                     $type = "text";
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
                                                     else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                                                     else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
+                                                    else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
                                                     //echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
                                                     /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
                                                     $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
