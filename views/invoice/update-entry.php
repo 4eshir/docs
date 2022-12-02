@@ -229,7 +229,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                 else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
 
-                echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
+                //echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
 
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>

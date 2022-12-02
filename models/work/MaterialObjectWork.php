@@ -227,36 +227,43 @@ class MaterialObjectWork extends MaterialObject
     {
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
-/*
+        //Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
+        $fileTmpPath = $_FILES["EntryWork"]["tmp_name"]["characteristics"];
 
-    Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
+        $nameCharacteristic = [];
+        foreach ($characts as $c)
+            if ($c->characteristicObjectWork->value_type == 6)
+                $nameCharacteristic[] = $c->characteristicObjectWork->name;
 
-        $fileTmpPath = $_FILES["EntryWork"]["tmp_name"]["characteristics"][0];
-        $fileName = $_FILES['EntryWork']['name']["characteristics"][0];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
-        $newFileName = 'test'.'.'.$fileExtension;
-        $uploadFileDir = Yii::$app->basePath.'/upload/';
-        $dest_path = $uploadFileDir . $newFileName;
+        for ($i = 0; $i < count($fileTmpPath); $i++)
+        {
+            $fileName = $_FILES['EntryWork']['name']["characteristics"][$i];
+            if ($fileName !== "")
+            {
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+                $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$this->id .'.'.$fileExtension;
+                $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
+                $dest_path = $uploadFileDir . $newFileName;
 
-        move_uploaded_file($fileTmpPath, $dest_path);
-*/
+                move_uploaded_file($fileTmpPath[$i], $dest_path);
+                //$this->characteristics[] = $newFileName;
+            }
+            //else
+                //$this->characteristics[] = null;
+        }
+//var_dump($this->characteristics);
 
         if ($this->characteristics !== null)
         {
             $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
             foreach ($objChar as $c) $c->delete();
 
-            //var_dump($_FILES['EntryWork']['name']["characteristics"][0]);
-            
-
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
                     $objChar = new ObjectCharacteristicWork();
-
-                    //var_dump($characts[$i]->characteristicObjectWork->value_type.' '.$characts[$i]->characteristicObjectWork->name);
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
                         $objChar->integer_value = $this->characteristics[$i];
@@ -274,15 +281,7 @@ class MaterialObjectWork extends MaterialObject
                         $objChar->date_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 6)
-                    {
                         $objChar->document_value = $this->characteristics[$i];
-                        $objChar->documentFile = UploadedFile::getInstance($objChar, 'characteristics['.$i.']');
-                        
-
-
-                        if ($objChar->documentFile !== null)
-                            $objChar->uploadDocument();
-                    }
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;

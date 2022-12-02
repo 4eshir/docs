@@ -886,7 +886,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             ?>
         </div>
 
-        <div class="row">
+        <div class="row"  style="display: <?php echo $model->trainingProgramWork->certificat_type_id == 1 ? 'block' : 'none' ?>;">
             <div class="panel panel-default">
                 <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Темы проектов</p></div>
                 <?php
@@ -998,7 +998,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
         
 
-    <div class="row">
+    <div class="row" style="display: <?php echo $model->trainingProgramWork->certificat_type_id == 1 ? 'block' : 'none' ?>;">
             <div class="panel panel-default">
                 <div class="panel-heading"><p style="width: 77.5%; text-align: left; font-family: Tahoma; font-size: 20px; padding-left: 0">Приглашенные эксперты</p></div>
                 <?php
@@ -1070,7 +1070,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             </div>
         </div>
 
-        <div>
+        <div style="display: <?php echo $model->protection_date !== null || $model->trainingProgramWork->certificat_type_id != 1 ? 'block' : 'none' ?>;">
             <?php 
             if (RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 5) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))
                 echo $form->field($model, 'protection_confirm')->checkbox(); ?>
