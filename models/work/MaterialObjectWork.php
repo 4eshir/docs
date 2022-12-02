@@ -7,6 +7,8 @@ use app\models\work\ObjectCharacteristicWork;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
 
+use Yii;
+
 
 class MaterialObjectWork extends MaterialObject
 {
@@ -225,16 +227,36 @@ class MaterialObjectWork extends MaterialObject
     {
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
+/*
+
+    Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
+
+        $fileTmpPath = $_FILES["EntryWork"]["tmp_name"]["characteristics"][0];
+        $fileName = $_FILES['EntryWork']['name']["characteristics"][0];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $newFileName = 'test'.'.'.$fileExtension;
+        $uploadFileDir = Yii::$app->basePath.'/upload/';
+        $dest_path = $uploadFileDir . $newFileName;
+
+        move_uploaded_file($fileTmpPath, $dest_path);
+*/
+
         if ($this->characteristics !== null)
         {
             $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
             foreach ($objChar as $c) $c->delete();
+
+            //var_dump($_FILES['EntryWork']['name']["characteristics"][0]);
+            
 
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
                     $objChar = new ObjectCharacteristicWork();
+
+                    //var_dump($characts[$i]->characteristicObjectWork->value_type.' '.$characts[$i]->characteristicObjectWork->name);
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
                         $objChar->integer_value = $this->characteristics[$i];
@@ -255,6 +277,9 @@ class MaterialObjectWork extends MaterialObject
                     {
                         $objChar->document_value = $this->characteristics[$i];
                         $objChar->documentFile = UploadedFile::getInstance($objChar, 'characteristics['.$i.']');
+                        
+
+
                         if ($objChar->documentFile !== null)
                             $objChar->uploadDocument();
                     }

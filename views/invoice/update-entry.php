@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -228,6 +228,9 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                 else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
+
+                echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
+
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="float: left; margin-top: 10px; padding-left: 3%">
