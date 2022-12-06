@@ -47,7 +47,6 @@ class JournalModel extends \yii\base\Model
 
     public function ClearVisits()
     {
-        var_dump();
         if ($this->visits !== null) {
             $size = count($this->visits);
             for ($i = 0; $i != $size; $i++)
@@ -116,23 +115,22 @@ class JournalModel extends \yii\base\Model
                 $tempSuccess[] = $this->successes[$i];
         }
 
-
         for ($i = 0; $i < count($this->projectThemes) - 1; $i++)
             $this->projectThemes[$i] = $this->projectThemes[$i + 1];
 
         if ($this->tpIds !== null)
-        for ($i = 0; $i < count($this->tpIds); $i++)
-        {
-            $tp = TrainingGroupParticipantWork::find()->where(['id' => $this->tpIds[$i]])->one();
-            $tp->points = $this->cwPoints[$i];
-            if ($this->tpIds[$i] == $tempSuccess[$i]) $tp->success = 1;
-            else $tp->success = false;
-            $tp->group_project_themes_id = $this->projectThemes[$i];
+            for ($i = 0; $i < count($this->tpIds); $i++)
+            {
+                $tp = TrainingGroupParticipantWork::find()->where(['id' => $this->tpIds[$i]])->one();
+                $tp->points = $this->cwPoints[$i];
+                if ($this->tpIds[$i] == $tempSuccess[$i]) $tp->success = 1;
+                else $tp->success = false;
+                $tp->group_project_themes_id = $this->projectThemes[$i];
 
-            //echo $tp->participantWork->shortName.' '.$this->projectThemes[$i].'<br>';
+                //echo $tp->participantWork->shortName.' '.$this->projectThemes[$i].'<br>';
 
-            $tp->save();
-        }
+                $tp->save();
+            }
 
     }
 }

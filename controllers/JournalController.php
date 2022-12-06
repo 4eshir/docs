@@ -108,6 +108,7 @@ class JournalController extends Controller
             $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
             DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
             $model->groupProjectThemes = $modelProjectThemes;
+            //var_dump($model->projectThemes);
 
             $model->save();
             $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
