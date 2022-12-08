@@ -123,8 +123,9 @@ class InvoiceWork extends Invoice
                 {
                     //var_dump($this->objects);
                     $newObject = new MaterialObjectWork($object);
-                    //$newObject->characteristics = $object->characteristics;
+                    $newObject->characteristics = $object->characteristics;
                     $newObject->save();
+                    //var_dump($newObject->id);
 
                     $newObjectEntry = new ObjectEntryWork();
                     $newObjectEntry->entry_id = $entry->id;

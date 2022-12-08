@@ -19,6 +19,8 @@ class MaterialObjectWork extends MaterialObject
 
     public $amount; //количество объектов в записи накладной
 
+    public $files; //файлы (при создании накладной)
+
     function __construct($obj = null)
     {
         $this->id = $obj->id;
@@ -229,6 +231,9 @@ class MaterialObjectWork extends MaterialObject
 
         //Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
         $fileTmpPath = $_FILES["EntryWork"]["tmp_name"]["characteristics"];
+
+        //получаем данные если файлы из динамической формы накладной
+        var_dump($_FILES["MaterialObjectWork"]["tmp_name"][1]["characteristics"]));
 
         $nameCharacteristic = [];
         foreach ($characts as $c)
