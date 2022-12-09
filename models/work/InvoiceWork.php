@@ -124,6 +124,8 @@ class InvoiceWork extends Invoice
                     //var_dump($this->objects);
                     $newObject = new MaterialObjectWork($object);
                     $newObject->characteristics = $object->characteristics;
+                    $newObject->filesTmp = $_FILES["MaterialObjectWork"]["tmp_name"][$i]["characteristics"];
+                    $newObject->filesName = $_FILES["MaterialObjectWork"]["name"][$i]["characteristics"];
                     $newObject->save();
                     //var_dump($newObject->id);
 

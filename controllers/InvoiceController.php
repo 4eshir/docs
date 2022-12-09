@@ -84,7 +84,7 @@ class InvoiceController extends Controller
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
             $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
-            
+
             $model->save(false);
 
             if ($model->documentFile !== null)
@@ -120,7 +120,7 @@ class InvoiceController extends Controller
             $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
             if ($model->documentFile !== null)
                 $model->uploadDocument();
-            
+
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -162,7 +162,7 @@ class InvoiceController extends Controller
                 $object = MaterialObjectWork::find()->where(['id' => $i])->one();
                 $object->delete();
             }
-            
+
         }
 
         return $this->redirect(['update', 'id' => $modelId]);

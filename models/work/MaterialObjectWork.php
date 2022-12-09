@@ -12,14 +12,14 @@ use Yii;
 
 class MaterialObjectWork extends MaterialObject
 {
-
-	public $photoFile; //поле для загрузки фотографии объекта
+    public $photoFile; //поле для загрузки фотографии объекта
 	public $expirationDate; //дата окончания срока годности
     public $characteristics; //список характеристик объекта
 
     public $amount; //количество объектов в записи накладной
 
-    public $files; //файлы (при создании накладной)
+    public $filesTmp; //файлы (при создании накладной)
+    public $filesName; //файлы (при создании накладной)
 
     function __construct($obj = null)
     {
@@ -52,7 +52,7 @@ class MaterialObjectWork extends MaterialObject
             //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
             [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount', 'complex'], 'integer'],
             [['price'], 'number'],
-            [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'safe'],
+            [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education', 'filesTmp', 'filesName'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
             [['attribute'], 'string', 'max' => 3],
             [['inventory_number'], 'string', 'max' => 20],
@@ -227,23 +227,30 @@ class MaterialObjectWork extends MaterialObject
 
     public function afterSave($insert, $changedAttributes)
     {
+
+        //var_dump($this->files);
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
         //Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
         $fileTmpPath = $_FILES["EntryWork"]["tmp_name"]["characteristics"];
 
         //получаем данные если файлы из динамической формы накладной
-        var_dump($_FILES["MaterialObjectWork"]["tmp_name"][1]["characteristics"]));
+        if ($fileTmpPath == null) $fileTmpPath = $this->filesTmp;
 
         $nameCharacteristic = [];
         foreach ($characts as $c)
             if ($c->characteristicObjectWork->value_type == 6)
                 $nameCharacteristic[] = $c->characteristicObjectWork->name;
 
+        $saveFileNames = [];
+
         for ($i = 0; $i < count($fileTmpPath); $i++)
         {
             $fileName = $_FILES['EntryWork']['name']["characteristics"][$i];
-            if ($fileName !== "")
+            if ($fileName == null) $fileName = $this->filesName[$i];
+
+
+            if ($fileName !== "" && $fileName !== null)
             {
                 $fileNameCmps = explode(".", $fileName);
                 $fileExtension = strtolower(end($fileNameCmps));
@@ -251,18 +258,35 @@ class MaterialObjectWork extends MaterialObject
                 $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
                 $dest_path = $uploadFileDir . $newFileName;
 
+                $saveFileNames[] = $newFileName;
+
                 move_uploaded_file($fileTmpPath[$i], $dest_path);
+
                 //$this->characteristics[] = $newFileName;
             }
             //else
                 //$this->characteristics[] = null;
         }
-//var_dump($this->characteristics);
 
         if ($this->characteristics !== null)
         {
             $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
             foreach ($objChar as $c) $c->delete();
+
+            $counter = $_FILES['EntryWork']['name']["characteristics"];
+            if ($counter == null) $counter = $this->filesName;
+
+
+            for ($i = 0; $i < count($counter); $i++)
+            {
+                $objChar = new ObjectCharacteristicWork();
+                $objChar->document_value = $saveFileNames[$i];
+
+                $objChar->material_object_id = $this->id;
+                $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
+
+                $objChar->save();
+            }
 
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
@@ -286,7 +310,7 @@ class MaterialObjectWork extends MaterialObject
                         $objChar->date_value = $this->characteristics[$i];
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 6)
-                        $objChar->document_value = $this->characteristics[$i];
+                        $objChar->document_value = $saveFileNames[$i];
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;

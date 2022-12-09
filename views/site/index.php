@@ -15,6 +15,7 @@ $this->title = 'ЦСХД';
 </script>
 
 <style>
+
     * {
         margin: 0;
         padding: 0;
@@ -42,6 +43,7 @@ $this->title = 'ЦСХД';
         box-shadow: 0 0 5px rgba(0, 0, 0, .2);
         background: black;
         color: white;
+        border-radius: 10px;
     }
     .portfolio-item img {
         display: block;
@@ -131,7 +133,14 @@ $this->title = 'ЦСХД';
     }
 </style>
 
-<div class="site-index">
+<?php
+
+$img_src = "new_year_back.jpg";
+//$img_src = "main-back.jpg";
+
+?>
+
+<div class="site-index" style="z-index: 1; position: absolute">
 
     <?php function check_mobile_device1() {
         $mobile_agent_array = array('ipad', 'iphone', 'android', 'pocket', 'palm', 'windows ce', 'windowsce', 'cellphone', 'opera mobi', 'ipod', 'small', 'sharp', 'sonyericsson', 'symbian', 'opera mini', 'nokia', 'htc_', 'samsung', 'motorola', 'smartphone', 'blackberry', 'playstation portable', 'tablet browser');
@@ -147,7 +156,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Документооборот</b></h3>
@@ -172,7 +181,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Эл. журнал</b></h3>
@@ -190,7 +199,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Справочники</b></h3>
@@ -220,7 +229,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Что нового?</b></h3>
@@ -241,7 +250,7 @@ $this->title = 'ЦСХД';
         <!-- <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Реестр ПО</b></h3>
@@ -261,7 +270,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Мат. ценности</b></h3>
@@ -279,7 +288,7 @@ $this->title = 'ЦСХД';
         <div class="portfolio-item">
             <div class="portfolio-item-wrap">
                 <a href="">
-                    <img src="main-back.jpg">
+                    <img src="<?php echo $img_src; ?>">
                     <div class="portfolio-item-inner">
                         <div class="portfolio-heading">
                             <h3><b>Отчеты</b></h3>
@@ -298,6 +307,13 @@ $this->title = 'ЦСХД';
         </div>
 
     </div>
+
     <?php } else { echo '<h3 style="text-align: center"><b>Добро пожаловать в систему!</b></h3><br><h4 style="text-align: center">Для навигации используйте меню вверху экрана</h4>';}?>
 
+</div>
+<div>
+    <img src="happy_new_year.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0"/>
+</div>
+<div>
+    <img src="new_year_ball.png" style="position: absolute; top: 100px; left: 50px; width: 250px; height: 250px; z-index: 0"/>
 </div>

@@ -127,7 +127,6 @@ class EntryWork extends Entry
         $i = 0;
         foreach ($objects as $object)
         {
-            var_dump($object->material_object_id);
             $object->materialObjectWork->name = $this->name;
             $object->materialObjectWork->price = $this->price;
             $object->materialObjectWork->create_date = $this->create_date;
