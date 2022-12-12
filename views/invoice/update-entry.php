@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\work\SubobjectWork;
+use app\models\work\ObjectEntryWork;
+use app\models\work\ObjectCharacteristicWork;
+use app\models\work\InvoiceEntryWork;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\EntryWork */
@@ -243,6 +246,26 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
         ?>
     </div>
+
+    <h5><b>Документы</b></h5>
+    <table class="table table-bordered">
+        <?php 
+
+            $ids = [];
+            $objEntry = ObjectEntryWork::find()->where(['entry_id' => $model->id])->all();
+            foreach ($objEntry as $obj) $ids[] = $obj->material_object_id;
+
+
+            $docs = ObjectCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['IN', 'material_object_id', $ids])->andWhere(['characteristicObject.value_type' => 6])->andWhere(['!=', 'document_value', 'null'])->all();
+
+
+            $invoice = InvoiceEntryWork::find()->where(['entry_id' => $model->id])->one();
+
+            foreach ($docs as $doc)
+                echo '<tr><td>'.$doc->document_value.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry-doc', 'id' => $doc->id, 'entryId' => $model->id, 'modelId' => $invoice->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+
+        ?>
+    </table>
 
     <?= $form->field($model, 'complex')->checkbox() ?>
 

@@ -206,6 +206,15 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function actionDeleteEntryDoc($id, $entryId, $modelId)
+    {
+        $file = ObjectCharacteristicWork::find()->where(['id' => $id])->one();
+        $file->document_value = null;
+        $file->save();
+        //удалить физически файл!!!
+        return $this->redirect('index?r=invoice/update-entry&id='.$entryId.'&modelId='.$modelId);
+    }
+
 
     /**
      * Finds the Invoice model based on its primary key value.

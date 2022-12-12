@@ -244,55 +244,65 @@ class MaterialObjectWork extends MaterialObject
 
         $saveFileNames = [];
 
-        for ($i = 0; $i < count($fileTmpPath); $i++)
+        if ($fileTmpPath !== null)
         {
-            $fileName = $_FILES['EntryWork']['name']["characteristics"][$i];
-            if ($fileName == null) $fileName = $this->filesName[$i];
-
-
-            if ($fileName !== "" && $fileName !== null)
+            for ($i = 0; $i < count($fileTmpPath); $i++)
             {
-                $fileNameCmps = explode(".", $fileName);
-                $fileExtension = strtolower(end($fileNameCmps));
-                $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$this->id .'.'.$fileExtension;
-                $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
-                $dest_path = $uploadFileDir . $newFileName;
+                $fileName = $_FILES['EntryWork']['name']["characteristics"][$i];
+                if ($fileName == null) $fileName = $this->filesName[$i];
 
-                $saveFileNames[] = $newFileName;
 
-                move_uploaded_file($fileTmpPath[$i], $dest_path);
+                if ($fileName !== "" && $fileName !== null)
+                {
+                    $fileNameCmps = explode(".", $fileName);
+                    $fileExtension = strtolower(end($fileNameCmps));
+                    $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$this->id .'.'.$fileExtension;
+                    $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
+                    $dest_path = $uploadFileDir . $newFileName;
 
-                //$this->characteristics[] = $newFileName;
+                    $saveFileNames[] = $newFileName;
+
+                    move_uploaded_file($fileTmpPath[$i], $dest_path);
+
+                    //$this->characteristics[] = $newFileName;
+                }
+                //else
+                    //$this->characteristics[] = null;
             }
-            //else
-                //$this->characteristics[] = null;
         }
+        
 
         if ($this->characteristics !== null)
         {
-            $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
-            foreach ($objChar as $c) $c->delete();
 
             $counter = $_FILES['EntryWork']['name']["characteristics"];
             if ($counter == null) $counter = $this->filesName;
 
-
-            for ($i = 0; $i < count($counter); $i++)
+            if ($counter !== null)
             {
-                $objChar = new ObjectCharacteristicWork();
-                $objChar->document_value = $saveFileNames[$i];
+                $characts = KindCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['kind_object_id' => $this->kindWork->id])->andWhere(['characteristicObject.value_type' => 6])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
-                $objChar->material_object_id = $this->id;
-                $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
+                for ($i = 0; $i < count($counter); $i++)
+                {
+                    $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $characts[$i]->characteristicObjectWork->id])->one();
+                    if ($objChar == null) $objChar = new ObjectCharacteristicWork();
+                    
+                    $objChar->document_value = $saveFileNames[$i];
+                    $objChar->material_object_id = $this->id;
+                    $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
 
-                $objChar->save();
+                    $objChar->save();
+                }
             }
+            
+            $characts = KindCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['kind_object_id' => $this->kindWork->id])->andWhere(['!=', 'characteristicObject.value_type', 6])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
             for ($i = 0; $i < count($this->characteristics); $i++)
             {
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
-                    $objChar = new ObjectCharacteristicWork();
+                    $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $this->characteristics[$i]])->one();
+                    if ($objChar == null) $objChar = new ObjectCharacteristicWork();
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
                         $objChar->integer_value = $this->characteristics[$i];
@@ -319,6 +329,12 @@ class MaterialObjectWork extends MaterialObject
                 }
             }
         }
+    }
+
+    private function IsNullCharacterstic($characteristic)
+    {
+        return $characteristic->integer_value == null && $characteristic->double_value == null && $characteristic->string_value == null &&
+            $characteristic->bool_value == null && $characteristic->date_value == null && $characteristic->document_value == null;
     }
 
 
