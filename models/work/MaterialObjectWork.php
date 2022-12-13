@@ -228,7 +228,6 @@ class MaterialObjectWork extends MaterialObject
     public function afterSave($insert, $changedAttributes)
     {
 
-        //var_dump($this->files);
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
         //Создаем файл на сервере (файлы идут по порядку, [0], [1], [2]...). Если файла нет - то там будет "", но элемент в массиве присутствует
@@ -244,6 +243,8 @@ class MaterialObjectWork extends MaterialObject
 
         $saveFileNames = [];
 
+        $eId = ObjectEntryWork::find()->where(['material_object_id' => $this->id])->one()->entry_id;
+
         if ($fileTmpPath !== null)
         {
             for ($i = 0; $i < count($fileTmpPath); $i++)
@@ -256,7 +257,7 @@ class MaterialObjectWork extends MaterialObject
                 {
                     $fileNameCmps = explode(".", $fileName);
                     $fileExtension = strtolower(end($fileNameCmps));
-                    $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$this->id .'.'.$fileExtension;
+                    $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$eId .'.'.$fileExtension;
                     $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
                     $dest_path = $uploadFileDir . $newFileName;
 
@@ -270,7 +271,7 @@ class MaterialObjectWork extends MaterialObject
                     //$this->characteristics[] = null;
             }
         }
-        
+
 
         if ($this->characteristics !== null)
         {

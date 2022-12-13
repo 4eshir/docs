@@ -247,7 +247,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         ?>
     </div>
 
-    <h5><b>Документы</b></h5>
+    <h5><b>Общие документы</b></h5>
     <table class="table table-bordered">
         <?php 
 
@@ -256,13 +256,13 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             foreach ($objEntry as $obj) $ids[] = $obj->material_object_id;
 
 
-            $docs = ObjectCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['IN', 'material_object_id', $ids])->andWhere(['characteristicObject.value_type' => 6])->andWhere(['!=', 'document_value', 'null'])->all();
+            $docs = ObjectCharacteristicWork::find()->select('document_value')->distinct()->joinWith(['characteristicObject characteristicObject'])->where(['IN', 'material_object_id', $ids])->andWhere(['characteristicObject.value_type' => 6])->andWhere(['!=', 'document_value', 'null'])->all();
 
 
             $invoice = InvoiceEntryWork::find()->where(['entry_id' => $model->id])->one();
 
             foreach ($docs as $doc)
-                echo '<tr><td>'.$doc->document_value.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry-doc', 'id' => $doc->id, 'entryId' => $model->id, 'modelId' => $invoice->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                echo '<tr><td>'.Html::a($doc->document_value, \yii\helpers\Url::to(['invoice/get-entry-file', 'fileName' => $doc->document_value, 'modelId' => $model->id])).'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['invoice/delete-entry-doc', 'name' => $doc->document_value, 'entryId' => $model->id, 'modelId' => $invoice->id]), ['class' => 'btn btn-danger']).'</td></tr>';
 
         ?>
     </table>

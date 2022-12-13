@@ -177,7 +177,10 @@ class InvoiceController extends Controller
         {
             $model->dynamic = Yii::$app->request->post()["EntryWork"]["dynamic"];
             $model->save();
-            return $this->redirect(['update', 'id' => $modelId]);
+            
+            $invEnt = InvoiceEntryWork::find()->where(['id' => $modelId])->one()->invoice_id;
+
+            return $this->redirect(['update', 'id' => $invEnt]);
         }
 
         return $this->render('update-entry', [
@@ -206,11 +209,16 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function actionDeleteEntryDoc($id, $entryId, $modelId)
+    public function actionDeleteEntryDoc($name, $entryId, $modelId)
     {
-        $file = ObjectCharacteristicWork::find()->where(['id' => $id])->one();
-        $file->document_value = null;
-        $file->save();
+        $allFiles = ObjectCharacteristicWork::find()->where(['document_value' => $name])->all();
+
+        foreach ($allFiles as $oneFile)
+        {
+            $oneFile->document_value = null;
+            $oneFile->save();
+        }
+
         //удалить физически файл!!!
         return $this->redirect('index?r=invoice/update-entry&id='.$entryId.'&modelId='.$modelId);
     }
@@ -322,6 +330,16 @@ class InvoiceController extends Controller
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
         $file = Yii::$app->basePath . '/upload/files/invoice/document/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('File not found');
+        //return $this->redirect('index.php?r=docs-out/index');
+    }
+
+    public function actionGetEntryFile($fileName = null, $modelId = null, $type = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/material-object/characteristic/' . $fileName;
         if (file_exists($file)) {
             return \Yii::$app->response->sendFile($file);
         }
