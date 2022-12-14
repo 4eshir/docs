@@ -126,6 +126,9 @@ class SiteController extends Controller
         if (Yii::$app->session->get('userSessionTimeout') !== 60 * 60 * 24 * 100)
             Yii::$app->session->set('userSessionTimeout', 60 * 60 * 24 * 100);
 
+        if (!Yii::$app->user->isGuest)
+            return $this->redirect(['/site/index']);
+
         //if (!Yii::$app->user->isGuest) {
         //    return $this->goHome();
         //}
@@ -133,7 +136,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выполнен вход в систему');
-            return $this->render('index');
+            return $this->redirect('index');
         } else {
             return $this->render('login', [
                 'model' => $model,
