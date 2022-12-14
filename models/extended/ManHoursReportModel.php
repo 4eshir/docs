@@ -202,7 +202,6 @@ class ManHoursReportModel extends \yii\base\Model
                 }
             }
 
-            
 
             if ($oneType === '1')
             {
@@ -366,6 +365,8 @@ class ManHoursReportModel extends \yii\base\Model
 
 
                 $result .= '<tr><td><b>4</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
+
+                var_dump($parts);
 
                 //ОТЛАДОЧНЫЙ ВЫВОД
                 foreach ($parts as $part)
