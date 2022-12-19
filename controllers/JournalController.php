@@ -90,6 +90,9 @@ class JournalController extends Controller
 
     public function actionIndexEdit($group_id = null)
     {
+        ini_set('memory_limit', -1);
+        set_time_limit (0);
+
         $model = new JournalModel($group_id);
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
