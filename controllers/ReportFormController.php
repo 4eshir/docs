@@ -137,7 +137,7 @@ class ReportFormController extends Controller
             ExcelWizard::DownloadDod($model->start_date, $model->end_date);
         }
 
-        return $this->render('do', [
+        return $this->render('dod', [
             'model' => $model,
         ]);
     }
