@@ -180,7 +180,7 @@ class InvoiceController extends Controller
             
             $invEnt = InvoiceEntryWork::find()->where(['id' => $modelId])->one()->invoice_id;
 
-            return $this->redirect(['update', 'id' => $invEnt]);
+            return $this->redirect(['update', 'id' => $modelId]);
         }
 
         return $this->render('update-entry', [

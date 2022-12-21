@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'text',
             'square',
+            ['attribute' => 'auditoriumTypeString', 'label' => 'Тип помещения'],
             ['attribute' => 'isEducation', 'label' => 'Предназначен для обр. деят.'],
             ['attribute' => 'branchName', 'label' => 'Название отдела', 'format' => 'html'],
 
