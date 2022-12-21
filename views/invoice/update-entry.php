@@ -214,7 +214,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
             echo '<table>';
             foreach ($characts as $c)
             {
-                $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->object_id])->andWhere(['characteristic_object_id' => $c->characteristic_object_id])->one();
+                $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->object_id])->andWhere(['characteristic_object_id' => $c->characteristic_object_id])->orderBy(['id' => SORT_DESC])->one();
                 $val = null;
                 if ($value !== null)
                 {
@@ -234,10 +234,11 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
                 //echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
 
+                var_dump($value->id);
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="float: left; margin-top: 10px; padding-left: 3%">
-                 <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'"></th></tr>';
+                 <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'"></th></tr>';
                 /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</table>';

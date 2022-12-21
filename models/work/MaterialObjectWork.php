@@ -292,7 +292,8 @@ class MaterialObjectWork extends MaterialObject
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
 
-                    $objChar->save();
+                    if ($objChar->document_value !== NULL)
+                        $objChar->save();
                 }
             }
             
@@ -302,31 +303,53 @@ class MaterialObjectWork extends MaterialObject
             {
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
+                    //$flag = false;
                     $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $this->characteristics[$i]])->one();
                     if ($objChar == null) $objChar = new ObjectCharacteristicWork();
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
+                    {
                         $objChar->integer_value = $this->characteristics[$i];
+                        //$flag = $objChar->integer_value == "";
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 2)
+                    {
                         $objChar->double_value = $this->characteristics[$i];
+                        //$flag = $objChar->double_value == "";
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 3)
+                    {
                         $objChar->string_value = $this->characteristics[$i];
+                        //$flag = $objChar->string_value == "";
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 4)
+                    {
                         $objChar->bool_value = $this->characteristics[$i];
+                        //$flag = $objChar->bool_value == "";
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 5)
+                    {
                         $objChar->date_value = $this->characteristics[$i];
+                        //$flag = $objChar->date_value == "";
+                    }
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 6)
+                    {
                         $objChar->document_value = $saveFileNames[$i];
+                        //$flag = $objChar->document_value == "";
+                    }
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
 
+                    //if (!$flag)
+
                     $objChar->save();
+
                 }
             }
         }
