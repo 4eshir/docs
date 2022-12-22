@@ -121,7 +121,7 @@ class PdfWizard
                         Рег. номер '.$certificat->certificatLongNumber.'
                     </td>
                     <td style="width: 180px; font-size: 18px; vertical-align: bottom">';
-        if ($date <= "2022-12-07" && $date >= "2022-12-23")    
+        if ($date >= "2022-12-07" && $date <= "2022-12-23")    
             $content .= '
                         Е.В. Киселев <br>
                         и.о. директора <br>
