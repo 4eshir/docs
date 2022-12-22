@@ -120,14 +120,26 @@ class PdfWizard
                     <td style="width: 850px; font-size: 20px; vertical-align: bottom">
                         Рег. номер '.$certificat->certificatLongNumber.'
                     </td>
-                    <td style="width: 180px; font-size: 18px; vertical-align: bottom">
+                    <td style="width: 180px; font-size: 18px; vertical-align: bottom">';
+        if ($date <= "2022-12-07" && $date >= "2022-12-23")    
+            $content .= '
+                        Е.В. Киселев <br>
+                        и.о. директора <br>
+                        ГАОУ АО ДО "РШТ" <br>
+                        г. Астрахань - ' . date("Y", strtotime($date)) . '
+                    </td>
+                    <td style="">
+                       <img width="332" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal2.png">';
+        else
+            $content .= '
                         В.В. Войков <br>
                         директор <br>
                         ГАОУ АО ДО "РШТ" <br>
                         г. Астрахань - ' . date("Y", strtotime($date)) . '
                     </td>
                     <td style="">
-                       <img width="282" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal.png">
+                       <img width="282" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal.png">';
+        $content .= '
                     </td>
                 </tr>
             </table>

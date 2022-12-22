@@ -234,7 +234,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
                 //echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
 
-                var_dump($value->id);
+                //var_dump($value->id);
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                  <th style="float: left; margin-top: 10px; padding-left: 3%">
