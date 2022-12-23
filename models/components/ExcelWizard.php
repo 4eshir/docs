@@ -1952,7 +1952,7 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round(ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439) / ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439)) * 100));
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
