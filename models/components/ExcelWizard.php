@@ -279,7 +279,7 @@ class ExcelWizard
         if (count($branch_id) > 0) $parts = $parts->andWhere(['IN', 'trainingGroup.branch_id', $branch_id]);
         if (count($focus_id) > 0) $parts = $parts->andWhere(['IN', 'trainingProgram.focus_id', $focus_id]);
 
-        return count($parts);
+        return count($parts->all());
     }
 
     //получить всех участников заданного отдела мероприятий в заданный период
