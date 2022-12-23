@@ -45,10 +45,10 @@ class PdfWizard
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
         if ($part->participantWork->sex == "Женский")
         {
-            $genderVerbs = ['прошла', 'выполнила', 'выступила'];
+            $genderVerbs = ['прошла', 'выполнила', 'выступила', 'представила'];
         }
         else
-            $genderVerbs = ['прошел', 'выполнил', 'выступил'];
+            $genderVerbs = ['прошел', 'выполнил', 'выступил', 'представил'];
 
 
         $date = $part->trainingGroupWork->protection_date;
@@ -59,6 +59,9 @@ class PdfWizard
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 2)
             $certificatText = ', ' . $genderVerbs[1] . ' итоговую контрольную работу с оценкой '
                             . $part->points .' из 100 баллов.';
+        if ($part->trainingGroupWork->trainingProgram->certificatType->id == 4)
+            $certificatText = ', ' . $genderVerbs[1] . ' '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
+                            . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[3] . ' его в публичном выступлении на открытом уроке.';
 
         $trainedText = 'успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
                             "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText;
