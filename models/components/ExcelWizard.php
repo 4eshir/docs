@@ -1816,7 +1816,7 @@ class ExcelWizard
         return round((count($projectParts) / count($allParts)) * 100);
     }
 
-    static public function GetAllParticipantsFromProgram($start_date, $end_date, $training_program)
+    static public function GetAllParticipantsFromProgram($start_date, $end_date, $training_program, $unic)
     {
         $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['trainingProgram.id' => $training_program])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
@@ -1827,7 +1827,10 @@ class ExcelWizard
         $tgIds = [];
         foreach ($trainingGroups as $group) $tgIds[] = $group->id;
 
-        $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+        if ($unic == 0)
+            $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->all();
+        else
+            $parts = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $tgIds])->all();
 
         return count($parts);
     }
@@ -1952,10 +1955,10 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439)) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 1)) * 100));
 
         var_dump(ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0));
-        var_dump(ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439));
+        var_dump(ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 1));
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
