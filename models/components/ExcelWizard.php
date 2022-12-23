@@ -1954,6 +1954,9 @@ class ExcelWizard
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439)) * 100));
 
+        var_dump(ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1));
+        var_dump(ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439));
+
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
 
