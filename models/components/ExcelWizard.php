@@ -262,6 +262,26 @@ class ExcelWizard
         $writer->save('php://output');
     }
 
+
+    static public function GetAllParticipantsFromBranch($start_date, $end_date, $branch_id, $focus_id)
+    {
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])->andWhere(['IN', 'budget', $budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
+            ->all();
+
+        $tgIds = [];
+        foreach ($trainingGroups as $group) $tgIds[] = $group->id;
+
+        $parts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $tgIds]);
+
+        if (count($branch_id) > 0) $parts = $parts->andWhere(['IN', 'trainingGroup.branch_id', $branch_id]);
+        if (count($focus_id) > 0) $parts = $parts->andWhere(['IN', 'trainingProgram.focus_id', $focus_id]);
+
+        return count($parts);
+    }
+
     //получить всех участников заданного отдела мероприятий в заданный период
     static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
     {
@@ -1913,7 +1933,7 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, ExcelWizard::GetAllParticipantsForeignEvents([3, 4, 5, 6, 7, 8], 0, 0, $start_date, $end_date, 7, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], 1) / ExcelWizard::GetAllParticipantsForeignEvents([3, 4, 5, 6, 7, 8], 0, 0, $start_date, $end_date, 7, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
 
