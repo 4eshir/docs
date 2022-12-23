@@ -274,6 +274,8 @@ class ExcelWizard
         $tgIds = [];
         foreach ($trainingGroups as $group) $tgIds[] = $group->id;
 
+        var_dump($tgIds);
+
         if ($unic == 0)
             $parts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $tgIds]);
         else
@@ -1955,10 +1957,8 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 1) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 1)) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 1)) * 100));
 
-        var_dump(ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0));
-        var_dump(ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 1));
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
