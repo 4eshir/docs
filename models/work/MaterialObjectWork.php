@@ -21,6 +21,8 @@ class MaterialObjectWork extends MaterialObject
     public $filesTmp; //файлы (при создании накладной)
     public $filesName; //файлы (при создании накладной)
 
+    public $objEntrId; //id связки object-entry для именования файлов
+
     function __construct($obj = null)
     {
         $this->id = $obj->id;
@@ -243,7 +245,7 @@ class MaterialObjectWork extends MaterialObject
 
         $saveFileNames = [];
 
-        $eId = ObjectEntryWork::find()->where(['material_object_id' => $this->id])->one()->entry_id;
+        //$eId = ObjectEntryWork::find()->where(['material_object_id' => $this->id])->one()->entry_id;
 
         if ($fileTmpPath !== null)
         {
@@ -257,7 +259,7 @@ class MaterialObjectWork extends MaterialObject
                 {
                     $fileNameCmps = explode(".", $fileName);
                     $fileExtension = strtolower(end($fileNameCmps));
-                    $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$eId .'.'.$fileExtension;
+                    $newFileName = substr($nameCharacteristic[$i], 0, 60).'_'.substr($this->name, 0, 30).'_'.$this->objEntrId .'.'.$fileExtension;
                     $uploadFileDir = Yii::$app->basePath.'/upload/files/material-object/characteristic/';
                     $dest_path = $uploadFileDir . $newFileName;
 
@@ -362,5 +364,19 @@ class MaterialObjectWork extends MaterialObject
     }
 
 
+    public function afterDelete()
+    {
+        $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
+
+        foreach ($objChar as $one)
+            $one->delete();
+
+        $subs = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $this->id])->all();
+
+        foreach ($subs as $one)
+            $one->delete();
+
+        return parent::afterDelete();
+    }
 
 }

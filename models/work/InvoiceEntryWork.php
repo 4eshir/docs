@@ -22,4 +22,15 @@ class InvoiceEntryWork extends InvoiceEntry
     {
         return $this->hasOne(InvoiceWork::className(), ['id' => 'invoice_id']);
     }
+
+
+    public function afterDelete()
+    {
+        $entries = EntryWork::find()->where(['id' => $this->entry_id])->all();
+
+        foreach ($entries as $one)
+            $one->delete();
+
+        return parent::afterDelete();
+    }
 }

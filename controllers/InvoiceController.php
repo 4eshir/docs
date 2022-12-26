@@ -118,10 +118,14 @@ class InvoiceController extends Controller
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
             $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
+            
+            //$model->save(false);
+            
             if ($model->documentFile !== null)
                 $model->uploadDocument();
 
             $model->save(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -122,15 +122,23 @@ class InvoiceWork extends Invoice
                 for ($i = 0; $i < $object->amount; $i++)
                 {
                     //var_dump($this->objects);
-                    $newObject = new MaterialObjectWork($object);
-                    $newObject->characteristics = $object->characteristics;
-                    $newObject->filesTmp = $_FILES["MaterialObjectWork"]["tmp_name"][$i]["characteristics"];
-                    $newObject->filesName = $_FILES["MaterialObjectWork"]["name"][$i]["characteristics"];
-                    $newObject->save();
+                    
                     //var_dump($newObject->id);
 
                     $newObjectEntry = new ObjectEntryWork();
                     $newObjectEntry->entry_id = $entry->id;
+                    $newObjectEntry->material_object_id = $newObject->id;
+                    $newObjectEntry->save();
+                    $tempId = $newObjectEntry->id;
+
+                    $newObject = new MaterialObjectWork($object);
+                    $newObject->objEntrId = $tempId;
+                    $newObject->characteristics = $object->characteristics;
+                    $newObject->filesTmp = $_FILES["MaterialObjectWork"]["tmp_name"][$i]["characteristics"];
+                    $newObject->filesName = $_FILES["MaterialObjectWork"]["name"][$i]["characteristics"];
+                    $newObject->save();
+
+                    $newObjectEntry = ObjectEntryWork::find()->where(['id' => $tempId])->one();
                     $newObjectEntry->material_object_id = $newObject->id;
                     $newObjectEntry->save();
                 }
@@ -145,6 +153,16 @@ class InvoiceWork extends Invoice
 
 
     	}
+    }
+
+    public function beforeDelete()
+    {
+        $invoiceEntries = InvoiceEntryWork::find()->where(['invoice_id' => $this->id])->all();
+
+        foreach ($invoiceEntries as $one)
+            $one->delete();
+
+        return parent::beforeDelete();
     }
 
 }

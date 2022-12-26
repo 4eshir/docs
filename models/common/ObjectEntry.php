@@ -30,7 +30,7 @@ class ObjectEntry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['material_object_id', 'entry_id'], 'required'],
+            [['entry_id'], 'required'],
             [['material_object_id', 'entry_id'], 'integer'],
             [['entry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Entry::className(), 'targetAttribute' => ['entry_id' => 'id']],
             [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],

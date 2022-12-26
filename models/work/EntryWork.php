@@ -148,4 +148,14 @@ class EntryWork extends Entry
             $i++;
         }
     }
+
+    public function beforeDelete()
+    {
+        $objEntr = ObjectEntryWork::find()->where(['entry_id' => $this->id])->all();
+
+        foreach ($objEntr as $one)
+            $one->delete();
+
+        return parent::beforeDelete();
+    }
 }

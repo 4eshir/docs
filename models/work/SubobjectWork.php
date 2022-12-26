@@ -58,4 +58,15 @@ class SubobjectWork extends Subobject
             }
         }
     }
+
+
+    public function beforeDelete()
+    {
+        $subs = SubobjectWork::find()->where(['parent_id' => $this->id])->all();
+
+        foreach ($subs as $one)
+            $one->delete();
+
+        return parent::beforeDelete();
+    }
 }
