@@ -1805,6 +1805,22 @@ class ExcelWizard
             ->andWhere(['>', 'LENGTH(`certificat_number`)', 1])
             ->all();
 
+        $pIds = [];
+        foreach ($projectParts as $one) $pIds[] = $one->id;
+
+        $projectParts1 = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
+            ->andWhere(['NOT IN', 'id', $pIds])
+            ->all();
+
+        $p1Ids = [];
+        foreach ($projectParts1 as $one) $pIds[] = $one->id;
+
+        $newCertificats = CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->all();
+
 
         $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
             ->orWhere(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])])
@@ -1814,7 +1830,7 @@ class ExcelWizard
             ->all();
 
         if (count($projectParts) == 0) return 0;
-        return round((count($projectParts) / count($allParts)) * 100);
+        return round(((count($projectParts) + count($newCertificats)) / count($allParts)) * 100);
     }
 
     static public function GetAllParticipantsFromProgram($start_date, $end_date, $training_program, $unic)
