@@ -1830,7 +1830,8 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
 
-        var_dump(count($projectParts));
+        if ($branch_id == 7 && $focus_id == 4)
+            var_dump(count($projectParts));
         if (count($projectParts) == 0) return 0;
         return round(((count($projectParts) + count($newCertificats)) / count($allParts)) * 100);
     }
