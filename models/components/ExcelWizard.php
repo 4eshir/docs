@@ -31,6 +31,7 @@ use app\models\work\GroupProjectThemesWork;
 use app\models\work\PeopleWork;
 use app\models\work\VisitWork;
 use app\models\work\AuditoriumWork;
+use app\models\work\CertificatWork;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Query;
