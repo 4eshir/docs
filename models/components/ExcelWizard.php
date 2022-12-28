@@ -1821,9 +1821,11 @@ class ExcelWizard
         $p1Ids = [];
         foreach ($projectParts1 as $one) $p1Ids[] = $one->id;
 
-        var_dump($p1Ids);
+
 
         $newCertificats = CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->all();
+
+        var_dump(CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->createCommand()->getRawSql());
 
 
         $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
