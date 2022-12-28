@@ -1825,7 +1825,12 @@ class ExcelWizard
 
         $newCertificats = CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->all();
 
-        var_dump(CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->createCommand()->getRawSql());
+        if ($branch_id == 7 && $focus_id == 4)
+        {
+            var_dump(CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->createCommand()->getRawSql());
+            var_dump(count($newCertificats));
+        }
+        
 
 
         $allParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->select('participant_id')->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
