@@ -1821,6 +1821,8 @@ class ExcelWizard
         $p1Ids = [];
         foreach ($projectParts1 as $one) $p1Ids[] = $one->id;
 
+        var_dump($p1Ids);
+
         $newCertificats = CertificatWork::find()->where(['IN', 'training_group_participant_id', $p1Ids])->all();
 
 
