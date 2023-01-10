@@ -369,7 +369,7 @@ class ExcelWizard
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $finish_date])->all();
 
-        $parts = []
+        $parts = [];
         foreach ($teacherPart as $one)
         {
             $parts[] = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
