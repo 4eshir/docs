@@ -358,6 +358,26 @@ class ExcelWizard
         return $counterPart1;
     }
 
+    //получить пофамильно победителей и призеров всех мероприятий
+    /*
+    * event_level - уровни мероприятий
+    * branch_id - отделы, производящий учет
+    * $start_date - левая дата для поиска мероприятий
+    * $end_date - правая дата для поиска мероприятий
+    */
+    static public function GetParticipantAchievements($event_level, $branch_id, $start_date, $end_date)
+    {
+        $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $finish_date])->all();
+
+        $parts = []
+        foreach ($teacherPart as $one)
+        {
+            $parts[] = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+        }
+
+        return $parts;
+    }
+
     //получить всех призеров и победителей мероприятий заданного уровня
     /*
     * event_level - уровень мероприятия
@@ -371,7 +391,7 @@ class ExcelWizard
     {
         $not_include = $participants_not_include;
 
-       if ($events_id == 0)
+        if ($events_id == 0)
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
         else
             $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
@@ -686,6 +706,14 @@ class ExcelWizard
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
 
         //----------------------------------
+
+
+        //--Пофамильная разбивка--
+
+        $allAchieves = ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
+        var_dump(count($allAchieves));
+
+        //------------------------
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
