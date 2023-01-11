@@ -719,8 +719,6 @@ class ExcelWizard
             $row++;
         }
 
-        var_dump(count($allAchieves));
-
         //------------------------
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
