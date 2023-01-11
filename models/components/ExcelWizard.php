@@ -370,14 +370,18 @@ class ExcelWizard
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
 
         $parts = [];
+        $partsOrig = [];
         foreach ($teacherPart as $one)
         {
             $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
             if ($temp !== null)
+            {
+                $partsOrig[] = TeacherParticipantWork::find()->where(['id' => $one->teacher_participant_id])->one();
                 $parts[] = $temp;
+            }
         }
 
-        return $parts;
+        return [$parts, $partsOrig];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
@@ -714,10 +718,13 @@ class ExcelWizard
 
         $allAchieves = ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
         $row = 5;
-        foreach ($allAchieves as $one)
+        for ($i = 0; $i < count($allAchieves[0]); $i++)
         {
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participantWork->secondname);
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, $row, $one->foreignEvent->eventLevel->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $allAchieves[0][$i]->participantWork->secondname);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, $row, $allAchieves[0][$i]->foreignEvent->eventLevel->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(3, $row, $allAchieves[0][$i]->foreignEvent->name);
+            $team = TeamWork::find()->where(['foreign_event_id' => $allAchieves[1][$i]->foreign_event_id])->andWhere(['participant_id' => $allAchieves[1][$i]->participant_id])->one();
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(5, $row, $team === null ? 'Индивидуальная' : 'Групповая');
             $row++;
         }
 
