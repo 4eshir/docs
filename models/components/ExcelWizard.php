@@ -369,6 +369,25 @@ class ExcelWizard
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
 
+        $prize = [];
+        $winners = [];
+        foreach ($teacherPart as $one)
+        {
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+            if ($temp !== null)
+            {
+                if ($temp->winner == 0) $prize[] = $temp;
+                else $winners[] = $temp;
+            }
+        }
+
+        return [$winners, $prize];
+    }
+
+    static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
+    {
+        $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
+
         $parts = [];
         $partsOrig = [];
         foreach ($teacherPart as $one)
@@ -688,28 +707,28 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, 0, 0, []);
+        $result = ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, $result[0]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($result[1]));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, count($result[0]));
 
         //----------------------------------
 
         //Всероссийские победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0, []);
+        $result = ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date);
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, $result[0]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, count($result[1]));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($result[0]));
 
         //----------------------------------
 
         //Региональные победители и призеры
 
-        $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0, []);
+        $result = ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, $result[0]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, count($result[1]));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, count($result[0]));
 
         //----------------------------------
 
