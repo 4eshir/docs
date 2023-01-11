@@ -372,7 +372,9 @@ class ExcelWizard
         $parts = [];
         foreach ($teacherPart as $one)
         {
-            $parts[] = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one()
+            if ($temp !== null)
+                $parts[] = $temp;
         }
 
         return $parts;
@@ -712,11 +714,9 @@ class ExcelWizard
 
         $allAchieves = ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
         $row = 5;
-        var_dump($allAchieves[6]);
         foreach ($allAchieves as $one)
         {
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participant_id);
-
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participantWork->secondname);
             $row++;
         }
 
