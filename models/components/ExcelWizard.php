@@ -714,7 +714,7 @@ class ExcelWizard
         $row = 5;
         foreach ($allAchieves as $one)
         {
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participantWork->fullName);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participant_id);
 
             $row++;
         }
