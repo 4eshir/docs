@@ -372,7 +372,7 @@ class ExcelWizard
         $parts = [];
         foreach ($teacherPart as $one)
         {
-            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one()
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
             if ($temp !== null)
                 $parts[] = $temp;
         }
