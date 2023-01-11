@@ -663,9 +663,9 @@ class ExcelWizard
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($tgIds)])->all();
 
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
-        $inputData->getActiveSheet()->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 5, count($participants));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 4, 'на "'.substr($end_date, -2).'".'.substr($end_date, 5, 2).'.'.substr($end_date, 0, 4).' г.');
+        $inputData->getSheet(1)->getCellByColumnAndRow(3, 4)->getStyle()->getFont()->setBold();
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 5, count($participants));
         //----------------------------
 
         //Получаем мероприятия с выбранными учениками
@@ -690,8 +690,8 @@ class ExcelWizard
 
         $result = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, 0, 0, []);
         
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 6, $result[0]);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 7, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, $result[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[1]);
 
         //----------------------------------
 
@@ -699,8 +699,8 @@ class ExcelWizard
 
         $result = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, 0, 0, []);
         
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 8, $result[0]);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 9, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, $result[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[1]);
 
         //----------------------------------
 
@@ -708,8 +708,8 @@ class ExcelWizard
 
         $result = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, 0, 0, []);
 
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 10, $result[0]);
-        $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11, $result[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 10, $result[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, $result[1]);
 
         //----------------------------------
 
