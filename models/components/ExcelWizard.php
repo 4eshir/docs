@@ -725,6 +725,8 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(3, $row, $allAchieves[0][$i]->foreignEvent->name);
             $team = TeamWork::find()->where(['foreign_event_id' => $allAchieves[1][$i]->foreign_event_id])->andWhere(['participant_id' => $allAchieves[1][$i]->participant_id])->one();
             $inputData->getSheet(2)->setCellValueByColumnAndRow(5, $row, $team === null ? 'Индивидуальная' : 'Групповая');
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(6, $row, $allAchieves[0][$i]->winner == 0 ? 'Призер' : 'Победитель');
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(7, $row, $allAchieves[0][$i]->achievment);
             $row++;
         }
 
