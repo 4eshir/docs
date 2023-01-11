@@ -717,7 +717,7 @@ class ExcelWizard
         foreach ($allAchieves as $one)
         {
             $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participantWork->secondname);
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, $row, $one->foreignEventWork->level->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, $row, $one->foreignEvent->level->name);
             $row++;
         }
 
