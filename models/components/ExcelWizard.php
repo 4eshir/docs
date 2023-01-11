@@ -712,6 +712,7 @@ class ExcelWizard
 
         $allAchieves = ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
         $row = 5;
+        var_dump($allAchieves[6]->participant_id);
         foreach ($allAchieves as $one)
         {
             $inputData->getSheet(2)->setCellValueByColumnAndRow(1, $row, $one->participant_id);
