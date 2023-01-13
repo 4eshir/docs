@@ -763,6 +763,9 @@ class ExcelWizard
 
 
 
+        var_dump(ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date));
+        var_dump(ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[1] + ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[1] + ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[1]);
+
         //-------------------------------------------
 
         //Международные победители и призеры
