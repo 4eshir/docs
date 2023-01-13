@@ -409,7 +409,8 @@ class ExcelWizard
         //выборка команд
 
         $notIncludeIds = [];
-        $teamPartIds = [];
+        $teamPartWinIds = [];
+        $teamPartPrizeIds = [];
         $prizeTeam = 0;
         $winTeam = 0;
 
@@ -447,7 +448,8 @@ class ExcelWizard
                 {
                     $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $onePart->foreign_event_id])->andWhere(['participant_id' => $onePart->participant_id])->one();
 
-                    $teamPartIds[] = $temp->id;
+                    if ($temp->winner == 0) $teamPartPrizeIds[] = $temp->id;
+                    else $teamPartWinIds[] = $temp->id;
 
                     $notIncludeIds[] = $onePart->id;
                 }
@@ -457,7 +459,8 @@ class ExcelWizard
 
         //--------------
 
-        var_dump($event_level.' - '.count($teamPartIds));
+        var_dump($event_level.' - '.$teamPartPrizeIds.'/'.$teamPartWinIds);
+
 
         $prize = [];
         $winners = [];
