@@ -107,7 +107,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                             <div class="panel-body">
                                 <div class="col-xs-4">
                                     <?php
-                                    $notIcludeObjects = \app\models\work\ContainerWork::find()->where(['not', ['material_object_id' => null]])->all();
+                                    $notIcludeObjects = \app\models\work\ContainerObjectWork::find()->all();
                                     $nioIds = [];
                                     foreach ($notIcludeObjects as $object) $nioIds[] = $object->material_object_id;
 
