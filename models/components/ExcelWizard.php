@@ -474,7 +474,7 @@ class ExcelWizard
             }
         }
 
-        return [$winners - $teamPartWinIds, $prize - $teamPartPrizeIds, $winTeam, $prizeTeam];
+        return [count($winners) - $teamPartWinIds, count($prize) - $teamPartPrizeIds, $winTeam, $prizeTeam];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
@@ -778,7 +778,7 @@ class ExcelWizard
 
 
         var_dump(count(ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date)[0]));
-        var_dump(count(ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[0]) + count(ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[1]) + count(ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[0]) + count(ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[1]) + count(ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[0]) + count(ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[1]));
+        var_dump(ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date)[1] + ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date)[1] + ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[0] + ExcelWizard::NewGetPrizeWinners(6, [1, 2, 3, 4, 7], $start_date, $end_date)[1]);
 
         //-------------------------------------------
 
