@@ -466,7 +466,7 @@ class ExcelWizard
         $winners = [];
         foreach ($teacherPart as $one)
         {
-            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->andWhere(['NOT IN', 'id', $teamPartIds])->one();
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
             $isTeam = TeamWork::find()->where(['foreign_event_id' => $temp->foreign_event_id])->andWhere(['participant_id' => $temp->participant_id])->one();
 
             if ($temp !== null && $isTeam == null)
