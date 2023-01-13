@@ -393,6 +393,15 @@ class ExcelWizard
         return false;
     }
 
+    static private function DoubleCheckArray($arr1, $arr2, $check1, $check2)
+    {
+        for ($i = 0; $i < count($arr1); $i++)
+            if ($arr1[$i] == $check1 && $arr2[$i] == $check2)
+                return true;
+
+        return false;
+    }
+
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
@@ -453,7 +462,9 @@ class ExcelWizard
         foreach ($teacherPart as $one)
         {
             $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->andWhere(['NOT IN', 'id', $teamPartIds])->one();
-            if ($temp !== null)
+            $isTeam = TeamWork::find()->where(['foreign_event_id' => $temp->foreign_event_id])->andWhere(['participant_id' => $temp->participant_id])->one();
+
+            if ($temp !== null && $isTeam == null)
             {
                 if ($temp->winner == 0) $prize[] = $temp;
                 else $winners[] = $temp;
