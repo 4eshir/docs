@@ -457,6 +457,8 @@ class ExcelWizard
 
         //--------------
 
+        var_dump($event_level.' - '.count($teamPartIds));
+
         $prize = [];
         $winners = [];
         foreach ($teacherPart as $one)
