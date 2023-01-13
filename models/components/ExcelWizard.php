@@ -414,12 +414,12 @@ class ExcelWizard
 
             $allTeamParts = TeamWork::find()->where(['name' => $teamPart->name])->andWhere(['foreign_event_id' => $teamPart->foreign_event_id])->all();
 
-            var_dump(ExcelWizard::IsDublicateTeam($eventsId, $teamNames, $teamPart->foreign_event_id, $teamPart->name));
-
             if (!ExcelWizard::IsDublicateTeam($eventsId, $teamNames, $teamPart->foreign_event_id, $teamPart->name))
             {
                 $eventsId[] = $teamPart->foreign_event_id;
                 $teamNames[] = $teamPart->name;
+
+                var_dump($teamPart->name.' '.count($allTeamParts).'<br>');
 
                 if (count($allTeamParts) > 0)
                 {
@@ -444,9 +444,6 @@ class ExcelWizard
             }
 
         }
-
-        for ($i = 0; $i < count($eventsId); $i++)
-            var_dump($eventsId[$i].' '.$teamNames[$i].'<br>');
 
         //--------------
 
