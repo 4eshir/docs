@@ -474,7 +474,7 @@ class ExcelWizard
             }
         }
 
-        return [count($winners) - $teamPartWinIds, count($prize) - $teamPartPrizeIds, $winTeam, $prizeTeam];
+        return [count($winners) - count($teamPartWinIds), count($prize) - count($teamPartPrizeIds), $winTeam, $prizeTeam];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
