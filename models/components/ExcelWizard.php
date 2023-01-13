@@ -403,14 +403,14 @@ class ExcelWizard
 
             if (count($allTeamParts) > 0)
             {
-                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->teacherParticipant->participant_id])->one();
+                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->participant_id])->one();
 
                 if ($temp->winner == 0) $prizeTeam += 1;
                 else $winTeam += 1;
 
                 foreach ($allTeamParts as $onePart)
                 {
-                    $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $onePart->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $onePart->teacherParticipant->participant_id])->one();
+                    $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $onePart->foreign_event_id])->andWhere(['participant_id' => $onePart->participant_id])->one();
 
                     $teamPartIds[] = $temp->id;
 
