@@ -388,11 +388,45 @@ class ExcelWizard
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
 
+        //выборка команд
+
+        $notIncludeIds = [];
+        $teamPartIds = [];
+        $prizeTeam = 0;
+        $winTeam = 0;
+        foreach ($teacherPart as $one)
+        {
+
+            $teamPart = TeamWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->andWhere(['NOT IN', 'id', $notIncludeIds])->one();
+
+            $allTeamParts = TeamWork::find()->where(['name' => $teamPart->name])->andWhere(['foreign_event_id' => $teamPart->foreign_event_id])->all();
+
+            if (count($allTeamParts) > 0)
+            {
+                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->teacherParticipant->participant_id])->one();]
+
+                if ($temp->winner == 0) $prizeTeam += 1;
+                else $winTeam += 1;
+
+                foreach ($allTeamParts as $onePart)
+                {
+                    $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $onePart->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $onePart->teacherParticipant->participant_id])->one();
+
+                    $teamPartIds[] = $temp->id;
+
+                    $notIncludeIds[] = $onePart->id;
+                }
+            }
+
+        }
+
+        //--------------
+
         $prize = [];
         $winners = [];
         foreach ($teacherPart as $one)
         {
-            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->andWhere(['NOT IN', 'id', $teamPartIds])->one();
             if ($temp !== null)
             {
                 if ($temp->winner == 0) $prize[] = $temp;
@@ -400,7 +434,7 @@ class ExcelWizard
             }
         }
 
-        return [$winners, $prize];
+        return [$winners, $prize, $winTeam, $prizeTeam];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
