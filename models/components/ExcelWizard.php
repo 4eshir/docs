@@ -403,7 +403,7 @@ class ExcelWizard
 
             if (count($allTeamParts) > 0)
             {
-                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->teacherParticipant->participant_id])->one();]
+                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->teacherParticipant->participant_id])->one();
 
                 if ($temp->winner == 0) $prizeTeam += 1;
                 else $winTeam += 1;
