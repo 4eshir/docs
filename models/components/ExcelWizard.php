@@ -459,8 +459,6 @@ class ExcelWizard
 
         //--------------
 
-        var_dump($event_level.' - '.count($teamPartPrizeIds).'/'.count($teamPartWinIds));
-
 
         $prize = [];
         $winners = [];
@@ -476,7 +474,7 @@ class ExcelWizard
             }
         }
 
-        return [$winners, $prize, $winTeam, $prizeTeam];
+        return [$winners - $teamPartWinIds, $prize - $teamPartPrizeIds, $winTeam, $prizeTeam];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
