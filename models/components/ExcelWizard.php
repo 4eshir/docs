@@ -443,6 +443,9 @@ class ExcelWizard
 
         }
 
+        for ($i = 0; $i < count($eventsId); $i++)
+            var_dump($eventsId[$i].' '.$teamNames[$i].'<br>');
+
         //--------------
 
         $prize = [];
