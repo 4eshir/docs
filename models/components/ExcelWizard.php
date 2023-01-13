@@ -429,7 +429,7 @@ class ExcelWizard
                     else $winTeam += 1;
                 }
 
-                var_dump($prizeTeam.' '.$winTeam.'<br>');
+                var_dump($event_level.' - '.$prizeTeam.' '.$winTeam.'<br>');
             }
             
             if (count($allTeamParts) > 0)
