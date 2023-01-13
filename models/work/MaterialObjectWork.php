@@ -280,7 +280,7 @@ class MaterialObjectWork extends MaterialObject
 
             $counter = $_FILES['EntryWork']['name']["characteristics"];
             if ($counter == null) $counter = $this->filesName;
-
+//var_dump($counter); var_dump($this->filesName);
             if ($counter !== null)
             {
                 $characts = KindCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['kind_object_id' => $this->kindWork->id])->andWhere(['characteristicObject.value_type' => 6])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
@@ -288,6 +288,7 @@ class MaterialObjectWork extends MaterialObject
                 for ($i = 0; $i < count($counter); $i++)
                 {
                     $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $characts[$i]->characteristicObjectWork->id])->one();
+
                     if ($objChar == null) $objChar = new ObjectCharacteristicWork();
                     
                     $objChar->document_value = $saveFileNames[$i];
@@ -306,7 +307,8 @@ class MaterialObjectWork extends MaterialObject
                 if ($this->characteristics[$i] !== null || strlen($this->characteristics[$i]) > 0)
                 {
                     //$flag = false;
-                    $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $this->characteristics[$i]])->one();
+                    $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $characts[$i]->characteristicObjectWork->id])->one();
+                    
                     if ($objChar == null) $objChar = new ObjectCharacteristicWork();
 
                     if ($characts[$i]->characteristicObjectWork->value_type == 1)
