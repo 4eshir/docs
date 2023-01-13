@@ -384,6 +384,15 @@ class ExcelWizard
         return [$parts, $partsOrig];
     }
 
+    static private function IsDublicateTeam($events, $teamNames, $check_event, $check_teamName)
+    {
+        for ($i = 0; $i < count($events); $i++)
+            if ($events[$i] == $check_event && $teamNames[$i] == $check_teamName)
+                return true;
+
+        return false;
+    }
+
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
@@ -394,6 +403,10 @@ class ExcelWizard
         $teamPartIds = [];
         $prizeTeam = 0;
         $winTeam = 0;
+
+        $eventsId = [];
+        $teamNames = [];
+
         foreach ($teacherPart as $one)
         {
 
@@ -401,12 +414,22 @@ class ExcelWizard
 
             $allTeamParts = TeamWork::find()->where(['name' => $teamPart->name])->andWhere(['foreign_event_id' => $teamPart->foreign_event_id])->all();
 
+            if (!ExcelWizard::IsDublicateTeam($eventsId, $teamNames, $teamPart->foreign_event_id, $teamPart->name))
+            {
+                $eventsId[] = $teamPart->foreign_event_id;
+                $teamNames[] = $teamPart->name;
+
+                if (count($allTeamParts) > 0)
+                {
+                    $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->participant_id])->one();
+
+                    if ($temp->winner == 0) $prizeTeam += 1;
+                    else $winTeam += 1;
+                }
+            }
+            
             if (count($allTeamParts) > 0)
             {
-                $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $allTeamParts[0]->foreign_event_id])->andWhere(['participant_id' => $allTeamParts[0]->participant_id])->one();
-
-                if ($temp->winner == 0) $prizeTeam += 1;
-                else $winTeam += 1;
 
                 foreach ($allTeamParts as $onePart)
                 {
