@@ -459,7 +459,7 @@ class ExcelWizard
 
         //--------------
 
-        var_dump($event_level.' - '.$teamPartPrizeIds.'/'.$teamPartWinIds);
+        var_dump($event_level.' - '.count($teamPartPrizeIds).'/'.count($teamPartWinIds));
 
 
         $prize = [];
