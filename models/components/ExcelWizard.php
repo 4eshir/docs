@@ -419,7 +419,7 @@ class ExcelWizard
                 $eventsId[] = $teamPart->foreign_event_id;
                 $teamNames[] = $teamPart->name;
 
-                var_dump($teamPart->name.' '.count($allTeamParts).'<br>');
+                //var_dump($teamPart->name.' '.count($allTeamParts).'<br>');
 
                 if (count($allTeamParts) > 0)
                 {
@@ -428,6 +428,8 @@ class ExcelWizard
                     if ($temp->winner == 0) $prizeTeam += 1;
                     else $winTeam += 1;
                 }
+
+                var_dump($prizeTeam.' '.$winTeam.'<br>');
             }
             
             if (count($allTeamParts) > 0)
