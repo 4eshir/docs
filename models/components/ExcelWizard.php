@@ -482,13 +482,13 @@ class ExcelWizard
             $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
             $isTeam = TeamWork::find()->where(['foreign_event_id' => $temp->foreign_event_id])->andWhere(['participant_id' => $temp->participant_id])->one();
 
-            if ($temp !== null && $isTeam == null && !ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->level_id, $temp->participant_id, $temp->winner))
+            if ($temp !== null && $isTeam == null && !ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->event_level_id, $temp->participant_id, $temp->winner))
             {
                 if ($temp->winner == 0) $prize[] = $temp;
                 else $winners[] = $temp;
             }
 
-            if (!ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->level_id, $temp->participant_id, $temp->winner))
+            if (!ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->event_level_id, $temp->participant_id, $temp->winner))
             {
                 $evLevel[] = $temp->foreignEvent->level_id;
                 $partId[] = $temp->participant_id;
