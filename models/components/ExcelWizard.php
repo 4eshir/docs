@@ -490,7 +490,7 @@ class ExcelWizard
 
             if (!ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->event_level_id, $temp->participant_id, $temp->winner))
             {
-                $evLevel[] = $temp->foreignEvent->level_id;
+                $evLevel[] = $temp->foreignEvent->event_level_id;
                 $partId[] = $temp->participant_id;
                 $achieves[] = $temp->winner;
             }
