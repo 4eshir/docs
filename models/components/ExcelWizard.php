@@ -393,10 +393,21 @@ class ExcelWizard
         return false;
     }
 
+    //ПРЕОБРАЗОВАТЬ В УНИВЕРСАЛЬНУЮ ФУНКЦИЮ!!!
     static private function DoubleCheckArray($arr1, $arr2, $check1, $check2)
     {
         for ($i = 0; $i < count($arr1); $i++)
             if ($arr1[$i] == $check1 && $arr2[$i] == $check2)
+                return true;
+
+        return false;
+    }
+
+    //ПРЕОБРАЗОВАТЬ В УНИВЕРСАЛЬНУЮ ФУНКЦИЮ!!!
+    static private function TripleCheckArray($arr1, $arr2, $arr3, $check1, $check2, $check3)
+    {
+        for ($i = 0; $i < count($arr1); $i++)
+            if ($arr1[$i] == $check1 && $arr2[$i] == $check2 && $arr3[$i] == $check3)
                 return true;
 
         return false;
@@ -462,15 +473,26 @@ class ExcelWizard
 
         $prize = [];
         $winners = [];
+
+        $evLevel = [];
+        $partId = [];
+        $achieves = [];
         foreach ($teacherPart as $one)
         {
             $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
             $isTeam = TeamWork::find()->where(['foreign_event_id' => $temp->foreign_event_id])->andWhere(['participant_id' => $temp->participant_id])->one();
 
-            if ($temp !== null && $isTeam == null)
+            if ($temp !== null && $isTeam == null && !ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->level_id, $temp->participant_id, $temp->winner))
             {
                 if ($temp->winner == 0) $prize[] = $temp;
                 else $winners[] = $temp;
+            }
+
+            if (!ExcelWizard::TripleCheckArray($evLevel, $partId ,$achieves, $temp->foreignEvent->level_id, $temp->participant_id, $temp->winner))
+            {
+                $evLevel[] = $temp->foreignEvent->level_id;
+                $partId[] = $temp->participant_id;
+                $achieves[] = $temp->winner;
             }
         }
 
