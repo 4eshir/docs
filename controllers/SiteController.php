@@ -38,6 +38,8 @@ use app\models\extended\DocumentOutExtended;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 
+use Arhitector\Yandex\Disk;
+
 
 class SiteController extends Controller
 {
@@ -208,7 +210,30 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
+        $disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
+
+        /**
+        * Получить Объектно Ориентированное представление закрытого ресурса.
+        * @var  Arhitector\Yandex\Disk\Resource\Closed $resource
+        */
+        $resource = $disk->getResource('Море.jpg');
+
+        // или и т.д.
+        $fp = fopen('php://output', 'r');
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . 'pic.jpg');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . $resource->size);
+
+        $resource->download($fp);
+
+        // продолжить работу ...
+        fseek($fp, 0);
+
+        //var_dump($stream->getSize());
+        /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)
         {
             $group = TrainingGroupWork::find()->where(['number' => explode(' ', $log->text)[2]])->one();
@@ -221,86 +246,7 @@ class SiteController extends Controller
             {
                 var_dump($group->number);
             }
-        }
-
-        /*$path = Yii::$app->basePath.'/download/';
-        $createZip = new createDirZip();
-        $createZip->get_files_from_folder($path, '');
-        $fileName = 'archive.zip';
-        $fd = fopen ($fileName, 'wb');
-        $out = fwrite ($fd, $createZip->getZippedfile());
-        fclose ($fd);
-        $createZip->forceDownload($fileName);*/
-
-        /*$programs = TrainingProgramWork::find()->all();
-
-
-        foreach ($programs as $program)
-        {
-            $log = Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->one();
-            if ($log !== null)
-            {
-                $program->creator_id = $log->user_id;
-                $program->save();
-                //var_dump($program->getErrors());
-                //var_dump(' - '.$program->id.'<br>');
-            }
-            //var_dump(Log::find()->where(['text' => 'Добавлена образовательная программа '.$program->name])->createCommand()->getRawSql().'<br>');
-            
         }*/
-
-        /*$start_date = '2021-01-01';
-        $end_date = '2021-12-31';
-        $groups = TrainingGroupWork::find()->where(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'id', (new Query())->select('id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->all();
-        
-        $gIds = [];
-        
-        foreach ($groups as $group) $gIds[] = $group->id;
-
-        $fps = ForeignEventParticipantsWork::find()->all();
-        $ids = [];
-        foreach ($fps as $fp)
-        {
-            $parts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['participant_id' => $fp->id])->andWhere(['IN', 'trainingGroup.id', $gIds])->all();
-            if (count($parts) > 1)
-            {
-                $f1 = 0;
-                $f2 = 0;
-                foreach ($parts as $part)
-                {
-                    if ($part->trainingGroup->budget == 0)
-                        $f1 = 1;
-                    else
-                        $f2 = 1;
-                }
-                if ($f1 == 1 && $f2 == 1)
-                    $ids[] = $part->participant_id;
-            }
-        }
-        $fps = ForeignEventParticipantsWork::find()->where(['IN', 'id', $ids])->all();
-
-        foreach ($fps as $fp)
-            echo $fp->fullName.' '.$fp->birthdate.'<br>';
-
-        return null;*/
-        
-        /*
-        $tp = TeacherParticipantWork::find()->all();
-        foreach ($tp as $one) {
-            $newBranch = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $one->id])->one();
-            if ($newBranch == null)
-            {
-                $newBranch = new TeacherParticipantBranchWork();
-                $newBranch->teacher_participant_id = $one->id;
-                $newBranch->branch_id = $one->branch_id;
-                $newBranch->save();
-            }
-        }
-        */
     }
 
 

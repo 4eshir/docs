@@ -1,15 +1,26 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '92abee80d9335ac6bfbc296a070015c7dec33706',
+        'reference' => NULL,
         'name' => 'yiisoft/yii2-app-basic',
         'dev' => true,
     ),
     'versions' => array(
+        'arhitector/yandex' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../arhitector/yandex',
+            'aliases' => array(
+                0 => '2.0.x-dev',
+            ),
+            'reference' => '49f51b32f76cbfd123bb9fad7fdc63619121a884',
+            'dev_requirement' => false,
+        ),
         'behat/gherkin' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -84,6 +95,15 @@
                 0 => '1.2.x-dev',
             ),
             'reference' => '2b2461bed9e15305486319ee552bafca75d1cdaa',
+            'dev_requirement' => false,
+        ),
+        'clue/stream-filter' => array(
+            'pretty_version' => '1.x-dev',
+            'version' => '1.9999999.9999999.9999999-dev',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../clue/stream-filter',
+            'aliases' => array(),
+            'reference' => '3cd5ac57c18cf9e449682eeadd8f8fdd5b4e864f',
             'dev_requirement' => false,
         ),
         'codeception/codeception' => array(
@@ -353,6 +373,15 @@
             'reference' => '3aa286f7c9f8399b3d4ba93c502878925f1be7d5',
             'dev_requirement' => false,
         ),
+        'laminas/laminas-diactoros' => array(
+            'pretty_version' => '2.17.x-dev',
+            'version' => '2.17.9999999.9999999-dev',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laminas/laminas-diactoros',
+            'aliases' => array(),
+            'reference' => '5b32597aa46b83c8b85bb1cf9a6ed4fe7dd980c5',
+            'dev_requirement' => false,
+        ),
         'laminas/laminas-escaper' => array(
             'pretty_version' => '2.6.x-dev',
             'version' => '2.6.9999999.9999999-dev',
@@ -369,6 +398,15 @@
             'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
             'aliases' => array(),
             'reference' => '69d7803570f4da0bf396d25cd5a6b0665afb717b',
+            'dev_requirement' => false,
+        ),
+        'league/event' => array(
+            'pretty_version' => '2.2.0',
+            'version' => '2.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/event',
+            'aliases' => array(),
+            'reference' => 'd2cc124cf9a3fab2bb4ff963307f60361ce4d119',
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
@@ -454,6 +492,67 @@
             'reference' => '4f7fd7836c6f332bb2933569e566a0d6c4cbed74',
             'dev_requirement' => true,
         ),
+        'php-http/async-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
+        'php-http/client-common' => array(
+            'pretty_version' => '2.6.0',
+            'version' => '2.6.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/client-common',
+            'aliases' => array(),
+            'reference' => '45db684cd4e186dcdc2b9c06b22970fe123796c0',
+            'dev_requirement' => false,
+        ),
+        'php-http/client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
+        'php-http/curl-client' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/curl-client',
+            'aliases' => array(
+                0 => '2.x-dev',
+            ),
+            'reference' => '2ed4245a817d859dd0c1d51c7078cdb343cf5233',
+            'dev_requirement' => false,
+        ),
+        'php-http/discovery' => array(
+            'pretty_version' => '1.14.3',
+            'version' => '1.14.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'reference' => '31d8ee46d0215108df16a8527c7438e96a4d7735',
+            'dev_requirement' => false,
+        ),
+        'php-http/httplug' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/httplug',
+            'aliases' => array(
+                0 => '2.x-dev',
+            ),
+            'reference' => 'f640739f80dfa1152533976e3c112477f69274eb',
+            'dev_requirement' => false,
+        ),
+        'php-http/message' => array(
+            'pretty_version' => '1.13.0',
+            'version' => '1.13.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/message',
+            'aliases' => array(),
+            'reference' => '7886e647a30a966a1a8d1dad1845b71ca8678361',
+            'dev_requirement' => false,
+        ),
         'php-http/message-factory' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -463,6 +562,23 @@
                 0 => '1.0.x-dev',
             ),
             'reference' => '597f30e6dfd32a85fd7dbe58cb47554b5bad910e',
+            'dev_requirement' => false,
+        ),
+        'php-http/message-factory-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
+        'php-http/promise' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/promise',
+            'aliases' => array(
+                0 => '1.1.x-dev',
+            ),
+            'reference' => '4c4c1f9b7289a2ec57cde7f1e9762a5789506f88',
             'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-common' => array(
@@ -636,6 +752,12 @@
             'reference' => '22b2ef5687f43679481615605d7a15c557ce85b1',
             'dev_requirement' => false,
         ),
+        'psr/http-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
         'psr/http-factory' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -648,7 +770,7 @@
             'dev_requirement' => false,
         ),
         'psr/http-factory-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
             ),
@@ -665,7 +787,7 @@
             'dev_requirement' => false,
         ),
         'psr/http-message-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
             ),
@@ -874,7 +996,7 @@
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(),
             'reference' => 'e8b495ea28c1d97b5e0c121748d6f9b53d075c66',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/dom-crawler' => array(
             'pretty_version' => '3.4.x-dev',
@@ -917,6 +1039,15 @@
             'aliases' => array(),
             'reference' => '9b630f3427f3ebe7cd346c277a1408b00249dad9',
             'dev_requirement' => true,
+        ),
+        'symfony/options-resolver' => array(
+            'pretty_version' => '5.4.x-dev',
+            'version' => '5.4.9999999.9999999-dev',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/options-resolver',
+            'aliases' => array(),
+            'reference' => 'b03c99236445492f20c61666e8f7e5d388b078e5',
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'dev-main',
@@ -1004,7 +1135,7 @@
                 0 => '1.26.x-dev',
             ),
             'reference' => 'e440d35fa0286f77fb45b79a03fedbeda9307e85',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-php80' => array(
             'pretty_version' => 'dev-main',
@@ -1015,7 +1146,7 @@
                 0 => '1.26.x-dev',
             ),
             'reference' => 'cfa0ae98841b9e461207c13ab093d76b0fa7bace',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/service-contracts' => array(
             'pretty_version' => '2.5.x-dev',
@@ -1085,12 +1216,12 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '92abee80d9335ac6bfbc296a070015c7dec33706',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap' => array(
