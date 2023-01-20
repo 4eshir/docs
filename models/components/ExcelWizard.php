@@ -1322,6 +1322,8 @@ class ExcelWizard
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
+        foreach ($groupsId as $one) echo $one.'<br>';
+
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
 
 
@@ -1404,6 +1406,8 @@ class ExcelWizard
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
+        foreach ($groupsId as $one) echo $one.'<br>';
+
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
 
         $pIds = [];
@@ -1482,6 +1486,8 @@ class ExcelWizard
 
         
         foreach ($groups as $group) $groupsId[] = $group->id;
+
+        foreach ($groupsId as $one) echo $one.'<br>';
 
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
 
@@ -1562,6 +1568,8 @@ class ExcelWizard
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
+        foreach ($groupsId as $one) echo $one.'<br>';
+
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
 
         $pIds = [];
@@ -1637,9 +1645,10 @@ class ExcelWizard
             ->all();
 
         $counter += count($groups);
-        var_dump($counter);
         
         foreach ($groups as $group) $groupsId[] = $group->id;
+
+        foreach ($groupsId as $one) echo $one.'<br>';
 
         $participants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->all();
 
