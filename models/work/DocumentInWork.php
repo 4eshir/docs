@@ -12,6 +12,7 @@ use app\models\components\FileWizard;
 use Yii;
 use ZipStream\File;
 
+use Arhitector\Yandex\Disk;
 
 class DocumentInWork extends DocumentIn
 {
@@ -52,6 +53,8 @@ class DocumentInWork extends DocumentIn
 
     public function uploadScanFile()
     {
+        //var_dump($this->scanFile);
+
         $path = '@app/upload/files/document_in/scan/';
         $date = $this->local_date;
         $new_date = '';
