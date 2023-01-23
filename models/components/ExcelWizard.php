@@ -2284,6 +2284,14 @@ class ExcelWizard
 
         //---------------
 
+        //Отдел ЦОД (физкульт.-спорт. направленность)
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 5)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 18, count($visits));
+
+        //---------------
+
         //---------------------
         
 
