@@ -88,7 +88,6 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $visit = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-                var_dump(VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->createCommand()->getRawSql());
 
                 //---
                 $lIds = [];
