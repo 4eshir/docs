@@ -88,23 +88,17 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $visit = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
+                var_dump(VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->createCommand()->getRawSql());
+
                 //---
                 $lIds = [];
                 foreach ($visit as $one) $lIds[] = $one->training_group_lesson_id;
                 $lessons = TrainingGroupLessonWork::find()->where(['IN', 'id', $lIds])->all();
-                /*
-                $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
-                    ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
-                                                                                                                       //попадающие в промежуток
-
-                $lessons = $lessons->andWhere(['IN', 'trainingGroup.branch_id', $this->branch]);
-                */
+                
                 $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all();
                 $progsId = [];
                 foreach ($progs as $prog) $progsId[] = $prog->id;
-                /*
-                $lessons = $lessons->andWhere(['IN', 'trainingGroup.training_program_id', $progsId]);
-                $lessons = $lessons->andWhere(['IN', 'trainingGroup.budget', $this->budget]);*/
+                
 
                 if ($this->teacher !== "")
                 {
