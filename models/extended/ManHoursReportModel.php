@@ -127,6 +127,10 @@ class ManHoursReportModel extends \yii\base\Model
                     $lessons = LessonThemeWork::find()->where(['teacher_id' => $this->teacher])->andWhere(['IN', 'training_group_lesson_id', $tId]);
 
                     //ОТЛАДОЧНЫЙ ВЫВОД
+                    $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all();
+                    $progsId = [];
+                    foreach ($progs as $prog) $progsId[] = $prog->id;
+                    
                     $newLessons = TrainingGroupLessonWork::find()->joinWith('trainingGroup trainingGroup')->where(['IN', 'training_group_id', $tIdCopy])
                         ->andWhere(['>=', 'lesson_date', $this->start_date])
                         ->andWhere(['<=', 'lesson_date', $this->end_date])
