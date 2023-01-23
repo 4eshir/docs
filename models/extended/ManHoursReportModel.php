@@ -81,7 +81,7 @@ class ManHoursReportModel extends \yii\base\Model
 
                 //---
                 $lIds = [];
-                foreach ($visit as $one) $lIds[] = $one->training_group_id;
+                foreach ($visit as $one) $lIds[] = $one->training_group_lesson_id;
                 $lessons = TrainingGroupLessonWork::find()->where(['IN', 'id', $lIds])->all();
                 /*
                 $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
