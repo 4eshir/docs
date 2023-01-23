@@ -77,7 +77,15 @@ class ManHoursReportModel extends \yii\base\Model
                 
                 //try
 
-                $visit = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
+
+
+                $visit = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $this->start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
                 //---
                 $lIds = [];
