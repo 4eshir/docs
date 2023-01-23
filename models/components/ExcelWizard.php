@@ -2270,7 +2270,14 @@ class ExcelWizard
 
         //Отдел ЦОД (естес.-науч. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 4)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+        $gIds = [];
+        $tpIds = [];
+        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+        foreach ($groups as $group) $gIds[] = $group->id;
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 4)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 16, count($visits));
 
@@ -2278,13 +2285,27 @@ class ExcelWizard
 
         //Отдел ЦОД (худож. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+        $gIds = [];
+        $tpIds = [];
+        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+        foreach ($groups as $group) $gIds[] = $group->id;
+
+        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 17, count($visits));
 
         //---------------
 
         //Отдел ЦОД (физкульт.-спорт. направленность)
+
+        $gIds = [];
+        $tpIds = [];
+        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+        foreach ($groups as $group) $gIds[] = $group->id;
 
         $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 5)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
