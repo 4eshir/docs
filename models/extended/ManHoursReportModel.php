@@ -71,6 +71,8 @@ class ManHoursReportModel extends \yii\base\Model
             {
                 $header .= 'человеко-часам<br> ';
 
+
+
                 $lessons = TrainingGroupLessonWork::find()->joinWith(['trainingGroup trainingGroup'])
                     ->where(['>=', 'lesson_date', $this->start_date])->andWhere(['<=', 'lesson_date', $this->end_date]); //все занятия, попадающие
                                                                                                                        //попадающие в промежуток
@@ -191,6 +193,13 @@ class ManHoursReportModel extends \yii\base\Model
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
                 $visit = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lessonsId])->andWhere(['IN', 'status', $statusArr])->all();
+
+                //try
+
+                $visit = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($this->start_date, $this->end_date, $this->branch, $this->focus)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $this->end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+
+                //---
+
                 $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($visit).' ч/ч'.'</td></tr>';
             }
             else
