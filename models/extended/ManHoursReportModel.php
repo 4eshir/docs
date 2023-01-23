@@ -80,7 +80,7 @@ class ManHoursReportModel extends \yii\base\Model
 
                 $gIds = [];
                 $tpIds = [];
-                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => 7])->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['branch_id' => $this->branch_id])->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
                 $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
                 foreach ($groups as $group) $gIds[] = $group->id;
