@@ -13,6 +13,7 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
+use app\models\work\BranchProgramWork;
 use app\models\components\ExcelWizard;
 use Mpdf\Tag\P;
 use yii\db\Query;
