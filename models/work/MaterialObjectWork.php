@@ -99,6 +99,8 @@ class MaterialObjectWork extends MaterialObject
             'kind_id' => 'Класс объекта',
             'kindString' => 'Класс объекта',
             'complexString' => '',
+            'atContainerLink' => 'Является контейнером',
+            'inContainerLink' => 'Лежит в контейнере',
         ];
     }
 
@@ -164,6 +166,19 @@ class MaterialObjectWork extends MaterialObject
     public function getPriceString()
     {
         return $this->price . ' ₽';
+    }
+
+    public function getAtContainerLink()
+    {
+        $container = ContainerWork::find()->where(['material_object_id' => $this->id])->one();
+        return Html::a($container->name, \yii\helpers\Url::to(['container/view', 'id' => $container->id]));
+    }
+
+    public function getInContainerLink()
+    {
+        $containerIN = ContainerObjectWork::find()->where(['material_object_id' => $this->id])->one();
+        $container = ContainerWork::find()->where(['id' => $containerIN->id])->one();
+        return Html::a($container->name, \yii\helpers\Url::to(['container/view', 'id' => $container->id]));
     }
 
     public function getNumberLink()
