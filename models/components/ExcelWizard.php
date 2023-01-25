@@ -2037,7 +2037,7 @@ class ExcelWizard
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
         ini_set('max_execution_time', '6000');
-        ini_set('memory_limit', '1024M');
+        ini_set('memory_limit', '2048M');
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
@@ -2115,29 +2115,29 @@ class ExcelWizard
 
         //Отдел ЦОД (естес.-науч. направленность)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 50, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 51, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 50)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 51, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setHorizontal('center');
 
         //--------------------------------------
 
         //Отдел ЦОД (худож. направленность)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 53, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 2));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 55, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 2));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 2, 1));
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 53)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 53)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 55)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 55)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 2));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 2));
+        /*$inputData->getSheet(1)->setCellValueByColumnAndRow(10, 57, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 2, 1));*/
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setHorizontal('center');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setHorizontal('center');
+        /*$inputData->getSheet(1)->getCellByColumnAndRow(10, 57)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 57)->getStyle()->getAlignment()->setHorizontal('center');*/
 
         //--------------------------------------
 
@@ -2156,13 +2156,13 @@ class ExcelWizard
 
         //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 47, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
 
         //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
 
 
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 47)->getStyle()->getAlignment()->setHorizontal('center');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
+        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setHorizontal('center');
 
         //---------------------------------------------------
 
