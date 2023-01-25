@@ -143,7 +143,7 @@ class CertificatWork extends Certificat
             {
                 $certificat = CertificatWork::find()->where(['certificat_number' => $this->certificat_id[$i]])->one();
                 $participant = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
-                $name = PdfWizard::DownloadCertificat($this->certificat_id[$i], 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+                $name = PdfWizard::DownloadCertificat($certificat->id, 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
                 //var_dump($this->certificat_id);
                 
                 /*$certificat = CertificatWork::find()->where(['certificat_number' => $this->certificat_id[$i]])->one();
