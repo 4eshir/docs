@@ -139,10 +139,13 @@ class CertificatWork extends Certificat
         FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
         if ($this->certificat_id != null)
         {
-            var_dump($this->certificat_id);
             for ($i = 0; $i < count($this->certificat_id); $i++)
             {
-
+                $certificat = CertificatWork::find()->where(['certificat_number' => $this->certificat_id[$i]])->one();
+                $participant = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+                $name = PdfWizard::DownloadCertificat($this->certificat_id[$i], 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+                //var_dump($this->certificat_id);
+                
                 /*$certificat = CertificatWork::find()->where(['certificat_number' => $this->certificat_id[$i]])->one();
                 $participant = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
                 if ($this->certificat_id[$i] != 0)
@@ -163,7 +166,7 @@ class CertificatWork extends Certificat
                 }*/
             }
         }
-        FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+        //FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
     }
 
 
