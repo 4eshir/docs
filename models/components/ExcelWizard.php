@@ -1958,6 +1958,7 @@ class ExcelWizard
 
         var_dump(count($unicParts));
         var_dump(count($allParts));
+        var_dump(round((count($allParts) - count($unicParts)) / count($unicParts) * 100));
 
         /*if ($branch_id == 7 && $focus_id == 2)
         {
