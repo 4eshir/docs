@@ -412,9 +412,10 @@ class ManHoursReportModel extends \yii\base\Model
                         $tempPos = '';
                         foreach ($positions as $posOne) 
                         {
-                            var_dump($posOne->position->name);
+
                             if ($posOne !== null)
                                 $temPos .= $posOne->position->name.'|';
+                            var_dump($temPos);
                         }
                         
                         $expertPos .= $tempPos.', ';
