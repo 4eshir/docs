@@ -405,15 +405,15 @@ class ManHoursReportModel extends \yii\base\Model
                     $expertPos = '';
                     foreach ($groupExpert as $one)
                     {
-                        $expertFio = $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
-                        $expertType = $one->expertType->name.', ';
-                        $expertWork = $one->expert->company->name.', ';
-                        $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
+                        $expertFio .= $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
+                        $expertType .= $one->expertType->name.', ';
+                        $expertWork .= $one->expert->company->name.', ';
+                        $positions .= PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        var_dump(count($positions));
+                        var_dump($positions[0]->position->name);
                         foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
 
-                        $expertPos = $tempPos.', ';
+                        $expertPos .= $tempPos.', ';
                     }
 
                     $expertFio = substr($expertFio,0,-2);
