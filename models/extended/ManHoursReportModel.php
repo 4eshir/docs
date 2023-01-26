@@ -410,7 +410,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertWork .= $one->expert->company->name.', ';
                         $positions .= PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        var_dump($positions[0]->position->name);
+                        if ($positions[0] !== null) var_dump($positions[0]->position_id);
                         foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
 
                         $expertPos .= $tempPos.', ';
