@@ -266,8 +266,17 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertFio = $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
                         $expertType = $one->expertType->name.', ';
                         $expertWork = $one->expert->company->name.', ';
-                        $expertPos = $one->expert->position->name.', ';
+                        $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
+                        $tempPos = '';
+                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+
+                        $expertPos = $tempPos.', ';
                     }
+
+                    $expertFio = substr($expertFio,0,-2);
+                    $expertType = substr($expertType,0,-2);
+                    $expertWork = substr($expertWork,0,-2);
+                    $expertPos = substr($expertPos,0,-2);
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
@@ -328,8 +337,17 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertFio = $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
                         $expertType = $one->expertType->name.', ';
                         $expertWork = $one->expert->company->name.', ';
-                        $expertPos = $one->expert->position->name.', ';
+                        $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
+                        $tempPos = '';
+                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+
+                        $expertPos = $tempPos.', ';
                     }
+
+                    $expertFio = substr($expertFio,0,-2);
+                    $expertType = substr($expertType,0,-2);
+                    $expertWork = substr($expertWork,0,-2);
+                    $expertPos = substr($expertPos,0,-2);
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
@@ -389,8 +407,17 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertFio = $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
                         $expertType = $one->expertType->name.', ';
                         $expertWork = $one->expert->company->name.', ';
-                        $expertPos = $one->expert->position->name.', ';
+                        $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
+                        $tempPos = '';
+                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+
+                        $expertPos = $tempPos.', ';
                     }
+
+                    $expertFio = substr($expertFio,0,-2);
+                    $expertType = substr($expertType,0,-2);
+                    $expertWork = substr($expertWork,0,-2);
+                    $expertPos = substr($expertPos,0,-2);
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
@@ -450,8 +477,17 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertFio = $one->expert->secondname.' '.$one->expert->firstname.' '.$one->expert->patronymic.', ';
                         $expertType = $one->expertType->name.', ';
                         $expertWork = $one->expert->company->name.', ';
-                        $expertPos = $one->expert->position->name.', ';
+                        $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
+                        $tempPos = '';
+                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+
+                        $expertPos = $tempPos.', ';
                     }
+
+                    $expertFio = substr($expertFio,0,-2);
+                    $expertType = substr($expertType,0,-2);
+                    $expertWork = substr($expertWork,0,-2);
+                    $expertPos = substr($expertPos,0,-2);
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
