@@ -1956,9 +1956,6 @@ class ExcelWizard
             ->all();
 
 
-        var_dump(count($unicParts));
-        var_dump(count($allParts));
-        var_dump(round((count($allParts) - count($unicParts)) / count($unicParts) * 100));
 
         /*if ($branch_id == 7 && $focus_id == 2)
         {
@@ -2161,7 +2158,7 @@ class ExcelWizard
 
         //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
 
         //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
 
