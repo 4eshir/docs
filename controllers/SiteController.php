@@ -210,12 +210,9 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
+        ExcelWizard::GetPercentDoubleParticipant('2022-01-01', '2022-12-31', 7, 4);
+        /*$disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
 
-        /**
-        * Получить Объектно Ориентированное представление закрытого ресурса.
-        * @var  Arhitector\Yandex\Disk\Resource\Closed $resource
-        */
         $resource = $disk->getResource('Море.jpg');
 
         // или и т.д.
@@ -230,7 +227,7 @@ class SiteController extends Controller
         $resource->download($fp);
 
         // продолжить работу ...
-        fseek($fp, 0);
+        fseek($fp, 0);*/
 
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();

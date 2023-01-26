@@ -1955,6 +1955,10 @@ class ExcelWizard
             ->andWhere(['IN', 'trainingGroup.id', ExcelWizard::GetGroupsByBranchAndFocus($branch_id, $focus_id)])
             ->all();
 
+
+        var_dump(count($unicParts));
+        var_dump(count($allParts));
+
         /*if ($branch_id == 7 && $focus_id == 2)
         {
             $newParts = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', (new Query())->select('training_group.id')->from('training_group')->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])])
