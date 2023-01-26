@@ -269,7 +269,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertWork = $one->expert->company->name.', ';
                         $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+                        foreach ($positions as $posOne) $tempPos .= $posOne->position->name.'|';
 
                         $expertPos = $tempPos.', ';
                     }
@@ -340,7 +340,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertWork = $one->expert->company->name.', ';
                         $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+                        foreach ($positions as $posOne) $tempPos .= $posOne->position->name.'|';
 
                         $expertPos = $tempPos.', ';
                     }
@@ -410,13 +410,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertWork .= $one->expert->company->name.', ';
                         $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        foreach ($positions as $posOne) 
-                        {
-
-                            if ($posOne !== null)
-                                $temPos .= $posOne->position->name.'|';
-                            var_dump($temPos);
-                        }
+                        foreach ($positions as $posOne) $tempPos .= $posOne->position->name.'|';
                         
                         $expertPos .= $tempPos.', ';
                     }
@@ -486,7 +480,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $expertWork = $one->expert->company->name.', ';
                         $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
-                        foreach ($positions as $posOne) $temPos .= $posOne->position->name.'|';
+                        foreach ($positions as $posOne) $tempPos .= $posOne->position->name.'|';
 
                         $expertPos = $tempPos.', ';
                     }
