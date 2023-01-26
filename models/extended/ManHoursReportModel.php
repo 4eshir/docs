@@ -15,6 +15,7 @@ use app\models\work\TrainingProgramWork;
 use app\models\work\VisitWork;
 use app\models\work\BranchProgramWork;
 use app\models\components\ExcelWizard;
+use app\models\work\TrainingGroupExpertWork;
 use Mpdf\Tag\P;
 use yii\db\Query;
 
