@@ -271,7 +271,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemesWork->projectTypeWork->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";1\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";1\r\n";
                      $c++;
 
                 }
@@ -333,7 +333,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemesWork->projectTypeWork->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";2\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";2\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -394,7 +394,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemesWork->projectTypeWork->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";3\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";3\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -455,7 +455,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemesWork->projectTypeWork->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";4\r\n";
+                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";4\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
