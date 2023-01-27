@@ -13,6 +13,7 @@ use app\models\components\FileWizard;
 use Faker\Provider\File;
 use Yii;
 use yii\helpers\ArrayHelper;
+use app\models\components\YandexDiskContext;
 
 
 class DocumentOutWork extends DocumentOut
@@ -77,7 +78,7 @@ class DocumentOutWork extends DocumentOut
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/document_out/scan/';
+        $path = '/upload/files/document_out/scan/';
         $date = $this->document_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -88,7 +89,12 @@ class DocumentOutWork extends DocumentOut
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
         $this->Scan = $res.'.'.$this->scanFile->extension;
+
+        
         $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
+
+        //FileWizard::UploadFile($this->scanFile->tempName, $path.$res.'.'.$this->scanFile->extension, $this->scanFile, 
+                                $this->scanFile->size > FileWizard::MAX_SIZE ? FileWizard::YADI_UPLOAD : FileWizard::SERVER_UPLOAD);
     }
 
     public function uploadApplicationFiles($upd = null)

@@ -39,6 +39,7 @@ use yii\db\ActiveQuery;
 use yii\db\Query;
 
 use Arhitector\Yandex\Disk;
+use app\models\components\YandexDiskContext;
 
 
 class SiteController extends Controller
@@ -210,7 +211,12 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        ExcelWizard::GetPercentDoubleParticipant('2022-01-01', '2022-12-31', 7, 4);
+        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
+        
+        $resource = $disk->getResource('/upload/newFile.rar');
+
+        $resource->upload('C:\\Users\\work\\Downloads\\Test.rar');
+
         /*$disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
 
         $resource = $disk->getResource('Море.jpg');

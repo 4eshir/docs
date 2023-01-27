@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'capacity', 'label' => 'Кол-во ученико-мест'],
         ['attribute' => 'auditoriumTypeString', 'label' => 'Тип помещения'],
         ['attribute' => 'window_count', 'label' => 'Кол-во оконных проемов'],
+        ['attribute' => 'includeSquareStr', 'label' => 'Учитывается при подсчете площади'],
     ];
     echo '<b>Скачать файл </b>';
     echo ExportMenu::widget([

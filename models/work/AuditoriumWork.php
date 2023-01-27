@@ -47,6 +47,11 @@ class AuditoriumWork extends Auditorium
         ];
     }
 
+    public function GetIncludeSquareStr()
+    {
+        return $this->include_square == 1 ? 'Да' : 'Нет';
+    }
+
     public function GetAuditoriumTypeString()
     {
         return $this->auditoriumTypeWork->name;

@@ -3,10 +3,12 @@
 
 namespace app\models\components;
 
+use Arhitector\Yandex\Disk;
+
 
 class YandexDiskContext
 {
-    static public $oauth_token = "y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50";
+    const OAUTH_TOKEN = "y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50";
 
     static public function CheckSameFile($filepath)
     {
@@ -19,7 +21,7 @@ class YandexDiskContext
 
     static public function GetFileFromDisk($filepath, $filename)
     {
-        $disk = new Disk(YandexDiskContext::$oauth_token);
+        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
 
         $resource = $disk->getResource($filepath.$filename);
 
@@ -38,16 +40,20 @@ class YandexDiskContext
 
     static public function UploadFileOnDisk($disk_filepath, $local_filepath)
     {
-        $disk = new Disk(YandexDiskContext::$oauth_token);
-
+        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
+        
         $resource = $disk->getResource($disk_filepath);
 
-        $resource->upload($local_filepath);
+        var_dump($disk_filepath);
+        var_dump($local_filepath);
+        var_dump($resource->toArray());
+
+        /*$resource->upload($local_filepath);*/
     }
 
     static public function DeleteFileFromDisk($filepath)
     {
-        $disk = new Disk(YandexDiskContext::$oauth_token);
+        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
 
         $resource = $disk->getResource($filepath);
 
