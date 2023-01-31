@@ -44,11 +44,7 @@ class YandexDiskContext
         
         $resource = $disk->getResource($disk_filepath);
 
-        var_dump($disk_filepath);
-        var_dump($local_filepath);
-        var_dump($resource->toArray());
-
-        /*$resource->upload($local_filepath);*/
+        $resource->upload($local_filepath);
     }
 
     static public function DeleteFileFromDisk($filepath)

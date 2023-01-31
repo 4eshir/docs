@@ -30,6 +30,7 @@ class TrainingProgramWork extends TrainingProgram
 
     public $docFile;
     public $editDocs;
+    public $contractFile;
 
     public $fileUtp;
 
@@ -44,7 +45,7 @@ class TrainingProgramWork extends TrainingProgram
             ['description', 'string'],
             [['ped_council_date', 'linkGroups'], 'safe'],
             [['student_left_age'], 'double'],
-            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote_id', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat', 'certificat_type_id'], 'integer'],
+            [['focus_id', 'author_id', 'capacity', 'student_right_age', 'allow_remote_id', 'isCDNTT', 'isCod', 'isQuantorium', 'isTechnopark', 'isMobQuant', 'thematic_direction_id', 'level', 'hour_capacity', 'actual', 'archStat', 'certificat_type_id', 'is_network'], 'integer'],
             [['name', 'ped_council_number', 'doc_file', 'edit_docs', 'key_words'], 'string', 'max' => 1000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['thematic_direction_id'], 'exist', 'skipOnError' => true, 'targetClass' => ThematicDirection::className(), 'targetAttribute' => ['thematic_direction_id' => 'id']],
@@ -93,12 +94,21 @@ class TrainingProgramWork extends TrainingProgram
             'actualExport' => 'Актуальность',
             'creatorString' => 'Регистратор программы',
             'lastUpdateString' => 'Последний редактор программы',
+            'is_network' => 'Сетевая форма обучения',
+            'isNetwork' => 'Сетевая форма обучения',
+            'contract' => 'Договор о сетевой форме обучения',
+            'contractFile' => 'Договор о сетевой форме обучения',
         ];
     }
 
     public function getActualExport()
     {
         return $this->actual == 0 ? 'Не актуальна' : 'Актуальна';
+    }
+
+    public function getIsNetwork()
+    {
+        return $this->is_network == 0 ? 'Нет' : 'Да';
     }
 
     public function getCertificatTypeString()
@@ -446,6 +456,23 @@ class TrainingProgramWork extends TrainingProgram
         $res = FileWizard::CutFilename($res);
         $this->doc_file = $res.'.'.$this->docFile->extension;
         $this->docFile->saveAs( $path.$res.'.'.$this->docFile->extension);
+    }
+
+    public function uploadContractFile()
+    {
+        $path = '@app/upload/files/program/contract/';
+        $date = $this->ped_council_date;
+        $new_date = '';
+        $filename = '';
+        for ($i = 0; $i < strlen($date); ++$i)
+            if ($date[$i] != '-')
+                $new_date = $new_date.$date[$i];
+        $filename = 'Дог.'.$new_date.'_'.$this->name;
+        $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
+        $res = mb_ereg_replace('[^а-яА-Яa-zA-Z0-9._]{1}', '', $res);
+        $res = FileWizard::CutFilename($res);
+        $this->contract = $res.'.'.$this->contractFile->extension;
+        $this->contractFile->saveAs( $path.$res.'.'.$this->contractFile->extension);
     }
 
     public function beforeSave($insert)

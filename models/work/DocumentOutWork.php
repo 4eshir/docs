@@ -94,7 +94,7 @@ class DocumentOutWork extends DocumentOut
         $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
 
         //FileWizard::UploadFile($this->scanFile->tempName, $path.$res.'.'.$this->scanFile->extension, $this->scanFile, 
-        //                        $this->scanFile->size > FileWizard::MAX_SIZE ? FileWizard::YADI_UPLOAD : FileWizard::SERVER_UPLOAD);
+        //                        $this->scanFile->size > 0/*FileWizard::MAX_SIZE*/ ? FileWizard::YADI_UPLOAD : FileWizard::SERVER_UPLOAD);
     }
 
     public function uploadApplicationFiles($upd = null)

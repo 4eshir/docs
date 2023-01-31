@@ -89,12 +89,15 @@ class TrainingProgramController extends Controller
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             $model->fileUtp = UploadedFile::getInstance($model, 'fileUtp');
+            $model->contractFile = UploadedFile::getInstance($model, 'contractFile');
             if ($model->docFile !== null)
                 $model->uploadDocFile();
             if ($model->editDocs !== null)
                 $model->uploadEditFiles();
             if ($model->fileUtp !== null)
                 $model->uploadExcelUtp();
+            if ($model->contractFile !== null)
+                $model->uploadContractFile();
             $model->creator_id = Yii::$app->user->identity->getId();
             $model->save(false);
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлена образовательная программа '.$model->name);
@@ -131,12 +134,15 @@ class TrainingProgramController extends Controller
             $model->docFile = UploadedFile::getInstance($model, 'docFile');
             $model->editDocs = UploadedFile::getInstances($model, 'editDocs');
             $model->fileUtp = UploadedFile::getInstance($model, 'fileUtp');
+            $model->contractFile = UploadedFile::getInstance($model, 'contractFile');
             if ($model->docFile !== null)
                 $model->uploadDocFile();
             if ($model->editDocs !== null)
                 $model->uploadEditFiles(10);
             if ($model->fileUtp !== null)
                 $model->uploadExcelUtp();
+            if ($model->contractFile !== null)
+                $model->uploadContractFile(10);
 
             $model->save(false);
             
@@ -253,6 +259,13 @@ class TrainingProgramController extends Controller
         if ($type == 'doc')
         {
             $model->doc_file = '';
+            $model->save(false);
+            return $this->redirect('index?r=training-program/update&id='.$model->id);
+        }
+
+        if ($type == 'contract')
+        {
+            $model->contract = '';
             $model->save(false);
             return $this->redirect('index?r=training-program/update&id='.$model->id);
         }

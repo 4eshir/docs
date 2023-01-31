@@ -287,6 +287,18 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'certificat_type_id')->dropDownList($items,$params)->label('Итоговая форма контроля');
     ?>
 
+    <div style="border: 1px solid #cccccc; border-radius: 5px; padding: 10px; margin-bottom: 10px">
+        <?= $form->field($model, 'is_network')->checkbox(['onchange' => 'CheckNetwork(this)']) ?>
+
+        <div id="contractNetwork" style="display: <?php echo $model->is_network == 0 ? 'none' : 'block' ?>">
+        <?= $form->field($model, 'contractFile')->fileInput() ?>
+        <?php
+        if (strlen($model->contract) > 2)
+            echo '<h5>Загруженный файл: '.Html::a($model->contract, \yii\helpers\Url::to(['training-program/get-file', 'fileName' => $model->contract, 'type' => 'contract'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['training-program/delete-file', 'fileName' => $model->contract, 'modelId' => $model->id, 'type' => 'contract'])).'</h5><br>';
+        ?>
+        </div>
+    </div>
+
     <?= $form->field($model, 'description')->textarea(['rows' => '6', 'style' => ['resize' => 'none']])->label('Описание') ?>
 
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
@@ -294,10 +306,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'actual')->checkbox(); ?>
 
     <?= $form->field($model, 'docFile')->fileInput() ?>
+
+    
     <?php
     if (strlen($model->doc_file) > 2)
         echo '<h5>Загруженный файл: '.Html::a($model->doc_file, \yii\helpers\Url::to(['training-program/get-file', 'fileName' => $model->doc_file, 'type' => 'doc'])).'&nbsp;&nbsp;&nbsp;&nbsp; '.Html::a('X', \yii\helpers\Url::to(['training-program/delete-file', 'fileName' => $model->doc_file, 'modelId' => $model->id, 'type' => 'doc'])).'</h5><br>';
     ?>
+    
 
     <?= $form->field($model, 'editDocs[]')->fileInput(['multiple' => true]) ?>
     <?php
@@ -321,3 +336,15 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+<script type="text/javascript">
+    function CheckNetwork(main)
+    {
+        let elem = document.getElementById("contractNetwork");
+        console.log(main.checked);
+        if (main.checked) elem.style.display = "block";
+        else elem.style.display = "none";
+    }
+</script>
