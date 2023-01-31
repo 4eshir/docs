@@ -78,7 +78,7 @@ class DocumentOutWork extends DocumentOut
 
     public function uploadScanFile()
     {
-        $path = '/upload/files/document_out/scan/';
+        $path = '@app/upload/files/document_out/scan/';
         $date = $this->document_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
