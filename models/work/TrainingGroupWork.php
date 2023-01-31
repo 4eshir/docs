@@ -275,6 +275,13 @@ class TrainingGroupWork extends TrainingGroup
         return $result;
     }
 
+    public function getPureCountParticipants()
+    {
+        $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $result = count($parts);
+        return $result;
+    }
+
     public function getCountLessons()
     {
         $parts = TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->all();
