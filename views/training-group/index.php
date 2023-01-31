@@ -76,6 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'numberView', 'format' => 'html'],
                 ['attribute' => 'programName', 'format' => 'html'],
                 ['attribute' => 'branchName', 'label' => 'Отдел', 'format' => 'raw'],
+                ['attribute' => 'countParticipants', 'label' => 'Кол-во детей']
                 ['attribute' => 'teachersList', 'format' => 'html'],
                 'start_date',
                 'finish_date',
