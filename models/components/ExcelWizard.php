@@ -1843,6 +1843,11 @@ class ExcelWizard
 
         //--Считаем общее число учеников--
 
+        var_dump(array_sum($arrParticipants1));
+        var_dump(array_sum($arrParticipants2));
+        var_dump(array_sum($arrParticipants3));
+        var_dump(array_sum($arrParticipants4));
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, 
             array_sum($arrParticipants1) + array_sum($arrParticipants2) + array_sum($arrParticipants3) + array_sum($arrParticipants4));
 
