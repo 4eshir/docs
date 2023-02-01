@@ -1880,14 +1880,17 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 16, 
             $arrParticipants[10] + $arrParticipants1[10] + $arrParticipants2[10] + $arrParticipants3[10] + $arrParticipants4[10]);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, 
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 16, 
             $arrParticipants[11] + $arrParticipants1[11] + $arrParticipants2[11] + $arrParticipants3[11] + $arrParticipants4[11]);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, 
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, 
             $arrParticipants[12] + $arrParticipants1[12] + $arrParticipants2[12] + $arrParticipants3[12] + $arrParticipants4[12]);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, 
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, 
             $arrParticipants[13] + $arrParticipants1[13] + $arrParticipants2[13] + $arrParticipants3[13] + $arrParticipants4[13]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, 
+            $arrParticipants[14] + $arrParticipants1[14] + $arrParticipants2[14] + $arrParticipants3[14] + $arrParticipants4[14]);
 
 
         //--------------------------------
