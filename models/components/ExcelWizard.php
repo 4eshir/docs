@@ -1340,22 +1340,42 @@ class ExcelWizard
 
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
+        $arrParticipants = [
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        ];
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 6, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 6, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 6, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 6, ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 6, ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 6, ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 6, ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 6, ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 6, ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 6, ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 6, ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 6, ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 6, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 6, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 6, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 6, $arrParticipants[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 6, $arrParticipants[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 6, $arrParticipants[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 6, $arrParticipants[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 6, $arrParticipants[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 6, $arrParticipants[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 6, $arrParticipants[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 6, $arrParticipants[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 6, $arrParticipants[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 6, $arrParticipants[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 6, $arrParticipants[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 6, $arrParticipants[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 6, $arrParticipants[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 6, $arrParticipants[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 6, $arrParticipants[14]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, array_sum($arrParticipants));
 
 
         //Добавляем детей по финансированию
@@ -1418,6 +1438,44 @@ class ExcelWizard
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
 
+        $arrParticipants1 = [
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        ];
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 7, $arrParticipants1[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 7, $arrParticipants1[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 7, $arrParticipants1[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 7, $arrParticipants1[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 7, $arrParticipants1[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 7, $arrParticipants1[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 7, $arrParticipants1[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 7, $arrParticipants1[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 7, $arrParticipants1[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 7, $arrParticipants1[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 7, $arrParticipants1[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 7, $arrParticipants1[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 7, $arrParticipants1[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 7, $arrParticipants1[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 7, $arrParticipants1[14]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, array_sum($arrParticipants1));
+
+/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 7, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 7, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 7, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
@@ -1433,7 +1491,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 7, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 7, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 7, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-
+*/
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->andWhere(['IN', 'trainingGroup.id', $groupsId])
@@ -1496,6 +1554,44 @@ class ExcelWizard
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
 
+        $arrParticipants2 = [
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        ];
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 9, $arrParticipants2[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 9, $arrParticipants2[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 9, $arrParticipants2[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 9, $arrParticipants2[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 9, $arrParticipants2[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 9, $arrParticipants2[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 9, $arrParticipants2[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 9, $arrParticipants2[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 9, $arrParticipants2[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 9, $arrParticipants2[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 9, $arrParticipants2[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 9, $arrParticipants2[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 9, $arrParticipants2[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 9, $arrParticipants2[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 9, $arrParticipants2[14]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, array_sum($arrParticipants2));
+
+/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 9, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 9, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 9, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
@@ -1511,7 +1607,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 9, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 9, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 9, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-
+*/
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->andWhere(['IN', 'trainingGroup.id', $groupsId])
@@ -1574,6 +1670,44 @@ class ExcelWizard
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
 
+        $arrParticipants3 = [
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        ];
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 10, $arrParticipants3[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 10, $arrParticipants3[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 10, $arrParticipants3[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 10, $arrParticipants3[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 10, $arrParticipants3[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 10, $arrParticipants3[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 10, $arrParticipants3[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 10, $arrParticipants3[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 10, $arrParticipants3[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 10, $arrParticipants3[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 10, $arrParticipants3[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 10, $arrParticipants3[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 10, $arrParticipants3[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 10, $arrParticipants3[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 10, $arrParticipants3[14]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, array_sum($arrParticipants3));
+
+/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 10, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 10, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 10, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
@@ -1589,7 +1723,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 10, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 10, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 10, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
-
+*/
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->andWhere(['IN', 'trainingGroup.id', $groupsId])
@@ -1652,6 +1786,44 @@ class ExcelWizard
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $participantsId])->all();
 
 
+        $arrParticipants4 = [
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
+        ];
+
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 12, $arrParticipants4[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 12, $arrParticipants4[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 12, $arrParticipants4[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 12, $arrParticipants4[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 12, $arrParticipants4[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 12, $arrParticipants4[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 12, $arrParticipants4[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 12, $arrParticipants4[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 12, $arrParticipants4[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 12, $arrParticipants4[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 12, $arrParticipants4[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(15, 12, $arrParticipants4[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 12, $arrParticipants4[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 12, $arrParticipants4[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 12, $arrParticipants4[14]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, array_sum($arrParticipants4));
+
+/*
         $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 12, ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 12, ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 12, ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'));
@@ -1667,7 +1839,30 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 12, ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 12, ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 12, ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'));
+*/
 
+        //--Считаем общее число учеников--
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, 
+            array_sum($arrParticipants1) + array_sum($arrParticipants2) + array_sum($arrParticipants3) + array_sum($arrParticipants4));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 16, $arrParticipants1[0] + $arrParticipants2[0] + $arrParticipants3[0] + $arrParticipants4[0]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 16, $arrParticipants1[1] + $arrParticipants2[1] + $arrParticipants3[1] + $arrParticipants4[1]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 16, $arrParticipants1[2] + $arrParticipants2[2] + $arrParticipants3[2] + $arrParticipants4[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 16, $arrParticipants1[3] + $arrParticipants2[3] + $arrParticipants3[3] + $arrParticipants4[3]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 16, $arrParticipants1[4] + $arrParticipants2[4] + $arrParticipants3[4] + $arrParticipants4[4]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 16, $arrParticipants1[5] + $arrParticipants2[5] + $arrParticipants3[5] + $arrParticipants4[5]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $arrParticipants1[6] + $arrParticipants2[6] + $arrParticipants3[6] + $arrParticipants4[6]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 16, $arrParticipants1[7] + $arrParticipants2[7] + $arrParticipants3[7] + $arrParticipants4[7]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 16, $arrParticipants1[8] + $arrParticipants2[8] + $arrParticipants3[8] + $arrParticipants4[8]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 16, $arrParticipants1[9] + $arrParticipants2[9] + $arrParticipants3[9] + $arrParticipants4[9]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 16, $arrParticipants1[10] + $arrParticipants2[10] + $arrParticipants3[10] + $arrParticipants4[10]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, $arrParticipants1[11] + $arrParticipants2[11] + $arrParticipants3[11] + $arrParticipants4[11]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, $arrParticipants1[12] + $arrParticipants2[12] + $arrParticipants3[12] + $arrParticipants4[12]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, $arrParticipants1[13] + $arrParticipants2[13] + $arrParticipants3[13] + $arrParticipants4[13]);
+
+
+        //--------------------------------
 
         //Добавляем детей по финансированию
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['trainingGroup.budget' => 1])->andWhere(['IN', 'trainingGroup.id', $groupsId])
@@ -1701,7 +1896,7 @@ class ExcelWizard
 
         //--Получаем все помещения--
 
-        $audsAll = AuditoriumWork::find()->where(['branch_id' => 3]);
+        $audsAll = AuditoriumWork::find()/*->where(['branch_id' => 3])*/;
 
         //--Получаем все помещения не в собственности--
 
@@ -1737,7 +1932,7 @@ class ExcelWizard
 
         //-------------------------
 
-        //----Ищем учебные классы--
+        //----Ищем лекционные аудитории--
 
         $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 4])->all();
         $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 20, count($lec) > 0 ? 1 : 2);
@@ -1745,7 +1940,27 @@ class ExcelWizard
         $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 4])->all();
         $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 20, count($lec) > 0 ? 1 : 2);
 
-        //-------------------------
+        //-------------------------------
+
+        //----Ищем компьютерные кабинеты--
+
+        $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 5])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 21, count($lec) > 0 ? 1 : 2);
+
+        $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 5])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 21, count($lec) > 0 ? 1 : 2);
+
+        //--------------------------------
+
+        //----Ищем актовые залы--
+
+        $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 6])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 8, count($lec) > 0 ? 1 : 2);
+
+        $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 6])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 8, count($lec) > 0 ? 1 : 2);
+
+        //-----------------------
 
 
         //-------------
