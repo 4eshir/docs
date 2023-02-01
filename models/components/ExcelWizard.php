@@ -1843,28 +1843,51 @@ class ExcelWizard
 
         //--Считаем общее число учеников--
 
-        var_dump(array_sum($arrParticipants1));
-        var_dump(array_sum($arrParticipants2));
-        var_dump(array_sum($arrParticipants3));
-        var_dump(array_sum($arrParticipants4));
-
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, 
-            array_sum($arrParticipants1) + array_sum($arrParticipants2) + array_sum($arrParticipants3) + array_sum($arrParticipants4));
+            array_sum($arrParticipants) + array_sum($arrParticipants1) + array_sum($arrParticipants2) + 
+            array_sum($arrParticipants3) + array_sum($arrParticipants4));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 16, $arrParticipants1[0] + $arrParticipants2[0] + $arrParticipants3[0] + $arrParticipants4[0]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 16, $arrParticipants1[1] + $arrParticipants2[1] + $arrParticipants3[1] + $arrParticipants4[1]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 16, $arrParticipants1[2] + $arrParticipants2[2] + $arrParticipants3[2] + $arrParticipants4[2]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 16, $arrParticipants1[3] + $arrParticipants2[3] + $arrParticipants3[3] + $arrParticipants4[3]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 16, $arrParticipants1[4] + $arrParticipants2[4] + $arrParticipants3[4] + $arrParticipants4[4]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 16, $arrParticipants1[5] + $arrParticipants2[5] + $arrParticipants3[5] + $arrParticipants4[5]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $arrParticipants1[6] + $arrParticipants2[6] + $arrParticipants3[6] + $arrParticipants4[6]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 16, $arrParticipants1[7] + $arrParticipants2[7] + $arrParticipants3[7] + $arrParticipants4[7]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 16, $arrParticipants1[8] + $arrParticipants2[8] + $arrParticipants3[8] + $arrParticipants4[8]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 16, $arrParticipants1[9] + $arrParticipants2[9] + $arrParticipants3[9] + $arrParticipants4[9]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 16, $arrParticipants1[10] + $arrParticipants2[10] + $arrParticipants3[10] + $arrParticipants4[10]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, $arrParticipants1[11] + $arrParticipants2[11] + $arrParticipants3[11] + $arrParticipants4[11]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, $arrParticipants1[12] + $arrParticipants2[12] + $arrParticipants3[12] + $arrParticipants4[12]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, $arrParticipants1[13] + $arrParticipants2[13] + $arrParticipants3[13] + $arrParticipants4[13]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 16, 
+            $arrParticipants[0] + $arrParticipants1[0] + $arrParticipants2[0] + $arrParticipants3[0] + $arrParticipants4[0]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 16, 
+            $arrParticipants[1] + $arrParticipants1[1] + $arrParticipants2[1] + $arrParticipants3[1] + $arrParticipants4[1]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(6, 16, 
+            $arrParticipants[2] + $arrParticipants1[2] + $arrParticipants2[2] + $arrParticipants3[2] + $arrParticipants4[2]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(7, 16, 
+            $arrParticipants[3] + $arrParticipants1[3] + $arrParticipants2[3] + $arrParticipants3[3] + $arrParticipants4[3]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(8, 16, 
+            $arrParticipants[4] + $arrParticipants1[4] + $arrParticipants2[4] + $arrParticipants3[4] + $arrParticipants4[4]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(9, 16, 
+            $arrParticipants[5] + $arrParticipants1[5] + $arrParticipants2[5] + $arrParticipants3[5] + $arrParticipants4[5]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, 
+            $arrParticipants[6] + $arrParticipants1[6] + $arrParticipants2[6] + $arrParticipants3[6] + $arrParticipants4[6]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 16, 
+            $arrParticipants[7] + $arrParticipants1[7] + $arrParticipants2[7] + $arrParticipants3[7] + $arrParticipants4[7]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 16, 
+            $arrParticipants[8] + $arrParticipants1[8] + $arrParticipants2[8] + $arrParticipants3[8] + $arrParticipants4[8]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(13, 16, 
+            $arrParticipants[9] + $arrParticipants1[9] + $arrParticipants2[9] + $arrParticipants3[9] + $arrParticipants4[9]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(14, 16, 
+            $arrParticipants[10] + $arrParticipants1[10] + $arrParticipants2[10] + $arrParticipants3[10] + $arrParticipants4[10]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, 
+            $arrParticipants[11] + $arrParticipants1[11] + $arrParticipants2[11] + $arrParticipants3[11] + $arrParticipants4[11]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, 
+            $arrParticipants[12] + $arrParticipants1[12] + $arrParticipants2[12] + $arrParticipants3[12] + $arrParticipants4[12]);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, 
+            $arrParticipants[13] + $arrParticipants1[13] + $arrParticipants2[13] + $arrParticipants3[13] + $arrParticipants4[13]);
 
 
         //--------------------------------
