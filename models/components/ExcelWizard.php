@@ -2000,7 +2000,7 @@ class ExcelWizard
 
         //--Получаем все аудитории--
 
-        $auds = AuditoriumWork::find();
+        $auds = AuditoriumWork::find()->where(['include_square' => 1]);
 
         //--Считаем площадь помещений--
 
