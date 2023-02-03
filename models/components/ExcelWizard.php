@@ -2027,8 +2027,7 @@ class ExcelWizard
                 $sumRentArea += $aud->square;
                 if ($aud->is_education == 1) $sumRentStudyArea += $aud->square;
             }
-            else
-                var_dump($aud->id);
+            
         }
 
         $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 8, $sumArea);
