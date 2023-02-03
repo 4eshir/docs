@@ -115,6 +115,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             'number',
             ['attribute' => 'budgetText', 'label' => 'Форма обучения'],
             ['attribute' => 'programName', 'format' => 'html'],
+            'isNetwork',
             ['attribute' => 'teachersList', 'format' => 'html'],
             'start_date',
             'finish_date',

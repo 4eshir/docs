@@ -125,6 +125,7 @@ class TrainingGroupWork extends TrainingGroup
             'expertsString' => 'Эксперты',
             'projectThemes' => 'Темы проектов',
             'is_network' => 'Сетевая форма обучения',
+            'isNetwork' => 'Сетевая форма обучения',
         ];
     }
 
@@ -199,6 +200,11 @@ class TrainingGroupWork extends TrainingGroup
     public function getOpenText()
     {
         return $this->open ? 'Да' : 'Нет';
+    }
+
+    public function getIsNetwork()
+    {
+        return $this->is_network ? 'Да' : 'Нет';
     }
 
     public function getBudgetText()
