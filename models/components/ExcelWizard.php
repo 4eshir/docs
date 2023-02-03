@@ -2022,12 +2022,13 @@ class ExcelWizard
                 $sumOperationArea += $aud->square;
                 if ($aud->is_education == 1) $sumOperationStudyArea += $aud->square;
             }
-            else
-            //if ($aud->branch_id == 1 || $aud->branch_id == 2)
+            else if ($aud->branch_id == 1 || $aud->branch_id == 2)
             {
                 $sumRentArea += $aud->square;
                 if ($aud->is_education == 1) $sumRentStudyArea += $aud->square;
             }
+            else
+                var_dump($aud->id);
         }
 
         $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 8, $sumArea);
