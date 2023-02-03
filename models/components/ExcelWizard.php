@@ -1329,8 +1329,14 @@ class ExcelWizard
 
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
+
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 8, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 8, count($participants2));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 8, count($participants3));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 8, count($participants4));
 
 
         //Делим учеников по возрастам
@@ -1427,8 +1433,14 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
+
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 9, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 9, count($participants2));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 9, count($participants3));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 9, count($participants4));
 
         //Делим учеников по возрастам
 
@@ -1543,8 +1555,14 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
+
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 11, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 11, count($participants2));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 11, count($participants3));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 11, count($participants4));
 
         //Делим учеников по возрастам
 
@@ -1659,8 +1677,14 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
+
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 12, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 12, count($participants2));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 12, count($participants3));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 12, count($participants4));
 
         //Делим учеников по возрастам
 
@@ -1775,8 +1799,14 @@ class ExcelWizard
         $participants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
         $participants2 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['participant.sex' => 'Женский'])->all();
 
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
+
+        $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 14, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 14, count($participants2));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 14, count($participants3));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 14, count($participants4));
 
         //Делим учеников по возрастам
 
@@ -2027,7 +2057,7 @@ class ExcelWizard
                 $sumRentArea += $aud->square;
                 if ($aud->is_education == 1) $sumRentStudyArea += $aud->square;
             }
-            
+
         }
 
         $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 8, $sumArea);
