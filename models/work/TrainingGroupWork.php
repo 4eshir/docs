@@ -71,7 +71,7 @@ class TrainingGroupWork extends TrainingGroup
     {
         return [
             [['start_date', 'finish_date', 'budget'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id', 'protection_confirm'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id', 'protection_confirm', 'is_network'], 'integer'],
             [['start_date', 'finish_date', 'protection_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
             //[['delArr'], 'each', 'rule' => ['string']],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
@@ -124,6 +124,7 @@ class TrainingGroupWork extends TrainingGroup
             'creatorString' => 'Создатель группы',
             'expertsString' => 'Эксперты',
             'projectThemes' => 'Темы проектов',
+            'is_network' => 'Сетевая форма обучения',
         ];
     }
 

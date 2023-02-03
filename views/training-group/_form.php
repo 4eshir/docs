@@ -211,6 +211,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
 
         <?= $form->field($model, 'budget')->checkbox() ?>
 
+
+
     <?php
     $counterPhp = 0;
 
@@ -225,6 +227,8 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
     echo $form->field($model, 'training_program_id')->dropDownList($items,$params);
 
     ?>
+
+    <?= $form->field($model, 'is_network')->checkbox() ?>
 
     <div class="row">
         <div class="panel panel-default">
