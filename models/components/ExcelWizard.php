@@ -2022,8 +2022,8 @@ class ExcelWizard
                 $sumOperationArea += $aud->square;
                 if ($aud->is_education == 1) $sumOperationStudyArea += $aud->square;
             }
-
-            if ($aud->branch_id == 1 || $aud->branch_id == 2)
+            else
+            //if ($aud->branch_id == 1 || $aud->branch_id == 2)
             {
                 $sumRentArea += $aud->square;
                 if ($aud->is_education == 1) $sumRentStudyArea += $aud->square;
