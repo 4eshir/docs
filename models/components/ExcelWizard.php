@@ -1331,12 +1331,12 @@ class ExcelWizard
 
         $participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingGroup.is_network' => 1])->all();
 
-        //$participants3 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
+        $participants4 = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->joinWith(['participant participant'])->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])->where(['IN', 'trainingGroup.id', $groupsId])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($groupsId)])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->andWhere(['trainingProgram.allow_remote' => 2])->all();
 
         $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 8, count($participants));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 8, count($participants2));
         $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 8, count($participants3));
-        //$inputData->getSheet(0)->setCellValueByColumnAndRow(5, 8, count($participants4));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 8, count($participants4));
 
 
         //Делим учеников по возрастам
