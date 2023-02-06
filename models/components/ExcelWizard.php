@@ -2061,12 +2061,12 @@ class ExcelWizard
         }
 
         $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 8, $sumArea);
-        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 8, $sumRentArea);
-        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 8, $sumOperationArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 8, $sumOperationArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 8, $sumRentArea);
 
         $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 9, $sumStudyArea);
-        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 9, $sumRentStudyArea);
-        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 9, $sumOperationStudyArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 9, $sumOperationStudyArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 9, $sumRentStudyArea);
 
         //--------------------------
 
