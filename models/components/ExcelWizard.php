@@ -1875,7 +1875,7 @@ class ExcelWizard
 
         $newParticipants = ForeignEventParticipantsWork::find()->all();
 
-        $legalParticipants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['<=', 'trainingGroup.start_date', $end_date])->andWhere(['>=', 'trainingGroup.end_date', $end_date])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
+        $legalParticipants = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['<=', 'trainingGroup.start_date', $end_date])->andWhere(['>=', 'trainingGroup.finish_date', $end_date])->andWhere(['IN', 'participant_id', ExcelWizard::CheckParticipant18Plus($newParticipants, substr($start_date, 0, 4).'-01-01')])->all();
 
         $pIds = [];
         foreach ($legalParticipants as $one) $pIds[] = $one->participant_id;
