@@ -1883,22 +1883,22 @@ class ExcelWizard
         $newParticipants = ForeignEventParticipantsWork::find()->where(['IN', 'id', $pIds])->all();
 
         $ageParts = [
-            ExcelWizard::getParticipantsByAge(3, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(4, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(5, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(6, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(7, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(8, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(9, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(10, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(11, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(12, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(13, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(14, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(15, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(16, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(17, $legalParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(18, $legalParticipants, substr($start_date, 0, 4).'-01-01')
+            ExcelWizard::getParticipantsByAge(3, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(4, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(5, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(6, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(7, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(8, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(9, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(10, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(11, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(12, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(13, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'),
+            ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01')
 
         ];
 
