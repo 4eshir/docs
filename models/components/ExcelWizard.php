@@ -1897,8 +1897,7 @@ class ExcelWizard
             ExcelWizard::getParticipantsByAge(14, $newParticipants, substr($start_date, 0, 4).'-01-01'),
             ExcelWizard::getParticipantsByAge(15, $newParticipants, substr($start_date, 0, 4).'-01-01'),
             ExcelWizard::getParticipantsByAge(16, $newParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01'),
-            ExcelWizard::getParticipantsByAge(18, $newParticipants, substr($start_date, 0, 4).'-01-01')
+            ExcelWizard::getParticipantsByAge(17, $newParticipants, substr($start_date, 0, 4).'-01-01')
 
         ];
 
@@ -1918,7 +1917,6 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(16, 16, $ageParts[12]);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(17, 16, $ageParts[13]);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(18, 16, $ageParts[14]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(19, 16, $ageParts[15]);
 
 
 
