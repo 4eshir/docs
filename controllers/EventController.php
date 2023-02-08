@@ -14,6 +14,7 @@ use app\models\components\UserRBAC;
 use app\models\DynamicModel;
 use Yii;
 use app\models\work\EventWork;
+use app\models\work\EventBranchWork;
 use app\models\SearchEvent;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -156,6 +157,8 @@ class EventController extends Controller
         $model->rightAge = $eventP->age_right_border;
         $model->old_name = $model->name;
 
+        
+
         if ($model->load(Yii::$app->request->post())) {
 
             if ($model->validate(false))
@@ -236,6 +239,25 @@ class EventController extends Controller
     {
 
         $model = EventWork::find()->where(['id' => $modelId])->one();
+
+        $eventP = EventParticipantsWork::find()->where(['event_id' => $model->id])->one();
+        $model->childs = $eventP->child_participants;
+        $model->childs_rst = $eventP->child_rst_participants;
+        $model->teachers = $eventP->teacher_participants;
+        $model->others = $eventP->other_participants;
+        $model->leftAge = $eventP->age_left_border;
+        $model->rightAge = $eventP->age_right_border;
+        $model->old_name = $model->name;
+
+        $branches = EventBranchWork::find()->where(['event_id' => $model->id])->all();
+        foreach ($branches as $branch) 
+        {
+            if ($branch->branch_id == 1) $model->isQuantorium = 1;
+            if ($branch->branch_id == 2) $model->isTechnopark = 1;
+            if ($branch->branch_id == 3) $model->isCDNTT = 1;
+            if ($branch->branch_id == 4) $model->isMobQuant = 1;
+            if ($branch->branch_id == 7) $model->isCod = 1;
+        }
 
         if ($fileName !== null && !Yii::$app->user->isGuest && $modelId !== null)
         {
