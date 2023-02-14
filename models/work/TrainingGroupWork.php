@@ -731,23 +731,38 @@ class TrainingGroupWork extends TrainingGroup
                         $copyMessage .= $this->participants[$i]->participantWork->shortName.'<br>';
                 }
                 $this->participants = $tempParts;
+
+                $currentParts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+                $currentCountParts = count($currentParts);
+                $overflowFlag = 0;
+
                 foreach ($this->participants as $participant) {
                     if ($participant->participant_id !== "")
                     {
-                        $trainingParticipant = new TrainingGroupParticipant();
-                        $trainingParticipant->participant_id = $participant->participant_id;
-                        $trainingParticipant->certificat_number = $participant->certificat_number;
-                        $trainingParticipant->send_method_id = $participant->send_method_id;
-                        $trainingParticipant->training_group_id = $this->id;
-                        $trainingParticipant->save();
-                        Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлен обучающийся (TrainingGroupParticipant: id '.$trainingParticipant->id.')');
-                        $partsArr[] = $trainingParticipant->participant_id;
+                        if ($currentCountParts < 60)
+                        {
+                            $trainingParticipant = new TrainingGroupParticipant();
+                            $trainingParticipant->participant_id = $participant->participant_id;
+                            $trainingParticipant->certificat_number = $participant->certificat_number;
+                            $trainingParticipant->send_method_id = $participant->send_method_id;
+                            $trainingParticipant->training_group_id = $this->id;
+                            $trainingParticipant->save();
+                            Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлен обучающийся (TrainingGroupParticipant: id '.$trainingParticipant->id.')');
+                            $partsArr[] = $trainingParticipant->participant_id;
+
+                            $currentCountParts++;
+                        }
+                        else
+                            $overflowFlag = 1;
                     }
                     else
                     {
                         $errArr[] = $participant->participant_name;
                     }
                 }
+
+                if ($overflowFlag == 1) Yii::$app->session->setFlash("danger", "Ошибка! Невозможно добавить больше 60 учеников в одну группу!");
+
 
                 if (count($errArr) > 0)
                 {

@@ -23,8 +23,6 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'participant_id')->dropDownList($items,$params)->label('ФИО участника');
     ?>
 
-    <?= $form->field($model, 'certificat_number')->textInput()->label('Номер сертификата') ?>
-
     <?php
     $sendMethod= \app\models\work\SendMethodWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($sendMethod,'id','name');
