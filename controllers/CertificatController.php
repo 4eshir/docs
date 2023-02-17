@@ -6,11 +6,14 @@ use app\models\components\PdfWizard;
 use Yii;
 use app\models\common\Certificat;
 use app\models\work\CertificatWork;
+use app\models\work\TrainingGroupParticipantWork;
 use app\models\SearchCertificat;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\components\RoleBaseAccess;
+
+use yii\helpers\FileHelper;
 
 /**
  * CertificatController implements the CRUD actions for Certificat model.
@@ -140,6 +143,35 @@ class CertificatController extends Controller
     public function actionGenerationPdf($certificat_id)
     {
         PdfWizard::DownloadCertificat($certificat_id, 'download');
+    }
+
+    public function actionSendPdf($certificat_id)
+    {
+        FileHelper::createDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+
+        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        $participant = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+
+        $name = PdfWizard::DownloadCertificat($certificat->id, 'server', Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+        $result = Yii::$app->mailer->compose()
+        ->setFrom('noreply@schooltech.ru')
+        ->setTo($participant->participant->email)
+        ->setSubject('Сертификат об успешном прохождении программы ДО')
+        ->setHtmlBody('Сертификат находится в прикрепленном файле.<br><br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него. По всем вопросам обращайтесь по телефону 44-24-28 (единый номер).')
+        ->attach(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/' . $name . '.pdf')
+        ->send();
+        if ($result)
+            $certificat->status = 1;
+        else
+            $certificat->status = 2;
+        $certificat->save();
+
+        FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+
+
+        Yii::$app->session->setFlash('success', 'Сертификат успешно отправлен на адрес '.$participant->participant->email);
+
+        return $this->redirect('index?r=certificat/view&id='.$certificat_id);
     }
 
     public function actionDownload()

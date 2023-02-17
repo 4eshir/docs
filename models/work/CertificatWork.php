@@ -67,7 +67,7 @@ class CertificatWork extends Certificat
 
     public function getPdfFile()
     {
-        $result = Html::a("Скачать pdf-файл", \yii\helpers\Url::to(['certificat/generation-pdf', 'certificat_id' => $this->id]), ['class'=>'btn btn-success']);
+        $result = Html::a("Скачать pdf-файл", \yii\helpers\Url::to(['certificat/generation-pdf', 'certificat_id' => $this->id]), ['class'=>'btn btn-success', 'style' => 'margin-bottom: 8px']).'<br>'.Html::a("Отправить pdf-файл по e-mail", \yii\helpers\Url::to(['certificat/send-pdf', 'certificat_id' => $this->id]), ['class'=>'btn btn-primary']);
         return $result;
     }
 
