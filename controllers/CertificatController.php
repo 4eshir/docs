@@ -161,15 +161,21 @@ class CertificatController extends Controller
         ->attach(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/' . $name . '.pdf')
         ->send();
         if ($result)
+        {
             $certificat->status = 1;
+            Yii::$app->session->setFlash('success', 'Сертификат успешно отправлен на адрес: '.$participant->participant->email);
+        }
         else
+        {
             $certificat->status = 2;
+            Yii::$app->session->setFlash('danger', 'Не удалось отправить сертификат на указанный адрес: '.$participant->participant->email);
+        }
         $certificat->save();
 
         FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
 
 
-        Yii::$app->session->setFlash('success', 'Сертификат успешно отправлен на адрес '.$participant->participant->email);
+
 
         return $this->redirect('index?r=certificat/view&id='.$certificat_id);
     }
