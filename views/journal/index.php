@@ -124,8 +124,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 </div>
 
+
 <div id="full_names" style="display: none;">
     <?php
+
     foreach ($parts as $part)
         echo $part->participantWork->secondname.' '.$part->participantWork->firstname.'|';
     ?>
@@ -218,16 +220,18 @@ $this->params['breadcrumbs'][] = $this->title;
         {
             let elem = document.getElementById("full_names");
             names = elem.innerHTML.split('|');
-            names.splice(0, 1);
+            //names.splice(0, 1);
             names.splice(names.length - 1, 1);
         }
         else
         {
             let elem = document.getElementById("short_names");
             names = elem.innerHTML.split('|');
-            names.splice(0, 1);
+            //names.splice(0, 1);
             names.splice(names.length - 1, 1);
         }
+
+        console.log(names);
 
         let elems = document.getElementsByClassName("fioStudies");
         for (let i = 0; i < elems.length; i++)
