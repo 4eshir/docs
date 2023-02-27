@@ -739,7 +739,7 @@ class TrainingGroupWork extends TrainingGroup
                 foreach ($this->participants as $participant) {
                     if ($participant->participant_id !== "")
                     {
-                        if ($currentCountParts < 60)
+                        if ($currentCountParts < 100)
                         {
                             $trainingParticipant = new TrainingGroupParticipant();
                             $trainingParticipant->participant_id = $participant->participant_id;
@@ -761,7 +761,7 @@ class TrainingGroupWork extends TrainingGroup
                     }
                 }
 
-                if ($overflowFlag == 1) Yii::$app->session->setFlash("danger", "Ошибка! Невозможно добавить больше 60 учеников в одну группу!");
+                if ($overflowFlag == 1) Yii::$app->session->setFlash("danger", "Ошибка! Невозможно добавить больше 100 учеников в одну группу!");
 
 
                 if (count($errArr) > 0)
