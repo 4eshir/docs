@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '78f29a0e327407516ceff7b9db9ce92e4823e986',
+        'reference' => NULL,
         'name' => 'yiisoft/yii2-app-basic',
         'dev' => true,
     ),
@@ -1148,6 +1148,15 @@
             'reference' => 'cfa0ae98841b9e461207c13ab093d76b0fa7bace',
             'dev_requirement' => false,
         ),
+        'symfony/process' => array(
+            'pretty_version' => '5.4.x-dev',
+            'version' => '5.4.9999999.9999999-dev',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/process',
+            'aliases' => array(),
+            'reference' => 'd4ce417ebcb0b7d090b4c178ed6d3accc518e8bd',
+            'dev_requirement' => false,
+        ),
         'symfony/service-contracts' => array(
             'pretty_version' => '2.5.x-dev',
             'version' => '2.5.9999999.9999999-dev',
@@ -1216,12 +1225,12 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '78f29a0e327407516ceff7b9db9ce92e4823e986',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap' => array(
@@ -1273,6 +1282,17 @@
                 0 => '2.0.x-dev',
             ),
             'reference' => '4e65aca79a0383e49698616f4aca59254f9eae59',
+            'dev_requirement' => false,
+        ),
+        'yiisoft/yii2-queue' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../yiisoft/yii2-queue',
+            'aliases' => array(
+                0 => '2.x-dev',
+            ),
+            'reference' => 'a3097196170fdd51862d2b312725c17472cd354f',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-swiftmailer' => array(

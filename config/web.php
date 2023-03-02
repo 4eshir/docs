@@ -7,7 +7,10 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'queue',
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -53,6 +56,15 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'queue' => [
+            'class' => \yii\queue\db\Queue::class,
+            'as log' => \yii\queue\LogBehavior::class,
+
+            'db' => $db,
+            'tableName' => '{{%queue}}',
+            'channel' => 'default',
+            'mutex' => \yii\mutex\MysqlMutex::class,
         ],
         'db' => $db,
         /*

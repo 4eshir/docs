@@ -28,7 +28,8 @@
         "la-haute-societe/yii2-save-relations-behavior": "*",
         "phpoffice/phpword": "0.19.x-dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "arhitector/yandex": "dev-master"
+        "arhitector/yandex": "dev-master",
+        "yiisoft/yii2-queue": "2.x-dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

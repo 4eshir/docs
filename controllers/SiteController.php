@@ -41,6 +41,8 @@ use yii\db\Query;
 use Arhitector\Yandex\Disk;
 use app\models\components\YandexDiskContext;
 
+use app\models\async\YandexDiskJob;
+
 
 class SiteController extends Controller
 {
@@ -54,7 +56,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'forgot-password', 'error-access', 'temp'],
+                        'actions' => ['login', 'error', 'forgot-password', 'error-access', 'temp', 'pretemp'],
                         'allow' => true,
                     ],
                     [
@@ -209,13 +211,33 @@ class SiteController extends Controller
         return $this->render('forgot-password', ['model' => $model]);
     }
 
+    public function actionPretemp()
+    {
+        $job = YandexDiskJob::find()->where(['id' => 1])->one();
+        $job->execute(1);
+
+        var_dump(Yii::$app->queue->isWaiting(1));
+        var_dump(Yii::$app->queue->isReserved(1));
+    }
+
     public function actionTemp()
     {
-        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
         
-        $resource = $disk->getResource('/upload/newFile.rar');
+        $id = Yii::$app->queue->push(new YandexDiskJob([
+            'url' => 'http://example.com/image.jpg',
+            'file' => '/tmp/image.jpg',
+        ]));
 
-        $resource->upload('C:\\Users\\work\\Downloads\\Test.rar');
+        var_dump($id);
+
+
+        //------------------
+        
+
+        //------------------
+
+
+
 
         /*$disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
 
