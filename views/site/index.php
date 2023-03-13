@@ -135,7 +135,7 @@ $this->title = 'ЦСХД';
 
 <?php
 
-$img_src = "spring_item.jpg";
+$img_src = "spring_item.png";
 //$img_src = "main-back.jpg";
 
 ?>
