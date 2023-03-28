@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dc4b40d492ec1de3f0b1c4945af41c1",
+    "content-hash": "c881acad1d80a19a02653596189a054b",
     "packages": [
         {
             "name": "arhitector/yandex",
@@ -4610,12 +4610,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-queue.git",
-                "reference": "a3097196170fdd51862d2b312725c17472cd354f"
+                "reference": "5a30082b1595e234a8fa5afc591e4f78c5e5de29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/a3097196170fdd51862d2b312725c17472cd354f",
-                "reference": "a3097196170fdd51862d2b312725c17472cd354f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-queue/zipball/5a30082b1595e234a8fa5afc591e4f78c5e5de29",
+                "reference": "5a30082b1595e234a8fa5afc591e4f78c5e5de29",
                 "shasum": ""
             },
             "require": {
@@ -4709,7 +4709,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-02T07:03:52+00:00"
+            "time": "2023-03-04T10:06:39+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -8235,8 +8235,7 @@
         "kartik-v/yii2-widget-depdrop": 20,
         "phpoffice/phpword": 20,
         "kartik-v/yii2-mpdf": 20,
-        "arhitector/yandex": 20,
-        "yiisoft/yii2-queue": 20
+        "arhitector/yandex": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -8245,5 +8244,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
