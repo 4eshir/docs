@@ -141,20 +141,31 @@ use app\models\components\RoleBaseAccess;
 <script>
     let counter = 0;
 
-    function allCheck()
+    function allCheck(main)
     {
         var elems = document.getElementsByClassName('check');
+        var count1 = document.getElementById("lesCount1");
+        var count2 = document.getElementById("lesCount2");
+        var c1 = 0;
         for (var c = 0; c !== elems.length; c++)
         {
-            if (elems[c].checked === false)
-            {
-                elems[c].checked = true;
-            }
-            else
-            {
-                elems[c].checked = false;
-            }
+            if (main.checked) elems[c].checked = true;
+            else elems[c].checked = false;
         }
+        var str = main.checked ? elems.length / 2 : 0;
+        count1.innerHTML = '<i>Выделено занятий:</i> ' + str;
+        count2.innerHTML = '<i>Выделено занятий:</i> ' + str;
+    }
+
+    function oneCheck(elem)
+    {
+        var count1 = document.getElementById("lesCount1");
+        var count2 = document.getElementById("lesCount2");
+        var currentC = parseInt(count1.innerHTML.split(" ").slice(-1));
+        if (elem.checked) currentC++;
+        else currentC--;
+        count1.innerHTML = '<i>Выделено занятий:</i> ' + currentC;
+        count2.innerHTML = '<i>Выделено занятий:</i> ' + currentC;
     }
 
 
@@ -624,12 +635,12 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         if ($extEvents != null)
                         {
                             echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
-                            echo '<tr><td><input type="checkbox" id="checker0" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td><input type="checkbox" id="checker0" onclick="allCheck(this)"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
-                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check', 'onclick' => "oneCheck(this)"], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger']).'</td></tr>';
                                 $counter++;
                             }
@@ -640,9 +651,10 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
-                                echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']);
-                        echo '</div>';
+                        echo '<div class="form-group" style="padding-left: 15px; margin-bottom: 50px">';
+                                echo '<div style="float:left">'.Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']).'</div>';
+                        echo '<div style="float:left; margin-left: 15px; line-height: 2.5" id="lesCount1"><i>Выделено занятий:</i> 0</div>';
+                        echo '</div><hr style="border: 0.5px solid gray">';
                     }
                     ?>
 
@@ -746,12 +758,12 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                         if ($extEvents != null)
                         {
                             echo '<div style="overflow-y: scroll; max-height: 300px"><table class="table table-bordered">';
-                            echo '<tr><td><input type="checkbox" id="checker1" onclick="allCheck()"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
+                            echo '<tr><td><input type="checkbox" id="checker1" onclick="allCheck(this)"></td><td><b>Дата</b></td><td><b>Время начала</b></td><td><b>Время окончания</b></td><td><b>Помещение</b></td></tr>';
                             $counter = 0;
                             foreach ($extEvents as $extEvent) {
                                 $class = 'default';
                                 echo '<tr class='.$class.'>'.
-                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check'], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
+                                    '<td>'.$form->field($model, 'delArr[]')->checkbox(['id' => 'traininggroupwork-delarr'.$counter, 'value' => $extEvent->id, 'class' => 'check', 'onclick' => "oneCheck(this)"], false)->label(false).'</td>'.'<td><h5>'.date('d.m.Y', strtotime($extEvent->lesson_date)).'</h5></td><td><h5>'.substr($extEvent->lesson_start_time, 0, -3).'</h5></td><td><h5>'.substr($extEvent->lesson_end_time, 0, -3).'</h5></td><td><h5>'.$extEvent->fullName.'</h5></td>'.
                                     '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['training-group/update-lesson', 'lessonId' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td><td>&nbsp;'.Html::a('Удалить', \yii\helpers\Url::to(['training-group/delete-lesson', 'id' => $extEvent->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger md-trigger', 'onclick' => 'clickSubmit()']).'</td></tr>';
                                 $counter++;
                             }
@@ -762,9 +774,15 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                     <?php
                     if (count($extEvents) > 0)
                     {
-                        echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
-                        echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']);
-                        echo '</div>';
+                        echo '<div class="form-group" style="padding-left: 15px; margin-bottom: 50px">';
+                                echo '<div style="float:left">'.Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']).'</div>';
+                        echo '<div style="float:left; margin-left: 15px; line-height: 2.5" id="lesCount2"><i>Выделено занятий:</i> 0</div>';
+                        echo '</div><hr style="border: 0.5px solid gray">';
+
+                        //echo '<div class="form-group" style="padding-left: 15px; padding-top: 10px">';
+                        //echo Html::submitButton('Удалить выделенные', ['class' => 'btn btn-danger md-trigger', 'name' => 'deleteChoose']);
+                        //echo '</div>';
+
                     }
                     ?>
                     <div class="panel-body">
@@ -1150,6 +1168,12 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             $("#autoSchedule").removeAttr("hidden");
             $("#manualSchedule").attr("hidden", "true");
         }
+
+
+        var count1 = document.getElementById("lesCount1");
+        var count2 = document.getElementById("lesCount2");
+        count1.innerHTML = '<i>Выделено занятий:</i> ' + 0;
+        count2.innerHTML = '<i>Выделено занятий:</i> ' + 0;
     }
 
 </script>

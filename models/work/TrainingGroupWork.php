@@ -322,6 +322,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= date('d.m.Y', strtotime($part->lesson_date)).' с '.substr($part->lesson_start_time, 0, -3).' до '.substr($part->lesson_end_time, 0, -3).' в ауд. '.$part->auditorium->name.'<br>';
             $counter++;
         }
+        $result .= "<br><b><i>Всего занятий: </i>".count($parts)."</b>";
         return $result;
 
     }
