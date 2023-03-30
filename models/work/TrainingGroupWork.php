@@ -1041,6 +1041,7 @@ class TrainingGroupWork extends TrainingGroup
                 foreach ($groupsTheme as $group)
                 {
                     var_dump('Внимание, идет отладка данных!');
+                    var_dump($dateCheck);
                     var_dump($group->id);
                     if (!empty($group->groupProjectThemes))
                     {
