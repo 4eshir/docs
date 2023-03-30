@@ -1018,7 +1018,7 @@ class TrainingGroupWork extends TrainingGroup
     {
         $dateCheck = date('Y-m-d', strtotime(date("Y-m-d") . '-14 day'));
         $groups = TrainingGroupWork::find()->joinWith(['groupProjectThemes theme'])
-            ->where(['archive' => 0])->andWhere(['>=','finish_date', $dateCheck]);
+            ->where(['archive' => 0]);
 
         $flag = false;
         $result = '';
@@ -1060,7 +1060,7 @@ class TrainingGroupWork extends TrainingGroup
         {
             $user = UserWork::find()->where(['id' => $user_id])->one();
             $branchID = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
-            $groupsConfirm = $groups->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
+            $groupsConfirm = $groups->andWhere(['>=','finish_date', $dateCheck])->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
 
             if (empty($groupsConfirm))
                 $flag = true;
@@ -1086,7 +1086,7 @@ class TrainingGroupWork extends TrainingGroup
         if (RoleBaseAccess::CheckRole($user_id, 1))
         {
             $user = UserWork::find()->where(['id' => $user_id])->one();
-            $groupsTeacher = $groups->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+            $groupsTeacher = $groups->andWhere(['>=','finish_date', $dateCheck])->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
 
             if(empty($groupsTeacher))
                 $flag = true;
