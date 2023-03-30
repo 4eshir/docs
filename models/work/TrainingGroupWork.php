@@ -1023,7 +1023,11 @@ class TrainingGroupWork extends TrainingGroup
         $flag = false;
         $result = '';
 
-        if (RoleBaseAccess::CheckRole($user_id, 6))
+        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) ||
+                RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
+            $flag = true;
+
+        if (RoleBaseAccess::CheckRole($user_id, 6) && RoleBaseAccess::CheckRole($user_id, 7) )
         {
             $groupsTheme = $groups->all();
 
@@ -1124,11 +1128,7 @@ class TrainingGroupWork extends TrainingGroup
             }
         }
 
-        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) ||
-                RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
-            $flag = true;
-
-        if ($flag)
+        if ($flag && $result == '')
             echo 'Данный раздел работает. Но для Вас информации не нашлось.';
 
         return $result;

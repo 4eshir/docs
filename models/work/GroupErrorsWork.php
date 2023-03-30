@@ -518,7 +518,7 @@ class GroupErrorsWork extends GroupErrors
             }
         }
 
-        if (count($err) == 0 && $grProjCount == 0)
+        if (count($err) == 0 && $grProjCount == 0 && $group->protection_date != null)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 39;
@@ -549,7 +549,7 @@ class GroupErrorsWork extends GroupErrors
             }
         }
 
-        if (count($err) == 0 && ($grExpertCount == 0 && $finishDate <= $now_time))
+        if (count($err) == 0 && ($grExpertCount == 0 && $finishDate <= $now_time) && $group->protection_date != null)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 40;
@@ -738,7 +738,7 @@ class GroupErrorsWork extends GroupErrors
             }
         }
 
-        if (count($err) == 0 && ($countTheme < count($participants)))
+        if (count($err) == 0 && ($countTheme < count($participants)) && $group->protection_date != null)
         {
             $this->training_group_id = $modelGroupID;
             $this->errors_id = 42;
