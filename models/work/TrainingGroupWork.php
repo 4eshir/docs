@@ -1027,7 +1027,7 @@ class TrainingGroupWork extends TrainingGroup
                 RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
             $flag = true;
 
-        if (RoleBaseAccess::CheckRole($user_id, 6) || RoleBaseAccess::CheckRole($user_id, 7) )
+        if (RoleBaseAccess::CheckRole($user_id, 6))
         {
             $groupsTheme = $groups->all();
 
