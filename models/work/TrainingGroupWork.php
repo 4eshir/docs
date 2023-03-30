@@ -1040,9 +1040,6 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTheme as $group)
                 {
-                    var_dump('Внимание, идет отладка данных!');
-                    var_dump($dateCheck);
-                    var_dump($group->id);
                     if (!empty($group->groupProjectThemes))
                     {
                         foreach ($group->groupProjectThemes as $theme)
