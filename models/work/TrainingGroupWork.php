@@ -1035,6 +1035,9 @@ class TrainingGroupWork extends TrainingGroup
                 $flag = true;
             else
             {
+                var_dump('Внимание, идет отладка данных!');
+                var_dump($dateCheck);
+                
                 $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо подтверждение (удаление) тем проектов для следующих учебных групп:</h4>';
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTheme as $group)
