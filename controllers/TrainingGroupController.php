@@ -745,8 +745,13 @@ class TrainingGroupController extends Controller
     //Проверка на права доступа к CRUD-операциям
     public function beforeAction($action)
     {
-        if (Yii::$app->user->isGuest)
-            return $this->redirect(['/site/login']);
+        //var_dump(1);
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity == null)
+        {
+            $this->redirect(['/site/login']);
+            return 0;
+        }
+            
         if (!RoleBaseAccess::CheckAccess($action->controller->id, $action->id, Yii::$app->user->identity->getId(), "group")) {
             return $this->redirect(['/site/error-access']);
         }
