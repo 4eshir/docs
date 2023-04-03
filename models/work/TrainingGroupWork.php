@@ -1018,10 +1018,14 @@ class TrainingGroupWork extends TrainingGroup
     {
         $dateCheck = date('Y-m-d', strtotime(date("Y-m-d") . '-14 day'));
         $groups = TrainingGroupWork::find()->joinWith(['groupProjectThemes theme'])
-            ->where(['archive' => 0])->andWhere(['>=','finish_date', $dateCheck]);
+            ->where(['archive' => 0]);
 
         $flag = false;
         $result = '';
+
+        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) ||
+                RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
+            $flag = true;
 
         if (RoleBaseAccess::CheckRole($user_id, 6))
         {
@@ -1031,6 +1035,7 @@ class TrainingGroupWork extends TrainingGroup
                 $flag = true;
             else
             {
+
                 $result .= '<h4 style="font-size: 16px; font-weight: 600;">Необходимо подтверждение (удаление) тем проектов для следующих учебных групп:</h4>';
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTheme as $group)
@@ -1052,7 +1057,7 @@ class TrainingGroupWork extends TrainingGroup
         {
             $user = UserWork::find()->where(['id' => $user_id])->one();
             $branchID = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
-            $groupsConfirm = $groups->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
+            $groupsConfirm = $groups->andWhere(['>=','finish_date', $dateCheck])->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
 
             if (empty($groupsConfirm))
                 $flag = true;
@@ -1078,7 +1083,7 @@ class TrainingGroupWork extends TrainingGroup
         if (RoleBaseAccess::CheckRole($user_id, 1))
         {
             $user = UserWork::find()->where(['id' => $user_id])->one();
-            $groupsTeacher = $groups->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
+            $groupsTeacher = $groups->andWhere(['>=','finish_date', $dateCheck])->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
 
             if(empty($groupsTeacher))
                 $flag = true;
@@ -1124,11 +1129,7 @@ class TrainingGroupWork extends TrainingGroup
             }
         }
 
-        if (RoleBaseAccess::CheckRole($user_id, 2) || RoleBaseAccess::CheckRole($user_id, 3) ||
-                RoleBaseAccess::CheckRole($user_id, 4) || RoleBaseAccess::CheckRole($user_id, 7) || RoleBaseAccess::CheckRole($user_id, 8))
-            $flag = true;
-
-        if ($flag)
+        if ($flag && $result == '')
             echo 'Данный раздел работает. Но для Вас информации не нашлось.';
 
         return $result;
