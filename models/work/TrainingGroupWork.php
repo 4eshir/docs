@@ -100,7 +100,7 @@ class TrainingGroupWork extends TrainingGroup
 
             'start_date' => 'Дата начала занятий',
             'finish_date' => 'Дата окончания занятий',
-            'protection_date' => 'Дата защиты/выдачи сертифкатов',
+            'protection_date' => 'Дата выдачи сертифкатов',
             'protection_confirm' => 'Учебная группа допущена к итоговому контролю',
             'photos' => 'Фотоматериалы',
             'photosFile' => 'Фотоматериалы',

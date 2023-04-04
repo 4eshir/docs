@@ -53,7 +53,7 @@ class SearchForeignEvent extends ForeignEventWork
      */
     public function search($params)
     {
-        $query = ForeignEventWork::find();
+        $query = ForeignEventWork::find()->orderBy(['finish_date' => SORT_DESC, 'start_date' => SORT_DESC]);
         if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)
         {
             $tps = TeacherParticipantWork::find()->joinWith(['participant participant'])->where(['LIKE', 'participant.secondname', $params["SearchForeignEvent"]["secondnameParticipant"]])->all();
