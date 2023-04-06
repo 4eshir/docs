@@ -12,6 +12,42 @@ use yii\widgets\ActiveForm;
 <script src="/scripts/sisyphus/sisyphus.js"></script>
 <script src="/scripts/sisyphus/sisyphus.min.js"></script>
 
+<style type="text/css">
+    .checkList{
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .checkBlock{
+        height: 400px;
+        overflow-y: scroll;
+        margin-right: -15px;
+        margin-bottom: -15px;
+        margin-top: -15px;
+
+        padding-top: 10px;
+    }
+
+    .checkHeader{
+        background: #f5f5f5;
+        border-bottom: 1px solid #dddddd;
+        margin-top: -15px;
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-bottom: 15px;
+        line-height: 2em;
+    }
+
+    .noPM{
+        margin: 0;
+        padding: 0;
+        line-height: 3;
+        padding-left: 15px;
+    }
+</style>
+
 <div class="event-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -85,16 +121,24 @@ use yii\widgets\ActiveForm;
 
     ?>
 
-    <?php
-    $scopes = \app\models\work\ParticipationScopeWork::find()->orderBy(['name' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($scopes,'id','name');
-    $params = [
-        'prompt' => '',
-    ];
+    <div class="checkList">
+        <div class="checkHeader">
+            <h4 class="noPM">Сферы участия</h4>
+        </div>
 
-    echo $form->field($model, 'participation_scope_id')->dropDownList($items,$params)->label('Сфера участия');
+        <div class="checkBlock">
+            <?php
 
-    ?>
+            $scopes = \app\models\work\ParticipationScopeWork::find()->orderBy(['name' => SORT_ASC])->all();
+            $items = \yii\helpers\ArrayHelper::map($scopes,'id','name');
+
+            echo $form->field($model, 'scopes')->checkboxList($items, [
+                'item' => function($index, $label, $name, $checked, $value) {
+                return "<div 'class'='col-sm-12'><label><input type='checkbox' {$checked} name='{$name}'value='{$value}'> {$label}</label></div>";
+            }])->label(false) ?>
+        </div>
+
+    </div>
 
     <div class="row">
         <div class="panel panel-default">

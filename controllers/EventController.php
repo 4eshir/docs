@@ -160,7 +160,7 @@ class EventController extends Controller
         
 
         if ($model->load(Yii::$app->request->post())) {
-
+            var_dump($_POST["EventWork"]);
             if ($model->validate(false))
             {
                 $model->protocolFile = UploadedFile::getInstances($model, 'protocolFile');
