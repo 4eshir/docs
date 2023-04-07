@@ -183,7 +183,7 @@ use app\models\work\EventScopeWork;
         </div>
     </div>
 
-    <?= $form->field($model, 'is_federal')->checkbox() ?>
+    <?php //echo $form->field($model, 'is_federal')->checkbox() ?>
 
     <?php
     $orders = \app\models\work\PeopleWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
