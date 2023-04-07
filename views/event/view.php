@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'eventWayString',
             'address',
             ['attribute' => 'event_level_id', 'value' => $model->eventLevel->name],
-            ['attribute' => 'participation_scope_id', 'value' => $model->participationScopeWork->name],
+            ['attribute' => 'scopesString', 'format' => 'raw'],
             'participants_count',
             'childs',
             'teachers',

@@ -4,10 +4,26 @@ use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use app\models\work\EventScopeWork;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\work\EventWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+
+<script type="text/javascript">
+    window.onload = function(){
+        let elem = document.getElementById('all_scopes');
+        let ids = elem.innerHTML.split(' ');
+
+        let checks = document.getElementsByClassName('sc');
+
+        for (let i = 0; i < ids.length; i++)
+            for (let j = 0; j < checks.length; j++)
+                if (ids[i] == checks[j].value)
+                    checks[j].setAttribute('checked', 'checked');
+    }
+</script>
 
 <script src="/scripts/sisyphus/sisyphus.js"></script>
 <script src="/scripts/sisyphus/sisyphus.min.js"></script>
@@ -47,6 +63,17 @@ use yii\widgets\ActiveForm;
         padding-left: 15px;
     }
 </style>
+
+
+<div id="all_scopes" style="display: none;"><?php
+    $sc = EventScopeWork::find()->where(['event_id' => $model->id])->all();
+    $res = '';
+    foreach ($sc as $one)
+        $res .= $one->participation_scope_id.' ';
+    $res = substr($res, 0, -1);
+    echo $res;
+    ?>
+</div>
 
 <div class="event-form">
 
@@ -134,7 +161,7 @@ use yii\widgets\ActiveForm;
 
             echo $form->field($model, 'scopes')->checkboxList($items, [
                 'item' => function($index, $label, $name, $checked, $value) {
-                return "<div 'class'='col-sm-12'><label><input type='checkbox' {$checked} name='{$name}'value='{$value}'> {$label}</label></div>";
+                return "<div 'class'='col-sm-12'><label><input class='sc' type='checkbox' {$checked} name='{$name}'value='{$value}'> {$label}</label></div>";
             }])->label(false) ?>
         </div>
 
