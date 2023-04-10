@@ -118,7 +118,7 @@ use yii\helpers\Url;
                                     },
                                 ])->label('Вид документа') ?>
 
-        <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%', 'type' => 'number']) ?>
+        <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%']) ?>
 
         <div id="c_id" style="display: block">
             <?php
