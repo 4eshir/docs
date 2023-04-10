@@ -29,8 +29,11 @@ use yii\widgets\ActiveForm;
     <?php
     $dis = $model->is_contractor == 1 ? 'block' : 'none';
     ?>
+
+    <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
+
     <div id="contractor" style="display: <?php echo $dis; ?>">
-        <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
+        
 
         <?php
         $smsp = \app\models\work\CategorySmspWork::find()->all();
