@@ -79,6 +79,7 @@ class SearchMaterialObject extends MaterialObject
             ->andFilterWhere(['like', 'photo_cloud', $this->photo_cloud])
             ->andFilterWhere(['like', 'attribute', $this->attribute])
             ->andFilterWhere(['like', 'inventory_number', $this->inventory_number])
+            ->andFilterWhere(['like', 'id', $this->id])
             ->andFilterWhere(['like', 'damage', $this->damage]);
 
         return $dataProvider;
