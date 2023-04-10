@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['attribute' => 'name', 'label' => 'Наименование'],
             ['attribute' => 'short_name', 'label' => 'Краткое наименование'],
+            ['attribute' => 'inn', 'label' => 'ИНН'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

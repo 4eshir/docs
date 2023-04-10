@@ -18,7 +18,7 @@ class SearchCompany extends CompanyWork
     {
         return [
             [['id', 'company_type_id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'inn'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class SearchCompany extends CompanyWork
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'inn', $this->inn]);
 
         return $dataProvider;
     }
