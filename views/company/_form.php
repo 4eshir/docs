@@ -24,13 +24,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'short_name')->textInput(['maxlength' => true])->label('Краткое название организации') ?>
 
+    <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
+
     <?= $form->field($model, 'is_contractor')->checkbox(['onchange' => 'ContractorChange(this)']); ?>
 
     <?php
     $dis = $model->is_contractor == 1 ? 'block' : 'none';
     ?>
 
-    <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
+
 
     <div id="contractor" style="display: <?php echo $dis; ?>">
         
