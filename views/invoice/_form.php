@@ -248,7 +248,7 @@ use yii\helpers\Url;
 
                                         <?= $form->field($modelObject, "[{$i}]photoFile")->fileInput(['multiple' => false]) ?>
 
-                                        <?= $form->field($modelObject, "[{$i}]price")->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
+                                        <?= $form->field($modelObject, "[{$i}]price")->textInput(['style' => 'width: 60%']) ?>
 
                                         
 
