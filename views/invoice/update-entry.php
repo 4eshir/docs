@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
          ?>
     </div>
 
-    <?= $form->field($model, 'price')->textInput(['type' => 'number', 'style' => 'width: 60%']) ?>
+    <?= $form->field($model, 'price')->textInput(['style' => 'width: 60%']) ?>
 
     <?php echo $form->field($model, 'create_date')->widget(\yii\jui\DatePicker::class,
         [
