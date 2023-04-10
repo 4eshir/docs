@@ -15,6 +15,9 @@ use Yii;
  * @property string|null $inn
  * @property int|null $category_smsp_id
  * @property string|null $comment
+ * @property string|null $phone_number
+ * @property string|null $email
+ * @property string|null $site
  *
  * @property AsAdmin[] $asAdmins
  * @property AsAdmin[] $asAdmins0
@@ -45,8 +48,10 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['company_type_id', 'is_contractor', 'category_smsp_id'], 'integer'],
             [['name', 'short_name'], 'required'],
-            [['name', 'short_name', 'comment'], 'string', 'max' => 1000],
+            [['name', 'short_name', 'comment', 'email', 'site'], 'string', 'max' => 1000],
+            ['email', 'email'],
             [['inn'], 'string', 'max' => 15],
+            [['phone_number'], 'string', 'max' => 12],
             [['category_smsp_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategorySmsp::className(), 'targetAttribute' => ['category_smsp_id' => 'id']],
             [['company_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyType::className(), 'targetAttribute' => ['company_type_id' => 'id']],
         ];
@@ -66,6 +71,9 @@ class Company extends \yii\db\ActiveRecord
             'inn' => 'Inn',
             'category_smsp_id' => 'Category Smsp ID',
             'comment' => 'Comment',
+            'phone_number' => 'Phone Number',
+            'email' => 'Email',
+            'site' => 'Site',
         ];
     }
 

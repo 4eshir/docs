@@ -22,6 +22,9 @@ class CompanyWork extends Company
             'inn' => 'Inn',
             'category_smsp_id' => 'Category Smsp ID',
             'comment' => 'Комментарий',
+            'phone_number' => 'Номер телефона',
+            'email' => 'E-mail',
+            'site' => 'Сайт (при наличии)',
         ];
     }
 

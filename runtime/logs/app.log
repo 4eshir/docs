@@ -1,0 +1,1818 @@
+2023-04-08 16:31:23 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-08 16:31:17 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'event/update'
+    'id' => '22'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Fview&id=22'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51642'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=event%2Fupdate&id=22'
+    'REQUEST_URI' => '/index.php?r=event%2Fupdate&id=22'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1680960677.18
+    'REQUEST_TIME' => 1680960677
+    'argv' => [
+        0 => 'r=event%2Fupdate&id=22'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:00:47 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:00:44 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'event/update'
+    'id' => '22'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=event%2Fview&id=22'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50053'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=event%2Fupdate&id=22'
+    'REQUEST_URI' => '/index.php?r=event%2Fupdate&id=22'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681102843.604
+    'REQUEST_TIME' => 1681102843
+    'argv' => [
+        0 => 'r=event%2Fupdate&id=22'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:44:26 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:44:24 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50762'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=gii'
+    'REQUEST_URI' => '/index.php?r=gii'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105464.288
+    'REQUEST_TIME' => 1681105464
+    'argv' => [
+        0 => 'r=gii'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:44:33 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:44:33 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii/default/view'
+    'id' => 'model'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=gii'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50771'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=gii%2Fdefault%2Fview&id=model'
+    'REQUEST_URI' => '/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105473.627
+    'REQUEST_TIME' => 1681105473
+    'argv' => [
+        0 => 'r=gii%2Fdefault%2Fview&id=model'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:44:47 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:44:45 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii/default/view'
+    'id' => 'model'
+]
+
+$_POST = [
+    '_csrf' => 'SzArta7dtbqKuE4hWE0KYiz_g9B9NmOcjRXVj2ARtaUHd0z-nq7X09yKPXE1fFsPZou0gRp7Dqu-JrL8Eynd7A=='
+    'Generator' => [
+        'tableName' => 'company'
+        'modelClass' => 'Company'
+        'standardizeCapitals' => '0'
+        'singularize' => '0'
+        'ns' => 'app\\models\\common'
+        'baseClass' => 'yii\\db\\ActiveRecord'
+        'db' => 'db'
+        'useTablePrefix' => '0'
+        'generateRelations' => 'all'
+        'generateRelationsFromCurrentSchema' => '1'
+        'generateLabelsFromComments' => '0'
+        'generateQuery' => '0'
+        'queryNs' => 'app\\models\\common'
+        'queryBaseClass' => 'yii\\db\\ActiveQuery'
+        'enableI18N' => '0'
+        'messageCategory' => 'app'
+        'useSchemaName' => '1'
+        'template' => 'default'
+    ]
+    'preview' => ''
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'CONTENT_LENGTH' => '853'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50779'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=gii%2Fdefault%2Fview&id=model'
+    'REQUEST_URI' => '/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105485.76
+    'REQUEST_TIME' => 1681105485
+    'argv' => [
+        0 => 'r=gii%2Fdefault%2Fview&id=model'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:44:56 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:44:55 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => ''
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50783'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r='
+    'REQUEST_URI' => '/index.php?r='
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105495.831
+    'REQUEST_TIME' => 1681105495
+    'argv' => [
+        0 => 'r='
+    ]
+    'argc' => 1
+]
+2023-04-10 08:45:34 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:45:33 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'dictionaries/service'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50789'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=dictionaries%2Fservice'
+    'REQUEST_URI' => '/index.php?r=dictionaries%2Fservice'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105533.961
+    'REQUEST_TIME' => 1681105533
+    'argv' => [
+        0 => 'r=dictionaries%2Fservice'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:45:40 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:45:35 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=dictionaries%2Fservice'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50793'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Findex'
+    'REQUEST_URI' => '/index.php?r=company%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105535.101
+    'REQUEST_TIME' => 1681105535
+    'argv' => [
+        0 => 'r=company%2Findex'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:45:46 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:45:45 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/view'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50797'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fview&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fview&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105545.413
+    'REQUEST_TIME' => 1681105545
+    'argv' => [
+        0 => 'r=company%2Fview&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:46:26 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:46:26 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/update'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fview&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50806'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fupdate&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fupdate&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105586.062
+    'REQUEST_TIME' => 1681105586
+    'argv' => [
+        0 => 'r=company%2Fupdate&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:50:58 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:50:58 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50849'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=gii'
+    'REQUEST_URI' => '/index.php?r=gii'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105858.269
+    'REQUEST_TIME' => 1681105858
+    'argv' => [
+        0 => 'r=gii'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:51:04 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:50:59 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii/default/view'
+    'id' => 'model'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=gii'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50853'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=gii%2Fdefault%2Fview&id=model'
+    'REQUEST_URI' => '/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105859.677
+    'REQUEST_TIME' => 1681105859
+    'argv' => [
+        0 => 'r=gii%2Fdefault%2Fview&id=model'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:51:12 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:51:10 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii/default/view'
+    'id' => 'model'
+]
+
+$_POST = [
+    '_csrf' => 'xjoEVAjpwQn-4hisLufShRdUZIbo7-DNivpCo__J60eKfWMfOJqjYKjQa_xD1oPoXSBT14-ijfq5ySXQjPGDDg=='
+    'Generator' => [
+        'tableName' => 'company'
+        'modelClass' => 'Company'
+        'standardizeCapitals' => '0'
+        'singularize' => '0'
+        'ns' => 'app\\models\\common'
+        'baseClass' => 'yii\\db\\ActiveRecord'
+        'db' => 'db'
+        'useTablePrefix' => '0'
+        'generateRelations' => 'all'
+        'generateRelationsFromCurrentSchema' => '1'
+        'generateLabelsFromComments' => '0'
+        'generateQuery' => '0'
+        'queryNs' => 'app\\models\\common'
+        'queryBaseClass' => 'yii\\db\\ActiveQuery'
+        'enableI18N' => '0'
+        'messageCategory' => 'app'
+        'useSchemaName' => '1'
+        'template' => 'default'
+    ]
+    'preview' => ''
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'CONTENT_LENGTH' => '853'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50857'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=gii%2Fdefault%2Fview&id=model'
+    'REQUEST_URI' => '/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105870.588
+    'REQUEST_TIME' => 1681105870
+    'argv' => [
+        0 => 'r=gii%2Fdefault%2Fview&id=model'
+    ]
+    'argc' => 1
+]
+2023-04-10 08:51:19 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 08:51:15 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'gii/default/view'
+    'id' => 'model'
+]
+
+$_POST = [
+    '_csrf' => 'vFIkzhRIyBtiBIlWPyThFW-wEC0wcW2aLCsimOh_aZ3wFUOFJDuqcjQ2-gZSFbB4JcQnfFc8AK0fGEXrm0cB1A=='
+    'Generator' => [
+        'tableName' => 'company'
+        'modelClass' => 'Company'
+        'standardizeCapitals' => '0'
+        'singularize' => '0'
+        'ns' => 'app\\models\\common'
+        'baseClass' => 'yii\\db\\ActiveRecord'
+        'db' => 'db'
+        'useTablePrefix' => '0'
+        'generateRelations' => 'all'
+        'generateRelationsFromCurrentSchema' => '1'
+        'generateLabelsFromComments' => '0'
+        'generateQuery' => '0'
+        'queryNs' => 'app\\models\\common'
+        'queryBaseClass' => 'yii\\db\\ActiveQuery'
+        'enableI18N' => '0'
+        'messageCategory' => 'app'
+        'useSchemaName' => '1'
+        'template' => 'default'
+    ]
+    'answers' => [
+        '364692fa8fdd498fff55c1851bf79b20' => '1'
+    ]
+    'generate' => ''
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'CONTENT_LENGTH' => '902'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '50863'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=gii%2Fdefault%2Fview&id=model'
+    'REQUEST_URI' => '/index.php?r=gii%2Fdefault%2Fview&id=model'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681105875.295
+    'REQUEST_TIME' => 1681105875
+    'argv' => [
+        0 => 'r=gii%2Fdefault%2Fview&id=model'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:08:47 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:08:46 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => ''
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51025'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r='
+    'REQUEST_URI' => '/index.php?r='
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681106926.925
+    'REQUEST_TIME' => 1681106926
+    'argv' => [
+        0 => 'r='
+    ]
+    'argc' => 1
+]
+2023-04-10 09:08:53 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:08:48 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'dictionaries/service'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51029'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=dictionaries%2Fservice'
+    'REQUEST_URI' => '/index.php?r=dictionaries%2Fservice'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681106928.904
+    'REQUEST_TIME' => 1681106928
+    'argv' => [
+        0 => 'r=dictionaries%2Fservice'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:09:03 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:09:03 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=dictionaries%2Fservice'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51033'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Findex'
+    'REQUEST_URI' => '/index.php?r=company%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681106943.776
+    'REQUEST_TIME' => 1681106943
+    'argv' => [
+        0 => 'r=company%2Findex'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:09:10 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:09:05 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/view'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51037'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fview&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fview&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681106945.901
+    'REQUEST_TIME' => 1681106945
+    'argv' => [
+        0 => 'r=company%2Fview&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:09:16 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:09:11 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/update'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fview&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51041'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fupdate&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fupdate&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681106951.254
+    'REQUEST_TIME' => 1681106951
+    'argv' => [
+        0 => 'r=company%2Fupdate&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:10:21 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:10:21 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/view'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fupdate&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51071'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fview&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fview&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681107021.663
+    'REQUEST_TIME' => 1681107021
+    'argv' => [
+        0 => 'r=company%2Fview&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:10:28 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:10:24 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/update'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fview&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51075'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fupdate&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fupdate&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681107024.343
+    'REQUEST_TIME' => 1681107024
+    'argv' => [
+        0 => 'r=company%2Fupdate&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:10:38 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:10:38 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/update'
+    'id' => '1'
+]
+
+$_POST = [
+    '_csrf' => 'rxys9urNltGAFFtaJr1BN21tPCsuzGBO3MQuiIS94KbjW8u92r70uNYmKApLjBBaJxkLekmBDXnv90n794WI7w=='
+    'CompanyWork' => [
+        'company_type_id' => '1'
+        'name' => 'Контрагент какой-то'
+        'short_name' => 'КА'
+        'is_contractor' => '1'
+        'inn' => '123456789123'
+        'category_smsp_id' => '2'
+        'phone_number' => '3232132'
+        'email' => 'd@d.d'
+        'site' => '21323231231232'
+        'comment' => '???'
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'CONTENT_LENGTH' => '578'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fupdate&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51081'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=company%2Fupdate&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fupdate&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681107038.165
+    'REQUEST_TIME' => 1681107038
+    'argv' => [
+        0 => 'r=company%2Fupdate&id=1'
+    ]
+    'argc' => 1
+]
+2023-04-10 09:10:38 [127.0.0.1][1][-][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Error' with message 'Call to undefined function Opis\Closure\serialize()' 
+
+in C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php:66
+
+Stack trace:
+#0 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2-debug\src\LogTarget.php(136): yii\debug\LogTarget->export()
+#1 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Dispatcher.php(194): yii\debug\LogTarget->collect()
+#2 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\log\Logger.php(226): yii\log\Dispatcher->dispatch()
+#3 [internal function]: yii\log\Logger->flush()
+#4 {main}
+2023-04-10 09:10:38 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'company/view'
+    'id' => '1'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    'PHPSESSID' => 'al7f7m93of8ierua3p58n6ib23atk67n'
+    '_csrf' => '89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"LGgK0sbiV2sPm1QmJt7QgMm733gss8hI\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=company%2Fupdate&id=1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; PHPSESSID=al7f7m93of8ierua3p58n6ib23atk67n; _csrf=89437bed92cc85a9e36835ed11c7f021ff0193c9e49d955f7956d88bac1e9dbea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22LGgK0sbiV2sPm1QmJt7QgMm733gss8hI%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64;C:\\Program Files\\nodejs\\;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\PROGRA~2\\VPOINT~1;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\work\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\work\\.dotnet\\tools;C:\\OpenServer\\modules\\php\\PHP_7.2;C:\\OpenServer\\domains\\cardmarket-api-master\\curl-7.73.0_3-win64-mingw\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python39\\Scripts;C:\\Users\\work\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files\\JetBrains\\PyCharm Community Edition 2022.2.3\\bin;C:\\Users\\work\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\work\\AppData\\Roaming\\npm;C:\\Users\\work\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51083'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=company%2Fview&id=1'
+    'REQUEST_URI' => '/index.php?r=company%2Fview&id=1'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1681107038.421
+    'REQUEST_TIME' => 1681107038
+    'argv' => [
+        0 => 'r=company%2Fview&id=1'
+    ]
+    'argc' => 1
+]

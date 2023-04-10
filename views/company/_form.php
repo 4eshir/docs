@@ -42,6 +42,12 @@ use yii\widgets\ActiveForm;
 
         ?>
 
+        <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
+
         <?= $form->field($model, 'comment')->textarea(['rows' => '3']) ?>   
     </div>
 

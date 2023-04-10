@@ -48,6 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['label' => 'ИНН организации', 'attribute' => 'inn'],
                 ['label' => 'Категория СМСП', 'attribute' => 'categorySmspString'],
                 ['label' => 'Комментарий', 'attribute' => 'comment'],
+                'phone_number',
+                'email',
+                'site',
             ],
         ]);
     }
