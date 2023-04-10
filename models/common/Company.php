@@ -47,7 +47,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['company_type_id', 'is_contractor', 'category_smsp_id'], 'integer'],
-            [['name', 'short_name'], 'required'],
+            [['name', 'short_name', 'inn'], 'required'],
             [['name', 'short_name', 'comment', 'email', 'site'], 'string', 'max' => 1000],
             ['email', 'email'],
             [['inn'], 'string', 'max' => 15],
