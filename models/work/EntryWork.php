@@ -29,7 +29,8 @@ class EntryWork extends Entry
     {
         return [
             [['name', 'create_date', 'lifetime', 'expirationDate'], 'string'],
-            [['amount', 'price', 'complex'], 'integer'],
+            [['amount', 'complex'], 'integer'],
+            ['price', 'double'],
             [['inventory_number', 'dynamic', 'characteristics'], 'safe'],
             /*[['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObjectWork::className(), 'targetAttribute' => ['object_id' => 'id']],*/
         ];
