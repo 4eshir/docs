@@ -60,7 +60,7 @@ class MaterialObjectWork extends MaterialObject
             [['inventory_number'], 'string', 'max' => 20],
             [['damage'], 'string', 'max' => 2000],
             [['finance_source_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinanceSourceWork::className(), 'targetAttribute' => ['finance_source_id' => 'id']],
-            [['photoFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, webp, jfif', 'skipOnEmpty' => true, 'maxSize' => 104857600]
+            [['photoFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, webp, jfif, 7z, rar, zip', 'skipOnEmpty' => true, 'maxSize' => 104857600]
         ];
     }
 
