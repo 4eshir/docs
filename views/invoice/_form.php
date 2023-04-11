@@ -352,7 +352,7 @@ use yii\helpers\Url;
                                                             $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
                                                         }
 
-                                                        echo '<select step="any" type="'.$type.'" name="EntryWork[characteristics][]">'.$options.'</select>';
+                                                        echo '<select step="any" type="'.$type.'" name="EntryWork['.$count.'][characteristics][]>'.$options.'</select>';
                                                     }
                                                     else
                                                         echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="EntryWork['.$count.'][characteristics][]" value="'.$val.'"></th></tr>';
