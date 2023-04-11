@@ -255,8 +255,8 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
 
                     foreach ($items as $item)
                     {
-                        $selected = $val == $item->id > 'selected' : '';
-                        $options .= '<option value="'.$item->id.' '.$selected.'">'.$item->item.'</option>';
+                        $selected = $val == $item->id ? 'selected' : '';
+                        $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
                     }
 
                     echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>

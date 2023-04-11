@@ -17,7 +17,7 @@ class ObjectCharacteristicWork extends ObjectCharacteristic
         return [
             [['documentFile'], 'file', 'extensions' => 'doc, docx, zip, rar, 7z, tag, pdf', 'skipOnEmpty' => true],
             [['material_object_id', 'characteristic_object_id'], 'required'],
-            [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
+            [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value', 'dropdown_value'], 'integer'],
             [['double_value'], 'number'],
             [['date_value'], 'safe'],
             [['string_value', 'document_value'], 'string', 'max' => 1000],
