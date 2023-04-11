@@ -232,13 +232,17 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                 else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
 
-                //echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
 
-                //var_dump($value->id);
                 $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
+                $input = '';
+                if ($c->characteristicObjectWork->value_type == 4 && $val == 1)
+                    $input = '<input step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+                else
+                    $input = '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+
+
                 echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
-                 <th style="float: left; margin-top: 10px; padding-left: 3%">
-                 <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'"></th></tr>';
+                 <th style="float: left; margin-top: 10px; padding-left: 3%">'.$input.'</th></tr>';
                 /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</table>';
