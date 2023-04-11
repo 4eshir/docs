@@ -224,6 +224,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     if ($value->bool_value !== null) $val = $value->bool_value;
                     if ($value->date_value !== null) $val = $value->date_value;
                     if (strlen($value->document_value) > 0) $val = $value->document_value;
+                    if ($value->dropdown_value !== null) $val = $value->dropdown_value;
                 }
 
                 $type = "dropdown";
@@ -237,9 +238,15 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                 if ($type !== "dropdown")
                 {
                     $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
+                    $input = '';
+                    if ($c->characteristicObjectWork->value_type == 4 && $val == 1)
+                        $input = '<input step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+                    else
+                        $input = '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+
+
                     echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
-                     <th style="float: left; margin-top: 10px; padding-left: 3%">
-                     <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'"></th></tr>';
+                     <th style="float: left; margin-top: 10px; padding-left: 3%">'.$input.'</th></tr>';
                 }
                 else
                 {
@@ -247,7 +254,10 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     $items = \app\models\work\DropdownCharacteristicObjectWork::find()->where(['characteristic_object_id' => $c->characteristicObjectWork->id])->all();
 
                     foreach ($items as $item)
-                        $options .= '<option value="'.$item->id.'">'.$item->item.'</option>';
+                    {
+                        $selected = $val == $item->id > 'selected' : '';
+                        $options .= '<option value="'.$item->id.' '.$selected.'">'.$item->item.'</option>';
+                    }
 
                     echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                      <th style="float: left; margin-top: 10px; padding-left: 3%">
