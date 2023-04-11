@@ -295,14 +295,17 @@ class MaterialObjectWork extends MaterialObject
 
             $counter = $_FILES['EntryWork']['name']["characteristics"];
             if ($counter == null) $counter = $this->filesName;
-//var_dump($counter); var_dump($this->filesName);
+
+
             if ($counter !== null)
             {
                 $characts = KindCharacteristicWork::find()->joinWith(['characteristicObject characteristicObject'])->where(['kind_object_id' => $this->kindWork->id])->andWhere(['characteristicObject.value_type' => 6])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 
+
                 for ($i = 0; $i < count($counter); $i++)
                 {
                     $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->andWhere(['characteristic_object_id' => $characts[$i]->characteristicObjectWork->id])->one();
+
 
                     if ($objChar == null) $objChar = new ObjectCharacteristicWork();
                     
@@ -367,8 +370,6 @@ class MaterialObjectWork extends MaterialObject
                         $objChar->dropdown_value = $this->characteristics[$i];
                         //$flag = $objChar->document_value == "";
                     }
-
-                    var_dump($characts[12]->characteristicObjectWork->id);
 
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;

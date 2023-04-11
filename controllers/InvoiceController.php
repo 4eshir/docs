@@ -179,7 +179,6 @@ class InvoiceController extends Controller
 
         if ($model->load(Yii::$app->request->post()))
         {
-            var_dump($_POST["EntryWork"]["characteristics"]);
             $model->dynamic = Yii::$app->request->post()["EntryWork"]["dynamic"];
             $model->save();
             
