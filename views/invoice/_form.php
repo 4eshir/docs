@@ -318,17 +318,18 @@ use yii\helpers\Url;
                                                         if ($value->bool_value !== null) $val = $value->bool_value;
                                                         if ($value->date_value !== null) $val = $value->date_value;
                                                         if (strlen($value->document_value) > 0) $val = $value->document_value;
+                                                        if ($value->dropdown_value !== null) $val = $value->dropdown_value;
                                                     }
 
-                                                    $type = "text";
+                                                    $type = "dropdown";
                                                     if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+                                                    else if ($c->characteristicObjectWork->value_type == 3) $type = "text";
                                                     else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                                                     else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                                                     else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
                                                     //echo $form->field($modelObject, 'characteristics[]')->textInput(['type' => $type])->label($c->characteristicObjectWork->name);
                                                     /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
                                                     $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
-
 
                                                     echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th><th style="float: left; margin-top: 10px; padding-left: 3%">';
                                                     if ($type == "checkbox")
@@ -339,6 +340,19 @@ use yii\helpers\Url;
                                                         else
                                                             echo '<input onclick="handleClick(this)" type="'.$type.'" class="form-inline ch"></th></tr>';
                                                         //echo $form->field($model, 'characteristics[]')->checkbox()->label(false);
+                                                    }
+                                                    else if ($type == "dropdown")
+                                                    {
+                                                        $options = '';
+                                                        $items = \app\models\work\DropdownCharacteristicObjectWork::find()->where(['characteristic_object_id' => $c->characteristicObjectWork->id])->all();
+
+                                                        foreach ($items as $item)
+                                                        {
+                                                            $selected = $val == $item->id ? 'selected' : '';
+                                                            $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
+                                                        }
+
+                                                        echo '<select step="any" type="'.$type.'" name="EntryWork[characteristics][]">'.$options.'</select>';
                                                     }
                                                     else
                                                         echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="EntryWork['.$count.'][characteristics][]" value="'.$val.'"></th></tr>';

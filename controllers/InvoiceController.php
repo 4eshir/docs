@@ -20,6 +20,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use app\models\DynamicModel;
+use \app\models\work\DropdownCharacteristicObjectWork;
 
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
@@ -299,10 +300,12 @@ class InvoiceController extends Controller
                 if ($value->bool_value !== null) $val = $value->bool_value;
                 if ($value->date_value !== null) $val = $value->date_value;
                 if (strlen($value->document_value) > 0) $val = $value->document_value;
+                if ($value->dropdown_value !== null) $val = $value->dropdown_value;
             }
 
-            $type = "text";
+            $type = "dropdown";
             if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+            else if ($c->characteristicObjectWork->value_type == 3) $type = "text";
             else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
             else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
             else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
@@ -317,6 +320,19 @@ class InvoiceController extends Controller
                     echo '<input onclick="handleClick(this)" type="'.$type.'" checked class="form-inline ch" name="CharacteristicInput"></th></tr>';
                 else
                     echo '<input onclick="handleClick(this)" type="'.$type.'" class="form-inline ch" name="CharacteristicInput"></th></tr>';
+            }
+            else if ($type == "dropdown")
+            {
+                $options = '';
+                $items = DropdownCharacteristicObjectWork::find()->where(['characteristic_object_id' => $c->characteristicObjectWork->id])->all();
+
+                foreach ($items as $item)
+                {
+                    $selected = $val == $item->id ? 'selected' : '';
+                    $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
+                }
+
+                echo '<select step="any" type="'.$type.'" name="EntryWork[characteristics][]">'.$options.'</select>';
             }
             else
                 echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="MaterialObjectWork['.$count.'][characteristics][]" value="'.$val.'"></th></tr>';
