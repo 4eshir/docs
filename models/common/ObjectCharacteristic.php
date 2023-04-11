@@ -16,9 +16,11 @@ use Yii;
  * @property int|null $bool_value
  * @property string|null $date_value
  * @property string|null $document_value
+ * @property int|null $dropdown_value
  *
  * @property CharacteristicObject $characteristicObject
  * @property MaterialObject $materialObject
+ * @property DropdownCharacteristicObject $dropdownValue
  */
 class ObjectCharacteristic extends \yii\db\ActiveRecord
 {
@@ -37,12 +39,13 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     {
         return [
             [['material_object_id', 'characteristic_object_id'], 'required'],
-            [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value'], 'integer'],
+            [['material_object_id', 'characteristic_object_id', 'integer_value', 'bool_value', 'dropdown_value'], 'integer'],
             [['double_value'], 'number'],
             [['date_value'], 'safe'],
             [['string_value', 'document_value'], 'string', 'max' => 1000],
             [['characteristic_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => CharacteristicObject::className(), 'targetAttribute' => ['characteristic_object_id' => 'id']],
             [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
+            [['dropdown_value'], 'exist', 'skipOnError' => true, 'targetClass' => DropdownCharacteristicObject::className(), 'targetAttribute' => ['dropdown_value' => 'id']],
         ];
     }
 
@@ -61,6 +64,7 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
             'bool_value' => 'Bool Value',
             'date_value' => 'Date Value',
             'document_value' => 'Document Value',
+            'dropdown_value' => 'Dropdown Value',
         ];
     }
 
@@ -82,5 +86,15 @@ class ObjectCharacteristic extends \yii\db\ActiveRecord
     public function getMaterialObject()
     {
         return $this->hasOne(MaterialObject::className(), ['id' => 'material_object_id']);
+    }
+
+    /**
+     * Gets query for [[DropdownValue]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDropdownValue()
+    {
+        return $this->hasOne(DropdownCharacteristicObject::className(), ['id' => 'dropdown_value']);
     }
 }

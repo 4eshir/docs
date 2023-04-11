@@ -226,19 +226,34 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     if (strlen($value->document_value) > 0) $val = $value->document_value;
                 }
 
-                $type = "text";
+                $type = "dropdown";
                 if ($c->characteristicObjectWork->value_type == 1 || $c->characteristicObjectWork->value_type == 2) $type = "number";
+                else if ($c->characteristicObjectWork->value_type == 3) $type = "text";
                 else if ($c->characteristicObjectWork->value_type == 4) $type = "checkbox";
                 else if ($c->characteristicObjectWork->value_type == 5) $type = "date";
                 else if ($c->characteristicObjectWork->value_type == 6) $type = "file";
 
-                //echo $c->characteristicObjectWork->value_type . ' ' . $c->characteristicObjectWork->name.'<br>';
 
-                //var_dump($value->id);
-                $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
-                echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
-                 <th style="float: left; margin-top: 10px; padding-left: 3%">
-                 <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'"></th></tr>';
+                if ($type !== "dropdown")
+                {
+                    $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
+                    echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
+                     <th style="float: left; margin-top: 10px; padding-left: 3%">
+                     <input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'"></th></tr>';
+                }
+                else
+                {
+                    $options = '';
+                    $items = \app\models\work\DropdownCharacteristicObjectWork::find()->where(['characteristic_object_id' => $c->characteristicObjectWork->id])->all();
+
+                    foreach ($items as $item)
+                        $options .= '<option value="'.$item->id.'">'.$item->item.'</option>';
+
+                    echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
+                     <th style="float: left; margin-top: 10px; padding-left: 3%">
+                     <select step="any" type="'.$type.'" name="EntryWork[characteristics][]">'.$options.'</select></th></tr>';
+                }
+                
                 /*echo '<div style="width: 50%; float: left; margin-top: 10px"><span>'.$c->characteristicObjectWork->name.': </span></div><div style="margin-top: 10px; margin-right: 0; min-width: 40%"><input type="'.$type.'" class="form-inline" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="MaterialObjectWork[characteristics][]" value="'.$val.'"></div>';*/
             }
             echo '</table>';

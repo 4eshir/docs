@@ -362,6 +362,12 @@ class MaterialObjectWork extends MaterialObject
                         //$flag = $objChar->document_value == "";
                     }
 
+                    if ($characts[$i]->characteristicObjectWork->value_type == 7)
+                    {
+                        $objChar->dropdown_value = $this->characteristics[$i];
+                        //$flag = $objChar->document_value == "";
+                    }
+
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
 
