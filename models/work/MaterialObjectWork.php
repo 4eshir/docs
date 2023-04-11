@@ -368,6 +368,8 @@ class MaterialObjectWork extends MaterialObject
                         //$flag = $objChar->document_value == "";
                     }
 
+                    var_dump($characts[12]->characteristicObjectWork->id);
+
                     $objChar->material_object_id = $this->id;
                     $objChar->characteristic_object_id = $characts[$i]->characteristicObjectWork->id;
 
