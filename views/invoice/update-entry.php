@@ -211,7 +211,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         {
             $characts = \app\models\work\KindCharacteristicWork::find()->where(['kind_object_id' => $model->kind_id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
             echo '<div style="border: 1px solid #D3D3D3; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; margin-bottom: 20px; border-radius: 5px; width: 55%">';
-            echo '<table>';
+            echo '<table style="width: 100%">';
             foreach ($characts as $c)
             {
                 $value = \app\models\work\ObjectCharacteristicWork::find()->where(['material_object_id' => $model->object_id])->andWhere(['characteristic_object_id' => $c->characteristic_object_id])->orderBy(['id' => SORT_DESC])->one();
@@ -244,8 +244,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     else
                         $input = '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
 
-
-                    echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
+                    echo '<tr><th style="width: 45%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                      <th style="float: left; margin-top: 10px; padding-left: 3%">'.$input.'</th></tr>';
                 }
                 else
@@ -259,7 +258,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                         $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
                     }
 
-                    echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
+                    echo '<tr><th style="width: 45%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                      <th style="float: left; margin-top: 10px; padding-left: 3%">
                      <select step="any" type="'.$type.'" name="EntryWork[characteristics][]">'.$options.'</select></th></tr>';
                 }
