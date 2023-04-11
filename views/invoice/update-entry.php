@@ -240,9 +240,13 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                     $input = '';
                     if ($c->characteristicObjectWork->value_type == 4 && $val == 1)
-                        $input = '<input step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+                        $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" content="'.$val.'"><input name="EntryWork[characteristics][]" type="hidden" value="'.$val.'">';
+                    else if ($c->characteristicObjectWork->value_type == 4)
+                    {
+                        $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" content="'.$val.'"><input type="hidden" name="EntryWork[characteristics][]" value="'.$val.'">';
+                    }
                     else
-                        $input = '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
+                        $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" value="'.$val.'" content="'.$val.'">';
 
                     echo '<tr><th style="width: 45%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th>
                      <th style="float: left; margin-top: 10px; padding-left: 3%">'.$input.'</th></tr>';
@@ -446,4 +450,13 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
         else
             cb.previousElementSibling.value = '0';
     }
+
+    function handleClickOrig(cb)
+    {
+        if (cb.checked == true)
+            cb.nextElementSibling.value = '1';
+        else
+            cb.nextElementSibling.value = '0';
+    }
+
 </script>

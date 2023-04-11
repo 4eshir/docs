@@ -180,7 +180,6 @@ class InvoiceController extends Controller
 
         if ($model->load(Yii::$app->request->post()))
         {
-
             $model->dynamic = Yii::$app->request->post()["EntryWork"]["dynamic"];
             $model->save();
             
