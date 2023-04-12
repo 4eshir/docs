@@ -442,6 +442,9 @@ class ForeignEventWork extends ForeignEvent
                     $part->participant_id = $achievementOne->fio;
                     $part->achievment = $achievementOne->achieve;
                     $part->winner = $achievementOne->winner;
+                    $part->cert_number = $achievementOne->cert_number;
+                    $part->nomination = $achievementOne->nomination;
+                    $part->date = $achievementOne->date;
                     $part->save();
                 }
                 else

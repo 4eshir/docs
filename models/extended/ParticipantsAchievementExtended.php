@@ -9,12 +9,16 @@ class ParticipantsAchievementExtended extends \yii\base\Model
     public $fio;
     public $achieve;
     public $winner;
+    public $cert_number;
+    public $nomination;
+    public $date;
 
     public function rules()
     {
         return [
-            [['fio', 'achieve'], 'string'],
-            [['winner'], 'integer']
+            [['fio', 'achieve', 'cert_number', 'nomination'], 'string'],
+            [['winner'], 'integer'],
+            ['date', 'safe'],
         ];
     }
 
@@ -24,6 +28,9 @@ class ParticipantsAchievementExtended extends \yii\base\Model
             'fio' => 'ФИО участника',
             'achieve' => 'Достижение',
             'winner' => 'Победитель',
+            'cert_number' => 'Номер сертификата',
+            'nomination' => 'Номинация',
+            'date' => 'Дата выдачи сертификата',
         ];
     }
 }

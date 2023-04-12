@@ -3,6 +3,7 @@
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\ForeignEventWork */
@@ -25,6 +26,16 @@ use yii\widgets\ActiveForm;
 
     }
 </style>
+
+
+<script type="text/javascript">
+    window.onload = function(){
+        let elem = document.getElementsByClassName("date_achieve");
+        let orig = document.getElementById('foreigneventwork-finish_date');
+        elem[elem.length - 1].value = orig.value;
+    }
+</script>
+
 
 <div class="foreign-event-form">
 
@@ -278,10 +289,10 @@ use yii\widgets\ActiveForm;
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td></tr>';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номер сертификата</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->cert_number.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->nomination.'</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }
@@ -334,6 +345,40 @@ use yii\widgets\ActiveForm;
                                 ?>
                             </div>
                             <div class="col-xs-4">
+                                <?php
+
+                                echo $form->field($modelAchievementOne, "[{$i}]cert_number")->textInput();
+
+                                ?>
+                            </div>
+                            <div class="col-xs-4">
+                                <?php
+
+                                echo $form->field($modelAchievementOne, "[{$i}]nomination")->textInput();
+
+                                ?>
+                            </div>
+                            <div class="col-xs-4">
+                                <?= $form->field($modelAchievementOne, "[{$i}]date")->widget(DatePicker::class, [
+                                    'dateFormat' => 'php:Y-m-d',
+                                    'language' => 'ru',
+                                    'options' => [
+                                        'placeholder' => 'Дата',
+                                        'class'=> 'form-control date_achieve',
+                                        'autocomplete'=>'off'
+
+                                    ],
+                                    'clientOptions' => [
+                                        'changeMonth' => true,
+                                        'changeYear' => true,
+                                        'yearRange' => '2000:2050',
+                                        //'showOn' => 'button',
+                                        //'buttonText' => 'Выбрать дату',
+                                        //'buttonImageOnly' => true,
+                                        //'buttonImage' => 'images/calendar.gif'
+                                    ]]) ?>
+                            </div>
+                            <div class="col-xs-4" style="margin-top: 30px;">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]winner")->checkbox();
@@ -452,6 +497,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+
         let elems = document.getElementsByClassName('base');
         
         let values = [];
@@ -470,8 +516,10 @@ JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 $js =<<< JS
-    $('.check_branch').click(function(){
-        
+    $(".dynamicform_wrapper1").on("afterInsert", function(e, item) {
+        let elem = document.getElementsByClassName("date_achieve");
+        let orig = document.getElementById('foreigneventwork-finish_date');
+        elem[elem.length - 1].value = orig.value;
     });
 
 JS;
