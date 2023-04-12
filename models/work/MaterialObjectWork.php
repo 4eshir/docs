@@ -389,7 +389,7 @@ class MaterialObjectWork extends MaterialObject
     }
 
 
-    public function afterDelete()
+    public function beforeDelete()
     {
         $objChar = ObjectCharacteristicWork::find()->where(['material_object_id' => $this->id])->all();
 
@@ -401,7 +401,7 @@ class MaterialObjectWork extends MaterialObject
         foreach ($subs as $one)
             $one->delete();
 
-        return parent::afterDelete();
+        return parent::beforeDelete();
     }
 
 }

@@ -154,14 +154,17 @@ class InvoiceController extends Controller
     public function actionDeleteEntry($id, $modelId)
     {
         $invoiceEntry = InvoiceEntryWork::find()->where(['id' => $id])->one();
-        $entries = EntryWork::find()->where(['id' => $invoiceEntry->entry_id])->all();
         $invoiceEntry->delete();
+
+        /*
+        $entries = EntryWork::find()->where(['id' => $invoiceEntry->entry_id])->all();
+        
 
         foreach ($entries as $entry)
         {
             $tempId = $entry->object_id;
             $tempAmount = $entry->amount;
-            $entry->delete();
+            
 
             for ($i = $tempId; $i < $tempId + $tempAmount - 1; $i++)
             {
@@ -169,8 +172,11 @@ class InvoiceController extends Controller
                 $object->delete();
             }
 
+            $entry->delete();
         }
 
+        $invoiceEntry->delete();
+        */
         return $this->redirect(['update', 'id' => $modelId]);
     }
 
