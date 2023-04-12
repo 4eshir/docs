@@ -292,7 +292,6 @@ class MaterialObjectWork extends MaterialObject
 
         if ($this->characteristics !== null)
         {
-            var_dump($this->characteristics);
             $counter = $_FILES['EntryWork']['name']["characteristics"];
             if ($counter == null) $counter = $this->filesName;
 
