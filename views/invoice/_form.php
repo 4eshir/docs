@@ -334,7 +334,7 @@ use yii\helpers\Url;
                                                     echo '<tr><th style="width: 50%; float: left; margin-top: 10px;">'.$c->characteristicObjectWork->name.'</th><th style="float: left; margin-top: 10px; padding-left: 3%">';
                                                     if ($type == "checkbox")
                                                     {
-                                                        echo '<input type="'.$type.'" checked class="form-inline ch" name="MaterialObjectWork['.$count.'][characteristics][]" value="0" hidden>';
+                                                        echo '<input type="'.$type.'" checked class="form-inline ch" name="MaterialObjectWork[0][characteristics][]" value="0" hidden>';
                                                         if ($val == 1)
                                                             echo '<input onclick="handleClick(this)" type="'.$type.'" checked class="form-inline ch"></th></tr>';
                                                         else
@@ -352,10 +352,10 @@ use yii\helpers\Url;
                                                             $options .= '<option value="'.$item->id.'" '.$selected.'>'.$item->item.'</option>';
                                                         }
 
-                                                        echo '<select step="any" type="'.$type.'" name="MaterialObjectWork['.$count.'][characteristics][]>'.$options.'</select>';
+                                                        echo '<select step="any" type="'.$type.'" name="MaterialObjectWork[0][characteristics][]>'.$options.'</select>';
                                                     }
                                                     else
-                                                        echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="MaterialObjectWork['.$count.'][characteristics][]" value="'.$val.'"></th></tr>';
+                                                        echo '<input step="any" type="'.$type.'" placeholder="'.$placeholder[$c->characteristicObjectWork->value_type-1].'" class="form-inline ch" name="MaterialObjectWork[0][characteristics][]" value="'.$val.'"></th></tr>';
 
                                                 }
                                                 echo '</div>';
