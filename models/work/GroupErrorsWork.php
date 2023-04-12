@@ -287,8 +287,8 @@ class GroupErrorsWork extends GroupErrors
                 $certificatCount++;*/
 
         $certificats = CertificatWork::find();
-        $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID, 'status' => 0])->all();
-        $flag = true;
+        $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $modelGroupID/*, 'status' => 0*/])->all();
+        $flag = false;
 
         foreach ($participants as $participant)
         {
@@ -299,7 +299,6 @@ class GroupErrorsWork extends GroupErrors
                 break;
             }
         }
-
 
         foreach ($err as $oneErr)
         {   //if ($certificatCount == 0)
