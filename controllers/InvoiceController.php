@@ -115,7 +115,7 @@ class InvoiceController extends Controller
         $modelObjects = [new MaterialObjectWork];
 
         if ($model->load(Yii::$app->request->post())) {
-            var_dump($_POST["characteristics"]);
+            var_dump($_POST["InvoiceWork"]);
             $modelObjects = DynamicModel::createMultiple(MaterialObjectWork::classname());
             DynamicModel::loadMultiple($modelObjects, Yii::$app->request->post());
             $model->objects = $modelObjects;
