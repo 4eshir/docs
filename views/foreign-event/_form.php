@@ -281,9 +281,24 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'max_participants_age')->textInput() ?>
 
+
+
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
+            <table style="width: 100%; border-bottom: 1px solid #dddddd">
+                <tr style="background: #f5f5f5;">
+                    <td style="width: 95%">
+                        <div class="panel-heading"><h4><i class="glyphicon glyphicon-sunglasses"></i>Победители и призеры</h4></div>
+                    </td>
+                    <td style="width: 5%">
+                        <div>
+                            <div data-html="true" style="width: 30px; height: 30px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Достижением считается любое призовое место или спец. номинация. Участие не является достижением&#10&#10Дата наградного документа изменяется только в случае, если она не совпадает с датой на реальном документе&#10&#10Номер наградного документа заполняется только при его наличии на реальном документе">❔</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            
             <?php
             $parts = \app\models\work\ParticipantAchievementWork::find()->where(['foreign_event_id' => $model->id])->all();
             if ($parts != null)
@@ -292,7 +307,7 @@ use yii\jui\DatePicker;
                 echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номер сертификата</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->cert_number.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->nomination.'</h4></td><td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->cert_number.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->nomination.'</h4></td>'.'<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-achievement', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.'<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }

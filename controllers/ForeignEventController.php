@@ -196,6 +196,29 @@ class ForeignEventController extends Controller
         ]);
     }
 
+    public function actionUpdateAchievement($id, $modelId)
+    {
+        $model = ParticipantAchievementWork::find()->where(['id' => $id])->one();
+        
+        if ($model->load(Yii::$app->request->post()))
+        {
+
+           
+            $model->save();
+            $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
+            $modelParticipants = [new ForeignEventParticipantsExtended];
+            $modelAchievement = [new ParticipantsAchievementExtended];
+            return $this->render('update',[
+                'model' => $model,
+                'modelParticipants' => $modelParticipants,
+                'modelAchievement' => $modelAchievement,
+            ]);
+        }
+        return $this->render('update-achievement',[
+            'model' => $model,
+        ]);
+    }
+
     public function actionCreateTeam()
     {
         var_dump('lol');

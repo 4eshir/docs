@@ -211,6 +211,7 @@ class RoleBaseAccess
             "delete" => 40,
             "delete-file" => 40,
             "delete-achievement" => 40,
+            "update-achievement" => 40,
             "delete-participant" => 40,
             "update-participant" => 40,
             "view" => 39,
