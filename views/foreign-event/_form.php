@@ -445,6 +445,16 @@ use yii\jui\DatePicker;
 
     ?>
 
+    <?php
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
+    $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
+    $params = [
+        'prompt' => '--',
+    ];
+    echo $form->field($model, 'add_order_participation_id')->dropDownList($items,$params);
+
+    ?>
+
     <?= $form->field($model, 'key_words')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'docsAchievement')->fileInput() ?>

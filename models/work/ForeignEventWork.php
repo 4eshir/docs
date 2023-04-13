@@ -62,6 +62,7 @@ class ForeignEventWork extends ForeignEvent
             'businessTrip' => 'Командировка',
             'escort_id' => 'Сопровождающий',
             'order_participation_id' => 'Приказ об участии',
+            'add_order_participation_id' => 'Дополнительный приказ об участии',
             'orderParticipationString' => 'Приказ об участии',
             'order_business_trip_id' => 'Приказ о командировке',
             'orderBusinessTripString' => 'Приказ о командировке',

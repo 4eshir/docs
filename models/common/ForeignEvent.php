@@ -20,6 +20,7 @@ use Yii;
  * @property int|null $business_trip
  * @property int|null $escort_id
  * @property int|null $order_participation_id
+ * @property int|null $add_order_participation_id
  * @property int|null $order_business_trip_id
  * @property string|null $key_words
  * @property string|null $docs_achievement
@@ -33,9 +34,11 @@ use Yii;
  * @property DocumentOrder $orderParticipation
  * @property DocumentOrder $orderBusinessTrip
  * @property User $creator
+ * @property DocumentOrder $addOrderParticipation
  * @property ForeignEventErrors[] $foreignEventErrors
  * @property ParticipantAchievement[] $participantAchievements
  * @property ParticipantFiles[] $participantFiles
+ * @property ParticipantForeignEvent[] $participantForeignEvents
  * @property TeacherParticipant[] $teacherParticipants
  * @property Team[] $teams
  * @property TemporaryJournal[] $temporaryJournals
@@ -57,7 +60,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'start_date', 'finish_date', 'event_level_id'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'copy', 'creator_id', 'is_minpros'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'add_order_participation_id', 'order_business_trip_id', 'copy', 'creator_id', 'is_minpros'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
@@ -66,6 +69,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             [['order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_participation_id' => 'id']],
             [['order_business_trip_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_business_trip_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['add_order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['add_order_participation_id' => 'id']],
         ];
     }
 
@@ -88,6 +92,7 @@ class ForeignEvent extends \yii\db\ActiveRecord
             'business_trip' => 'Business Trip',
             'escort_id' => 'Escort ID',
             'order_participation_id' => 'Order Participation ID',
+            'add_order_participation_id' => 'Add Order Participation ID',
             'order_business_trip_id' => 'Order Business Trip ID',
             'key_words' => 'Key Words',
             'docs_achievement' => 'Docs Achievement',
@@ -158,6 +163,16 @@ class ForeignEvent extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[AddOrderParticipation]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAddOrderParticipation()
+    {
+        return $this->hasOne(DocumentOrder::className(), ['id' => 'add_order_participation_id']);
+    }
+
+    /**
      * Gets query for [[ForeignEventErrors]].
      *
      * @return \yii\db\ActiveQuery
@@ -185,6 +200,16 @@ class ForeignEvent extends \yii\db\ActiveRecord
     public function getParticipantFiles()
     {
         return $this->hasMany(ParticipantFiles::className(), ['foreign_event_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ParticipantForeignEvents]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipantForeignEvents()
+    {
+        return $this->hasMany(ParticipantForeignEvent::className(), ['foreign_event_id' => 'id']);
     }
 
     /**
