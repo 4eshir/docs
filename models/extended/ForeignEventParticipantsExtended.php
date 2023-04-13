@@ -10,6 +10,7 @@ use yii\base\Model;
 
 class ForeignEventParticipantsExtended extends Model
 {
+
     public $fio;
     public $teacher;
     public $teacher2;
@@ -24,7 +25,7 @@ class ForeignEventParticipantsExtended extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
+            [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400],
             [['teacher', 'teacher2', 'fileString', 'focus', 'team'], 'string'],
             [['fio', 'branch', 'allow_remote_id'], 'integer'],
         ];
