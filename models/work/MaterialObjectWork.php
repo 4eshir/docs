@@ -397,8 +397,16 @@ class MaterialObjectWork extends MaterialObject
             $one->delete();
 
         $subs = MaterialObjectSubobjectWork::find()->where(['material_object_id' => $this->id])->all();
+        $sId = [];
+        foreach ($subs as $one)
+            $sId[] = $one->subobject_id;
+
+        $realSubs = SubobjectWork::find()->where(['IN', 'id', $sId])->all();
 
         foreach ($subs as $one)
+            $one->delete();
+
+        foreach ($realSubs as $one)
             $one->delete();
 
         return parent::beforeDelete();

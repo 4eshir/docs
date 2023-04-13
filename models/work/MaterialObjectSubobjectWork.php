@@ -23,11 +23,7 @@ class MaterialObjectSubobjectWork extends MaterialObjectSubobject
 
     public function beforeDelete()
     {
-        $subs = SubobjectWork::find()->where(['id' => $this->subobject_id])->all();
-
-        foreach ($subs as $one)
-            $one->delete();
-
+        
         return parent::beforeDelete();
     }
 
