@@ -98,6 +98,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
                 if ($teamName != $team->name)
                 {
+                    $res = null;
                     $teamName = $team->name;
                     if ($partsLink !== null)
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->one();
@@ -115,7 +116,7 @@ class ForeignEventReportModel extends \yii\base\Model
                     if ($event->id == 401)
                     {
                         var_dump($res);
-                        var_dump();
+                        var_dump(count($teams));
                     }
                 }
                 $tIds[] = $team;
