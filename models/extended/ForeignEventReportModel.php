@@ -119,13 +119,6 @@ class ForeignEventReportModel extends \yii\base\Model
             }
 
 
-            if ($event->id == 401)
-            {
-                var_dump($counterTeam);
-                var_dump($counterTeamPrizes);
-                var_dump($counterTeamWinners);
-            }
-
 
             $tpIds = [];
             foreach ($tIds as $tId)
@@ -168,6 +161,12 @@ class ForeignEventReportModel extends \yii\base\Model
             $counterPart1 += count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
+            if ($event->id == 401)
+            {
+                var_dump($counterTeam);
+                var_dump($counterTeamPrizes);
+                var_dump($counterTeamWinners);
+            }
 
             //ОТЛАДКА
             $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
