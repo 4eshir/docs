@@ -95,6 +95,7 @@ class ForeignEventReportModel extends \yii\base\Model
             $counterTeam = 0;
             foreach ($teams as $team)
             {
+
                 if ($teamName != $team->name)
                 {
                     $teamName = $team->name;
@@ -110,6 +111,12 @@ class ForeignEventReportModel extends \yii\base\Model
                     else
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
+                
+                    if ($event->id == 401)
+                    {
+                        var_dump($res);
+                        var_dump();
+                    }
                 }
                 $tIds[] = $team;
             }
@@ -161,11 +168,6 @@ class ForeignEventReportModel extends \yii\base\Model
 
             //ОТЛАДКА
             $teams = TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->all();
-            if ($event->id == 401)
-            {
-                var_dump(TeamWork::find()->select('name')->distinct()->where(['foreign_event_id' => $event->id])->createCommand()->getRawSql());
-                var_dump();
-            }
             $s1 = count($achieves1) + $counterTeamPrizes;
             $s2 = count($achieves2) + $counterTeamWinners;
             $teamStr = count($teams) > 0 ? ' (в т.ч. команды - '.count($teams).')' : '';
