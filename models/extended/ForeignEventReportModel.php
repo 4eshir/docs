@@ -116,7 +116,7 @@ class ForeignEventReportModel extends \yii\base\Model
                     if ($event->id == 401)
                     {
                         var_dump($partsLink);
-                        var_dump(TeamWork::find()->where(['foreign_event_id' => $event->id])->createCommand()->getRawSql());
+                        var_dump(ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->createCommand()->getRawSql());
                     }
                 }
                 $tIds[] = $team;
