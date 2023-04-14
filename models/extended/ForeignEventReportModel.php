@@ -116,7 +116,7 @@ class ForeignEventReportModel extends \yii\base\Model
                     if ($event->id == 401)
                     {
                         var_dump($res);
-                        var_dump(count($teams));
+                        var_dump(TeamWork::find()->where(['foreign_event_id' => $event->id])->createCommand()->getRawSql());
                     }
                 }
                 $tIds[] = $team;
