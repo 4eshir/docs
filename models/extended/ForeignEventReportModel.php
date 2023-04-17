@@ -88,6 +88,12 @@ class ForeignEventReportModel extends \yii\base\Model
             $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
             //ОТЛАДКА
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+
+            if ($event->id == 340)
+            {
+                var_dump($teams);
+            }
+
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
