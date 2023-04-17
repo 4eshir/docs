@@ -89,10 +89,6 @@ class ForeignEventReportModel extends \yii\base\Model
             //ОТЛАДКА
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
 
-            if ($event->id == 340)
-            {
-
-            }
 
             $tIds = [];
             $teamName = '';
@@ -125,6 +121,8 @@ class ForeignEventReportModel extends \yii\base\Model
             }
 
 
+            if ($event->id == 340)
+                var_dump($counterTeam);
 
             $tpIds = [];
             foreach ($tIds as $tId)
