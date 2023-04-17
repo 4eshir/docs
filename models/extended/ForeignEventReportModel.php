@@ -91,7 +91,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
             if ($event->id == 340)
             {
-                var_dump(count($teams));
+
             }
 
             $tIds = [];
