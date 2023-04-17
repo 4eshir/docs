@@ -121,9 +121,6 @@ class ForeignEventReportModel extends \yii\base\Model
             }
 
 
-            if ($event->id == 340)
-                var_dump($counterTeam);
-
             $tpIds = [];
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
