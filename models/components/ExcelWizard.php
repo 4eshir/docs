@@ -852,7 +852,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 5 + $i, ExcelWizard::InTeam($newResult[$i]->foreign_event_id, $newResult[$i]->participant_id) ? 'Групповая' : 'Индивидуальная');
             $inputData->getSheet(2)->setCellValueByColumnAndRow(6, 5 + $i, $newResult[$i]->winner ? 'Победитель' : 'Призер');
             $inputData->getSheet(2)->setCellValueByColumnAndRow(7, 5 + $i, $newResult[$i]->achievment);
-            //$inputData->getSheet(2)->setCellValueByColumnAndRow(9, 5 + $i, $newResult[$i]->cert_number);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 5 + $i, $newResult[$i]->cert_number);
             //$inputData->getSheet(2)->setCellValueByColumnAndRow(10, 5 + $i, $newResult[$i]->date);
         }
         
