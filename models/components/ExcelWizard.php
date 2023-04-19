@@ -740,7 +740,7 @@ class ExcelWizard
         */
     }
 
-    static private InTeam($event_id, $participant_id)
+    static private function InTeam($event_id, $participant_id)
     {
         $team = TeamWork::find()->where(['foreign_event_id' => $event_id])->andWhere(['participant_id' => $participant_id])->one();
         return $team !== null;
