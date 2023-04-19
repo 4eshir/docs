@@ -413,6 +413,20 @@ class ExcelWizard
         return false;
     }
 
+    static public function GetDetailPrizeWinners($event_level, $branch_id, $start_date, $end_date)
+    {
+        $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
+
+        $result = [];
+        foreach ($teacherPart as $one)
+        {
+            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+            if ($temp !== null) $result[] = $temp;
+        }
+
+        return $result;
+    }
+
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>', 'foreignEvent.finish_date', $start_date])->andWhere(['<', 'foreignEvent.finish_date', $end_date])->all();
@@ -726,6 +740,12 @@ class ExcelWizard
         */
     }
 
+    static private InTeam($event_id, $participant_id)
+    {
+        $team = TeamWork::find()->where(['foreign_event_id' => $event_id])->andWhere(['participant_id' => $participant_id])->one();
+        return $team !== null;
+    }
+
 
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
@@ -817,6 +837,21 @@ class ExcelWizard
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, $result[1] + $result[3]);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[0] + $result[2]);
+
+        $newResult = ExcelWizard::GetDetailPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
+        for ($i = 0; $i < count($newResult); $i++)
+        {
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 5 + $i, $newResult[$i]->participantWork->secondname);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, 5 + $i, $newResult[$i]->foreignEventWork->eventLevelWork->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 5 + $i, $newResult[$i]->foreignEventWork->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(4, 5 + $i, $newResult[$i]->nomination);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 5 + $i, ExcelWizard::InTeam($newResult[$i]->foreign_event_id, $newResult[$i]->participant_id) ? 'Групповая' : 'Индивидуальная');
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(6, 5 + $i, $newResult[$i]->winner ? 'Победитель' : 'Призер');
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(7, 5 + $i, $newResult[$i]->achievment);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(9, 5 + $i, $newResult[$i]->cert_number);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 5 + $i, $newResult[$i]->date);
+        }
+        
 
         //----------------------------------
 
