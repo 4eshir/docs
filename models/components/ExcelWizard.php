@@ -879,7 +879,7 @@ class ExcelWizard
 
 
         //--Пофамильная разбивка--
-
+        /*
         $allAchieves = ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
         $row = 5;
         for ($i = 0; $i < count($allAchieves[0]); $i++)
@@ -893,6 +893,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(7, $row, $allAchieves[0][$i]->achievment);
             $row++;
         }
+        */
 
         //------------------------
 
