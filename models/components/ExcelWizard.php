@@ -422,14 +422,10 @@ class ExcelWizard
         {
             $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
 
-            if ($temp->participantWork->secondname == 'Старченко') 
-            {
-                var_dump($temp->id);
-                var_dump($temp->participant_id);
-            }
-
-            if ($temp !== null) $result[] = $temp;
+            if ($temp !== null) $result[] = $temp->id;
         }
+
+        $result = ParticipantAchievementWork::find()->where(['IN', 'id', $result])->all();
 
         return $result;
     }
