@@ -425,11 +425,8 @@ class ExcelWizard
             if ($temp !== null) $result[] = $temp->id;
         }
 
-        var_dump(count($result));
-
         $result = ParticipantAchievementWork::find()->where(['IN', 'id', $result])->all();
-        var_dump(count($result));
-
+        
         return $result;
     }
 
@@ -845,6 +842,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[0] + $result[2]);
 
         $newResult = ExcelWizard::GetDetailPrizeWinners([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
+        var_dump(count($newResult));
         for ($i = 0; $i < count($newResult); $i++)
         {
             $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 5 + $i, $newResult[$i]->participantWork->secondname);
