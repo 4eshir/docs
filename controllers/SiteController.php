@@ -223,7 +223,7 @@ class SiteController extends Controller
                 $team->delete();
             $c++;
         }
-        var_dump('Удалено: '.$c)
+        var_dump('Удалено: '.$c);
     }
 
     public function actionTemp()
