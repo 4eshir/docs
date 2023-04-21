@@ -205,6 +205,7 @@ class ForeignEventController extends Controller
 
            
             $model->save();
+            var_dump($model->getErrors());
             $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
             $modelParticipants = [new ForeignEventParticipantsExtended];
             $modelAchievement = [new ParticipantsAchievementExtended];
