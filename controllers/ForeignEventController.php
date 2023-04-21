@@ -159,6 +159,7 @@ class ForeignEventController extends Controller
                 $i++;
             }
             $model->save(false);
+            var_dump($model->getErrors());
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена карточка учета достижений ' . $model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -205,7 +206,6 @@ class ForeignEventController extends Controller
 
            
             $model->save();
-            var_dump($model->getErrors());
             $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
             $modelParticipants = [new ForeignEventParticipantsExtended];
             $modelAchievement = [new ParticipantsAchievementExtended];
