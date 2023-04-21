@@ -159,7 +159,6 @@ class ForeignEventController extends Controller
                 $i++;
             }
             $model->save(false);
-            var_dump($model->getErrors());
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменена карточка учета достижений ' . $model->name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
