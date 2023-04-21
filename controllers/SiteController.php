@@ -216,15 +216,12 @@ class SiteController extends Controller
     {
         $teams = TeamWork::find()->all();
 
-        $c = 0;
         foreach ($teams as $team)
         {
             $part = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
-            if ($part == null)
+            if (strlen($team->name) < 2)
                 $team->delete();
-            $c++;
         }
-        var_dump('Удалено: '.$c);
     }
 
     public function actionTemp()
