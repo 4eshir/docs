@@ -213,11 +213,17 @@ class SiteController extends Controller
 
     public function actionPretemp()
     {
-        $job = YandexDiskJob::find()->where(['id' => 1])->one();
-        $job->execute(1);
+        $teams = TeamWork::find()->all();
 
-        var_dump(Yii::$app->queue->isWaiting(1));
-        var_dump(Yii::$app->queue->isReserved(1));
+        $c = 0;
+        foreach ($teams as $team)
+        {
+            $part = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+            if ($part == null)
+                $team->delete();
+            $c++;
+        }
+        var_dump('Удалено: '.$c)
     }
 
     public function actionTemp()
