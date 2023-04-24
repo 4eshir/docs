@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],]);
         ?>
         <?php
-        if ($model->type = 1 && $model->study_type == 0)
+        if ($model->type == 1 && $model->study_type == 0)
         {
             \yii\bootstrap\Modal::begin([
                 'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Протоколы</p>',
