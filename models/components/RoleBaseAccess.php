@@ -154,6 +154,7 @@ class RoleBaseAccess
             "find-model" => [31, 23],
             "amnesty" => [32, 24],
             "generation-word" => [32, 24],
+            "generation-protocol" => [32, 24],
         ],
         //----------------------------------------
 

@@ -35,6 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],]);
         ?>
+        <?php
+        if ($session->get('type') == 0 && $model->type = 1 && $model->study_type == 0)
+        {
+            \yii\bootstrap\Modal::begin([
+                'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Протоколы</p>',
+                'toggleButton' => ['label' => 'Протоколы', 'class' => 'btn btn-success', 'style' => 'float: right;'],
+            ]);
+            echo Html::a("Протокол аттестационной комиссии", \yii\helpers\Url::to(['document-order/generation-protocol', 'order_id' => $model->id]), ['class' => 'btn btn-success']);
+            echo '<br><br>';
+            \yii\bootstrap\Modal::end();
+        }
+        ?>
     </p>
 
     <div class="content-container" style="color: #ff0000; font: 18px bold;">

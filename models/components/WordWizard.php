@@ -28,7 +28,6 @@ use yii\helpers\Html;
 
 class WordWizard
 {
-
     static public function Month($month)
     {
         if ($month === '01')
@@ -1084,4 +1083,215 @@ class WordWizard
         exit;
     }
 
+    static public function ProtocolCommission ($order_id)
+    {
+        ini_set('memory_limit', '512M');
+
+        $inputData = new PhpWord();
+        $inputData->setDefaultFontName('Times New Roman');
+        $inputData->setDefaultFontSize(14);
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(2000);
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $table->addRow();
+        $cell = $table->addCell(2000);
+        $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
+        $cell = $table->addCell(2000, array('valign' => 'top'));
+        $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
+        $cell = $table->addCell(22000);
+        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
+        //----------
+        $section->addTextBreak(1);
+        $section->addText('ПРОТОКОЛ', array('bold' => true), array('align' => 'center'));
+        $section->addTextBreak(1);
+
+        /*----------------*/
+        $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
+        $groups = OrderGroupWork::find()->where(['document_order_id' => $order->id])->all();
+        $pastaAlDente = OrderGroupParticipantWork::find();
+        $program = TrainingProgramWork::find();
+        $teacher = TeacherGroupWork::find();
+        $trG = TrainingGroupWork::find();
+        $part = ForeignEventParticipantsWork::find();
+        $gPart = TrainingGroupParticipantWork::find();
+        $pos = PeoplePositionBranchWork::find();
+        $positionName = PositionWork::find();
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('«' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г.');
+        $cell = $table->addCell(12000);
+        $cell->addText('№ #', null, array('align' => 'right'));
+        $section->addTextBreak(1);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('заседание аттестационной комиссии', null, array('align' => 'left'));
+        $cell->addText('Регионального школьного технопарка', null, array('align' => 'left'));
+        $cell = $table->addCell(6000);
+        $cell->addTextBreak(1);
+        $section->addTextBreak(1);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('Председатель – Войков Владимир Владимирович', null, array('align' => 'left'));
+        $cell->addText('Секретарь – ### ### ###', null, array('align' => 'left'));
+        $cell->addText('Присутствовали: # человек', null, array('align' => 'left'));
+        $cell = $table->addCell(6000);
+        $cell->addTextBreak(1);
+
+        $section->addTextBreak(1);
+
+        $section->addText('В заседании участвуют:', null, array('align' => 'both'));
+        $section->addText('          1.	Председатель комиссии Войков В.В.', null, array('align' => 'both'));
+        $section->addText('          2.	Заместитель председателя комиссии Воеводин И.Г.', null, array('align' => 'both'));
+        $section->addText('          3.	Члены комиссии:', null, array('align' => 'both'));
+        $section->addText('                3.1.	### ### ###', null, array('align' => 'both'));
+        $section->addText('                3.2.	### ### ###', null, array('align' => 'both'));
+        $section->addText('          4.	Секретарь – ### ### ###', null, array('align' => 'both'));
+
+        $section->addTextBreak(2);
+        $section->addText('ПОВЕСТКА ДНЯ', null, array('align' => 'center'));
+        $section->addTextBreak(1);
+        $section->addText('          1.	Принятие решения о результатах проверки аттестационных работ', null, array('align' => 'both'));
+
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+
+
+        $section->addText('1. СЛУШАЛИ:', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Войков Владимир Владимирович ознакомил присутствующих со списком проектантов успешно выполнивших проекты и рекомендованных к отчислению (приложение №1).', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Войков Владимир Владимирович задал вопрос каждому из присутствующих членов комиссии, ознакомился ли он (она) со всеми аттестационными работами (а именно исследовательскими, техническими и творческими проектами).', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Все присутствующие ответили на этот вопрос утвердительно.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $section->addText('Войков Владимир Владимирович задал вопрос каждому из присутствующих, считает ли он (она), что среди аттестационных работ есть работы, которые не могут быть признаны выполненными удовлетворительно для получения положительного решения об успешном выполнении проекта.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Все присутствующие ответили на этот вопрос отрицательно.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $section->addText('ПОСТАНОВИЛИ:', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          1.1.	Признать проектантов (приложение №1) успешно справившимися с выполнением исследовательских, технических, творческих проектов и выдать сертификаты об успешном выполнении проекта.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          1.2.	Отчислить проектантов (приложение №1) в связи с окончанием проектной деятельности.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Голосовали: присутствовало # членов комиссии. # голосов – «за», 0 голосов – «против»', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('Приложение: списки групп.', array('lineHeight' => 1.5), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('Председатель аттестационной комиссии');
+        $cell = $table->addCell(6000);
+        $cell->addText('___________ В.В. Войков', null, array('align' => 'left'));
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('Секретарь аттестационной комиссии');
+        $cell = $table->addCell(6000);
+        $cell->addText('___________ # # ###', null, array('align' => 'left'));
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('Приложение № 1', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('к протоколу заседания', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('аттестационной комисии', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);//8000 10000
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г. '
+            . '№ #', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
+
+        foreach ($groups as $group)
+        {
+            $trGroup = $trG->where(['id' => $group->training_group_id])->one();
+            $section->addText('Идентификатор учебной группы: ' . $trGroup->number);
+
+            $teacherTrG = $teacher->where(['training_group_id' => $group->training_group_id])->all();
+            $text = 'Руководитель учебной группы: ';
+
+            foreach ($teacherTrG as $trg)
+            {
+                $post = [];
+                $pPosB = $pos->where(['people_id' => $trg->teacher_id])->all();
+                foreach ($pPosB as $posOne)
+                {
+                    $post [] = $posOne->position_id;
+                }
+                $post = array_unique($post);    // выкинули все повторы
+                $post = array_intersect($post, [15, 16, 35, 44]);   // оставили только преподские должности
+
+                if (count($post) > 0)
+                {
+                    $posName = $positionName->where(['id' => $post[0]])->one();
+                    $text .= mb_strtolower($posName->name) . ' ' . $trg->teacherWork->shortName . ', ';
+                }
+                else
+                    $text .= $trg->teacherWork->shortName . ', ';
+            }
+            $text = mb_substr($text, 0, -2);
+            $section->addText($text);
+
+            $programTrG = $program->where(['id' => $trGroup->training_program_id])->one();
+            $section->addText('Дополнительная общеразвивающая программа: «' . $programTrG->name . '»');
+            $section->addText('Направленность: ' . mb_strtolower($programTrG->stringFocus));
+
+            $section->addText('Форма обучения: очная (в случаях, установленных законодательными актами, возможно применение электронного обучения с дистанционными образовательными технологиями).');
+
+            $section->addText('Срок освоения: ' . $programTrG->capacity . ' академ. ч.');
+            $section->addText('Обучающиеся: ');
+            $pasta = $pastaAlDente->where(['order_group_id' => $group->id])->all();
+            for ($i = 0; $i < count($pasta); $i++)
+            {
+                $groupParticipant = $gPart->where(['id' => $pasta[$i]->group_participant_id])->one();
+                $participant = $part->where(['id' => $groupParticipant->participant_id])->one();
+                $section->addText($i+1 . '. ' . $participant->getFullName());
+            }
+            $section->addTextBreak(2);
+        }
+
+        $text = 'Протокол АК к приказу ' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . mb_substr($order->order_name, 0, 20);
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $text . '.docx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+
+        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($inputData, 'Word2007');
+        $writer->save("php://output");
+        exit;
+    }
 }

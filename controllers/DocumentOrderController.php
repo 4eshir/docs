@@ -511,4 +511,17 @@ class DocumentOrderController extends Controller
             'model' => $this->findModel($order_id),
         ]);
     }
+
+    public function actionGenerationProtocol($order_id)
+    {
+        $model = $this->findModel($order_id);
+        WordWizard::ProtocolCommission($order_id);
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(),
+            'Сгенерирован и выгружен протокол аттестационной комисии к приказу '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
+
+        return $this->render('view', [
+            'model' => $this->findModel($order_id),
+        ]);
+    }
 }
