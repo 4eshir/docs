@@ -95,6 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'orderBusinessTripString', 'format' => 'raw'],
 
                 ['attribute' => 'orderParticipationString', 'format' => 'raw'],
+                ['attribute' => 'addOrderParticipationString', 'format' => 'raw'],
 
                 'key_words',
                 ['attribute' => 'docString', 'format' => 'raw'],
