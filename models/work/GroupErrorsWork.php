@@ -292,10 +292,10 @@ class GroupErrorsWork extends GroupErrors
 
         foreach ($participants as $participant)
         {
-            $certificat = $certificats->where(['training_group_participant_id' => $participant])->all();
-            if (count($certificat) == 0)
+            $certificat = $certificats->where(['training_group_participant_id' => $participant->id])->all();
+            if (count($certificat) !== 0)
             {
-                $flag = !$flag;
+                $flag = true;
                 break;
             }
         }
