@@ -192,6 +192,12 @@ class ForeignEventWork extends ForeignEvent
         return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
     }
 
+    public function getAddOrderParticipationString()
+    {
+        $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->add_order_participation_id])->one();
+        return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
+    }
+
     public function getOrderBusinessTripString()
     {
         $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->order_business_trip_id])->one();
