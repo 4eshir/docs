@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' => 'orderParticipationString', 'format' => 'raw'],
                 ['attribute' => 'addOrderParticipationString', 'format' => 'raw'],
 
-                'key_words',
+                //'key_words',
                 ['attribute' => 'docString', 'format' => 'raw'],
                 'creatorString'
             ],
