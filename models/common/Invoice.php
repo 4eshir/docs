@@ -12,11 +12,12 @@ use Yii;
  * @property int $contractor_id
  * @property string $date_product
  * @property string $date_invoice
- * @property int $type 0 - накладная, 1 - акт, 2 - УПД, 3 - протокол
- 
+ * @property int $type 0 - накладная, 1 - акт, 2 - УПД, 3 - протокол 
  * @property string|null $document
+ * @property int|null $contract_id
  *
  * @property Company $contractor
+ * @property Contract $contract
  * @property InvoiceEntry[] $invoiceEntries
  */
 class Invoice extends \yii\db\ActiveRecord
@@ -36,11 +37,12 @@ class Invoice extends \yii\db\ActiveRecord
     {
         return [
             [['number', 'contractor_id', 'date_product', 'date_invoice'], 'required'],
-            [['contractor_id', 'type'], 'integer'],
+            [['contractor_id', 'type', 'contract_id'], 'integer'],
             [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['document'], 'string', 'max' => 1000],
             [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
+            [['contract_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contract::className(), 'targetAttribute' => ['contract_id' => 'id']],
         ];
     }
 
@@ -57,6 +59,7 @@ class Invoice extends \yii\db\ActiveRecord
             'date_invoice' => 'Date Invoice',
             'type' => 'Type',
             'document' => 'Document',
+            'contract_id' => 'Contract ID',
         ];
     }
 
@@ -70,9 +73,14 @@ class Invoice extends \yii\db\ActiveRecord
         return $this->hasOne(Company::className(), ['id' => 'contractor_id']);
     }
 
-    public function getCompany()
+    /**
+     * Gets query for [[Contract]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContract()
     {
-        return $this->hasOne(Company::className(), ['id' => 'contractor_id']);
+        return $this->hasOne(Contract::className(), ['id' => 'contract_id']);
     }
 
     /**
