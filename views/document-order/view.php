@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '<p style="text-align: left; font-weight: 700; color: #f0ad4e; font-size: 1.5em;">Протоколы</p>',
                 'toggleButton' => ['label' => 'Протоколы', 'class' => 'btn btn-success', 'style' => 'float: right;'],
             ]);
-            echo Html::a("Протокол аттестационной комиссии", \yii\helpers\Url::to(['document-order/generation-protocol', 'order_id' => $model->id]), ['class' => 'btn btn-success']);
+            echo Html::a("Шаблон протокола аттестационной комиссии", \yii\helpers\Url::to(['document-order/generation-protocol', 'order_id' => $model->id]), ['class' => 'btn btn-success']);
             echo '<br><br>';
             \yii\bootstrap\Modal::end();
         }
