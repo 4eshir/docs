@@ -35,6 +35,11 @@ class ContractWork extends Contract
         ];
     }
 
+    public function getContractFullName()
+    {
+        return 'Договор №'.$this->number.' от '.$this->date;
+    }
+
     public function getContractCategoryContractsWork()
     {
         return $this->hasMany(ContractCategoryContractWork::className(), ['contract_id' => 'id']);

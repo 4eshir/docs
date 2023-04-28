@@ -118,6 +118,18 @@ use yii\helpers\Url;
                                     },
                                 ])->label('Вид документа') ?>
 
+        <div id="con_id" style="display: block">
+            <?php
+            $contract = \app\models\work\ContractWork::find()->/*where(['is_contractor' => 1])->*/orderBy(['date' => SORT_ASC])->all();
+            $items = \yii\helpers\ArrayHelper::map($contract,'id','contractFullName');
+            $params = [
+                'style' => 'width: 60%'
+            ];
+            echo $form->field($model, 'contract_id')->dropDownList($items,$params);
+
+            ?>
+        </div>
+
         <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
             [
                 'dateFormat' => 'php:Y-m-d',
