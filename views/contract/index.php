@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchContract */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Contracts';
+$this->title = 'Договора';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contract-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Contract', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать договор', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,12 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'date',
-            'number',
-            'file',
+            ['attribute' => 'number', 'label' => 'Номер договора'],
+            ['attribute' => 'date', 'label' => 'Дата договора'],
+
+            //'file',
+            //'key_words',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Contract */
+/* @var $model app\models\work\ContractWork */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Contracts', 'url' => ['index']];
+$this->title = 'Договор № ' . $model->number . ' от ' . $model->date;
+$this->params['breadcrumbs'][] = ['label' => 'Договора', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить данную организацию?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,10 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'date',
-            'number',
-            'file',
+            ['label' => 'Дата договора', 'attribute' => 'date'],
+            ['label' => 'Номер договора', 'attribute' => 'number'],
+            ['attribute' => 'file', 'value' => function ($model) {
+                return Html::a($model->file, \yii\helpers\Url::to(['contract/get-file', 'fileName' => $model->file, 'modelId' => $model->id]));
+            }, 'format' => 'raw'],
+            ['label' => 'Ключевые слова', 'attribute' => 'key_words'],
         ],
     ]) ?>
 

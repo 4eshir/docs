@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\common\Contract */
+/* @var $model app\models\work\ContractWork */
 
-$this->title = 'Create Contract';
-$this->params['breadcrumbs'][] = ['label' => 'Contracts', 'url' => ['index']];
+$this->title = 'Создать договор';
+$this->params['breadcrumbs'][] = ['label' => 'Договора', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contract-create">

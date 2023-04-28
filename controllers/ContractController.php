@@ -3,11 +3,12 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\common\Contract;
+use app\models\work\ContractWork;
 use app\models\SearchContract;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ContractController implements the CRUD actions for Contract model.
@@ -64,9 +65,18 @@ class ContractController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Contract();
+        $model = new ContractWork();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+
+            $model->save(false);
+
+            if ($model->scanFile !== null)
+                $model->uploadFile();
+
+            $model->save(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,8 +96,18 @@ class ContractController extends Controller
     {
         $model = $this->findModel($id);
 
+        $model->scanFile = $model->file;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
+            if ($model->validate(false)) {
+                if ($model->scanFile != null)
+                    $model->uploadFile();
+
+                $model->save(false);
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -113,15 +133,34 @@ class ContractController extends Controller
      * Finds the Contract model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Contract the loaded model
+     * @return ContractWork the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Contract::findOne($id)) !== null) {
+        if (($model = ContractWork::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetFile($fileName = null, $modelId = null, $type = null)
+    {
+        $file = Yii::$app->basePath . '/upload/files/contract/' . $type . '/' . $fileName;
+        if (file_exists($file)) {
+            return \Yii::$app->response->sendFile($file);
+        }
+        throw new \Exception('File not found');
+    }
+
+    public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
+    {
+
+        $model = ContractWork::find()->where(['id' => $modelId])->one();
+        unlink(Yii::$app->basePath . '/upload/files/contract/' . $fileName);
+        $model->file = '';
+        $model->save(false);
+        return $this->redirect('index?r=contract/update&id='.$modelId);
     }
 }

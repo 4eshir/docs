@@ -118,6 +118,23 @@ use yii\helpers\Url;
                                     },
                                 ])->label('Вид документа') ?>
 
+        <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
+            [
+                'dateFormat' => 'php:Y-m-d',
+                'language' => 'ru',
+                'options' => [
+                    'style' => 'width: 60%',
+                    'placeholder' => 'Дата',
+                    'class'=> 'form-control',
+                    'autocomplete'=>'off',
+                ],
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => '2000:2100',
+                ]])
+        ?>
+
         <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'style' => 'width: 60%']) ?>
 
         <div id="c_id" style="display: block">
@@ -149,22 +166,7 @@ use yii\helpers\Url;
                 ]])
         ?>
 
-        <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
-            [
-                'dateFormat' => 'php:Y-m-d',
-                'language' => 'ru',
-                'options' => [
-                    'style' => 'width: 60%',
-                    'placeholder' => 'Дата',
-                    'class'=> 'form-control',
-                    'autocomplete'=>'off',
-                ],
-                'clientOptions' => [
-                    'changeMonth' => true,
-                    'changeYear' => true,
-                    'yearRange' => '2000:2100',
-                ]])
-        ?>
+
 
         <?= $form->field($model, 'documentFile')->fileInput() ?>
         <?php

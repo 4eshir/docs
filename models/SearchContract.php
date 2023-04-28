@@ -18,7 +18,7 @@ class SearchContract extends Contract
     {
         return [
             [['id'], 'integer'],
-            [['date', 'number', 'file'], 'safe'],
+            [['date', 'number', 'file', 'key_words'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class SearchContract extends Contract
         ]);
 
         $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'file', $this->file]);
+            ->andFilterWhere(['like', 'file', $this->file])
+            ->andFilterWhere(['like', 'key_words', $this->key_words]);
 
         return $dataProvider;
     }

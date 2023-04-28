@@ -26,7 +26,7 @@ class InvoiceWork extends Invoice
             [['number'], 'string', 'max' => 15],
             [['document'], 'string', 'max' => 1000],
             [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyWork::className(), 'targetAttribute' => ['contractor_id' => 'id']],
-            [['contract_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contract::className(), 'targetAttribute' => ['contract_id' => 'id']],
+            [['contract_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContractWork::className(), 'targetAttribute' => ['contract_id' => 'id']],
         ];
     }
 

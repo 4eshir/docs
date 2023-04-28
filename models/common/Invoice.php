@@ -12,7 +12,8 @@ use Yii;
  * @property int $contractor_id
  * @property string $date_product
  * @property string $date_invoice
- * @property int $type 0 - накладная, 1 - акт, 2 - УПД, 3 - протокол 
+ * @property int $type 0 - накладная, 1 - акт, 2 - УПД, 3 - протокол
+ 
  * @property string|null $document
  * @property int|null $contract_id
  *
@@ -69,6 +70,11 @@ class Invoice extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getContractor()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'contractor_id']);
+    }
+
+    public function getCompany()
     {
         return $this->hasOne(Company::className(), ['id' => 'contractor_id']);
     }

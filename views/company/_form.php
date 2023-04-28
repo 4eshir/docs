@@ -12,6 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
+
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название организации') ?>
+
+    <?= $form->field($model, 'short_name')->textInput(['maxlength' => true])->label('Краткое название организации') ?>
+
     <?php
     $company_type = \app\models\work\CompanyTypeWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($company_type,'id','type');
@@ -19,12 +25,6 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'company_type_id')->dropDownList($items,$params)->label('Тип организации');
 
     ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Название организации') ?>
-
-    <?= $form->field($model, 'short_name')->textInput(['maxlength' => true])->label('Краткое название организации') ?>
-
-    <?= $form->field($model, 'inn')->textInput()->label('ИНН организации'); ?>
 
     <?= $form->field($model, 'is_contractor')->checkbox(['onchange' => 'ContractorChange(this)']); ?>
 
