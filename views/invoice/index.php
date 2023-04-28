@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'number',
+            ['attribute' => 'contractorString', 'format' => 'raw'],
             ['attribute' => 'contractString', 'format' => 'raw'],
-            'date_product',
+            ['attribute' => 'numberString', 'format' => 'raw'],
             'date_invoice',
+            'date_product',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

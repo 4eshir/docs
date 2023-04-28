@@ -15,19 +15,11 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'date') ?>
-
-    <?= $form->field($model, 'number') ?>
-
-    <?= $form->field($model, 'file') ?>
-
-    <?= $form->field($model, 'key_words') ?>
+    <?= $form->field($model, 'key_words')->label('Поиск по ключевым словам') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Сбросить фильтры', \yii\helpers\Url::to(['contract/index'])) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

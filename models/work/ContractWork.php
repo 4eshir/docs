@@ -32,6 +32,7 @@ class ContractWork extends Contract
             'file' => 'Скан договора',
             'key_words' => 'Ключевые слова',
             'categoryString' => 'Категории мат. объектов в договоре',
+            'invoices' => 'Документы',
         ];
     }
 
@@ -86,5 +87,17 @@ class ContractWork extends Contract
                 $ccc->save();
             }
         }
+    }
+
+    public function getInvoices()
+    {
+        $invoices = InvoiceWork::find()->where(['contract_id' => $this->id])->orderBy(['date_invoice' => 'SORT_ASC'])->all();
+        $result = '';
+        $i = 1;
+        foreach ($invoices as $invoice)
+        {
+            $result .= $i.'. '.$invoice->numberString . '<br>';
+        }
+        return $result;
     }
 }

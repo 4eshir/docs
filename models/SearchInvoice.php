@@ -15,15 +15,17 @@ class SearchInvoice extends InvoiceWork
     /**
      * {@inheritdoc}
      */
+    public $contractorString;
     public $contractString;
+    public $numberString;
 
 
     public function rules()
     {
         return [
-            [['id', 'contractor_id', 'type'], 'integer'],
+            [['id', 'contractor_id', 'type', 'contract_id'], 'integer'],
             [['number', 'date_product', 'date_invoice', 'document'], 'safe'],
-            [['contractString'], 'string'],
+            [['contractorString', 'contractString', 'numberString'], 'string'],
         ];
     }
 
@@ -48,7 +50,7 @@ class SearchInvoice extends InvoiceWork
 
 
         $query = InvoiceWork::find();
-        $query->joinWith(['company company']);
+        $query->joinWith(['company company'])->joinWith('contract contract');
 
         // add conditions that should always apply here
 
@@ -56,9 +58,19 @@ class SearchInvoice extends InvoiceWork
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['contractString'] = [
+        $dataProvider->sort->attributes['contractorString'] = [
             'asc' => ['company.name' => SORT_ASC],
             'desc' => ['company.name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['contractString'] = [
+            'asc' => ['contract.number' => SORT_ASC],
+            'desc' => ['contract.number' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['numberString'] = [
+            'asc' => ['number' => SORT_ASC],
+            'desc' => ['number' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -73,14 +85,16 @@ class SearchInvoice extends InvoiceWork
         $query->andFilterWhere([
             'id' => $this->id,
             'contractor_id' => $this->contractor_id,
+            'contract_id' => $this->contract_id,
             'date_product' => $this->date_product,
             'date_invoice' => $this->date_invoice,
             'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
+        $query->andFilterWhere(['like', 'invoice.number', $this->numberString])
             ->andFilterWhere(['like', 'document', $this->document])
-            ->andFilterWhere(['like', 'company.name', $this->contractString]);
+            ->andFilterWhere(['like', 'company.name', $this->contractorString])
+            ->andFilterWhere(['like', 'contract.number', $this->contractString]);
 
         return $dataProvider;
     }

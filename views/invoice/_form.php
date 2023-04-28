@@ -118,18 +118,6 @@ use yii\helpers\Url;
                                     },
                                 ])->label('Вид документа') ?>
 
-        <div id="con_id" style="display: block">
-            <?php
-            $contract = \app\models\work\ContractWork::find()->/*where(['is_contractor' => 1])->*/orderBy(['date' => SORT_ASC])->all();
-            $items = \yii\helpers\ArrayHelper::map($contract,'id','contractFullName');
-            $params = [
-                'style' => 'width: 60%'
-            ];
-            echo $form->field($model, 'contract_id')->dropDownList($items,$params);
-
-            ?>
-        </div>
-
         <?php echo $form->field($model, 'date_invoice')->widget(\yii\jui\DatePicker::class,
             [
                 'dateFormat' => 'php:Y-m-d',
@@ -157,6 +145,19 @@ use yii\helpers\Url;
                 'style' => 'width: 60%'
             ];
             echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
+
+            ?>
+        </div>
+
+        <div id="con_id" style="display: none">
+            <?php
+            $contract = \app\models\work\ContractWork::find()->/*where(['is_contractor' => 1])->*/orderBy(['date' => SORT_ASC])->all();
+            $items = \yii\helpers\ArrayHelper::map($contract,'id','contractFullName');
+            $params = [
+                'prompt' => '--',
+                'style' => 'width: 60%'
+            ];
+            echo $form->field($model, 'contract_id')->dropDownList($items,$params);
 
             ?>
         </div>
@@ -489,6 +490,12 @@ use yii\helpers\Url;
     var baseChange = null;
 
     $("input[name='InvoiceWork[type]']").on('change', function() {
+        let categoryView = document.getElementById('con_id');
+        if ($(this).val() == 0 || $(this).val() == 2)
+            categoryView.style.display = "block";
+        else
+            categoryView.style.display = "none";
+
         let elem = document.getElementById('c_id');
         if ($(this).val() == 3)
         {
@@ -513,7 +520,6 @@ use yii\helpers\Url;
             opElems[baseChange].setAttribute('selected', 'selected');
             elem.style.display = "block";
         }
-
     });
 
     function handleClick(cb)

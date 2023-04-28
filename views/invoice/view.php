@@ -31,12 +31,13 @@ $this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->nu
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            
+            'date_invoice',
             'number',
+            ['attribute' => 'contractorString', 'format' => 'raw'],
             ['attribute' => 'contractString', 'format' => 'raw'],
             'date_product',
-            'date_invoice',
             ['attribute' => 'documentLink', 'format' => 'raw'],
+
         ],
     ]) ?>
 

@@ -38,4 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <br><h3><u>Документы о поступлении</u></h3>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'invoices', 'format' => 'raw'],
+        ],
+    ]) ?>
 </div>
