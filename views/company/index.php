@@ -26,12 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
 
+            ['attribute' => 'inn', 'label' => 'ИНН'],
+            ['attribute' => 'name', 'label' => 'Наименование'],
+            ['attribute' => 'short_name', 'label' => 'Краткое наименование'],
             ['attribute' => 'company_type', 'label' => 'Тип организации', 'value' => function($model){
                 return $model->companyType->type;
             }],
-            ['attribute' => 'name', 'label' => 'Наименование'],
-            ['attribute' => 'short_name', 'label' => 'Краткое наименование'],
-            ['attribute' => 'inn', 'label' => 'ИНН'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

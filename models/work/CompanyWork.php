@@ -30,8 +30,13 @@ class CompanyWork extends Company
 
     public function getCategorySmspString()
     {
-        $model = CategorySmspWork::find()->where(['id' => $this->category_smsp_id])->one();
-        return $model->name;
+        if ($this->category_smsp_id !== null)
+        {
+            $model = CategorySmspWork::find()->where(['id' => $this->category_smsp_id])->one();
+            return $model->name;
+        }
+        else
+            return 'НЕ СМСП';
     }
 
     public function checkForeignKeys()
