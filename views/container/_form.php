@@ -47,6 +47,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     ?>
 
+
+    <div hidden>
     <?php
     $auds = \app\models\work\AuditoriumWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($auds,'id','name');
@@ -57,8 +59,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
         'onchange' => 'CheckLink()',
     ];
     echo $form->field($model, 'auditorium_id')->dropDownList($items,$params);
-
     ?>
+    </div>
 
     <div class="row">
         <div class="panel panel-default">

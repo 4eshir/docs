@@ -43,8 +43,9 @@ class CompanyWork extends Company
     {
         $doc_out = DocumentOut::find()->where(['company_id' => $this->id])->all();
         $doc_in = DocumentIn::find()->where(['company_id' => $this->id])->all();
+        $contract = ContractWork::find()->where(['contractor_id' => $this->id])->all();
         $as = AsAdmin::find()->where(['as_company_id' => $this->id])->all();
-        if (count($doc_out) > 0 || count($doc_in) > 0 || count($as) > 0)
+        if (count($doc_out) > 0 || count($doc_in) > 0 || count($as) > 0 || count($contract) > 0)
         {
 
             Yii::$app->session->addFlash('error', 'Невозможно удалить организацию! Организация используется в документах');
