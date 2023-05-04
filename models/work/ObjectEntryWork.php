@@ -22,10 +22,10 @@ class ObjectEntryWork extends ObjectEntry
 
     public function beforeDelete()
     {
-        $objects = MaterialObjectWork::find()->where(['id' => $this->material_object_id])->all();
+        //$objects = MaterialObjectWork::find()->where(['id' => $this->material_object_id])->all();
 
-        foreach ($objects as $one)
-            $one->delete();
+        //foreach ($objects as $one)
+        //    $one->delete();
 
         return parent::beforeDelete();
     }

@@ -170,6 +170,9 @@ class InvoiceWork extends Invoice
 
 
     	}
+
+        $errorsCheck = new InvoiceErrorsWork();
+        $errorsCheck->CheckErrorsInvoiceWithoutAmnesty($this->id);
     }
 
     public function beforeDelete()
@@ -178,6 +181,9 @@ class InvoiceWork extends Invoice
 
         foreach ($invoiceEntries as $one)
             $one->delete();
+
+        $errors = InvoiceErrorsWork::find()->where(['invoice_id' => $this->id])->all();
+        foreach ($errors as $error) $error->delete();
 
         return parent::beforeDelete();
     }
