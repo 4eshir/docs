@@ -14,20 +14,15 @@ use Yii;
  * @property int $is_contractor
  * @property string|null $inn
  * @property int|null $category_smsp_id
+ * @property int|null $ownership_type_id
+ * @property string|null $okved
+ * @property string|null $head_fio
  * @property string|null $comment
- * @property string|null $phone_number
- * @property string|null $email
- * @property string|null $site
  *
- * @property AsAdmin[] $asAdmins
- * @property AsAdmin[] $asAdmins0
- * @property CategorySmsp $categorySmsp
  * @property CompanyType $companyType
- * @property Destination[] $destinations
- * @property DocumentIn[] $documentIns
- * @property DocumentOut[] $documentOuts
+ * @property CategorySmsp $categorySmsp
+ * @property OwnershipType $ownershipType
  * @property ForeignEvent[] $foreignEvents
- * @property Invoice[] $invoices
  * @property People[] $peoples
  */
 class Company extends \yii\db\ActiveRecord
@@ -46,14 +41,15 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_type_id', 'is_contractor', 'category_smsp_id'], 'integer'],
-            [['name', 'short_name', 'inn'], 'required'],
-            [['name', 'short_name', 'comment', 'email', 'site'], 'string', 'max' => 1000],
-            ['email', 'email'],
+            [['company_type_id', 'is_contractor', 'category_smsp_id', 'ownership_type_id'], 'integer'],
+            [['name', 'short_name', 'is_contractor'], 'required'],
+            [['name', 'short_name', 'head_fio', 'comment', 'phone_number', 'email', 'site'], 'string', 'max' => 1000],
             [['inn'], 'string', 'max' => 15],
-            [['phone_number'], 'string', 'max' => 12],
-            [['category_smsp_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategorySmsp::className(), 'targetAttribute' => ['category_smsp_id' => 'id']],
+            ['email', 'email'],
+            [['okved'], 'string', 'max' => 12],
             [['company_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyType::className(), 'targetAttribute' => ['company_type_id' => 'id']],
+            [['category_smsp_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategorySmsp::className(), 'targetAttribute' => ['category_smsp_id' => 'id']],
+            [['ownership_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => OwnershipType::className(), 'targetAttribute' => ['ownership_type_id' => 'id']],
         ];
     }
 
@@ -70,41 +66,11 @@ class Company extends \yii\db\ActiveRecord
             'is_contractor' => 'Is Contractor',
             'inn' => 'Inn',
             'category_smsp_id' => 'Category Smsp ID',
+            'ownership_type_id' => 'Ownership Type ID',
+            'okved' => 'Okved',
+            'head_fio' => 'Head Fio',
             'comment' => 'Comment',
-            'phone_number' => 'Phone Number',
-            'email' => 'Email',
-            'site' => 'Site',
         ];
-    }
-
-    /**
-     * Gets query for [[AsAdmins]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAsAdmins()
-    {
-        return $this->hasMany(AsAdmin::className(), ['as_company_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[AsAdmins0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAsAdmins0()
-    {
-        return $this->hasMany(AsAdmin::className(), ['copyright_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[CategorySmsp]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategorySmsp()
-    {
-        return $this->hasOne(CategorySmsp::className(), ['id' => 'category_smsp_id']);
     }
 
     /**
@@ -118,33 +84,23 @@ class Company extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Destinations]].
+     * Gets query for [[CategorySmsp]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDestinations()
+    public function getCategorySmsp()
     {
-        return $this->hasMany(Destination::className(), ['company_id' => 'id']);
+        return $this->hasOne(CategorySmsp::className(), ['id' => 'category_smsp_id']);
     }
 
     /**
-     * Gets query for [[DocumentIns]].
+     * Gets query for [[OwnershipType]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDocumentIns()
+    public function getOwnershipType()
     {
-        return $this->hasMany(DocumentIn::className(), ['company_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[DocumentOuts]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDocumentOuts()
-    {
-        return $this->hasMany(DocumentOut::className(), ['company_id' => 'id']);
+        return $this->hasOne(OwnershipType::className(), ['id' => 'ownership_type_id']);
     }
 
     /**
@@ -155,16 +111,6 @@ class Company extends \yii\db\ActiveRecord
     public function getForeignEvents()
     {
         return $this->hasMany(ForeignEvent::className(), ['company_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Invoices]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getInvoices()
-    {
-        return $this->hasMany(Invoice::className(), ['contractor_id' => 'id']);
     }
 
     /**

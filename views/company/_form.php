@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 
 
     <div id="contractor" style="display: <?php echo $dis; ?>">
-        
+
 
         <?php
         $smsp = \app\models\work\CategorySmspWork::find()->all();
@@ -46,6 +46,20 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'category_smsp_id')->dropDownList($items,$params)->label('Категория СМСП');
 
         ?>
+
+        <?php
+        $types = \app\models\work\OwnershipTypeWork::find()->all();
+        $items = \yii\helpers\ArrayHelper::map($types,'id','name');
+        $params = [
+            'prompt' => '--',
+        ];
+        echo $form->field($model, 'ownership_type_id')->dropDownList($items,$params)->label('Форма собственности');
+
+        ?>
+
+        <?= $form->field($model, 'okved')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'head_fio')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
 

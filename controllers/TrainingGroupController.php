@@ -100,6 +100,7 @@ class TrainingGroupController extends Controller
                 else {
                     $group->archive = 1;
                     $group->save();
+                    Logger::WriteLog(Yii::$app->user->identity->getId(), 'Группа ['.$group->id.'] отправлена в архив');
                     $err->CheckArchiveTrainingGroup($arch[$i]);
                 }
             }
@@ -112,6 +113,7 @@ class TrainingGroupController extends Controller
                 $group = TrainingGroupWork::find()->where(['id' => $unarch[$i]])->one();
                 $group->archive = 0;
                 $group->save();
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Группа ['.$group->id.'] разархивирована');
             }
         }
         
@@ -504,6 +506,9 @@ class TrainingGroupController extends Controller
         $model = new CertificatWork();
         $model->certificat_id = $pIds;
         $model->mass_send();
+
+        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Отправлены сертификаты для группы ['.$group_id.']');
+
 
         return $this->render('view', [
             'model' => $this->findModel($group_id),

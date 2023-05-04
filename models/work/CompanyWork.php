@@ -25,6 +25,9 @@ class CompanyWork extends Company
             'phone_number' => 'Номер телефона',
             'email' => 'E-mail',
             'site' => 'Сайт (при наличии)',
+            'okved' => 'Код по ОКВЭД',
+            'head_fio' => 'ФИО руководителя',
+            'ownershipTypeString' => 'Форма собственности',
         ];
     }
 
@@ -37,6 +40,11 @@ class CompanyWork extends Company
         }
         else
             return 'НЕ СМСП';
+    }
+
+    public function getOwnershipTypeString()
+    {
+        return OwnershipTypeWork::find()->where(['id' => $this->ownership_type_id])->one()->name;
     }
 
     public function checkForeignKeys()
@@ -57,7 +65,7 @@ class CompanyWork extends Company
     public function beforeSave($insert)
     {
         $duplicate = CompanyWork::find()->where(['inn' => $this->inn])->one();
-        if ($duplicate !== null)
+        if ($duplicate !== null && $duplicate->id !== $this->id)
         {
             Yii::$app->session->setFlash('danger', 'Невозможно добавить компанию, т.к. в системе существует компания с таким же ИНН!');
             return 0;
