@@ -380,6 +380,10 @@ class MaterialObjectWork extends MaterialObject
                 }
             }
         }
+
+        // тут должны работать проверки на ошибки
+        $errorsCheck = new MaterialObjectErrorsWork();
+        $errorsCheck->CheckErrorsMaterialObjectWithoutAmnesty($this->id);
     }
 
     private function IsNullCharacterstic($characteristic)
@@ -408,6 +412,9 @@ class MaterialObjectWork extends MaterialObject
 
         foreach ($realSubs as $one)
             $one->delete();
+
+        $errors = MaterialObjectErrorsWork::find()->where(['material_object_id' => $this->id])->all();
+        foreach ($errors as $error) $error->delete();
 
         return parent::beforeDelete();
     }

@@ -63,7 +63,7 @@ class ContainerErrorsWork extends ContainerErrors
             }
         }
 
-        if (count($err) === 0 && count($objects) <= 0)
+        if (count($err) === 0 && count($objects) === 0)
         {
             $this->container_id = $modelContainerID;
             $this->errors_id = 54;
