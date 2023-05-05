@@ -81,6 +81,38 @@ use app\models\work\UserWork;
             rowsForeignEvent = tableBodyForeignEvent.querySelectorAll('tr');
         }
 
+        tableContract = document.getElementById('contract');
+        if (tableContract !== null)
+        {
+            headersContract = tableContract.querySelectorAll('th');
+            tableBodyContract = tableContract.querySelector('tbody');
+            rowsContract = tableContract.querySelectorAll('tr');
+        }
+
+        tableInvoice = document.getElementById('invoice');
+        if (tableInvoice !== null)
+        {
+            headersInvoice = tableInvoice.querySelectorAll('th');
+            tableBodyInvoice = tableInvoice.querySelector('tbody');
+            rowsInvoice = tableInvoice.querySelectorAll('tr');
+        }
+
+        tableMaterialObject = document.getElementById('materialObject');
+        if (tableMaterialObject !== null)
+        {
+            headersMaterialObject = tableMaterialObject.querySelectorAll('th');
+            tableBodyMaterialObject = tableMaterialObject.querySelector('tbody');
+            rowsMaterialObject = tableMaterialObject.querySelectorAll('tr');
+        }
+
+        tableContainer = document.getElementById('container');
+        if (tableContainer !== null)
+        {
+            headersContainer = tableContainer.querySelectorAll('th');
+            tableBodyContainer = tableContainer.querySelector('tbody');
+            rowsContainer = tableContainer.querySelectorAll('tr');
+        }
+
         // Направление сортировки
         directionsGr = Array.from(headersGr).map(function(header) {
             return '';
@@ -101,6 +133,22 @@ use app\models\work\UserWork;
         directionsForeignEvent = Array.from(headersForeignEvent).map(function(header) {
             return '';
         });
+
+        directionsContract = Array.from(headersContract).map(function(header) {
+            return '';
+        });
+
+        directionsInvoice = Array.from(headersInvoice).map(function(header) {
+            return '';
+        });
+
+        directionsMaterialObject = Array.from(headersMaterialObject).map(function(header) {
+            return '';
+        });
+
+        directionsContainer = Array.from(headersContainer).map(function(header) {
+            return '';
+        });
     }
 
     let tableGr = '';
@@ -108,30 +156,50 @@ use app\models\work\UserWork;
     let tableDocOrd = '';
     let tableEvent = '';
     let tableForeignEvent = '';
+    let tableContract = '';
+    let tableInvoice = '';
+    let tableMaterialObject = '';
+    let tableContainer = '';
 
     let headersGr = '';
     let headersPr = '';
     let headersDocOrd = '';
     let headersEvent = '';
     let headersForeignEvent = '';
+    let headersContract = '';
+    let headersInvoice = '';
+    let headersMaterialObject = '';
+    let headersContainer = '';
 
     let tableBodyGr = '';
     let tableBodyPr = '';
     let tableBodyDocOrd = '';
     let tableBodyEvent = '';
     let tableBodyForeignEvent = '';
+    let tableBodyContract = '';
+    let tableBodyInvoice = '';
+    let tableBodyMaterialObject = '';
+    let tableBodyContainer = '';
 
     let rowsGr = '';
     let rowsPr = '';
     let rowsDocOrd = '';
     let rowsEvent = '';
     let rowsForeignEvent = '';
+    let rowsContract = '';
+    let rowsInvoice = '';
+    let rowsMaterialObject = '';
+    let rowsContainer = '';
 
     let directionsGr = '';
     let directionsPr = '';
     let directionsDocOrd = '';
     let directionsEvent = '';
     let directionsForeignEvent = '';
+    let directionsContract = '';
+    let directionsInvoice = '';
+    let directionsMaterialObject = '';
+    let directionsContainer = '';
 
     function fFor(rows, filterName) {
         for (let i = 0; i < rows.length; i++)
@@ -167,6 +235,10 @@ use app\models\work\UserWork;
         fFor(rowsDocOrd, filterName);
         fFor(rowsEvent, filterName);
         fFor(rowsForeignEvent, filterName);
+        fFor(rowsContract, filterName);
+        fFor(rowsInvoice, filterName);
+        fFor(rowsMaterialObject, filterName);
+        fFor(rowsContainer, filterName);
     }
 
     function sortColumn(index) {
@@ -176,6 +248,10 @@ use app\models\work\UserWork;
         const directionDocOrd = directionsDocOrd[index] || 'asc';
         const directionEvent = directionsEvent[index] || 'asc';
         const directionForeignEvent = directionsForeignEvent[index] || 'asc';
+        const directionContract = directionsContract[index] || 'asc';
+        const directionInvoice = directionsInvoice[index] || 'asc';
+        const directionMaterialObject = directionsMaterialObject[index] || 'asc';
+        const directionContainer = directionsContainer[index] || 'asc';
 
         // Фактор по направлению
         const multiplierGr = (directionGr === 'asc') ? 1 : -1;
@@ -183,12 +259,20 @@ use app\models\work\UserWork;
         const multiplierDocOrd = (directionDocOrd === 'asc') ? 1 : -1;
         const multiplierEvent = (directionEvent === 'asc') ? 1 : -1;
         const multiplierForeignEvent = (directionForeignEvent === 'asc') ? 1 : -1;
+        const multiplierContract = (directionContract === 'asc') ? 1 : -1;
+        const multiplierInvoice = (directionInvoice === 'asc') ? 1 : -1;
+        const multiplierMaterialObject = (directionMaterialObject === 'asc') ? 1 : -1;
+        const multiplierContainer = (directionContainer === 'asc') ? 1 : -1;
 
         const newRowsGr = Array.from(rowsGr);
         const newRowsPr = Array.from(rowsPr);
         const newRowsDocOrd = Array.from(rowsDocOrd);
         const newRowsEvent = Array.from(rowsEvent);
         const newRowsForeignEvent = Array.from(rowsForeignEvent);
+        const newRowsContract = Array.from(rowsContract);
+        const newRowsInvoice = Array.from(rowsInvoice);
+        const newRowsMaterialObject = Array.from(rowsMaterialObject);
+        const newRowsContainer = Array.from(rowsContainer);
 
 
         newRowsGr.sort(function(rowA, rowB) {
@@ -241,6 +325,46 @@ use app\models\work\UserWork;
                 case cellA === cellB: return 0;
             }
         });
+        newRowsContract.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierContract;
+                case cellA < cellB: return -1 * multiplierContract;
+                case cellA === cellB: return 0;
+            }
+        });
+        newRowsInvoice.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierInvoice;
+                case cellA < cellB: return -1 * multiplierInvoice;
+                case cellA === cellB: return 0;
+            }
+        });
+        newRowsMaterialObject.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierMaterialObject;
+                case cellA < cellB: return -1 * multiplierMaterialObject;
+                case cellA === cellB: return 0;
+            }
+        });
+        newRowsContainer.sort(function(rowA, rowB) {
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+
+            switch (true) {
+                case cellA > cellB: return 1 * multiplierContainer;
+                case cellA < cellB: return -1 * multiplierContainer;
+                case cellA === cellB: return 0;
+            }
+        });
 
 
         // Удалить старые строки
@@ -259,6 +383,18 @@ use app\models\work\UserWork;
         [].forEach.call(rowsForeignEvent, function(row) {
             tableBodyForeignEvent.removeChild(row);
         });
+        [].forEach.call(rowsContract, function(row) {
+            tableBodyContract.removeChild(row);
+        });
+        [].forEach.call(rowsInvoice, function(row) {
+            tableBodyInvoice.removeChild(row);
+        });
+        [].forEach.call(rowsMaterialObject, function(row) {
+            tableBodyMaterialObject.removeChild(row);
+        });
+        [].forEach.call(rowsContainer, function(row) {
+            tableBodyContainer.removeChild(row);
+        });
 
 
         // Поменять направление
@@ -267,6 +403,10 @@ use app\models\work\UserWork;
         directionsDocOrd[index] = directionDocOrd === 'asc' ? 'desc' : 'asc';
         directionsEvent[index] = directionEvent === 'asc' ? 'desc' : 'asc';
         directionsForeignEvent[index] = directionForeignEvent === 'asc' ? 'desc' : 'asc';
+        directionsContract[index] = directionContract === 'asc' ? 'desc' : 'asc';
+        directionsInvoice[index] = directionInvoice === 'asc' ? 'desc' : 'asc';
+        directionsMaterialObject[index] = directionMaterialObject === 'asc' ? 'desc' : 'asc';
+        directionsContainer[index] = directionContainer === 'asc' ? 'desc' : 'asc';
 
 
         // Добавить новую строку
@@ -284,6 +424,18 @@ use app\models\work\UserWork;
         });
         newRowsForeignEvent.forEach(function(newRow) {
             tableBodyForeignEvent.appendChild(newRow);
+        });
+        newRowsContract.forEach(function(newRow) {
+            tableBodyContract.appendChild(newRow);
+        });
+        newRowsInvoice.forEach(function(newRow) {
+            tableBodyInvoice.appendChild(newRow);
+        });
+        newRowsMaterialObject.forEach(function(newRow) {
+            tableBodyMaterialObject.appendChild(newRow);
+        });
+        newRowsContainer.forEach(function(newRow) {
+            tableBodyContainer.appendChild(newRow);
         });
     }
 
@@ -317,5 +469,29 @@ use app\models\work\UserWork;
                 tableForeignEvent.style.display = "none";
             else
                 tableForeignEvent.style.display = "block";
+
+        if (index === 5)
+            if (tableContract.style.display === "block")
+                tableContract.style.display = "none";
+            else
+                tableContract.style.display = "block";
+
+        if (index === 6)
+            if (tableInvoice.style.display === "block")
+                tableInvoice.style.display = "none";
+            else
+                tableInvoice.style.display = "block";
+
+        if (index === 7)
+            if (tableMaterialObject.style.display === "block")
+                tableMaterialObject.style.display = "none";
+            else
+                tableMaterialObject.style.display = "block";
+
+        if (index === 8)
+            if (tableContainer.style.display === "block")
+                tableContainer.style.display = "none";
+            else
+                tableContainer.style.display = "block";
     }
 </script>

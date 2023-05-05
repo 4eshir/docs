@@ -28,6 +28,11 @@ class ContractErrorsWork extends ContractErrors
         }
     }
 
+    public function getCritical()
+    {
+        return $this->critical;
+    }
+
     private function CheckCategory ($modelContractID)
     {
         $err = ContractErrorsWork::find()->where(['contract_id' => $modelContractID, 'time_the_end' => null, 'errors_id' => 46])->all();

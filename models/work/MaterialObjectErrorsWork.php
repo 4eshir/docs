@@ -27,6 +27,11 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         }
     }
 
+    public function getCritical()
+    {
+        return $this->critical;
+    }
+
     private function CheckContainer ($modelMaterialObjectID)
     {
         $err = MaterialObjectErrorsWork::find()->where(['material_object_id' => $modelMaterialObjectID, 'time_the_end' => null, 'errors_id' => 52])->all();

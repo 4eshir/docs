@@ -27,6 +27,11 @@ class ContainerErrorsWork extends ContainerErrors
         }
     }
 
+    public function getCritical()
+    {
+        return $this->critical;
+    }
+
     private function CheckHierarchy ($modelContainerID, $container)
     {
         $err = ContainerErrorsWork::find()->where(['container_id' => $modelContainerID, 'time_the_end' => null, 'errors_id' => 53])->all();
