@@ -23,6 +23,9 @@ class MaterialObjectWork extends MaterialObject
 
     public $objEntrId; //id связки object-entry для именования файлов
 
+    public $visionMOL; //видимость поля "МОЛ"
+    public $molId; //id МОЛ-а
+
     function __construct($obj = null)
     {
         $this->id = $obj->id;
@@ -52,7 +55,7 @@ class MaterialObjectWork extends MaterialObject
     {
         return [
             //[['name', 'price', 'number', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount', 'complex'], 'integer'],
+            [['count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'kind_id', 'amount', 'complex', 'molId', 'visionMOL'], 'integer'],
             [['price'], 'double'],
             [['lifetime', 'create_date', 'characteristics', 'name', 'price', 'number', 'finance_source_id', 'type', 'is_education', 'filesTmp', 'filesName'], 'safe'],
             [['name', 'photo_local', 'photo_cloud', 'expirationDate'], 'string', 'max' => 1000],
@@ -101,6 +104,7 @@ class MaterialObjectWork extends MaterialObject
             'complexString' => '',
             'atContainerLink' => 'Является контейнером',
             'inContainerLink' => 'Лежит в контейнере',
+            'molId' => 'МОЛ',
         ];
     }
 
@@ -242,8 +246,29 @@ class MaterialObjectWork extends MaterialObject
     	return parent::beforeSave($insert);
     }
 
+    public function transferProcess($user_from, $user_to, $date)
+    {
+        $history_obj = new HistoryObjectWork();
+        $history_obj->material_object_id = $this->id;
+        $history_obj->count = 1;
+        $curCont = ContainerObjectWork::find()->where(['material_object_id' => $this->id])->one();
+        if ($curCont === null) $history_obj->container_id = null;
+        else $history_obj->container_id = $curCont->container_id;
+
+        $history_trans = new HistoryTransactionWork();
+        $history_trans->user_give_id = $user_from;
+        $history_trans->user_get_id = $user_to;
+        $history_trans->date = $date;
+        $history_trans->save();
+
+        $history_obj->history_transaction_id = $history_trans->id;
+        $history_obj->save();
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
+        //$this->transferProcess(null, $this->molId, '2023-05-05');
+
 
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();
 

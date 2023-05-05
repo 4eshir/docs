@@ -9,11 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property int $user_get_id получивший
- * @property int $user_give_id отдавший
+ * @property int|null $user_give_id отдавший
  * @property string $date когда произошла передача объекта
  *
- * @property User $userGet
- * @property User $userGive
+ * @property HistoryObject[] $historyObjects
  */
 class HistoryTransaction extends \yii\db\ActiveRecord
 {
@@ -31,11 +30,9 @@ class HistoryTransaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_get_id', 'user_give_id', 'date'], 'required'],
+            [['user_get_id', 'date'], 'required'],
             [['user_get_id', 'user_give_id'], 'integer'],
             [['date'], 'safe'],
-            [['user_get_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_get_id' => 'id']],
-            [['user_give_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_give_id' => 'id']],
         ];
     }
 
@@ -53,22 +50,12 @@ class HistoryTransaction extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[UserGet]].
+     * Gets query for [[HistoryObjects]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUserGet()
+    public function getHistoryObjects()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_get_id']);
-    }
-
-    /**
-     * Gets query for [[UserGive]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserGive()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_give_id']);
+        return $this->hasMany(HistoryObject::className(), ['history_transaction_id' => 'id']);
     }
 }

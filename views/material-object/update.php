@@ -85,6 +85,18 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         ?>
     </div>
 
+    <?php
+    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+
+    $params = [
+        'prompt' => '--',
+        'style' => 'width: 40%',
+    ];
+    echo $form->field($model, 'molId')->dropDownList($items,$params);
+
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
