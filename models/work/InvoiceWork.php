@@ -109,6 +109,20 @@ class InvoiceWork extends Invoice
         return $result;
     }
 
+    public function getErrorsWork()
+    {
+        $errorsList = InvoiceErrorsWork::find()->where(['invoice_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+        $result = '';
+        foreach ($errorsList as $errors)
+        {
+            $errorName = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
+            if ($errors->getCritical() == 1)
+                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+            else $result .= 'Внимание, ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+        }
+        return $result;
+    }
+
     public function uploadDocument()
     {
         $path = '@app/upload/files/invoice/document/';

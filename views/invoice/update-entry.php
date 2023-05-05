@@ -240,7 +240,7 @@ $this->params['breadcrumbs'][] = 'Редактирование ';
                     $placeholder = ['Введите число', 'Введите число', 'Введите текст'];
                     $input = '';
                     if ($c->characteristicObjectWork->value_type == 4 && $val == 1)
-                        $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" name="EntryWork[characteristics][]" content="'.$val.'"><input name="EntryWork[characteristics][]" type="hidden" value="'.$val.'">';
+                        $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" checked class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" content="'.$val.'"><input name="EntryWork[characteristics][]" type="hidden" value="'.$val.'">';
                     else if ($c->characteristicObjectWork->value_type == 4)
                     {
                         $input = '<input onclick="handleClickOrig(this)" step="any" type="'.$type.'" class="form-inline ch" style="border: 2px solid #D3D3D3; border-radius: 2px; min-width: 40%" content="'.$val.'"><input type="hidden" name="EntryWork[characteristics][]" value="'.$val.'">';

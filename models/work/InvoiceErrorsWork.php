@@ -27,6 +27,11 @@ class InvoiceErrorsWork extends InvoiceErrors
         }
     }
 
+    public function getCritical()
+    {
+        return $this->critical;
+    }
+
     private function CheckContract ($modelInvoiceID, $invoice)
     {
         $err = InvoiceErrorsWork::find()->where(['invoice_id' => $modelInvoiceID, 'time_the_end' => null, 'errors_id' => 50])->all();

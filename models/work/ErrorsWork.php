@@ -155,6 +155,18 @@ class ErrorsWork extends Errors
         if ($result !== '')
             $result .= '<br><br>';
         $result .= $this->ErrorsToForeignEvent($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToContract($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToInvoice($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToMaterialObject($user);
+        if ($result !== '')
+            $result .= '<br><br>';
+        $result .= $this->ErrorsToContainer($user);
         return $result;
     }
 
@@ -532,5 +544,191 @@ class ErrorsWork extends Errors
         return $result;
     }
 
+    private function ErrorsToContract($user)
+    {
+        $result = '';
 
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+            \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
+        {
+            $contracts = ContractWork::find()->all();
+        }
+
+        if ($contracts !== '')
+        {
+            $result .= '<table id="contract" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(5)">Ошибки в договорах</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+
+            foreach ($contracts as $contract)
+            {
+                $errorsList = ContractErrorsWork::find()->where(['contract_id' => $contract->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($contract->getContractFullName(), \yii\helpers\Url::to(['contract/view', 'id' => $contract->id])) . '</td>';
+                    $result .= '<td>';
+                    $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
+
+    private function ErrorsToInvoice($user)
+    {
+        $result = '';
+
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+            \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
+        {
+            $invoices = InvoiceWork::find()->all();
+        }
+
+        if ($invoices !== '')
+        {
+            $result .= '<table id="invoice" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(6)">Ошибки в документах о поступлении материальных ценностей</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+
+            foreach ($invoices as $invoice)
+            {
+                $errorsList = InvoiceErrorsWork::find()->where(['invoice_id' => $invoice->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($invoice->getNumberString(), \yii\helpers\Url::to(['contract/view', 'id' => $invoice->id])) . '</td>';
+                    $result .= '<td>';
+                    $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
+
+    private function ErrorsToMaterialObject($user)
+    {
+        $result = '';
+
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+            \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
+        {
+            $materialObjects = MaterialObjectWork::find()->all();
+        }
+
+        if ($materialObjects !== '')
+        {
+            $result .= '<table id="materialObject" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(7)">Ошибки в материальных ценностях</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+
+            foreach ($materialObjects as $materialObject)
+            {
+                $errorsList = MaterialObjectErrorsWork::find()->where(['material_object_id' => $materialObject->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($materialObject->name, \yii\helpers\Url::to(['contract/view', 'id' => $materialObject->id])) . '</td>';
+                    $result .= '<td>';
+                    $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
+
+    private function ErrorsToContainer($user)
+    {
+        $result = '';
+
+        if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
+            \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
+        {
+            $containers = ContainerWork::find()->all();
+        }
+
+        if ($containers !== '')
+        {
+            $result .= '<table id="container" style="display: block" class="table table-bordered"><h4 style="text-align: center;"><u><a onclick="hide(8)">Ошибки в контейнерах</a></u></h4>';
+            $result .= '<thead>';
+            $result .= '<th style="vertical-align: middle; width: 110px;"><a onclick="sortColumn(0)"><b>Код проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 400px;"><a onclick="sortColumn(1)"><b>Описание проблемы</b></a></th>';
+            $result .= '<th style="vertical-align: middle; width: 220px;"><a onclick="sortColumn(2)"><b>Место возникновения</b></a></th>';
+            $result .= '<th style="vertical-align: middle;"><a onclick="sortColumn(3)"><b>Отдел</b></a></th>';
+            $result .= '</thead>';
+            $result .= '<tbody>';
+
+            foreach ($containers as $container)
+            {
+                $errorsList = ContainerErrorsWork::find()->where(['container_id' => $container->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+
+                foreach ($errorsList as $error)
+                {
+                    if ($error->critical == 1)
+                        $result .= '<tr style="background-color: #FCF8E3;">';
+                    else
+                        $result .= '<tr>';
+                    $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
+                    $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
+                    $result .= '<td>' . $errorName->name . '</td>';
+                    $result .= '<td>' . Html::a($container->name, \yii\helpers\Url::to(['contract/view', 'id' => $container->id])) . '</td>';
+                    $result .= '<td>';
+                    $result .= '<p style="color: red;">не указан</p>';
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+
+            $result .= '</tbody></table>';
+        }
+        return $result;
+    }
 }

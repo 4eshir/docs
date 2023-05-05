@@ -417,6 +417,19 @@ class MaterialObjectWork extends MaterialObject
             $characteristic->bool_value == null && $characteristic->date_value == null && $characteristic->document_value == null;
     }
 
+    public function getErrorsWork()
+    {
+        $errorsList = MaterialObjectErrorsWork::find()->where(['material_object_id' => $this->id, 'time_the_end' => NULL, 'amnesty' => NULL])->all();
+        $result = '';
+        foreach ($errorsList as $errors)
+        {
+            $errorName = ErrorsWork::find()->where(['id' => $errors->errors_id])->one();
+            if ($errors->getCritical() == 1)
+                $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+            else $result .= 'Внимание, ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
+        }
+        return $result;
+    }
 
     public function beforeDelete()
     {

@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
         $smsp = \app\models\work\CategorySmspWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($smsp,'id','name');
         $params = [
-            'prompt' => '--',
+            'prompt' => 'НЕ СМСП',
         ];
         echo $form->field($model, 'category_smsp_id')->dropDownList($items,$params)->label('Категория СМСП');
 
