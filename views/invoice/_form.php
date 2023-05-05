@@ -149,7 +149,7 @@ use yii\helpers\Url;
             ?>
         </div>
 
-        <div id="con_id" style="display: none">
+        <div id="con_id" style="display: <?php echo $model->type == 0 || $model->type == 2 ? 'block' : 'none'?>">
             <?php
             $contract = \app\models\work\ContractWork::find()->/*where(['is_contractor' => 1])->*/orderBy(['date' => SORT_ASC])->all();
             $items = \yii\helpers\ArrayHelper::map($contract,'id','contractFullName');
