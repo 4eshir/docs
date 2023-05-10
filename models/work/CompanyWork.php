@@ -28,6 +28,7 @@ class CompanyWork extends Company
             'okved' => 'Код по ОКВЭД',
             'head_fio' => 'ФИО руководителя',
             'ownershipTypeString' => 'Форма собственности',
+            'contractorString' => 'Является контрагентом',
         ];
     }
 
@@ -45,6 +46,11 @@ class CompanyWork extends Company
     public function getOwnershipTypeString()
     {
         return OwnershipTypeWork::find()->where(['id' => $this->ownership_type_id])->one()->name;
+    }
+
+    public function getContractorString()
+    {
+        return $this->is_contractor == 1 ? 'Да' : 'Нет';
     }
 
     public function checkForeignKeys()

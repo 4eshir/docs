@@ -12,6 +12,7 @@ use app\models\common\ParticipantFiles;
 use app\models\common\People;
 use app\models\common\TeacherParticipant;
 use app\models\common\Team;
+use app\models\common\User;
 use app\models\components\FileWizard;
 use Yii;
 use yii\helpers\Html;
@@ -29,7 +30,7 @@ class ForeignEventWork extends ForeignEvent
     {
         return [
             [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy', 'is_minpros', 'add_order_participation_id'], 'integer'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy', 'is_minpros', 'add_order_participation_id', 'last_edit_id'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['docs_achievement'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
@@ -39,6 +40,7 @@ class ForeignEventWork extends ForeignEvent
             [['order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_participation_id' => 'id']],
             [['order_business_trip_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_business_trip_id' => 'id']],
             [['add_order_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['add_order_participation_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
         ];
     }
 
@@ -84,6 +86,8 @@ class ForeignEventWork extends ForeignEvent
             'creatorString' => 'Создатель карточки',
             'is_minpros' => 'Входит в перечень Минпросвещения РФ',
             'isMinpros' => 'Входит в перечень Минпросвещения РФ',
+            'last_edit_id' => 'Последний редактор карточки',
+            'editString' => 'Последний редактор карточки',
         ];
     }
 
@@ -320,6 +324,12 @@ class ForeignEventWork extends ForeignEvent
         return $user->fullName;
     }
 
+    public function GetEditString()
+    {
+        $user = UserWork::find()->where(['id' => $this->last_edit_id])->one();
+        return $user->fullName;
+    }
+
     public function uploadAchievementsFile()
     {
         $path = '@app/upload/files/foreign_event/achievements_files/';
@@ -339,6 +349,8 @@ class ForeignEventWork extends ForeignEvent
 
     public function beforeSave($insert)
     {
+        $this->last_edit_id = Yii::$app->user->identity->getId();
+
         if ($this->creator_id === null)
             $this->creator_id = Yii::$app->user->identity->getId();
 

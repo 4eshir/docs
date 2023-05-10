@@ -11,6 +11,8 @@ use app\models\work\CompanyWork;
  */
 class SearchCompany extends CompanyWork
 {
+    public $contractorString;
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +57,11 @@ class SearchCompany extends CompanyWork
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        $dataProvider->sort->attributes['contractorString'] = [
+            'asc' => ['is_contractor' => SORT_ASC],
+            'desc' => ['is_contractor' => SORT_DESC],
+        ];
 
         // grid filtering conditions
         $query->andFilterWhere([
