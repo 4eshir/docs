@@ -2,8 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\common\Container;
+use app\models\common\ContractErrors;
+use app\models\common\MaterialObjectErrors;
 use app\models\common\TrainingGroup;
 use app\models\components\Logger;
+use app\models\work\ContainerErrorsWork;
+use app\models\work\ContainerWork;
+use app\models\work\ContractErrorsWork;
+use app\models\work\ContractWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\ErrorsWork;
 use app\models\work\EventErrorsWork;
@@ -11,6 +18,10 @@ use app\models\work\EventWork;
 use app\models\work\ForeignEventErrorsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\GroupErrorsWork;
+use app\models\work\InvoiceErrorsWork;
+use app\models\work\InvoiceWork;
+use app\models\work\MaterialObjectErrorsWork;
+use app\models\work\MaterialObjectWork;
 use app\models\work\OrderErrorsWork;
 use app\models\work\OrderGroupWork;
 use app\models\work\ProgramErrorsWork;
@@ -79,6 +90,40 @@ class DaemonController extends Controller
         {
             $errorsForeignEventCheck = new ForeignEventErrorsWork();
             $errorsForeignEventCheck->CheckErrorsForeignEvent($foreignEvent->id);
+        }
+    }
+
+    public function actionContractAndInvoiceAndContainerErrors()
+    {
+        $contract = ContractWork::find()->all();
+        foreach ($contract as $one)
+        {
+            $errorsCheck = new ContractErrorsWork();
+            $errorsCheck->CheckErrorsContract($one->id);
+        }
+
+        $invoice = InvoiceWork::find()->all();
+        foreach ($invoice as $one)
+        {
+            $errorsCheck = new InvoiceErrorsWork();
+            $errorsCheck->CheckErrorsInvoice($one->id);
+        }
+
+        $container = ContainerWork::find()->all();
+        foreach ($container as $one)
+        {
+            $errorsCheck = new ContainerErrorsWork();
+            $errorsCheck->CheckErrorsContainer($one->id);
+        }
+    }
+
+    public function actionMaterialObjectErrors()
+    {
+        $matObj = MaterialObjectWork::find()->all();
+        foreach ($matObj as $one)
+        {
+            $errorsCheck = new MaterialObjectErrorsWork();
+            $errorsCheck->CheckErrorsMaterialObject($one->id);
         }
     }
 
