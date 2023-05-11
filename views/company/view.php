@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }],
             ['label' => 'Название организации', 'attribute' => 'name'],
             ['label' => 'Краткое название', 'attribute' => 'short_name'],
+            'editString',
         ],
     ]) ?>
 
@@ -54,6 +55,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'okved',
                 'head_fio',
                 'site',
+            ],
+        ]);
+
+        echo '<h4><u>Связанные договора</u></h4>';
+
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['label' => 'Договора', 'attribute' => 'contractArray', 'format' => 'raw'],
             ],
         ]);
     }

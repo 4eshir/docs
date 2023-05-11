@@ -393,7 +393,7 @@ class RoleBaseAccess
     }
 
     //Проверка прав доступа для совершения CRUD-операции (с учетом экшна и контроллера)
-    public static function CheckAccess($controllerName, $actionName, $userId, $special = -1)
+    public static function CheckAccess($controllerName, $actionName, $userId, $special = -1, $groupId = 0)
     {
         $userAccess = UserRoleWork::find()->where(['user_id' => $userId])->all();
         $accesses = AccessLevelWork::find()->where(['user_id' => $userId])->all();
@@ -417,7 +417,8 @@ class RoleBaseAccess
             else if ($special == "group") //специальный раздел для групп и отчетов (подробнее см. в массиве $access)
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
-                    if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j])
+                    if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j]
+                        && RoleBaseAccess::IsGroupAccessAllowed($userId, $groupId))
                         $allow = true;
             }
             else //обычный режим
@@ -474,5 +475,16 @@ class RoleBaseAccess
         if (!$f)
             return TrainingGroupWork::find()->where(['training_group.id' => -1]);
         return $groupArray;
+    }
+
+    public static function IsGroupAccessAllowed($userId, $groupId)
+    {
+        $groups = RoleBaseAccess::getGroupsByRole($userId)->all();
+
+        foreach ($groups as $group)
+            if ($group->id == $groupId)
+                return true;
+
+        return false;
     }
 }

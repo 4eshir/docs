@@ -90,6 +90,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'number')->textInput(['maxlength' => true])->label('Номер договора') ?>
 
+    <?php
+    $coms = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($coms,'id','name');
+    $params = [];
+    echo $form->field($model, 'contractor_id')->dropDownList($items,$params)->label('Контрагент');
+
+    ?>
+
     <div class="checkList">
         <div class="checkHeader">
             <h4 class="noPM">Категории материальных объектов в договоре</h4>

@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\common\Company;
 use app\models\common\Contract;
 use Yii;
 use yii\helpers\Html;
@@ -16,10 +17,12 @@ class ContractWork extends Contract
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, zip, rar, 7z, tag', 'skipOnEmpty' => true],
-            [['date', 'category'], 'safe'],
+            [['date', 'number'], 'required'],
+            [['date'], 'safe'],
+            [['contractor_id'], 'integer'],
             [['number'], 'string', 'max' => 100],
             [['file', 'key_words'], 'string', 'max' => 1000],
+            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
         ];
     }
 
@@ -33,12 +36,19 @@ class ContractWork extends Contract
             'key_words' => 'Ключевые слова',
             'categoryString' => 'Категории мат. объектов в договоре',
             'invoices' => 'Документы',
+            'contractorLink' => 'Контрагент',
         ];
     }
 
     public function getContractFullName()
     {
         return 'Договор №'.$this->number.' от '.$this->date;
+    }
+
+    public function getContractorLink()
+    {
+        $company = CompanyWork::find()->where(['id' => $this->contractor_id])->one();
+        return Html::a($company->name, \yii\helpers\Url::to(['company/view', 'id' => $company->id]));
     }
 
     public function getContractCategoryContractsWork()

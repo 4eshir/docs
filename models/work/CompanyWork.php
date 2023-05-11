@@ -7,6 +7,7 @@ use app\models\common\Company;
 use app\models\common\DocumentIn;
 use app\models\common\DocumentOut;
 use Yii;
+use yii\bootstrap\Html;
 
 
 class CompanyWork extends Company
@@ -29,6 +30,7 @@ class CompanyWork extends Company
             'head_fio' => 'ФИО руководителя',
             'ownershipTypeString' => 'Форма собственности',
             'contractorString' => 'Является контрагентом',
+            'editString' => 'Последний редактор карточки',
         ];
     }
 
@@ -68,8 +70,26 @@ class CompanyWork extends Company
         return true;
     }
 
+    public function getEditString()
+    {
+        $user = UserWork::find()->where(['id' => $this->last_edit_id])->one();
+        return $user->fullName;
+    }
+
+    public function getContractArray()
+    {
+        $contracts = ContractWork::find()->where(['contractor_id' => $this->id])->all();
+        $res = '';
+        foreach ($contracts as $contract)
+            $res .= Html::a('Договор №'.$contract->number, \yii\helpers\Url::to(['contract/view', 'id' => $contract->id])).'<br>';
+
+        return $res;
+    }
+
     public function beforeSave($insert)
     {
+        $this->last_edit_id = Yii::$app->user->identity->getId();
+
         $duplicate = CompanyWork::find()->where(['inn' => $this->inn])->one();
         if ($duplicate !== null && $duplicate->id !== $this->id)
         {

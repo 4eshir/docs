@@ -11,9 +11,10 @@ use Yii;
  * @property string $date
  * @property string $number
  * @property string|null $file
+ * @property int|null $contractor_id
  * @property string|null $key_words
  *
- * @property ContractCategoryContract[] $contractCategoryContracts
+ * @property Company $contractor
  */
 class Contract extends \yii\db\ActiveRecord
 {
@@ -33,8 +34,10 @@ class Contract extends \yii\db\ActiveRecord
         return [
             [['date', 'number'], 'required'],
             [['date'], 'safe'],
+            [['contractor_id'], 'integer'],
             [['number'], 'string', 'max' => 100],
             [['file', 'key_words'], 'string', 'max' => 1000],
+            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
         ];
     }
 
@@ -48,17 +51,18 @@ class Contract extends \yii\db\ActiveRecord
             'date' => 'Date',
             'number' => 'Number',
             'file' => 'File',
+            'contractor_id' => 'Contractor ID',
             'key_words' => 'Key Words',
         ];
     }
 
     /**
-     * Gets query for [[ContractCategoryContracts]].
+     * Gets query for [[Contractor]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getContractCategoryContracts()
+    public function getContractor()
     {
-        return $this->hasMany(ContractCategoryContract::className(), ['contract_id' => 'id']);
+        return $this->hasOne(Company::className(), ['id' => 'contractor_id']);
     }
 }
