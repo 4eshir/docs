@@ -548,6 +548,7 @@ class ErrorsWork extends Errors
     {
         $result = '';
 
+        $contracts = '';
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
             \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
         {
@@ -595,6 +596,7 @@ class ErrorsWork extends Errors
     {
         $result = '';
 
+        $invoices = '';
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
             \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
         {
@@ -642,6 +644,7 @@ class ErrorsWork extends Errors
     {
         $result = '';
 
+        $materialObjects = '';
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
             \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
         {
@@ -689,6 +692,7 @@ class ErrorsWork extends Errors
     {
         $result = '';
 
+        $containers = '';
         if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7) ||
             \app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 8))   // значит админ или информатор по мат объектам
         {
