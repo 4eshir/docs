@@ -86,7 +86,7 @@ use app\models\work\UserWork;
         {
             headersContract = tableContract.querySelectorAll('th');
             tableBodyContract = tableContract.querySelector('tbody');
-            rowsContract = tableContract.querySelectorAll('tr');
+            rowsContract = tableBodyContract.querySelectorAll('tr');
         }
 
         tableInvoice = document.getElementById('invoice');
@@ -94,7 +94,7 @@ use app\models\work\UserWork;
         {
             headersInvoice = tableInvoice.querySelectorAll('th');
             tableBodyInvoice = tableInvoice.querySelector('tbody');
-            rowsInvoice = tableInvoice.querySelectorAll('tr');
+            rowsInvoice = tableBodyInvoice.querySelectorAll('tr');
         }
 
         tableMaterialObject = document.getElementById('materialObject');
@@ -102,7 +102,7 @@ use app\models\work\UserWork;
         {
             headersMaterialObject = tableMaterialObject.querySelectorAll('th');
             tableBodyMaterialObject = tableMaterialObject.querySelector('tbody');
-            rowsMaterialObject = tableMaterialObject.querySelectorAll('tr');
+            rowsMaterialObject = tableBodyMaterialObject.querySelectorAll('tr');
         }
 
         tableContainer = document.getElementById('container');
@@ -110,7 +110,7 @@ use app\models\work\UserWork;
         {
             headersContainer = tableContainer.querySelectorAll('th');
             tableBodyContainer = tableContainer.querySelector('tbody');
-            rowsContainer = tableContainer.querySelectorAll('tr');
+            rowsContainer = tableBodyContainer.querySelectorAll('tr');
         }
 
         // Направление сортировки
