@@ -418,7 +418,7 @@ class RoleBaseAccess
             {
                 for ($j = 0; $j < count(RoleBaseAccess::$access[$controllerName][$actionName]); $j++)
                     if ($accessArray[$i] == RoleBaseAccess::$access[$controllerName][$actionName][$j]
-                        && RoleBaseAccess::IsGroupAccessAllowed($userId, $groupId))
+                        && (RoleBaseAccess::IsGroupAccessAllowed($userId, $groupId) || $groupId == 0))
                         $allow = true;
             }
             else //обычный режим
