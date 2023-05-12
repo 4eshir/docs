@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\work\ContractWork;
 use Yii;
 use app\models\common\Invoice;
 use app\models\work\InvoiceWork;
@@ -382,5 +383,16 @@ class InvoiceController extends Controller
         $model->document = '';
         $model->save(false);
         return $this->redirect('index?r=invoice/update&id='.$modelId);
+    }
+
+    public function actionSubattr()
+    {
+        $contractor = Yii::$app->request->post('contractor');
+        $operations = ContractWork::find()->where(['contractor_id' => $contractor])->all();
+        if (count($operations) > 0) {
+            foreach ($operations as $operation)
+                echo "<option value='" . $operation->id . "'>" . $operation->contractFullName . "</option>";
+        } else
+            echo "<option>-</option>";
     }
 }

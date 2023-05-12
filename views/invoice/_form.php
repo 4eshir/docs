@@ -142,7 +142,17 @@ use yii\helpers\Url;
             $companies = \app\models\work\CompanyWork::find()->where(['is_contractor' => 1])->orderBy(['name' => SORT_ASC])->all();
             $items = \yii\helpers\ArrayHelper::map($companies,'id','name');
             $params = [
-                'style' => 'width: 60%'
+                'prompt' => '--',
+                'style' => 'width: 60%',
+                'onchange' => '
+                        $.post(
+                            "' . Url::toRoute('subattr') . '", 
+                            {contractor: $(this).val()},
+                            function(res){
+                                var elems = document.getElementById("invoicework-contract_id");
+                                elems.innerHTML = res;
+                            }
+                        ); ',
             ];
             echo $form->field($model, 'contractor_id')->dropDownList($items,$params);
 
@@ -151,14 +161,13 @@ use yii\helpers\Url;
 
         <div id="con_id" style="display: <?php echo $model->type == 0 || $model->type == 2 ? 'block' : 'none'?>">
             <?php
-            $contract = \app\models\work\ContractWork::find()->/*where(['is_contractor' => 1])->*/orderBy(['date' => SORT_ASC])->all();
-            $items = \yii\helpers\ArrayHelper::map($contract,'id','contractFullName');
+            $contract = \app\models\work\ContractWork::find()->where(['contractor_id' => $model->contractor_id])->orderBy(['date' => SORT_ASC])->all();
+            $items = \yii\helpers\ArrayHelper::map($contract, 'id', 'contractFullName');
             $params = [
                 'prompt' => '--',
                 'style' => 'width: 60%'
             ];
-            echo $form->field($model, 'contract_id')->dropDownList($items,$params);
-
+            echo $form->field($model, 'contract_id')->dropDownList($items, $params);
             ?>
         </div>
 
