@@ -105,6 +105,7 @@ class MaterialObjectWork extends MaterialObject
             'atContainerLink' => 'Является контейнером',
             'inContainerLink' => 'Лежит в контейнере',
             'molId' => 'МОЛ',
+            'MOL' => 'МОЛ',
         ];
     }
 
@@ -198,6 +199,14 @@ class MaterialObjectWork extends MaterialObject
         return Html::a($fullName, \yii\helpers\Url::to(['invoice/view', 'id' => $invoice->invoiceWork->id]));
     }
 
+    public function getMOL()
+    {
+        $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $this->id])->orderBy(['id' => SORT_DESC])->one();
+        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->one();
+
+        return Html::a($hist_trans->peopleGetWork->fullName, \yii\helpers\Url::to(['people/view', 'id' => $hist_trans->people_get_id]));
+    }
+
     public function getWriteOffString()
     {
         if ($this->write_off == 0)
@@ -246,8 +255,26 @@ class MaterialObjectWork extends MaterialObject
     	return parent::beforeSave($insert);
     }
 
+    //проверка на единственную запись в истории
+    public function isOnlyEntry()
+    {
+        return true;
+    }
+
     public function transferProcess($user_from, $user_to, $date)
     {
+        $history_obj = HistoryObjectWork::find()->where(['material_object_id' => $this->id])->orderBy(['id' => SORT_DESC])->one();
+
+        if ($history_obj !== null) $trans = HistoryTransactionWork::find()->where(['id' => $history_obj->history_transaction_id])->one();
+        if ($trans !== null && $trans->people_get_id == $user_to) return;
+
+        if ($trans !== null && $this->isOnlyEntry())
+        {
+            $trans->people_get_id = $user_to;
+            $trans->save();
+            return;
+        }
+
         $history_obj = new HistoryObjectWork();
         $history_obj->material_object_id = $this->id;
         $history_obj->count = 1;
@@ -256,8 +283,8 @@ class MaterialObjectWork extends MaterialObject
         else $history_obj->container_id = $curCont->container_id;
 
         $history_trans = new HistoryTransactionWork();
-        $history_trans->user_give_id = $user_from;
-        $history_trans->user_get_id = $user_to;
+        $history_trans->people_give_id = $user_from;
+        $history_trans->people_get_id = $user_to;
         $history_trans->date = $date;
         $history_trans->save();
 
@@ -267,7 +294,7 @@ class MaterialObjectWork extends MaterialObject
 
     public function afterSave($insert, $changedAttributes)
     {
-        //$this->transferProcess(null, $this->molId, '2023-05-05');
+        $this->transferProcess(null, $this->molId, '2023-05-05');
 
 
         $characts = KindCharacteristicWork::find()->where(['kind_object_id' => $this->kindWork->id])->orderBy(['characteristic_object_id' => SORT_ASC])->all();

@@ -1,5 +1,7 @@
 <?php
 
+use app\models\work\HistoryObjectWork;
+use app\models\work\HistoryTransactionWork;
 use app\models\work\MaterialObjectSubobjectWork;
 use app\models\work\SubobjectWork;
 use yii\helpers\Html;
@@ -86,6 +88,11 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     </div>
 
     <?php
+    $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $model->id])->orderBy(['id' => SORT_DESC])->one();
+    $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->one();
+
+    if ($hist_trans !== null) $model->molId = $hist_trans->people_get_id;
+
     $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
 

@@ -125,6 +125,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </div>
+
+    <div>
+        <h4><u>Материальная ответственность</u></h4>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['attribute' => 'MOL', 'format' => 'raw'],
+            ],
+        ]) ?>
+    </div>
 </div>
 
 
