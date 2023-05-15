@@ -161,7 +161,7 @@ use yii\helpers\Url;
 
         <div id="con_id" style="display: <?php echo $model->type == 0 || $model->type == 2 ? 'block' : 'none'?>">
             <?php
-            if ($model->contractor_id === null || $model->type === 1 || $model->type === 3)
+            if ($model->contractor_id === null || $model->type === 0 || $model->type === 2)
                 echo $form->field($model, 'contract_id')->dropDownList([], $params);
             else
             {
