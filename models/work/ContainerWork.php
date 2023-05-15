@@ -79,7 +79,7 @@ class ContainerWork extends Container
     	foreach ($objects as $object)
     	{
     		$obj = MaterialObjectWork::find()->where(['id' => $object->id])->one();
-    		$result .= Html::a($object->materialObjectWork->name, \yii\helpers\Url::to(['material-object/view', 'id' => $object->material_object_id])).' ('.$object->materialObjectWork->count.' шт.)<br>';
+    		$result .= Html::a($object->materialObjectWork->NameAndNumberMaterialObject, \yii\helpers\Url::to(['material-object/view', 'id' => $object->material_object_id])).'<br>';
     	}
     	return $result;
     }
