@@ -22,7 +22,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $containers = \app\models\work\ContainerWork::find()->orderBy(['name' => SORT_ASC])->all();
+    if ($model->id === null)
+        $containers = \app\models\work\ContainerWork::find()->orderBy(['name' => SORT_ASC])->all();
+    else
+        $containers = \app\models\work\ContainerWork::find()->where(['NOT IN', 'id', $model->id])->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($containers,'id','name');
     $params = [
         'prompt' => '',
@@ -35,7 +38,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
     <?php
-    $objects = \app\models\work\MaterialObjectWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $objects = \app\models\work\MaterialObjectWork::find()->where(['NOT IN', 'id',
+        (new \yii\db\Query())->select('material_object_id')->from('container_object')])->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($objects,'id','name');
     $params = [
         'prompt' => '',
@@ -48,9 +52,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
     ?>
 
 
-    <div hidden>
+    <div>
     <?php
-    $auds = \app\models\work\AuditoriumWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $auds = \app\models\work\AuditoriumWork::find()->where(['NOT IN', 'id',
+        (new \yii\db\Query())->select('auditorium_id')->from('container')])->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($auds,'id','name');
     $params = [
         'prompt' => '',
