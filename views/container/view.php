@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'objectLink', 'format' => 'raw'],
             ['attribute' => 'auditoriumLink', 'format' => 'raw'],
             ['attribute' => 'objectsInContainer', 'format' => 'raw'],
+            ['attribute' => 'containerInContainer', 'format' => 'raw'],
         ],
     ]) ?>
 
