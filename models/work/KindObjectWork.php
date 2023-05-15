@@ -48,7 +48,14 @@ class KindObjectWork extends KindObject
             $kindChar = new KindCharacteristicWork();
             $kindChar->kind_object_id = $this->id;
             $kindChar->characteristic_object_id = $newChar->id;
+
+            if (KindCharacteristicWork::find()->where(['kind_object_id' => $this->id])->andWhere(['characteristic_object_id' => $newChar->id])->one() !== null)
+            {
+                Yii::$app->session->setFlash('danger', 'Невозможно присвоить одну и ту же характеристику одному классу');
+                return;
+            }
             $kindChar->save();
+
 
             //--Если вдруг выпадающий список - то идем сюда--
             if ($char->value_type == 7)
