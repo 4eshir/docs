@@ -201,13 +201,11 @@ class MaterialObjectWork extends MaterialObject
         $containerIN = ContainerObjectWork::find()->where(['material_object_id' => $this->id])->one();
         $container = ContainerWork::find();
         $step = $containerIN->container_id;
-        while (true)
+        while ($step !== null)
         {
             $containerNext = $container->where(['id' => $step])->one();
             $result .= Html::a($containerNext->name, \yii\helpers\Url::to(['container/view', 'id' => $containerNext->id])) . ' -> ';
             $step = $containerNext->container_id;
-            if ($step === null)
-                break;
         }
         $result = substr($result,0,-4);
         return $result;
