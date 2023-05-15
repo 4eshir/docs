@@ -36,6 +36,7 @@ class ContainerWork extends Container
             'auditorium_id' => 'Является помещением (опционально)',
             'auditoriumLink' => 'Является помещением',
             'objectsInContainer' => 'Объекты в контейнере',
+            'containersInContainer' => 'Включает контейнеры',
         ];
     }
 
@@ -82,6 +83,17 @@ class ContainerWork extends Container
     		$result .= Html::a($object->materialObjectWork->NameAndNumberMaterialObject, \yii\helpers\Url::to(['material-object/view', 'id' => $object->material_object_id])).'<br>';
     	}
     	return $result;
+    }
+
+    public function getContainersInContainer()
+    {
+        $result = '';
+        $containers = ContainerWork::find()->where(['container_id' => $this->id])->all();
+        foreach ($containers as $one)
+        {
+            $result .= Html::a($one->name, \yii\helpers\Url::to(['container/view', 'id' => $one->id])).'<br>';
+        }
+        return $result;
     }
 
     public function getErrorsWork()
