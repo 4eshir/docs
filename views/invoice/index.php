@@ -23,6 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($data) {
+            $err = $data['errorsWork'] !== '';
+            if ($err)
+                return ['class' => 'danger'];
+            else
+                return ['class' => 'default'];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'contractorString', 'format' => 'raw'],
