@@ -44,6 +44,11 @@ class ObjectCharacteristicWork extends ObjectCharacteristic
     	if ($this->bool_value !== null) return $this->bool_value;
     	if ($this->date_value !== null) return $this->date_value;
     	if ($this->document_value != null && strlen($this->document_value) > 0) return $this->document_value;
+        if ($this->dropdown_value != null)
+        {
+            $result = DropdownCharacteristicObjectWork::find()->where(['id' => $this->dropdown_value])->one();
+            return $result->item;
+        }
     }
 
     /*--------------------------------------*/

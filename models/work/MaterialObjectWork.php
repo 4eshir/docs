@@ -72,6 +72,7 @@ class MaterialObjectWork extends MaterialObject
         return [
             'id' => 'ID',
             'name' => 'Наименование объекта',
+            'nameLink' => 'Наименование объекта',
             'photo_local' => 'Фото объекта (low-res)',
             'photo_cloud' => 'Фото объекта (hi-res)',
             'photoFile' => 'Фото объекта',
@@ -107,6 +108,11 @@ class MaterialObjectWork extends MaterialObject
             'molId' => 'МОЛ',
             'MOL' => 'МОЛ',
         ];
+    }
+
+    public function getNameLink()
+    {
+        return Html::a($this->name, \yii\helpers\Url::to(['material-object/view', 'id' => $this->id]));
     }
 
     public function getNameAndNumberMaterialObject()
@@ -191,9 +197,20 @@ class MaterialObjectWork extends MaterialObject
 
     public function getInContainerLink()
     {
+        $result = '';
         $containerIN = ContainerObjectWork::find()->where(['material_object_id' => $this->id])->one();
-        $container = ContainerWork::find()->where(['id' => $containerIN->id])->one();
-        return Html::a($container->name, \yii\helpers\Url::to(['container/view', 'id' => $container->id]));
+        $container = ContainerWork::find();
+        $step = $containerIN->container_id;
+        while (true)
+        {
+            $containerNext = $container->where(['id' => $step])->one();
+            $result .= Html::a($containerNext->name, \yii\helpers\Url::to(['container/view', 'id' => $containerNext->id])) . ' -> ';
+            $step = $containerNext->container_id;
+            if ($step === null)
+                break;
+        }
+        $result = substr($result,0,-4);
+        return $result;
     }
 
     public function getNumberLink()

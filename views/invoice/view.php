@@ -53,8 +53,8 @@ $this->params['breadcrumbs'][] = ['label' =>  $name[$type] . ' №' . $model->nu
         'attributes' => [
             'date_invoice',
             'number',
-            ['attribute' => 'contractorString', 'format' => 'raw'],
-            ['attribute' => 'contractString', 'format' => 'raw'],
+            ['attribute' => 'contractorLink', 'format' => 'raw'],
+            ['attribute' => 'contractLink', 'format' => 'raw'],
             'date_product',
             ['attribute' => 'documentLink', 'format' => 'raw'],
 

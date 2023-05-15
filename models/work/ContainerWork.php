@@ -121,6 +121,9 @@ class ContainerWork extends Container
                 $newObject->container_id = $this->id;
                 $newObject->material_object_id = $object->material_object_id;
                 $newObject->save();
+
+                $errorsObj = new MaterialObjectErrorsWork();
+                $errorsObj->CheckContainerMaterialObject($object->material_object_id);
             }
         }
 

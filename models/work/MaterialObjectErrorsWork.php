@@ -55,6 +55,11 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         }
     }
 
+    public function CheckContainerMaterialObject ($modelMaterialObjectID)
+    {
+        $this->CheckContainer($modelMaterialObjectID);
+    }
+
     public function CheckErrorsMaterialObject ($modelMaterialObjectID)
     {
         //$materialObject = MaterialObjectWork::find()->where(['id' => $modelMaterialObjectID])->one();

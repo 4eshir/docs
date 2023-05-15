@@ -37,6 +37,7 @@ class InvoiceWork extends Invoice
             'numberString' => 'Номер документа',
             'contractor_id' => 'Контрагент',
             'contractorString' => 'Контрагент',
+            'contractorLink' => 'Контрагент',
             'date_product' => 'Дата приема товара/материального объекта в накладной',
             'date_invoice' => 'Дата документа',
             'type' => 'Type',
@@ -45,6 +46,7 @@ class InvoiceWork extends Invoice
             'documentLink' => 'Документ основания поступления',
             'contract_id' => 'Договор',
             'contractString' => 'Договор',
+            'contractLink' => 'Договор',
         ];
     }
 
@@ -52,10 +54,22 @@ class InvoiceWork extends Invoice
     {
         $contractor = CompanyWork::find()->where(['id' => $this->contractor_id])->one();
         //return CompanyWork::find()->where(['id' => $this->contractor_id])->createCommand()->getRawSql();
+        return $contractor->name;
+    }
+
+    public function getContractorLink()
+    {
+        $contractor = CompanyWork::find()->where(['id' => $this->contractor_id])->one();
         return Html::a($contractor->name, \yii\helpers\Url::to(['company/view', 'id' => $contractor->id]));
     }
 
     public function getContractString()
+    {
+        $contract = ContractWork::find()->where(['id' => $this->contract_id])->one();
+        return $contract->contractFullName;
+    }
+
+    public function getContractLink()
     {
         $contract = ContractWork::find()->where(['id' => $this->contract_id])->one();
         return Html::a($contract->contractFullName, \yii\helpers\Url::to(['contract/view', 'id' => $contract->id]));

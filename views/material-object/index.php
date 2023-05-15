@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
+            //'name',
+            ['attribute' => 'nameLink', 'format' => 'raw'],
             //'photo_local',
             //'photo_cloud',
             //'count',

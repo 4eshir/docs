@@ -10,8 +10,10 @@ use app\models\work\MaterialObjectWork;
 /**
  * SearchMaterialObject represents the model behind the search form of `app\models\common\MaterialObject`.
  */
-class SearchMaterialObject extends MaterialObject
+class SearchMaterialObject extends MaterialObjectWork
 {
+    public $nameLink;
+
     /**
      * {@inheritdoc}
      */
@@ -21,6 +23,7 @@ class SearchMaterialObject extends MaterialObject
             [['id', 'count', 'finance_source_id', 'type', 'is_education', 'state', 'status', 'write_off', 'expiration_date'], 'integer'],
             [['name', 'photo_local', 'photo_cloud', 'attribute', 'inventory_number', 'damage', 'lifetime', 'create_date'], 'safe'],
             [['price'], 'number'],
+            [['nameLink'], 'string'],
         ];
     }
 
@@ -50,6 +53,11 @@ class SearchMaterialObject extends MaterialObject
             'query' => $query,
         ]);
 
+        $dataProvider->sort->attributes['nameLink'] = [
+            'asc' => ['name' => SORT_ASC],
+            'desc' => ['name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -74,7 +82,7 @@ class SearchMaterialObject extends MaterialObject
             'create_date' => $this->create_date,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'name', $this->nameLink])
             ->andFilterWhere(['like', 'photo_local', $this->photo_local])
             ->andFilterWhere(['like', 'photo_cloud', $this->photo_cloud])
             ->andFilterWhere(['like', 'attribute', $this->attribute])
