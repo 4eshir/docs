@@ -85,7 +85,7 @@ class ForeignEventReportModel extends \yii\base\Model
         foreach ($events1 as $event)
         {
             //ОТЛАДКА
-            $debug .= $event->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
+            $debug .= $event->name.";".$event->company->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
             //ОТЛАДКА
             $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
 
@@ -197,7 +197,7 @@ class ForeignEventReportModel extends \yii\base\Model
     {
         $header = "Отчет по учету достижений в мероприятиях за период с ".$this->start_date." по ".$this->end_date;
         //ОТЛАДКА
-        $debug = "Мероприятие;Уровень;Дата начала;Дата окончания;Кол-во инд. участников;Кол-во команд;Призеры инд.;Призеры-команды;Победители инд.;Победители-команды\r\n";
+        $debug = "Мероприятие;Организатор;Уровень;Дата начала;Дата окончания;Кол-во инд. участников;Кол-во команд;Призеры инд.;Призеры-команды;Победители инд.;Победители-команды\r\n";
         //ОТЛАДКА
 
         //Получаем группы и учеников
@@ -229,7 +229,7 @@ class ForeignEventReportModel extends \yii\base\Model
         $eIds2 = [];
         foreach ($eventParticipants as $eventParticipant) $eIds2[] = $eventParticipant->participant_id;
 
-        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
+        $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date]);
 
         //-------------------------------------------
 
