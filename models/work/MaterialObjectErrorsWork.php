@@ -55,6 +55,53 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         }
     }
 
+    private function CheckPrice ($materialObject)
+    {
+        $err = MaterialObjectErrorsWork::find()->where(['material_object_id' => $materialObject->id, 'time_the_end' => null, 'errors_id' => 55])->all();
+
+        foreach ($err as $oneErr)
+        {
+            if ($materialObject->attribute !== 'ОС' || $materialObject->price < 10000 || $materialObject->inventory_number !== null)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && $materialObject->attribute == 'ОС' && $materialObject->price >= 10000 && $materialObject->inventory_number == null)
+        {
+            $this->material_object_id = $materialObject->id;
+            $this->errors_id = 55;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckMOL ($modelMaterialObjectID)
+    {
+        $err = MaterialObjectErrorsWork::find()->where(['material_object_id' => $modelMaterialObjectID, 'time_the_end' => null, 'errors_id' => 56])->all();
+
+        $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $modelMaterialObjectID])->orderBy(['id' => SORT_DESC])->one();
+        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->one();
+
+        foreach ($err as $oneErr)
+        {
+            if (count($hist_trans) > 1)     // ошибка исправлена
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) === 0 && count($hist_trans) < 1)
+        {
+            $this->material_object_id = $modelMaterialObjectID;
+            $this->errors_id = 56;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     public function CheckContainerMaterialObject ($modelMaterialObjectID)
     {
         $this->CheckContainer($modelMaterialObjectID);
@@ -62,9 +109,11 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
 
     public function CheckErrorsMaterialObject ($modelMaterialObjectID)
     {
-        //$materialObject = MaterialObjectWork::find()->where(['id' => $modelMaterialObjectID])->one();
+        $materialObject = MaterialObjectWork::find()->where(['id' => $modelMaterialObjectID])->one();
 
         $this->CheckContainer($modelMaterialObjectID);
+        $this->CheckPrice($materialObject);
+        $this->CheckMOL($modelMaterialObjectID);
     }
 
     public function CheckErrorsMaterialObjectWithoutAmnesty ($modelMaterialObjectID)
