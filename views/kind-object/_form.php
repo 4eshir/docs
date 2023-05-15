@@ -2,6 +2,7 @@
 
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
+use yii\jui\AutoComplete;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -68,7 +69,17 @@ use yii\widgets\ActiveForm;
                                 }
                                 ?>
                                 <div class="col-xs-4">
-                                    <?php echo $form->field($modelCharacteristic, "[{$i}]name")->textInput()->label('Название характеристики'); ?>
+                                    <?php
+                                    $charNames = \app\models\work\CharacteristicObjectWork::find()->select(['name as value', 'name as label'])->asArray()->all();
+                                    echo $form->field($modelCharacteristic, "[{$i}]name")->widget(
+                                        AutoComplete::className(), [
+                                        'clientOptions' => [
+                                            'source' => $charNames,
+                                        ],
+                                        'options'=>[
+                                            'class'=>'form-control on',
+                                        ]
+                                    ])->label('Название характеристики'); ?>
                                 </div>
 
 
