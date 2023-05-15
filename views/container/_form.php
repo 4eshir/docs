@@ -76,9 +76,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 if ($objects != null)
                 {
                     echo '<table class="table table-bordered" style="margin: 15px; width: 90%">';
-                    echo '<tr><td><b>Объект</b></td><td><b>Количество</b></td><td></td></tr>';
+                    echo '<tr><td style="width: 80%"><b>Объект</b></td><td></td></tr>';
                     foreach ($objects as $object) {
-                        echo '<tr><td><h5>'.$object->materialObjectWork->name.'</h5></td><td>'.$object->materialObjectWork->count.'</td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['container/delete-object', 'id' => $object->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                        echo '<tr><td><h5>'.$object->materialObjectWork->name.'</h5></td><td>'.Html::a('Удалить', \yii\helpers\Url::to(['container/delete-object', 'id' => $object->id, 'modelId' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                     }
                     echo '</table>';
                 }
