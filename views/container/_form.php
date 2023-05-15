@@ -114,7 +114,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     foreach ($notIcludeObjects as $object) $nioIds[] = $object->material_object_id;
 
                                     $objects = \app\models\work\MaterialObjectWork::find()->where(['NOT IN', 'id', $nioIds])->orderBy(['name' => SORT_ASC])->all();
-                                    $items = \yii\helpers\ArrayHelper::map($objects,'id','name');
+                                    $items = \yii\helpers\ArrayHelper::map($objects,'id','nameAndNumberMaterialObject');
                                     $params = [
                                         'prompt' => '',
                                         'style' => 'width: 200%'

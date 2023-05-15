@@ -109,6 +109,16 @@ class MaterialObjectWork extends MaterialObject
         ];
     }
 
+    public function getNameAndNumberMaterialObject()
+    {
+        $result = $this->name;
+        if ($this->inventory_number !== '' && $this->inventory_number !== null)
+            $result .= ' (инв. № ' . $this->inventory_number . ')';
+        else
+            $result .= ' (внут. рег. № ' . $this->id . ')';
+        return $result;
+    }
+
     public function getKindWork()
     {
         return $this->hasOne(KindObjectWork::className(), ['id' => 'kind_id']);
