@@ -71,10 +71,15 @@ class KindObjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new KindObject();
+        $model = new KindObjectWork();
         $modelCharacteristics = [new CharacteristicObjectWork];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $modelCharacteristics = DynamicModel::createMultiple(CharacteristicObjectWork::classname());
+            DynamicModel::loadMultiple($modelCharacteristics, Yii::$app->request->post());
+            $model->chars = $modelCharacteristics;
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

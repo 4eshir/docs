@@ -3,6 +3,7 @@
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\jui\AutoComplete;
+use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -75,9 +76,13 @@ use yii\widgets\ActiveForm;
                                         AutoComplete::className(), [
                                         'clientOptions' => [
                                             'source' => $charNames,
+                                            'select' => new JsExpression("function( event, ui ) {
+                                                $('#names' + counter).val(ui.item.id); //#memberssearch-family_name_id is the id of hiddenInput.
+                                             }"),
                                         ],
                                         'options'=>[
-                                            'class'=>'form-control on',
+                                            'class'=>'form-control on part',
+                                            'id' => 'names0',
                                         ]
                                     ])->label('Название характеристики'); ?>
                                 </div>
@@ -113,3 +118,47 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+<script>
+    let counter = 0;
+</script>
+
+<?php
+
+$charNames = \app\models\work\CharacteristicObjectWork::find()->select(['name as value', 'name as label'])->asArray()->all();
+$jsonNames = json_encode($charNames);
+
+$js =<<< JS
+    $(".dynamicform_wrapper5").on("click", ".on", function(e) {
+        console.log($jsonNames);
+      if ( !$(this).data("autocomplete") ) {
+          e.preventDefault();
+          $(this).autocomplete({
+            source: $jsonNames,
+            select: function( event, ui ) {
+                $('#names' + counter).val(ui.item.id);
+            }
+          });
+      }
+    })
+JS;
+
+$js1 =<<< JS
+    $(".dynamicform_wrapper5").on("afterInsert", function(e, item) {
+        counter = counter + 1;
+        var elems1 = document.getElementsByClassName('part');
+        elems1[elems1.length - 1].id = 'names' + counter;
+    });
+JS;
+
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+$this->registerJs($js1, \yii\web\View::POS_LOAD);
+
+
+?>
+
+<?php
+
+?>
