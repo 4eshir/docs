@@ -398,10 +398,11 @@ class InvoiceController extends Controller
         $contractor = Yii::$app->request->post('contractor');
         $operations = ContractWork::find()->where(['contractor_id' => $contractor])->all();
         if (count($operations) > 0) {
+            echo "<option>--</option>";
             foreach ($operations as $operation)
                 echo "<option value='" . $operation->id . "'>" . $operation->contractFullName . "</option>";
         } else
-            echo "<option>-</option>";
+            echo "<option>--</option>";
     }
 
     //Проверка на права доступа к CRUD-операциям

@@ -83,16 +83,24 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             echo Html::a("Скачать электронный журнал (печатная форма)", \yii\helpers\Url::to(['training-group/download-journal', 'group_id' => $model->id]), ['class'=>'btn btn-success']);
             echo '<br><br>';
 
-            echo Html::a("Создание сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class' => 'btn btn-success',
-                        /*'disabled' => $model->finish_date >= date("Y-m-d") ? 'disabled' : '',*/
-                        'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'pointer-events: none; cursor: not-allowed; opacity: 0.65;' : '']);
-            echo '<br><br>';
-            echo Html::a("Скачать архив сертификатов", \yii\helpers\Url::to(['training-group/get-archive', 'group_id' => $model->id]), ['class' => 'btn btn-success',
-                        'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'display: none;' : '']);
+            //echo Html::a("Создание сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class' => 'btn btn-success',
+            //            'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'pointer-events: none; cursor: not-allowed; opacity: 0.65;' : '']);
+
             if (!($model->finish_date > date("Y-m-d", strtotime('+3 days'))))
+            {
+                echo Html::a("Создание сертификатов", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class' => 'btn btn-success']);
                 echo '<br><br>';
-            echo Html::a("Отправить все сертификаты по e-mail", \yii\helpers\Url::to(['training-group/send-certificats', 'group_id' => $model->id]), ['class' => 'btn btn-success',
-                        'style' => $model->finish_date > date("Y-m-d", strtotime('+3 days')) ? 'display: none;' : '']);
+                echo Html::a("Скачать архив сертификатов", \yii\helpers\Url::to(['training-group/get-archive', 'group_id' => $model->id]), ['class' => 'btn btn-success']);
+                echo '<br><br>';
+                echo Html::a("Отправить все сертификаты по e-mail", \yii\helpers\Url::to(['training-group/send-certificats', 'group_id' => $model->id]), ['class' => 'btn btn-success']);
+            }
+            else
+            {
+                echo Html::a("Создание сертификатов *", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class' => 'btn btn-success',
+                    'style' => 'pointer-events: none; cursor: not-allowed; opacity: 0.65;']);
+                echo '<br><span style="font-style: italic; font-weight: bold; color: #d9534f;">* Генерация сертификатов для данной группы будет доступна: ' . date("Y-m-d", strtotime('+3 days')) . '</span>';
+            }
+
             \yii\bootstrap\Modal::end();
         ?>
     </p>

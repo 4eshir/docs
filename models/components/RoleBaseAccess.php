@@ -43,12 +43,12 @@ class RoleBaseAccess
             "delete-auditorium" => 44,
         ],
         "company" => [
-            "index" => [43, 68],
+            "index" => 43,
             "create" => 44,
             "update" => 44,
             "delete" => 44,
-            "view" => [43, 68],
-            "find-model" => [43, 68],
+            "view" => 43,
+            "find-model" => 43,
         ],
         "event-external" => [
             "index" => 43,
