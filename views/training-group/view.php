@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
             {
                 echo Html::a("Создание сертификатов *", \yii\helpers\Url::to(['certificat/create', 'group_id' => $model->id]), ['class' => 'btn btn-success',
                     'style' => 'pointer-events: none; cursor: not-allowed; opacity: 0.65;']);
-                echo '<br><span style="font-style: italic; font-weight: bold; color: #d9534f;">* Генерация сертификатов для данной группы будет доступна: ' . date("Y-m-d", strtotime('+3 days')) . '</span>';
+                echo '<br><span style="font-style: italic; font-weight: bold; color: #d9534f;">* Генерация сертификатов для данной группы будет доступна: ' . date("Y-m-d", strtotime('-3 days', strtotime($model->finish_date))) . '</span>';
             }
 
             \yii\bootstrap\Modal::end();
