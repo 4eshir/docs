@@ -98,7 +98,7 @@ use yii\helpers\Url;
     <div style="height: 20px"></div>
 
 
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form', 'options' => ['onsubmit' => 'return val;']]); ?>
 
     <div id="invoice">
 
@@ -127,6 +127,8 @@ use yii\helpers\Url;
                     'placeholder' => 'Дата',
                     'class'=> 'form-control',
                     'autocomplete'=>'off',
+                    'id' => 'd_inv',
+                    'onchange' => 'checkTapanya()',
                 ],
                 'clientOptions' => [
                     'changeMonth' => true,
@@ -185,6 +187,8 @@ use yii\helpers\Url;
                     'placeholder' => 'Дата',
                     'class'=> 'form-control',
                     'autocomplete'=>'off',
+                    'onchange' => 'checkTapanya()',
+                    'id' => 'd_prod',
                 ],
                 'clientOptions' => [
                     'changeMonth' => true,
@@ -502,6 +506,7 @@ use yii\helpers\Url;
 
 <script type="text/javascript">
     var baseChange = null;
+    let val = true;
 
     $("input[name='InvoiceWork[type]']").on('change', function() {
         let categoryView = document.getElementById('con_id');
@@ -542,5 +547,30 @@ use yii\helpers\Url;
             cb.previousElementSibling.value = '1';
         else
             cb.previousElementSibling.value = '0';
+    }
+
+    function checkTapanya()
+    {
+        let d_inv = document.getElementById('d_inv');
+        let d_prod = document.getElementById('d_prod');
+        console.log(d_inv.value);
+        if (d_prod.value <= d_inv.value || d_inv.value === '')
+        {
+            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
+            elem.classList.add('has-error');
+            console.log(elem.querySelector('.help-block'));
+            if (elem.querySelector('.help-block').innerHTML !== 'Дата приема не может быть раньше даты документа')
+                elem.querySelector('.help-block').innerHTML += 'Дата приема не может быть раньше даты документа';
+            val = false;
+        }
+        else
+        {
+            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
+            elem.classList.remove('has-error');
+            elem.classList.add('has-success');
+            elem.querySelector('.help-block').innerHTML = '';
+            val = true;
+        }
+
     }
 </script>
