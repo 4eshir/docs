@@ -43,12 +43,12 @@ class RoleBaseAccess
             "delete-auditorium" => 44,
         ],
         "company" => [
-            "index" => 43,
+            "index" => [43, 68],
             "create" => 44,
             "update" => 44,
             "delete" => 44,
-            "view" => 43,
-            "find-model" => 43,
+            "view" => [43, 68],
+            "find-model" => [43, 68],
         ],
         "event-external" => [
             "index" => 43,
@@ -100,7 +100,47 @@ class RoleBaseAccess
         ],
         //--------------------------------------------
 
-        //Справочники по материальным ценностям
+        //Контейнеры
+        "container" => [
+            "index" => 63,
+            "create" => 61,
+            "update" => 61,
+            "delete" => 61,
+            "view" => 63,
+            //"subcat" => 63,
+            "delete-object" => 63,
+        ],
+        //---------------------
+
+        // Договора по мат.ценностям
+        "contract" => [
+            "index" => 69,
+            "create" => 70,
+            "update" => 70,
+            "delete" => 71,
+            "view" => 69,
+            "get-file" => 69,
+            "delete-file" => 70,
+        ],
+
+        // Документы о поступлении
+        "invoice" => [
+            "index" => 69,
+            "create" => 70,
+            "update" => 70,
+            "delete" => 71,
+            "view" => 69,
+            "delete-entry" => 70,
+            "update-entry" => 70,
+            "update-object" => 70,
+            "delete-entry-doc" => 70,
+            "delete-object" => 70,
+            "subcat" => 69,
+            "get-file" => 69,
+            "delete-file" => 70,
+            "get-entry-file" => 69,
+            "subattr" => 69,
+        ],
         
         //-------------------------------------
 
@@ -123,18 +163,6 @@ class RoleBaseAccess
             "getFile" => 52,
         ],
 
-        //---------------------
-
-
-        //Контейнеры
-        "container" => [
-            "index" => 63,
-            "create" => 61,
-            "update" => 61,
-            "delete" => 61,
-            "view" => 63,
-            "subcat" => 63,
-        ],
         //---------------------
 
         //Приказы
