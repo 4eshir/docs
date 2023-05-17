@@ -21,7 +21,7 @@ class InvoiceWork extends Invoice
         return [
             [['documentFile'], 'file', 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag, pdf', 'skipOnEmpty' => true],
             [['number', 'contractor_id', 'date_product', 'date_invoice'], 'required'],
-            [['contractor_id', 'type', 'contract_id'], 'integer'],
+            [['contractor_id', 'type'], 'integer'],
             [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['document'], 'string', 'max' => 1000],
