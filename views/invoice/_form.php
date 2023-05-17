@@ -33,7 +33,6 @@ use yii\helpers\Url;
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <script>
-
     function switchBlock(idBlock) {
         document.querySelector('#invoice').hidden = true;
         document.querySelector('#records').hidden = true;
@@ -81,6 +80,73 @@ use yii\helpers\Url;
     
     function hiddenBlock() {
         let element = document.getElementsByClassName('main-ch');
+
+    }
+
+    var baseChange = null;
+    let val = true;
+
+    $("input[name='InvoiceWork[type]']").on('change', function() {
+        let categoryView = document.getElementById('con_id');
+        if ($(this).val() == 0 || $(this).val() == 2)
+            categoryView.style.display = "block";
+        else
+            categoryView.style.display = "none";
+
+        let elem = document.getElementById('c_id');
+        if ($(this).val() == 3)
+        {
+            elem.style.display = "none";
+            let opElems = elem.getElementsByTagName('option');
+            let opTarget = null;
+            for (let i = 0; i < opElems.length; i++)
+            {
+                if (opElems[i].selected)
+                    baseChange = i;
+
+                opElems[i].removeAttribute('selected');
+                if (opElems[i].value == 8)
+                    opTarget = opElems[i];
+            }
+            opTarget.setAttribute('selected', 'selected');
+
+        }
+        else
+        {
+            let opElems = elem.getElementsByTagName('option');
+            opElems[baseChange].setAttribute('selected', 'selected');
+            elem.style.display = "block";
+        }
+    });
+
+    function handleClick(cb)
+    {
+        if (cb.checked == true)
+            cb.previousElementSibling.value = '1';
+        else
+            cb.previousElementSibling.value = '0';
+    }
+
+    function checkTapanya()
+    {
+        let d_inv = document.getElementById('d_inv');
+        let d_prod = document.getElementById('d_prod');
+        if (d_prod.value < d_inv.value || d_inv.value === '')
+        {
+            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
+            elem.classList.add('has-error');
+            if (elem.querySelector('.help-block').innerHTML !== 'Дата приема не может быть раньше даты документа')
+                elem.querySelector('.help-block').innerHTML += 'Дата приема не может быть раньше даты документа';
+            val = false;
+        }
+        else
+        {
+            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
+            elem.classList.remove('has-error');
+            elem.classList.add('has-success');
+            elem.querySelector('.help-block').innerHTML = '';
+            val = true;
+        }
 
     }
 </script>
@@ -502,75 +568,3 @@ use yii\helpers\Url;
     <?php ActiveForm::end(); ?>
 
 </div>
-
-
-<script type="text/javascript">
-    var baseChange = null;
-    let val = true;
-
-    $("input[name='InvoiceWork[type]']").on('change', function() {
-        let categoryView = document.getElementById('con_id');
-        if ($(this).val() == 0 || $(this).val() == 2)
-            categoryView.style.display = "block";
-        else
-            categoryView.style.display = "none";
-
-        let elem = document.getElementById('c_id');
-        if ($(this).val() == 3)
-        {
-            elem.style.display = "none";
-            let opElems = elem.getElementsByTagName('option');
-            let opTarget = null;
-            for (let i = 0; i < opElems.length; i++)
-            {
-                if (opElems[i].selected)
-                    baseChange = i;
-
-                opElems[i].removeAttribute('selected');
-                if (opElems[i].value == 8)
-                    opTarget = opElems[i];
-            }
-            opTarget.setAttribute('selected', 'selected');
-
-        }
-        else
-        {
-            let opElems = elem.getElementsByTagName('option');
-            opElems[baseChange].setAttribute('selected', 'selected');
-            elem.style.display = "block";
-        }
-    });
-
-    function handleClick(cb)
-    {
-        if (cb.checked == true)
-            cb.previousElementSibling.value = '1';
-        else
-            cb.previousElementSibling.value = '0';
-    }
-
-    function checkTapanya()
-    {
-        let d_inv = document.getElementById('d_inv');
-        let d_prod = document.getElementById('d_prod');
-        console.log(d_inv.value);
-        if (d_prod.value <= d_inv.value || d_inv.value === '')
-        {
-            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
-            elem.classList.add('has-error');
-            console.log(elem.querySelector('.help-block'));
-            if (elem.querySelector('.help-block').innerHTML !== 'Дата приема не может быть раньше даты документа')
-                elem.querySelector('.help-block').innerHTML += 'Дата приема не может быть раньше даты документа';
-            val = false;
-        }
-        else
-        {
-            let elem = document.getElementsByClassName('field-invoicework-date_product')[0];
-            elem.classList.remove('has-error');
-            elem.classList.add('has-success');
-            elem.querySelector('.help-block').innerHTML = '';
-            val = true;
-        }
-
-    }
-</script>

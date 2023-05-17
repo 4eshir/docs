@@ -2,6 +2,8 @@
 
 namespace app\models\work;
 
+use app\models\common\Company;
+use app\models\common\Contract;
 use app\models\common\Invoice;
 use app\models\work\EntryWork;
 use app\models\work\InvoiceEntryWork;
@@ -19,12 +21,13 @@ class InvoiceWork extends Invoice
 	public function rules()
     {
         return [
-            [['documentFile'], 'file', 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag, pdf', 'skipOnEmpty' => true],
+            [['number', 'contractor_id', 'date_invoice'], 'required'],
+            [['contractor_id', 'type'], 'integer'],
+            [['date_product', 'date_invoice'], 'safe'],
             [['number'], 'string', 'max' => 15],
             [['document'], 'string', 'max' => 1000],
-            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyWork::className(), 'targetAttribute' => ['contractor_id' => 'id']],
-            [['contract_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContractWork::className(), 'targetAttribute' => ['contract_id' => 'id']],
-            ['date_product', 'safe'],
+            [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['contractor_id' => 'id']],
+            [['contract_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contract::className(), 'targetAttribute' => ['contract_id' => 'id']],
         ];
     }
 
