@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\work\ContractWork */
 
 $this->title = 'Договор № ' . $model->number . ' от ' . $model->date;
-$this->params['breadcrumbs'][] = ['label' => 'Договора', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Договоры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

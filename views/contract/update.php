@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\work\ContractWork */
 
 $this->title = 'Редактировать договор: №' . $model->number;
-$this->params['breadcrumbs'][] = ['label' => 'Договора', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Договоры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Договор № ' . $model->number, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>

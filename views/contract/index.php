@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchContract */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Договора';
+$this->title = 'Договоры';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contract-index">

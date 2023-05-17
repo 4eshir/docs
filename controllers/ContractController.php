@@ -70,14 +70,16 @@ class ContractController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
 
-            $model->save(false);
-
             if ($model->scanFile !== null)
                 $model->uploadFile();
 
-            $model->save(false);
+            $isSave = $model->save(false);
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            $searchModel = new SearchContract();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $isSave ? $this->redirect(['view', 'id' => $model->id]) :
+                $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider,]);
         }
 
         return $this->render('create', [
@@ -98,15 +100,19 @@ class ContractController extends Controller
 
         $model->scanFile = $model->file;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             if ($model->validate(false)) {
                 if ($model->scanFile != null)
                     $model->uploadFile();
 
-                $model->save(false);
+                $isSave = $model->save(false);
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                $searchModel = new SearchContract();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                return $isSave ? $this->redirect(['view', 'id' => $model->id]) :
+                    $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider,]);
             }
         }
 

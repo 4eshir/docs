@@ -276,7 +276,7 @@ $img_src = "spring_item.png";
                             <h3><b>Мат. ценности</b></h3>
                         </div>
                         <ul>
-                            <li><?php echo Html::a('Договора', \yii\helpers\Url::to(['contract/index'])) ?></li>
+                            <li><?php echo Html::a('Договоры', \yii\helpers\Url::to(['contract/index'])) ?></li>
                             <li><?php echo Html::a('Документы о поступлении', \yii\helpers\Url::to(['invoice/index'])) ?></li>
                             <li><?php echo Html::a('Материальные объекты', \yii\helpers\Url::to(['material-object/index'])) ?></li>
                             <li><?php echo Html::a('Контейнеры', \yii\helpers\Url::to(['container/index'])) ?></li>

@@ -87,14 +87,16 @@ class InvoiceController extends Controller
             $model->objects = $modelObjects;
             $model->documentFile = UploadedFile::getInstance($model, 'documentFile');
 
-            $model->save(false);
-
             if ($model->documentFile !== null)
                 $model->uploadDocument();
 
-            $model->save(false);
+            $isSave = $model->save(false);
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            $searchModel = new SearchInvoice();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $isSave ? $this->redirect(['view', 'id' => $model->id]) :
+                $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
         }
 
         return $this->render('create', [
@@ -127,9 +129,14 @@ class InvoiceController extends Controller
             if ($model->documentFile !== null)
                 $model->uploadDocument();
 
-            $model->save(false);
+            $isSave = $model->save(false);
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            $searchModel = new SearchInvoice();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+            return $isSave ? $this->redirect(['view', 'id' => $model->id]) :
+                $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
         }
 
         return $this->render('update', [

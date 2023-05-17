@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\work\ContractWork */
 
 $this->title = 'Создать договор';
-$this->params['breadcrumbs'][] = ['label' => 'Договора', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Договоры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contract-create">
