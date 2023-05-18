@@ -227,7 +227,7 @@ class SiteController extends Controller
     public function actionTemp()
     {
         
-        ExcelWizard::WriteContractors('cont.xlsx');
+        //ExcelWizard::WriteContractors('cont.xlsx');
 
 
         //------------------
