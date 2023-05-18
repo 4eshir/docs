@@ -7,6 +7,7 @@ namespace app\models\components;
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
 use app\models\extended\JournalModel;
+use app\models\work\CompanyWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\LessonThemeWork;
@@ -75,12 +76,69 @@ class ExcelWizard
     static public function WriteContractors($filename)
     {
         ini_set('memory_limit', '512M');
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/contractors/'.$filename);
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/'.$filename);
         $reader = \PHPExcel_IOFactory::createReader($inputType);
-        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/contractors/'.$filename);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/'.$filename);
 
-        while ($index <= $inputData->getActiveSheet()->getHighestRow() && strlen($inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue()) > 1)
+        $index = 1;
+
+        while ($index <= $inputData->getActiveSheet()->getHighestRow())
         {
+            $inn = strval($inputData->getActiveSheet()->getCellByColumnAndRow(1, $index)->getValue());
+            $name = $inputData->getActiveSheet()->getCellByColumnAndRow(2, $index)->getValue();
+            $short_name = $inputData->getActiveSheet()->getCellByColumnAndRow(3, $index)->getValue();
+            $smsp = $inputData->getActiveSheet()->getCellByColumnAndRow(4, $index)->getValue();
+            $ownership = $inputData->getActiveSheet()->getCellByColumnAndRow(5, $index)->getValue();
+            $phone_number = $inputData->getActiveSheet()->getCellByColumnAndRow(12, $index)->getValue();
+            $okved = $inputData->getActiveSheet()->getCellByColumnAndRow(9, $index)->getValue();
+            $email = $inputData->getActiveSheet()->getCellByColumnAndRow(13, $index)->getValue();
+            $head_fio = $inputData->getActiveSheet()->getCellByColumnAndRow(10, $index)->getValue();
+
+            $smsp_r = function ($value) {
+                if ($value == 'Микропредприятие') return 1;
+                if ($value == 'Малое предприятие') return 2;
+                if ($value == 'Среднее предприятие') return 3;
+                if ($value == 'НЕ СМСП') return 7;
+                return null;
+            };
+
+            $owner_r = function ($value) {
+                if ($value == 'Бюджетное') return 1;
+                if ($value == 'Автономное') return 2;
+                if ($value == 'Казённое') return 3;
+                if ($value == 'Унитарное') return 4;
+                if ($value == 'НКО') return 5;
+                if ($value == 'Нетиповое') return 6;
+                if ($value == 'ООО') return 7;
+                if ($value == 'ИП') return 8;
+                if ($value == 'ПАО') return 9;
+                if ($value == 'АО') return 10;
+                if ($value == 'ЗАО') return 11;
+                if ($value == 'Физлицо') return 12;
+                return 13;
+            };
+
+            $newCompany = CompanyWork::find()->where(['inn' => $inn])->one();
+            if ($newCompany === null) $newCompany = new CompanyWork();
+            $newCompany->inn = $inn;
+            $newCompany->name = $name;
+            $newCompany->short_name = $short_name;
+            $newCompany->category_smsp_id = $smsp_r($smsp);
+            $newCompany->ownership_type_id = $owner_r($ownership);
+            $newCompany->phone_number = $phone_number;
+            $newCompany->okved = $okved;
+            $newCompany->email = $email;
+            $newCompany->head_fio = $head_fio;
+            $newCompany->is_contractor = 1;
+            $newCompany->save();
+
+            if (count($newCompany->getErrors()) > 0)
+            {
+                var_dump($newCompany->getErrors());
+                var_dump('<br>');
+                var_dump($newCompany);
+                var_dump('<br><br>');
+            }
 
             $index++;
         }

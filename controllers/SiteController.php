@@ -227,12 +227,7 @@ class SiteController extends Controller
     public function actionTemp()
     {
         
-        $id = Yii::$app->queue->push(new YandexDiskJob([
-            'url' => 'http://example.com/image.jpg',
-            'file' => '/tmp/image.jpg',
-        ]));
-
-        var_dump($id);
+        ExcelWizard::WriteContractors('cont.xlsx');
 
 
         //------------------
