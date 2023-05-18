@@ -230,6 +230,32 @@ class TrainingGroupWork extends TrainingGroup
         return count($visits) !== count($lessons) * count($parts);
     }
 
+    /*
+     * return
+     * 0 - Учится в группе
+     * 1 - Отчислен
+     * 2 - Переведен
+     */
+    private function CheckParticipantStatus($tgp)
+    {
+        $ordersG = OrderGroupWork::find()->where(['training_group_id' => $tgp->training_group_id])->all();
+
+
+        foreach ($ordersG as $orderG) {
+            //проверка на отчисление
+            if ($orderG->documentOrderWork->study_type == 1)
+                if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
+                    return 1;
+
+            //проверка на перевод
+            if ($orderG->documentOrderWork->study_type == 2)
+                if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
+                    return 2;
+        }
+
+        return 0;
+    }
+
     public function getParticipantNames()
     {
         $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
@@ -257,9 +283,9 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]), ['style' => 'color:red']);
             else
                 $result .= Html::a($part->participantWork->fullName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $part->participant_id]));
-            if ($part->status == 1)
+            if ($this->CheckParticipantStatus($part) == 1)
                 $result .= ' <font color=red><i>ОТЧИСЛЕН</i></font>';
-            else if ($part->status == 2)
+            else if ($this->CheckParticipantStatus($part) == 2)
                 $result .= ' <font color=red><i>ПЕРЕВЕДЕН</i></font>';
             if ($part->certificat_number != '')
                 $result .= ' Сертификат № ' . $part->certificat_number;

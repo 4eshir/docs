@@ -72,6 +72,20 @@ class ExcelWizard
         unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
     }
 
+    static public function WriteContractors($filename)
+    {
+        ini_set('memory_limit', '512M');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/contractors/'.$filename);
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/contractors/'.$filename);
+
+        while ($index <= $inputData->getActiveSheet()->getHighestRow() && strlen($inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue()) > 1)
+        {
+
+            $index++;
+        }
+    }
+
     static public function DownloadKUG($training_group_id)
     {
         ini_set('memory_limit', '512M');
