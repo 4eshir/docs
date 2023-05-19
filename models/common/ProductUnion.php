@@ -62,6 +62,6 @@ class ProductUnion extends \yii\db\ActiveRecord
      */
     public function getUnionObjects()
     {
-        return $this->hasMany(UnionObject::className(), ['complex_id' => 'id']);
+        return $this->hasMany(UnionObject::className(), ['union_id' => 'id']);
     }
 }

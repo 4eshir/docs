@@ -280,6 +280,7 @@ $img_src = "spring_item.png";
                             <li><?php echo Html::a('Документы о поступлении', \yii\helpers\Url::to(['invoice/index'])) ?></li>
                             <li><?php echo Html::a('Материальные объекты', \yii\helpers\Url::to(['material-object/index'])) ?></li>
                             <li><?php echo Html::a('Контейнеры', \yii\helpers\Url::to(['container/index'])) ?></li>
+                            <li><?php echo Html::a('Бух. объединения', \yii\helpers\Url::to(['product-union/index'])) ?></li>
                             <?php
                             if (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7)) {
                                 echo '<li>' . Html::a('Классы', \yii\helpers\Url::to(['kind-object/index'])) . '</li>';

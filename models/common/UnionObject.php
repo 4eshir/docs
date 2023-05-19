@@ -9,10 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property int $material_object_id
- * @property int $complex_id
+ * @property int $union_id
  *
- * @property ProductUnion $complex
  * @property MaterialObject $materialObject
+ * @property ProductUnion $union
  */
 class UnionObject extends \yii\db\ActiveRecord
 {
@@ -30,10 +30,10 @@ class UnionObject extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['material_object_id', 'complex_id'], 'required'],
-            [['material_object_id', 'complex_id'], 'integer'],
-            [['complex_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductUnion::className(), 'targetAttribute' => ['complex_id' => 'id']],
+            [['material_object_id', 'union_id'], 'required'],
+            [['material_object_id', 'union_id'], 'integer'],
             [['material_object_id'], 'exist', 'skipOnError' => true, 'targetClass' => MaterialObject::className(), 'targetAttribute' => ['material_object_id' => 'id']],
+            [['union_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductUnion::className(), 'targetAttribute' => ['union_id' => 'id']],
         ];
     }
 
@@ -45,18 +45,8 @@ class UnionObject extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'material_object_id' => 'Material Object ID',
-            'complex_id' => 'Complex ID',
+            'union_id' => 'Union ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Complex]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getComplex()
-    {
-        return $this->hasOne(ProductUnion::className(), ['id' => 'complex_id']);
     }
 
     /**
@@ -67,5 +57,15 @@ class UnionObject extends \yii\db\ActiveRecord
     public function getMaterialObject()
     {
         return $this->hasOne(MaterialObject::className(), ['id' => 'material_object_id']);
+    }
+
+    /**
+     * Gets query for [[Union]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUnion()
+    {
+        return $this->hasOne(ProductUnion::className(), ['id' => 'union_id']);
     }
 }
