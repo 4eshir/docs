@@ -84,16 +84,22 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $modelMaterialObjectID])->orderBy(['id' => SORT_DESC])->one();
         $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->one();
 
+        $flag = false;
+        if ($hist_trans !== null)
+            if (count($hist_trans) > 1)
+                $flag = true;
+
+
         foreach ($err as $oneErr)
         {
-            if (count($hist_trans) > 1)     // ошибка исправлена
+            if ($flag)     // ошибка исправлена
             {
                 $oneErr->time_the_end = date("Y.m.d H:i:s");
                 $oneErr->save();
             }
         }
 
-        if (count($err) === 0 && count($hist_trans) < 1)
+        if (count($err) === 0 && !$flag)
         {
             $this->material_object_id = $modelMaterialObjectID;
             $this->errors_id = 56;

@@ -21,7 +21,8 @@ use Yii;
  * @property int $is_education учебно-материально-технический ресурс или нет
  * @property int|null $state % расходования
  * @property string|null $damage описание повреждений
- * @property int|null $status 1 - нерабочее 2 - рабочее
+ * @property int|null $status 1 - нерабочее
+ 2 - рабочее
  * @property int $write_off Статус списания: 0 - все ок, 1 - хочет списаться, 2 - списан
  * @property string|null $lifetime срок эксплуатации (для неорганики)
  * @property int|null $expiration_date срок годности
@@ -54,7 +55,7 @@ class MaterialObject extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'price', 'finance_source_id', 'type', 'is_education'], 'required'],
-            [['count', 'finance_source_id', 'type', 'kind_id', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'complex'], 'integer'],
+            [['count', 'type', 'kind_id', 'is_education', 'state', 'status', 'write_off', 'expiration_date', 'complex'], 'integer'],
             [['price'], 'number'],
             [['lifetime', 'create_date'], 'safe'],
             [['name', 'photo_local', 'photo_cloud'], 'string', 'max' => 1000],

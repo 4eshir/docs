@@ -675,7 +675,7 @@ class ErrorsWork extends Errors
                     $errorName = ErrorsWork::find()->where(['id' => $error->errors_id])->one();
                     $result .= '<td style="text-align: left;">' . $errorName->number . "</td>";
                     $result .= '<td>' . $errorName->name . '</td>';
-                    $result .= '<td>' . Html::a($materialObject->name, \yii\helpers\Url::to(['contract/view', 'id' => $materialObject->id])) . '</td>';
+                    $result .= '<td>' . Html::a($materialObject->nameAndNumberMaterialObject, \yii\helpers\Url::to(['contract/view', 'id' => $materialObject->id])) . '</td>';
                     $result .= '<td>';
                     $result .= '<p style="color: red;">не указан</p>';
                     $result .= '</td>';

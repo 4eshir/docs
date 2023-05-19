@@ -355,6 +355,7 @@ use yii\helpers\Url;
                                         $finances = \app\models\work\FinanceSourceWork::find()->orderBy(['name' => SORT_ASC])->all();
                                         $items = \yii\helpers\ArrayHelper::map($finances,'id','name');
                                         $params = [
+                                            'prompt' => '--',
                                             'style' => 'width: 70%'
                                         ];
                                         echo $form->field($modelObject, "[{$i}]finance_source_id")->dropDownList($items,$params);
