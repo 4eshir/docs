@@ -242,13 +242,14 @@ class TrainingGroupWork extends TrainingGroup
 
 
         foreach ($ordersG as $orderG) {
+            $nom = NomenclatureWork::find()->where(['number' => $orderG->documentOrderWork->order_number])->andWhere(['actuality' => 0])->one();
             //проверка на отчисление
-            if ($orderG->documentOrderWork->type == 0 || $orderG->documentOrderWork->type == 11)
+            if ($nom->type == 1)
                 if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
                     return 1;
 
             //проверка на перевод
-            if ($orderG->documentOrderWork->type == 1 || $orderG->documentOrderWork->type == 10)
+            if ($nom->type == 2)
                 if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
                     return 2;
         }
