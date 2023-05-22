@@ -238,7 +238,7 @@ class TrainingGroupWork extends TrainingGroup
      */
     private function CheckParticipantStatus($tgp)
     {
-        $ordersG = OrderGroupWork::find()->where(['training_group_id' => $tgp->training_group_id])->all();
+        $ordersG = OrderGroupWork::find()->where(['training_group_id' => $tgp->training_group_id])->orderBy(['id' => SORT_DESC])->all();
 
 
         foreach ($ordersG as $orderG) {
