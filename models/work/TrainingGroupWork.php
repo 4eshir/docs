@@ -243,12 +243,12 @@ class TrainingGroupWork extends TrainingGroup
 
         foreach ($ordersG as $orderG) {
             //проверка на отчисление
-            if ($orderG->documentOrderWork->study_type == 1)
+            if ($orderG->documentOrderWork->type == 0 || $orderG->documentOrderWork->type == 11)
                 if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
                     return 1;
 
             //проверка на перевод
-            if ($orderG->documentOrderWork->study_type == 2)
+            if ($orderG->documentOrderWork->type == 1 || $orderG->documentOrderWork->type == 10)
                 if (OrderGroupParticipantWork::find()->where(['group_participant_id' => $tgp->id])->andWhere(['order_group_id' => $orderG->id])->one() !== null)
                     return 2;
         }
