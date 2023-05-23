@@ -123,17 +123,20 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
 
     public function getStudies()
     {
-        $events = TrainingGroupParticipant::find()->where(['participant_id' => $this->id])->all();
+        $events = TrainingGroupParticipantWork::find()->where(['participant_id' => $this->id])->all();
         $eventsLink = '';
         foreach ($events as $event)
         {
+            $branchSticker = '<span style="margin-right: 10px; background-color: #0b72b8; color: white; padding: 3px 10px 3px 6px; border-radius: 0 7px 7px 0">'.$event->trainingGroupWork->branch->name.'</span>';
+
+            $eventsLink .= '<div style="margin-bottom: 4px">'.$branchSticker;
             $eventsLink .= date('d.m.Y', strtotime($event->trainingGroup->start_date)).' - '.date('d.m.Y', strtotime($event->trainingGroup->finish_date)).' | ';
             $eventsLink = $eventsLink.Html::a('Группа '.$event->trainingGroup->number, \yii\helpers\Url::to(['training-group/view', 'id' => $event->training_group_id]));
 
             if ($event->trainingGroup->finish_date < date("Y-m-d"))
                 $eventsLink .= ' (группа завершила обучение)';
             else
-                $eventsLink .= ' <div style="background-color: green; display: inline"><font color="white"> (проходит обучение)</font></div>';
+                $eventsLink .= ' <div style="background-color: green; display: inline; border-radius: 5px"><font color="white"> (проходит обучение)</font></div>';
 
             if ($event->status === 2)
                 $eventsLink .= ' | Переведен';
@@ -141,7 +144,7 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             if ($event->status === 1)
                 $eventsLink .= ' | Отчислен';
 
-            $eventsLink .= '<br>';
+            $eventsLink .= '</div>';
         }
 
         return $eventsLink;
