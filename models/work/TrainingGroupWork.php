@@ -256,7 +256,7 @@ class TrainingGroupWork extends TrainingGroup
 
         return 0;
     }
-
+    //..
     public function getParticipantNames()
     {
         $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
