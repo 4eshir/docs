@@ -9,6 +9,7 @@ use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
 use app\models\work\PeopleWork;
 use app\models\work\LogWork;
+use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -226,6 +227,21 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
+
+        $groups = TrainingGroupWork::find()->all();
+        $teacherIds = [];
+        foreach ($groups as $group)
+        {
+            $tgs = TeacherGroupWork::find()->where(['training_group_id' => $group->id])->all();
+            foreach ($tgs as $tg)
+                $teacherIds[] = $tg->teacher_id;
+        }
+
+        $teachers = PeopleWork::find()->where(['IN', 'id', $teacherIds])->orderBy(['secondname' => SORT_ASC])->all();
+
+        foreach ($teachers as $teacher)
+            echo $teacher->secondname.' '.$teacher->firstname.' '.$teacher->patronymic.'<br>';
+
         
         //ExcelWizard::WriteContractors('cont.xlsx');
 
