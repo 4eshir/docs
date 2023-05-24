@@ -169,4 +169,15 @@ class DaemonController extends Controller
         Yii::$app->mailer->sendMultiple($messages);
     }
 
+    /*--Задолбал этот ЦДНТТ--
+     * | Каждое утро сверяем вчерашний бэкап с текущим                                    |
+     * | При обнаружении расхождений - сигнализируем об этом в таблицу backup_difference  |
+     * | Создаем новый бэкап групп и явок для ЦДНТТ на основе текущих данных              |
+     */
+
+    public function actionBackupVisits()
+    {
+
+    }
+
 }
