@@ -7,6 +7,8 @@ use app\models\common\ContractErrors;
 use app\models\common\MaterialObjectErrors;
 use app\models\common\TrainingGroup;
 use app\models\components\Logger;
+use app\models\work\BackupDifferenceWork;
+use app\models\work\BackupVisitWork;
 use app\models\work\ContainerErrorsWork;
 use app\models\work\ContainerWork;
 use app\models\work\ContractErrorsWork;
@@ -30,6 +32,7 @@ use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\UserRoleWork;
 use app\models\work\UserWork;
+use app\models\work\VisitWork;
 use Yii;
 use yii\web\Controller;
 
@@ -177,7 +180,31 @@ class DaemonController extends Controller
 
     public function actionBackupVisits()
     {
+        $bVisits = BackupVisitWork::find()->orderBy(['id' => SORT_ASC])->all();
+        $cVisits = VisitWork::find()->orderBy(['id' => SORT_ASC])->all();
 
+        for ($i = 0; $i < count($bVisits); $i++)
+        {
+            if ($bVisits[$i]->id == $cVisits[$i]->id && $bVisits[$i]->status !== 0 && $cVisits == 0)
+            {
+                $diff = new BackupDifferenceWork();
+                $diff->visit_id = $bVisits[$i]->id;
+                $diff->old_status = $bVisits[$i]->status;
+                $diff->date = date('Y-m-d');
+                $diff->save();
+            }
+        }
+
+        foreach ($bVisits as $bVisit) $bVisit->delete();
+        foreach ($cVisits as $cVisit)
+        {
+            $backup = new BackupVisitWork();
+            $backup->id = $cVisit->id;
+            $backup->foreign_event_participant_id = $cVisit->foreign_event_participant_id;
+            $backup->training_group_lesson_id = $cVisit->training_group_lesson_id;
+            $backup->status = $cVisit->status;
+            $backup->save();
+        }
     }
 
 }

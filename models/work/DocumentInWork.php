@@ -74,6 +74,7 @@ class DocumentInWork extends DocumentIn
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);
         $res = FileWizard::CutFilename($res);
         $this->scan = $res.'.'.$this->scanFile->extension;
+
         $this->scanFile->saveAs( $path.$res.'.'.$this->scanFile->extension);
     }
 
