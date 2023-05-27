@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             echo Html::a('ЖМЯК', ['update', 'id' => $model->id], ['class' => 'btn btn-danger', 'style' => 'height: 70%; width: 80%; line-height: 120px']);
         else
         {
+            echo '<a class="btn btn-success" href="#" style="height: 50px; width: 50px; font-size: 25px; margin-bottom: 30px;" onclick="refresh()">♺</a>';
+
             $users = TClick::find()->where(['!=', 'name', 'Админ'])->orderBy(['time' => SORT_ASC])->all();
             echo '<table class="table table-condensed">';
             foreach ($users as $user)
@@ -35,11 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
         
     </div>
 
+
 </div>
 
 
 <script type="text/javascript">
-    setInterval(function(){
-        $("#tclick-view").load("view.php #tclick-view");
-    }, 5000);
+    function refresh()
+    {
+        location.reload();
+    }
+    
 </script>
