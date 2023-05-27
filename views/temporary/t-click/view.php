@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'T Clicks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="tclick-view">
+<div id="tclick-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -36,3 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+
+<script type="text/javascript">
+    setInterval(function(){
+        $("#tclick-view").load("view.php #tclick-view");
+    }, 5000);
+</script>
