@@ -19,6 +19,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+
 /**
  * DocumentInController implements the CRUD actions for DocumentIn model.
  */
@@ -216,11 +219,25 @@ class DocumentInController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        $filePath = Yii::$app->basePath.'/upload/files/'.Yii::$app->controller->id;
+        $filePath .= $type == null ? '/' : $type.'/';
+
+        $downloadServ = FileDownloadServer($filePath, $fileName);
+        $downloadYadi = FileDownloadYandexDisk();
+
+        $downloadServ->LoadFile();
+
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        if (!$downloadYadi->success) throw new \Exception('File not found');
+
+        /*
         $file = Yii::$app->basePath . '/upload/files/document_in/' . $type . '/' . $fileName;
         if (file_exists($file)) {
             return \Yii::$app->response->sendFile($file);
         }
         throw new \Exception('File not found');
+        */
+
         //return $this->redirect('index.php?r=docs-out/index');
     }
 
