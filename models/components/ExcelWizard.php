@@ -2958,7 +2958,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+            $temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']));
            
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -2984,7 +2984,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 26, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+            $temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']));
             
             $allParts += $temp;
             $allPartsDouble += $temp1;
