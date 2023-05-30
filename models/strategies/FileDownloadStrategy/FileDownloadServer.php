@@ -4,24 +4,32 @@
 namespace app\models\strategies\FileDownloadStrategy;
 
 use app\models\strategies\FileDownloadStrategy\AbstractFileDownload;
+use Yii;
 use yii\db\ActiveRecord;
+
 
 class FileDownloadServer extends AbstractFileDownload
 {
+    public $ADDITIONAL_PATH = ''; //дополнительный путь к папке на сервере
+
     function __construct($tFilepath, $tFilename)
     {
         $this->filepath = $tFilepath;
         $this->filename = $tFilename;
+        $this->ADDITIONAL_PATH = Yii::$app->basePath;
     }
 
     public function LoadFile()
     {
-        $file = Yii::$app->basePath . '/upload/files/' . $this->filepath . '/' . $this->filename;
+        $file = $this->ADDITIONAL_PATH.$this->filepath.$this->filename;
+
         if (file_exists($file)) {
             $this->success = true;
-            return \Yii::$app->response->sendFile($file);
+            $this->file = $file;
+            return $this->success;
         }
 
         $this->success = false;
+        return $this->success;
     }
 }

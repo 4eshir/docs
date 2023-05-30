@@ -84,7 +84,7 @@ class AuditoriumWork extends Auditorium
 
     public function uploadFiles($upd = null)
     {
-        $path = '@app/upload/files/auds/';
+        $path = '@app/upload/files/auditorium/';
         $result = '';
         $counter = 0;
         if (strlen($this->files) > 3)

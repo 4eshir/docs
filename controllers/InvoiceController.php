@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\components\RoleBaseAccess;
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\ContractWork;
 use Yii;
 use app\models\common\Invoice;
@@ -365,12 +367,32 @@ class InvoiceController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-        $file = Yii::$app->basePath . '/upload/files/invoice/document/' . $type . '/' . $fileName;
-        if (file_exists($file)) {
-            return \Yii::$app->response->sendFile($file);
+
+        $filePath = '/upload/files/'.Yii::$app->controller->id;
+        $filePath .= $type == null ? '/' : '/'.$type.'/';
+
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+
+        $downloadServ->LoadFile();
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        else return \Yii::$app->response->sendFile($downloadServ->file);
+
+        if (!$downloadYadi->success) throw new \Exception('File not found');
+        else {
+
+            $fp = fopen('php://output', 'r');
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . $downloadYadi->file->size);
+
+            $downloadYadi->file->download($fp);
+
+            fseek($fp, 0);
         }
-        throw new \Exception('File not found');
-        //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionGetEntryFile($fileName = null, $modelId = null, $type = null)

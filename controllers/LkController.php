@@ -201,12 +201,7 @@ class LkController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-        $file = Yii::$app->basePath . '/upload/files/responsibility/' . $fileName;
-        if (file_exists($file)) {
-            return \Yii::$app->response->sendFile($file);
-        }
-        throw new \Exception('File not found');
-        //return $this->redirect('index.php?r=docs-out/index');
+
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null)

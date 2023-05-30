@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\AsInstallWork;
 use app\models\work\AsTypeWork;
 use app\models\work\CompanyWork;
@@ -226,18 +228,30 @@ class AsAdminController extends Controller
     public function actionGetFile($fileName = null, $modelId = null)
     {
 
-        if ($fileName !== null && !Yii::$app->user->isGuest) {
-            $currentFile = Yii::$app->basePath.'/upload/files/as_admin/'.$fileName;
-            if (is_file($currentFile)) {
-                header("Content-Type: application/octet-stream");
-                header("Accept-Ranges: bytes");
-                header("Content-Length: " . filesize($currentFile));
-                header("Content-Disposition: attachment; filename=" . $fileName);
-                readfile($currentFile);
-                return $this->redirect('index.php?r=docs-out/create');
-            };
+        $filePath = '/upload/files/'.Yii::$app->controller->id;
+
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+
+        $downloadServ->LoadFile();
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        else return \Yii::$app->response->sendFile($downloadServ->file);
+
+        if (!$downloadYadi->success) throw new \Exception('File not found');
+        else {
+
+            $fp = fopen('php://output', 'r');
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . $downloadYadi->file->size);
+
+            $downloadYadi->file->download($fp);
+
+            fseek($fp, 0);
         }
-        //return $this->redirect('index.php?r=docs-out/index');
     }
 
 

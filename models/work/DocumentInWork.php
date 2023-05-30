@@ -55,7 +55,7 @@ class DocumentInWork extends DocumentIn
     {
         //var_dump($this->scanFile);
 
-        $path = '@app/upload/files/document_in/scan/';
+        $path = '@app/upload/files/document-in/scan/';
         $date = $this->local_date;
         $new_date = '';
         $filename = '';
@@ -80,7 +80,7 @@ class DocumentInWork extends DocumentIn
 
     public function uploadApplicationFiles($upd = null)
     {
-        $path = '@app/upload/files/document_in/apps/';
+        $path = '@app/upload/files/document-in/apps/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)
@@ -116,7 +116,7 @@ class DocumentInWork extends DocumentIn
 
     public function uploadDocFiles($upd = null)
     {
-        $path = '@app/upload/files/document_in/docs/';
+        $path = '@app/upload/files/document-in/docs/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)

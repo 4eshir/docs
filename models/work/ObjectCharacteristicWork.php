@@ -60,7 +60,7 @@ class ObjectCharacteristicWork extends ObjectCharacteristic
 
     public function uploadDocument()
     {
-        $path = '@app/upload/files/material_object/characteristic/';
+        $path = '@app/upload/files/material-object/characteristic/';
         $filename = '';
         $filename = 'Док.'.$this->document_value.'_'.$this->id;
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);

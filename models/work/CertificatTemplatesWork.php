@@ -65,7 +65,7 @@ class CertificatTemplatesWork extends CertificatTemplates
 
     public function uploadTemplateFile()
     {
-        $path = '@app/upload/files/certificat_templates/';
+        $path = '@app/upload/files/certificat-templates/';
         $filename = 'Шаблон "'.$this->name.'"';
         $res = mb_ereg_replace('[ ]{1,}', '_', $filename);
         $res = mb_ereg_replace('[^а-яА-Я0-9._]{1}', '', $res);

@@ -225,7 +225,7 @@ class DocumentOrderWork extends DocumentOrder
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/order/scan/';
+        $path = '@app/upload/files/document-order/scan/';
         $date = $this->order_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -248,7 +248,7 @@ class DocumentOrderWork extends DocumentOrder
 
     public function uploadDocFiles($upd = null)
     {
-        $path = '@app/upload/files/order/docs/';
+        $path = '@app/upload/files/document-order/docs/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)

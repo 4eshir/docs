@@ -8,11 +8,11 @@ use Arhitector\Yandex\Disk;
 
 class YandexDiskContext
 {
-    const OAUTH_TOKEN = "y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50";
+    const OAUTH_TOKEN = "y0_AgAEA7qkEK7HAAn5LwAAAADkMhh1CPjqd4DtS52DG7Vyd3i0JNf-NxY";
 
     static public function CheckSameFile($filepath)
     {
-        $disk = new Disk(YandexDiskContext::$oauth_token);
+        $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
 
         $resource = $disk->getResource($filepath);
 
@@ -25,17 +25,8 @@ class YandexDiskContext
 
         $resource = $disk->getResource($filepath.$filename);
 
-        $fp = fopen('php://output', 'r');
+        return $resource;
 
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=' . $filename);
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . $resource->size);
-
-        $resource->download($fp);
-
-        fseek($fp, 0);
     }
 
     static public function UploadFileOnDisk($disk_filepath, $local_filepath)

@@ -332,7 +332,7 @@ class ForeignEventWork extends ForeignEvent
 
     public function uploadAchievementsFile()
     {
-        $path = '@app/upload/files/foreign_event/achievements_files/';
+        $path = '@app/upload/files/foreign-event/achievements_files/';
         $date = $this->start_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)

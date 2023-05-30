@@ -125,7 +125,7 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function uploadParticipantFiles()
     {
-        $path = '@app/upload/files/foreign_event/participants/';
+        $path = '@app/upload/files/foreign-event/participants/';
         $date = $this->foreignEvent->start_date;
         $new_date = '';
         $filename = '';
