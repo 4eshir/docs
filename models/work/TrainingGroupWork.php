@@ -524,7 +524,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/present_data/';
+            $path = '@app/upload/files/training-group/present_data/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -562,7 +562,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/work_data/';
+            $path = '@app/upload/files/training-group/work_data/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
