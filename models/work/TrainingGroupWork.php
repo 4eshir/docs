@@ -491,7 +491,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/photos/';
+            $path = '@app/upload/files/training-group/photos/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
