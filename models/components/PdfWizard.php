@@ -79,7 +79,7 @@ class PdfWizard
         }
 
         $content = '<body style="
-                                 background: url('. Yii::$app->basePath . '/upload/files/certificat_templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
+                                 background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;
                                  background-size: 10%;">
             <div>
             <table>
