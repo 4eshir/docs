@@ -506,7 +506,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadPresentDataFile($upd = null)
     {
-        $path = '/upload/files/training-group/present_data/';
+        $path = '/upload/files/training-group/present-data/';
         $result = '';
         $counter = 0;
         if (strlen($this->present_data) > 3)
@@ -539,7 +539,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadWorkDataFile($upd = null)
     {
-        $path = '/upload/files/training-group/work_data/';
+        $path = '/upload/files/training-group/work-data/';
         $result = '';
         $counter = 0;
         if (strlen($this->work_data) > 3)
