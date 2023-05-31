@@ -307,10 +307,11 @@ class EventController extends Controller
 
     //-------------------------
 
-    public function actionGetFile($fileName = null)
+    public function actionGetFile($fileName = null, $type = null)
     {
 
-        $filePath = '/upload/files/'.Yii::$app->controller->id.'/';
+        $filePath = '/upload/files/'.Yii::$app->controller->id;
+        $filePath .= $type == null ? '/' : '/'.$type.'/';
 
         $downloadServ = new FileDownloadServer($filePath, $fileName);
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
