@@ -4,10 +4,10 @@
 namespace app\models\strategies\FileDownloadStrategy;
 
 use app\models\components\YandexDiskContext;
-use app\models\strategies\FileDownloadStrategy\AbstractFileDownload;
+use app\models\strategies\FileDownloadStrategy\AbstractFileUpload;
 use yii\db\ActiveRecord;
 
-class FileDownloadYandexDisk extends AbstractFileDownload
+class FileUploadYandexDisk extends AbstractFileUpload
 {
     const ADDITIONAL_PATH = 'DSSD'; //дополнительный путь к папке на яндекс диске
 
@@ -19,8 +19,6 @@ class FileDownloadYandexDisk extends AbstractFileDownload
     
     public function LoadFile()
     {
-        $res = YandexDiskContext::GetFileFromDisk(self::ADDITIONAL_PATH.$this->filepath, $this->filename);
-        $this->file = $res;
-        $this->success = true;
+        //nothing
     }
 }

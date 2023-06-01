@@ -3,12 +3,12 @@
 
 namespace app\models\strategies\FileDownloadStrategy;
 
-use app\models\strategies\FileDownloadStrategy\AbstractFileDownload;
+use app\models\strategies\FileDownloadStrategy\AbstractFileUpload;
 use Yii;
 use yii\db\ActiveRecord;
 
 
-class FileDownloadServer extends AbstractFileDownload
+class FileUploadServer extends AbstractFileUpload
 {
     public $ADDITIONAL_PATH = ''; //дополнительный путь к папке на сервере
 

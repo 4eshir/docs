@@ -20,8 +20,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
-use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
-use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+use app\models\strategies\FileDownloadStrategy\FileUploadServer;
+use app\models\strategies\FileDownloadStrategy\FileUploadYandexDisk;
 
 /**
  * DocumentInController implements the CRUD actions for DocumentIn model.
@@ -223,8 +223,8 @@ class DocumentInController extends Controller
         $filePath = '/upload/files/'.Yii::$app->controller->id;
         $filePath .= $type == null ? '/' : '/'.$type.'/';
 
-        $downloadServ = new FileDownloadServer($filePath, $fileName);
-        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+        $downloadServ = new FileUploadServer($filePath, $fileName);
+        $downloadYadi = new FileUploadYandexDisk($filePath, $fileName);
 
         $downloadServ->LoadFile();
         if (!$downloadServ->success) $downloadYadi->LoadFile();

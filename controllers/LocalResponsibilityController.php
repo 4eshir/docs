@@ -4,8 +4,8 @@ namespace app\controllers;
 
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
-use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
-use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+use app\models\strategies\FileDownloadStrategy\FileUploadServer;
+use app\models\strategies\FileDownloadStrategy\FileUploadYandexDisk;
 use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\LegacyResponsibleWork;
@@ -142,8 +142,8 @@ class LocalResponsibilityController extends Controller
         $filePath = '/upload/files/'.Yii::$app->controller->id;
         $filePath .= $type == null ? '/' : '/'.$type.'/';
 
-        $downloadServ = new FileDownloadServer($filePath, $fileName);
-        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+        $downloadServ = new FileUploadServer($filePath, $fileName);
+        $downloadYadi = new FileUploadYandexDisk($filePath, $fileName);
 
         $downloadServ->LoadFile();
         if (!$downloadServ->success) $downloadYadi->LoadFile();
