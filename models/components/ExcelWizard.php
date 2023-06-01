@@ -2851,7 +2851,7 @@ class ExcelWizard
             $sumArrCom[] = $sumCom;
         }
 
-        //var_dump($sumArr);
+        var_dump($allGroups);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);

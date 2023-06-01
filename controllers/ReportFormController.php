@@ -11,6 +11,8 @@ use app\models\extended\ReportFormModel;
 use app\models\extended\ManHoursReportModel;
 use app\models\extended\ResultReportModel;
 use app\models\extended\UsefulSideReportModel;
+use app\models\work\RoleWork;
+use kartik\mpdf\Pdf;
 use Yii;
 use app\models\work\PositionWork;
 use app\models\SearchPosition;
