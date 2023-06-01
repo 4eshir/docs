@@ -2956,7 +2956,7 @@ class ExcelWizard
             $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[3], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, 111);
 
             $temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[3], ['Мужской', 'Женский']));
            
