@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\models\strategies\FileDownloadStrategy;
+namespace app\models\strategies\FileUploadStrategy;
 
 
 use yii\db\ActiveRecord;

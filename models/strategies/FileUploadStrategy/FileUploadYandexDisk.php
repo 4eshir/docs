@@ -1,10 +1,10 @@
 <?php
 
 
-namespace app\models\strategies\FileDownloadStrategy;
+namespace app\models\strategies\FileUploadStrategy;
 
 use app\models\components\YandexDiskContext;
-use app\models\strategies\FileDownloadStrategy\AbstractFileUpload;
+use app\models\strategies\FileUploadStrategy\AbstractFileUpload;
 use yii\db\ActiveRecord;
 
 class FileUploadYandexDisk extends AbstractFileUpload
