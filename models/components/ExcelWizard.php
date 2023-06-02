@@ -52,9 +52,9 @@ class ExcelWizard
     static public function WriteUtp($filename, $training_program_id)
     {
         ini_set('memory_limit', '512M');
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
         $reader = \PHPExcel_IOFactory::createReader($inputType);
-        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
         $index = 2;
         while ($index <= $inputData->getActiveSheet()->getHighestRow() && strlen($inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue()) > 1)
         {
@@ -70,7 +70,7 @@ class ExcelWizard
             $tp->save();
             $index++;
         }
-        unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        unlink(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
     }
 
     static public function WriteContractors($filename)
