@@ -8,7 +8,7 @@ use Yii;
 use yii\db\ActiveRecord;
 
 
-class FileUploadServer extends AbstractFileUpload
+class FileDownloadServer extends AbstractFileDownload
 {
     public $ADDITIONAL_PATH = ''; //дополнительный путь к папке на сервере
 

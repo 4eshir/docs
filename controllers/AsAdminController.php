@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\strategies\FileDownloadStrategy\FileUploadServer;
-use app\models\strategies\FileDownloadStrategy\FileUploadYandexDisk;
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\AsInstallWork;
 use app\models\work\AsTypeWork;
 use app\models\work\CompanyWork;
@@ -230,8 +230,8 @@ class AsAdminController extends Controller
 
         $filePath = '/upload/files/'.Yii::$app->controller->id;
 
-        $downloadServ = new FileUploadServer($filePath, $fileName);
-        $downloadYadi = new FileUploadYandexDisk($filePath, $fileName);
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
 
         $downloadServ->LoadFile();
         if (!$downloadServ->success) $downloadYadi->LoadFile();

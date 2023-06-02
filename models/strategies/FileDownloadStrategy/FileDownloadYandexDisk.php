@@ -7,7 +7,7 @@ use app\models\components\YandexDiskContext;
 use app\models\strategies\FileDownloadStrategy\AbstractFileUpload;
 use yii\db\ActiveRecord;
 
-class FileUploadYandexDisk extends AbstractFileUpload
+class FileDownloadYandexDisk extends AbstractFileDownload
 {
     const ADDITIONAL_PATH = 'DSSD'; //дополнительный путь к папке на яндекс диске
 
