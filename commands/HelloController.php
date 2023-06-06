@@ -7,8 +7,14 @@
 
 namespace app\commands;
 
+use app\models\LoginForm;
+use app\models\work\VisitWork;
+use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\Console;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -20,32 +26,6 @@ use yii\console\ExitCode;
  */
 class HelloController extends Controller
 {
-
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -65,7 +45,9 @@ class HelloController extends Controller
      */
     public function actionIndex($message = 'hello world')
     {
-        echo $message . "\n";
+
+        $this->stdout($message."\n", Console::FG_RED);
+        //echo '<color="green">'.$message.'</color>' . "\n";
 
         return ExitCode::OK;
     }
