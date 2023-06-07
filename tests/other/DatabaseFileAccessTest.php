@@ -61,7 +61,7 @@ class DatabaseFileAccessTest
                     if ($row[$tableColumn->fileColumns[$i]] !== null && strlen($row[$tableColumn->fileColumns[$i]]) > 1)
                     {
                         $oneFile = new FileAccessModel();
-                        $oneFile->filepath = Yii::$app->basePath.'\\' .$tableColumn->pathes[$i].'\\'.$row[$tableColumn->fileColumns[$i]];
+                        $oneFile->filepath = Yii::$app->basePath.'//' .$tableColumn->pathes[$i].'//'.$row[$tableColumn->fileColumns[$i]];
                         $oneFile->access = $this->CheckFileAvailable($oneFile);
                         $fileAccesses[] = $oneFile;
                     }
