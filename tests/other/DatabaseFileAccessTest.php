@@ -31,16 +31,16 @@ class DatabaseFileAccessTest
     //--Описание всех таблиц, содержащих ссылки на файлы--
     function __construct()
     {
-        $documentIn = new TableColumnNames(DocumentInWork::find(), ['scan', 'doc', 'applications'], ['upload\files\document-in\scan', 'upload\files\document-in\docs', 'upload\files\document-in\apps']);
-        $documentOut = new TableColumnNames(DocumentOutWork::find(), ['Scan', 'doc', 'applications'], ['upload\files\document-out\scan', 'upload\files\document-out\docs', 'upload\files\document-out\apps']);
-        $documentOrder = new TableColumnNames(DocumentOrderWork::find(), ['scan', 'doc'], ['upload\files\document-order\scan', 'upload\files\document-order\docs']);
-        $event = new TableColumnNames(EventWork::find(), ['protocol', 'photos', 'reporting_doc', 'other_files'], ['upload\files\event\protocol', 'upload\files\event\photos', 'upload\files\event\reporting', 'upload\files\event\other']);
-        $foreignEvent = new TableColumnNames(ForeignEventWork::find(), ['docs_achievement'], ['upload\files\foreign-event\docs_achievement']);
-        $invoice = new TableColumnNames(InvoiceWork::find(), ['document'], ['upload\files\invoice\document']);
-        $participantsFile = new TableColumnNames(ParticipantFilesWork::find(), ['filename'], ['upload\files\foreign-event\participants']);
-        $regulation = new TableColumnNames(RegulationWork::find(), ['scan'], ['upload\files\regulation']);
-        $trainingGroup = new TableColumnNames(TrainingGroupWork::find(), ['photos', 'present_data', 'work_data'], ['upload\files\training-group\photos', 'upload\files\training-group\present_data', 'upload\files\training-group\work_data']);
-        $trainingProgram = new TableColumnNames(TrainingProgramWork::find(), ['doc_file', 'edit_docs', 'contract'], ['upload\files\training-program\doc', 'upload\files\training-program\edit_docs', 'upload\files\training-program\contract']);
+        $documentIn = new TableColumnNames(DocumentInWork::find(), ['scan', 'doc', 'applications'], ['upload/files/document-in/scan', 'upload/files/document-in/docs', 'upload/files/document-in/apps']);
+        $documentOut = new TableColumnNames(DocumentOutWork::find(), ['Scan', 'doc', 'applications'], ['upload/files/document-out/scan', 'upload/files/document-out/docs', 'upload/files/document-out/apps']);
+        $documentOrder = new TableColumnNames(DocumentOrderWork::find(), ['scan', 'doc'], ['upload/files/document-order/scan', 'upload/files/document-order/docs']);
+        $event = new TableColumnNames(EventWork::find(), ['protocol', 'photos', 'reporting_doc', 'other_files'], ['upload/files/event/protocol', 'upload/files/event/photos', 'upload/files/event/reporting', 'upload/files/event/other']);
+        $foreignEvent = new TableColumnNames(ForeignEventWork::find(), ['docs_achievement'], ['upload/files/foreign-event/docs_achievement']);
+        $invoice = new TableColumnNames(InvoiceWork::find(), ['document'], ['upload/files/invoice/document']);
+        $participantsFile = new TableColumnNames(ParticipantFilesWork::find(), ['filename'], ['upload/files/foreign-event/participants']);
+        $regulation = new TableColumnNames(RegulationWork::find(), ['scan'], ['upload/files/regulation']);
+        $trainingGroup = new TableColumnNames(TrainingGroupWork::find(), ['photos', 'present_data', 'work_data'], ['upload/files/training-group/photos', 'upload/files/training-group/present_data', 'upload/files/training-group/work_data']);
+        $trainingProgram = new TableColumnNames(TrainingProgramWork::find(), ['doc_file', 'edit_docs', 'contract'], ['upload/files/training-program/doc', 'upload/files/training-program/edit_docs', 'upload/files/training-program/contract']);
 
         $this->tableColumns = [$documentIn, $documentOut, $documentOrder, $event, $foreignEvent, $invoice, $participantsFile, $regulation, $trainingGroup, $trainingProgram];
     }
