@@ -46,7 +46,7 @@ class DatabaseTestController extends Controller
      */
     public function actionCheckFileAccess()
     {
-        $res = file_exists('/var/www/u1471742/data/www/index.schooltech.ru/docs//upload/files/training-program/doc/') ? '+' : '-';
+        $res = file_exists('/var/www/u1471742/data/www/index.schooltech.ru/docs//upload/files/training-program/edit_docs/') ? '+' : '-';
         $this->stdout($res."\n", Console::FG_GREEN);
 
         /*
