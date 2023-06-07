@@ -49,6 +49,7 @@ class DatabaseTestController extends Controller
         $this->stdout(file_exists('/var/www/u1471742/data/www/index.schooltech.ru/docs//upload/files/training-program/edit_docs/Ред1_20230515_Олимпиадная_физика_в_экспериментальных_задачах._Вводный_уровень.docx
 '));
 
+        /*
         $tester = new DatabaseFileAccessTest();
         $accesses = $tester->GetFileAccess();
 
@@ -60,7 +61,7 @@ class DatabaseTestController extends Controller
                 $this->stdout("-".$one->filepath."\n", Console::FG_RED);
 
         }
-
+        */
         return ExitCode::OK;
     }
 
