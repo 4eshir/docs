@@ -61,8 +61,14 @@ class DatabaseFileAccessTest
                     if ($row[$tableColumn->fileColumns[$i]] !== null && strlen($row[$tableColumn->fileColumns[$i]]) > 1)
                     {
                         $oneFile = new FileAccessModel();
-                        $oneFile->filepath = Yii::$app->basePath.'//' .$tableColumn->pathes[$i].'//'.$row[$tableColumn->fileColumns[$i]];
-                        $oneFile->access = $this->CheckFileAvailable($oneFile);
+
+                        $pathes = $this->SplitFilenames($tableColumn->pathes[$i]);
+                        foreach ($pathes as $path)
+                        {
+                            $oneFile->filepath = Yii::$app->basePath.'//' .$path.'//'.$row[$tableColumn->fileColumns[$i]];
+                            $oneFile->access = $this->CheckFileAvailable($oneFile);
+                        }
+                        
                         $fileAccesses[] = $oneFile;
                     }
 
@@ -81,5 +87,12 @@ class DatabaseFileAccessTest
             return true;
         else
             return false;
+    }
+
+    //--Разделение строки на несколько имен файлов--
+    private function SplitFilenames($filenames)
+    {
+        $split = explode(" ", $filenames);
+        return $split;
     }
 }
