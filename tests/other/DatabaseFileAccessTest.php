@@ -3,6 +3,8 @@
 namespace tests\other;
 
 use app\models\common\TrainingProgram;
+use app\models\components\YandexDiskContext;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\DocumentInWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
@@ -68,7 +70,7 @@ class DatabaseFileAccessTest
                             {
                                 $oneFile = new FileAccessModel();
                                 $oneFile->filepath = Yii::$app->basePath.'//' .$tableColumn->pathes[$i].'//'.$file;
-                                $oneFile->access = $this->CheckFileAvailable($oneFile);
+                                $this->CheckFileAvailable($oneFile);
                                 $fileAccesses[] = $oneFile;
                             }
 
@@ -87,10 +89,22 @@ class DatabaseFileAccessTest
     private function CheckFileAvailable($file)
     {
 
-        if (file_exists($file->filepath))
-            return true;
+        // Проверка нахождения файла на сервере
+        /*if (file_exists($file->filepath))
+        {
+            $file->access = true;
+            $file->repoType = FileAccessModel::SERV;
+        }
+        // Проверка нахождения файла на Яндекс.Диске
+        else */if (YandexDiskContext::CheckSameFile(FileDownloadYandexDisk::ADDITIONAL_PATH.'\\'.$file->filepath))
+        {
+            $file->access = true;
+            $file->repoType = FileAccessModel::YADI;
+        }
+        // Файл не найден
         else
-            return false;
+            $file->access = false;
+
     }
 
     //--Разделение строки на несколько имен файлов--
