@@ -14,7 +14,9 @@ class YandexDiskContext
     {
         $disk = new Disk(YandexDiskContext::OAUTH_TOKEN);
 
-        $resource = $disk->getResource($filepath);
+        $resource = $disk->getResource('disk:/'.$filepath);
+
+        var_dump($filepath);
 
         return $resource->has();
     }

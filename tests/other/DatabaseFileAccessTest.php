@@ -49,27 +49,42 @@ class DatabaseFileAccessTest
 
 
     //--Основной метод проверки всех файлов на доступность--
-    public function GetFileAccess()
+    // part - частичная проверка по массиву tableColumns.
+    // - 'all' - по всему массиву
+    // - [0, 1...] - часть массива по индексам
+    public function GetFileAccess($part = 'all')
     {
+        $newTableColumns = [];
+        if ($part !== 'all')
+            foreach ($part as $one)
+                $newTableColumns[] = $this->tableColumns[$one];
+        else
+            $newTableColumns = $this->tableColumns;
+
+
         $fileAccesses = [];
 
-        foreach ($this->tableColumns as $tableColumn)
+        $allTables = [];
+        foreach ($newTableColumns as $tableColumn)
+            $allTables[] = $tableColumn->tableName->all();
+
+        for ($j = 0; $j < count($newTableColumns); $j++)
         {
-            $rows = $tableColumn->tableName->all();
+            $rows = $allTables[$j];
             foreach ($rows as $row)
             {
-                for ($i = 0; $i < count($tableColumn->fileColumns); $i++)
+                for ($i = 0; $i < count($newTableColumns[$j]->fileColumns); $i++)
                 {
-                    if ($row[$tableColumn->fileColumns[$i]] !== null && strlen($row[$tableColumn->fileColumns[$i]]) > 1)
+                    if ($row[$newTableColumns[$j]->fileColumns[$i]] !== null && strlen($row[$newTableColumns[$j]->fileColumns[$i]]) > 1)
                     {
 
-                        $files = $this->SplitFilenames($row[$tableColumn->fileColumns[$i]]);
+                        $files = $this->SplitFilenames($row[$newTableColumns[$j]->fileColumns[$i]]);
                         foreach ($files as $file)
                         {
                             if (strlen($file) > 1)
                             {
                                 $oneFile = new FileAccessModel();
-                                $oneFile->filepath = Yii::$app->basePath.'//' .$tableColumn->pathes[$i].'//'.$file;
+                                $oneFile->filepath = '/' .$newTableColumns[$j]->pathes[$i].'/'.$file;
                                 $this->CheckFileAvailable($oneFile);
                                 $fileAccesses[] = $oneFile;
                             }
@@ -90,13 +105,13 @@ class DatabaseFileAccessTest
     {
 
         // Проверка нахождения файла на сервере
-        /*if (file_exists($file->filepath))
+        if (file_exists(Yii::$app->basePath.$file->filepath))
         {
             $file->access = true;
             $file->repoType = FileAccessModel::SERV;
         }
         // Проверка нахождения файла на Яндекс.Диске
-        else */if (YandexDiskContext::CheckSameFile(FileDownloadYandexDisk::ADDITIONAL_PATH.'\\'.$file->filepath))
+        else if (YandexDiskContext::CheckSameFile(FileDownloadYandexDisk::ADDITIONAL_PATH.$file->filepath))
         {
             $file->access = true;
             $file->repoType = FileAccessModel::YADI;

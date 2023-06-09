@@ -7,9 +7,12 @@
 
 namespace app\commands;
 
+use app\models\components\YandexDiskContext;
 use app\models\LoginForm;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\VisitWork;
 use tests\other\DatabaseFileAccessTest;
+use tests\other\models\FileAccessTest\FileAccessModel;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -46,21 +49,40 @@ class DatabaseTestController extends Controller
      */
     public function actionCheckFileAccess()
     {
-        /*$res = file_exists('/var/www/u1471742/data/www/index.schooltech.ru/docs//upload/files/training-program/edit_docs/Ред1_20230515_Олимпиадная_физика_в_экспериментальных_задачах._Вводный_уровень.docx') ? '+' : '-';
+        /*$res = YandexDiskContext::CheckSameFile(FileDownloadYandexDisk::ADDITIONAL_PATH.'/upload/files/document-in/scan/Вх.20210111_1_Минобр_АО_О_внесении_изменений_в_состав_рабочей_группы_по_созданию_регионального_центра_Астриус.pdf') ? 'YES' : 'NO';
         $this->stdout($res."\n", Console::FG_GREEN);*/
 
+        $serverCount = 0;
+        $yadiCount = 0;
+        $dropCount = 0;
+
+        $dropFilepathes = [];
 
         $tester = new DatabaseFileAccessTest();
-        $accesses = $tester->GetFileAccess();
+        $accesses = $tester->GetFileAccess([0]);
 
         foreach ($accesses as $one)
         {
             if ($one->access)
-                $this->stdout("+".$one->filepath."\n", Console::FG_GREEN);
+            {
+                if ($one->repoType == FileAccessModel::SERV) $serverCount += 1;
+                if ($one->repoType == FileAccessModel::YADI) $yadiCount += 1;
+            }
             else
-                $this->stdout("-".$one->filepath."\n", Console::FG_RED);
+            {
+                $dropCount += 1;
+                $dropFilepathes[] = $one->filepath;
 
+            }
         }
+
+
+        $this->stdout("Files status\n", Console::FG_YELLOW);
+        $this->stdout("On Server: ".$serverCount." || On Yandex: ".$yadiCount." || Dropped: ".$dropCount."\n\n", Console::FG_GREEN);
+
+        $this->stdout("-------------\nDropped files\n-------------\n", Console::FG_YELLOW);
+        foreach ($dropFilepathes as $path)
+            $this->stdout($path."\n", Console::FG_RED);
 
         return ExitCode::OK;
     }
