@@ -168,6 +168,7 @@ class PdfWizard
 
         $mpdf = $pdf->api; // fetches mpdf api
         $mpdf->WriteHtml($content); // call mpdf write html
+        $mpdf->setProtection(array('print', 'print-highres'));
 
         if ($destination == 'download')
         {
