@@ -133,15 +133,6 @@ class PdfWizard
                     </td>
                     <td style="">
                        <img width="332" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal2.png">';
-        else if ($date <= "2023-07-05" && $date != "2023-06-05")
-            $content .= '
-                        И. Г. Воеводин <br>
-                        и.о. директора <br>
-                        ГАОУ АО ДО "РШТ" <br>
-                        г. Астрахань - ' . date("Y", strtotime($date)) . '
-                    </td>
-                    <td style="">';
-                       //<img width="332" height="202" src="'.Yii::$app->basePath . '/templates/' .'seal2.png">';
         else
             $content .= '
                         В.В. Войков <br>
