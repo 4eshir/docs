@@ -514,10 +514,11 @@ class ManHoursReportModel extends \yii\base\Model
                 $debug2 .= "\r\n";
                 //----------------
             }
+
+            var_dump($DEBUG_SUM);
         }
         $result = $result.'</table>';
 
-        //var_dump($DEBUG_SUM);
 
         return [$result, $debug, $debug2, $header];
     }
