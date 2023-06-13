@@ -1406,6 +1406,8 @@ class ExcelWizard
 
     static public function DownloadDod($start_date, $end_date)
     {
+        $DEBUG_SUM = 0;
+
         $counter = 0;
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_1_DOD.xlsx');
@@ -1426,7 +1428,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
             ->all();
 
-        var_dump(count($groups));
+        $DEBUG_SUM += count($groups);
 
         
         foreach ($groups as $group) $groupsId[] = $group->id;
@@ -1534,6 +1536,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 4])])
             ->all();
 
+        $DEBUG_SUM += count($groups);
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -1655,7 +1658,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->all();
 
-
+        $DEBUG_SUM += count($groups);
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -1777,7 +1780,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 2])])
             ->all();
 
-
+        $DEBUG_SUM += count($groups);
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -1898,6 +1901,8 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 5])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 5])])
             ->all();
+
+        $DEBUG_SUM += count($groups);
 
         $counter += count($groups);
         
@@ -2237,7 +2242,7 @@ class ExcelWizard
         //----------------------------------------------------------
 
 
-
+        var_dump($DEBUG_SUM);
 
         //-----------------------------------------
 
