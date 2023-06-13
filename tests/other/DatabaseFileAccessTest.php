@@ -5,6 +5,7 @@ namespace tests\other;
 use app\models\common\TrainingProgram;
 use app\models\components\YandexDiskContext;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+use app\models\work\BackupVisitWork;
 use app\models\work\DocumentInWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
@@ -141,8 +142,7 @@ class DatabaseFileAccessTest
 
         $groups = TrainingGroupWork::find()->orderBy(['id' => SORT_DESC])->all();
 
-        foreach ($groups as $group)
-        {
+        foreach ($groups as $group) {
             $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
             $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
             $numb1 = count($lessons) * count($parts);
@@ -159,5 +159,23 @@ class DatabaseFileAccessTest
         }
 
         return [$groupNames, $groupStatus];
+
     }
+    public function CheckVisitSame()
+    {
+        $errorVisits = [];
+        $visitsAll = BackupVisitWork::find()->orderBy(['id' => SORT_DESC])->all();
+
+        foreach ($visitsAll as $visit)
+        {
+            $sameVis = VisitWork::find()
+                ->where(['foreign_event_participant_id' => $visit->foreign_event_participant_id])
+                ->andWhere(['training_group_lesson_id' => $visit->training_group_lesson_id])->one();
+
+            if ($sameVis == null) $errorVisits[] = $visit;
+        }
+
+        return $errorVisits;
+    }
+
 }

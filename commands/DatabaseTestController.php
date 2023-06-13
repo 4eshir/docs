@@ -96,6 +96,12 @@ class DatabaseTestController extends Controller
         for ($i = 0; $i < count($accesses[0]); $i++)
             if ($accesses[1][$i] == 1) $this->stdout($accesses[0][$i]."\n", Console::FG_GREEN);
             else $this->stdout($accesses[0][$i]."\n", Console::FG_RED);
+
+        $this->stdout("\n\n");
+
+        $samesVis = $tester->CheckVisitSame();
+        foreach ($samesVis as $vis)
+            $this->stdout($vis->id."\n", Console::FG_RED);
     }
 
 }
