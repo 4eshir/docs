@@ -219,6 +219,10 @@ class ManHoursReportModel extends \yii\base\Model
 
 
             $DEBUG_SUM = 0;
+            var_dump($this->branch);
+            var_dump($this->focus);
+            var_dump($this->budget);
+            var_dump($this->allow_remote);
 
             if ($oneType === '1')
             {
