@@ -90,6 +90,9 @@ class DatabaseTestController extends Controller
 
     public function actionCheckVisitIntegrity()
     {
+        ini_set('memory_limit', '2048MB');
+        set_time_limit(10000);
+        
         $tester = new DatabaseFileAccessTest();
         $accesses = $tester->CheckVisitIntegrity();
 
