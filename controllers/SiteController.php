@@ -227,24 +227,34 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
+        $start_date = '2022-01-01';
+        $end_date = '2023-01-01';
 
-        $disk = new Disk('y0_AgAEA7qkEK7HAAn5LwAAAADkMhh1CPjqd4DtS52DG7Vyd3i0JNf-NxY');
+        $groups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])->andWhere(['IN', 'trainingProgram.focus_id', [1, 2, 3, 4, 5]])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['IN', 'trainingProgram.focus_id', [1, 2, 3, 4, 5]])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['IN', 'trainingProgram.focus_id', [1, 2, 3, 4, 5]])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['IN', 'trainingProgram.focus_id', [1, 2, 3, 4, 5]])])
+            ->all();
 
-        $resource = $disk->getResource('Море.jpg');
 
-        // или и т.д.
-        $fp = fopen('php://output', 'r');
 
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=' . 'pic.jpg');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . $resource->size);
+        $groups21 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                ->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])->all();
 
-        $resource->download($fp);
+        $groups22 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                ->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'start_date', $end_date])->andWhere(['>=', 'finish_date', $end_date])])->all();
 
-        // продолжить работу ...
-        fseek($fp, 0);
+        $groups23 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                ->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])->all();
+
+        $groups24 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                ->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])->all();
+
+        var_dump(count($groups1).' - '.(count($groups21) + count($groups22) + count($groups23) + count($groups24)));
 
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
