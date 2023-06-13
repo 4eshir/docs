@@ -218,7 +218,6 @@ class ManHoursReportModel extends \yii\base\Model
             }
 
 
-            $DEBUG_SUM = 0;
 
             if ($oneType === '1')
             {
@@ -229,13 +228,12 @@ class ManHoursReportModel extends \yii\base\Model
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
-                    /*->andWhere(['IN', 'branch_id', $this->branch])
+                    ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])
-                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])*/->all();
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
                 $groupsId = [];
 
-                $DEBUG_SUM += count($groups);
 
                 foreach ($groups as $group) $groupsId[] = $group->id;
                 if ($this->unic == 1)
@@ -305,12 +303,11 @@ class ManHoursReportModel extends \yii\base\Model
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'start_date', $this->end_date])->andWhere(['>=', 'finish_date', $this->end_date])])
-                    /*->andWhere(['IN', 'branch_id', $this->branch])
+                    ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])
-                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])*/->all();
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
 
-                $DEBUG_SUM += count($groups);
 
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
@@ -374,12 +371,11 @@ class ManHoursReportModel extends \yii\base\Model
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['>=', 'start_date', $this->start_date])->andWhere(['<=', 'finish_date', $this->end_date])])
-                    /*->andWhere(['IN', 'branch_id', $this->branch])
+                    ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])
-                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])*/->all();
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
 
-                $DEBUG_SUM += count($groups);
 
                 $groupsId = [];
 
@@ -447,12 +443,11 @@ class ManHoursReportModel extends \yii\base\Model
                 $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
                     ->where(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
                         ->where(['<=', 'start_date', $this->start_date])->andWhere(['>=', 'finish_date', $this->end_date])])
-                    /*->andWhere(['IN', 'branch_id', $this->branch])
+                    ->andWhere(['IN', 'branch_id', $this->branch])
                     ->andWhere(['IN', 'trainingProgram.focus_id', $this->focus])
                     ->andWhere(['IN', 'budget', $this->budget])
-                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])*/->all();
+                    ->andWhere(['IN', 'trainingProgram.allow_remote_id', $this->allow_remote])->all();
 
-                $DEBUG_SUM += count($groups);
 
                 $groupsId = [];
                 foreach ($groups as $group) $groupsId[] = $group->id;
@@ -515,7 +510,6 @@ class ManHoursReportModel extends \yii\base\Model
                 //----------------
             }
 
-            var_dump($DEBUG_SUM);
         }
         $result = $result.'</table>';
 
