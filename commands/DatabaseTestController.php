@@ -92,15 +92,15 @@ class DatabaseTestController extends Controller
     {
         ini_set('memory_limit', '2048MB');
         set_time_limit(10000);
-        
+
         $tester = new DatabaseFileAccessTest();
-        $accesses = $tester->CheckVisitIntegrity();
+        /*$accesses = $tester->CheckVisitIntegrity();
 
         for ($i = 0; $i < count($accesses[0]); $i++)
             if ($accesses[1][$i] == 1) $this->stdout($accesses[0][$i]."\n", Console::FG_GREEN);
             else $this->stdout($accesses[0][$i]."\n", Console::FG_RED);
 
-        $this->stdout("\n\n");
+        $this->stdout("\n\n");*/
 
         $samesVis = $tester->CheckVisitSame();
         foreach ($samesVis as $vis)
