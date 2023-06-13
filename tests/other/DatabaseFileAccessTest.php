@@ -13,8 +13,11 @@ use app\models\work\ForeignEventWork;
 use app\models\work\InvoiceWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\RegulationWork;
+use app\models\work\TrainingGroupLessonWork;
+use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
+use app\models\work\VisitWork;
 use tests\other\models\FileAccessTest\FileAccessModel;
 use tests\other\models\FileAccessTest\TableColumnNames;
 use Yii;
@@ -127,5 +130,34 @@ class DatabaseFileAccessTest
     {
         $split = explode(" ", $filenames);
         return $split;
+    }
+
+
+    //--Временная функция для проверки целостности Visit в группах--
+    public function CheckVisitIntegrity()
+    {
+        $groupNames = [];
+        $groupStatus = [];
+
+        $groups = TrainingGroupWork::find()->orderBy(['id' => SORT_DESC])->all();
+
+        foreach ($groups as $group)
+        {
+            $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
+            $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
+            $numb1 = count($lessons) * count($parts);
+
+            $lIds = [];
+            foreach ($lessons as $lesson) $lIds[] = $lesson->id;
+
+            $visits = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lIds])->all();
+            $numb2 = count($visits);
+
+            $groupNames[] = $group->number;
+            if ($numb1 !== $numb2) $groupStatus[] = 0;
+            else $groupStatus[] = 1;
+        }
+
+        return [$groupNames, $groupStatus];
     }
 }
