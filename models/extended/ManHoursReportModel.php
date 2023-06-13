@@ -50,6 +50,10 @@ class ManHoursReportModel extends \yii\base\Model
 
     public function generateReport()
     {
+
+        ini_set('max_execution_time', '6000');
+        ini_set('memory_limit', '2048M');
+        
         //$debug = '<table class="table table-bordered">';
         //$debug .= '<tr><td>Группа</td><td>Кол-во занятий выбранного педагога</td><td>Кол-во занятий всех педагогов</td><td>Кол-во учеников</td><td>Кол-во ч/ч</td></tr>';
         $debug = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
