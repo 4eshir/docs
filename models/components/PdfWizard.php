@@ -43,9 +43,9 @@ class PdfWizard
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         if (strripos($certificat->certificatTemplate->name, 'лето'))
-            PdfWizard::CertificatTechnoSummer($certificat_id, $destination, $path = null);
+            return PdfWizard::CertificatTechnoSummer($certificat_id, $destination, $path = null);
         else
-            PdfWizard::CertificatStandard($certificat_id, $destination, $path = null);
+            return PdfWizard::CertificatStandard($certificat_id, $destination, $path = null);
     }
 
     static private function CertificatStandard ($certificat_id, $destination, $path = null)
