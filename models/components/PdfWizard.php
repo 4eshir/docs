@@ -208,7 +208,7 @@ class PdfWizard
                 <p style="font-size: 28px; text-decoration: none; color: #164192; font-weight: bold; padding-left: -15px;">'. $part->participantWork->fullName .'</p>
             </div>
             <div>
-                <p style="height: 298px;"></p>
+                <p style="height: 296px;"></p>
                 <p style="padding-left: 120px; font-size: 20px; vertical-align: bottom; color: #164192; ">'.$certificat->certificatLongNumber.'</p>
             </div>
             </body>';
