@@ -42,6 +42,14 @@ class PdfWizard
     static public function DownloadCertificat ($certificat_id, $destination, $path = null)
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        if (strripos($certificat->certificatTemplate->name, 'лето'))
+            PdfWizard::CertificatTechnoSummer($certificat_id, $destination, $path = null);
+        PdfWizard::CertificatStandard($certificat_id, $destination, $path = null);
+    }
+
+    static private function CertificatStandard ($certificat_id, $destination, $path = null)
+    {
+        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
         if ($part->participantWork->sex == "Женский")
         {
@@ -55,13 +63,13 @@ class PdfWizard
         $certificatText = '';
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 1)
             $certificatText = ', ' . $genderVerbs[1] . ' '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
-                            . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[2] . ' на научной конференции "SсhoolTech Conference".';
+                . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[2] . ' на научной конференции "SсhoolTech Conference".';
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 2)
             $certificatText = ', ' . $genderVerbs[1] . ' итоговую контрольную работу с оценкой '
-                            . $part->points .' из 100 баллов.';
+                . $part->points .' из 100 баллов.';
         if ($part->trainingGroupWork->trainingProgram->certificatType->id == 4)
             $certificatText = ', ' . $genderVerbs[1] . ' '.mb_strtolower($part->groupProjectThemes->projectType->name).' проект "'
-                            . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[3] . ' его в публичном выступлении на открытом уроке.';
+                . $part->groupProjectThemes->projectTheme->name . '" и ' . $genderVerbs[3] . ' его в публичном выступлении на открытом уроке.';
 
         $trainedText = 'успешно '. $genderVerbs[0] . ' обучение по дополнительной общеразвивающей программе 
                             "'.$part->trainingGroupWork->programNameNoLink.'" в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' ак. ч.'. $certificatText;
@@ -94,8 +102,8 @@ class PdfWizard
                 <tr>
                     <td style="width: 700px; font-size: 19px; color: #626262;">
                         '. date("d", strtotime($date)) . ' '
-                        . WordWizard::Month(date("m", strtotime($date))) . ' '
-                        . date("Y", strtotime($date)) . ' года
+            . WordWizard::Month(date("m", strtotime($date))) . ' '
+            . date("Y", strtotime($date)) . ' года
                     </td>
                 </tr>
                 <tr>
@@ -124,7 +132,7 @@ class PdfWizard
                         Рег. номер '.$certificat->certificatLongNumber.'
                     </td>
                     <td style="width: 180px; font-size: 18px; vertical-align: bottom">';
-        if ($date >= "2022-12-07" && $date <= "2022-12-23" && $date != "2022-12-12")    
+        if ($date >= "2022-12-07" && $date <= "2022-12-23" && $date != "2022-12-12")
             $content .= '
                         Е.В. Киселев <br>
                         и.о. директора <br>
@@ -186,4 +194,59 @@ class PdfWizard
         }
     }
 
+    static private function CertificatTechnoSummer ($certificat_id, $destination, $path = null)
+    {
+        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+
+        $size = 19;
+
+        $content = '<body style="
+                                 background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;">
+            <div>
+                <p style="height: 160px;"></p>
+                <p style="font-size: 28px; text-decoration: none; color: #164192; font-weight: bold; padding-left: -15px;">'. $part->participantWork->fullName .'</p>
+            </div>
+            <div>
+                <p style="height: 298px;"></p>
+                <p style="padding-left: 120px; font-size: 20px; vertical-align: bottom; color: #164192; ">'.$certificat->certificatLongNumber.'</p>
+            </div>
+            </body>';
+
+        $pdf = $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'options' => [
+                // any mpdf options you wish to set
+            ],
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            'methods' => [
+                'SetTitle' => 'Privacy Policy - Krajee.com',
+                'SetSubject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+                'SetFooter' => ['|Page {PAGENO}|'],
+                'SetAuthor' => 'ЦСХД (с) РШТ',
+                'SetCreator' => 'ЦСХД (с) РШТ',
+                'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
+            ]
+        ]);
+
+        $mpdf = $pdf->api; // fetches mpdf api
+        $mpdf->WriteHtml($content); // call mpdf write html
+        $mpdf->setProtection(array('print', 'print-highres'));
+
+        if ($destination == 'download')
+        {
+            $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . ' '. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+            exit;
+        }
+        else {
+            $certificatName = 'Certificat #'. $certificat->certificatLongNumber . ' '. PdfWizard::rus2translit($part->participantWork->fullName);
+            if ($path == null)
+                $mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/'. $certificatName . '.pdf', 'F'); // call the mpdf api output as needed
+            else
+                $mpdf->Output($path . $certificatName . '.pdf', 'F');
+            //$mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/Certificat '. $certificat->certificatLongNumber . '.pdf', \Mpdf\Output\Destination::FILE);
+            return $certificatName;
+        }
+    }
 }
