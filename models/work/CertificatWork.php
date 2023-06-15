@@ -151,7 +151,7 @@ class CertificatWork extends Certificat
                     ->setTo($participant->participant->email)
                     ->setSubject('Сертификат об успешном прохождении программы ДО')
                     ->setHtmlBody('Сертификат находится в прикрепленном файле.<br><br><br>Пожалуйста, обратите внимание, что это сообщение было сгенерировано и отправлено в автоматическом режиме. Не отвечайте на него. По всем вопросам обращайтесь по телефону 44-24-28 (единый номер).')
-                    ->attach(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/' . $name . '.pdf')
+                    ->attach(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/' . $name . '.pdf')
                     ->send();
                     if ($result)
                         $certificat->status = 1;
@@ -161,7 +161,7 @@ class CertificatWork extends Certificat
                 }
             }
         }
-        //FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
+        FileHelper::removeDirectory(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'_s/');
     }
 
 
