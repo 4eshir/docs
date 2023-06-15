@@ -43,7 +43,12 @@ class PdfWizard
     {
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         if (strripos($certificat->certificatTemplate->name, 'лето'))
-            return PdfWizard::CertificatTechnoSummer($certificat_id, $destination, $path);
+        {
+            if (strripos($certificat->certificatTemplate->name, 'Интенсив'))
+                return PdfWizard::CertificatIntensives($certificat_id, $destination, $path);
+            else
+                return PdfWizard::CertificatTechnoSummer($certificat_id, $destination, $path);
+        }
         else
             return PdfWizard::CertificatStandard($certificat_id, $destination, $path);
     }
@@ -200,16 +205,14 @@ class PdfWizard
         $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
         $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
 
-        $size = 19;
-
-        $content = '<body style="
+        $content = '<body style="font-family: sans-serif; 
                                  background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;">
             <div>
                 <p style="height: 160px;"></p>
-                <p style="font-size: 28px; text-decoration: none; color: #164192; font-weight: bold; padding-left: -15px;">'. $part->participantWork->fullName .'</p>
+                <p style="font-size: 28px; text-decoration: none; color: #164192; font-weight: bold; padding-left: -5px;">'. $part->participantWork->fullName .'</p>
             </div>
             <div>
-                <p style="height: 296px;"></p>
+                <p style="height: 293px;"></p>
                 <p style="padding-left: 120px; font-size: 20px; vertical-align: bottom; color: #164192; ">'.$certificat->certificatLongNumber.'</p>
             </div>
             </body>';
@@ -247,6 +250,86 @@ class PdfWizard
             else
                 $mpdf->Output($path . $certificatName . '.pdf', 'F');
             //$mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/Certificat '. $certificat->certificatLongNumber . '.pdf', \Mpdf\Output\Destination::FILE);
+            return $certificatName;
+        }
+    }
+
+    static private function CertificatIntensives ($certificat_id, $destination, $path = null)
+    {
+        $certificat = CertificatWork::find()->where(['id' => $certificat_id])->one();
+        $part = TrainingGroupParticipantWork::find()->where(['id' => $certificat->training_group_participant_id])->one();
+
+        if ($part->participantWork->sex == "Женский")
+            $genderVerbs = ['прошла', 'выполнила', 'выступила'];
+        else
+            $genderVerbs = ['прошел', 'выполнил', 'выступил'];
+
+        $date = $part->trainingGroupWork->protection_date;
+        $type = strripos($certificat->certificatTemplate->name, 'Плюс') ? 'ИНТЕНСИВ+' : 'ИНТЕНСИВ';
+
+        $style = 'padding-left: -15px; margin: 10px;';
+        $styleDistance = 'height: 1px; margin: 10px;';
+
+        $content = '<body style="font-family: sans-serif; background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;">
+            <div>
+            <p style="height: 100px"></p>
+            <p style="font-size: 18px; '.$style.'">'. date("d", strtotime($date)) . ' '
+                    . WordWizard::Month(date("m", strtotime($date))) . ' '
+                    . date("Y", strtotime($date)) . ' года
+            </p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 24px; font-weight: bold;'.$style.'">'. $part->participantWork->fullName .'</p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 16px;'.$style.'">'.$genderVerbs[0].' очное обучение по программе мероприятия</p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 24px;'.$style.'">'.$type.'</p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 16px;'.$style.'">в объеме '.$part->trainingGroupWork->trainingProgram->capacity .' академических часов, '.$genderVerbs[1].' проект</p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 20px; width: 800px;'.$style.'">"'.$part->groupProjectThemes->projectTheme->name.'"</p>
+            <p style="font-size: 16px;'.$style.'">и '.$genderVerbs[2].' с итоговой презентацией на научной конференции<br><span style="font-weight: bold;">Schooltech Conference.</span></p>
+            <p style="height: 70px;"></p>
+            <p style="width: 600px; border-bottom: 1px solid black; margin: 0; padding-left: -40px; font-size: 2px;"></p>
+            <p style="font-size: 14px; '.$style.'">В.В. Войков <br>
+                        Директор <br>
+                        ГАОУ АО ДО "РШТ"</p>
+            <p style="'.$styleDistance.'"></p>
+            <p style="font-size: 14px; color: #585858;'.$style.'">Рег. номер '.$certificat->certificatLongNumber.'</p>
+            </div>
+            </body>';
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8, // leaner size using standard fonts
+            'destination' => Pdf::DEST_BROWSER,
+            'options' => [
+                // any mpdf options you wish to set
+            ],
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            'methods' => [
+                'SetTitle' => 'Privacy Policy - Krajee.com',
+                'SetSubject' => 'Generating PDF files via yii2-mpdf extension has never been easy',
+                'SetFooter' => ['|Page {PAGENO}|'],
+                'SetAuthor' => 'ЦСХД (с) РШТ',
+                'SetCreator' => 'ЦСХД (с) РШТ',
+                'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
+            ]
+        ]);
+
+        $mpdf = $pdf->api; // fetches mpdf api
+        $mpdf->WriteHtml($content); // call mpdf write html
+        $mpdf->setProtection(array('print', 'print-highres'));
+
+        if ($destination == 'download')
+        {
+            $mpdf->Output('Сертификат №'. $certificat->certificatLongNumber . ' '. $part->participantWork->fullName .'.pdf', 'D'); // call the mpdf api output as needed
+            exit;
+        }
+        else {
+            $certificatName = 'Certificat #'. $certificat->certificatLongNumber . ' '. PdfWizard::rus2translit($part->participantWork->fullName);
+            if ($path == null)
+                $mpdf->Output(Yii::$app->basePath.'/download/'.Yii::$app->user->identity->getId().'/'. $certificatName . '.pdf', 'F'); // call the mpdf api output as needed
+            else
+                $mpdf->Output($path . $certificatName . '.pdf', 'F');
             return $certificatName;
         }
     }
