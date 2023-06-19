@@ -2594,7 +2594,7 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, round((ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1));
 
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
