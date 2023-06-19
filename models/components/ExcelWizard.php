@@ -2594,11 +2594,7 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
 
-        //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
-
-        //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, round((ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1);
 
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
