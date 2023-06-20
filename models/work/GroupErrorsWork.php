@@ -505,6 +505,11 @@ class GroupErrorsWork extends GroupErrors
 
         foreach ($err as $oneErr)
         {
+            var_dump($grProjCount);
+            var_dump($grProjConfirmCount);
+            var_dump($group->finish_date > $now_time);
+            var_dump(($grProjConfirmCount != 0 || $group->finish_date > $now_time));
+            var_dump($grProjCount != 0 && ($grProjConfirmCount != 0 || $group->finish_date > $now_time));
             if ($grProjCount != 0 && ($grProjConfirmCount != 0 || $group->finish_date > $now_time))     // ошибка исправлена
             {
                 $oneErr->time_the_end = date("Y.m.d H:i:s");
