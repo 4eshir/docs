@@ -437,8 +437,8 @@ class ExcelWizard
                         ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
                         ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
-                $counterPart1 += count(TeacherParticipantBranchWork::find()->where(['foreign_event_id' => $event->id])
-                        ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])
+                        ->andWhere(['allow_remote_id' => $allow_remote])
                         ->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
         }
