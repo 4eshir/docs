@@ -360,7 +360,7 @@ class ExcelWizard
     }
 
     //получить всех участников заданного отдела мероприятий в заданный период
-    static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
+    static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote = 1)
     {
         if ($events_id == 0)
             $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
@@ -377,9 +377,16 @@ class ExcelWizard
             foreach ($events1 as $event) $eIds[] = $event->id;
 
             if ($focus_id !== 0)
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             else
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         }
@@ -404,9 +411,14 @@ class ExcelWizard
                 {
                     $teamName = $team->name;
                     if (count($partsLink) !== 0)
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])
+                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
                 $tIds[] = $team;
@@ -419,9 +431,15 @@ class ExcelWizard
             //var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->createCommand()->getRawSql());
             //var_dump($counterTeam);
             if (count($partsLink) !== 0)
-                $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
+                $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                        ->where(['teacherParticipant.foreign_event_id' => $event->id])
+                        ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                        ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                        ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
-                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])
+                        ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                        ->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
         }
 
@@ -596,15 +614,21 @@ class ExcelWizard
     * $start_date - левая дата для поиска групп
     * $end_date - правая дата для поиска групп
     * $branch_id - id отдела, производящего учет (0 - все отделы)
+    * $allow_remote - форма реализации
     */
-    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include)
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include, $allow_remote = 1)
     {
         $not_include = $participants_not_include;
 
         if ($events_id == 0)
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])
+                ->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])
+                ->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
         else
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])
+                ->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])
+                ->andWhere(['<=', 'finish_date', $end_date])
+                ->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
 
 
         
@@ -618,16 +642,28 @@ class ExcelWizard
             
             if ($focus_id !== 0)
             {
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.focus' => $focus_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             }
             else
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             
 
         }
         else
         {
-            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
         /*if ($branch_id == 7 && $focus_id == 2)
@@ -655,7 +691,11 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
-            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['teacherParticipant.foreign_event_id' => $event->id])
+                ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
@@ -678,9 +718,14 @@ class ExcelWizard
                     else $counterTeamPrizes++;
                     
                     if ($partsLink !== null)
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])
+                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
                 $tIds[] = $team;
@@ -748,7 +793,7 @@ class ExcelWizard
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
             $counterGZ += count($achievesId1);
-            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
         }
@@ -756,7 +801,7 @@ class ExcelWizard
         return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
     }
 
-    //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
+    //получаем всех учеников, успешно завершивших и/или проходящих обучение в период со $start_date по $end_date из групп $group_ids
     static public function GetParticipantsIdsFromGroups($group_ids)
     {
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
@@ -2355,7 +2400,7 @@ class ExcelWizard
     }
 
     //получаем процент победителей и призеров от общего числа участников
-    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
+    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget, $allow_remote = 1)
     {
         $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, []);
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, []);
@@ -2596,7 +2641,7 @@ class ExcelWizard
 
         //Отдел ЦОД (тех. направленность - очная с дистантом)
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1, 2));
 
 
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
