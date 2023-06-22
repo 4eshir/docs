@@ -413,11 +413,11 @@ class ExcelWizard
                     if (count($partsLink) !== 0)
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
                             ->andWhere(['foreign_event_id' => $team->foreign_event_id])
-                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
                             ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
-                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
                             ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
@@ -720,11 +720,11 @@ class ExcelWizard
                     if ($partsLink !== null)
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
                             ->andWhere(['foreign_event_id' => $team->foreign_event_id])
-                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
                             ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
-                            ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
                             ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
