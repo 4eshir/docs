@@ -31,8 +31,7 @@ use yii\db\TableSchema;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-interface CustomFixture
+class ManagerCustomFixture
 {
-    public function restoreObject();
-    public function autodelete();
+
 }

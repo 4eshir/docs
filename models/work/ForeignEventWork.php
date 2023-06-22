@@ -184,9 +184,21 @@ class ForeignEventWork extends ForeignEvent
         $partsLink = '';
         foreach ($parts as $partOne)
         {
+            $tp = TeacherParticipantWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
+            $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
+            $tpb = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $tp->id])->all();
+            $branchStr = '';
+            $teamStr = '['.$team->name.']';
+            foreach ($tpb as $one)
+                $branchStr .= $one->branch->name.' | ';
+
+
+
+            $branchStr = '[' . substr($branchStr, 0, -3) . ']';
+
             $value = $partOne->winner == 1 ? 'Победитель: ' : 'Призер: ';
 
-            $partsLink = $partsLink. $value .Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' &mdash; '.$partOne->achievment.'<br>';
+            $partsLink = $partsLink. $value .Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' '.$branchStr.' '.$teamStr.' &mdash; '.$partOne->achievment.'<br>';
         }
         return $partsLink;
     }

@@ -3,11 +3,11 @@
 
 namespace app\models\work;
 
-use app\models\common\AllowRemote;
+use app\models\temporary\TestDbObject;
 use Yii;
 
 
-class AllowRemoteWork extends AllowRemote
+class TestDbObjectWork extends TestDbObject
 {
 
 }

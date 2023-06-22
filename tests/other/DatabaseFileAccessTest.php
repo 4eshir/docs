@@ -164,15 +164,13 @@ class DatabaseFileAccessTest
     public function CheckVisitSame()
     {
         $errorVisits = [];
-        $visitsAll = BackupVisitWork::find()->orderBy(['id' => SORT_DESC])->all();
+        $visitsAll = BackupVisitWork::find()->orderBy(['foreign_event_participant_id' => SORT_DESC, 'training_group_lesson_id' => SORT_DESC])->all();
 
-        foreach ($visitsAll as $visit)
+        for ($i = 0; $i < count($visitsAll) - 1; $i++)
         {
-            $sameVis = VisitWork::find()
-                ->where(['foreign_event_participant_id' => $visit->foreign_event_participant_id])
-                ->andWhere(['training_group_lesson_id' => $visit->training_group_lesson_id])->one();
-
-            if ($sameVis == null) $errorVisits[] = $visit;
+            if ($visitsAll[$i]->foreign_event_participant_id == $visitsAll[$i + 1]->foreign_event_participant_id
+                && $visitsAll[$i]->training_group_lesson_id == $visitsAll[$i + 1]->training_group_lesson_id)
+                $errorVisits[] = $visitsAll[$i];
         }
 
         return $errorVisits;

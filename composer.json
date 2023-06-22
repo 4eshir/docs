@@ -41,7 +41,8 @@
         "codeception/module-filesystem": "^1.0.0",
         "codeception/module-yii2": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
-        "zhuravljov/yii2-queue": "^2.0@dev"
+        "zhuravljov/yii2-queue": "^2.0@dev",
+        "codeception/module-phpbrowser": "^2.0"
     },
     "config": {
         "process-timeout": 1800,
