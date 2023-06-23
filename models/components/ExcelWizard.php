@@ -706,10 +706,13 @@ class ExcelWizard
 
             //ОТЛАДКА
             if ($branch_id == 7 && $focus_id == 1)
+            {
                 foreach ($participantsEvent as $one)
-                    echo $one->participantWork->fullName.'<br>';
+                    echo $one->teacherParticipant->participantWork->fullName.'<br>';
 
-            echo '--------------------<br><br>';
+                echo '--------------------<br><br>';
+            }
+
             //ОТЛАДКА
 
             $pIds = [];
