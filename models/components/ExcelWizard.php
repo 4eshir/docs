@@ -708,7 +708,7 @@ class ExcelWizard
             if ($branch_id == 7 && $focus_id == 1)
             {
                 foreach ($participantsEvent as $one)
-                    echo $one->teacherParticipant->participantWork->fullName.'<br>';
+                    echo $one->teacherParticipantWork->participantWork->fullName.'<br>';
 
                 echo '--------------------<br><br>';
             }
