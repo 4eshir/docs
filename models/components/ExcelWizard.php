@@ -694,8 +694,10 @@ class ExcelWizard
         foreach ($events1 as $event)
         {
             //ОТЛАДКА
+            /*
             if ($branch_id == 7 && $focus_id == 1)
                 echo '<b>'.$event->name.'</b><br>--------------------<br>';
+            */
             //ОТЛАДКА
 
             $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
@@ -787,6 +789,7 @@ class ExcelWizard
 
 
             //ОТЛАДКА
+            /*
             if ($branch_id == 7 && $focus_id == 1)
             {
                 $debugAchieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
@@ -804,7 +807,7 @@ class ExcelWizard
 
                 echo '--------------------<br><br>';
             }
-
+            */
             //ОТЛАДКА
 
 
