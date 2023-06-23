@@ -681,7 +681,9 @@ class ExcelWizard
         /*var_dump($eIds);
         var_dump($partsLink);*/
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->all();
-        
+
+
+
         foreach ($pIds as $one) $not_include[] = $one;
 
 
@@ -691,11 +693,25 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
+            //ОТЛАДКА
+            if ($branch_id == 7 && $focus_id == 1)
+                echo '<b>'.$event->name.'</b><br>--------------------<br>';
+            //ОТЛАДКА
+
             $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['teacherParticipant.foreign_event_id' => $event->id])
                 ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
                 ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
                 ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+
+            //ОТЛАДКА
+            if ($branch_id == 7 && $focus_id == 1)
+                foreach ($participantsEvent as $one)
+                    echo $one->participantWork->fullName.'<br>';
+
+            echo '--------------------<br><br>';
+            //ОТЛАДКА
+
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
