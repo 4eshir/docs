@@ -705,6 +705,7 @@ class ExcelWizard
                 ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
 
             //ОТЛАДКА
+            /*
             if ($branch_id == 7 && $focus_id == 1)
             {
                 foreach ($participantsEvent as $one)
@@ -712,7 +713,7 @@ class ExcelWizard
 
                 echo '--------------------<br><br>';
             }
-
+            */
             //ОТЛАДКА
 
             $pIds = [];
@@ -750,8 +751,6 @@ class ExcelWizard
                 $tIds[] = $team;
             }
 
-            
-
 
             $tpIds = [];
             foreach ($tIds as $tId)
@@ -785,6 +784,30 @@ class ExcelWizard
                 }
                 
             }
+
+
+            //ОТЛАДКА
+            if ($branch_id == 7 && $focus_id == 1)
+            {
+                $debugAchieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
+                $debugAchieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
+
+                echo 'Победители:<br>';
+
+                foreach ($debugAchieves2 as $one)
+                    echo $one->participantWork->fullName.'<br>';
+
+                echo '<br>Призеры:<br>';
+
+                foreach ($debugAchieves1 as $one)
+                    echo $one->participantWork->fullName.'<br>';
+
+                echo '--------------------<br><br>';
+            }
+
+            //ОТЛАДКА
+
+
             
             $achievesId1 = [];
             foreach ($achieves1 as $achieve) $achievesId1[] = $achieve->participant_id;
