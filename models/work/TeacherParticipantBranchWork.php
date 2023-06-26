@@ -12,4 +12,9 @@ class TeacherParticipantBranchWork extends TeacherParticipantBranch
     {
         return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
     }
+
+    public function getBranchWork()
+    {
+        return $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
+    }
 }
