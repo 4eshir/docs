@@ -721,7 +721,7 @@ class ExcelWizard
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
-            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->orderBy(['name' => SORT_ASC])->all();
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
