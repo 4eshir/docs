@@ -735,11 +735,6 @@ class ExcelWizard
 
                 if ($teamName != $team->name)
                 {
-                    //ОТЛАДКА
-
-                    echo 'Команда: '.$team->name.'<br>';
-
-                    //ОТЛАДКА
 
                     $teamName = $team->name;
                     if ($partsLink !== null)
@@ -859,6 +854,19 @@ class ExcelWizard
             $counterGZ += count($achievesId1);
             $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['allow_remote_id' => $allow_remote])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
+
+        }
+
+        if ($branch_id == 7 && $focus_id == 1)
+        {
+            echo '<br><br>--------------------';
+            echo 'Всего участников: '.$counterPart1;
+            echo 'Всего команд: '.$allTeams;
+            echo 'Всего победителей: '.$counter2;
+            echo 'Всего призеров: '.$counter1;
+
+            echo '--------------------<br><br>';
+
 
         }
 
