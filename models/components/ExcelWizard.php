@@ -2440,8 +2440,10 @@ class ExcelWizard
         //var_dump($all);
         
         if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
+        
 
-        return round(($winners1[2] + $winners2[2] + $winners3[2]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+
+        return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
