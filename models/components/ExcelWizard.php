@@ -683,6 +683,15 @@ class ExcelWizard
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->all();
 
 
+        if ($branch_id == 3 && $focus_id == 3)
+        {
+            foreach ($events1 as $event)
+                echo $event->name.'<br>';
+
+            echo '---------------------------<br><br>';
+        }
+
+
 
         foreach ($pIds as $one) $not_include[] = $one;
 
