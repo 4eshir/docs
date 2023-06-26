@@ -694,10 +694,10 @@ class ExcelWizard
         foreach ($events1 as $event)
         {
             //ОТЛАДКА
-            /*
+
             if ($branch_id == 7 && $focus_id == 1)
                 echo '<b>'.$event->name.'</b><br>--------------------<br>';
-            */
+
             //ОТЛАДКА
 
             $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
@@ -805,17 +805,15 @@ class ExcelWizard
 
             if ($branch_id == 7 && $focus_id == 1)
             {
-                $debugAchieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
-                $debugAchieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 1])->all();
 
                 echo 'Победители:<br>';
 
-                foreach ($debugAchieves2 as $one)
+                foreach ($achieves2 as $one)
                     echo $one->participantWork->fullName.'<br>';
 
                 echo '<br>Призеры:<br>';
 
-                foreach ($debugAchieves1 as $one)
+                foreach ($achieves1 as $one)
                     echo $one->participantWork->fullName.'<br>';
 
                 echo '--------------------<br><br>';
