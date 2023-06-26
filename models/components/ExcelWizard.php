@@ -758,6 +758,8 @@ class ExcelWizard
             foreach ($tIds as $tId)
                 $tpIds[] = $tId->participant_id;
 
+            echo '<br>--<br>'.$partsLink !== null.'<br>--<br>';
+
             if ($partsLink !== null)
             {
                 if ($events_id2 == 0)
@@ -807,7 +809,7 @@ class ExcelWizard
 
                 echo '--------------------<br><br>';
             }
-            
+
             //ОТЛАДКА
 
 
