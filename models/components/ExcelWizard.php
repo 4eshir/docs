@@ -857,20 +857,8 @@ class ExcelWizard
 
         }
 
-        if ($branch_id == 7 && $focus_id == 1)
-        {
-            echo '<br><br>--------------------';
-            echo 'Всего участников: '.$counterPart1;
-            echo 'Всего команд: '.$allTeams;
-            echo 'Всего победителей: '.$counter2;
-            echo 'Всего призеров: '.$counter1;
 
-            echo '--------------------<br><br>';
-
-
-        }
-
-        return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
+        return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1, $allTeams];
     }
 
     //получаем всех учеников, успешно завершивших и/или проходящих обучение в период со $start_date по $end_date из групп $group_ids
@@ -2477,6 +2465,11 @@ class ExcelWizard
         $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
+
+        echo 'Призеров всего: '.($winners1[0] + $winners2[0] + $winners3[0]).'<br>';
+        echo 'Победителей всего: '.($winners1[1] + $winners2[1] + $winners3[1]).'<br>';
+        echo 'Участников всего: '.($winners1[4] + $winners2[4] + $winners3[4]).'<br>';
+        echo 'Команд всего: '.($winners1[5] + $winners2[5] + $winners3[5]).'<br>';
 
         //if ($branch_id == 1)
         //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
