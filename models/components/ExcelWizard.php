@@ -729,6 +729,14 @@ class ExcelWizard
             $counterTeam = 0;
             foreach ($teams as $team)
             {
+
+                //ОТЛАДКА
+
+                echo 'Команда: '.$team->name.'<br>';
+
+                //ОТЛАДКА
+
+
                 if ($teamName != $team->name)
                 {
                     $teamName = $team->name;
