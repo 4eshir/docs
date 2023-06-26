@@ -730,15 +730,17 @@ class ExcelWizard
             foreach ($teams as $team)
             {
 
-                //ОТЛАДКА
 
-                echo 'Команда: '.$team->name.'<br>';
-
-                //ОТЛАДКА
 
 
                 if ($teamName != $team->name)
                 {
+                    //ОТЛАДКА
+
+                    echo 'Команда: '.$team->name.'<br>';
+
+                    //ОТЛАДКА
+
                     $teamName = $team->name;
                     if ($partsLink !== null)
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->one();
