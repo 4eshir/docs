@@ -693,12 +693,6 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
-            //ОТЛАДКА
-
-            if ($branch_id == 7 && $focus_id == 1)
-                echo '<b>'.$event->name.'</b><br>--------------------<br>';
-
-            //ОТЛАДКА
 
             $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['teacherParticipant.foreign_event_id' => $event->id])
@@ -706,17 +700,6 @@ class ExcelWizard
                 ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
                 ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
 
-            //ОТЛАДКА
-
-            if ($branch_id == 7 && $focus_id == 1)
-            {
-                foreach ($participantsEvent as $one)
-                    echo $one->teacherParticipantWork->participantWork->fullName.'<br>';
-
-                echo '<br><br>';
-            }
-
-            //ОТЛАДКА
 
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
@@ -796,33 +779,6 @@ class ExcelWizard
                 }
                 
             }
-
-
-            //ОТЛАДКА
-
-            if ($branch_id == 7 && $focus_id == 1)
-            {
-
-                echo 'Победители:<br>';
-
-                foreach ($achieves2 as $one)
-                    echo $one->participantWork->fullName.'<br>';
-
-                echo '<br>Призеры:<br>';
-
-                foreach ($achieves1 as $one)
-                    echo $one->participantWork->fullName.'<br>';
-
-                echo '<br>Команды: '.$counterTeam;
-                echo '<br>Команды-победители: '.$counterTeamWinners;
-                echo '<br>Команды-призеры: '.$counterTeamPrizes;
-
-                echo '--------------------<br><br>';
-
-
-            }
-
-            //ОТЛАДКА
 
 
             
@@ -2465,14 +2421,14 @@ class ExcelWizard
         $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
-
+/*
         if ($branch_id == 7 && $focus_id == 1 && $allow_remote == 1)
         {
             echo 'Призеров всего: '.($winners1[0] + $winners2[0] + $winners3[0]).'<br>';
             echo 'Победителей всего: '.($winners1[1] + $winners2[1] + $winners3[1]).'<br>';
             echo 'Участников всего: '.($winners1[4] + $winners2[4] + $winners3[4]).'<br>';
             echo 'Команд всего: '.($winners1[5] + $winners2[5] + $winners3[5]).'<br>';
-        }
+        }*/
 
 
         //if ($branch_id == 1)
@@ -2485,7 +2441,7 @@ class ExcelWizard
         
         if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
 
-        return round(($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+        return round(($winners1[2] + $winners2[2] + $winners3[2]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
