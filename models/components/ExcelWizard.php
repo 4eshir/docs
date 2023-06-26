@@ -803,7 +803,13 @@ class ExcelWizard
                 foreach ($achieves1 as $one)
                     echo $one->participantWork->fullName.'<br>';
 
+                echo '<br>Команды: '.$counterTeam;
+                echo '<br>Команды-победители: '.$counterTeamWinners;
+                echo '<br>Команды-призеры: '.$counterTeamPrizes;
+
                 echo '--------------------<br><br>';
+
+
             }
 
             //ОТЛАДКА
