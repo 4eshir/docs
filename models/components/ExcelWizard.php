@@ -763,19 +763,6 @@ class ExcelWizard
                 if ($events_id2 == 0)
                 {
                     $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $pIds])->all();
-
-                    //ОТЛАДКА
-
-                    echo ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])
-                        ->andWhere(['NOT IN', 'participant_id', $tpIds])
-                        ->andWhere(['winner' => 0])
-                        ->andWhere(['IN', 'participant_id', $pIds])
-                        ->createCommand()->getRawSql();
-
-                    echo '<br><br><br>';
-
-                    //ОТЛАДКА
-
                     $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->all();
                 }
                 else
