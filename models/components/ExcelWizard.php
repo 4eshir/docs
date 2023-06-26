@@ -713,7 +713,7 @@ class ExcelWizard
                 foreach ($participantsEvent as $one)
                     echo $one->teacherParticipantWork->foreignEvent->name .' '. $one->teacherParticipantWork->participantWork->fullName .' '. $one->branchWork->name .'<br>';
 
-                echo '--------------------<br><br>';
+                echo '<br><br>';
             }
 
             //ОТЛАДКА
@@ -789,7 +789,7 @@ class ExcelWizard
 
 
             //ОТЛАДКА
-            /*
+
             if ($branch_id == 7 && $focus_id == 1)
             {
                 $debugAchieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['winner' => 0])->all();
@@ -807,7 +807,7 @@ class ExcelWizard
 
                 echo '--------------------<br><br>';
             }
-            */
+            
             //ОТЛАДКА
 
 
