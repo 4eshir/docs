@@ -9,6 +9,7 @@ use app\models\common\EventExternal;
 use app\models\common\EventForm;
 use app\models\common\EventLevel;
 use app\models\common\EventParticipants;
+use app\models\common\EventScope;
 use app\models\common\EventsLink;
 use app\models\common\EventType;
 use app\models\common\ForeignEvent;
@@ -123,6 +124,18 @@ class EventWork extends Event
         if ($this->format === 0) return 'Очный';
         if ($this->format === 1) return 'Заочный';
         if ($this->format === 2) return 'Очно-заочный';
+    }
+
+    public function getScopesSplitter()
+    {
+        $ess = EventScopeWork::find()->where(['event_id' => $this->id])->all();
+        $res = '';
+        foreach ($ess as $one)
+        {
+            $res .= $one->participationScope->name.'/';
+        }
+        $res = substr($res, 0, -1);
+        return $res;
     }
 
     public function getLinkGroups()
