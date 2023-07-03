@@ -195,7 +195,7 @@ class ForeignEventReportModel extends \yii\base\Model
             //    var_dump(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->createCommand()->getRawSql());
 
 
-            $debug .= count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->andWhere(['IN', 'participant_id', $pIds])->all()).";".$counterTeam.";".$s1.";".$counterTeamPrizes.";".$s2.";".$counterTeamWinners."\r\n";
+            $debug .= count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->andWhere(['IN', 'participant_id', $realPartsId])->all()).";".$counterTeam.";".$s1.";".$counterTeamPrizes.";".$s2.";".$counterTeamWinners."\r\n";
             //ОТЛАДКА
 
         }
