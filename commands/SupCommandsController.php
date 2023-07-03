@@ -7,7 +7,12 @@
 
 namespace app\commands;
 
+use app\models\common\ForeignEventParticipants;
 use app\models\LoginForm;
+use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\ForeignEventWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\TeacherParticipantWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\console\Controller;
@@ -24,7 +29,7 @@ use yii\helpers\Console;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class HelloController extends Controller
+class SupCommandsController extends Controller
 {
 
     /**
@@ -48,6 +53,34 @@ class HelloController extends Controller
 
         $this->stdout($message."\n", Console::FG_RED);
         //echo '<color="green">'.$message.'</color>' . "\n";
+
+        return ExitCode::OK;
+    }
+
+
+    // --Поиск расхождений в количестве участников и победителей мероприятий--
+    // -- Формат: Мероприятие | ФИО | Кол-во фактов участия | Кол-во фактов побед/приз. --
+    // -- Исходная таблица: foreign_event
+    public function actionCheckEventDifference()
+    {
+        $events = ForeignEventWork::find()->all();
+
+        foreach ($events as $event)
+        {
+            $allDistinctParticipants = TeacherParticipantWork::find()->select('participant_id')->distinct()->where(['foreign_event_id' => $event->id])->all();
+            $pIds = [];
+            foreach ($allDistinctParticipants as $one) $pIds[] = $one->participant_id;
+
+            foreach ($pIds as $id)
+            {
+                $participant = ForeignEventParticipantsWork::find()->where(['id' => $id])->one();
+                $partFacts = count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['participant_id' => $id])->all());
+                $prizeFacts = count(ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['participant_id' => $id])->all());
+
+                if ($partFacts < $prizeFacts)
+                    $this->stdout($event->name.' | '.$participant->fullName.' | '.$partFacts. ' | '.$prizeFacts ."\n", Console::FG_RED);
+            }
+        }
 
         return ExitCode::OK;
     }
