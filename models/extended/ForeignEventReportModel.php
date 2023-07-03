@@ -92,7 +92,7 @@ class ForeignEventReportModel extends \yii\base\Model
 
 
             $realPartsId = [];
-            foreach ($realParts as $one) $realPartsId[] = $one->participant_id;
+            foreach ($realParts as $one) $realPartsId[] = $one->teacherParticipant->participant_id;
 
             //ОТЛАДКА
             $debug .= $event->name.";".$event->company->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
