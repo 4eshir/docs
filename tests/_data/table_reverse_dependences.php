@@ -47,8 +47,30 @@ use app\models\work\EventBranchWork;
 use app\models\work\EventErrorsWork;
 use app\models\work\EventExternalWork;
 use app\models\work\EventFormWork;
+use app\models\work\EventLevelWork;
+use app\models\work\EventObjectWork;
+use app\models\work\EventParticipantsWork;
+use app\models\work\EventScopeWork;
 use app\models\work\EventsLinkWork;
+use app\models\work\EventTrainingGroupWork;
+use app\models\work\EventTypeWork;
+use app\models\work\EventWayWork;
 use app\models\work\EventWork;
+use app\models\work\ExpertTypeWork;
+use app\models\work\ExpireWork;
+use app\models\work\FeedbackWork;
+use app\models\work\FinanceSourceWork;
+use app\models\work\FocusWork;
+use app\models\work\ForeignEventErrorsWork;
+use app\models\work\ForeignEventWork;
+use app\models\work\GroupErrorsWork;
+use app\models\work\GroupProjectThemesWork;
+use app\models\work\HistoryObjectWork;
+use app\models\work\HistoryTransactionWork;
+use app\models\work\InstallPlaceWork;
+use app\models\work\InvoiceEntryWork;
+use app\models\work\InvoiceErrorsWork;
+use app\models\work\InvoiceWork;
 
 return [
     'access' => [
@@ -245,5 +267,93 @@ return [
 
     'event_form' => [
         new EventFormWork(),
+    ],
+
+    'event_level' => [
+        new EventLevelWork(),
+    ],
+
+    'event_object' => [
+        new EventObjectWork(),
+    ],
+
+    'event_participants' => [
+        new EventParticipantsWork(),
+    ],
+
+    'event_scope' => [
+        new EventScopeWork(),
+    ],
+
+    'event_training_group' => [
+        new EventTrainingGroupWork(),
+    ],
+
+    'event_type' => [
+        new EventTypeWork(),
+    ],
+
+    'event_way' => [
+        new EventWayWork(),
+    ],
+
+    'expert_type' => [
+        new ExpertTypeWork(),
+    ],
+
+    'expire' => [
+        new ExpireWork(),
+    ],
+
+    'feedback' => [
+        new FeedbackWork(),
+    ],
+
+    'finance_source' => [
+        new FinanceSourceWork(),
+    ],
+
+    'focus' => [
+        new FocusWork(),
+    ],
+
+    'foreign_event' => [
+        new ForeignEventWork(),
+    ],
+
+    'foreign_event_errors' => [
+        new ForeignEventErrorsWork(),
+    ],
+
+    'group_errors' => [
+        new GroupErrorsWork(),
+    ],
+
+    'group_project_themes' => [
+        new GroupProjectThemesWork(),
+    ],
+
+    'history_object' => [
+        new HistoryObjectWork(),
+    ],
+
+    'history_transaction' => [
+        new HistoryTransactionWork(),
+    ],
+
+    'install_place' => [
+        new InstallPlaceWork(),
+    ],
+
+    'invoice' => [
+        new InvoiceWork(),
+    ],
+
+    'invoice_entry' => [
+        new InvoiceEntryWork(),
+    ],
+
+    'invoice_errors' => [
+        new InvoiceErrorsWork(),
     ],
 ];
