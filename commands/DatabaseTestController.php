@@ -43,6 +43,15 @@ class DatabaseTestController extends Controller
         ];
     }
 
+    public function actionIndex($message = 'hello world')
+    {
+
+        $this->stdout($message."\n", Console::FG_RED);
+        //echo '<color="green">'.$message.'</color>' . "\n";
+
+        return ExitCode::OK;
+    }
+
     /**
      * Экшн для проверки доступности
      * файлов системы с сервера или Яндекс.Диска
