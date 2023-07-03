@@ -67,10 +67,73 @@ use app\models\work\GroupErrorsWork;
 use app\models\work\GroupProjectThemesWork;
 use app\models\work\HistoryObjectWork;
 use app\models\work\HistoryTransactionWork;
+use app\models\work\InOutDocsWork;
 use app\models\work\InstallPlaceWork;
 use app\models\work\InvoiceEntryWork;
 use app\models\work\InvoiceErrorsWork;
 use app\models\work\InvoiceWork;
+use app\models\work\KindCharacteristicWork;
+use app\models\work\KindObjectWork;
+use app\models\work\LegacyResponsibleWork;
+use app\models\work\LessonThemeWork;
+use app\models\work\LicenseTermTypeWork;
+use app\models\work\LicenseTypeWork;
+use app\models\work\LicenseWork;
+use app\models\work\LocalResponsibilityWork;
+use app\models\work\LogWork;
+use app\models\work\MaterialObjectErrorsWork;
+use app\models\work\MaterialObjectSubobjectWork;
+use app\models\work\MaterialObjectWork;
+use app\models\work\NomenclatureWork;
+use app\models\work\ObjectCharacteristicWork;
+use app\models\work\ObjectEntryWork;
+use app\models\work\OrderErrorsWork;
+use app\models\work\OrderGroupParticipantWork;
+use app\models\work\OrderGroupWork;
+use app\models\work\OwnershipTypeWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\ParticipantFilesWork;
+use app\models\work\ParticipationScopeWork;
+use app\models\work\PatchnotesWork;
+use app\models\work\PeopleMaterialObjectWork;
+use app\models\work\PeoplePositionBranchWork;
+use app\models\work\PeopleWork;
+use app\models\work\PersonalDataForeignEventParticipantWork;
+use app\models\work\PersonalDataWork;
+use app\models\work\PositionWork;
+use app\models\work\ProductUnionWork;
+use app\models\work\ProgramErrorsWork;
+use app\models\work\ProjectThemeWork;
+use app\models\work\RegulationTypeWork;
+use app\models\work\RegulationWork;
+use app\models\work\ResponsibilityTypeWork;
+use app\models\work\ResponsibleWork;
+use app\models\work\RoleFunctionRoleWork;
+use app\models\work\RoleFunctionTypeWork;
+use app\models\work\RoleFunctionWork;
+use app\models\work\RoleWork;
+use app\models\work\SendMethodWork;
+use app\models\work\SubobjectWork;
+use app\models\work\TeacherGroupWork;
+use app\models\work\TeacherParticipantBranchWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamWork;
+use app\models\work\TemporaryJournalWork;
+use app\models\work\TemporaryObjectJournalWork;
+use app\models\work\TestDbObjectWork;
+use app\models\work\ThematicDirectionWork;
+use app\models\work\ThematicPlanWork;
+use app\models\work\TrainingGroupExpertWork;
+use app\models\work\TrainingGroupLessonWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
+use app\models\work\TrainingProgramWork;
+use app\models\work\UnionObjectWork;
+use app\models\work\UserRoleWork;
+use app\models\work\UserWork;
+use app\models\work\UseYearsWork;
+use app\models\work\VersionWork;
+use app\models\work\VisitWork;
 
 return [
     'access' => [
@@ -355,5 +418,257 @@ return [
 
     'invoice_errors' => [
         new InvoiceErrorsWork(),
+    ],
+
+    'in_out_docs' => [
+        new InOutDocsWork(),
+    ],
+
+    'kind_characteristic' => [
+        new KindCharacteristicWork(),
+    ],
+
+    'kind_object' => [
+        new KindObjectWork(),
+    ],
+
+    'legacy_responsible' => [
+        new LegacyResponsibleWork(),
+    ],
+
+    'lesson_theme' => [
+        new LessonThemeWork(),
+    ],
+
+    'license' => [
+        new LicenseWork(),
+    ],
+
+    'license_term_type' => [
+        new LicenseTermTypeWork(),
+    ],
+
+    'license_type' => [
+        new LicenseTypeWork(),
+    ],
+
+    'local_responsibility' => [
+        new LocalResponsibilityWork(),
+    ],
+
+    'log' => [
+        new LogWork(),
+    ],
+
+    'material_object' => [
+        new MaterialObjectWork(),
+    ],
+
+    'material_object_errors' => [
+        new MaterialObjectErrorsWork(),
+    ],
+
+    'material_object_subobject' => [
+        new MaterialObjectSubobjectWork(),
+    ],
+
+    'nomenclature' => [
+        new NomenclatureWork(),
+    ],
+
+    'object_characteristic' => [
+        new ObjectCharacteristicWork(),
+    ],
+
+    'object_entry' => [
+        new ObjectEntryWork(),
+    ],
+
+    'order_errors' => [
+        new OrderErrorsWork(),
+    ],
+
+    'order_group' => [
+        new OrderGroupWork(),
+    ],
+
+    'order_group_participant' => [
+        new OrderGroupParticipantWork(),
+    ],
+
+    'ownership_type' => [
+        new OwnershipTypeWork(),
+    ],
+
+    'participant_achievement' => [
+        new ParticipantAchievementWork(),
+    ],
+
+    'participant_files' => [
+        new ParticipantFilesWork(),
+    ],
+
+    'participation_scope' => [
+        new ParticipationScopeWork(),
+    ],
+
+    'patchnotes' => [
+        new PatchnotesWork(),
+    ],
+
+    'people' => [
+        new PeopleWork(),
+    ],
+
+    'people_material_object' => [
+        new PeopleMaterialObjectWork(),
+    ],
+
+    'people_position_branch' => [
+        new PeoplePositionBranchWork(),
+    ],
+
+    'personal_data' => [
+        new PersonalDataWork(),
+    ],
+
+    'personal_data_foreign_event_participant' => [
+        new PersonalDataForeignEventParticipantWork(),
+    ],
+
+    'position' => [
+        new PositionWork(),
+    ],
+
+    'product_union' => [
+        new ProductUnionWork(),
+    ],
+
+    'program_errors' => [
+        new ProgramErrorsWork(),
+    ],
+
+    'project_theme' => [
+        new ProjectThemeWork(),
+    ],
+
+    'regulation' => [
+        new RegulationWork(),
+    ],
+
+    'regulation_type' => [
+        new RegulationTypeWork(),
+    ],
+
+    'responsibility_type' => [
+        new ResponsibilityTypeWork(),
+    ],
+
+    'responsible' => [
+        new ResponsibleWork(),
+    ],
+
+    'role' => [
+        new RoleWork(),
+    ],
+
+    'role_function' => [
+        new RoleFunctionWork(),
+    ],
+
+    'role_function_role' => [
+        new RoleFunctionRoleWork(),
+    ],
+
+    'role_function_type' => [
+        new RoleFunctionTypeWork(),
+    ],
+
+    'send_method' => [
+        new SendMethodWork(),
+    ],
+
+    'subobject' => [
+        new SubobjectWork(),
+    ],
+
+    'teacher_group' => [
+        new TeacherGroupWork(),
+    ],
+
+    'teacher_participant' => [
+        new TeacherParticipantWork(),
+    ],
+
+    'teacher_participant_branch' => [
+        new TeacherParticipantBranchWork(),
+    ],
+
+    'team' => [
+        new TeamWork(),
+    ],
+
+    'temporary_journal' => [
+        new TemporaryJournalWork(),
+    ],
+
+    'temporary_object_journal' => [
+        new TemporaryObjectJournalWork(),
+    ],
+
+    'test_db_object' => [
+        new TestDbObjectWork(),
+    ],
+
+    'thematic_direction' => [
+        new ThematicDirectionWork(),
+    ],
+
+    'thematic_plan' => [
+        new ThematicPlanWork(),
+    ],
+
+    'training_group' => [
+        new TrainingGroupWork(),
+    ],
+
+    'training_group_expert' => [
+        new TrainingGroupExpertWork(),
+    ],
+
+    'training_group_lesson' => [
+        new TrainingGroupLessonWork(),
+    ],
+
+    'training_group_participant' => [
+        new TrainingGroupParticipantWork(),
+    ],
+
+    'training_program' => [
+        new TrainingProgramWork(),
+    ],
+
+    'union_object' => [
+        new UnionObjectWork(),
+    ],
+
+    'user' => [
+        new UserWork(),
+    ],
+
+    'user_role' => [
+        new UserRoleWork(),
+    ],
+
+    'use_years' => [
+        new UseYearsWork(),
+    ],
+
+    'version' => [
+        new VersionWork(),
+    ],
+
+    'visit' => [
+        new VisitWork(),
     ],
 ];
