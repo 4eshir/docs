@@ -117,15 +117,17 @@ class ForeignEventReportModel extends \yii\base\Model
                     else
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
 
-                    if ($team->foreign_event_id == 484)
+                    if ($res !== null) $counterTeamWinners++;
+                    else
                     {
-                        var_dump(ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $realPartsId])->createCommand()->getRawSql());
-                        var_dump('<br><br>');
-                        var_dump($realPartsId);
+                        if ($partsLink !== null)
+                            $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $realPartsId])->one();
+                        else
+                            $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->one();
+
+                        if ($res !== null) $counterTeamPrizes++;
                     }
 
-                    if ($res !== null) $counterTeamWinners++;
-                    else $counterTeamPrizes++;
                     
                     if ($partsLink !== null)
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $realPartsId])->one();
