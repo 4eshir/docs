@@ -118,7 +118,11 @@ class ForeignEventReportModel extends \yii\base\Model
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
 
                     if ($team->foreign_event_id == 484)
+                    {
                         var_dump(ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $realPartsId])->createCommand()->getRawSql());
+                        var_dump('<br><br>');
+                        var_dump($realPartsId);
+                    }
 
                     if ($res !== null) $counterTeamWinners++;
                     else $counterTeamPrizes++;
