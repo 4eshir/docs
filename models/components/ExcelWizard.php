@@ -817,7 +817,10 @@ class ExcelWizard
                 if ($counterPart1 < $counter1 + $counter2)
                 {
                     echo $event->name.' '.$counterPart1.' '.$counter1.' '.$counter2.'<br>---<br>';
-                    $allP = TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['allow_remote_id' => $allow_remote])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all();
+                    $allP = TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])
+                        ->andWhere(['allow_remote_id' => $allow_remote])
+                        ->andWhere(['IN', 'participant_id', $pIds])
+                        ->andWhere(['NOT IN', 'participant_id', $tpIds])->all();
 
                     foreach ($allP as $oneP) echo $oneP->participantWork->fullName.'<br>';
                     echo '<<<>>><br>';
