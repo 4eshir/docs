@@ -205,6 +205,8 @@ return [
         new BranchWork(),
         'auditorium' => ['branch_id'],
         'branch_program' => ['branch_id'],
+        'document_order' => ['nomenclature_id'],
+        'event_branch' => ['branch_id'],
     ],
 
     'branch_program' => [
@@ -236,6 +238,7 @@ return [
 
     'characteristic_object' => [
         new CharacteristicObjectWork(),
+        'dropdown_characteristic_object' => ['characteristic_object_id'],
     ],
 
     'company' => [
@@ -243,6 +246,7 @@ return [
         'contract' => ['contractor_id'],
         'destination' => ['company_id'],
         'document_in' => ['company_id'],
+        'document_out' => ['company_id'],
     ],
 
     'company_type' => [
@@ -313,6 +317,7 @@ return [
 
     'document_order' => [
         new DocumentOrderWork(),
+        'event' => ['order_id'],
     ],
 
     'document_out' => [
@@ -335,10 +340,16 @@ return [
         new ErrorsWork(),
         'container_errors' => ['errors_id'],
         'contract_errors' => ['errors_id'],
+        'event_errors' => ['errors_id'],
     ],
 
     'event' => [
         new EventWork(),
+        'events_link' => ['event_id'],
+        'event_branch' => ['event_id'],
+        'event_errors' => ['event_id'],
+        'event_object' => ['event_id'],
+        'event_participants' => ['event_id'],
     ],
 
     'events_link' => [
@@ -355,14 +366,17 @@ return [
 
     'event_external' => [
         new EventExternalWork(),
+        'events_link' => ['event_external_id'],
     ],
 
     'event_form' => [
         new EventFormWork(),
+        'event' => ['event_form_id'],
     ],
 
     'event_level' => [
         new EventLevelWork(),
+        'event' => ['event_level_id'],
     ],
 
     'event_object' => [
@@ -383,10 +397,12 @@ return [
 
     'event_type' => [
         new EventTypeWork(),
+        'event' => ['event_type_id'],
     ],
 
     'event_way' => [
         new EventWayWork(),
+        'event' => ['event_way_id'],
     ],
 
     'expert_type' => [
@@ -499,6 +515,7 @@ return [
         'complex_object' => ['material_object_id'],
         'container' => ['material_object_id'],
         'container_object' => ['material_object_id'],
+        'event_object' => ['material_object_id'],
     ],
 
     'material_object_errors' => [
@@ -548,6 +565,7 @@ return [
 
     'participation_scope' => [
         new ParticipationScopeWork(),
+        'event' => ['participation_scope_id'],
     ],
 
     'patchnotes' => [
@@ -558,6 +576,9 @@ return [
         new PeopleWork(),
         'author_program' => ['author_id'],
         'document_in' => ['correspondent_id', 'signed_id'],
+        'document_order' => ['signed_id', 'bring_id', 'executor_id'],
+        'document_out' => ['correspondent_id', 'signed_id', 'executor_id'],
+        'event' => ['responsible_id', 'responsible2_id'],
     ],
 
     'people_material_object' => [
@@ -580,6 +601,7 @@ return [
         new PositionWork(),
         'destination' => ['position_id'],
         'document_in' => ['position_id'],
+        'document_out' => ['position_id'],
     ],
 
     'product_union' => [
@@ -597,6 +619,7 @@ return [
 
     'regulation' => [
         new RegulationWork(),
+        'event' => ['regulation_id'],
     ],
 
     'regulation_type' => [
@@ -630,6 +653,7 @@ return [
     'send_method' => [
         new SendMethodWork(),
         'document_in' => ['send_method_id'],
+        'document_out' => ['send_method_id'],
     ],
 
     'subobject' => [
@@ -704,6 +728,9 @@ return [
         new UserWork(),
         'company' => ['last_edit_id'],
         'document_in' => ['get_id', 'register_id'],
+        'document_order' => ['register_id'],
+        'document_out' => ['register_id'],
+        'event' => ['creator_id'],
     ],
 
     'user_role' => [

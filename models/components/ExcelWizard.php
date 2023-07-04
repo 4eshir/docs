@@ -2436,6 +2436,29 @@ class ExcelWizard
         */
     }
 
+
+    static public function GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote_id)
+    {
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')
+            ->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->andWhere(['branch_id' => $branch_id])->andWhere(['trainingProgram.focus_id' => $focus_id])->andWhere(['trainingProgram.allow_remote_id' => $allow_remote_id])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->all();
+
+        $result = 0;
+        foreach ($trainingGroups as $group)
+        {
+            $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
+            foreach ($parts as $part)
+                if ($part->group_project_themes_id !== null)
+                    $result += 1;
+        }
+
+        return $result;
+    }
+
     //получаем процент победителей и призеров от общего числа участников
     static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget, $allow_remote = 1)
     {
