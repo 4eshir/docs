@@ -43,6 +43,7 @@ use app\models\work\DocumentOutWork;
 use app\models\work\DocumentTypeWork;
 use app\models\work\DropdownCharacteristicObjectWork;
 use app\models\work\EntryWork;
+use app\models\work\ErrorsWork;
 use app\models\work\EventBranchWork;
 use app\models\work\EventErrorsWork;
 use app\models\work\EventExternalWork;
@@ -62,6 +63,7 @@ use app\models\work\FeedbackWork;
 use app\models\work\FinanceSourceWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventErrorsWork;
+use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\GroupErrorsWork;
 use app\models\work\GroupProjectThemesWork;
@@ -145,9 +147,12 @@ return [
     ],
 
     'allow_remote' => [
-        new AllowRemoteWork()
+        new AllowRemoteWork(),
+        'teacher_participant' => ['allow_remote_id'],
     ],
 
+
+    // -- Временно не работают --
     'as_admin' => [
         new AsAdminWork(),
     ],
@@ -163,13 +168,16 @@ return [
     'as_type' => [
         new AsTypeWork(),
     ],
+    // -- Временно не работают --
 
     'auditorium' => [
         new AuditoriumWork(),
+        'container' => ['auditorium_id'],
     ],
 
     'auditorium_type' => [
         new AuditoriumTypeWork(),
+        'auditorium' => ['auditorium_type_id'],
     ],
 
     'author_program' => [
@@ -186,6 +194,7 @@ return [
 
     'bot_message' => [
         new BotMessageWork(),
+        'bot_message_variant' => ['bot_message_id', 'next_bot_message_id'],
     ],
 
     'bot_message_variant' => [
@@ -194,6 +203,8 @@ return [
 
     'branch' => [
         new BranchWork(),
+        'auditorium' => ['branch_id'],
+        'branch_program' => ['branch_id'],
     ],
 
     'branch_program' => [
@@ -202,10 +213,12 @@ return [
 
     'category_contract' => [
         new CategoryContractWork(),
+        'contract_category_contract' => ['category_contract_id'],
     ],
 
     'category_smsp' => [
         new CategorySmspWork(),
+        'company' => ['category_smsp_id'],
     ],
 
     'certificat' => [
@@ -214,6 +227,7 @@ return [
 
     'certificat_templates' => [
         new CertificatTemplatesWork(),
+        'certificat' => ['certificat_template_id'],
     ],
 
     'certificat_type' => [
@@ -226,10 +240,14 @@ return [
 
     'company' => [
         new CompanyWork(),
+        'contract' => ['contractor_id'],
+        'destination' => ['company_id'],
+        'document_in' => ['company_id'],
     ],
 
     'company_type' => [
         new CompanyTypeWork(),
+        'company' => ['company_type_id'],
     ],
 
     'complex' => [
@@ -242,6 +260,9 @@ return [
 
     'container' => [
         new ContainerWork(),
+        'container' => ['container_id'],
+        'container_errors' => ['container_id'],
+        'container_object' => ['container_id'],
     ],
 
     'container_errors' => [
@@ -254,6 +275,8 @@ return [
 
     'contract' => [
         new ContractWork(),
+        'contract_category_contract' => ['contract_id'],
+        'contract_errors' => ['contract_id'],
     ],
 
     'contract_category_contract' => [
@@ -306,6 +329,12 @@ return [
 
     'entry' => [
         new EntryWork(),
+    ],
+
+    'errors' => [
+        new ErrorsWork(),
+        'container_errors' => ['errors_id'],
+        'contract_errors' => ['errors_id'],
     ],
 
     'event' => [
@@ -388,6 +417,11 @@ return [
         new ForeignEventErrorsWork(),
     ],
 
+    'foreign_event_participants' => [
+        new ForeignEventParticipantsWork(),
+        'backup_visit' => ['foreign_event_participant_id'],
+    ],
+
     'group_errors' => [
         new GroupErrorsWork(),
     ],
@@ -462,6 +496,9 @@ return [
 
     'material_object' => [
         new MaterialObjectWork(),
+        'complex_object' => ['material_object_id'],
+        'container' => ['material_object_id'],
+        'container_object' => ['material_object_id'],
     ],
 
     'material_object_errors' => [
@@ -498,6 +535,7 @@ return [
 
     'ownership_type' => [
         new OwnershipTypeWork(),
+        'company' => ['ownership_type_id'],
     ],
 
     'participant_achievement' => [
@@ -518,6 +556,8 @@ return [
 
     'people' => [
         new PeopleWork(),
+        'author_program' => ['author_id'],
+        'document_in' => ['correspondent_id', 'signed_id'],
     ],
 
     'people_material_object' => [
@@ -538,10 +578,13 @@ return [
 
     'position' => [
         new PositionWork(),
+        'destination' => ['position_id'],
+        'document_in' => ['position_id'],
     ],
 
     'product_union' => [
         new ProductUnionWork(),
+        'complex_object' => ['logical_union_id'],
     ],
 
     'program_errors' => [
@@ -586,6 +629,7 @@ return [
 
     'send_method' => [
         new SendMethodWork(),
+        'document_in' => ['send_method_id'],
     ],
 
     'subobject' => [
@@ -638,14 +682,18 @@ return [
 
     'training_group_lesson' => [
         new TrainingGroupLessonWork(),
+        'backup_visit' => ['training_group_lesson_id'],
     ],
 
     'training_group_participant' => [
         new TrainingGroupParticipantWork(),
+        'certificat' => ['training_group_participant_id'],
     ],
 
     'training_program' => [
         new TrainingProgramWork(),
+        'author_program' => ['training_program_id'],
+        'branch_program' => ['training_program_id'],
     ],
 
     'union_object' => [
@@ -654,6 +702,8 @@ return [
 
     'user' => [
         new UserWork(),
+        'company' => ['last_edit_id'],
+        'document_in' => ['get_id', 'register_id'],
     ],
 
     'user_role' => [
@@ -670,5 +720,6 @@ return [
 
     'visit' => [
         new VisitWork(),
+        'backup_difference' => ['visit_id'],
     ],
 ];

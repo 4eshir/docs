@@ -812,6 +812,9 @@ class ExcelWizard
             $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['allow_remote_id' => $allow_remote])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
 
+            if ($branch_id == 3 && $focus_id == 3)
+                echo $event->name.' '.$counterPart1.' '.$counter1.' '.$counter2.'<br>';
+
         }
 
 
