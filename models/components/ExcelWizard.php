@@ -814,7 +814,16 @@ class ExcelWizard
 
             if ($branch_id == 3 && $focus_id == 3)
             {
-                echo $event->name.' '.$counterPart1.' '.$counter1.' '.$counter2.'<br>';
+                if ($counterPart1 < $counter1 + $counter2)
+                {
+                    echo $event->name.'<br>---<br>';
+                    $debPeople = ForeignEventParticipantsWork::find()->where(['IN', 'id', $achieves1])->all();
+                    foreach ($debPeople as $oneP) echo $oneP->fullName.'<br>';
+                    $debPeople = ForeignEventParticipantsWork::find()->where(['IN', 'id', $achieves2])->all();
+                    foreach ($debPeople as $oneP) echo $oneP->fullName.'<br>';
+
+                    echo '-------------------------<br><br>';
+                }
             }
 
 
