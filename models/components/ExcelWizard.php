@@ -817,10 +817,8 @@ class ExcelWizard
                 if ($counterPart1 < $counter1 + $counter2)
                 {
                     echo $event->name.' '.$counterPart1.' '.$counter1.' '.$counter2.'<br>---<br>';
-                    $debPeople = ForeignEventParticipantsWork::find()->where(['IN', 'id', $achieves1])->all();
-                    foreach ($debPeople as $oneP) echo $oneP->fullName.'<br>';
-                    $debPeople = ForeignEventParticipantsWork::find()->where(['IN', 'id', $achieves2])->all();
-                    foreach ($debPeople as $oneP) echo $oneP->fullName.'<br>';
+                    foreach ($achieves1 as $oneP) echo $oneP->participantWork->fullName.'<br>';
+                    foreach ($achieves2 as $oneP) echo $oneP->participantWork->fullName.'<br>';
 
                     echo '-------------------------<br><br>';
                 }
