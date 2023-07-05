@@ -2451,6 +2451,7 @@ class ExcelWizard
         $allParts = 0;
         foreach ($trainingGroups as $group)
         {
+            var_dump($group->number);
             $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
             foreach ($parts as $part)
             {
@@ -2493,10 +2494,6 @@ class ExcelWizard
 
         if ($branch_id == 7 && $allow_remote == 2)
         {
-            var_dump($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]);
-            var_dump($extraParts[0]);
-            var_dump($winners1[4] + $winners2[4] + $winners3[4]);
-            var_dump($extraParts[1]);
             return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
                 ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
         }
