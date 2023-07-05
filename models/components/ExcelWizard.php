@@ -2448,15 +2448,20 @@ class ExcelWizard
             ->all();
 
         $result = 0;
+        $allParts = 0;
         foreach ($trainingGroups as $group)
         {
             $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
             foreach ($parts as $part)
+            {
                 if ($part->group_project_themes_id !== null)
                     $result += 1;
+                $allParts += 1;
+            }
+
         }
 
-        return $result;
+        return [$result, $allParts];
     }
 
     //получаем процент победителей и призеров от общего числа участников
@@ -2466,7 +2471,7 @@ class ExcelWizard
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
 
-
+        $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);
 
         //if ($branch_id == 1)
         //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
@@ -2475,12 +2480,29 @@ class ExcelWizard
             ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, $allow_remote);
 
         //var_dump($all);
-        
-        if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
-        
+
+        if ($branch_id == 7 && $allow_remote == 2)
+        {
+            if ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1] == 0) return 0;
+        }
+        else
+        {
+            if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
+        }
 
 
-        return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+        if ($branch_id == 7 && $allow_remote == 2)
+        {
+            return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
+                ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
+        }
+        else
+        {
+            return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+        }
+
+
+
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
