@@ -2451,7 +2451,7 @@ class ExcelWizard
         foreach ($trainingGroups as $group)
         {
 
-            if ($group->branch_id == 7 && $group->allow_remote_id == 2 && $group->trainingProgram->focus_id == $focus_id)
+            if ($group->branch_id == 7 && $group->trainingProgram->allow_remote_id == 2 && $group->trainingProgram->focus_id == $focus_id)
             {
                 $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
                 foreach ($parts as $part)
