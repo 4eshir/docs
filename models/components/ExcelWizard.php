@@ -2439,9 +2439,10 @@ class ExcelWizard
 
     static public function GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote_id)
     {
-        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])
+            ->where(['branch_id' => $branch_id])->andWhere(['trainingProgram.focus_id' => $focus_id])->andWhere(['trainingProgram.allow_remote_id' => $allow_remote_id])
+            ->andWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')
             ->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->andWhere(['branch_id' => $branch_id])->andWhere(['trainingProgram.focus_id' => $focus_id])->andWhere(['trainingProgram.allow_remote_id' => $allow_remote_id])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
