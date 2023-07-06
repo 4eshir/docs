@@ -2495,7 +2495,7 @@ class ExcelWizard
         }
 
 
-        if ($branch_id == 7 && $allow_remote == 2)
+        if ($branch_id == 4 && $focus_id == 1)
         {
             return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
                 ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
@@ -2683,7 +2683,7 @@ class ExcelWizard
 
         //Отдел Моб. Кванториум (тех. направленность)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 4, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 4, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setHorizontal('center');
 

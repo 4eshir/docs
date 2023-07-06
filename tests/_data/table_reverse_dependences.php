@@ -106,6 +106,7 @@ use app\models\work\PositionWork;
 use app\models\work\ProductUnionWork;
 use app\models\work\ProgramErrorsWork;
 use app\models\work\ProjectThemeWork;
+use app\models\work\ProjectTypeWork;
 use app\models\work\RegulationTypeWork;
 use app\models\work\RegulationWork;
 use app\models\work\ResponsibilityTypeWork;
@@ -247,6 +248,8 @@ return [
         'destination' => ['company_id'],
         'document_in' => ['company_id'],
         'document_out' => ['company_id'],
+        'foreign_event' => ['company_id'],
+        'invoice' => ['contractor_id'],
     ],
 
     'company_type' => [
@@ -281,6 +284,7 @@ return [
         new ContractWork(),
         'contract_category_contract' => ['contract_id'],
         'contract_errors' => ['contract_id'],
+        'invoice' => ['contract_id'],
     ],
 
     'contract_category_contract' => [
@@ -318,6 +322,8 @@ return [
     'document_order' => [
         new DocumentOrderWork(),
         'event' => ['order_id'],
+        'expire' => ['expire_order_id'],
+        'foreign_event' => ['order_participation_id', 'add_order_participation_id', 'order_business_trip_id'],
     ],
 
     'document_out' => [
@@ -326,6 +332,7 @@ return [
 
     'document_type' => [
         new DocumentTypeWork(),
+        'expire' => ['document_type_id'],
     ],
 
     'dropdown_characteristic_object' => [
@@ -334,6 +341,7 @@ return [
 
     'entry' => [
         new EntryWork(),
+        'invoice_entry' => ['entry_id'],
     ],
 
     'errors' => [
@@ -341,6 +349,8 @@ return [
         'container_errors' => ['errors_id'],
         'contract_errors' => ['errors_id'],
         'event_errors' => ['errors_id'],
+        'foreign_event_errors' => ['errors_id'],
+        'group_errors' => ['errors_id'],
     ],
 
     'event' => [
@@ -350,6 +360,8 @@ return [
         'event_errors' => ['event_id'],
         'event_object' => ['event_id'],
         'event_participants' => ['event_id'],
+        'event_scope' => ['event_id'],
+        'event_training_group' => ['event_id'],
     ],
 
     'events_link' => [
@@ -377,6 +389,7 @@ return [
     'event_level' => [
         new EventLevelWork(),
         'event' => ['event_level_id'],
+        'foreign_event' => ['event_level_id'],
     ],
 
     'event_object' => [
@@ -403,6 +416,7 @@ return [
     'event_way' => [
         new EventWayWork(),
         'event' => ['event_way_id'],
+        'foreign_event' => ['event_way_id'],
     ],
 
     'expert_type' => [
@@ -427,6 +441,7 @@ return [
 
     'foreign_event' => [
         new ForeignEventWork(),
+        'foreign_event_errors' => ['foreign_event_id'],
     ],
 
     'foreign_event_errors' => [
@@ -452,6 +467,7 @@ return [
 
     'history_transaction' => [
         new HistoryTransactionWork(),
+        'history_object' => ['history_transaction_id'],
     ],
 
     'install_place' => [
@@ -460,6 +476,7 @@ return [
 
     'invoice' => [
         new InvoiceWork(),
+        'invoice_entry' => ['invoice_id'],
     ],
 
     'invoice_entry' => [
@@ -516,6 +533,7 @@ return [
         'container' => ['material_object_id'],
         'container_object' => ['material_object_id'],
         'event_object' => ['material_object_id'],
+        'history_object' => ['material_object_id'],
     ],
 
     'material_object_errors' => [
@@ -566,6 +584,7 @@ return [
     'participation_scope' => [
         new ParticipationScopeWork(),
         'event' => ['participation_scope_id'],
+        'event_scope' => ['participation_scope_id'],
     ],
 
     'patchnotes' => [
@@ -579,6 +598,8 @@ return [
         'document_order' => ['signed_id', 'bring_id', 'executor_id'],
         'document_out' => ['correspondent_id', 'signed_id', 'executor_id'],
         'event' => ['responsible_id', 'responsible2_id'],
+        'foreign_event' => ['escort_id'],
+        'history_transaction' => ['people_get_id', 'people_give_id'],
     ],
 
     'people_material_object' => [
@@ -615,11 +636,18 @@ return [
 
     'project_theme' => [
         new ProjectThemeWork(),
+        'group_project_themes' => ['project_theme_id'],
+    ],
+
+    'project_type' => [
+        new ProjectTypeWork(),
+        'group_project_themes' => ['project_type_id'],
     ],
 
     'regulation' => [
         new RegulationWork(),
         'event' => ['regulation_id'],
+        'expire' => ['active_regulation_id', 'expire_regulation_id'],
     ],
 
     'regulation_type' => [
@@ -698,6 +726,9 @@ return [
 
     'training_group' => [
         new TrainingGroupWork(),
+        'event_training_group' => ['training_group_id'],
+        'group_errors' => ['training_group_id'],
+        'group_project_themes' => ['training_group_id'],
     ],
 
     'training_group_expert' => [
@@ -731,6 +762,8 @@ return [
         'document_order' => ['register_id'],
         'document_out' => ['register_id'],
         'event' => ['creator_id'],
+        'feedback' => ['user_id'],
+        'foreign_event' => ['creator_id', 'last_edit_id'],
     ],
 
     'user_role' => [
