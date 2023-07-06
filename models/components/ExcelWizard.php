@@ -2495,7 +2495,7 @@ class ExcelWizard
         }
 
 
-        if ($branch_id == 4 && $focus_id == 1)
+        if ($branch_id == 4 && $focus_id == 1 || $branch_id == 7 && $allow_remote == 2)
         {
             return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
                 ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
