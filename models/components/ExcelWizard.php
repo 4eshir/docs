@@ -2474,9 +2474,9 @@ class ExcelWizard
         $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
-
+/*
         if ($branch_id == 4 && $focus_id == 1)
-            $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);
+            $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);*/
 
         //if ($branch_id == 1)
         //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
@@ -2486,22 +2486,22 @@ class ExcelWizard
 
         //var_dump($all);
 
-        if ($branch_id == 4 && $focus_id == 1)
+        /*if ($branch_id == 4 && $focus_id == 1)
         {
             if ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1] == 0) return 0;
         }
-        else
+        else*/
         {
             if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
         }
 
 
-        if ($branch_id == 4 && $focus_id == 1)
+        /*if ($branch_id == 4 && $focus_id == 1)
         {
             return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
                 ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
         }
-        else
+        else*/
         {
             return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
         }
