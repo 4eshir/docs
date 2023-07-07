@@ -2475,7 +2475,8 @@ class ExcelWizard
         $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
         $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
 
-        $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);
+        if ($branch_id == 4 && $focus_id == 1)
+            $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);
 
         //if ($branch_id == 1)
         //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
