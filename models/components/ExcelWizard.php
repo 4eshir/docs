@@ -2751,7 +2751,7 @@ class ExcelWizard
         //-----------------------------------------------------
 
         //Кол-во человеко-часов
-
+/*
         $statusArr = [];
         if ($visit_flag == 1) $statusArr = [0, 1, 2];
         else $statusArr = [0, 2];
@@ -2885,7 +2885,7 @@ class ExcelWizard
         //---------------
 
         //---------------------
-        
+        */
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
