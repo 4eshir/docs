@@ -2613,8 +2613,8 @@ class ExcelWizard
 
     static public function DownloadGZ($start_date, $end_date, $visit_flag)
     {
-        ini_set('max_execution_time', '60000');
-        ini_set('memory_limit', '4096M');
+        ini_set('max_execution_time', '6000');
+        ini_set('memory_limit', '2048M');
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_GZ.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_GZ.xlsx');
