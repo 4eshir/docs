@@ -2491,9 +2491,7 @@ class ExcelWizard
             if ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1] == 0) return 0;
         }
         else*/
-        {
-            if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
-        }
+        if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
 
 
         /*if ($branch_id == 4 && $focus_id == 1)
@@ -2502,9 +2500,8 @@ class ExcelWizard
                 ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
         }
         else*/
-        {
-            return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
-        }
+        return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+
 
 
 
