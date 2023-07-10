@@ -150,6 +150,7 @@ return [
     'allow_remote' => [
         new AllowRemoteWork(),
         'teacher_participant' => ['allow_remote_id'],
+        'training_program' => ['allow_remote_id'],
     ],
 
 
@@ -174,6 +175,10 @@ return [
     'auditorium' => [
         new AuditoriumWork(),
         'container' => ['auditorium_id'],
+        'legacy_responsible' => ['auditorium_id'],
+        'local_responsibility' => ['auditorium_id'],
+        'temporary_journal' => ['auditorium_id'],
+        'training_group_lesson' => ['auditorium_id'],
     ],
 
     'auditorium_type' => [
@@ -208,6 +213,14 @@ return [
         'branch_program' => ['branch_id'],
         'document_order' => ['nomenclature_id'],
         'event_branch' => ['branch_id'],
+        'legacy_responsible' => ['branch_id'],
+        'local_responsibility' => ['branch_id'],
+        'nomenclature' => ['branch_id'],
+        'people' => ['branch_id'],
+        'people_position_branch' => ['branch_id'],
+        'teacher_participant' => ['branch_id'],
+        'temporary_journal' => ['branch_id'],
+        'training_group_lesson' => ['branch_id'],
     ],
 
     'branch_program' => [
@@ -235,11 +248,14 @@ return [
 
     'certificat_type' => [
         new CertificatTypeWork(),
+        'training_program' => ['certificat_type_id'],
     ],
 
     'characteristic_object' => [
         new CharacteristicObjectWork(),
         'dropdown_characteristic_object' => ['characteristic_object_id'],
+        'kind_characteristics' => ['characteristic_object_id'],
+        'object_characteristic' => ['characteristic_object_id'],
     ],
 
     'company' => [
@@ -250,6 +266,7 @@ return [
         'document_out' => ['company_id'],
         'foreign_event' => ['company_id'],
         'invoice' => ['contractor_id'],
+        'people' => ['contractor_id'],
     ],
 
     'company_type' => [
@@ -270,6 +287,7 @@ return [
         'container' => ['container_id'],
         'container_errors' => ['container_id'],
         'container_object' => ['container_id'],
+        'temporary_object_journal' => ['container_id'],
     ],
 
     'container_errors' => [
@@ -297,6 +315,8 @@ return [
 
     'control_type' => [
         new ControlTypeWork(),
+        'lesson_theme' => ['control_type_id'],
+        'thematic_plan' => ['control_type_id'],
     ],
 
     'copyright' => [
@@ -317,6 +337,7 @@ return [
 
     'document_in' => [
         new DocumentInWork(),
+        'in_out_docs' => ['document_in_id'],
     ],
 
     'document_order' => [
@@ -324,10 +345,16 @@ return [
         'event' => ['order_id'],
         'expire' => ['expire_order_id'],
         'foreign_event' => ['order_participation_id', 'add_order_participation_id', 'order_business_trip_id'],
+        'legacy_responsible' => ['order_id'],
+        'order_errors' => ['order_id'],
+        'order_group' => ['document_order_id'],
+        'regulation' => ['order_id'],
+        'responsible' => ['document_order_id'],
     ],
 
     'document_out' => [
         new DocumentOutWork(),
+        'in_out_docs' => ['document_out_id'],
     ],
 
     'document_type' => [
@@ -337,11 +364,14 @@ return [
 
     'dropdown_characteristic_object' => [
         new DropdownCharacteristicObjectWork(),
+        'object_characteristic' => ['dropdown_value'],
     ],
 
     'entry' => [
         new EntryWork(),
         'invoice_entry' => ['entry_id'],
+        'object_entry' => ['entry_id'],
+        'subobject' => ['entry_id'],
     ],
 
     'errors' => [
@@ -351,6 +381,10 @@ return [
         'event_errors' => ['errors_id'],
         'foreign_event_errors' => ['errors_id'],
         'group_errors' => ['errors_id'],
+        'invoice_errors' => ['errors_id'],
+        'material_object_errors' => ['errors_id'],
+        'order_errors' => ['errors_id'],
+        'program_errors' => ['errors_id'],
     ],
 
     'event' => [
@@ -362,6 +396,7 @@ return [
         'event_participants' => ['event_id'],
         'event_scope' => ['event_id'],
         'event_training_group' => ['event_id'],
+        'temporary_journal' => ['event_id'],
     ],
 
     'events_link' => [
@@ -421,6 +456,7 @@ return [
 
     'expert_type' => [
         new ExpertTypeWork(),
+        'training_group_expert' => ['expert_type_id'],
     ],
 
     'expire' => [
@@ -433,15 +469,23 @@ return [
 
     'finance_source' => [
         new FinanceSourceWork(),
+        'material_object' => ['finance_source_id'],
     ],
 
     'focus' => [
         new FocusWork(),
+        'teacher_participant' => ['focus'],
+        'training_program' => ['focus_id'],
     ],
 
     'foreign_event' => [
         new ForeignEventWork(),
         'foreign_event_errors' => ['foreign_event_id'],
+        'participant_achievement' => ['foreign_event_id'],
+        'participant_files' => ['foreign_event_id'],
+        'teacher_participant' => ['foreign_event_id'],
+        'team' => ['foreign_event_id'],
+        'temporary_journal' => ['foreign_event_id'],
     ],
 
     'foreign_event_errors' => [
@@ -451,6 +495,13 @@ return [
     'foreign_event_participants' => [
         new ForeignEventParticipantsWork(),
         'backup_visit' => ['foreign_event_participant_id'],
+        'participant_achievement' => ['participant_id'],
+        'participant_files' => ['participant_id'],
+        'personal_data_foreign_event_participant' => ['foreign_event_participant_id'],
+        'teacher_participant' => ['participant_id'],
+        'team' => ['participant_id'],
+        'training_group_participant' => ['participant_id'],
+        'visit' => ['foreign_event_participant_id'],
     ],
 
     'group_errors' => [
@@ -459,6 +510,7 @@ return [
 
     'group_project_themes' => [
         new GroupProjectThemesWork(),
+        'training_group_participant' => ['group_project_themes_id'],
     ],
 
     'history_object' => [
@@ -477,6 +529,7 @@ return [
     'invoice' => [
         new InvoiceWork(),
         'invoice_entry' => ['invoice_id'],
+        'invoice_errors' => ['invoice_id'],
     ],
 
     'invoice_entry' => [
@@ -497,6 +550,8 @@ return [
 
     'kind_object' => [
         new KindObjectWork(),
+        'kind_characteristic' => ['kind_object_id'],
+        'material_object' => ['kind_id'],
     ],
 
     'legacy_responsible' => [
@@ -534,6 +589,14 @@ return [
         'container_object' => ['material_object_id'],
         'event_object' => ['material_object_id'],
         'history_object' => ['material_object_id'],
+        'material_object_errors' => ['material_object_id'],
+        'material_object_subobject' => ['material_object_id'],
+        'object_characteristic' => ['material_object_id'],
+        'object_entry' => ['material_object_id'],
+        'people_material_object' => ['material_object_id'],
+        'temporary_journal' => ['material_object_id'],
+        'temporary_object_journal' => ['material_object_id'],
+        'union_object' => ['material_object_id'],
     ],
 
     'material_object_errors' => [
@@ -562,10 +625,12 @@ return [
 
     'order_group' => [
         new OrderGroupWork(),
+        'order_group_participant' => ['order_group_id'],
     ],
 
     'order_group_participant' => [
         new OrderGroupParticipantWork(),
+        'order_group_participant' => ['link_id'],
     ],
 
     'ownership_type' => [
@@ -600,6 +665,20 @@ return [
         'event' => ['responsible_id', 'responsible2_id'],
         'foreign_event' => ['escort_id'],
         'history_transaction' => ['people_get_id', 'people_give_id'],
+        'in_out_docs' => ['people_id'],
+        'legacy_responsible' => ['people_id'],
+        'lesson_theme' => ['people_id'],
+        'local_responsibility' => ['people_id'],
+        'people_material_object' => ['people_id'],
+        'people_position_branch' => ['people_id'],
+        'responsible' => ['people_id'],
+        'teacher_group' => ['teacher_id'],
+        'teacher_participant' => ['teacher_id', 'teacher2_id'],
+        'temporary_journal' => ['give_people_id', 'gain_people_id'],
+        'training_group' => ['teacher_id'],
+        'training_group_expert' => ['expert_id'],
+        'training_program' => ['author_id'],
+        'user' => ['aka'],
     ],
 
     'people_material_object' => [
@@ -612,6 +691,7 @@ return [
 
     'personal_data' => [
         new PersonalDataWork(),
+        'personal_data_foreign_event_participant' => ['personal_data_id'],
     ],
 
     'personal_data_foreign_event_participant' => [
@@ -623,11 +703,14 @@ return [
         'destination' => ['position_id'],
         'document_in' => ['position_id'],
         'document_out' => ['position_id'],
+        'people' => ['position_id'],
+        'people_position_branch' => ['position_id'],
     ],
 
     'product_union' => [
         new ProductUnionWork(),
         'complex_object' => ['logical_union_id'],
+        'union_object' => ['union_id'],
     ],
 
     'program_errors' => [
@@ -648,14 +731,18 @@ return [
         new RegulationWork(),
         'event' => ['regulation_id'],
         'expire' => ['active_regulation_id', 'expire_regulation_id'],
+        'local_responsibility' => ['regulation_id'],
     ],
 
     'regulation_type' => [
         new RegulationTypeWork(),
+        'regulation' => ['regulation_type_id'],
     ],
 
     'responsibility_type' => [
         new ResponsibilityTypeWork(),
+        'legacy_responsible' => ['responsibility_type_id'],
+        'local_responsibility' => ['responsibility_type_id'],
     ],
 
     'responsible' => [
@@ -664,10 +751,13 @@ return [
 
     'role' => [
         new RoleWork(),
+        'role_function_role' => ['role_id'],
+        'user_role' => ['role_id'],
     ],
 
     'role_function' => [
         new RoleFunctionWork(),
+        'role_function_role' => ['role_function_id'],
     ],
 
     'role_function_role' => [
@@ -676,16 +766,20 @@ return [
 
     'role_function_type' => [
         new RoleFunctionTypeWork(),
+        'role_function' => ['role_function_type_id'],
     ],
 
     'send_method' => [
         new SendMethodWork(),
         'document_in' => ['send_method_id'],
         'document_out' => ['send_method_id'],
+        'training_group_participant' => ['send_method_id'],
     ],
 
     'subobject' => [
         new SubobjectWork(),
+        'material_object_subobject' => ['subobject_id'],
+        'subobject' => ['parent_id'],
     ],
 
     'teacher_group' => [
@@ -694,6 +788,7 @@ return [
 
     'teacher_participant' => [
         new TeacherParticipantWork(),
+        'teacher_participant_branch' => ['teacher_participant_id'],
     ],
 
     'teacher_participant_branch' => [
@@ -718,6 +813,7 @@ return [
 
     'thematic_direction' => [
         new ThematicDirectionWork(),
+        'training_program' => ['thematic_direction_id'],
     ],
 
     'thematic_plan' => [
@@ -729,6 +825,11 @@ return [
         'event_training_group' => ['training_group_id'],
         'group_errors' => ['training_group_id'],
         'group_project_themes' => ['training_group_id'],
+        'order_group' => ['training_group_id'],
+        'teacher_group' => ['training_group_id'],
+        'training_group_expert' => ['training_group_id'],
+        'training_group_lesson' => ['training_group_id'],
+        'training_group_participant' => ['training_group_id'],
     ],
 
     'training_group_expert' => [
@@ -738,17 +839,23 @@ return [
     'training_group_lesson' => [
         new TrainingGroupLessonWork(),
         'backup_visit' => ['training_group_lesson_id'],
+        'lesson_theme' => ['training_group_lesson_id'],
+        'visit' => ['training_group_lesson_id'],
     ],
 
     'training_group_participant' => [
         new TrainingGroupParticipantWork(),
         'certificat' => ['training_group_participant_id'],
+        'order_group_participant' => ['group_participant_id'],
     ],
 
     'training_program' => [
         new TrainingProgramWork(),
         'author_program' => ['training_program_id'],
         'branch_program' => ['training_program_id'],
+        'program_errors' => ['training_program_id'],
+        'thematic_plan' => ['training_program_id'],
+        'training_group' => ['training_program_id'],
     ],
 
     'union_object' => [
@@ -764,15 +871,23 @@ return [
         'event' => ['creator_id'],
         'feedback' => ['user_id'],
         'foreign_event' => ['creator_id', 'last_edit_id'],
+        'log' => ['user_id'],
+        'temporary_object_journal' => ['user_give_id', 'user_get_id'],
+        'training_group' => ['creator_id'],
+        'training_program' => ['creator_id', 'last_update_id'],
+        'user' => ['creator_id'],
+        'user_role' => ['user_id'],
     ],
 
     'user_role' => [
         new UserRoleWork(),
     ],
 
+    // -- Временно не работают --
     'use_years' => [
         new UseYearsWork(),
     ],
+    // -- Временно не работают --
 
     'version' => [
         new VersionWork(),
