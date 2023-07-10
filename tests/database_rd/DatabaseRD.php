@@ -8,6 +8,7 @@ class DatabaseRD
     public $dbArray = [];
     //------------------------------------------------------
 
+
     //--Получение данных о таблицах БД из файла $filename--
     public function SetDbArray($filename = 'table_reverse_dependences.php')
     {
@@ -15,5 +16,26 @@ class DatabaseRD
     }
     //-----------------------------------------------------
 
-    
+
+    //--Функция проверки соответствия данных из $dbArray и реальной БД--
+    public function CheckDbIntegrity()
+    {
+        $result = [];
+        foreach ($this->dbArray as $table)
+        {
+            $iterationResult = $this->CheckTableIntegrity($table);
+            $integrityResult = new IntegrityResult($table, $iterationResult);
+            $result[] = $integrityResult;
+        }
+        return $result;
+    }
+    //------------------------------------------------------------------
+
+
+    //--Функция проверки соответствия одной таблицы из списка таблиц--
+    public function CheckTableIntegrity($table)
+    {
+
+    }
+    //----------------------------------------------------------------
 }
