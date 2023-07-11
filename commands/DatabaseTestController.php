@@ -10,10 +10,13 @@ namespace app\commands;
 use app\models\components\YandexDiskContext;
 use app\models\LoginForm;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+use app\models\work\PeopleWork;
 use app\models\work\VisitWork;
+use tests\database_rd\DatabaseRD;
 use tests\other\DatabaseFileAccessTest;
 use tests\other\models\FileAccessTest\FileAccessModel;
 use Yii;
+use yii\base\ErrorException;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\filters\AccessControl;
@@ -48,6 +51,42 @@ class DatabaseTestController extends Controller
 
         $this->stdout($message."\n", Console::FG_RED);
         //echo '<color="green">'.$message.'</color>' . "\n";
+
+        return ExitCode::OK;
+    }
+
+    public function actionTemp()
+    {
+        $array = [
+            new DatabaseRD(),
+            't1' => ['1', '2', '3'],
+            't2' => ['2', '2', '3'],
+            't3' => ['3', '2', '3'],
+            't4' => ['4', '2', '3'],
+        ];
+
+
+        $class = new PeopleWork();
+        $query = null;
+        $result = 0;
+
+        $col = 'firstname';
+
+        try {
+            $query = $class::find()->where([$col => 1])->all();
+        } catch (\yii\db\Exception $e) {
+            $result = 1;
+            Yii::warning("Division by zero1111.");
+        }
+
+
+        $this->stdout($result."\n", Console::FG_GREEN);
+
+
+
+
+        //$res = DatabaseRD::SearchTableData($array, key($array[1]));
+        //$this->stdout($res."\n", Console::FG_GREEN);
 
         return ExitCode::OK;
     }

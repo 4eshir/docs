@@ -140,15 +140,15 @@ use app\models\work\VisitWork;
 
 return [
     'access' => [
-        new AccessWork(),
+        0 => new AccessWork(),
     ],
 
     'access_level' => [
-        new AccessLevelWork(),
+        0 => new AccessLevelWork(),
     ],
 
     'allow_remote' => [
-        new AllowRemoteWork(),
+        0 => new AllowRemoteWork(),
         'teacher_participant' => ['allow_remote_id'],
         'training_program' => ['allow_remote_id'],
     ],
@@ -156,24 +156,24 @@ return [
 
     // -- Временно не работают --
     'as_admin' => [
-        new AsAdminWork(),
+        0 => new AsAdminWork(),
     ],
 
     'as_company' => [
-        new AsCompanyWork(),
+        0 => new AsCompanyWork(),
     ],
 
     'as_install' => [
-        new AsInstallWork(),
+        0 => new AsInstallWork(),
     ],
 
     'as_type' => [
-        new AsTypeWork(),
+        0 => new AsTypeWork(),
     ],
     // -- Временно не работают --
 
     'auditorium' => [
-        new AuditoriumWork(),
+        0 => new AuditoriumWork(),
         'container' => ['auditorium_id'],
         'legacy_responsible' => ['auditorium_id'],
         'local_responsibility' => ['auditorium_id'],
@@ -182,33 +182,33 @@ return [
     ],
 
     'auditorium_type' => [
-        new AuditoriumTypeWork(),
+        0 => new AuditoriumTypeWork(),
         'auditorium' => ['auditorium_type_id'],
     ],
 
     'author_program' => [
-        new AuthorProgramWork(),
+        0 => new AuthorProgramWork(),
     ],
 
     'backup_difference' => [
-        new BackupDifferenceWork(),
+        0 => new BackupDifferenceWork(),
     ],
 
     'backup_visit' => [
-        new BackupVisitWork(),
+        0 => new BackupVisitWork(),
     ],
 
     'bot_message' => [
-        new BotMessageWork(),
+        0 => new BotMessageWork(),
         'bot_message_variant' => ['bot_message_id', 'next_bot_message_id'],
     ],
 
     'bot_message_variant' => [
-        new BotMessageVariant(),
+        0 => new BotMessageVariant(),
     ],
 
     'branch' => [
-        new BranchWork(),
+        0 => new BranchWork(),
         'auditorium' => ['branch_id'],
         'branch_program' => ['branch_id'],
         'document_order' => ['nomenclature_id'],
@@ -224,66 +224,65 @@ return [
     ],
 
     'branch_program' => [
-        new BranchProgramWork(),
+        0 => new BranchProgramWork(),
     ],
 
     'category_contract' => [
-        new CategoryContractWork(),
+        0 => new CategoryContractWork(),
         'contract_category_contract' => ['category_contract_id'],
     ],
 
     'category_smsp' => [
-        new CategorySmspWork(),
+        0 => new CategorySmspWork(),
         'company' => ['category_smsp_id'],
     ],
 
     'certificat' => [
-        new CertificatWork(),
+        0 => new CertificatWork(),
     ],
 
     'certificat_templates' => [
-        new CertificatTemplatesWork(),
+        0 => new CertificatTemplatesWork(),
         'certificat' => ['certificat_template_id'],
     ],
 
     'certificat_type' => [
-        new CertificatTypeWork(),
+        0 => new CertificatTypeWork(),
         'training_program' => ['certificat_type_id'],
     ],
 
     'characteristic_object' => [
-        new CharacteristicObjectWork(),
+        0 => new CharacteristicObjectWork(),
         'dropdown_characteristic_object' => ['characteristic_object_id'],
-        'kind_characteristics' => ['characteristic_object_id'],
+        'kind_characteristic' => ['characteristic_object_id'],
         'object_characteristic' => ['characteristic_object_id'],
     ],
 
     'company' => [
-        new CompanyWork(),
+        0 => new CompanyWork(),
         'contract' => ['contractor_id'],
         'destination' => ['company_id'],
         'document_in' => ['company_id'],
         'document_out' => ['company_id'],
         'foreign_event' => ['company_id'],
         'invoice' => ['contractor_id'],
-        'people' => ['contractor_id'],
     ],
 
     'company_type' => [
-        new CompanyTypeWork(),
+        0 => new CompanyTypeWork(),
         'company' => ['company_type_id'],
     ],
 
     'complex' => [
-        new ComplexWork(),
+        0 => new ComplexWork(),
     ],
 
     'complex_object' => [
-        new ComplexObjectWork(),
+        0 => new ComplexObjectWork(),
     ],
 
     'container' => [
-        new ContainerWork(),
+        0 => new ContainerWork(),
         'container' => ['container_id'],
         'container_errors' => ['container_id'],
         'container_object' => ['container_id'],
@@ -291,91 +290,91 @@ return [
     ],
 
     'container_errors' => [
-        new ContainerErrorsWork(),
+        0 => new ContainerErrorsWork(),
     ],
 
     'container_object' => [
-        new ContainerObjectWork(),
+        0 => new ContainerObjectWork(),
     ],
 
     'contract' => [
-        new ContractWork(),
+        0 => new ContractWork(),
         'contract_category_contract' => ['contract_id'],
         'contract_errors' => ['contract_id'],
         'invoice' => ['contract_id'],
     ],
 
     'contract_category_contract' => [
-        new ContractCategoryContractWork(),
+        0 => new ContractCategoryContractWork(),
     ],
 
     'contract_errors' => [
-        new ContractErrorsWork(),
+        0 => new ContractErrorsWork(),
     ],
 
     'control_type' => [
-        new ControlTypeWork(),
+        0 => new ControlTypeWork(),
         'lesson_theme' => ['control_type_id'],
         'thematic_plan' => ['control_type_id'],
     ],
 
     'copyright' => [
-        new CopyrightWork(),
+        0 => new CopyrightWork(),
     ],
 
     'country' => [
-        new CountryWork(),
+        0 => new CountryWork(),
     ],
 
     'destination' => [
-        new DestinationWork(),
+        0 => new DestinationWork(),
     ],
 
     'distribution_type' => [
-        new DistributionTypeWork(),
+        0 => new DistributionTypeWork(),
     ],
 
     'document_in' => [
-        new DocumentInWork(),
+        0 => new DocumentInWork(),
         'in_out_docs' => ['document_in_id'],
     ],
 
     'document_order' => [
-        new DocumentOrderWork(),
+        0 => new DocumentOrderWork(),
         'event' => ['order_id'],
         'expire' => ['expire_order_id'],
         'foreign_event' => ['order_participation_id', 'add_order_participation_id', 'order_business_trip_id'],
         'legacy_responsible' => ['order_id'],
-        'order_errors' => ['order_id'],
+        'order_errors' => ['document_order_id'],
         'order_group' => ['document_order_id'],
         'regulation' => ['order_id'],
         'responsible' => ['document_order_id'],
     ],
 
     'document_out' => [
-        new DocumentOutWork(),
+        0 => new DocumentOutWork(),
         'in_out_docs' => ['document_out_id'],
     ],
 
     'document_type' => [
-        new DocumentTypeWork(),
+        0 => new DocumentTypeWork(),
         'expire' => ['document_type_id'],
     ],
 
     'dropdown_characteristic_object' => [
-        new DropdownCharacteristicObjectWork(),
+        0 => new DropdownCharacteristicObjectWork(),
         'object_characteristic' => ['dropdown_value'],
     ],
 
     'entry' => [
-        new EntryWork(),
+        0 => new EntryWork(),
         'invoice_entry' => ['entry_id'],
         'object_entry' => ['entry_id'],
         'subobject' => ['entry_id'],
     ],
 
     'errors' => [
-        new ErrorsWork(),
+        0 => new ErrorsWork(),
         'container_errors' => ['errors_id'],
         'contract_errors' => ['errors_id'],
         'event_errors' => ['errors_id'],
@@ -388,7 +387,7 @@ return [
     ],
 
     'event' => [
-        new EventWork(),
+        0 => new EventWork(),
         'events_link' => ['event_id'],
         'event_branch' => ['event_id'],
         'event_errors' => ['event_id'],
@@ -400,86 +399,86 @@ return [
     ],
 
     'events_link' => [
-        new EventsLinkWork(),
+        0 => new EventsLinkWork(),
     ],
 
     'event_branch' => [
-        new EventBranchWork(),
+        0 => new EventBranchWork(),
     ],
 
     'event_errors' => [
-        new EventErrorsWork(),
+        0 => new EventErrorsWork(),
     ],
 
     'event_external' => [
-        new EventExternalWork(),
+        0 => new EventExternalWork(),
         'events_link' => ['event_external_id'],
     ],
 
     'event_form' => [
-        new EventFormWork(),
+        0 => new EventFormWork(),
         'event' => ['event_form_id'],
     ],
 
     'event_level' => [
-        new EventLevelWork(),
+        0 => new EventLevelWork(),
         'event' => ['event_level_id'],
         'foreign_event' => ['event_level_id'],
     ],
 
     'event_object' => [
-        new EventObjectWork(),
+        0 => new EventObjectWork(),
     ],
 
     'event_participants' => [
-        new EventParticipantsWork(),
+        0 => new EventParticipantsWork(),
     ],
 
     'event_scope' => [
-        new EventScopeWork(),
+        0 => new EventScopeWork(),
     ],
 
     'event_training_group' => [
-        new EventTrainingGroupWork(),
+        0 => new EventTrainingGroupWork(),
     ],
 
     'event_type' => [
-        new EventTypeWork(),
+        0 => new EventTypeWork(),
         'event' => ['event_type_id'],
     ],
 
     'event_way' => [
-        new EventWayWork(),
+        0 => new EventWayWork(),
         'event' => ['event_way_id'],
         'foreign_event' => ['event_way_id'],
     ],
 
     'expert_type' => [
-        new ExpertTypeWork(),
+        0 => new ExpertTypeWork(),
         'training_group_expert' => ['expert_type_id'],
     ],
 
     'expire' => [
-        new ExpireWork(),
+        0 => new ExpireWork(),
     ],
 
     'feedback' => [
-        new FeedbackWork(),
+        0 => new FeedbackWork(),
     ],
 
     'finance_source' => [
-        new FinanceSourceWork(),
+        0 => new FinanceSourceWork(),
         'material_object' => ['finance_source_id'],
     ],
 
     'focus' => [
-        new FocusWork(),
+        0 => new FocusWork(),
         'teacher_participant' => ['focus'],
         'training_program' => ['focus_id'],
     ],
 
     'foreign_event' => [
-        new ForeignEventWork(),
+        0 => new ForeignEventWork(),
         'foreign_event_errors' => ['foreign_event_id'],
         'participant_achievement' => ['foreign_event_id'],
         'participant_files' => ['foreign_event_id'],
@@ -489,11 +488,11 @@ return [
     ],
 
     'foreign_event_errors' => [
-        new ForeignEventErrorsWork(),
+        0 => new ForeignEventErrorsWork(),
     ],
 
     'foreign_event_participants' => [
-        new ForeignEventParticipantsWork(),
+        0 => new ForeignEventParticipantsWork(),
         'backup_visit' => ['foreign_event_participant_id'],
         'participant_achievement' => ['participant_id'],
         'participant_files' => ['participant_id'],
@@ -505,85 +504,85 @@ return [
     ],
 
     'group_errors' => [
-        new GroupErrorsWork(),
+        0 => new GroupErrorsWork(),
     ],
 
     'group_project_themes' => [
-        new GroupProjectThemesWork(),
+        0 => new GroupProjectThemesWork(),
         'training_group_participant' => ['group_project_themes_id'],
     ],
 
     'history_object' => [
-        new HistoryObjectWork(),
+        0 => new HistoryObjectWork(),
     ],
 
     'history_transaction' => [
-        new HistoryTransactionWork(),
+        0 => new HistoryTransactionWork(),
         'history_object' => ['history_transaction_id'],
     ],
 
     'install_place' => [
-        new InstallPlaceWork(),
+        0 => new InstallPlaceWork(),
     ],
 
     'invoice' => [
-        new InvoiceWork(),
+        0 => new InvoiceWork(),
         'invoice_entry' => ['invoice_id'],
         'invoice_errors' => ['invoice_id'],
     ],
 
     'invoice_entry' => [
-        new InvoiceEntryWork(),
+        0 => new InvoiceEntryWork(),
     ],
 
     'invoice_errors' => [
-        new InvoiceErrorsWork(),
+        0 => new InvoiceErrorsWork(),
     ],
 
     'in_out_docs' => [
-        new InOutDocsWork(),
+        0 => new InOutDocsWork(),
     ],
 
     'kind_characteristic' => [
-        new KindCharacteristicWork(),
+        0 => new KindCharacteristicWork(),
     ],
 
     'kind_object' => [
-        new KindObjectWork(),
+        0 => new KindObjectWork(),
         'kind_characteristic' => ['kind_object_id'],
         'material_object' => ['kind_id'],
     ],
 
     'legacy_responsible' => [
-        new LegacyResponsibleWork(),
+        0 => new LegacyResponsibleWork(),
     ],
 
     'lesson_theme' => [
-        new LessonThemeWork(),
+        0 => new LessonThemeWork(),
     ],
 
     'license' => [
-        new LicenseWork(),
+        0 => new LicenseWork(),
     ],
 
     'license_term_type' => [
-        new LicenseTermTypeWork(),
+        0 => new LicenseTermTypeWork(),
     ],
 
     'license_type' => [
-        new LicenseTypeWork(),
+        0 => new LicenseTypeWork(),
     ],
 
     'local_responsibility' => [
-        new LocalResponsibilityWork(),
+        0 => new LocalResponsibilityWork(),
     ],
 
     'log' => [
-        new LogWork(),
+        0 => new LogWork(),
     ],
 
     'material_object' => [
-        new MaterialObjectWork(),
+        0 => new MaterialObjectWork(),
         'complex_object' => ['material_object_id'],
         'container' => ['material_object_id'],
         'container_object' => ['material_object_id'],
@@ -600,64 +599,64 @@ return [
     ],
 
     'material_object_errors' => [
-        new MaterialObjectErrorsWork(),
+        0 => new MaterialObjectErrorsWork(),
     ],
 
     'material_object_subobject' => [
-        new MaterialObjectSubobjectWork(),
+        0 => new MaterialObjectSubobjectWork(),
     ],
 
     'nomenclature' => [
-        new NomenclatureWork(),
+        0 => new NomenclatureWork(),
     ],
 
     'object_characteristic' => [
-        new ObjectCharacteristicWork(),
+        0 => new ObjectCharacteristicWork(),
     ],
 
     'object_entry' => [
-        new ObjectEntryWork(),
+        0 => new ObjectEntryWork(),
     ],
 
     'order_errors' => [
-        new OrderErrorsWork(),
+        0 => new OrderErrorsWork(),
     ],
 
     'order_group' => [
-        new OrderGroupWork(),
+        0 => new OrderGroupWork(),
         'order_group_participant' => ['order_group_id'],
     ],
 
     'order_group_participant' => [
-        new OrderGroupParticipantWork(),
+        0 => new OrderGroupParticipantWork(),
         'order_group_participant' => ['link_id'],
     ],
 
     'ownership_type' => [
-        new OwnershipTypeWork(),
+        0 => new OwnershipTypeWork(),
         'company' => ['ownership_type_id'],
     ],
 
     'participant_achievement' => [
-        new ParticipantAchievementWork(),
+        0 => new ParticipantAchievementWork(),
     ],
 
     'participant_files' => [
-        new ParticipantFilesWork(),
+        0 => new ParticipantFilesWork(),
     ],
 
     'participation_scope' => [
-        new ParticipationScopeWork(),
+        0 => new ParticipationScopeWork(),
         'event' => ['participation_scope_id'],
         'event_scope' => ['participation_scope_id'],
     ],
 
     'patchnotes' => [
-        new PatchnotesWork(),
+        0 => new PatchnotesWork(),
     ],
 
     'people' => [
-        new PeopleWork(),
+        0 => new PeopleWork(),
         'author_program' => ['author_id'],
         'document_in' => ['correspondent_id', 'signed_id'],
         'document_order' => ['signed_id', 'bring_id', 'executor_id'],
@@ -667,7 +666,7 @@ return [
         'history_transaction' => ['people_get_id', 'people_give_id'],
         'in_out_docs' => ['people_id'],
         'legacy_responsible' => ['people_id'],
-        'lesson_theme' => ['people_id'],
+        'lesson_theme' => ['teacher_id'],
         'local_responsibility' => ['people_id'],
         'people_material_object' => ['people_id'],
         'people_position_branch' => ['people_id'],
@@ -682,24 +681,24 @@ return [
     ],
 
     'people_material_object' => [
-        new PeopleMaterialObjectWork(),
+        0 => new PeopleMaterialObjectWork(),
     ],
 
     'people_position_branch' => [
-        new PeoplePositionBranchWork(),
+        0 => new PeoplePositionBranchWork(),
     ],
 
     'personal_data' => [
-        new PersonalDataWork(),
+        0 => new PersonalDataWork(),
         'personal_data_foreign_event_participant' => ['personal_data_id'],
     ],
 
     'personal_data_foreign_event_participant' => [
-        new PersonalDataForeignEventParticipantWork(),
+        0 => new PersonalDataForeignEventParticipantWork(),
     ],
 
     'position' => [
-        new PositionWork(),
+        0 => new PositionWork(),
         'destination' => ['position_id'],
         'document_in' => ['position_id'],
         'document_out' => ['position_id'],
@@ -708,120 +707,120 @@ return [
     ],
 
     'product_union' => [
-        new ProductUnionWork(),
+        0 => new ProductUnionWork(),
         'complex_object' => ['logical_union_id'],
         'union_object' => ['union_id'],
     ],
 
     'program_errors' => [
-        new ProgramErrorsWork(),
+        0 => new ProgramErrorsWork(),
     ],
 
     'project_theme' => [
-        new ProjectThemeWork(),
+        0 => new ProjectThemeWork(),
         'group_project_themes' => ['project_theme_id'],
     ],
 
     'project_type' => [
-        new ProjectTypeWork(),
+        0 => new ProjectTypeWork(),
         'group_project_themes' => ['project_type_id'],
     ],
 
     'regulation' => [
-        new RegulationWork(),
+        0 => new RegulationWork(),
         'event' => ['regulation_id'],
         'expire' => ['active_regulation_id', 'expire_regulation_id'],
         'local_responsibility' => ['regulation_id'],
     ],
 
     'regulation_type' => [
-        new RegulationTypeWork(),
+        0 => new RegulationTypeWork(),
         'regulation' => ['regulation_type_id'],
     ],
 
     'responsibility_type' => [
-        new ResponsibilityTypeWork(),
+        0 => new ResponsibilityTypeWork(),
         'legacy_responsible' => ['responsibility_type_id'],
         'local_responsibility' => ['responsibility_type_id'],
     ],
 
     'responsible' => [
-        new ResponsibleWork(),
+        0 => new ResponsibleWork(),
     ],
 
     'role' => [
-        new RoleWork(),
+        0 => new RoleWork(),
         'role_function_role' => ['role_id'],
         'user_role' => ['role_id'],
     ],
 
     'role_function' => [
-        new RoleFunctionWork(),
+        0 => new RoleFunctionWork(),
         'role_function_role' => ['role_function_id'],
     ],
 
     'role_function_role' => [
-        new RoleFunctionRoleWork(),
+        0 => new RoleFunctionRoleWork(),
     ],
 
     'role_function_type' => [
-        new RoleFunctionTypeWork(),
+        0 => new RoleFunctionTypeWork(),
         'role_function' => ['role_function_type_id'],
     ],
 
     'send_method' => [
-        new SendMethodWork(),
+        0 => new SendMethodWork(),
         'document_in' => ['send_method_id'],
         'document_out' => ['send_method_id'],
         'training_group_participant' => ['send_method_id'],
     ],
 
     'subobject' => [
-        new SubobjectWork(),
+        0 => new SubobjectWork(),
         'material_object_subobject' => ['subobject_id'],
         'subobject' => ['parent_id'],
     ],
 
     'teacher_group' => [
-        new TeacherGroupWork(),
+        0 => new TeacherGroupWork(),
     ],
 
     'teacher_participant' => [
-        new TeacherParticipantWork(),
+        0 => new TeacherParticipantWork(),
         'teacher_participant_branch' => ['teacher_participant_id'],
     ],
 
     'teacher_participant_branch' => [
-        new TeacherParticipantBranchWork(),
+        0 => new TeacherParticipantBranchWork(),
     ],
 
     'team' => [
-        new TeamWork(),
+        0 => new TeamWork(),
     ],
 
     'temporary_journal' => [
-        new TemporaryJournalWork(),
+        0 => new TemporaryJournalWork(),
     ],
 
     'temporary_object_journal' => [
-        new TemporaryObjectJournalWork(),
+        0 => new TemporaryObjectJournalWork(),
     ],
 
     'test_db_object' => [
-        new TestDbObjectWork(),
+        0 => new TestDbObjectWork(),
     ],
 
     'thematic_direction' => [
-        new ThematicDirectionWork(),
+        0 => new ThematicDirectionWork(),
         'training_program' => ['thematic_direction_id'],
     ],
 
     'thematic_plan' => [
-        new ThematicPlanWork(),
+        0 => new ThematicPlanWork(),
     ],
 
     'training_group' => [
-        new TrainingGroupWork(),
+        0 => new TrainingGroupWork(),
         'event_training_group' => ['training_group_id'],
         'group_errors' => ['training_group_id'],
         'group_project_themes' => ['training_group_id'],
@@ -833,24 +832,24 @@ return [
     ],
 
     'training_group_expert' => [
-        new TrainingGroupExpertWork(),
+        0 => new TrainingGroupExpertWork(),
     ],
 
     'training_group_lesson' => [
-        new TrainingGroupLessonWork(),
+        0 => new TrainingGroupLessonWork(),
         'backup_visit' => ['training_group_lesson_id'],
         'lesson_theme' => ['training_group_lesson_id'],
         'visit' => ['training_group_lesson_id'],
     ],
 
     'training_group_participant' => [
-        new TrainingGroupParticipantWork(),
+        0 => new TrainingGroupParticipantWork(),
         'certificat' => ['training_group_participant_id'],
         'order_group_participant' => ['group_participant_id'],
     ],
 
     'training_program' => [
-        new TrainingProgramWork(),
+        0 => new TrainingProgramWork(),
         'author_program' => ['training_program_id'],
         'branch_program' => ['training_program_id'],
         'program_errors' => ['training_program_id'],
@@ -859,11 +858,11 @@ return [
     ],
 
     'union_object' => [
-        new UnionObjectWork(),
+        0 => new UnionObjectWork(),
     ],
 
     'user' => [
-        new UserWork(),
+        0 => new UserWork(),
         'company' => ['last_edit_id'],
         'document_in' => ['get_id', 'register_id'],
         'document_order' => ['register_id'],
@@ -880,21 +879,21 @@ return [
     ],
 
     'user_role' => [
-        new UserRoleWork(),
+        0 => new UserRoleWork(),
     ],
 
     // -- Временно не работают --
     'use_years' => [
-        new UseYearsWork(),
+        0 => new UseYearsWork(),
     ],
     // -- Временно не работают --
 
     'version' => [
-        new VersionWork(),
+        0 => new VersionWork(),
     ],
 
     'visit' => [
-        new VisitWork(),
+        0 => new VisitWork(),
         'backup_difference' => ['visit_id'],
     ],
 ];
