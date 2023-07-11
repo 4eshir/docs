@@ -12,15 +12,7 @@ class PeopleTest extends \Codeception\Test\Unit
      */
     protected $tester;
     
-    protected function _before()
-    {
-        $this->tester->haveFixtures([
-            'peoples' => [
-                'class' => PeopleFixture::className(),
-                'dataFile' => codecept_data_dir() . 'unit\people_core_data.php'
-            ]
-        ]);
-    }
+
 
     protected function _after()
     {
