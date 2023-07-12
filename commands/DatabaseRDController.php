@@ -47,6 +47,47 @@ class DatabaseRDController extends Controller
         ];
     }
 
+    public function actionTableInfo($tablename = null)
+    {
+        if ($tablename == null)
+        {
+            $this->stdout("\nНе задано имя таблицы\n", Console::FG_RED);
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        $rdModel = new DatabaseRD();
+        $rdModel->SetDbArray();
+
+        $table = $rdModel->dbArray[$tablename];
+
+        if ($table === null)
+        {
+            $this->stdout("\nТаблица с именем '$tablename' не найдена\n", Console::FG_RED);
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        $this->stdout("\n#########################################################\n\nИмя таблицы: ".$tablename."\n\n\n-------------\n|Зависимости|\n-------------\n\n\n", Console::FG_GREEN);
+
+        foreach ($table as $key => $row)
+        {
+            if (gettype($row) == 'array')
+            {
+                $this->stdout('Таблица: '.$key."\n", Console::FG_PURPLE);
+                $this->stdout('---------'.str_repeat('-', strlen($key))."\n", Console::FG_PURPLE);
+                $fieldStr = '';
+
+                foreach ($row as $field)
+                    $fieldStr .= '|'.$field.'|';
+                $this->stdout($fieldStr."\n\n\n", Console::FG_YELLOW);
+            }
+
+        }
+
+        $this->stdout("#########################################################\n\n", Console::FG_GREEN);
+
+        return ExitCode::OK;
+    }
+
 
     public function actionCheckIntegrity($displayMode = RD_constants::DISPLAY_ERROR)
     {
@@ -103,6 +144,7 @@ class DatabaseRDController extends Controller
             $this->stdout("Ошибок в столбцах: ".$errorsColumns."\n", Console::FG_RED);
         }
 
+        return ExitCode::OK;
     }
 
 
