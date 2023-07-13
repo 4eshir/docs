@@ -4,6 +4,8 @@ namespace tests\database_rd;
 
 use app\models\common\People;
 use app\models\work\PeopleWork;
+use tests\database_rd\ColumnLinks;
+use tests\database_rd\TableColumnLinks;
 
 class DatabaseRD
 {
@@ -21,6 +23,45 @@ class DatabaseRD
         $this->filename = $filename;
     }
     //-----------------------------------------------------
+
+    //--Получение записей, которые связаны с текущей записью в таблице--
+    /*
+     * $tablename - имя таблицы
+     * $id - идентификатор записи в таблице
+     *
+     * return array("tablename" => class TableColumnLinks(), ...)
+    */
+    public function GetTableLinks($tablename, $id)
+    {
+        $mainTable = $this->dbArray[$tablename];
+
+        $result = [];
+        foreach ($mainTable as $key => $dTable)
+        {
+
+            if (gettype($dTable) == 'array')
+            {
+                $rdTable = $this->dbArray[$key][0];
+
+                $colLinks = [];
+                $tempIds = [];
+                foreach ($dTable as $col)
+                {
+                    $query = $rdTable::find()->where([$col => $id])->all();
+                    foreach ($query as $row)
+                        $tempIds[] = $row->id;
+
+                    $colLinks[] = new ColumnLinks($col, $tempIds);
+                }
+
+                $result[] = new TableColumnLinks($key, $colLinks);
+            }
+
+        }
+
+        return $result;
+    }
+    //------------------------------------------------------------------
 
 
     //--Функция проверки соответствия данных из $dbArray и реальной БД--

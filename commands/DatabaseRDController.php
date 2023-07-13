@@ -47,6 +47,49 @@ class DatabaseRDController extends Controller
         ];
     }
 
+    //--Вывод записей, которые связаны с текущей записью в таблице--
+    /*
+     * $tablename - имя таблицы
+     * $id - идентификатор записи в таблице
+     */
+    public function actionTableLinks($tablename = null, $id = -1)
+    {
+        $rdModel = new DatabaseRD();
+        $rdModel->SetDbArray();
+
+        $result = $rdModel->GetTableLinks($tablename, $id);
+
+        foreach ($result as $one)
+        {
+            if (!$one->EmptyCheckColumnLinks())
+            {
+                $this->stdout("\n".str_repeat('-', strlen($one->tableName) + 2), Console::FG_GREEN);
+                $this->stdout("\n|".$one->tableName."|\n", Console::FG_GREEN);
+                $this->stdout(str_repeat('-', strlen($one->tableName) + 2)."\n", Console::FG_GREEN);
+
+                foreach ($one->columnLinks as $col)
+                {
+                    if (!$col->EmptyCheckRows())
+                    {
+                        $this->stdout($col->columnName."\n", Console::FG_YELLOW);
+                        $this->stdout(str_repeat('-', strlen($col->columnName))."\n", Console::FG_YELLOW);
+                        foreach ($col->rows as $row)
+                            $this->stdout($row." ", Console::FG_PURPLE);
+                        $this->stdout("\n", Console::FG_PURPLE);
+                        $this->stdout(str_repeat('-', strlen($col->columnName))."\n\n", Console::FG_YELLOW);
+                    }
+
+                }
+            }
+
+        }
+
+
+        return ExitCode::OK;
+    }
+    //--------------------------------------------------------------
+
+    //--Вывод общей информации о таблице с обратными зависимостями--
     public function actionTableInfo($tablename = null)
     {
         if ($tablename == null)
@@ -87,8 +130,9 @@ class DatabaseRDController extends Controller
 
         return ExitCode::OK;
     }
+    //--------------------------------------------------------------
 
-
+    //--Проверка всех таблиц на целостность (соответствие полей в обратных зависимостях реальным полям в БД--
     public function actionCheckIntegrity($displayMode = RD_constants::DISPLAY_ERROR)
     {
         $rdModel = new DatabaseRD();
@@ -146,6 +190,7 @@ class DatabaseRDController extends Controller
 
         return ExitCode::OK;
     }
+    //-------------------------------------------------------------------------------------------------------
 
 
 }
