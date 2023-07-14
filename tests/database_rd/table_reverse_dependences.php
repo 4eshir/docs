@@ -205,16 +205,7 @@ return [
 
     'bot_message_variant' => [
         0 => new BotMessageVariant(),
-        //DEBUG
-        'bot_message_variant_test' => ['bot_message_variant_id'],
-        //DEBUG
     ],
-
-    //DEBUG
-    'bot_message_variant_test' => [
-        0 => new \app\models\common\BotMessageVariantTest(),
-    ],
-    //DEBUG
 
     'branch' => [
         0 => new BranchWork(),
