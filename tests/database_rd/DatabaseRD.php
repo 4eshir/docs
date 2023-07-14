@@ -52,7 +52,7 @@ class DatabaseRD
                         $tempIds[] = $row->id;
 
                     $colLinks[] = new ColumnLinks($col, $tempIds);
-                    $tempIds = array();
+                    //$tempIds = array();
                 }
 
                 $result[] = new TableColumnLinks($key, $colLinks);
