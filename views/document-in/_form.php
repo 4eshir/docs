@@ -122,18 +122,17 @@ use yii\jui\DatePicker;
 
         echo '<div id="corr_div2">';
         $company = \app\models\work\CompanyWork::find()->where(['!=', 'id', 7])->orderBy(['name' => SORT_ASC])->all();
-        $companyNull = \app\models\work\CompanyWork::find()->where(['id' => 7])->one();
+        $companyNull = \app\models\work\CompanyWork::find()->where(['id' => 7])->all();
         $items1 = \yii\helpers\ArrayHelper::map($company,'id','name');
         $items2 = \yii\helpers\ArrayHelper::map($companyNull,'id','name');
 
         $items = array_merge($items2, $items1);
 
-        echo '<h1>'.count($items1).'</h1>';
         $params = [
             'id' => 'company',
             'class' => 'form-control com',
         ];
-        echo $form->field($model, 'company_id')->dropDownList($items1,$params)->label('Организация корреспондента');
+        echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
         echo '</div>';
     }
     ?>
