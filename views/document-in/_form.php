@@ -99,7 +99,7 @@ use yii\jui\DatePicker;
         echo '</div>';
 
         echo '<div id="corr_div2">';
-        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->orderBy(['name' => SORT_ASC])->all();
+        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->orderBy(['name' => SORT_DESC])->all();
         $items = \yii\helpers\ArrayHelper::map($company,'id','name');
         $params = [
             'id' => 'company',
