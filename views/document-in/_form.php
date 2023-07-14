@@ -99,7 +99,7 @@ use yii\jui\DatePicker;
         echo '</div>';
 
         echo '<div id="corr_div2">';
-        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->orderBy(['name' => SORT_DESC])->all();
+        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->orderBy(['name' => SORT_ASC])->all();
         $items = \yii\helpers\ArrayHelper::map($company,'id','name');
         $params = [
             'id' => 'company',
@@ -121,9 +121,12 @@ use yii\jui\DatePicker;
         echo '</div>';
 
         echo '<div id="corr_div2">';
-        $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
+        $company = \app\models\work\CompanyWork::find()->where(['!=', 'id', 7])->orderBy(['name' => SORT_ASC])->all();
+        $companyNull = \app\models\work\CompanyWork::find()->where(['id' => 7])->one();
+        $company = array_merge($companyNull, $company);
         $items = \yii\helpers\ArrayHelper::map($company,'id','name');
         $params = [
+
             'id' => 'company',
             'class' => 'form-control com',
         ];
