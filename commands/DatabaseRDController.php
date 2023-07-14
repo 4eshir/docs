@@ -90,6 +90,31 @@ class DatabaseRDController extends Controller
     }
     //--------------------------------------------------------------
 
+    //--Вызов рекурсивного удаления записи из БД--
+    public function actionRecDelete($tablename, $id)
+    {
+        $rdModel = new DatabaseRD();
+        $rdModel->SetDbArray();
+
+        $result = $rdModel->GetTableLinks($tablename, $id);
+        $sum = 0;
+        foreach ($result as $table)
+            $sum += count($table->GetAllRowsId());
+
+        $this->stdout($sum."\n", Console::FG_GREEN);
+
+        $rdModel->RecursiveDelete($tablename, $id);
+        $this->stdout(count($rdModel->deleteItems)."\n\n", Console::FG_GREEN);
+
+        for ($i = 0; $i < count($rdModel->deleteItems); $i++)
+        {
+            $endKey = $rdModel->deleteItems[$i]->endSign ? ' (END)' : '';
+            $this->stdout($rdModel->deleteItems[$i]->tableName.": ".$rdModel->deleteItems[$i]->id.$endKey."\n", Console::FG_PURPLE);
+        }
+
+    }
+    //--------------------------------------------
+
     //--Вывод общей информации о таблице с обратными зависимостями--
     public function actionTableInfo($tablename = null)
     {

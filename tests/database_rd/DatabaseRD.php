@@ -15,6 +15,11 @@ class DatabaseRD
 
     public $filename = '';
 
+    //DEBUG
+    public $deleteItems = [];
+    public $deleteTables = [];
+    //DEBUG
+
 
     //--Получение данных о таблицах БД из файла $filename--
     public function SetDbArray($filename = 'table_reverse_dependences.php')
@@ -78,17 +83,74 @@ class DatabaseRD
     }
     //------------------------------------------------------------------
 
+
+    //----БЛОК КАСКАДНОГО УДАЛЕНИЯ ЗАПИСЕЙ----
+
     //--Функция каскадного удаления записей, в которых присутствует запись с $id из таблицы $tablename, а также самой записи $id--
-    public function CascadeDelete($tablename, $id)
+    /*public function CascadeDelete($tablename, $id)
     {
+        $this->SetDbArray();
         $selectionIds = $this->GetTableLinks($tablename, $id);
 
         foreach ($selectionIds as $table)
         {
+            $ids = $table->GetAllRowsId();
+            foreach ($ids as $id)
+                $this->RecursiveDelete($table->tableName, $id);
+        }
+    }*/
+    //----------------------------------------------------------------------------------------------------------------------------
+
+    //--Рекурсивная функция для поиска других записей, связанных с указанной записью и подготовки к удалению--
+    /*
+     * Результат работы - массив $deleteItems класса RecursiveDeletedItem
+     *
+     */
+    public function RecursiveDelete($tablename, $id)
+    {
+        $selectionIds = $this->GetTableLinks($tablename, $id);
+        foreach ($selectionIds as $table)
+        {
+            $ids = $table->GetAllRowsId();
+            foreach ($ids as $id)
+            {
+                $item = $this->dbArray[$table->tableName][0]::find()->where(['id' => $id])->one();
+                //$item->delete();
+                if (!$this->EndDeleteConditional($table->tableName, $id))
+                {
+                    $this->deleteItems[] = new RecursiveDeletedItem($table->tableName, $item->id, false);
+                    $this->RecursiveDelete($table->tableName, $id);
+                }
+                else
+                {
+                    $this->deleteItems[] = new RecursiveDeletedItem($table->tableName, $item->id, true);
+                    continue;
+                }
+            }
 
         }
     }
-    //----------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+
+    //--Функция проверки условия выхода из рекурсивного удаления--
+    private function EndDeleteConditional($tablename, $id)
+    {
+        $selectionIds = $this->GetTableLinks($tablename, $id);
+
+        if (count($selectionIds) == 0) return true; // у таблицы вообще нет связей
+
+        // А если все же есть
+        $flag = true;
+
+        foreach ($selectionIds as $table)
+            if (count($table->GetAllRowsId()) > 0) // если есть другие записи, связанные с текущей записью
+                $flag = false;
+
+        return $flag;
+    }
+    //------------------------------------------------------------
+
+    //----БЛОК КАСКАДНОГО УДАЛЕНИЯ ЗАПИСЕЙ----
 
 
 

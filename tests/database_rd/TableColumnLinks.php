@@ -23,4 +23,15 @@ class TableColumnLinks
         return true;
     }
     //-------------------------------------------------------------
+
+    //--Преобразование $columnLinks в array(id1, id2...)--
+    public function GetAllRowsId()
+    {
+        $result = [];
+        foreach ($this->columnLinks as $col)
+            $result = array_merge($result, $col->rows);
+
+        return $result;
+    }
+    //----------------------------------------------------
 }
