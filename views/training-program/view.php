@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <?php
             $error = $model->getErrorsWork();
-            if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 11)))
+            if ($error !== '' && (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 6) || (\app\models\components\RoleBaseAccess::CheckRole(Yii::$app->user->identity->getId(), 7))))
                 echo Html::a('Простить ошибки', ['amnesty', 'id' => $model->id], ['class' => 'btn btn-warning',
                         'data' => [
                             'confirm' => 'Вы действительно хотите простить все ошибки в данной образовательной программе?',

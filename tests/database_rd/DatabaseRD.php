@@ -81,7 +81,12 @@ class DatabaseRD
     //--Функция каскадного удаления записей, в которых присутствует запись с $id из таблицы $tablename, а также самой записи $id--
     public function CascadeDelete($tablename, $id)
     {
+        $selectionIds = $this->GetTableLinks($tablename, $id);
 
+        foreach ($selectionIds as $table)
+        {
+
+        }
     }
     //----------------------------------------------------------------------------------------------------------------------------
 
