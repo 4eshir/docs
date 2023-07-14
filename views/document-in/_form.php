@@ -127,7 +127,7 @@ use yii\jui\DatePicker;
         $items2 = \yii\helpers\ArrayHelper::map($companyNull,'id','name');
 
         foreach ($items2 as $one)
-            echo '<h1>'.$one.'</h1>';
+            echo '<h1>j'.$one.'</h1>';
         $items = array_merge($items2, $items1);
         $params = [
             'id' => 'company',
