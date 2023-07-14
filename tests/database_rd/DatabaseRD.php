@@ -48,9 +48,8 @@ class DatabaseRD
                 foreach ($dTable as $col)
                 {
                     $query = $rdTable::find()->where([$col => $id])->all();
-                    $tempIds[] = count($query);
-                    //foreach ($query as $row)
-                    //    $tempIds[] = $row->id;
+                    foreach ($query as $row)
+                        $tempIds[] = $row->id;
 
                     $colLinks[] = new ColumnLinks($col, $tempIds);
                     $tempIds = array();
