@@ -133,7 +133,7 @@ use yii\jui\DatePicker;
             'id' => 'company',
             'class' => 'form-control com',
         ];
-        echo $form->field($model, 'company_id')->dropDownList($items,$params)->label('Организация корреспондента');
+        echo $form->field($model, 'company_id')->dropDownList($items1,$params)->label('Организация корреспондента');
         echo '</div>';
     }
     ?>
