@@ -17,7 +17,7 @@ class TableColumnLinks
     public function EmptyCheckColumnLinks()
     {
         foreach ($this->columnLinks as $column)
-            if ($column->EmptyCheckRows())
+            if (!$column->EmptyCheckRows())
                 return true;
 
         return false;
