@@ -44,15 +44,15 @@ class DatabaseRD
                 $rdTable = $this->dbArray[$key][0];
 
                 $colLinks = [];
-
+                $tempIds = [];
                 foreach ($dTable as $col)
                 {
-                    $tempIds = [];
                     $query = $rdTable::find()->where([$col => $id])->all();
                     foreach ($query as $row)
                         $tempIds[] = $row->id;
 
                     $colLinks[] = new ColumnLinks($col, $tempIds);
+                    $tempIds = [];
                 }
 
                 $result[] = new TableColumnLinks($key, $colLinks);
