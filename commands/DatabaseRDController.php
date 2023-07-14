@@ -12,6 +12,7 @@ use app\models\LoginForm;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\PeopleWork;
 use app\models\work\VisitWork;
+use Symfony\Component\Console\Command\Command;
 use tests\database_rd\DatabaseRD;
 use tests\database_rd\RD_constants;
 use tests\other\DatabaseFileAccessTest;
