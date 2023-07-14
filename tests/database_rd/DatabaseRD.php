@@ -52,7 +52,7 @@ class DatabaseRD
                         $tempIds[] = $row->id;
 
                     $newTI[] = count($tempIds);
-                    $colLinks[] = new ColumnLinks($col, $newTI);
+                    $colLinks[] = new ColumnLinks($col, $tempIds);
                     $tempIds = array();
                     $newTI = array();
                 }
