@@ -123,7 +123,8 @@ use yii\jui\DatePicker;
         echo '<div id="corr_div2">';
         $company = \app\models\work\CompanyWork::find()->where(['!=', 'id', 7])->orderBy(['name' => SORT_ASC])->all();
         $companyNull = \app\models\work\CompanyWork::find()->where(['id' => 7])->one();
-        $company = array_merge($companyNull, $company);
+        $array = [$companyNull, $company];
+        $company = array_merge($array);
         $items = \yii\helpers\ArrayHelper::map($company,'id','name');
         $params = [
 
