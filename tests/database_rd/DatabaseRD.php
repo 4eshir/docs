@@ -43,7 +43,7 @@ class DatabaseRD
             {
                 $rdTable = $this->dbArray[$key][0];
 
-                $colLinks = [];
+                $colLinks = array();
                 $tempIds = array();
                 foreach ($dTable as $col)
                 {
