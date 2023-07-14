@@ -18,9 +18,9 @@ class TableColumnLinks
     {
         foreach ($this->columnLinks as $column)
             if (!$column->EmptyCheckRows())
-                return true;
+                return false;
 
-        return false;
+        return true;
     }
     //-------------------------------------------------------------
 }
