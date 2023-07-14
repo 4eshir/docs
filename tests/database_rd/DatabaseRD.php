@@ -51,10 +51,7 @@ class DatabaseRD
                     foreach ($query as $row)
                         $tempIds[] = $row->id;
 
-                    $newTI[] = count($tempIds);
                     $colLinks[] = new ColumnLinks($col, $tempIds);
-                    $tempIds = array();
-                    $newTI = array();
                 }
 
                 $result[] = new TableColumnLinks($key, $colLinks);
