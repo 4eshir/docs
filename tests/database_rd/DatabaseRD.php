@@ -44,7 +44,7 @@ class DatabaseRD
                 $rdTable = $this->dbArray[$key][0];
 
                 $colLinks = [];
-                $tempIds = [];
+                $tempIds = array();
                 foreach ($dTable as $col)
                 {
                     $query = $rdTable::find()->where([$col => $id])->all();
