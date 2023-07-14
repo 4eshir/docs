@@ -126,8 +126,7 @@ use yii\jui\DatePicker;
         $items1 = \yii\helpers\ArrayHelper::map($company,'id','name');
         $items2 = \yii\helpers\ArrayHelper::map($companyNull,'id','name');
 
-        foreach ($items2 as $one)
-            echo '<h1>j'.$one.'</h1>';
+        echo '<h1>'.count($items2).'</h1>';
         $items = array_merge($items2, $items1);
         $params = [
             'id' => 'company',
