@@ -523,7 +523,7 @@ $session = Yii::$app->session;
             foreach ($groupParticipants as $groupParticipant) {
                 $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
-                if ($groups[0]->CheckParticipantStatus($groupParticipant->id) == 0 || count($ordersParticipant) !== 0)
+                if (true)
                 {
                     echo '<tr><td style="width: 10px">';
                     if (count($ordersParticipant) !== 0)
