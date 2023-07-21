@@ -2,6 +2,7 @@
 
 namespace app\models\components;
 
+use app\models\extended\AccessTrainingGroup;
 use app\models\work\CertificatWork;
 use app\models\work\TrainingGroupParticipantWork;
 use Yii;
@@ -272,9 +273,20 @@ class PdfWizard
         $style = 'padding-left: -15px; margin: 10px;';
         $styleDistance = 'height: 1px; margin: 10px;';
 
+
         $content = '<body style="font-family: sans-serif; background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;">
-            <div>
-            <p style="height: 100px"></p>
+            <div>';
+        if ($date >= "2023-07-21")
+            $content .= '<p style="'.$styleDistance.'"></p>
+                         <p style="font-size: 16px;'.$style.' padding-top: -20px;">
+                            Министерство образования и науки Астраханской области<br>
+                            государственное автономное образовательное учреждение Астраханской области<br>
+                            дополнительного образования "Региональный школьный технопарк"<br>
+                            отдел "'. $part->trainingGroupWork->pureBranch .'" ГАОУ АО ДО "РШТ"<br></p>';
+        else
+            $content .= '<p style="'.$style.' padding-top: -10px;"><img width="535" height="110" src="'.Yii::$app->basePath . '/upload/files/certificat-templates/' .'seal.png"></p>';//<p style="height: 100px"></p>
+        $content .= '
+            <p style="'.$styleDistance.'"></p>
             <p style="font-size: 18px; '.$style.'">'. date("d", strtotime($date)) . ' '
                     . WordWizard::Month(date("m", strtotime($date))) . ' '
                     . date("Y", strtotime($date)) . ' года
@@ -352,8 +364,18 @@ class PdfWizard
         $styleDistance = 'height: 1px; margin: 10px;';
 
         $content = '<body style="font-family: sans-serif; background: url('. Yii::$app->basePath . '/upload/files/certificat-templates/' . $certificat->certificatTemplate->path . ') no-repeat ;">
-            <div>
-            <p style="height: 150px"></p>
+            <div>';
+        if ($date >= "2023-07-21")
+            $content .= '<p style="'.$styleDistance.'"></p>
+                         <p style="font-size: 16px;'.$style.' padding-top: -20px;">
+                            Министерство образования и науки Астраханской области<br>
+                            государственное автономное образовательное учреждение Астраханской области<br>
+                            дополнительного образования "Региональный школьный технопарк"<br>
+                            отдел "'. $part->trainingGroupWork->pureBranch .'" ГАОУ АО ДО "РШТ"<br></p>';
+        else
+            $content .= '<p style="'.$style.' padding-top: -10px;"><img width="535" height="110" src="'.Yii::$app->basePath . '/upload/files/certificat-templates/' .'seal.png"></p>';//<p style="height: 100px"></p>
+        $content .= '
+            <p style="'.$styleDistance.'"></p><p style="height: 20px;"></p>
             <p style="font-size: 18px; '.$style.'">'. date("d", strtotime($date)) . ' '
             . WordWizard::Month(date("m", strtotime($date))) . ' '
             . date("Y", strtotime($date)) . ' года
