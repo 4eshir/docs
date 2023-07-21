@@ -1294,4 +1294,157 @@ class WordWizard
         $writer->save("php://output");
         exit;
     }
+
+    static public function ParticipationEvent ($order_id)
+    {
+        ini_set('memory_limit', '512M');
+
+        $inputData = new PhpWord();
+        $inputData->setDefaultFontName('Times New Roman');
+        $inputData->setDefaultFontSize(14);
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(2000);
+        $cell->addText('Министерство образования и науки Астраханской области', null, array('align' => 'center'));
+        $cell->addText('государственное автономное образовательное учреждение', null, array('align' => 'center'));
+        $cell->addText('Астраханской области дополнительного образования', null, array('align' => 'center'));
+        $cell->addText('«Региональный школьный технопарк»', array('bold' => true), array('align' => 'center'));
+        $cell->addText('ГАОУ АО ДО «РШТ»', array('bold' => true), array('align' => 'center'));
+        $cell->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
+        $section->addTextBreak(1);
+
+        /*----------------*/
+        $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
+        $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('«' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г.');
+        $cell = $table->addCell(12000);
+        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+        if ($order->order_postfix !== NULL)
+            $text .= '/' . $order->order_postfix;
+        $cell->addText('№ '.$text, null, array('align' => 'right'));
+        $section->addTextBreak(1);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText($order->order_name, null, array('align' => 'left'));
+        $cell = $table->addCell(6000);
+        $cell->addTextBreak(1);
+
+        /* переменная цели и соответствия*/
+        $purpose = '';
+        $invitation = '';
+        $section->addText('С целью '.$purpose.' и в соответствии с '.$invitation);
+        $cell->addTextBreak(1);
+
+        $section->addText('ПРИКАЗЫВАЮ:');
+        $section->addText('1.   Принять участие в мероприятии: /полное наименование мероприятия/
+                                (далее – мероприятие) и утвердить перечень учащихся, участвующих в
+                                мероприятии, и педагогов, ответственных за подготовку и контроль результатов
+                                участия в мероприятии, согласно Приложению к настоящему приказу.');
+        $section->addText('2.   Назначить ответственными за сбор и предоставление информации об
+                                участии в мероприятии для внесения в Цифровую систему хранения документов
+                                ГАОУ АО ДО «РШТ» (далее – ЦСХД)');
+
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Проект вносит:');
+        $cell = $table->addCell(12000);
+        $cell->addText(mb_substr($order->bring->firstname, 0, 1).'. '.mb_substr($order->bring->patronymic, 0, 1).'. '.$order->bring->secondname, null, array('align' => 'right'));
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Исполнитель:');
+        $cell = $table->addCell(12000);
+        $cell->addText(mb_substr($order->executor->firstname, 0, 1).'. '.mb_substr($order->executor->patronymic, 0, 1).'. '.$order->executor->secondname, null, array('align' => 'right'));
+
+        $section->addText('Ознакомлены:');
+        $table = $section->addTable();
+        for ($i = 0; $i != count($res); $i++, $c++)
+        {
+            $fio = mb_substr($res[$i]->people->firstname, 0, 1) .'. '. mb_substr($res[$i]->people->patronymic, 0, 1) .'. '. $res[$i]->people->secondname;
+
+            $table->addRow();
+            $cell = $table->addCell(8000);
+            $cell->addText('«___» __________ 20___ г.');
+            $cell = $table->addCell(5000);
+            $cell->addText('    ________________/', null, array('align' => 'right'));
+            $cell = $table->addCell(5000);
+            $cell->addText($fio . '/');
+        }
+
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('Приложение', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('к приказу директора', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('ГАОУ АО ДО «РШТ»', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(12000);//8000 10000
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
+        if ($order->order_postfix !== NULL)
+            $text .= '/' . $order->order_postfix;
+        $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
+            . date("Y", strtotime($order->order_date)) . ' г. '
+            . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $table->addRow();
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('УТВЕРЖДАЮ', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $cell = $table->addCell(12000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(6000);
+        $cell->addText('Директор ГАОУ АО ДО «РШТ»', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+
+        /*тут перечень учащихся*/
+
+        $text = 'Приказ об участи в мероприятии ' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . mb_substr($order->order_name, 0, 20);
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $text . '.docx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+
+        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($inputData, 'Word2007');
+        $writer->save("php://output");
+        exit;
+    }
 }
