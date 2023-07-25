@@ -436,31 +436,33 @@ class DocumentOrderController extends Controller
             foreach ($groupParticipants as $groupParticipant) {
                 $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $idG])])->all();
-
-                echo '<tr><td style="width: 10px">';
-                if (count($ordersParticipant) !== 0)
-                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                else
-                    echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                echo '</td><td style="width: auto">';
-                echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
-                echo '</td><td style="width: auto">';
-                $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
-                echo $gr->number;
-                //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
-                //{
-                $text = '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check">'
-                    . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check]['.$groupParticipant->id.']['.$groupParticipant->participant_id.'][]">';
-                echo $text;
-                //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
-                $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
-                if (count($newGroups) > 0) {
-                    foreach ($newGroups as $newGroup)
-                        echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
-                } else
-                    echo "<option>-</option>";
-                //-----
-                echo '</select></div></td></tr>';
+                if ($groups[0]->CheckParticipantStatus($groupParticipant) == 0 || count($ordersParticipant) !== 0)
+                {
+                    echo '<tr><td style="width: 10px">';
+                    if (count($ordersParticipant) !== 0)
+                        echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    else
+                        echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    echo '</td><td style="width: auto">';
+                    echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
+                    echo '</td><td style="width: auto">';
+                    $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
+                    echo $gr->number;
+                    //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
+                    //{
+                    $text = '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check">'
+                        . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check][' . $groupParticipant->id . '][' . $groupParticipant->participant_id . '][]">';
+                    echo $text;
+                    //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
+                    $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
+                    if (count($newGroups) > 0) {
+                        foreach ($newGroups as $newGroup)
+                            echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
+                    } else
+                        echo "<option>-</option>";
+                    //-----
+                    echo '</select></div></td></tr>';
+                }
             }
             echo '</tbody></table></div>'.'|split|';
             //echo '<br>';
