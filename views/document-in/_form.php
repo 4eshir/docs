@@ -207,7 +207,7 @@ use yii\jui\DatePicker;
 
 
 
-    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Приложения') ?>
+    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true])->label('Приложения') ?>
 
     <?php
     if ($model->applications !== null)
