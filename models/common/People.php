@@ -18,6 +18,7 @@ use yii\helpers\Html;
  * @property int|null $branch_id
  * @property string $birthdate
  * @property int $sex
+ * @property string $genitive
  *
  * @property Company $company
  * @property Position $position
@@ -64,6 +65,7 @@ class People extends \yii\db\ActiveRecord
             'branch_id' => 'Отдел по трудовому договору',
             'birthdate' => 'Дата рождения',
             'sex' => 'Пол',
+            'genitive' => 'Фамилия в родительном падеже',
         ];
     }
 

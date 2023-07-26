@@ -29,7 +29,7 @@ class PeopleWork extends People
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
             [['id', 'company_id', 'position_id', 'branch_id', 'sex'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short', 'birthdate'], 'string', 'max' => 1000],
+            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short', 'birthdate', 'genitive'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
