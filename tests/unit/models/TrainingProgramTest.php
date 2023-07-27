@@ -3,6 +3,8 @@ namespace unit\models;
 
 use app\fixtures\TrainingProgramFixture;
 use app\models\work\PeopleWork;
+use app\models\work\TrainingProgramWork;
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class TrainingProgramTest extends \Codeception\Test\Unit
@@ -16,6 +18,9 @@ class TrainingProgramTest extends \Codeception\Test\Unit
 
     protected function _after()
     {
+        Yii::$app->db->createCommand()->insert(TrainingProgramWork::tableName(), [
+            'name' => 'test',
+        ])->execute();
     }
 
     // tests

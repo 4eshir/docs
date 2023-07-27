@@ -144,6 +144,7 @@ use app\models\work\PositionWork;
     }
     ?>
         <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'genitive')->textInput(['maxlength' => true]) ?>
         <?php
         $branchs = \app\models\work\BranchWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($branchs,'id','name');
