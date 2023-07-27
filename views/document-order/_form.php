@@ -434,21 +434,23 @@ $session = Yii::$app->session;
     }
     ?>
 
-    <?= $form->field($model, 'archive_check')
-        ->checkbox([
-            'id' => 'archive-0',
-            'label' => 'Архивный приказ',
-            'onchange' => 'showArchive()',
-            'checked' => $model->type === 10,
-            'labelOptions' => [
-            ],
-        ]); ?>
+    <div id="archive-block" style="display: <?php echo $session->get('type') === '1' ? null : 'none' ?>">
+        <?= $form->field($model, 'archive_check')
+            ->checkbox([
+                'id' => 'archive-0',
+                'label' => 'Архивный приказ',
+                'onchange' => 'showArchive()',
+                'checked' => $model->type === 10,
+                'labelOptions' => [
+                ],
+            ]); ?>
+    </div>
 
     <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
     </div>
 
-    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'hidden' : null ?>">
+    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'none' : null ?>">
         <?php
         $noms = NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
         if ($model->id !== null && $noms->type != 0)
