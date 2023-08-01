@@ -36,7 +36,7 @@
 
         vertical-align: top;
         height: 100%;
-        width: 35%;
+        width: 40%;
     }
 
     .nomination-add-button-div{
@@ -84,10 +84,13 @@
 
     .nomination-add-input {
         display: block;
-        width: 90%;
+        width: 97%;
         height: 30px;
         padding: 0.375rem 0.75rem;
-        margin: 5px 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        margin-left: 0;
         font-family: inherit;
         font-size: 16px;
         font-weight: 400;
