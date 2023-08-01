@@ -25,6 +25,7 @@ class VariantsController extends Controller
 
         return $this->render('event-form', [
             'model' => $model,
+            'nominations' => ['one', 'two', 'three'],
         ]);
     }
 
