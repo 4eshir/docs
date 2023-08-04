@@ -13,6 +13,7 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\console\Controller;
@@ -85,35 +86,53 @@ class SupCommandsController extends Controller
         return ExitCode::OK;
     }
 
-    public function actionAddAdmin() {
+    public function actionCheckTime()
+    {
+        $count = 1000000;
 
+        $start1 = microtime(true);
+        for ($i = 0; $i < $count; $i++)
+            $res = TrainingGroupParticipantWork::find()->where(['training_group_id' => $i])->orWhere(['participant_id' => $i])->all();
+
+        $this->stdout('Time 1: '.round(microtime(true) - $start1, 2)."\n", Console::FG_PURPLE);
+
+        $start2 = microtime(true);
+        $res = TrainingGroupParticipantWork::find()->all();
+        $tr = [];
+        for ($i = 0; $i < $count; $i++)
+            for ($j = 0; $j < count($res); $j++)
+                if ($res[$j]->participant_id == $i && $res[$j]->training_group_id == $i)
+                    $tr[] = $res[$j];
+
+        $this->stdout('Time 2: '.round(microtime(true) - $start2, 2), Console::FG_GREEN);
     }
 
-    public function actionLogin()
+    public function actionCheckMemory($type)
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        $count = 100000;
+
+        if ($type == 1)
+        {
+            $start1 = memory_get_usage();
+            for ($i = 0; $i < $count; $i++)
+                $res = TrainingGroupParticipantWork::find()->where(['training_group_id' => $i])->orWhere(['participant_id' => $i])->all();
+
+            $this->stdout('Time 1: '.round(memory_get_usage() - $start1, 2)."\n", Console::FG_PURPLE);
+        }
+        else
+        {
+            $start2 = memory_get_usage();
+            $res = TrainingGroupParticipantWork::find()->all();
+            $tr = [];
+            for ($i = 0; $i < $count; $i++)
+                for ($j = 0; $j < count($res); $j++)
+                    if ($res[$j]->participant_id == $i || $res[$j]->training_group_id == $i)
+                        $tr[] = $res[$j];
+
+            $this->stdout('Time 2: '.round(memory_get_usage() - $start2, 2), Console::FG_PURPLE);
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
 
-        return $this->goHome();
     }
 }

@@ -8,5 +8,6 @@ use Yii;
 
 class EventTypeWork extends EventType
 {
-
+    const COMPETITIVE = 1;
+    const NON_COMPETITIVE = 1;
 }

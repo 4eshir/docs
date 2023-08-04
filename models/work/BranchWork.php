@@ -11,6 +11,14 @@ use yii\helpers\Html;
 
 class BranchWork extends Branch
 {
+    const QUANT = 1;
+    const TECHNO = 2;
+    const CDNTT = 3;
+    const MOB_QUANT = 4;
+    const ADMIN = 5;
+    const COD = 7;
+    const PLANET = 8;
+
     public $auditoriums;
 
     public function rules()

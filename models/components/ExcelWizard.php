@@ -360,7 +360,8 @@ class ExcelWizard
     }
 
     //получить всех участников заданного отдела мероприятий в заданный период
-    static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote = 1)
+    static public function GetAllParticipantsForeignEvents
+    ($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote = 1)
     {
         if ($events_id == 0)
             $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();

@@ -14,16 +14,20 @@ use Yii;
  * @property int $foreign_event_id
  * @property int|null $branch_id
  * @property int|null $focus
- * @property int $allow_remote_id
+ * @property int|null $allow_remote_id
+ * @property string|null $nomination
  *
+ * @property ParticipantAchievement[] $participantAchievements
+ * @property ParticipantFiles[] $participantFiles
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
  * @property People $teacher
- * @property People $teacher2
  * @property Branch $branch
+ * @property People $teacher2
  * @property Focus $focus0
  * @property AllowRemote $allowRemote
  * @property TeacherParticipantBranch[] $teacherParticipantBranches
+ * @property Team[] $teams
  */
 class TeacherParticipant extends \yii\db\ActiveRecord
 {
@@ -43,11 +47,12 @@ class TeacherParticipant extends \yii\db\ActiveRecord
         return [
             [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
             [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'branch_id', 'focus', 'allow_remote_id'], 'integer'],
+            [['nomination'], 'string', 'max' => 1000],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
-            [['teacher2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher2_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+            [['teacher2_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher2_id' => 'id']],
             [['focus'], 'exist', 'skipOnError' => true, 'targetClass' => Focus::className(), 'targetAttribute' => ['focus' => 'id']],
             [['allow_remote_id'], 'exist', 'skipOnError' => true, 'targetClass' => AllowRemote::className(), 'targetAttribute' => ['allow_remote_id' => 'id']],
         ];
@@ -67,7 +72,28 @@ class TeacherParticipant extends \yii\db\ActiveRecord
             'branch_id' => 'Branch ID',
             'focus' => 'Focus',
             'allow_remote_id' => 'Allow Remote ID',
+            'nomination' => 'Nomination',
         ];
+    }
+
+    /**
+     * Gets query for [[ParticipantAchievements]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipantAchievements()
+    {
+        return $this->hasMany(ParticipantAchievement::className(), ['teacher_participant_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ParticipantFiles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipantFiles()
+    {
+        return $this->hasMany(ParticipantFiles::className(), ['teacher_participant_id' => 'id']);
     }
 
     /**
@@ -101,16 +127,6 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Teacher2]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTeacher2()
-    {
-        return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
-    }
-
-    /**
      * Gets query for [[Branch]].
      *
      * @return \yii\db\ActiveQuery
@@ -118,6 +134,16 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function getBranch()
     {
         return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+    }
+
+    /**
+     * Gets query for [[Teacher2]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeacher2()
+    {
+        return $this->hasOne(People::className(), ['id' => 'teacher2_id']);
     }
 
     /**
@@ -148,5 +174,15 @@ class TeacherParticipant extends \yii\db\ActiveRecord
     public function getTeacherParticipantBranches()
     {
         return $this->hasMany(TeacherParticipantBranch::className(), ['teacher_participant_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Teams]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeams()
+    {
+        return $this->hasMany(Team::className(), ['teacher_participant_id' => 'id']);
     }
 }

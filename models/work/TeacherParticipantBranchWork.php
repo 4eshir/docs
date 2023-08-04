@@ -8,7 +8,17 @@ use Yii;
 
 class TeacherParticipantBranchWork extends TeacherParticipantBranch
 {
-	public function getTeacherParticipantWork()
+    public $teacherParticipantWork;
+    function __construct($tId, $tBranchId, $tTeacherParticipantId, $tParticipantId)
+    {
+        $this->id = $tId;
+        $this->branch_id = $tBranchId;
+        $this->teacher_participant_id = $tTeacherParticipantId;
+
+        $this->teacherParticipantWork = new TeacherParticipantWork($tTeacherParticipantId, $tParticipantId, null, null, null, null, null);
+    }
+
+    public function getTeacherParticipantWork()
     {
         return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
     }

@@ -23,6 +23,21 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public $branchs;
 
+    function __construct($tId, $tParticipantId, $tTeacherId, $tTeacher2Id, $tForeignEventId, $tFocus, $tAllowRemoteId)
+    {
+        $this->id = $tId;
+        $this->participant_id = $tParticipantId;
+        $this->teacher_id = $tTeacherId;
+        $this->teacher2_id = $tTeacher2Id;
+        $this->foreign_event_id = $tForeignEventId;
+        $this->focus = $tFocus;
+        $this->allow_remote_id = $tAllowRemoteId;
+
+        //--Дефолтные значения--
+        $this->nomination = 'DEFAULT';
+        //----------------------
+    }
+
     public function rules()
     {
         return [

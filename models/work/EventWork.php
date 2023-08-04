@@ -47,6 +47,42 @@ class EventWork extends Event
     public $rightAge;
     public $eventLevelString;
 
+
+    //--Конструктор для тестов--
+    function __construct($tId, $tName, $tEventTypeId, $tEventFormId, $tEventLevelId, $tFinishDate)
+    {
+        $this->id = $tId;
+        $this->name = $tName;
+        $this->event_type_id = $tEventTypeId;
+        $this->event_form_id = $tEventFormId;
+        $this->event_level_id = $tEventLevelId;
+        $this->finish_date = $tFinishDate;
+
+        //--Дефолтные значения--
+        $this->old_name = 'DEFAULT';
+        $this->start_date = '1999-01-01';
+        $this->address = 'DEFAULT';
+        $this->participants_count = 0;
+        $this->is_federal = 0;
+        $this->responsible_id = 0;
+        $this->responsible2_id = 0;
+        $this->key_words = 'DEFAULT';
+        $this->comment = 'DEFAULT';
+        $this->order_id = 0;
+        $this->regulation_id = 0;
+        $this->protocol = 'DEFAULT';
+        $this->photos = 'DEFAULT';
+        $this->reporting_doc = 'DEFAULT';
+        $this->other_files = 'DEFAULT';
+        $this->contains_education = 0;
+        $this->event_way_id = 0;
+        $this->creator_id = 0;
+        $this->participation_scope_id = 0;
+        //----------------------
+    }
+    //--------------------------
+
+
     public function rules()
     {
         return [
