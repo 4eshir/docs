@@ -77,7 +77,7 @@ class SupportReportFunctions
         // Получаем teacher_participant_branch, подходящие под branch
         $teacherParticipantBranches =  $test_data === null ?
             TeacherParticipantBranchWork::find()
-            ->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'branch_id', $branch])->all() :
+            ->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'branch_id', $branch])->all(\Yii::$app->db) :
             $test_data['teacherParticipantBranch'];
         //-----------------------------------------------------------
 
