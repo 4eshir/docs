@@ -51,11 +51,15 @@ class m230807_061807_create_tables_for_get_participants extends Migration
         //-------------------
 
         //--Устанавливаем связи--
-        $this->addForeignKey('key1_teacher_participant_branch', 'get_participants_teacher_participant_branch', 'teacher_participant_id',
-            'get_participants_teacher_participant', 'id', 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('key1_teacher_participant_branch',
+            'get_participants_teacher_participant_branch', 'teacher_participant_id',
+            'get_participants_teacher_participant', 'id',
+            'RESTRICT', 'RESTRICT');
 
-        $this->addForeignKey('key1_team', 'get_participants_team', 'teacher_participant_id',
-            'get_participants_teacher_participant', 'id', 'RESTRICT', 'RESTRICT');
+        $this->addForeignKey('key1_team',
+            'get_participants_team', 'teacher_participant_id',
+            'get_participants_teacher_participant', 'id',
+            'RESTRICT', 'RESTRICT');
         //-----------------------
     }
 
