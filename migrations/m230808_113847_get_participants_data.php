@@ -137,7 +137,6 @@ class m230808_113847_get_participants_data extends Migration
 
         //--Создание команд--
         $this->insert('get_participants_team', ['id' => 1, 'name' => 'Team 1', 'teacher_participant_id' => 1]);
-        $this->insert('get_participants_team', ['id' => 2, 'name' => 'Team 1', 'teacher_participant_id' => 3]);
         $this->insert('get_participants_team', ['id' => 3, 'name' => 'Team 1', 'teacher_participant_id' => 4]);
 
         $this->insert('get_participants_team', ['id' => 4, 'name' => 'Team 2', 'teacher_participant_id' => 6]);

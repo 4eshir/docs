@@ -8,6 +8,10 @@ use Yii;
 
 class ParticipantAchievementWork extends ParticipantAchievement
 {
+    const PRIZE = 0;
+    const WINNER = 1;
+    const ALL = [0, 1];
+
     public function attributeLabels()
     {
         return [

@@ -13,4 +13,6 @@ class FocusWork extends Focus
     const SOCIAL = 3;
     const SCIENCE = 4;
     const SPORT = 5;
+
+    const ALL = [1, 2, 3, 4, 5];
 }

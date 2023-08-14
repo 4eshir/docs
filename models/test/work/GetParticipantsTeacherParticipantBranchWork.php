@@ -16,4 +16,9 @@ class GetParticipantsTeacherParticipantBranchWork extends GetParticipantsTeacher
             $this->teacher_participant_id = $t_teacher_participant_id;
         }
     }
+
+    public function getTeacherParticipantWork()
+    {
+        return $this->hasOne(GetParticipantsTeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+    }
 }

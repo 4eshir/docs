@@ -15,9 +15,12 @@ class BranchWork extends Branch
     const TECHNO = 2;
     const CDNTT = 3;
     const MOB_QUANT = 4;
+
     const ADMIN = 5;
     const COD = 7;
     const PLANET = 8;
+
+    const ALL = [1, 2, 3, 4, 5, 7, 8];
 
     public $auditoriums;
 

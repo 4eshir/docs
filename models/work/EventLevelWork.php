@@ -14,4 +14,6 @@ class EventLevelWork extends EventLevel
     const REGIONAL = 6;
     const FEDERAL = 7;
     const INTERNATIONAL = 8;
+
+    const ALL = [3, 4, 5, 6, 7, 8];
 }
