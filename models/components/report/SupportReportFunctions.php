@@ -3,6 +3,7 @@
 namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
+use app\models\test\work\GetParticipantAchievementsParticipantAchievementWork;
 use app\models\test\work\GetParticipantsEventWork;
 use app\models\test\work\GetParticipantsTeacherParticipantBranchWork;
 use app\models\test\work\GetParticipantsTeacherParticipantWork;
@@ -83,7 +84,7 @@ class SupportReportFunctions
      * $focus - массив направленностей (теническая, соцпед...)
      * $allow_remote - форма реализации (очная, очная с дистантом...)
      *
-     * return [array(ForeignEventPartcipantId), array([team_id, team_id], [team_id, team_id]), кол-во участников с учетом/без учета команд]
+     * return [array(ForeignEventPartcipantId), array([team_id, team_id], [team_id, team_id]), кол-во участников с учетом/без учета команд, список id записей таблицы teacher_participant]
      */
 
     /*
@@ -188,28 +189,56 @@ class SupportReportFunctions
 
         sort($result);
         // если считаем с командами - то возвращаем данные по ним, иначе - null и стандартное количество участников в соответствии с unique
-        return [$result, $teamArray, $countParticipants];
+        return [$result, $teamArray, $countParticipants, $tpIds];
     }
     //-----------------------------------------------------------------------
 
 
+    //--Выгрузка уникальных participant_id из массива teacher_participant--
+    static private function GetUniqueParticipantAchievementId($query)
+    {
+        $result = [];
+
+        $currentParticipantId = $query[0]->teacherParticipant->participant_id;
+        $result[] = $query[0];
+
+        foreach ($query as $one)
+            if ($one->teacherParticipant->participant_id !== $currentParticipantId)
+            {
+                $result[] = $one;
+                $currentParticipantId = $one->teacherParticipant->participant_id;
+            }
+
+        return $result;
+    }
+    //---------------------------------------------------------------------
 
 
     //-|---------------------------------------------------------------------|-
     //-| Функция для получения победителей и призеров по заданным параметрам |-
     //-|---------------------------------------------------------------------|-
     /*
-     * $participants - список участников, из которого будет произведена выборка
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $participants - список актов участия, из которого будет произведена выборка (teacher_participant)
+     * $unique_achieve - считать победителя/призера один раз или каждый акт (0 - считать всех, 1 - считать один раз)
      * $achieve_mode - массив типов победителей (победители, призеры)
-     * $unique_achieve - считать победителя/призера один раз или каждый акт
      *
-     * return [array(ForeignEventPartcipantId), array([team_id, team_id], [team_id, team_id]), кол-во участников с учетом/без учета команд]
+     * return [array(ParticipantAchievement)]
      */
-    static public function GetParticipantAchievements($participants,
-                                                      $achieve_mode = ParticipantAchievementWork::ALL,
-                                                      $unique_achieve = 0)
+    static public function GetParticipantAchievements($test_mode,
+                                                      $participants,
+                                                      $unique_achieve = 0,
+                                                      $achieve_mode = ParticipantAchievementWork::ALL)
     {
+        $achievements = $test_mode == 0 ?
+            ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]) :
+            GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]);
 
+        $achievements = $unique_achieve == 0 ?
+            self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
+            self::GetUniqueParticipantAchievementId($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all());
+
+        return $achievements;
     }
     //-------------------------------------------------------------------------
 }

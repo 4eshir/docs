@@ -214,15 +214,13 @@ class ReportTestController extends Controller
         return ExitCode::OK;
     }
 
-    public function actionBranchTest()
+    public function actionAchievesTest()
     {
-        $this->stdout("\n-------Branch tests (count: 2)-------\n|".str_repeat(" ", 35)."|\n", Console::FG_PURPLE);
+        $this->stdout("\n---------(Achieves tests)---------\n|".str_repeat(" ", 34)."|\n", Console::FG_PURPLE);
 
-        $data = include Yii::$app->basePath.'\tests\_data\report\get-participants.php';
-        $data = $data[1];
+        $participants1 = SupportReportFunctions::GetParticipants(0, '2020-01-01', '2023-01-01', 0, );
+        $testResult1 = SupportReportFunctions::GetParticipantAchievements(1, $participants1[3], 0, ParticipantAchievementWork::ALL);
 
-        $testResult1 = SupportReportFunctions::GetParticipants($data, '2020-01-01', '2023-12-31', 0, ReportConst::EVENT_LEVELS, [BranchWork::TECHNO]);
-        $testResult2 = SupportReportFunctions::GetParticipants($data, '2020-01-01', '2023-12-31', 1, ReportConst::EVENT_LEVELS, [BranchWork::TECHNO]);
 
         $this->stdout((string)($testResult1[0] .' || '. $data['result'][0])."\n");
         $this->stdout((string)($testResult1[1] .' || '. $data['result'][1])."\n");
@@ -240,14 +238,6 @@ class ReportTestController extends Controller
         else
             $this->stdout('| Test #1 failed                    |'."\n", Console::FG_RED);
 
-
-
-        if ($testResult2[0] == $data['result'][0] &&
-            $testResult2[1] == $data['result'][1] &&
-            $testResult2[2] == $data['result'][2])
-            $this->stdout('| Test #2 was passed successfully   |'."\n", Console::FG_GREEN);
-        else
-            $this->stdout('| Test #2 failed                    |'."\n", Console::FG_RED);
 
         $this->stdout("--------------------------------------\n", Console::FG_PURPLE);
 
