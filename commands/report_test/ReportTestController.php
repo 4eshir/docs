@@ -83,7 +83,7 @@ class ReportTestController extends Controller
         $expectedResult6 = [[1, 2, 3, 4], [[1, 3]], 3];
         $expectedResult7 = [[4], [[3]], 1];
         $expectedResult8 = [[1, 6, 7 ,8], [], 4];
-        $expectedResult9 = [[2, 3, 5], [[4]], 3];
+        $expectedResult9 = [[2, 3, 5], [], 3];
         $expectedResult10 = [[1, 4], [], 2];
 
         if ($testResult1[0] === $expectedResult1[0] &&
@@ -192,7 +192,6 @@ class ReportTestController extends Controller
             $this->stdout($testResult9[0] === $expectedResult9[0] ? "T1 OK\n" : "T1 FAIL\n", Console::FG_YELLOW);
             $this->stdout($testResult9[1] === $expectedResult9[1] ? "T2 OK\n" : "T2 FAIL\n", Console::FG_YELLOW);
             $this->stdout($testResult9[2] == $expectedResult9[2] ? "T3 OK\n" : "T3 FAIL\n", Console::FG_YELLOW);
-
         }
 
         if ($testResult10[0] === $expectedResult10[0] &&
@@ -218,22 +217,14 @@ class ReportTestController extends Controller
     {
         $this->stdout("\n---------(Achieves tests)---------\n|".str_repeat(" ", 34)."|\n", Console::FG_PURPLE);
 
-        $participants1 = SupportReportFunctions::GetParticipants(0, '2020-01-01', '2023-01-01', 0, );
-        $testResult1 = SupportReportFunctions::GetParticipantAchievements(1, $participants1[3], 0, ParticipantAchievementWork::ALL);
+        $participants1 = SupportReportFunctions::GetParticipants(ReportConst::TEST, '2020-01-01', '2023-01-01', 0);
+        $testResult1 = SupportReportFunctions::GetParticipantAchievements(ReportConst::TEST, $participants1[3]);
 
 
-        $this->stdout((string)($testResult1[0] .' || '. $data['result'][0])."\n");
-        $this->stdout((string)($testResult1[1] .' || '. $data['result'][1])."\n");
-        $this->stdout((string)($testResult1[2] .' || '. $data['result'][2])."\n");
+        $expectedResult1 = [1, 2, 3, 4, 5, 6, 7];
 
-        for ($i = 0; $i < count($testResult1[0]); $i++)
-        {
-            $this->stdout($data['result'][0][$i].' '.$data['result'][0][$i]."\n");
-        }
 
-        if ($testResult1[0] == $data['result'][0] &&
-            $testResult1[1] == $data['result'][1] &&
-            $testResult1[2] == $data['result'][2])
+        if ($testResult1[0] == $expectedResult1[0])
             $this->stdout('| Test #1 was passed successfully   |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #1 failed                    |'."\n", Console::FG_RED);

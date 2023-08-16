@@ -152,13 +152,15 @@ class SupportReportFunctions
          *
          * При выборке участников из Технопарка и ЦОДа будет учтена 1 команда, состоящая из 5 участников
          */
+        $allTeamRows = null;
+
         if ($team_mode == 1)
         {
             $allTeamRows = $test_mode === 0 ?
-                TeamWork::find()->where(['IN', 'teacher_participant_id', $result])->orderBy(['name' => SORT_ASC, 'teacher_participant_id' => SORT_ASC])->all() :
+                TeamWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->orderBy(['name' => SORT_ASC, 'teacher_participant_id' => SORT_ASC])->all() :
                 GetParticipantsTeamWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->orderBy(['name' => SORT_ASC, 'teacher_participant_id' => SORT_ASC])->all();
 
-            if ($allTeamRows !== null)
+            if ($allTeamRows !== null && count($allTeamRows) !== 0)
             {
                 $currentTeamName = $allTeamRows[0]->name;
 
@@ -200,12 +202,12 @@ class SupportReportFunctions
         $result = [];
 
         $currentParticipantId = $query[0]->teacherParticipant->participant_id;
-        $result[] = $query[0];
+        $result[] = $query[0]->id;
 
         foreach ($query as $one)
             if ($one->teacherParticipant->participant_id !== $currentParticipantId)
             {
-                $result[] = $one;
+                $result[] = $one->id;
                 $currentParticipantId = $one->teacherParticipant->participant_id;
             }
 
@@ -232,7 +234,7 @@ class SupportReportFunctions
     {
         $achievements = $test_mode == 0 ?
             ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]) :
-            GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]);
+            GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]);
 
         $achievements = $unique_achieve == 0 ?
             self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
