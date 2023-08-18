@@ -3,10 +3,12 @@
 namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
+use app\models\common\TeamName;
 use app\models\test\work\GetParticipantAchievementsParticipantAchievementWork;
 use app\models\test\work\GetParticipantsEventWork;
 use app\models\test\work\GetParticipantsTeacherParticipantBranchWork;
 use app\models\test\work\GetParticipantsTeacherParticipantWork;
+use app\models\test\work\GetParticipantsTeamNameWork;
 use app\models\test\work\GetParticipantsTeamWork;
 use app\models\work\AllowRemoteWork;
 use app\models\work\BranchWork;
@@ -16,6 +18,7 @@ use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
 
 class SupportReportFunctions
@@ -50,11 +53,12 @@ class SupportReportFunctions
     // Признак 1: в мероприятиях из массива eIds
     // Признак 2: заданных направленностей из массива focus
     // Признак 3: заданных форм реализации из массива allow_remote
-    static private function GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote)
+    static private function GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, $team_participants_id)
     {
         $teacherParticipants = $test_mode == 0 ?
-            TeacherParticipantWork::find()->where(['IN', 'foreign_event_id', $eIds])->andWhere(['IN', 'id', $tpbIds])->andWhere(['IN', 'focus', $focus])->andWhere(['IN', 'allow_remote_id', $allow_remote])->all() :
-            GetParticipantsTeacherParticipantWork::find()->where(['IN', 'foreign_event_id', $eIds])->andWhere(['IN', 'id', $tpbIds])->andWhere(['IN', 'focus', $focus])->andWhere(['IN', 'allow_remote_id', $allow_remote])->all();
+            TeacherParticipantWork::find()->where(['IN', 'foreign_event_id', $eIds])->andWhere(['IN', 'id', $tpbIds])->andWhere(['IN', 'focus', $focus])->andWhere(['IN', 'allow_remote_id', $allow_remote])->andWhere(['NOT IN', 'id', $team_participants_id])->all() :
+            GetParticipantsTeacherParticipantWork::find()->where(['IN', 'foreign_event_id', $eIds])->andWhere(['IN', 'id', $tpbIds])->andWhere(['IN', 'focus', $focus])->andWhere(['IN', 'allow_remote_id', $allow_remote])->andWhere(['NOT IN', 'id', $team_participants_id])->
+                orderBy(['participant_id' => SORT_ASC])->all();
         return $teacherParticipants;
     }
     //-----------------------------------------------------
@@ -70,6 +74,26 @@ class SupportReportFunctions
         return $teacherParticipantsBranch;
     }
     //-----------------------------------------------
+
+    //--Выгрузка teacher_participant с уникальными participant_id--
+    static private function GetUniqueTeacherParticipantId($query)
+    {
+        $result = [];
+
+        $currentParticipantId = $query[0]->participant_id;
+        $result[] = $query[0]->id;
+
+        foreach ($query as $one)
+            if ($one->participant_id !== $currentParticipantId)
+            {
+                $result[] = $one->id;
+                $currentParticipantId = $one->participant_id;
+            }
+
+        sort($result);
+        return $result;
+    }
+    //-------------------------------------------------------------
 
     //-|---------------------------------------------------------------------|-
     //-| Функция для получения участников мероприятий по заданным параметрам |-
@@ -110,6 +134,29 @@ class SupportReportFunctions
         $eIds = self::GetIdFromArray($events);
         //--------------------------------
 
+        $teamParticipantsId = []; //участники команд
+
+        //--Получаем команды, для удаления участников команд из teacher_participant--
+
+        //--Получаем все команды с заданных мероприятий--
+        $allTeamRows = $test_mode == 0 ?
+            TeamNameWork::find()->where(['IN', 'foreign_event_id', $eIds])->all() :
+            GetParticipantsTeamNameWork::find()->where(['IN', 'foreign_event_id', $eIds])->all();
+        //-----------------------------------------------
+
+        $teamArray = self::GetIdFromArray($allTeamRows);
+
+        //--Получаем участников команд--
+        $teamParticipants = $test_mode == 0 ?
+            TeamWork::find()->where(['IN', 'team_name_id', $teamArray])->all() :
+            GetParticipantsTeamWork::find()->where(['IN', 'team_name_id', $teamArray])->all();
+
+
+        foreach ($teamParticipants as $one) $teamParticipantsId[] = $one->teacher_participant_id;
+        //------------------------------
+
+        //---------------------------------------------------------------------------
+
         // Получаем teacher_participant_branch, подходящие под branch
         $teacherParticipantBranches = self::GetTeacherParticipantBranch($test_mode, $branch);
         $tpbIds = [];
@@ -117,10 +164,12 @@ class SupportReportFunctions
             foreach ($teacherParticipantBranches as $one) $tpbIds[] = $one->teacher_participant_id;
         //-----------------------------------------------------------
 
-        // Получаем teacher_participant, подходящие под focus и allow_remote
-        $teacherParticipants = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote);
-        $tpIds = self::GetIdFromArray($teacherParticipants);
-        //------------------------------------------------------------------
+        // Получаем teacher_participant, подходящие под focus и allow_remote и не входящие в состав команд
+        $teacherParticipants = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, $teamParticipantsId);
+        $tpIds = $unique == 0 ?
+            self::GetIdFromArray($teacherParticipants) :
+            self::GetUniqueTeacherParticipantId($teacherParticipants);
+        //------------------------------------------------------------------------------------------------
 
 
 
@@ -135,7 +184,6 @@ class SupportReportFunctions
 
         // Получаем количество участников с учетом/без учета команд
 
-        $teamArray = [];
         $countParticipants = count($result); //общее количество участников
 
 
@@ -152,46 +200,40 @@ class SupportReportFunctions
          *
          * При выборке участников из Технопарка и ЦОДа будет учтена 1 команда, состоящая из 5 участников
          */
-        $allTeamRows = null;
 
         if ($team_mode == 1)
         {
-            $allTeamRows = $test_mode === 0 ?
-                TeamWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->orderBy(['name' => SORT_ASC, 'teacher_participant_id' => SORT_ASC])->all() :
-                GetParticipantsTeamWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->orderBy(['name' => SORT_ASC, 'teacher_participant_id' => SORT_ASC])->all();
+            //--Получаем всех участников из teacher_aprticipant--
+            $teacherParticipantsAll = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, []);
+            $tpmIds = self::GetIdFromArray($teacherParticipantsAll);
+            //--Получаем всех участников команд, соответствующих заданным условиям (относительно самих участников)--
+            $teamParticipants = $test_mode == 0 ?
+                TeamWork::find()->where(['IN', 'team_name_id', $teamArray])->andWhere(['IN', 'teacher_participant_id', $tpmIds])->all() :
+                GetParticipantsTeamWork::find()->where(['IN', 'team_name_id', $teamArray])->andWhere(['IN', 'teacher_participant_id', $tpmIds])->all();
+            //------------------------------------------------------------------------------------------------------
 
-            if ($allTeamRows !== null && count($allTeamRows) !== 0)
-            {
-                $currentTeamName = $allTeamRows[0]->name;
+            //--Находим команды, в которых есть участники, подходящие под заданные все условия--
+            $realTeamsId = [];
+            foreach ($teamParticipants as $one) $realTeamsId[] = $one->team_name_id;
 
-                $tempTeamArr = []; //массив id для одной команды
-                foreach ($allTeamRows as $oneTeam)
-                {
-                    if ($oneTeam->name === $currentTeamName) // проходим по одной команде (массив отсортирован по названию команды)
-                    {
-                        $tempTeamArr[] = $oneTeam->id;
-                    }
-                    else // при смене команды - прибавляем прошлую команду к результату
-                    {
-                        $teamArray[] = $tempTeamArr;
-                        $tempTeamArr = array();
-                        $currentTeamName = $oneTeam->name;
-                        $tempTeamArr[] = $oneTeam->id;
-                    }
-                    $countParticipants--; // за каждого участника команды вычитаем единицу из общего числа участников
-                }
+            $realTeams = $test_mode == 0 ?
+                TeamNameWork::find()->where(['IN', 'id', $realTeamsId])->all() :
+                GetParticipantsTeamNameWork::find()->where(['IN', 'id', $realTeamsId])->all();
 
-                $teamArray[] = $tempTeamArr;
-                $countParticipants += count($teamArray); // увеличиваем общее количество участников на количество команд
-            }
+            $teamArray = self::GetIdFromArray($realTeams);
+            //----------------------------------------------------------------------------------
 
+
+            //$countParticipants -= count($teamParticipants);
+            $countParticipants += count($realTeams);
         }
 
         //-----------------------------------------------------------
 
         sort($result);
+        sort($teamArray);
         // если считаем с командами - то возвращаем данные по ним, иначе - null и стандартное количество участников в соответствии с unique
-        return [$result, $teamArray, $countParticipants, $tpIds];
+        return [$result, $team_mode == 0 ? [] : $teamArray, $countParticipants, $tpIds, $tpmIds, $teamArray];
     }
     //-----------------------------------------------------------------------
 
@@ -233,13 +275,20 @@ class SupportReportFunctions
                                                       $achieve_mode = ParticipantAchievementWork::ALL)
     {
         $achievements = $test_mode == 0 ?
-            ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]) :
-            GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants])->andWhere(['IN', 'winner', $achieve_mode]);
+            ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants[3]])->andWhere(['IN', 'winner', $achieve_mode]) :
+            GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants[3]])->andWhere(['IN', 'winner', $achieve_mode]);
 
         $achievements = $unique_achieve == 0 ?
             self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
             self::GetUniqueParticipantAchievementId($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all());
 
+        $achievementsTeam = self::GetIdFromArray($test_mode == 0 ?
+            ParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all() :
+            GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all());
+
+        $achievements = array_merge($achievements, $achievementsTeam);
+
+        sort($achievements);
         return $achievements;
     }
     //-------------------------------------------------------------------------
