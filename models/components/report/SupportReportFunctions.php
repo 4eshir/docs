@@ -16,10 +16,14 @@ use app\models\work\EventLevelWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
+use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
+use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
+use yii\db\Query;
 
 class SupportReportFunctions
 {
@@ -292,4 +296,119 @@ class SupportReportFunctions
         return $achievements;
     }
     //-------------------------------------------------------------------------
+
+
+    //--Функция проверки возраста обучающегося--
+    static public function CheckAge($birthday, $ages)
+    {
+        $birthday_timestamp = strtotime($birthday);
+        $age = date('Y') - date('Y', $birthday_timestamp);
+        if (date('md', $birthday_timestamp) > date('md')) $age--;
+
+        return in_array($age, $ages);
+    }
+    //------------------------------------------
+
+
+    //--Функция выгрузки всех учебных групп, подходящих под заданные условия--
+    static public function GetTrainingGroups($start_date, $end_date, $branch, $focus, $allow_remote, $budget, $teachers)
+    {
+        $teacherGroups = TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
+            ->where(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->andWhere(['IN', 'trainingGroup.branch', $branch])
+            ->andWhere(['IN', 'trainingGroup.budget', $budget])
+            ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
+            ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
+            ->andWhere($teachers == [] ? [1] : ['IN', 'teacher_id', $teachers])
+            ->all();
+
+        $tgId = [];
+        foreach ($teacherGroups as $one) $tgId[] = $one->training_group_id;
+
+        return TrainingGroupWork::find()->where(['IN', 'id', $tgId])->all();
+    }
+    //------------------------------------------------------------------------
+
+
+    //--Функция выгрузки обучающихся, соответствующих заданным параметрам, из учебных групп--
+    static public function GetParticipantsFromGroup($groups, $unique, $age)
+    {
+        $groupIds = self::GetIdFromArray($groups);
+
+        //--Находим подходящих по группе обучающихся--
+        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC])->all();
+        //--------------------------------------------
+
+        //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
+        $currentParticipant = $participants[0]->participant_id; // текущий id обучающегося (для уникального режима)
+        $resultParticipant = $unique == 0 ? [] : [$participants[0]]; // если считаем уникальных - то первого сразу заносим в список
+        foreach ($participants as $participant)
+        {
+            if ($age !== ReportConst::AGES_ALL)
+                if (!self::CheckAge($participant->participant->birthdate, $age))
+                    continue;
+
+            if ($unique == 1)
+            {
+                if ($participant->participant_id == $currentParticipant)
+                    continue;
+                else
+                {
+                    // Обновление уникального обучающегося
+                    $currentParticipant = $participant->participant_id;
+                    $resultParticipant[] = $participant;
+                    //------------------------------------
+                }
+            }
+            else
+                $resultParticipant[] = $participant;
+        }
+        //------------------------------------------------------------------------
+        return $resultParticipant;
+    }
+    //---------------------------------------------------------------------------------------
+
+
+    //-|---------------------------------------------------------------------------|-
+    //-| Функция для получения обучающихся из учебных групп по заданным параметрам |-
+    //-|---------------------------------------------------------------------------|-
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $start_date - левая граница дат
+     * $end_date - правая граница дат
+     * $branch - массив отделов
+     * $focus - массив направленностей
+     * $allow_remote - массив форм реализации
+     * $budget - массив типов групп по признакам бюджет/внебюджет
+     * $teachers - массив педагогов групп. Если массив пустой - то учитываются все педагоги
+     * $unique - тип выгрузки обучающихся (0 - все, 1 - уникальные)
+     * $age - массив возрастов обучающихся
+     */
+    static public function GetGroupParticipants($test_mode,
+                                                $start_date, $end_date,
+                                                $branch = BranchWork::ALL,
+                                                $focus = FocusWork::ALL,
+                                                $allow_remote = AllowRemoteWork::ALL,
+                                                $budget = ReportConst::BUDGET_ALL,
+                                                $teachers = [],
+                                                $unique = 0,
+                                                $age = ReportConst::AGES_ALL)
+    {
+        $groups = self::GetTrainingGroups($start_date, $end_date, $branch, $focus, $allow_remote, $budget, $teachers);
+
+        $participants = [];
+        foreach ($groups as $group)
+        {
+            $oneGroupParticipant = self::GetParticipantsFromGroup($group, $unique, $age);
+            $participants = array_merge($participants, $oneGroupParticipant);
+        }
+
+        sort($participants);
+        return $participants;
+
+    }
+
 }
