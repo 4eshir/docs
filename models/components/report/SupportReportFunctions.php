@@ -4,6 +4,9 @@ namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
 use app\models\common\TeamName;
+use app\models\test\work\GetGroupParticipantsTeacherGroupWork;
+use app\models\test\work\GetGroupParticipantsTrainingGroupParticipantWork;
+use app\models\test\work\GetGroupParticipantsTrainingGroupWork;
 use app\models\test\work\GetParticipantAchievementsParticipantAchievementWork;
 use app\models\test\work\GetParticipantsEventWork;
 use app\models\test\work\GetParticipantsTeacherParticipantBranchWork;
@@ -311,35 +314,53 @@ class SupportReportFunctions
 
 
     //--Функция выгрузки всех учебных групп, подходящих под заданные условия--
-    static public function GetTrainingGroups($start_date, $end_date, $branch, $focus, $allow_remote, $budget, $teachers)
+    static public function GetTrainingGroups($test_mode, $start_date, $end_date, $branch, $focus, $allow_remote, $budget, $teachers)
     {
-        $teacherGroups = TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
-            ->where(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-            ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            ->andWhere(['IN', 'trainingGroup.branch', $branch])
-            ->andWhere(['IN', 'trainingGroup.budget', $budget])
-            ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
-            ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
-            ->andWhere($teachers == [] ? [1] : ['IN', 'teacher_id', $teachers])
-            ->all();
+        $teacherGroups = $test_mode == 0 ?
+            TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
+                ->where(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+                ->andWhere(['IN', 'trainingGroup.branch', $branch])
+                ->andWhere(['IN', 'trainingGroup.budget', $budget])
+                ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
+                ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
+                ->andWhere($teachers == [] ? [1] : ['IN', 'teacher_id', $teachers])
+                ->all() :
+            GetGroupParticipantsTeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
+                ->where(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+                ->andWhere(['IN', 'trainingGroup.branch', $branch])
+                ->andWhere(['IN', 'trainingGroup.budget', $budget])
+                ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
+                ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
+                ->andWhere($teachers == [] ? [1] : ['IN', 'teacher_id', $teachers])
+                ->all();
 
         $tgId = [];
         foreach ($teacherGroups as $one) $tgId[] = $one->training_group_id;
 
-        return TrainingGroupWork::find()->where(['IN', 'id', $tgId])->all();
+        $result = $test_mode == 0 ?
+            TrainingGroupWork::find()->where(['IN', 'id', $tgId])->all() :
+            GetGroupParticipantsTrainingGroupWork::find()->where(['IN', 'id', $tgId])->all();
+
+        return $result;
     }
     //------------------------------------------------------------------------
 
 
     //--Функция выгрузки обучающихся, соответствующих заданным параметрам, из учебных групп--
-    static public function GetParticipantsFromGroup($groups, $unique, $age)
+    static public function GetParticipantsFromGroup($test_mode, $groups, $unique, $age)
     {
         $groupIds = self::GetIdFromArray($groups);
 
         //--Находим подходящих по группе обучающихся--
-        $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC])->all();
+        $participants = $test_mode == 0 ?
+            TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC])->all() :
+            GetGroupParticipantsTrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC])->all();
         //--------------------------------------------
 
         //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
