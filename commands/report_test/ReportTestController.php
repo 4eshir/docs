@@ -9,6 +9,7 @@ namespace app\commands\report_test;
 
 use app\commands\SupCommandsController;
 use app\models\common\EventLevel;
+use app\models\common\Focus;
 use app\models\common\ForeignEventParticipants;
 use app\models\components\report\ReportConst;
 use app\models\components\report\SupportReportFunctions;
@@ -62,6 +63,7 @@ class ReportTestController extends Controller
         $this->GetParticipantsTest(); //Тест на выгрузку участников деятельности по заданным параметрам
         $this->stdout("\n");
         $this->ParticipantAchievementsTest(); //Тест на выгрузку победителей и призеров по заданным параметрам
+        $this->stdout("\n");
     }
 
 
@@ -310,4 +312,200 @@ class ReportTestController extends Controller
         return ExitCode::OK;
     }
     //--------------------------------------------------------------------------
+
+
+    //--Экшн и вспомогательные функции тестирования учебных групп и обучающихся--
+    public function actionGroupTest()
+    {
+        $this->GetGroup();
+        $this->stdout("\n");
+        $this->GetGroupParticipants();
+        $this->stdout("\n");
+    }
+
+    private function GetGroup()
+    {
+        $preTestResult1 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2023-03-01');
+        $preTestResult2 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2022-01-01', '2022-12-31');
+        $preTestResult3 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2024-06-12', '2024-12-12');
+        $preTestResult4 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01');
+        $preTestResult5 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', [BranchWork::CDNTT, BranchWork::TECHNO]);
+        $preTestResult6 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, [FocusWork::TECHNICAL, FocusWork::ART]);
+        $preTestResult7 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, FocusWork::ALL, [AllowRemoteWork::FULLTIME]);
+        $preTestResult8 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, FocusWork::ALL, AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $preTestResult9 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, FocusWork::ALL, AllowRemoteWork::ALL, ReportConst::BUDGET_ALL, [1, 5]);
+        $preTestResult10 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2023-12-11', [BranchWork::TECHNO, BranchWork::CDNTT, BranchWork::ADMIN], [FocusWork::TECHNICAL, FocusWork::SPORT], AllowRemoteWork::ALL, ReportConst::BUDGET_ALL, [4]);
+
+        $testResult1 = [];
+        foreach ($preTestResult1 as $one) $testResult1[] = $one->id;
+
+        $testResult2 = [];
+        foreach ($preTestResult2 as $one) $testResult2[] = $one->id;
+
+        $testResult3 = [];
+        foreach ($preTestResult3 as $one) $testResult3[] = $one->id;
+
+        $testResult4 = [];
+        foreach ($preTestResult4 as $one) $testResult4[] = $one->id;
+
+        $testResult5 = [];
+        foreach ($preTestResult5 as $one) $testResult5[] = $one->id;
+
+        $testResult6 = [];
+        foreach ($preTestResult6 as $one) $testResult6[] = $one->id;
+
+        $testResult7 = [];
+        foreach ($preTestResult7 as $one) $testResult7[] = $one->id;
+
+        $testResult8 = [];
+        foreach ($preTestResult8 as $one) $testResult8[] = $one->id;
+
+        $testResult9 = [];
+        foreach ($preTestResult9 as $one) $testResult9[] = $one->id;
+
+        $testResult10 = [];
+        foreach ($preTestResult10 as $one) $testResult10[] = $one->id;
+
+        $expectedResult1 = [1, 2];
+        $expectedResult2 = [];
+        $expectedResult3 = [];
+        $expectedResult4 = [1, 2, 3, 4, 5];
+        $expectedResult5 = [1, 3, 4];
+        $expectedResult6 = [2, 3, 4, 5];
+        $expectedResult7 = [1, 2, 3, 5];
+        $expectedResult8 = [1, 2, 3];
+        $expectedResult9 = [1, 2, 3];
+        $expectedResult10 = [4];
+
+
+        $this->stdout("\n-----------(Groups tests)-----------\n|".str_repeat(" ", 34)."|\n", Console::FG_PURPLE);
+
+        if ($testResult1 == $expectedResult1)
+            $this->stdout('| Test #1 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #1 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult2 == $expectedResult2)
+            $this->stdout('| Test #2 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #2 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult3 == $expectedResult3)
+            $this->stdout('| Test #3 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #3 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult4 == $expectedResult4)
+            $this->stdout('| Test #4 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #4 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult5 == $expectedResult5)
+            $this->stdout('| Test #5 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #5 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult6 == $expectedResult6)
+            $this->stdout('| Test #6 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult7 == $expectedResult7)
+            $this->stdout('| Test #7 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #7 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult8 == $expectedResult8)
+            $this->stdout('| Test #8 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #8 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult9 == $expectedResult9)
+            $this->stdout('| Test #9 was passed successfully  |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #9 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult10 == $expectedResult10)
+            $this->stdout('| Test #10 was passed successfully |'."\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #10 failed                  |'."\n", Console::FG_RED);
+
+        $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
+    }
+
+    private function GetGroupParticipants()
+    {
+        $group1 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2023-03-01');
+        $group2 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2022-01-01', '2022-12-31');
+        $group4 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01');
+        $group8 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, FocusWork::ALL, AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+
+        $preTestResult1 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group1);
+        $preTestResult2 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group2);
+        $preTestResult3 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4);
+        $preTestResult4 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4, 1);
+        $preTestResult5 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4, 1, [10, 11, 12, 13, 14, 15, 16, 17, 18], '2012-05-01');
+        $preTestResult6 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group8, 0, [3, 4, 5, 6, 7, 8, 9], '2012-05-01');
+
+        $testResult1 = [];
+        foreach ($preTestResult1 as $one) $testResult1[] = $one->id;
+
+        $testResult2 = [];
+        foreach ($preTestResult2 as $one) $testResult2[] = $one->id;
+
+        $testResult3 = [];
+        foreach ($preTestResult3 as $one) $testResult3[] = $one->id;
+
+        $testResult4 = [];
+        foreach ($preTestResult4 as $one) $testResult4[] = $one->id;
+
+        $testResult5 = [];
+        foreach ($preTestResult5 as $one) $testResult5[] = $one->id;
+
+        $testResult6 = [];
+        foreach ($preTestResult6 as $one) $testResult6[] = $one->id;
+
+        $expectedResult1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        $expectedResult2 = [];
+        $expectedResult3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+        $expectedResult4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 24, 25, 26, 27];
+        $expectedResult5 = [1, 2, 3, 6, 7, 8, 13, 14, 15, 18, 24];
+        $expectedResult6 = [4, 5, 9, 10, 16, 17];
+
+
+        $this->stdout("\n--------(Participants tests)--------\n|" . str_repeat(" ", 34) . "|\n", Console::FG_PURPLE);
+
+        if ($testResult1 == $expectedResult1)
+            $this->stdout('| Test #1 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #1 failed                   |' . "\n", Console::FG_RED);
+
+        if ($testResult2 == $expectedResult2)
+            $this->stdout('| Test #2 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #2 failed                   |' . "\n", Console::FG_RED);
+
+        if ($testResult3 == $expectedResult3)
+            $this->stdout('| Test #3 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #3 failed                   |' . "\n", Console::FG_RED);
+
+        if ($testResult4 == $expectedResult4)
+            $this->stdout('| Test #4 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #4 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult5 == $expectedResult5)
+            $this->stdout('| Test #5 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #5 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult6 == $expectedResult6)
+            $this->stdout('| Test #6 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
+
+        $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
+    }
+    //---------------------------------------------------------------------------
 }
