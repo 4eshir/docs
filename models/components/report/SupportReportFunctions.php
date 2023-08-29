@@ -30,6 +30,50 @@ use yii\db\Query;
 
 class SupportReportFunctions
 {
+    //|----------------------------------------------------------------------------------------------------------------
+    /*|
+     *|  |-------------------------|
+     *|  |--Список функций класса--|
+     *|  |-------------------------|
+     *|
+     *|  1. GetIdFromArray
+     *|       Возвращает массив полей типа "id" из заданной коллекции
+     *|
+     *|  2. GetForeignEvents
+     *|       Возвращает массив мероприятий, подходящих под заданные условия
+     *|
+     *|  3. GetTeacherParticipant
+     *|       Возвращает массив teacher_participant, соответствующих параметрам
+     *|
+     *|  4. GetTeacherParticipantBranch
+     *|       Возвращает массив teacher_participant_branch, соответствующих параметрам
+     *|
+     *|  5. GetUniqueTeacherParticipantId
+     *|       Возвращает массив актов участия с уникальными участниками
+     *|
+     *|  6. GetParticipants (основная функция)
+     *|       Возвращает массив участников мероприятий по заданным параметрам
+     *|
+     *|  7. GetUniqueParticipantAchievementId
+     *|       Возвращает массив актов побед с уникальными участниками
+     *|
+     *|  8. GetParticipantAchievements (основная функция)
+     *|       Возвращает массив актов побед из массива всех участников в соответствии с заданными параметрами
+     *|
+     *|  9. CheckAge
+     *|       Проверка возраста по дате рождения и дате отсчета возраста (задается опционально)
+     *|
+     *|  10. GetTrainingGroups
+     *|        Возвращает массив учебных групп, соответствующих заданным параметрам
+     *|
+     *|  11. GetParticipantsFromGroups (основная функция)
+     *|        Возвращает массив учеников из массива учебных групп, соответствующих заданным параметрам
+     *|
+     */
+    //|----------------------------------------------------------------------------------------------------------------
+
+
+
     //--Выгрузка id всех записей из массива--
     // Условие: наличие поля с именем 'id'
     static private function GetIdFromArray($array)
@@ -45,6 +89,11 @@ class SupportReportFunctions
     //--Поиск подходящих мероприятий--
     // Признак 1: окончание мероприятия попадает в промежуток [$start_date:$end_date]
     // Признак 2: подходящий уровень мероприятия
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * [$start_date : $end_date] - Промежуток для поиска мероприятий. Мероприятие должно завершиться в заданный промежуток (границы включены)
+     * $event_level - массив уровней мероприятия (региональный, федеральный...)
+     */
     static private function GetForeignEvents($test_mode, $start_date, $end_date, $event_level)
     {
         $events = $test_mode == 0 ?
@@ -60,6 +109,14 @@ class SupportReportFunctions
     // Признак 1: в мероприятиях из массива eIds
     // Признак 2: заданных направленностей из массива focus
     // Признак 3: заданных форм реализации из массива allow_remote
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $eIds - подготовленный список мероприятий
+     * $tpbIds - подготовленный список экземпляров класса teacher_participant_branch
+     * $focus - массив направленностей
+     * $allow_remote - массив форм реализации
+     * $team_participants_id - список участников команд
+     */
     static private function GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, $team_participants_id)
     {
         $teacherParticipants = $test_mode == 0 ?
@@ -73,6 +130,10 @@ class SupportReportFunctions
     //--Поиск подходящих teacher_participant_branch--
     // Признак 1: в актах участия из массива tpIds
     // Признак 2: заданных отделов из массива branch
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $branch - массив отделов
+     */
     static private function GetTeacherParticipantBranch($test_mode, $branch)
     {
         $teacherParticipantsBranch = $test_mode == 0 ?
@@ -114,6 +175,7 @@ class SupportReportFunctions
      * $branch - массив отделов (технопарк, кванториум...)
      * $focus - массив направленностей (теническая, соцпед...)
      * $allow_remote - форма реализации (очная, очная с дистантом...)
+     *
      *
      * return [array(ForeignEventPartcipantId), array([team_id, team_id], [team_id, team_id]), кол-во участников с учетом/без учета команд, список id записей таблицы teacher_participant]
      */
@@ -282,8 +344,12 @@ class SupportReportFunctions
                                                       $achieve_mode = ParticipantAchievementWork::ALL)
     {
         $achievements = $test_mode == 0 ?
-            ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants[3]])->andWhere(['IN', 'winner', $achieve_mode]) :
-            GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacher_participant_id', $participants[3]])->andWhere(['IN', 'winner', $achieve_mode]);
+            ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['IN', 'teacher_participant_id', $participants[3]])
+                ->andWhere(['IN', 'winner', $achieve_mode]) :
+            GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['IN', 'teacher_participant_id', $participants[3]])
+                ->andWhere(['IN', 'winner', $achieve_mode]);
 
         $achievements = $unique_achieve == 0 ?
             self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
@@ -358,8 +424,16 @@ class SupportReportFunctions
     //------------------------------------------------------------------------
 
 
-    //--Функция выгрузки обучающихся, соответствующих заданным параметрам, из учебных групп--
-    static public function GetParticipantsFromGroup($test_mode, $groups,
+    //-|---------------------------------------------------------------------------|-
+    //-| Функция для получения обучающихся из учебных групп по заданным параметрам |-
+    //-|---------------------------------------------------------------------------|-
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $unique - тип выгрузки обучающихся (0 - все, 1 - уникальные)
+     * $age - массив возрастов обучающихся
+     * $current_date - дата, относительно которой рассчитывается возраст обучающихся (по умолчанию - текущая дата сервера)
+     */
+    static public function GetParticipantsFromGroups($test_mode, $groups,
                                                     $unique = 0,
                                                     $age = ReportConst::AGES_ALL,
                                                     $current_date = null)
@@ -403,45 +477,5 @@ class SupportReportFunctions
         return $resultParticipant;
     }
     //---------------------------------------------------------------------------------------
-
-
-    //-|---------------------------------------------------------------------------|-
-    //-| Функция для получения обучающихся из учебных групп по заданным параметрам |-
-    //-|---------------------------------------------------------------------------|-
-    /*
-     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
-     * $start_date - левая граница дат
-     * $end_date - правая граница дат
-     * $branch - массив отделов
-     * $focus - массив направленностей
-     * $allow_remote - массив форм реализации
-     * $budget - массив типов групп по признакам бюджет/внебюджет
-     * $teachers - массив педагогов групп. Если массив пустой - то учитываются все педагоги
-     * $unique - тип выгрузки обучающихся (0 - все, 1 - уникальные)
-     * $age - массив возрастов обучающихся
-     */
-    static public function GetGroupParticipants($test_mode,
-                                                $start_date, $end_date,
-                                                $branch = BranchWork::ALL,
-                                                $focus = FocusWork::ALL,
-                                                $allow_remote = AllowRemoteWork::ALL,
-                                                $budget = ReportConst::BUDGET_ALL,
-                                                $teachers = [],
-                                                $unique = 0,
-                                                $age = ReportConst::AGES_ALL)
-    {
-        $groups = self::GetTrainingGroups($test_mode, $start_date, $end_date, $branch, $focus, $allow_remote, $budget, $teachers);
-
-        $participants = [];
-        foreach ($groups as $group)
-        {
-            $oneGroupParticipant = self::GetParticipantsFromGroup($test_mode, $group, $unique, $age);
-            $participants = array_merge($participants, $oneGroupParticipant);
-        }
-
-        sort($participants);
-        return $participants;
-
-    }
 
 }

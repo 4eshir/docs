@@ -57,13 +57,24 @@ class ReportTestController extends Controller
         ];
     }
 
+    //--Запуск ВСЕХ тестов модуля--
+    public function actionTestAll()
+    {
+        $this->actionParticipantTest();
+        $this->actionGroupTest();
+    }
+    //-----------------------------
+
+
+
     //--Экшн и вспомогательные функции для тестирования участников мероприятий--
     public function actionParticipantTest()
     {
+        $this->stdout("\n\n| Foreign event participants and achievements tests\n", Console::FG_CYAN);
         $this->GetParticipantsTest(); //Тест на выгрузку участников деятельности по заданным параметрам
         $this->stdout("\n");
         $this->ParticipantAchievementsTest(); //Тест на выгрузку победителей и призеров по заданным параметрам
-        $this->stdout("\n");
+        $this->stdout("\n|".str_repeat("-", 50)."\n", Console::FG_CYAN);
     }
 
 
@@ -317,10 +328,11 @@ class ReportTestController extends Controller
     //--Экшн и вспомогательные функции тестирования учебных групп и обучающихся--
     public function actionGroupTest()
     {
+        $this->stdout("\n\n| Training groups and group participants tests\n", Console::FG_CYAN);
         $this->GetGroup();
         $this->stdout("\n");
         $this->GetGroupParticipants();
-        $this->stdout("\n");
+        $this->stdout("\n|".str_repeat("-", 45)."\n", Console::FG_CYAN);
     }
 
     private function GetGroup()
@@ -440,12 +452,12 @@ class ReportTestController extends Controller
         $group4 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01');
         $group8 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01', BranchWork::ALL, FocusWork::ALL, AllowRemoteWork::ALL, [ReportConst::BUDGET]);
 
-        $preTestResult1 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group1);
-        $preTestResult2 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group2);
-        $preTestResult3 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4);
-        $preTestResult4 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4, 1);
-        $preTestResult5 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group4, 1, [10, 11, 12, 13, 14, 15, 16, 17, 18], '2012-05-01');
-        $preTestResult6 = SupportReportFunctions::GetParticipantsFromGroup(ReportConst::TEST, $group8, 0, [3, 4, 5, 6, 7, 8, 9], '2012-05-01');
+        $preTestResult1 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group1);
+        $preTestResult2 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group2);
+        $preTestResult3 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group4);
+        $preTestResult4 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group4, 1);
+        $preTestResult5 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group4, 1, [10, 11, 12, 13, 14, 15, 16, 17, 18], '2012-05-01');
+        $preTestResult6 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group8, 0, [3, 4, 5, 6, 7, 8, 9], '2012-05-01');
 
         $testResult1 = [];
         foreach ($preTestResult1 as $one) $testResult1[] = $one->id;
