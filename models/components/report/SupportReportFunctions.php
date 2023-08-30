@@ -4,6 +4,7 @@ namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
 use app\models\common\TeamName;
+use app\models\test\work\GetGroupParticipantsForeignEventParticipantWork;
 use app\models\test\work\GetGroupParticipantsTeacherGroupWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupParticipantWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupWork;
@@ -68,6 +69,12 @@ class SupportReportFunctions
      *|
      *|  11. GetParticipantsFromGroups (основная функция)
      *|        Возвращает массив учеников из массива учебных групп, соответствующих заданным параметрам
+     *|
+     *|  12. GetDoubleParticipantsFromGroup (основная функция)
+     *|        Возвращает массив обучающихся, проходивших обучение в 2-ух и более группах
+     *|
+     *|  13. GetCertificatsParticipantsFromGroup
+     *         Возвращает массив обучающихся, имеющих сертификаты о завершении соответствующих учебных групп
      *|
      */
     //|----------------------------------------------------------------------------------------------------------------
@@ -478,4 +485,74 @@ class SupportReportFunctions
     }
     //---------------------------------------------------------------------------------------
 
+
+    //-|------------------------------------------------------------------------|-
+    //-| Функция для получения обучающихся по более чем в одной учебной группе  |-
+    //-|------------------------------------------------------------------------|-
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $groups - список групп для выборки
+     * $age - массив возрастов обучающихся
+     * $current_date - дата, относительно которой рассчитывается возраст обучающихся (по умолчанию - текущая дата сервера)
+     */
+    static public function GetDoubleParticipantsFromGroup($test_mode, $groups,
+                                                          $age = ReportConst::AGES_ALL,
+                                                          $current_date = null)
+    {
+        if ($current_date == null) $current_date = date('Y-m-d'); // если не передано значение, то выставляем текущую дату
+
+        $groupIds = self::GetIdFromArray($groups);
+
+        //--Находим подходящих по группе обучающихся--
+        $participants = $test_mode == 0 ?
+            TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all() :
+            GetGroupParticipantsTrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all();
+        //--------------------------------------------
+
+        //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
+        $currentParticipant = $participants[0]->participant_id; // текущий id обучающегося (для уникального режима)
+        $resultParticipant = [];
+        $repeatFlag = false; // флаг для отслеживания повторяющихся обучающихся
+        foreach ($participants as $participant)
+        {
+            if ($age !== ReportConst::AGES_ALL)
+                if (!self::CheckAge($participant->participant->birthdate, $age, $current_date))
+                    continue;
+
+            if ($participant->participant_id == $currentParticipant && !$repeatFlag)
+            {
+                // Добавляем повторяющегося обучающегося
+                $repeatFlag = true;
+                $resultParticipant[] = $participant->id;
+                //--------------------------------------
+            }
+            else if ($participant->participant_id !== $currentParticipant)
+            {
+                // Сброс флага повторяющегося обучающегося
+                $repeatFlag = false;
+                $currentParticipant = $participant->participant_id;
+                //----------------------------------------
+            }
+        }
+        //------------------------------------------------------------------------
+        sort($resultParticipant);
+        $result = $test_mode == 0 ?
+            TrainingGroupParticipantWork::find()->where(['IN', 'id', $resultParticipant])->orderBy(['participant_id' => SORT_ASC])->all() :
+            GetGroupParticipantsTrainingGroupParticipantWork::find()->where(['IN', 'id', $resultParticipant])->orderBy(['participant_id' => SORT_ASC])->all();
+
+        return $result;
+    }
+
+
+    //-|------------------------------------------------------------------------------------------|-
+    //-| Функция для получения обучающихся, получивших сертификат об успешном окончании обучения  |-
+    //-|------------------------------------------------------------------------------------------|-
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $groups - список групп для выборки
+     */
+    static public function GetCertificatsParticipantsFromGroup($test_mode, $groups)
+    {
+
+    }
 }

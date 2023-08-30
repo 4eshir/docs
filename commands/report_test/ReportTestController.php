@@ -458,6 +458,7 @@ class ReportTestController extends Controller
         $preTestResult4 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group4, 1);
         $preTestResult5 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group4, 1, [10, 11, 12, 13, 14, 15, 16, 17, 18], '2012-05-01');
         $preTestResult6 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group8, 0, [3, 4, 5, 6, 7, 8, 9], '2012-05-01');
+        $preTestResult7 = SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::TEST, $group4);
 
         $testResult1 = [];
         foreach ($preTestResult1 as $one) $testResult1[] = $one->id;
@@ -477,12 +478,16 @@ class ReportTestController extends Controller
         $testResult6 = [];
         foreach ($preTestResult6 as $one) $testResult6[] = $one->id;
 
+        $testResult7 = [];
+        foreach ($preTestResult7 as $one) $testResult7[] = $one->participant_id;
+
         $expectedResult1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         $expectedResult2 = [];
         $expectedResult3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
         $expectedResult4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 24, 25, 26, 27];
         $expectedResult5 = [1, 2, 3, 6, 7, 8, 13, 14, 15, 18, 24];
         $expectedResult6 = [4, 5, 9, 10, 16, 17];
+        $expectedResult7 = [1, 2, 7, 8, 9, 10, 11, 14, 18, 20];
 
 
         $this->stdout("\n--------(Participants tests)--------\n|" . str_repeat(" ", 34) . "|\n", Console::FG_PURPLE);
@@ -516,6 +521,12 @@ class ReportTestController extends Controller
             $this->stdout('| Test #6 was passed successfully  |' . "\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
+
+
+        if ($testResult7 == $expectedResult7)
+            $this->stdout('| Test #7 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #7 failed                   |'."\n", Console::FG_RED);
 
         $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
     }
