@@ -2,18 +2,21 @@
 
 namespace app\models\common;
 
+use app\models\work\TeacherParticipantWork;
 use Yii;
 
 /**
  * This is the model class for table "participant_files".
  *
  * @property int $id
- * @property int $participant_id
- * @property int $foreign_event_id
+ * @property int|null $participant_id
+ * @property int $teacher_participant_id
+ * @property int|null $foreign_event_id
  * @property string $filename
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
+ * @property TeacherParticipant $teacherParticipant
  */
 class ParticipantFiles extends \yii\db\ActiveRecord
 {
@@ -31,11 +34,12 @@ class ParticipantFiles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'foreign_event_id', 'filename'], 'required'],
+            [['teacher_participant_id', 'filename'], 'required'],
             [['participant_id', 'foreign_event_id'], 'integer'],
             [['filename'], 'string', 'max' => 1000],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
+            [['teacher_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TeacherParticipant::className(), 'targetAttribute' => ['teacher_participant_id' => 'id']],
         ];
     }
 
@@ -70,5 +74,10 @@ class ParticipantFiles extends \yii\db\ActiveRecord
     public function getParticipant()
     {
         return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'participant_id']);
+    }
+
+    public function getTeacherParticipant()
+    {
+        return $this->hasOne(TeacherParticipant::className(), ['id' => 'teacher_participant_id']);
     }
 }

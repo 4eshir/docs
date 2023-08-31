@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\common\DocumentOrderSupplement;
 use Yii;
 use app\models\common\OrderErrors;
 use app\models\work\ErrorsWork;
@@ -122,8 +123,6 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckPasta ($modelOrderID)
     {
-        
-
         $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 37])->all();
         $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $modelOrderID])->all());
 
@@ -140,6 +139,52 @@ class OrderErrorsWork extends OrderErrors
         {
             $this->document_order_id = $modelOrderID;
             $this->errors_id = 37;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckForeignEvent ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 57])->all();
+        $foreignEventCount = count(ForeignEventWork::find()->where(['order_participation_id' => $modelOrderID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($foreignEventCount !== 0)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $foreignEventCount == 0)
+        {
+            $this->document_order_id = $modelOrderID;
+            $this->errors_id = 57;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckSupplement ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 58])->all();
+        $supplementCount = count(DocumentOrderSupplementWork::find()->where(['document_order_id' => $modelOrderID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($supplementCount !== 0)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $supplementCount == 0)
+        {
+            $this->document_order_id = $modelOrderID;
+            $this->errors_id = 58;
             $this->time_start = date("Y.m.d H:i:s");
             $this->save();
         }
@@ -176,6 +221,11 @@ class OrderErrorsWork extends OrderErrors
             $this->CheckGroup($modelOrderID);
             if ($order->order_date >= "2022-03-01")
                 $this->CheckPasta($modelOrderID);
+        }
+        if ($order->type === 2)
+        {
+            $this->CheckForeignEvent($modelOrderID);
+            $this->CheckSupplement($modelOrderID);
         }
     }
 

@@ -37,53 +37,6 @@ $session = Yii::$app->session;
         }
     };
 
-    function showArchive()
-    {
-        var elem = document.getElementById('archive-0');
-        var arch = document.getElementById('archive-number');
-        var ord = document.getElementById('order-number-1');
-        if (elem.checked) { arch.style.display = "block"; ord.style.display = "none"; }
-        else { arch.style.display = "none"; ord.style.display = "block"; }
-    }
-
-    function showForeignEvent()
-    {
-        var elem = document.getElementById('type-2');
-        var form = document.getElementById('foreign-event-form');
-        var nameDoc = document.getElementById('documentorderwork-order_name');
-
-        var archI = document.getElementById('archive-0');
-        var archB = document.getElementById('archive-block');
-        var arch = document.getElementById('archive-number');
-        var ord = document.getElementById('order-number-1');
-
-        var changeBlock = document.getElementById('change');
-
-        if (elem.checked)
-        {
-            form.style.display = "block";
-
-            archI.checked = false;
-            archB.style.display = "none";
-            arch.value = '';
-            arch.style.display = "none";
-            ord.style.display = "block";
-            changeBlock.style.display = "none";
-
-            nameDoc.readOnly = true;
-            nameDoc.value = 'Об участии в мероприятии';
-        }
-        else
-        {
-            form.style.display = "none";
-            archB.style.display = "block";
-            changeBlock.style.display = "block";
-
-            nameDoc.readOnly = false;
-            nameDoc.value = '';
-        }
-    }
-
     const initData = () => {
         table = document.getElementById('sortable');
         headers = table.querySelectorAll('th');
@@ -444,10 +397,7 @@ $session = Yii::$app->session;
 
     $branch = \app\models\work\BranchWork::find()->orderBy(['name' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branch,'id','name');
-    if ($session->get('type') != 1)
-        echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
-    else
-        $model->nomenclature_id = '5';  // по просьбе особ упоротых людителей делать "случайно" основные приказы вне отдела Администрация - по умолчанию делаем как надо
+    echo $form->field($model, 'nomenclature_id')->dropDownList($items,$params)->label('Отдел');
     ?>
 
     <?php
@@ -457,163 +407,20 @@ $session = Yii::$app->session;
         'class' => 'form-control nom',
         'onchange' => 'documentName()',
     ];
-    if ($model->type !== 10)
+
+    echo '<div id="order-number-1">';
+    if ($model->nomenclature_id === null)
+        echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Код и описание номенклатуры');
+    else
     {
-        echo '<div id="order-number-1">';
-        if ($model->nomenclature_id === null)
-            echo $form->field($model, 'order_number')->dropDownList([], $params)->label('Код и описание номенклатуры');
-        else
-        {
-            $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->andWhere(['actuality' => 0])->all();
-            $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
-            echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Код и описание номенклатуры');
-        }
-        echo '</div>';
+        $noms = \app\models\work\NomenclatureWork::find()->where(['branch_id' => $model->nomenclature_id])->andWhere(['actuality' => 0])->all();
+        $items = \yii\helpers\ArrayHelper::map($noms,'number','fullNameWork');
+        echo $form->field($model, 'order_number')->dropDownList($items, $params)->label('Код и описание номенклатуры');
     }
+    echo '</div>';
     ?>
 
-    <div id="archive-block" style="display: <?php echo $session->get('type') === '1' ? null : 'none' ?>">
-        <?= $form->field($model, 'archive_check')
-            ->checkbox([
-                'id' => 'archive-0',
-                'label' => 'Архивный приказ',
-                'onchange' => 'showArchive()',
-                'checked' => $model->type === 10,
-                'labelOptions' => [
-                ],
-            ]); ?>
-    </div>
-
-    <div id="type-block" style="display: <?php echo $session->get('type') === '1' || $session->get('type') === '10' ? null : 'none' ?>">
-        <?= $form->field($model, 'type')
-            ->checkbox([
-                'id' => 'type-2',
-                'label' => 'Приказ об участии в мероприятии',
-                'onchange' => 'showForeignEvent()',
-                'checked' => $model->type === 2,
-                'labelOptions' => [
-                ],
-            ]); ?>
-    </div>
-
-    <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
-        <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
-    </div>
-
-    <div id="foreign-event-form" style="display: <?php echo $model->type === '2' ? 'block' : 'none' ?>">
-        <div class="row" style="overflow-y: scroll; height: 900px">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4><i class="glyphicon glyphicon-tag"></i> Информация для создания карточки учета достижений</h4></div>
-                <div style="padding: 15px;">
-
-                    <?= $form->field($modelForeignEvent[0], 'name')->textInput($modelForeignEvent[0]->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
-
-                    <?php
-                    $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
-                    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
-                    $params = [
-                        'prompt' => '--',
-                    ];
-                    echo $form->field($modelForeignEvent[0], 'company_id')->dropDownList($items,$params);
-
-                    ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'start_date')->widget(\yii\jui\DatePicker::class,
-                        $modelForeignEvent[0]->copy == 1 ? (
-                        [
-                            'dateFormat' => 'php:Y-m-d',
-                            'language' => 'ru',
-                            'options' => [
-                                'placeholder' => 'Дата начала мероприятия',
-                                'class'=> 'form-control',
-                                'autocomplete'=>'off',
-                                'disabled' =>'disabled'
-                            ],
-                            'clientOptions' => [
-                                'changeMonth' => true,
-                                'changeYear' => true,
-                                'yearRange' => '2000:2050',
-                            ]]) : ([
-                            'dateFormat' => 'php:Y-m-d',
-                            'language' => 'ru',
-                            'options' => [
-                                'placeholder' => 'Дата начала мероприятия',
-                                'class'=> 'form-control',
-                                'autocomplete'=>'off',
-                            ],
-                            'clientOptions' => [
-                                'changeMonth' => true,
-                                'changeYear' => true,
-                                'yearRange' => '2000:2050',
-                            ]
-                        ])) ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'finish_date')->widget(\yii\jui\DatePicker::class,
-                        $modelForeignEvent[0]->copy == 1 ? (
-                        [
-                            'dateFormat' => 'php:Y-m-d',
-                            'language' => 'ru',
-                            'options' => [
-                                'placeholder' => 'Дата окончания мероприятия',
-                                'class'=> 'form-control',
-                                'autocomplete'=>'off',
-                                'disabled' => 'disabled'
-                            ],
-                            'clientOptions' => [
-                                'changeMonth' => true,
-                                'changeYear' => true,
-                                'yearRange' => '2000:2050',
-                            ]]) : ([
-                            'dateFormat' => 'php:Y-m-d',
-                            'language' => 'ru',
-                            'options' => [
-                                'placeholder' => 'Дата окончания мероприятия',
-                                'class'=> 'form-control',
-                                'autocomplete'=>'off',
-                            ],
-                            'clientOptions' => [
-                                'changeMonth' => true,
-                                'changeYear' => true,
-                                'yearRange' => '2000:2050',
-                            ]])) ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'city')->textInput(['maxlength' => true]) ?>
-
-                    <?php
-                    $ways = \app\models\work\EventWayWork::find()->orderBy(['name' => SORT_ASC])->all();
-                    $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
-                    $params = [
-                    ];
-                    echo $form->field($modelForeignEvent[0], 'event_way_id')->dropDownList($items,$params);
-
-                    ?>
-
-                    <?php
-                    $levels = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
-                    $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
-                    $params = [
-                        'disabled' => 'disabled'
-                    ];
-                    $params0 = [
-                    ];
-                    echo $form->field($modelForeignEvent[0], 'event_level_id')->dropDownList($items,$modelForeignEvent[0]->copy == 1 ? $params : $params0);
-
-                    ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'is_minpros')->checkbox(); ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'min_participants_age')->textInput() ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'max_participants_age')->textInput() ?>
-
-                    <?= $form->field($modelForeignEvent[0], 'key_words')->textInput(['maxlength' => true]) ?>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'none' : null ?>">
+    <div id="study-type" style="display: block;">
         <?php
         $noms = NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
         if ($model->id !== null && $noms->type != 0)
@@ -642,7 +449,7 @@ $session = Yii::$app->session;
         ?>
     </div>
 
-    <div id="group_table" style="margin-bottom: 1em;" <?php echo $session->get('type') === '1' ? 'hidden' : null ?>>
+    <div id="group_table" style="margin-bottom: 1em;">
         <?php
         echo '<b>Фильтры для учебных групп: </b>';
 
@@ -748,13 +555,6 @@ $session = Yii::$app->session;
             /*----------------*/
             echo '</tbody></table></div>';
 
-            /*echo '<br>';
-            echo '<div id="study-type">' . $form->field($model, 'study_type')->checkbox([
-                'id' => 'study_type-0',
-                'label' => 'По заявлению родителя или законного представителя',
-                'labelOptions' => [
-                ],
-            ]) . '</div>'*/;
         }
 
         ?>
@@ -763,15 +563,10 @@ $session = Yii::$app->session;
     <!---      -->
 
     <?php
-        if ($session->get('type') === '1')
-            echo $form->field($model, 'order_name')->textInput(['maxlength' => true])->label('Наименование приказа');
-        else
-        {
-            if ($model->id != NULL)
-                echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true])->label('Наименование приказа');
-            else
-                echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true, 'value' => 'О зачислении'])->label('Наименование приказа');
-        }
+    if ($model->id != NULL)
+        echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true])->label('Наименование приказа');
+    else
+        echo $form->field($model, 'order_name')->textInput(['maxlength' => true, 'readonly' => true, 'value' => 'О зачислении'])->label('Наименование приказа');
     ?>
 
     <?php
@@ -794,17 +589,7 @@ $session = Yii::$app->session;
 
     ?>
     <br>
-    <?php
-    if ($session->get('type') === '1')
-    {
-        echo $form->field($model, 'allResp')
-            ->checkbox([
-                'label' => 'Добавить всех работников в ответственных',
-                'labelOptions' => [
-                ],
-            ]);
-    }
-    ?>
+
     <div class="row" style="overflow-y: scroll; height: 270px">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
@@ -880,132 +665,6 @@ $session = Yii::$app->session;
         </div>
     </div>
     <br>
-    <div id="change" class="row" <?php echo $session->get('type') !== '1' ? 'hidden' : null ?>>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Изменение документов</h4></div>
-            <br>
-            <?php
-            //$order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->andWhere(['expire_type' => 1])->all();
-            $order = \app\models\work\ExpireWork::find()->where(['active_regulation_id' => $model->id])->all();
-            if ($order != null)
-            {
-                echo '<table>';
-                foreach ($order as $orderOne) {
-                    if ($orderOne->expireRegulation !== null)
-                        if ($orderOne->expire_type === 1)
-                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Отменяет документ: </b> Положение "'.$orderOne->expireRegulationWork->name.'"</h4></td><td style="padding-left: 10px">'
-                                .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены?',
-                                        'method' => 'post',
-                                    ],]).'</td></tr>';
-                        else if ($orderOne->expire_type === 2)
-                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Изменяет документ: </b> Положение "' . $orderOne->expireRegulationWork->name . '"</h4></td><td style="padding-left: 10px">'
-                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены?',
-                                        'method' => 'post',
-                                    ],]) . '</td></tr>';
-                    if ($orderOne->expireOrder !== null)
-                        if ($orderOne->expire_type === 1)
-                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Отменяет документ: </b> Приказ №'.$orderOne->expireOrderWork->fullName.'"</h4></td><td style="padding-left: 10px">'
-                                .Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены?',
-                                        'method' => 'post',
-                                    ],]).'</td></tr>';
-                        else if ($orderOne->expire_type === 2)
-                            echo '<tr><td style="padding-left: 20px; width: 90%;"><h4><b>Изменяет документ: </b> Приказ №' . $orderOne->expireOrderWork->fullName . '"</h4></td><td style="padding-left: 10px">'
-                                . Html::a('Отменить', \yii\helpers\Url::to(['document-order/delete-expire', 'expireId' => $orderOne->id, 'modelId' => $model->id]), [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены?',
-                                        'method' => 'post',
-                                    ],]) . '</td></tr>';
-                }
-                echo '</table>';
-            }
-            ?>
-            <div class="panel-body">
-                <?php DynamicFormWidget::begin([
-                    'widgetContainer' => 'dynamicform_wrapper1', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                    'widgetBody' => '.container-items1', // required: css class selector
-                    'widgetItem' => '.item1', // required: css class
-                    'limit' => 10, // the maximum times, an element can be cloned (default 999)
-                    'min' => 1, // 0 or 1 (default 1)
-                    'insertButton' => '.add-item1', // css class
-                    'deleteButton' => '.remove-item1', // css class
-                    'model' => $modelExpire[0],
-                    'formId' => 'dynamic-form',
-                    'formFields' => [
-                        'id',
-                    ],
-                ]); ?>
-
-                <div class="container-items1"><!-- widgetContainer -->
-                    <?php foreach ($modelExpire as $i => $modelExpireOne): ?>
-                        <div class="item1 panel panel-default"><!-- widgetBody -->
-                            <div class="panel-heading">
-                                <h3 class="panel-title pull-left">Приказ</h3>
-                                <div class="pull-right">
-                                    <button type="button" class="add-item1 btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                    <button type="button" class="remove-item1 btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-xs-5">
-                                    <?php
-                                    // necessary for update action.
-                                    if (! $modelExpireOne->isNewRecord) {
-                                        echo Html::activeHiddenInput($modelExpireOne, "[{$i}]id");
-                                    }
-                                    ?>
-                                    <?php
-                                    $orders = [];
-                                    if ($model->id == null)
-                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
-                                    else
-                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
-                                    $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
-                                    $params = [
-                                        'prompt' => '',
-                                    ];
-
-                                    echo $form->field($modelExpireOne, "[{$i}]expire_order_id")->dropDownList($items,$params)->label('Приказ');
-                                    ?>
-                                </div>
-                                <div class="col-xs-5">
-                                    <?php
-                                    $orders = \app\models\work\RegulationWork::find()->all();
-                                    $items = \yii\helpers\ArrayHelper::map($orders,'id','name');
-                                    $params = [
-                                        'prompt' => '',
-                                    ];
-
-                                    echo $form->field($modelExpireOne, "[{$i}]expire_regulation_id")->dropDownList($items,$params)->label('Положение');
-
-                                    ?>
-                                </div>
-                                <div class="col-xs-2">
-                                    <?php
-                                    $arr = ['1' => 'Отмена', '2' => 'Изменение'];
-                                    if ($modelExpireOne->expire_type === null)
-                                        $modelExpireOne->expire_type = 1;
-                                    echo $form->field($modelExpireOne, "[{$i}]expire_type")->radioList($arr,[])->label(false);
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php DynamicFormWidget::end(); ?>
-            </div>
-        </div>
-    </div>
 
     <div style="display: none">
         <?php

@@ -9,8 +9,11 @@ use Yii;
 class TeacherParticipantBranchWork extends TeacherParticipantBranch
 {
     public $teacherParticipantWork;
-    function __construct($tId, $tBranchId, $tTeacherParticipantId, $tParticipantId)
+    function __construct($tId = null, $tBranchId = null, $tTeacherParticipantId = null, $tParticipantId = null)
     {
+        if ($tId === null)
+            return;
+
         $this->id = $tId;
         $this->branch_id = $tBranchId;
         $this->teacher_participant_id = $tTeacherParticipantId;

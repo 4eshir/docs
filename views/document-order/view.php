@@ -140,4 +140,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </div>
 
+    <div <?php echo $model->type == 2 ? '' : 'hidden'; ?>>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                ['label' => 'Учет достижений', 'attribute' => 'foreignEventLink', 'format' => 'raw'],
+            ],
+        ]) ?>
+    </div>
+
 </div>

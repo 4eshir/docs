@@ -38,6 +38,19 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     ?>
 
     <?php
+        $noms = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->foreign_event_id])->all();
+        $nomsArr = [];
+        foreach ($noms as $nom)
+            if (!in_array($nom->nomination, $nomsArr) && $nom->nomination != null)
+                $nomsArr[] = $nom;
+        $items = \yii\helpers\ArrayHelper::map($nomsArr,'nomination','nomination');
+        $params = [
+            'prompt' => '--'
+        ];
+        echo $form->field($model, 'nomination')->dropDownList($items, $params)->label('Номинация');
+    ?>
+
+    <?php
     $branchs = \app\models\work\BranchWork::find()->orderBy(['id' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
     echo $form->field($model, 'branchs')->checkboxList(
@@ -81,7 +94,14 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         echo $form->field($model, 'allow_remote_id')->dropDownList($items,$params)->label('Форма реализации'); 
     ?>
 
-    <?= $form->field($model, 'team')->textInput()->label('Команда') ?>
+    <?php
+        $teamName = \app\models\work\TeamNameWork::find()->where(['foreign_event_id' => $model->foreign_event_id])->all();
+        $items = \yii\helpers\ArrayHelper::map($teamName,'id','name');
+        $params = [
+            'prompt' => '--',
+        ];
+        echo $form->field($model, 'team')->dropDownList($items,$params)->label('Команда')
+    ?>
 
     <?= $form->field($model, 'file')->fileInput()->label('Представленные материалы') ?>
 

@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int $document_order_id
  * @property int $foreign_event_goals_id уставная цель
- * @property int|null $compliance_document 1 - регламент 2 - письмо 3 - положение
+ * @property int $compliance_document 0 - отсутствует 1 - регламент 2 - письмо 3 - положение
  * @property string|null $document_details реквизиты регламента/письма
  * @property int $information_deadline срок предоставления информации об участии
  * @property int $input_deadline срок для внесения информации
@@ -42,7 +42,7 @@ class DocumentOrderSupplement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['document_order_id', 'foreign_event_goals_id', 'information_deadline', 'input_deadline', 'collector_id', 'contributor_id', 'methodologist_id', 'informant_id'], 'required'],
+            [['document_order_id', 'foreign_event_goals_id', 'compliance_document', 'information_deadline', 'input_deadline', 'collector_id', 'contributor_id', 'methodologist_id', 'informant_id'], 'required'],
             [['document_order_id', 'foreign_event_goals_id', 'compliance_document', 'information_deadline', 'input_deadline', 'collector_id', 'contributor_id', 'methodologist_id', 'informant_id'], 'integer'],
             [['document_details'], 'string', 'max' => 1000],
             [['foreign_event_goals_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventGoals::className(), 'targetAttribute' => ['foreign_event_goals_id' => 'id']],

@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php //echo Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <!--<div style="margin: 0 118%;">

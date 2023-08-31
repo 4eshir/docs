@@ -41,7 +41,7 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['readonly' => true, 'maxlength' => true, 'disabled' => 'disabled'] : ['readonly' => true, 'maxlength' => true]) ?>
 
     <?php
     $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();

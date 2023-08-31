@@ -23,8 +23,11 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public $branchs;
 
-    function __construct($tId, $tParticipantId, $tTeacherId, $tTeacher2Id, $tForeignEventId, $tFocus, $tAllowRemoteId)
+    function __construct($tId = null, $tParticipantId = null, $tTeacherId = null, $tTeacher2Id = null, $tForeignEventId = null, $tFocus = null, $tAllowRemoteId = null)
     {
+        if ($tId === null)
+            return;
+
         $this->id = $tId;
         $this->participant_id = $tParticipantId;
         $this->teacher_id = $tTeacherId;
@@ -43,7 +46,7 @@ class TeacherParticipantWork extends TeacherParticipant
         return [
             [['participant_id', 'teacher_id', 'foreign_event_id'], 'required'],
             [['participant_id', 'teacher_id', 'teacher2_id', 'foreign_event_id', 'allow_remote_id'], 'integer'],
-            [['focus', 'team'], 'string'],
+            [['focus', 'team', 'nomination'], 'string'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
@@ -79,6 +82,17 @@ class TeacherParticipantWork extends TeacherParticipant
         $result = [];
         foreach ($funcs as $func)
             $result[] = $func->branch_id;
+
+        return $result;
+    }
+
+    public function getBranchsString()
+    {
+        $funcs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $this->id])->all();
+        $result = '';
+        foreach ($funcs as $func)
+            $result .= $func->branchWork->name . '<br>';
+        $result = mb_substr($result, 0, -4);
 
         return $result;
     }
@@ -119,22 +133,37 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function getTeam()
     {
-        $team = TeamWork::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
-        $this->team = $team === null ? '' : $team->name;
+        $team = TeamWork::find()->where(['teacher_participant_id' => $this->id])->one();
+        $this->team = $team === null ? '' : $team->team_name_id;
+    }
+
+    public function getTeamNameString()
+    {
+        $team = TeamWork::find()->where(['teacher_participant_id' => $this->id])->one();
+        return $team->teamNameWork->name;
     }
 
     public function checkTeam()
     {
-        $team = TeamWork::find()->where(['participant_id' => $this->participant_id])->andWhere(['foreign_event_id' => $this->foreign_event_id])->one();
+        $team = TeamWork::find()->where(['teacher_participant_id' => $this->id])->one();
 
-        if ($team === null)
-            if ($this->team !== "" && $this->team !== null)
-                $team = new Team();
-            else
-                return;
-        $team->foreign_event_id = $this->foreign_event_id;
-        $team->participant_id = $this->participant_id;
-        $team->name = $this->team;
+        if ($this->team == null && $team == null)
+            return;
+        if ($team == null)
+            $team = new TeamWork();
+        if ($this->team == null)
+        {
+            $team->delete();
+            if ($team->checkCollectionTeamName());
+            {
+                $teamName = TeamNameWork::find()->where(['id' => $team->team_name_id])->one();
+                $teamName->delete();
+            }
+            return;
+        }
+
+        $team->teacher_participant_id = $this->id;
+        $team->team_name_id = $this->team;
         $team->save();
     }
 
@@ -157,12 +186,12 @@ class TeacherParticipantWork extends TeacherParticipant
 
         $partFile = ParticipantFilesWork::find()->where(['foreign_event_id' => $this->foreign_event_id])->andWhere(['participant_id' => $this->participant_id])->one();
         if ($partFile === null) $partFile = new ParticipantFilesWork();
-        $partFile->foreign_event_id = $this->foreign_event_id;
-        $partFile->participant_id = $this->participant_id;
+        //$partFile->foreign_event_id = $this->foreign_event_id;
+        //$partFile->participant_id = $this->participant_id;
+        $partFile->teacher_participant_id = $this->id;
         $partFile->filename = $this->fileString;
         $partFile->save();
     }
-
 
     public function beforeSave($insert)
     {
