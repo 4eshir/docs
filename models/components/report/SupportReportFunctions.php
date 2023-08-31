@@ -4,6 +4,7 @@ namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
 use app\models\common\TeamName;
+use app\models\test\work\GetGroupParticipantsCertificatWork;
 use app\models\test\work\GetGroupParticipantsForeignEventParticipantWork;
 use app\models\test\work\GetGroupParticipantsTeacherGroupWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupParticipantWork;
@@ -16,6 +17,7 @@ use app\models\test\work\GetParticipantsTeamNameWork;
 use app\models\test\work\GetParticipantsTeamWork;
 use app\models\work\AllowRemoteWork;
 use app\models\work\BranchWork;
+use app\models\work\CertificatWork;
 use app\models\work\EventLevelWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventWork;
@@ -549,10 +551,14 @@ class SupportReportFunctions
     //-|------------------------------------------------------------------------------------------|-
     /*
      * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
-     * $groups - список групп для выборки
+     * $participants - список обучающихся для выборки
      */
-    static public function GetCertificatsParticipantsFromGroup($test_mode, $groups)
+    static public function GetCertificatsParticipantsFromGroup($test_mode, $participants)
     {
+        $pIds = self::GetIdFromArray($participants);
 
+        return $test_mode == 0 ?
+            CertificatWork::find()->where(['IN', 'training_group_participant_id', $pIds])->all() :
+            GetGroupParticipantsCertificatWork::find()->where(['IN', 'training_group_participant_id', $pIds])->all();
     }
 }
