@@ -237,9 +237,9 @@ class DocumentOrderController extends Controller
             {
                 $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
 
-                if ($model->archive_number !== "")
+                if ($model->archive_number == "")
                 {
-                    if ($cur->order_number !== $model->order_number)
+                    if ($cur->order_date !== $model->order_date)
                         $model->getDocumentNumber();
                 }
                 else

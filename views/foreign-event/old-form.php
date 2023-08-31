@@ -25,9 +25,6 @@ use yii\jui\DatePicker;
         height:1000px;
 
     }
-    .row {
-        margin: 0px;
-    }
 </style>
 
 
@@ -44,92 +41,246 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'name')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'name')->textInput($model->copy == 1 ? ['readonly' => true, 'maxlength' => true, 'disabled' => 'disabled'] : ['readonly' => true, 'maxlength' => true]) ?>
 
     <?php
-    $company = \app\models\work\CompanyWork::find()->where(['id' => $model->company_id])->one();
-    echo $form->field($model, 'company')->textInput(['readonly' => true, 'value' => $company->name])->label('Организатор');
+    $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+    $params = [
+        'prompt' => '--',
+    ];
+    echo $form->field($model, 'company_id')->dropDownList($items,$params);
+
     ?>
 
-    <?= $form->field($model, 'start_date')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class,
+        $model->copy == 1 ? (
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата начала мероприятия',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+                'disabled' =>'disabled'
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]]) : ([
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата начала мероприятия',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]
+        ])) ?>
 
-    <?= $form->field($model, 'finish_date')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'finish_date')->widget(\yii\jui\DatePicker::class,
+        $model->copy == 1 ? (
+        [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата окончания мероприятия',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+                'disabled' => 'disabled'
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]]) : ([
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата окончания мероприятия',
+                'class'=> 'form-control',
+                'autocomplete'=>'off',
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]])) ?>
 
-    <?= $form->field($model, 'city')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $ways = \app\models\work\EventWayWork::find()->where(['id' => $model->event_way_id])->one();
-    echo $form->field($model, 'event_way')->textInput(['readonly' => true, 'value' => $ways->name])->label('Формат проведения');
+    $ways = \app\models\work\EventWayWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
+    $params = [
+    ];
+    echo $form->field($model, 'event_way_id')->dropDownList($items,$params);
+
     ?>
 
     <?php
-    $levels = \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one();
-    echo $form->field($model, 'event_level')->textInput(['readonly' => true, 'value' => $levels->name])->label('Уровень');
+    $levels = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
+    $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
+    $params = [
+        'disabled' => 'disabled'
+    ];
+    $params0 = [
+    ];
+    echo $form->field($model, 'event_level_id')->dropDownList($items,$model->copy == 1 ? $params : $params0);
+
     ?>
 
-    <?php
-        $icon = '❌';
-        if ($model->is_minpros)
-            $icon = '✅';
-        echo '<div class="form-group field-foreigneventwork-is_minpros has-success"><label>'.$icon.' Входит в перечень Минпросвещения РФ</label><div class="help-block"></div></div>';
-    ?>
+    <?= $form->field($model, 'is_minpros')->checkbox(); ?>
+
+    <?php $c = 0; ?>
 
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
             <?php
             $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->all();
-            $editIcon = '<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>';
-            $deleleIcon = '<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:.875em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M32 464a48 48 0 0048 48h288a48 48 0 0048-48V128H32zm272-256a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zM432 32H312l-9-19a24 24 0 00-22-13H167a24 24 0 00-22 13l-9 19H16A16 16 0 000 48v32a16 16 0 0016 16h416a16 16 0 0016-16V48a16 16 0 00-16-16z"></path></svg>';
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td>
-                            <td style="border-bottom: 2px solid black; "><h4><b>Отдел(-ы)</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Направленность</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Форма реализации</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Материалы</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b></b></h4></td>
-                       </tr>';
+                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Педагог</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Направленность</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Представленные материалы</b></h4></td></tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
-                    $partFiles = \app\models\work\ParticipantFilesWork::find()->where(['teacher_participant_id' => $partOne->id])->one();
+                    $partFiles = \app\models\work\ParticipantFilesWork::find()->where(['participant_id' => $partOnePeople->id])->andWhere(['foreign_event_id' => $partOne->foreign_event_id])->one();
                     $partOneTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher_id])->one();
                     $partTwoTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher2_id])->one();
                     $teachersStr = '';
                     if ($partOneTeacher !== null) $teachersStr .= $partOneTeacher->shortName;
                     if ($partTwoTeacher !== null) $teachersStr .= '<br>'.$partTwoTeacher->shortName;
-                    $team = \app\models\work\TeamWork::find()->where(['teacher_participant_id' => $partOne->id])->one();
-                    $realizes = \app\models\work\AllowRemoteWork::find()->where(['id' => $partOne->allow_remote_id])->one();
-                    echo '<tr><td style="padding-left: 20px">'. $partOnePeople->shortName.'&nbsp;</label>'.'</td>'.
-                        '<td style="padding-left: 20px">'. $partOne->getBranchsString().'&nbsp;</label>'.'</td>'.
-                        '<td style="padding-left: 20px">'.$teachersStr.'</td>'.
+                    $team = \app\models\work\TeamWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['participant_id' => $partOnePeople->id])->one();
+                    echo '<tr><td style="padding-left: 20px"><h4>'.
+                        $partOnePeople->shortName.'&nbsp;</label>'.'</h4></td><td style="padding-left: 20px"><h4>'.$teachersStr.'</h4></td>'.
                         '<td style="padding-left: 10px">'.$partOne->focus0->name.'</td>'.
-                        '<td style="padding-left: 10px">'. $partOne->nomination .'</td>'.
-                        '<td style="padding-left: 10px">'.$team->teamNameWork->name.'</td>'.
-                        '<td style="padding-left: 10px">'.$realizes->name.'</td>';
-                    if ($partFiles == null)
-                        echo '<td style="padding-left: 10px; text-align: center;"> -- </td>';
-                    else
-                        echo '<td style="padding-left: 10px; text-align: center;">'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
-                    echo '<td style="padding-left: 10px">'.
-                        Html::a($editIcon, \yii\helpers\Url::to(['document-order/update-participant', 'id' => $partOne->id, 'model_id' => $model->id])). ' ' .
-                        Html::a($deleleIcon, \yii\helpers\Url::to(['document-order/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id])).
-                        '</td></tr>';
+                        '<td style="padding-left: 10px">'.$team->name.'</td>'.
+                        '<td><h5>'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</h5></td>'.
+                        '<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.
+                        '<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
                 }
                 echo '</table>';
             }
             ?>
+            <div class="panel-body">
+                <?php DynamicFormWidget::begin([
+                    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                    'widgetBody' => '.container-items', // required: css class selector
+                    'widgetItem' => '.item', // required: css class
+                    'limit' => 50, // the maximum times, an element can be cloned (default 999)
+                    'min' => 1, // 0 or 1 (default 1)
+                    'insertButton' => '.add-item', // css class
+                    'deleteButton' => '.remove-item', // css class
+                    'model' => $modelParticipants[0],
+                    'formId' => 'dynamic-form',
+                    'formFields' => [
+                        'people_id',
+                    ],
+                ]); ?>
+
+                <div class="container-items" style="padding: 0; margin: 0"><!-- widgetContainer -->
+                    <?php foreach ($modelParticipants as $i => $modelParticipantsOne):
+                        ?>
+                        <div class="item panel panel-default" style="padding: 0; margin: 0"><!-- widgetBody -->
+                            <div class="panel-heading" style="padding: 0; margin: 0">
+                                <div class="pull-right">
+                                    <button type="button" name="add" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <?php
+                                    $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
+                                    $branchs = \app\models\work\BranchWork::find()->where(['!=', 'id', '5'])->orderBy(['id' => SORT_ASC])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($branchs, 'id', 'name');
+                                    echo '<div class="'.$i.'">';
+                                    echo $form->field($modelParticipantsOne, "[{$i}]branch[]")->checkboxList(
+                                        $items, ['item' => function ($index, $label, $name, $checked, $value) {
+                                        return
+                                            '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
+                                                        <label for="branch-'. $index .'">
+                                                            <input onclick="ClickBranch(this, '.$index.')" class="check_branch" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                                                            '. $label .'
+                                                        </label>
+                                                    </div>';
+                                    }, 'class' => 'base'])->label('<u>Отдел(-ы)</u>');
+                                    echo '</div>';
+                                    ?>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <?php
+                                    $people = \app\models\work\PeopleWork::find()->where(['company_id' => 8])->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher")->dropDownList($items,$params)->label('ФИО педагогов');
+                                    echo $form->field($modelParticipantsOne, "[{$i}]teacher2")->dropDownList($items,$params)->label(false);
+                                    $focuses = \app\models\work\FocusWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($focuses,'id','name');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]focus")->dropDownList($items,$params)->label('Направленность');
+                                    $realizes = \app\models\work\AllowRemoteWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($realizes,'id','name');
+                                    $params = [
+                                        //'prompt' => ''
+                                        'disabled' => true,
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]allow_remote_id")->dropDownList($items,$params)->label('Форма реализации');
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
+                                    <?php
+                                    $people = \app\models\work\ParticipantFilesWork::find()->all();
+                                    $items = \yii\helpers\ArrayHelper::map($people,'filename','filename');
+                                    $params = [
+                                        'prompt' => ''
+                                    ];
+                                    echo $form->field($modelParticipantsOne, "[{$i}]file")->dropDownList($items,$params)->label(false);
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <?= $form->field($modelParticipantsOne, "[{$i}]team")->label('В составе команды'); ?>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 0; margin: 0"></div>
+
+                        </div>
+                    <?php
+                    endforeach; ?>
+                </div>
+                <?php DynamicFormWidget::end(); ?>
+            </div>
         </div>
     </div>
 
-    <?= $form->field($model, 'min_participants_age')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'min_participants_age')->textInput() ?>
 
-    <?= $form->field($model, 'max_participants_age')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model, 'max_participants_age')->textInput() ?>
+
 
 
     <div class="row">
@@ -146,8 +297,8 @@ use yii\jui\DatePicker;
                     </td>
                 </tr>
             </table>
-            
-            
+
+
             <?php
             $parts = \app\models\work\ParticipantAchievementWork::find()->where(['foreign_event_id' => $model->id])->all();
             if ($parts != null)
@@ -348,7 +499,7 @@ use yii\jui\DatePicker;
                 second_gen[0].setAttribute('disabled', 'disabled');
             }
         }
-        
+
     }
 
     function checkTrip()
