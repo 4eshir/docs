@@ -4,11 +4,14 @@ namespace app\models\components\report;
 
 use app\models\common\AllowRemote;
 use app\models\common\TeamName;
+use app\models\common\Visit;
 use app\models\test\work\GetGroupParticipantsCertificatWork;
 use app\models\test\work\GetGroupParticipantsForeignEventParticipantWork;
 use app\models\test\work\GetGroupParticipantsTeacherGroupWork;
+use app\models\test\work\GetGroupParticipantsTrainingGroupLessonWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupParticipantWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupWork;
+use app\models\test\work\GetGroupParticipantsVisitWork;
 use app\models\test\work\GetParticipantAchievementsParticipantAchievementWork;
 use app\models\test\work\GetParticipantsEventWork;
 use app\models\test\work\GetParticipantsTeacherParticipantBranchWork;
@@ -27,8 +30,10 @@ use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
+use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
+use app\models\work\VisitWork;
 use yii\db\Query;
 
 class SupportReportFunctions
@@ -560,5 +565,40 @@ class SupportReportFunctions
         return $test_mode == 0 ?
             CertificatWork::find()->where(['IN', 'training_group_participant_id', $pIds])->all() :
             GetGroupParticipantsCertificatWork::find()->where(['IN', 'training_group_participant_id', $pIds])->all();
+    }
+
+
+    //-|----------------------------------------------------------------|-
+    //-| Функция для получения человеко-часов по заданным параметрам    |-
+    //-|----------------------------------------------------------------|-
+    /*
+     * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
+     * $participants - список обучающихся для выборки
+     * $visit_type - тип учета явок
+     */
+    static public function GetVisits($test_mode, $participants, $visit_type)
+    {
+        $pIds = self::GetIdFromArray($participants);
+
+        $gIds = []; //все группы из $participants для дальнейшего поиска занятий training_group_lessons
+        foreach ($participants as $one) $gIds[] = $one->training_group_id;
+
+        $groupLessons = $test_mode == 0 ?
+            TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->all() :
+            GetGroupParticipantsTrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->all();
+
+        $glIds = self::GetIdFromArray($groupLessons);
+
+        $visits = $test_mode == 0 ?
+            VisitWork::find()->where(['IN', 'foreign_event_participant_id', $pIds])
+                        ->andWhere(['IN', 'training_group_lesson_id', $glIds])
+                        ->andWhere(['IN', 'status', $visit_type])->all() :
+            GetGroupParticipantsVisitWork::find()->where(['IN', 'foreign_event_participant_id', $pIds])
+                ->andWhere(['IN', 'training_group_lesson_id', $glIds])
+                ->andWhere(['IN', 'status', $visit_type])->all();
+
+        $visits = self::GetIdFromArray($visits);
+        sort($visits);
+        return $visits;
     }
 }

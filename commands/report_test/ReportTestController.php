@@ -332,6 +332,8 @@ class ReportTestController extends Controller
         $this->GetGroup();
         $this->stdout("\n");
         $this->GetGroupParticipants();
+        $this->stdout("\n");
+        $this->GetVisits();
         $this->stdout("\n|".str_repeat("-", 45)."\n", Console::FG_CYAN);
     }
 
@@ -537,6 +539,72 @@ class ReportTestController extends Controller
             $this->stdout('| Test #8 was passed successfully  |' . "\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #8 failed                   |'."\n", Console::FG_RED);
+
+        $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
+    }
+
+    private function GetVisits()
+    {
+        $group1 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2023-03-01');
+        $group2 = SupportReportFunctions::GetTrainingGroups(ReportConst::TEST, '2023-01-01', '2024-01-01');
+
+        $participants1 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group1);
+        $participants2 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group2);
+
+        $testResult1 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, VisitWork::ALL);
+        $testResult2 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, VisitWork::ONLY_PRESENCE);
+        $testResult3 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, VisitWork::PRESENCE_AND_ABSENCE);
+        $testResult4 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, VisitWork::ALL);
+        $testResult5 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, VisitWork::ONLY_PRESENCE);
+        $testResult6 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, VisitWork::PRESENCE_AND_ABSENCE);
+
+        $expectedResult1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+            26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
+        $expectedResult2 = [1, 2, 5, 6, 10, 11, 12, 13, 14, 17, 18, 19, 22, 23, 25, 26, 27, 28, 29, 30,
+            31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42];
+        $expectedResult3 = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25,
+            26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
+
+        $expectedResult4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54];
+        $expectedResult5 = [1, 2, 5, 6, 10, 11, 12, 13, 14, 17, 18, 19, 22, 23, 25, 26, 27, 28, 29, 30,
+            31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 43, 45, 46, 48, 49, 51, 52, 53, 54];
+        $expectedResult6 = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27,
+            28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54];
+
+
+        $this->stdout("\n-----------(Visits tests)-----------\n|" . str_repeat(" ", 34) . "|\n", Console::FG_PURPLE);
+
+
+        if ($testResult1 == $expectedResult1)
+            $this->stdout('| Test #1 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #1 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult2 == $expectedResult2)
+            $this->stdout('| Test #2 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #2 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult3 == $expectedResult3)
+            $this->stdout('| Test #3 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #3 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult4 == $expectedResult4)
+            $this->stdout('| Test #4 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #4 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult5 == $expectedResult5)
+            $this->stdout('| Test #5 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #5 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult6 == $expectedResult6)
+            $this->stdout('| Test #6 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
 
         $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
     }

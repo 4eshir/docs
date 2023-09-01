@@ -61,7 +61,7 @@ class m230830_121556_get_group_participant_add_cert extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey ('key1_certificat', 'get_group_participants_certificat');
+        $this->dropForeignKey('key1_certificat', 'get_group_participants_certificat');
 
         $this->dropTable('get_group_participants_certificat');
 
