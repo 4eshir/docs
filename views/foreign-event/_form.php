@@ -93,7 +93,7 @@ use yii\jui\DatePicker;
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Форма реализации</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Материалы</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b></b></h4></td>
+                            <td style="padding-left: 20px; border-bottom: 2px solid black; width: 50px;"><h4><b></b></h4></td>
                        </tr>';
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
@@ -105,7 +105,7 @@ use yii\jui\DatePicker;
                     if ($partTwoTeacher !== null) $teachersStr .= '<br>'.$partTwoTeacher->shortName;
                     $team = \app\models\work\TeamWork::find()->where(['teacher_participant_id' => $partOne->id])->one();
                     $realizes = \app\models\work\AllowRemoteWork::find()->where(['id' => $partOne->allow_remote_id])->one();
-                    echo '<tr><td style="padding-left: 20px">'. $partOnePeople->shortName.'&nbsp;</label>'.'</td>'.
+                    echo '<tr style="font-size: 1.2em;"><td style="padding-left: 20px">'. $partOnePeople->shortName.'&nbsp;</label>'.'</td>'.
                         '<td style="padding-left: 20px">'. $partOne->getBranchsString().'&nbsp;</label>'.'</td>'.
                         '<td style="padding-left: 20px">'.$teachersStr.'</td>'.
                         '<td style="padding-left: 10px">'.$partOne->focus0->name.'</td>'.
@@ -117,8 +117,8 @@ use yii\jui\DatePicker;
                     else
                         echo '<td style="padding-left: 10px; text-align: center;">'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
                     echo '<td style="padding-left: 10px">'.
-                        Html::a($editIcon, \yii\helpers\Url::to(['document-order/update-participant', 'id' => $partOne->id, 'model_id' => $model->id])). ' ' .
-                        Html::a($deleleIcon, \yii\helpers\Url::to(['document-order/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id])).
+                        Html::a($editIcon, \yii\helpers\Url::to(['document-order/update-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-primary', 'style' => 'margin: 2px;']). ' ' .
+                        Html::a($deleleIcon, \yii\helpers\Url::to(['document-order/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger', 'style' => 'width: 40px; margin: 2px;']).
                         '</td></tr>';
                 }
                 echo '</table>';
@@ -149,14 +149,30 @@ use yii\jui\DatePicker;
             
             
             <?php
-            $parts = \app\models\work\ParticipantAchievementWork::find()->where(['foreign_event_id' => $model->id])->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
-                echo '<tr><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номер сертификата</b></h4></td><td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td></tr>';
+                echo '<tr>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Участник</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Статус</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Достижение</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Акт участия</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номер сертификата</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Дата сертификата</b></h4></td>
+                        <td style="padding-left: 20px; border-bottom: 2px solid black; width: 110px;"></td>
+                      </tr>';
                 foreach ($parts as $partOne) {
-                    $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
-                    echo '<tr><td style="padding-left: 20px"><h4>'.$partOnePeople->shortName.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->achievment.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->cert_number.'</h4></td><td style="padding-left: 20px"><h4>'.$partOne->nomination.'</h4></td>'.'<td>&nbsp;'.Html::a('Редактировать', \yii\helpers\Url::to(['foreign-event/update-achievement', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary']).'</td>'.'<td style="padding-left: 10px">'.Html::a('Удалить', \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger']).'</td></tr>';
+                    echo '<tr style="font-size: 1.2em;">
+                            <td style="padding-left: 20px">'.$partOne->teacherParticipantWork->participantWork->shortName.'</td>
+                            <td style="padding-left: 20px">'.$partOne->statusString.'</td>
+                            <td style="padding-left: 20px">'.$partOne->achievment.'</td>
+                            <td style="padding-left: 20px">'.$partOne->actParticipationString.'</td>
+                            <td style="padding-left: 20px">'.$partOne->cert_number.'</td>
+                            <td style="padding-left: 20px">'.$partOne->date.'</td>'
+                            .'<td>&nbsp;'.Html::a($editIcon, \yii\helpers\Url::to(['foreign-event/update-achievement', 'id' => $partOne->id, 'modelId' => $model->id]), ['class' => 'btn btn-primary'])
+                            .Html::a($deleleIcon, \yii\helpers\Url::to(['foreign-event/delete-achievement', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger', 'style' => 'width: 40px; margin-left: 5px;']).'</td>
+                         </tr>';
                 }
                 echo '</table>';
             }
@@ -187,42 +203,36 @@ use yii\jui\DatePicker;
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <?php
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->all();
-                                $newParts = [];
-                                foreach ($parts as $part) $newParts[] = $part->participant_id;
-                                $people = \app\models\work\ForeignEventParticipantsWork::find()->where(['in', 'id', $newParts])->all();
-                                $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
+                                $partsAch = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
+                                $partsAchArr = [];
+                                foreach ($partsAch as $partAch)
+                                    $partsAchArr[] = $partAch->teacher_participant_id;
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsAchArr])->all();
+                                $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => ''
                                 ];
-                                echo $form->field($modelAchievementOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
-
+                                echo $form->field($modelAchievementOne, "[{$i}]fio")->dropDownList($items,$params)->label('Акт участия');
                                 ?>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]achieve")->textInput();
 
                                 ?>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]cert_number")->textInput();
 
                                 ?>
                             </div>
-                            <div class="col-xs-4">
-                                <?php
-
-                                echo $form->field($modelAchievementOne, "[{$i}]nomination")->textInput();
-
-                                ?>
-                            </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <?= $form->field($modelAchievementOne, "[{$i}]date")->widget(DatePicker::class, [
                                     'dateFormat' => 'php:Y-m-d',
                                     'language' => 'ru',
@@ -242,7 +252,7 @@ use yii\jui\DatePicker;
                                         //'buttonImage' => 'images/calendar.gif'
                                     ]]) ?>
                             </div>
-                            <div class="col-xs-4" style="margin-top: 30px;">
+                            <div class="col-xs-5" style="margin-top: 30px;">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]winner")->checkbox();
@@ -274,7 +284,7 @@ use yii\jui\DatePicker;
 
     <div id="divOrderTrip" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
-        $orders = \app\models\work\DocumentOrderWork::find()->all();
+        $orders = \app\models\work\DocumentOrderWork::find()->where(['type' => 1])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-6 month'))])->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
             'prompt' => '--',
@@ -285,17 +295,12 @@ use yii\jui\DatePicker;
     </div>
 
     <?php
-    $orders = \app\models\work\DocumentOrderWork::find()->all();
-    $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
-    $params = [
-        'prompt' => '--',
-    ];
-    echo $form->field($model, 'order_participation_id')->dropDownList($items,$params);
-
+    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_participation_id])->one();
+    echo $form->field($model, 'order_participation')->textInput(['readonly' => true, 'value' => $order->fullName])->label('Приказ об участии');
     ?>
 
     <?php
-    $orders = \app\models\work\DocumentOrderWork::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->where(['type' => 1])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-6 month'))])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => '--',

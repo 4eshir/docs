@@ -70,6 +70,18 @@ class TeacherParticipantWork extends TeacherParticipant
         ];
     }
 
+    public function getActString()
+    {
+        $part = ForeignEventParticipantsWork::find()->where(['id' => $this->participant_id])->one();
+        $result = $part->fullName . ' ('. $this->focus0->name .' направленность, номинация: ' . $this->nomination . ') - ';
+
+        if ($this->teamNameString == null)
+            $result .= 'Индивидуальное участие';
+        else
+            $result .= 'В составе команды ' . $this->teamNameString;
+        return $result;
+    }
+
     public function getTeacherParticipantBranches()
     {
         return $this->hasMany(TeacherParticipantBranchWork::className(), ['teacher_participant_id' => 'id']);
