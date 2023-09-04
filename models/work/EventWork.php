@@ -51,6 +51,9 @@ class EventWork extends Event
     //--Конструктор для тестов--
     function __construct($tId = null, $tName = null, $tEventTypeId = null, $tEventFormId = null, $tEventLevelId = null, $tFinishDate = null)
     {
+        if ($tId == null)
+            return;
+
         $this->id = $tId;
         $this->name = $tName;
         $this->event_type_id = $tEventTypeId;
