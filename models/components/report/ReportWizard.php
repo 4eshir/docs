@@ -387,7 +387,6 @@ class ReportWizard
 
         //--------------
 
-
         //--Формирование заголовков и ответа сервера--
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');

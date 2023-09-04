@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int $participant_id
  * @property int $foreign_event_id
+ * @property int $teacher_participant_id
  * @property string $achievment
  * @property int $winner
  * @property string|null $cert_number
@@ -18,6 +19,10 @@ use Yii;
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
+ * @property int|null $team_name_id
+ *
+ * @property TeamName $teamName
+ * @property TeacherParticipant $teacherParticipant
  */
 class ParticipantAchievement extends \yii\db\ActiveRecord
 {
@@ -51,33 +56,34 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'participant_id' => 'Participant ID',
-            'foreign_event_id' => 'Foreign Event ID',
+            'teacher_participant_id' => 'Teacher Participant ID',
             'achievment' => 'Achievment',
             'winner' => 'Winner',
             'cert_number' => 'Cert Number',
             'nomination' => 'Nomination',
             'date' => 'Date',
+            'team_name_id' => 'Team Name ID',
         ];
     }
 
     /**
-     * Gets query for [[ForeignEvent]].
+     * Gets query for [[TeamName]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getForeignEvent()
+    public function getTeamName()
     {
-        return $this->hasOne(ForeignEvent::className(), ['id' => 'foreign_event_id']);
+        return $this->hasOne(TeamName::className(), ['id' => 'team_name_id']);
     }
 
+
     /**
-     * Gets query for [[Participant]].
+     * Gets query for [[TeacherParticipant]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getParticipant()
+    public function getTeacherParticipant()
     {
-        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'participant_id']);
+        return $this->hasOne(TeacherParticipant::className(), ['id' => 'teacher_participant_id']);
     }
 }
