@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "participant_achievement".
  *
  * @property int $id
- * @property int $participant_id
- * @property int $foreign_event_id
+ * @property int|null $participant_id
+ * @property int|null $foreign_event_id
  * @property int $teacher_participant_id
  * @property string $achievment
  * @property int $winner
@@ -40,8 +40,8 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'foreign_event_id', 'achievment'], 'required'],
-            [['participant_id', 'foreign_event_id', 'winner'], 'integer'],
+            [['teacher_participant_id', 'achievment'], 'required'],
+            [['participant_id', 'foreign_event_id', 'teacher_participant_id', 'winner'], 'integer'],
             [['date'], 'safe'],
             [['achievment', 'cert_number', 'nomination'], 'string', 'max' => 1000],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
