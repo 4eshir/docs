@@ -122,14 +122,12 @@ class SearchEvent extends EventWork
             'is_federal' => $this->is_federal,
             'responsible_id' => $this->responsible_id,
             'event.order_id' => $this->order_id,
-            'order_id' => $this->order_id,
             'regulation_id' => $this->regulation_id,
         ]);
 
         $query->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'event.name', $this->name])
             ->andFilterWhere(['like', 'event.key_words', $this->key_words])
-            ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'protocol', $this->protocol])
             ->andFilterWhere(['like', 'photos', $this->photos])
