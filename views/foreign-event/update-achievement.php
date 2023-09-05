@@ -7,11 +7,13 @@ use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\TeacherParticipantWork */
-$name = \app\models\work\TeacherParticipantWork::find()->where(['id' => $model->teacher_participant_id])->one();
 
-$this->title = 'Редактировать: ' . $name->actString;
+$tPart = \app\models\work\TeacherParticipantWork::find()->where(['id' => $model->teacher_participant_id])->one();
+
+$this->title = 'Редактировать: ' . $tPart->actString;
 $this->params['breadcrumbs'][] = ['label' => 'Учет достижений в мероприятиях', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->participantWork->fullName, 'url' => ['foreign-event-participants/view', 'id' => $model->participant_id]];
+$this->params['breadcrumbs'][] = ['label' => mb_substr($tPart->foreignEventWork->name, 0, 25, 'UTF-8').'...', 'url' => ['foreign-event/update', 'id' => $tPart->foreignEventWork->id]];
+$this->params['breadcrumbs'][] = ['label' => $tPart->participantWork->fullName, 'url' => ['foreign-event-participants/view', 'id' => $tPart->participant_id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 

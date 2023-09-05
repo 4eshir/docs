@@ -114,6 +114,11 @@ class TeacherParticipantWork extends TeacherParticipant
         return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
     }
 
+    public function getForeignEventWork()
+    {
+        return $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
+    }
+
     public function getTeacherWork()
     {
         return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);

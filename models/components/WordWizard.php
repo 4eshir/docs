@@ -4,8 +4,10 @@
 namespace app\models\components;
 
 use app\models\extended\AccessTrainingGroup;
+use app\models\work\DocumentOrderSupplementWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\ForeignEventParticipantsWork;
+use app\models\work\ForeignEventWork;
 use app\models\work\OrderGroupParticipantWork;
 use app\models\work\OrderGroupWork;
 use app\models\components\petrovich\Petrovich;
@@ -1307,20 +1309,20 @@ class WordWizard
             'marginLeft' => WordWizard::convertMillimetersToTwips(30),
             'marginBottom' => WordWizard::convertMillimetersToTwips(20),
             'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
-        $table = $section->addTable();
-        $table->addRow();
-        $cell = $table->addCell(2000);
-        $cell->addText('Министерство образования и науки Астраханской области', null, array('align' => 'center'));
-        $cell->addText('государственное автономное образовательное учреждение', null, array('align' => 'center'));
-        $cell->addText('Астраханской области дополнительного образования', null, array('align' => 'center'));
-        $cell->addText('«Региональный школьный технопарк»', array('bold' => true), array('align' => 'center'));
-        $cell->addText('ГАОУ АО ДО «РШТ»', array('bold' => true), array('align' => 'center'));
-        $cell->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
-        $section->addTextBreak(1);
+
+        $section->addText('Министерство образования и науки Астраханской области', array('lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('государственное автономное образовательное учреждение', array('lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('Астраханской области дополнительного образования', array('lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('«Региональный школьный технопарк»', array('bold' => true, 'lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('ГАОУ АО ДО «РШТ»', array('bold' => true, 'lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('ПРИКАЗ', array('bold' => true, 'lineHeight' => 1.0), array('align' => 'center', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
 
         /*----------------*/
         $order = DocumentOrderWork::find()->where(['id' => $order_id])->one();
         $res = ResponsibleWork::find()->where(['document_order_id' => $order->id])->all();
+        $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $order_id])->one();
+        $foreignEvent = ForeignEventWork::find()->where(['order_participation_id' => $order_id])->one();
 
         $table = $section->addTable();
         $table->addRow();
@@ -1335,27 +1337,19 @@ class WordWizard
         $cell->addText('№ '.$text, null, array('align' => 'right'));
         $section->addTextBreak(1);
 
-        $table = $section->addTable();
-        $table->addRow();
-        $cell = $table->addCell(12000);
-        $cell->addText($order->order_name, null, array('align' => 'left'));
-        $cell = $table->addCell(6000);
-        $cell->addTextBreak(1);
+        $section->addText($order->order_name, null, array('align' => 'left'));
+        $section->addTextBreak(1);
 
         /* переменная цели и соответствия*/
-        $purpose = '';
-        $invitation = '';
-        $section->addText('С целью '.$purpose.' и в соответствии с '.$invitation);
-        $cell->addTextBreak(1);
+        $purpose = $supplement->foreignEventGoalsWork->name;
+        $invitations = ['', ' и в соответствии с регламентом', ' и в соответствии с письмом', ' и в соответствии с положением'];
+        $invitation = $invitations[$supplement->compliance_document].' '.$supplement->document_details;
+        $section->addText('          С целью '.$purpose.$invitation, null, array('align' => 'both'));
+        $cell->addTextBreak(2);
 
-        $section->addText('ПРИКАЗЫВАЮ:');
-        $section->addText('1.   Принять участие в мероприятии: /полное наименование мероприятия/
-                                (далее – мероприятие) и утвердить перечень учащихся, участвующих в
-                                мероприятии, и педагогов, ответственных за подготовку и контроль результатов
-                                участия в мероприятии, согласно Приложению к настоящему приказу.');
-        $section->addText('2.   Назначить ответственными за сбор и предоставление информации об
-                                участии в мероприятии для внесения в Цифровую систему хранения документов
-                                ГАОУ АО ДО «РШТ» (далее – ЦСХД)');
+        $section->addText('ПРИКАЗЫВАЮ:', array('lineHeight' => 1.0));
+        $section->addText('1. Принять участие в мероприятии: «'.$foreignEvent->name.'» (далее – мероприятие) и утвердить перечень учащихся, участвующих в мероприятии, и педагогов, ответственных за подготовку и контроль результатов участия в мероприятии, согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('2. Назначить ответственными за сбор и предоставление информации об участии в мероприятии для внесения в Цифровую систему хранения документов ГАОУ АО ДО «РШТ» (далее – ЦСХД) '.$supplement->contributorWork->positionAndShortFullName, array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
 
 
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
@@ -1435,7 +1429,7 @@ class WordWizard
 
         /*тут перечень учащихся*/
 
-        $text = 'Приказ об участи в мероприятии ' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . mb_substr($order->order_name, 0, 20);
+        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 20);
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $text . '.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

@@ -594,11 +594,12 @@ class EventWork extends Event
         $eventP->event_id = $this->id;
         $eventP->save();
 
-        if ($this->eventType->name == 'Соревновательный' && $insert) {
+        /* В связи с изменением в учете достижений - связка мероприятия и учета достижения не создается. Все достижения - через приказ
+         * if ($this->eventType->name == 'Соревновательный' && $insert) {
             $this->copyEvent();
         }
         else if ($this->eventType->name == 'Соревновательный')
-            $this->editCopy($changedAttributes);
+            $this->editCopy($changedAttributes);*/
 
         // тут должны работать проверки на ошибки
         $errorsCheck = new EventErrorsWork();

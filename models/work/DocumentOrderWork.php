@@ -81,7 +81,7 @@ class DocumentOrderWork extends DocumentOrder
                 $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $split[$i], 'modelId' => $this->id, 'type' => 'docs'])).'<br>';
         else
         {
-            if ($this->type === 0 || $this->type == 11)   // учебный
+            if ($this->type === 0 || $this->type == 11 || $this->type == 2)   // учебный или об участии
             {
                 $view = NomenclatureWork::find()->where(['number' => $this->order_number])->andWhere(['actuality' => 0])->one();
                 $result = Html::a("Сгенерировать файл", \yii\helpers\Url::to(['document-order/generation-word', 'order_id' => $this->id, 'type' => $view->type]), ['class'=>'btn btn-success']);

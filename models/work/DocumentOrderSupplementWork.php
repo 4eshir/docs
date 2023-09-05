@@ -26,6 +26,11 @@ class DocumentOrderSupplementWork extends DocumentOrderSupplement
         ];
     }
 
+    public function getForeignEventGoalsWork()
+    {
+        return $this->hasOne(ForeignEventGoalsWork::className(), ['id' => 'foreign_event_goals_id']);
+    }
+
     public function getCollectorWork()
     {
         return $this->hasOne(PeopleWork::className(), ['id' => 'collector_id']);

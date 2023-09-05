@@ -167,6 +167,23 @@ class PeopleWork extends People
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$positions.')';
     }
 
+    public function getPositionAndShortFullName()
+    {
+        // должность и фио в формате "директор В.В.Войков
+        $fio = mb_substr($this->firstname, 0, 1) .'. '. mb_substr($this->patronymic, 0, 1) .'. '. $this->genitive;
+
+        $pos = PeoplePositionBranchWork::find()->where(['people_id' => $this->id])->all();
+
+        /* Если нужен список всех должностей
+         * $post = [];
+        foreach ($pos as $posOne)
+            $post [] = $posOne->position_id;
+        $post = array_unique($post);    // выкинули все повторы
+        */
+
+        return $pos[count($pos)-1]->positionWork->name.' '.$fio;
+    }
+
     public function beforeSave($insert)
     {
         if (strlen($this->short) > 2)
