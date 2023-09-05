@@ -28,6 +28,79 @@ use yii\jui\DatePicker;
     .row {
         margin: 0px;
     }
+
+    .toggle-wrapper {
+
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: .25em;
+    }
+
+    .toggle-checkbox:not(:checked) + .off,
+    .toggle-checkbox:checked ~ .on {
+        font-weight: 700;
+    }
+
+    .toggle-checkbox {
+        -webkit-appearance: none;
+        appearance: none;
+        position: absolute;
+        z-index: 1;
+        border-radius: 3.125em;
+        width: 4.05em;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        margin-left: -2em!important;
+    }
+
+    .toggle-container {
+        position: relative;
+        border-radius: 3.125em;
+        width: 4.05em;
+        height: 1.5em;
+        background-color: #ccc;
+        background-size: .125em .125em;
+    }
+
+    .toggle-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: .0625em;
+        left: .0625em;
+        border-radius: inherit;
+        width: 2.55em;
+        height: calc(100% - .125em);
+        background-color: #FFA23A;
+        box-shadow: 0 .125em .25em rgb(0 0 0 / .6);
+        transition: left .4s;
+
+    .toggle-checkbox:checked ~ .toggle-container > & {
+        left: 1.4375em;
+    }
+
+    &::before {
+         content: '';
+         position: absolute;
+         top: inherit;
+         border-radius: inherit;
+         width: calc(100% - .375em);
+         height: inherit;
+         /*background-image: linear-gradient(to right, #0f73a8, #57cfe2, #b3f0ff);*/
+     }
+
+    &::after {
+         content: '';
+         position: absolute;
+         width: .5em;
+         height: 38%;
+         /*background-image: repeating-linear-gradient(to right, #d2f2f6 0 .0625em, #4ea0ae .0625em .125em, transparent .125em .1875em);*/
+     }
+    }
 </style>
 
 
@@ -207,7 +280,7 @@ use yii\jui\DatePicker;
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <?php
                                 $partsAch = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
                                 $partsAchArr = [];
@@ -222,14 +295,14 @@ use yii\jui\DatePicker;
                                 echo $form->field($modelAchievementOne, "[{$i}]fio")->dropDownList($items,$params)->label('Акт участия');
                                 ?>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-4">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]achieve")->textInput();
 
                                 ?>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-4">
                                 <?php
 
                                 echo $form->field($modelAchievementOne, "[{$i}]cert_number")->textInput();
@@ -237,7 +310,7 @@ use yii\jui\DatePicker;
                                 ?>
                             </div>
 
-                            <div class="col-xs-5">
+                            <div class="col-xs-4">
 
                                 <?= $form->field($modelAchievementOne, "[{$i}]date")->widget(DatePicker::class, [
                                     'dateFormat' => 'php:Y-m-d',
@@ -258,10 +331,19 @@ use yii\jui\DatePicker;
                                         //'buttonImage' => 'images/calendar.gif'
                                     ]]) ?>
                             </div>
-                            <div class="col-xs-5" style="margin-top: 30px;">
+                            <div class="col-xs-4" style="margin-top: 30px;">
                                 <?php
 
-                                echo $form->field($modelAchievementOne, "[{$i}]winner")->checkbox();
+                                echo '<div class="toggle-wrapper form-group field-participantsachievementextended-'.$i.'-winner">
+                                            <input type="hidden" value="0" id="participantsachievementextended-'.$i.'-winner" name="ParticipantsAchievementExtended['.$i.'][winner]">
+                                            <input type="checkbox" value="1" id="participantsachievementextended-'.$i.'-winner" class="toggle-checkbox" name="ParticipantsAchievementExtended['.$i.'][winner]">
+                                            <span class="toggle-icon off">Призер</span>
+                                            <div class="toggle-container">
+                                                <div class="toggle-button"></div>
+                                            </div>
+                                            <span class="toggle-icon on">Победитель</span>
+                                            <div class="help-block"></div>
+                                       </div>';
 
                                 ?>
                             </div>
@@ -343,6 +425,7 @@ use yii\jui\DatePicker;
 
 
 <script>
+
     var counter = 1;
 
     function ClickBranch($this, $index)
@@ -378,7 +461,6 @@ use yii\jui\DatePicker;
             $("#divOrderTrip").attr("hidden", "true");
         }
     }
-
 </script>
 
 <?php
