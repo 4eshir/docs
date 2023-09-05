@@ -23,7 +23,16 @@ echo '<div style="padding-top: 7px"></div>';
 echo Html::a("Отчет ДО", \yii\helpers\Url::to(['report-form/do']), ['class'=>'btn btn-success']);
 echo '<div style="padding-top: 7px"></div>';
 echo Html::a("Расчет выработки пед. работников", \yii\helpers\Url::to(['report-form/teacher']), ['class'=>'btn btn-success']);
+
+
+echo '<div style="padding-top: 50px"></div>';
+echo Html::a("Отчет гос. задание 2.0", \yii\helpers\Url::to(['report-form/gz-2']), ['class'=>'btn btn-primary']);
+echo '<div style="padding-top: 7px"></div>';
+
 ?>
+
+
+
 
 <?php /*echo Html::a('<img class="left" width="30px"/> Распечатать .PDF', ['/report-form/mpdf-blog'], [
                                 'class'=>'btn btn-default',
