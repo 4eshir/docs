@@ -132,7 +132,41 @@ class SupCommandsController extends Controller
             $this->stdout('Time 2: '.round(memory_get_usage() - $start2, 2), Console::FG_PURPLE);
         }
 
-
-
     }
+
+
+    public function actionConvertToTeacherParticipant()
+    {
+        //--Конвертируем таблицу participant_achievement--
+
+        $participantAchievements = ParticipantAchievementWork::find()->all();
+        $usedTeacherParticipantIds = [];
+
+        $errors = [];
+
+        foreach ($participantAchievements as $one)
+        {
+            $teacherParticipant = TeacherParticipantWork::find()->where(['foreign_event_id' => $one->foreign_event_id])->andWhere(['participant_id' => $one->participant_id])->andWhere(['NOT IN', 'id', $usedTeacherParticipantIds])->one();
+
+            if ($teacherParticipant !== null)
+            {
+                $usedTeacherParticipantIds[] = $teacherParticipant->id;
+                $one->teacher_participant_id = $teacherParticipant->id;
+                //$one->save();
+            }
+            else
+                $errors[] = $one->id;
+        }
+
+        $this->stdout("----Error achievements----\n", Console::FG_YELLOW);
+
+        foreach ($errors as $error)
+        {
+            $pa = ParticipantAchievementWork::find()->where(['id' => $error])->one();
+            if ($pa !== null) $this->stdout($pa->id." ".$pa->participantWork->fullName." ".$pa->foreign_event_id."\n", Console::FG_RED);
+        }
+
+        //------------------------------------------------
+    }
+
 }
