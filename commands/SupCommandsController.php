@@ -8,11 +8,14 @@
 namespace app\commands;
 
 use app\models\common\ForeignEventParticipants;
+use app\models\common\Team;
 use app\models\LoginForm;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamNameWork;
+use app\models\work\TeamWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\VisitWork;
 use Yii;
@@ -132,7 +135,107 @@ class SupCommandsController extends Controller
             $this->stdout('Time 2: '.round(memory_get_usage() - $start2, 2), Console::FG_PURPLE);
         }
 
-
-
     }
+
+
+    public function actionConvertToTeacherParticipant()
+    {
+        //--Конвертируем таблицу participant_achievement--
+
+        $participantAchievements = ParticipantAchievementWork::find()->all();
+        $usedTeacherParticipantIds = [];
+
+        $errors = [];
+
+        foreach ($participantAchievements as $one)
+        {
+            $teacherParticipant = TeacherParticipantWork::find()->where(['foreign_event_id' => $one->foreign_event_id])->andWhere(['participant_id' => $one->participant_id])->andWhere(['NOT IN', 'id', $usedTeacherParticipantIds])->one();
+
+            if ($teacherParticipant !== null)
+            {
+                $usedTeacherParticipantIds[] = $teacherParticipant->id;
+                $one->teacher_participant_id = $teacherParticipant->id;
+                $one->save();
+            }
+            else
+                $errors[] = $one->id;
+        }
+
+        $this->stdout("----Error achievements----\n", Console::FG_YELLOW);
+
+        foreach ($errors as $error)
+        {
+            $pa = ParticipantAchievementWork::find()->where(['id' => $error])->one();
+            if ($pa !== null) $this->stdout($pa->id." ".$pa->participantWork->fullName." ".$pa->foreign_event_id."\n", Console::FG_RED);
+        }
+
+        //------------------------------------------------
+
+        $this->stdout("\n\n", Console::FG_YELLOW);
+
+        //--Конвертируем таблицу team--
+
+        $events = ForeignEventWork::find()->all();
+
+        $teamErrors = [];
+
+        foreach ($events as $event)
+        {
+            $oldTeams = TeamWork::find()->where(['foreign_event_id' => $event->id])->orderBy(['name' => SORT_ASC, 'participant_id' => SORT_ASC])->all();
+
+
+            if (count($oldTeams) > 0)
+            {
+                $currentTeamName = $oldTeams[0]->name;
+
+                $newTeam = new TeamNameWork();
+                $newTeam->name = $currentTeamName;
+                $newTeam->foreign_event_id = $event->id;
+                $newTeam->save();
+
+                $currentTeamNameId = $newTeam->id;
+
+                foreach ($oldTeams as $oldTeam)
+                {
+                    if ($currentTeamName !== $oldTeam->name && $oldTeam->name !== null)
+                    {
+                        $currentTeamName = $oldTeam->name;
+
+                        $newTeam = new TeamNameWork();
+                        $newTeam->name = $currentTeamName;
+                        $newTeam->foreign_event_id = $event->id;
+                        $newTeam->save();
+
+                        $currentTeamNameId = $newTeam->id;
+                    }
+
+                    $teacherParticipant = TeacherParticipantWork::find()->where(['foreign_event_id' => $oldTeam->foreign_event_id])
+                        ->andWhere(['participant_id' => $oldTeam->participant_id])->one();
+
+                    if ($teacherParticipant !== null)
+                    {
+                        $oldTeam->teacher_participant_id = $teacherParticipant->id;
+                        $oldTeam->team_name_id = $currentTeamNameId;
+                        $oldTeam->save();
+                    }
+                    else
+                        $teamErrors[] = $oldTeam->id;
+
+
+                }
+            }
+
+        }
+
+        $this->stdout("----Error teams----\n", Console::FG_YELLOW);
+
+        foreach ($teamErrors as $error)
+        {
+            $pa = TeamWork::find()->where(['id' => $error])->one();
+            if ($pa !== null) $this->stdout($pa->id." ".$pa->name." ".$pa->foreign_event_id."\n", Console::FG_RED);
+        }
+
+        //-----------------------------
+    }
+
 }
