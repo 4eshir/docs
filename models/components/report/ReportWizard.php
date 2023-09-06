@@ -53,7 +53,7 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
 
         // Процент победителей и призеров от общего числа участников
@@ -62,7 +62,7 @@ class ReportWizard
             [BranchWork::TECHNO], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
@@ -93,7 +93,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setVertical('top');
@@ -114,7 +114,7 @@ class ReportWizard
         $allCdnttArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCdnttArt);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
@@ -122,7 +122,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::ART]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setVertical('top');
@@ -143,7 +143,7 @@ class ReportWizard
         $allCdnttSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCdnttSocial);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
@@ -151,7 +151,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::SOCIAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setVertical('top');
@@ -172,14 +172,14 @@ class ReportWizard
         $allQuantTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allQuantTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $all == 0 ? 0 : ($target / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $all == 0 ? 0 : round(($target / $all) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 35, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 35, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
 
         // Процент победителей и призеров от общего числа участников
@@ -188,7 +188,7 @@ class ReportWizard
             [BranchWork::QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setVertical('top');
@@ -244,7 +244,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SCIENCE]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
@@ -267,14 +267,14 @@ class ReportWizard
         $allCodArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodArt);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, $all == 0 ? 0 : ($target / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, $all == 0 ? 0 : round(($target / $all) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setVertical('top');
@@ -295,14 +295,14 @@ class ReportWizard
         $allCodTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, $all == 0 ? 0 : ($target / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, $all == 0 ? 0 : round(($target / $all) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 43, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 43, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
 
         // Процент победителей и призеров от общего числа участников
@@ -311,7 +311,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 41)->getStyle()->getAlignment()->setVertical('top');
@@ -332,7 +332,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
@@ -359,7 +359,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setVertical('top');
