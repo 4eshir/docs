@@ -602,19 +602,17 @@ class DocumentOrderController extends Controller
         return $this->redirect('index?r=document-order/view&id='.$id);
     }
 
-    // Новый функционал - генерация образовательных приказов
+    // Новый функционал - генерация образовательных приказов и об участии в (основной приказ)
     public function actionGenerationWord($order_id, $type)
     {
         $model = $this->findModel($order_id);
 
-        if ($type === '0')
-            WordWizard::Enrolment($order_id);
-        else if ($type === '1')
-        {
-            WordWizard::Deduction($order_id);
+        switch ($type) {
+            case -1: WordWizard::ParticipationEvent($order_id);
+            case 0: WordWizard::Enrolment($order_id);
+            case 1: WordWizard::Deduction($order_id);
+            case 2: WordWizard::Transfer($order_id);
         }
-        else if ($type === '2')
-            WordWizard::Transfer($order_id);
 
         Logger::WriteLog(Yii::$app->user->identity->getId(),
             'Сгенерирован и выгружен файл приказа '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
@@ -642,6 +640,7 @@ class DocumentOrderController extends Controller
         $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $model->getTeam();
         $model->branchs = $model->getBranchs();
+        $back = 'order';
         if ($model->load(Yii::$app->request->post()))
         {
             $model->file = UploadedFile::getInstance($model, 'file');
@@ -655,6 +654,7 @@ class DocumentOrderController extends Controller
 
         return $this->render('../foreign-event/update-participant',[
             'model' => $model,
+            'back' => $back,
         ]);
     }
 

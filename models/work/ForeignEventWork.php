@@ -203,6 +203,11 @@ class ForeignEventWork extends ForeignEvent
         return $partsLink;
     }
 
+    public function getDocumentOrderWork()
+    {
+        return DocumentOrderWork::find()->where(['id' => $this->order_participation_id])->one();
+    }
+
     public function getOrderParticipationString()
     {
         $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->order_participation_id])->one();

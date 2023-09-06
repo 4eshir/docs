@@ -193,8 +193,8 @@ use yii\jui\DatePicker;
                     else
                         echo '<td style="padding-left: 10px; text-align: center;">'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
                     echo '<td style="padding-left: 10px">'.
-                        Html::a($editIcon, \yii\helpers\Url::to(['document-order/update-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-primary', 'style' => 'margin: 2px;']). ' ' .
-                        Html::a($deleleIcon, \yii\helpers\Url::to(['document-order/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger', 'style' => 'width: 40px; margin: 2px;']).
+                        Html::a($editIcon, \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-primary', 'style' => 'margin: 2px;']). ' ' .
+                        Html::a($deleleIcon, \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger', 'style' => 'width: 40px; margin: 2px;']).
 
                         '</td></tr>';
                 }

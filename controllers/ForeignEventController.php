@@ -175,11 +175,12 @@ class ForeignEventController extends Controller
         ]);
     }
 
-    public function actionUpdateParticipant($id, $back_model_id, $back_form = null)
+    public function actionUpdateParticipant($id)
     {
         $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $model->getTeam();
         $model->branchs = $model->getBranchs();
+        $back = 'event';
         if ($model->load(Yii::$app->request->post()))
         {
             $model->file = UploadedFile::getInstance($model, 'file');
@@ -192,6 +193,7 @@ class ForeignEventController extends Controller
 
         return $this->render('update-participant',[
             'model' => $model,
+            'back' => $back,
         ]);
     }
 
