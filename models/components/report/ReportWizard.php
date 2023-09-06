@@ -51,7 +51,7 @@ class ReportWizard
 
         // Процент успешно защитивших проект (получивших сертификат)
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
-        //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
+        $all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
 
@@ -114,6 +114,9 @@ class ReportWizard
         $allCdnttArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCdnttArt);
 
+        var_dump($target);
+        var_dump($all);
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
 
         // Процент победителей и призеров от общего числа участников
@@ -142,6 +145,9 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCdnttSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCdnttSocial);
+
+        var_dump($target);
+        var_dump($all);
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
 
