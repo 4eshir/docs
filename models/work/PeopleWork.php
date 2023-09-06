@@ -181,7 +181,7 @@ class PeopleWork extends People
         $post = array_unique($post);    // выкинули все повторы
         */
 
-        return $pos[count($pos)-1]->positionWork->name.' '.$fio;
+        return mb_strtolower($pos[count($pos)-1]->positionWork->name).' '.$fio;
     }
 
     public function beforeSave($insert)

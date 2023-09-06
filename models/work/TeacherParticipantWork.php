@@ -109,6 +109,20 @@ class TeacherParticipantWork extends TeacherParticipant
         return $result;
     }
 
+    public function getTeachersString()
+    {
+        $teacher1 = PeopleWork::find()->where(['id' => $this->teacher_id])->one();
+        $result = mb_substr($teacher1->firstname, 0, 1) .'. '. mb_substr($teacher1->patronymic, 0, 1) .'. '. $teacher1->secondname;
+
+        if ($this->teacher2_id != null)
+        {
+            $teacher2 = PeopleWork::find()->where(['id' => $this->teacher2_id])->one();
+            $result .= '<br>' . mb_substr($teacher2->firstname, 0, 1) .'. '. mb_substr($teacher2->patronymic, 0, 1) .'. '. $teacher2->secondname;;
+        }
+
+        return $result;
+    }
+
     public function getParticipantWork()
     {
         return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
