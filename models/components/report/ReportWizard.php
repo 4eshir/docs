@@ -50,8 +50,8 @@ class ReportWizard
 
 
         // Процент успешно защитивших проект (получивших сертификат)
-        $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
-        $all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allTechoparkTechnical));
+        //$all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
 
@@ -176,8 +176,8 @@ class ReportWizard
 
 
         // Процент успешно защитивших проект (получивших сертификат)
-        $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
-        $all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allQuantTechnical));
+        //$all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 35, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
 
@@ -187,11 +187,6 @@ class ReportWizard
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
-
-        var_dump($all[0]);
-        var_dump($target);
-
-        var_dump(count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
@@ -214,7 +209,7 @@ class ReportWizard
             [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
@@ -237,7 +232,7 @@ class ReportWizard
 
 
         // Процент успешно защитивших проект (получивших сертификат)
-        $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodScience));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 51, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
@@ -276,7 +271,7 @@ class ReportWizard
 
 
         // Процент успешно защитивших проект (получивших сертификат)
-        $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodArt));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
@@ -304,7 +299,7 @@ class ReportWizard
 
 
         // Процент успешно защитивших проект (получивших сертификат)
-        $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodTechnical));
         //$all = count(SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 43, $all == 0 ? 0 : ($target * 1.0 / $all) * 100);
