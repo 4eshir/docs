@@ -578,7 +578,8 @@ class SupportReportFunctions
      */
     static public function GetVisits($test_mode, $participants, $visit_type)
     {
-        $pIds = self::GetIdFromArray($participants);
+        $pIds = [];
+        foreach ($participants as $participant) $pIds[] = $participant->participant_id;
 
         $gIds = []; //все группы из $participants для дальнейшего поиска занятий training_group_lessons
         foreach ($participants as $one) $gIds[] = $one->training_group_id;
