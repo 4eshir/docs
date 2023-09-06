@@ -62,10 +62,7 @@ class ReportWizard
             [BranchWork::TECHNO], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        var_dump(count($all[0]));
-        var_dump(count($target));
-
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0]))) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
