@@ -405,6 +405,8 @@ class ReportWizard
 
         $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttSocial, $visit_type);
 
+        var_dump(count($allCdnttSocial));
+
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
 
         //---------------
