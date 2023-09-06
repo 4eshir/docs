@@ -189,6 +189,7 @@ class ReportWizard
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
         var_dump($all[0]);
+        var_dump($target);
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
