@@ -62,7 +62,7 @@ class ReportWizard
             [BranchWork::TECHNO], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 16)->getStyle()->getAlignment()->setVertical('top');
@@ -93,7 +93,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 21)->getStyle()->getAlignment()->setVertical('top');
@@ -122,7 +122,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::ART]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 25)->getStyle()->getAlignment()->setVertical('top');
@@ -151,7 +151,7 @@ class ReportWizard
             [BranchWork::CDNTT], [FocusWork::SOCIAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 29)->getStyle()->getAlignment()->setVertical('top');
@@ -188,7 +188,7 @@ class ReportWizard
             [BranchWork::QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 33)->getStyle()->getAlignment()->setVertical('top');
@@ -206,10 +206,10 @@ class ReportWizard
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
-            [BranchWork::QUANT], [FocusWork::TECHNICAL]);
+            [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
@@ -244,7 +244,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SCIENCE]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
@@ -311,7 +311,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 41)->getStyle()->getAlignment()->setVertical('top');
@@ -332,7 +332,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
@@ -359,10 +359,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        var_dump(count($all[0]));
-        var_dump(count($target));
-
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setVertical('top');
