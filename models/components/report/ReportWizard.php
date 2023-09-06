@@ -191,6 +191,8 @@ class ReportWizard
         var_dump($all[0]);
         var_dump($target);
 
+        var_dump(count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : (count($target) * 1.0 / count($all[0])) * 100);
 
         // Стилизация ячеек
