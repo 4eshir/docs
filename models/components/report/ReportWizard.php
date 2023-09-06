@@ -359,6 +359,9 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
+        var_dump(count($all));
+        var_dump(count($target));
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all) == 0 ? 0 : (count($target) * 1.0 / count($all)) * 100);
 
         // Стилизация ячеек
