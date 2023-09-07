@@ -1459,17 +1459,17 @@ class WordWizard
         $table = $section->addTable(array('borderColor' => '000000', 'borderSize' => '6'));
         $table->addRow();
         $cell = $table->addCell(1000);
-        $cell->addText('№ п/п', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('<w:br/><w:br/><w:br/>№ п/п', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(4000);
-        $cell->addText('Ф.И.О. участника', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('<w:br/><w:br/><w:br/>Ф.И.О. участника', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(3000);
-        $cell->addText('Номинация (разряд, трек, класс, и т.п.), в которой производится участие в мероприятии', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('Номинация (разряд, трек, класс, и т.п.), в которой производится участие в мероприятии', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(3000);
-        $cell->addText('Направленность образовательных программ, к которой относится участие в мероприятии', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('Направленность образовательных программ, к которой относится участие в мероприятии', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(3000);
-        $cell->addText('Отдел ГАОУ АО ДО «РШТ», на базе которого проведена подготовка участника', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('Отдел ГАОУ АО ДО «РШТ», на базе которого проведена подготовка участника', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(4000);
-        $cell->addText('Ф.И.О. педагога, ответственного за подготовку участника и контроль результатов его участия', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('Ф.И.О. педагога, ответственного за подготовку участника и контроль результатов его участия', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
 
         $tBranchs = TeacherParticipantBranchWork::find();
         foreach ($teacherParts as $key => $oneActPart)
@@ -1496,7 +1496,7 @@ class WordWizard
         }
 
 
-        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 25);
+        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 35);
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $text . '.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
