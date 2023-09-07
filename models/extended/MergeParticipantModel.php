@@ -58,6 +58,7 @@ class MergeParticipantModel extends \yii\base\Model
         {
             $tp->participant_id = $this->id1;
             $tp->save();
+            var_dump($tp->getErrors());
         }
 
         //-----------------------------------------
