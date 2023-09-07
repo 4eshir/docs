@@ -253,16 +253,16 @@ class ForeignEventParticipantsController extends Controller
         $achievesLink1 = '';
         foreach ($achieves as $achieveOne)
         {
-            $achievesLink1 = $achievesLink1.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
-                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
+            $achievesLink1 = $achievesLink1.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->teacherParticipantWork->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->teacherParticipantWork->foreign_event_id])).
+                ' ('.$achieveOne->teacherParticipantWork->foreignEvent->start_date.')'.'<br>';
         }
 
         $achieves = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $id2])->all();
         $achievesLink2 = '';
         foreach ($achieves as $achieveOne)
         {
-            $achievesLink2 = $achievesLink2.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
-                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
+            $achievesLink2 = $achievesLink2.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->teacherParticipantWork->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->teacherParticipantWork->foreign_event_id])).
+                ' ('.$achieveOne->teacherParticipantWork->foreignEvent->start_date.')'.'<br>';
         }
 
         $result .= '<tr><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink1.'</td><td><b>Достижения</b></td><td style="width: 45%">'.$achievesLink2.'</td></tr>';
