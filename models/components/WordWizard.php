@@ -15,6 +15,7 @@ use app\models\work\PeoplePositionBranchWork;
 use app\models\work\PositionWork;
 use app\models\work\ResponsibleWork;
 use app\models\work\TeacherGroupWork;
+use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
@@ -1399,53 +1400,9 @@ class WordWizard
             $cell->addText($fio . '/');
         }
 
-
-        /*$section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
-            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
-            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
-            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
-        $table = $section->addTable();
-        $table->addRow();
-        $cell = $table->addCell(12000);
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $cell->addText('Приложение', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
-        $table->addRow();
-        $cell = $table->addCell(12000);
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $cell->addText('к приказу директора', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
-        $table->addRow();
-        $cell = $table->addCell(12000);
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $cell->addText('ГАОУ АО ДО «РШТ»', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
-        $table->addRow();
-        $cell = $table->addCell(12000);//8000 10000
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $text = '№ ' . $order->order_number . '/' . $order->order_copy_id;
-        if ($order->order_postfix !== NULL)
-            $text .= '/' . $order->order_postfix;
-        $cell->addText('от «' . date("d", strtotime($order->order_date)) . '» '
-            . WordWizard::Month(date("m", strtotime($order->order_date))) . ' '
-            . date("Y", strtotime($order->order_date)) . ' г. '
-            . $text, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
-        $section->addTextBreak(1);
-        $table->addRow();
-        $cell = $table->addCell(12000);
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $cell->addText('УТВЕРЖДАЮ', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
-        $cell = $table->addCell(12000);
-        $cell->addText('', null, array('spaceAfter' => 0));
-        $cell = $table->addCell(6000);
-        $cell->addText('Директор ГАОУ АО ДО «РШТ»', array('size' => '14'), array('align' => 'left', 'spaceAfter' => 0));
-        $section->addTextBreak(1);
-
         /*тут перечень учащихся*/
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
-            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(20),
             'marginBottom' => WordWizard::convertMillimetersToTwips(20),
             'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
         $table = $section->addTable();
@@ -1458,7 +1415,12 @@ class WordWizard
         $cell = $table->addCell(10000);
         $cell->addText('', null, array('spaceAfter' => 0));
         $cell = $table->addCell(8000);
-        $cell->addText('к приказу ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $cell->addText('к приказу директора', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $table->addRow();
         $cell = $table->addCell(10000);
         $cell->addText('', null, array('spaceAfter' => 0));
@@ -1481,6 +1443,7 @@ class WordWizard
         $cell->addText('', null, array('spaceAfter' => 0));
         $cell = $table->addCell(8000);
         $cell->addText('Директор ГАОУ АО ДО «РШТ»', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
         $cell = $table->addCell(10000);
         $cell->addText('', null, array('spaceAfter' => 0));
         $cell = $table->addCell(8000);
@@ -1493,10 +1456,10 @@ class WordWizard
         $section->addText('результатов участия', array('bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $section->addTextBreak(1);
 
-        /*$table = $section->addTable(array('borderColor' => '000000', 'borderSize' => '6'));
+        $table = $section->addTable(array('borderColor' => '000000', 'borderSize' => '6'));
         $table->addRow();
         $cell = $table->addCell(1000);
-        $cell->addText('№ п/п', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        $cell->addText('№ п/п', array('size' => '12', 'bold' => true), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(4000);
         $cell->addText('Ф.И.О. участника', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
         $cell = $table->addCell(3000);
@@ -1508,25 +1471,32 @@ class WordWizard
         $cell = $table->addCell(4000);
         $cell->addText('Ф.И.О. педагога, ответственного за подготовку участника и контроль результатов его участия', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
 
-        /*foreach ($teacherParts as $oneActPart)
+        $tBranchs = TeacherParticipantBranchWork::find();
+        foreach ($teacherParts as $key => $oneActPart)
         {
             $table->addRow();
             $cell = $table->addCell(1000);
-            $cell->addText('1', array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+            $cell->addText($key+1, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
             $cell = $table->addCell(4000);
             $cell->addText($oneActPart->participantWork->fullName, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
             $cell = $table->addCell(3000);
             $cell->addText($oneActPart->nomination, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
             $cell = $table->addCell(3000);
             $cell->addText($oneActPart->focus0->name, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+
             $cell = $table->addCell(3000);
-            $cell->addText($oneActPart->branchsString, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+            $branchs = $tBranchs->where(['teacher_participant_id' => $oneActPart->id])->all();
+            foreach ($branchs as $branch)
+                $cell->addText($branch->branchWork->name, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+
             $cell = $table->addCell(4000);
-            $cell->addText($oneActPart->teachersString, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
-        }*/
+            $cell->addText(mb_substr($oneActPart->teacherWork->firstname, 0, 1) .'. '. mb_substr($oneActPart->teacherWork->patronymic, 0, 1) .'. '. $oneActPart->teacherWork->secondname, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+            if ($oneActPart->teacher2_id != null)
+                $cell->addText(mb_substr($oneActPart->teacher2Work->firstname, 0, 1) .'. '. mb_substr($oneActPart->teacher2Work->patronymic, 0, 1) .'. '. $oneActPart->teacher2Work->secondname, array('size' => '12'), array('align' => 'center', 'spaceAfter' => 0));
+        }
 
 
-        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 20);
+        $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 25);
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $text . '.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

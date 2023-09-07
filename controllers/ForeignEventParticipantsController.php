@@ -249,7 +249,7 @@ class ForeignEventParticipantsController extends Controller
 
         $result .= '<tr><td><b>Мепроприятия</b></td><td style="width: 45%">'.$eventsLink1.'</td><td><b>Мепроприятия</b></td><td style="width: 45%">'.$eventsLink2.'</td></tr>';
 
-        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id1])->all();
+        $achieves = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $id1])->all();
         $achievesLink1 = '';
         foreach ($achieves as $achieveOne)
         {
@@ -257,7 +257,7 @@ class ForeignEventParticipantsController extends Controller
                 ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
         }
 
-        $achieves = ParticipantAchievementWork::find()->where(['participant_id' => $id2])->all();
+        $achieves = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $id2])->all();
         $achievesLink2 = '';
         foreach ($achieves as $achieveOne)
         {
