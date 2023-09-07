@@ -13,6 +13,7 @@ use app\models\LoginForm;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
+use app\models\work\ParticipantFilesWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
@@ -140,6 +141,7 @@ class SupCommandsController extends Controller
 
     public function actionConvertToTeacherParticipant()
     {
+        
         //--Конвертируем таблицу participant_achievement--
 
         $participantAchievements = ParticipantAchievementWork::find()->all();
@@ -236,6 +238,37 @@ class SupCommandsController extends Controller
         }
 
         //-----------------------------
+
+        //--Конвертируем таблицу participant_files--
+
+        $participantFiles = ParticipantFilesWork::find()->all();
+        $usedTeacherParticipantIds = [];
+
+        $errors = [];
+
+        foreach ($participantFiles as $one)
+        {
+            $teacherParticipant = TeacherParticipantWork::find()->where(['foreign_event_id' => $one->foreign_event_id])->andWhere(['participant_id' => $one->participant_id])->andWhere(['NOT IN', 'id', $usedTeacherParticipantIds])->one();
+
+            if ($teacherParticipant !== null)
+            {
+                $usedTeacherParticipantIds[] = $teacherParticipant->id;
+                $one->teacher_participant_id = $teacherParticipant->id;
+                $one->save();
+            }
+            else
+                $errors[] = $one->id;
+        }
+
+        $this->stdout("----Error files----\n", Console::FG_YELLOW);
+
+        foreach ($errors as $error)
+        {
+            $pa = ParticipantFilesWork::find()->where(['id' => $error])->one();
+            if ($pa !== null) $this->stdout($pa->id." ".$pa->participant->secondname." ".$pa->foreign_event_id."\n", Console::FG_RED);
+        }
+
+        //------------------------------------------
     }
 
 }
