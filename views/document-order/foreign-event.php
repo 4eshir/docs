@@ -853,7 +853,7 @@ $session = Yii::$app->session;
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
             <?php
-            $forEvent = \app\models\work\ForeignEventWork::find()->where(['order_participation_id' => $model->id])->one();
+            $forEvent = \app\models\work\ForeignEventWork::find()->where($model->id !== null ? ['order_participation_id' => $model->id] : '0')->one();
             if ($forEvent !== null)
                 $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $forEvent->id])->all();
             else
