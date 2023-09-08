@@ -400,14 +400,15 @@ class SupportReportFunctions
                                              $focus = FocusWork::ALL,
                                              $allow_remote = AllowRemoteWork::ALL,
                                              $budget = ReportConst::BUDGET_ALL,
-                                             $teachers = [])
+                                             $teachers = [],
+                                             $date_type_selection = ReportConst::ALL_DATE_SELECTION)
     {
         $teacherGroups = $test_mode == 0 ?
             TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
-                ->where(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+                ->where(in_array(ReportConst::START_IN_END_LATER, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_EARLY_END_IN, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_EARLY_END_LATER, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_IN_END_IN, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])] : '0')
                 ->andWhere(['IN', 'trainingGroup.branch_id', $branch])
                 ->andWhere(['IN', 'trainingGroup.budget', $budget])
                 ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
@@ -415,10 +416,10 @@ class SupportReportFunctions
                 ->andWhere($teachers == [] ? '1' : ['IN', 'teacher_id', $teachers])
                 ->all() :
             GetGroupParticipantsTeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
-                ->where(['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
-                ->orWhere(['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+                ->where(in_array(ReportConst::START_IN_END_LATER, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_EARLY_END_IN, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_EARLY_END_LATER, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])] : '0')
+                ->orWhere(in_array(ReportConst::START_IN_END_IN, $date_type_selection) ? ['IN', 'training_group_id', (new Query())->select('get_group_participants_training_group.id')->from('get_group_participants_training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])] : '0')
                 ->andWhere(['IN', 'trainingGroup.branch_id', $branch])
                 ->andWhere(['IN', 'trainingGroup.budget', $budget])
                 ->andWhere(['IN', 'trainingProgram.focus_id', $focus])

@@ -18,6 +18,7 @@ use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\console\Controller;
@@ -141,7 +142,7 @@ class SupCommandsController extends Controller
 
     public function actionConvertToTeacherParticipant()
     {
-        
+
         //--Конвертируем таблицу participant_achievement--
 
         $participantAchievements = ParticipantAchievementWork::find()->all();
@@ -269,6 +270,11 @@ class SupCommandsController extends Controller
         }
 
         //------------------------------------------
+
+
+
     }
+
+
 
 }
