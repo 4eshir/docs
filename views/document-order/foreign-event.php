@@ -162,12 +162,21 @@ $session = Yii::$app->session;
 <script>
     function displayDetails()
     {
-        var elem = document.getElementById('documentorderwork-supplement-compliance_document');
+        var elem = document.getElementById('documentorderwork-supplement-compliance_document').getElementsByTagName('input');
         var details = document.getElementById('details');
-        if (elem.getElementsByTagName('input')[0].checked)
+
+        if (elem[0].checked)
             details.style.display = "none";
         else
             details.style.display = "block";
+
+        let item = [1, 2, 3];
+        item.forEach((element) => {
+            if (elem[element].checked)
+                details.childNodes[2*element-1].hidden = false;
+            else
+                details.childNodes[2*element-1].hidden = true;
+        });
     }
 
     let listId = 'nomDdList'; //айди выпадающего списка, в который будут добавлены номинации
@@ -201,6 +210,8 @@ $session = Yii::$app->session;
             FinishTeam();
         }
 
+        document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[0].childNodes[0].checked = true;
+
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
         $.post(
@@ -222,7 +233,8 @@ $session = Yii::$app->session;
                 document.getElementById('documentorderwork-foreign_event-max_participants_age').value = result.forevent.max_participants_age;
                 document.getElementById('documentorderwork-foreign_event-key_words').value = result.forevent.key_words;
 
-                document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
+                if (result.supplement.foreign_event_goals_id != null)
+                    document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
                 document.getElementById('documentorderwork-supplement-compliance_document').childNodes[result.supplement.compliance_document * 2].childNodes[0].checked = true;
                 document.getElementById('documentorderwork-supplement-document_details').value = result.supplement.document_details;
                 document.getElementById('documentorderwork-supplement-information_deadline').value = result.supplement.information_deadline;
@@ -702,7 +714,10 @@ $session = Yii::$app->session;
                     ?>
 
                     <div id="details" style="display: <?= ($model->supplement->compliance_document === '0' || $model->supplement->compliance_document === null) ? 'none' : 'block'?>">
-                        <?= $form->field($model, "supplement[document_details]")->textInput()->label('Реквизиты документа')?>
+                        <p hidden style="color: red;">Ожидаемый формат описания регламента: "<i>соревнований за Кубок России по судомодельному спорту в классах радиоуправляемых яхт</i>"</p>
+                        <p hidden style="color: red;">Ожидаемый формат описания письма: "<i>от 04.05.2023 г. № 02-02/201 «О проведении конкурса»</i>"</p>
+                        <p hidden style="color: red;">Ожидаемый формат описания положения: "<i>об открытом чемпионате России 2024 г. по волейболу</i>"</p>
+                        <?= $form->field($model, "supplement[document_details]")->textInput()->label('Описание документа для вставки в приказ')?>
                     </div>
 
                     <?php
