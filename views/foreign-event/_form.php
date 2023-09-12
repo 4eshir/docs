@@ -149,7 +149,7 @@ use yii\jui\DatePicker;
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Акты участия</h4></div>
             <?php
             $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->all();
             $editIcon = '<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>';
@@ -226,7 +226,7 @@ use yii\jui\DatePicker;
             
             
             <?php
-            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
@@ -240,8 +240,20 @@ use yii\jui\DatePicker;
                         <td style="padding-left: 20px; border-bottom: 2px solid black; width: 110px;"></td>
                       </tr>';
                 foreach ($parts as $partOne) {
+                    if ($partOne->team_name_id == null)
+                        $namePart = $partOne->teacherParticipantWork->participantWork->shortName;
+                    else
+                    {
+                        $teamParts = \app\models\work\TeamWork::find()->where(['team_name_id' => $partOne->team_name_id])->all();
+                        $namePart = 'Команда: ';
+                        foreach ($teamParts as $onePart)
+                        {
+                            $namePart .= $onePart->teacherParticipantWork->participantWork->shortName . ', ';
+                        }
+                        $namePart = mb_substr($namePart, 0, -2);
+                    }
                     echo '<tr style="font-size: 1.2em;">
-                            <td style="padding-left: 20px">'.$partOne->teacherParticipantWork->participantWork->shortName.'</td>
+                            <td style="padding-left: 20px">'.$namePart.'</td>
                             <td style="padding-left: 20px">'.$partOne->statusString.'</td>
                             <td style="padding-left: 20px">'.$partOne->achievment.'</td>
                             <td style="padding-left: 20px">'.$partOne->actParticipationString.'</td>
@@ -283,14 +295,18 @@ use yii\jui\DatePicker;
                             <div class="col-xs-6">
                                 <?php
                                 $partsAch = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
-                                $partsAchArr = [];
+                                $partsArr = [];
                                 foreach ($partsAch as $partAch)
-                                    $partsAchArr[] = $partAch->teacher_participant_id;
+                                    $partsArr[] = $partAch->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsAchArr])->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();
+                                foreach ($partsTeam as $partTeam)
+                                    $partsArr[] = $partTeam->teacher_participant_id;
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
-                                    'prompt' => ''
+                                    'prompt' => '--'
                                 ];
                                 echo $form->field($modelAchievementOne, "[{$i}]fio")->dropDownList($items,$params)->label('Акт участия');
                                 ?>

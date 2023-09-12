@@ -513,6 +513,7 @@ class DocumentOrderController extends Controller
     public function actionSubsupplement()
     {
         $idS = Yii::$app->request->post('id');
+        var_dump($idS);
         $id = mb_substr($idS, strripos($idS, "=")+1);
         $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
         $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
@@ -606,9 +607,10 @@ class DocumentOrderController extends Controller
     public function actionGenerationWord($order_id, $type)
     {
         $model = $this->findModel($order_id);
+        $checkGenerate = new OrderErrorsWork();
 
         switch ($type) {
-            case -1: WordWizard::ParticipationEvent($order_id);
+            case -1: $checkGenerate->PermissionToParticipate($order_id) ? WordWizard::ParticipationEvent($order_id) : Yii::$app->session->addFlash('warning', 'Исправьте ошибки заполнения, чтобы сгенерировать приказ'); break;
             case 0: WordWizard::Enrolment($order_id);
             case 1: WordWizard::Deduction($order_id);
             case 2: WordWizard::Transfer($order_id);

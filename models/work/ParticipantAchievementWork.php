@@ -47,7 +47,7 @@ class ParticipantAchievementWork extends ParticipantAchievement
         if ($part->teamNameString == null)
             $result .= 'Индивидуальное участие';
         else
-            $result .= 'В составе команды';
+            $result .= 'В составе команды "' . $part->teamNameString . '"';
         return $result;
     }
 }

@@ -251,6 +251,11 @@ class ForeignEventController extends Controller
     public function actionDeleteAchievement($id, $model_id)
     {
         $part = ParticipantAchievementWork::find()->where(['id' => $id])->one();
+        if ($part->team_name_id != null)
+        {
+            $otherPartTeam = ParticipantAchievementWork::find()->where(['team_name_id' => $part->team_name_id])->andWhere(['!=', 'id', $id])->all();
+            foreach ($otherPartTeam as $one) $one->delete();
+        }
         $part->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }

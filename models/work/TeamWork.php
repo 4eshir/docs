@@ -25,4 +25,9 @@ class TeamWork extends Team
         else
             return false;
     }
+
+    public function getTeacherParticipantWork()
+    {
+        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+    }
 }

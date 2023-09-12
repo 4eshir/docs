@@ -68,8 +68,8 @@ class ForeignEventWork extends ForeignEvent
             'add_order_participation_id' => 'Дополнительный приказ об участии',
             'orderParticipationString' => 'Приказ об участии',
             'addOrderParticipationString' => 'Дополнительный приказ',
-            'order_business_trip_id' => 'Приказ о командировке',
-            'orderBusinessTripString' => 'Приказ о командировке',
+            'order_business_trip_id' => 'Приказ о направлении (командировка)',
+            'orderBusinessTripString' => 'Приказ о направлении (командировка)',
             'key_words' => 'Ключевые слова',
             'docs_achievement' => 'Документы о достижениях',
             'participantsLink' => 'Участники',
@@ -488,6 +488,25 @@ class ForeignEventWork extends ForeignEvent
                     }
                     $part->team_name_id = $team->team_name_id;
                     $part->save();
+
+                    if ($team->team_name_id != null)
+                    {
+                        $teamParts = TeamWork::find()->where(['team_name_id' => $team->team_name_id])->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])->all();
+                        foreach ($teamParts as $onePart)
+                        {
+                            $part = new ParticipantAchievement();
+                            $part->teacher_participant_id = $onePart->teacher_participant_id;
+                            $part->achievment = $achievementOne->achieve;
+                            $part->winner = $achievementOne->winner;
+                            if ($achievementOne->cert_number != '')
+                            {
+                                $part->cert_number = $achievementOne->cert_number;
+                                $part->date = $achievementOne->date;
+                            }
+                            $part->team_name_id = $team->team_name_id;
+                            $part->save();
+                        }
+                    }
                 }
                 else
                     $str .= 'Попытка добавления дубликата.<br>';

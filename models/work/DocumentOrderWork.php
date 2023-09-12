@@ -738,7 +738,7 @@ class DocumentOrderWork extends DocumentOrder
 
         }
 
-        if ($this->supplement !== null && $this->foreign_event !== null)
+        if ($this->supplement !== null)
         {
             $docSup = DocumentOrderSupplement::find()->where(['document_order_id' => $this->id])->one();
             if ($docSup == null)
@@ -755,7 +755,10 @@ class DocumentOrderWork extends DocumentOrder
             $docSup->methodologist_id = $this->supplement['methodologist_id'];
             $docSup->informant_id = $this->supplement['informant_id'];
             $docSup->save();
+        }
 
+        if ($this->foreign_event !== null)
+        {
             $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $this->id])->one();
             if ($forEvent == null)
                 $forEvent = new ForeignEventWork();
