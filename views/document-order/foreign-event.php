@@ -1109,8 +1109,8 @@ $js =<<< JS
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 
-//$url = Yii::$app->basePath;
-$url = Url::toRoute('subsupplement');
+$url = Yii::$app->basePath . '/web/index.php?r=document-order%2Fsubsupplement';
+//$url = Url::toRoute('subsupplement');
 $js =<<< JS
 $.post(
             $url ,
