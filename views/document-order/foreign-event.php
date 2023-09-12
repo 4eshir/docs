@@ -214,7 +214,7 @@ $session = Yii::$app->session;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
-        $.post(
+        /*$.post(
             "/docs/web/index.php?r=document-order%2Fsubsupplement",
             {id: window.location.search},
             function(res){
@@ -270,7 +270,7 @@ $session = Yii::$app->session;
                     list.append(itemCopy);
                 }
             }
-        );
+        );*/
     }
 
     function AddElem(list_row, list_item, arr, list_name)
@@ -1107,5 +1107,69 @@ $js =<<< JS
     });
 
 JS;
+$this->registerJs($js, \yii\web\View::POS_LOAD);
+
+$url = Yii::$app->basePath;
+var_dump($url);
+$js =<<< JS
+$.post(
+            "/docs/web/index.php?r=document-order%2Fsubsupplement",
+            {id: window.location.search},
+            function(res){
+                var result = JSON.parse(res);
+
+                document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
+                document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
+                document.getElementById('documentorderwork-foreign_event-start_date').value = result.forevent.start_date;
+                document.getElementById('documentorderwork-foreign_event-finish_date').value = result.forevent.finish_date;
+                document.getElementById('documentorderwork-foreign_event-city').value = result.forevent.city;
+                document.getElementById('documentorderwork-foreign_event-event_way_id').value = result.forevent.event_way_id;
+                document.getElementById('documentorderwork-foreign_event-event_level_id').value = result.forevent.event_level_id;
+                if (result.forevent.is_minpros === 1)
+                    document.getElementById('documentorderwork-foreign_event-is_minpros').checked = true;
+                document.getElementById('documentorderwork-foreign_event-min_participants_age').value = result.forevent.min_participants_age;
+                document.getElementById('documentorderwork-foreign_event-max_participants_age').value = result.forevent.max_participants_age;
+                document.getElementById('documentorderwork-foreign_event-key_words').value = result.forevent.key_words;
+
+                if (result.supplement.foreign_event_goals_id != null)
+                    document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
+                document.getElementById('documentorderwork-supplement-compliance_document').childNodes[result.supplement.compliance_document * 2].childNodes[0].checked = true;
+                document.getElementById('documentorderwork-supplement-document_details').value = result.supplement.document_details;
+                document.getElementById('documentorderwork-supplement-information_deadline').value = result.supplement.information_deadline;
+                document.getElementById('documentorderwork-supplement-input_deadline').value = result.supplement.input_deadline;
+                document.getElementById('documentorderwork-supplement-collector_id').value = result.supplement.collector_id;
+                document.getElementById('documentorderwork-supplement-contributor_id').value = result.supplement.contributor_id;
+                document.getElementById('documentorderwork-supplement-methodologist_id').value = result.supplement.methodologist_id;
+                document.getElementById('documentorderwork-supplement-informant_id').value = result.supplement.informant_id;
+                displayDetails();
+
+                team = result.team;
+                nominations = result.nominations;
+
+                for (let i = 0; i < team.length; i++)
+                {
+                    let item = document.getElementsByClassName('team-list-row')[0];
+                    let itemCopy = item.cloneNode(true)
+                    itemCopy.getElementsByClassName('team-list-item')[0].innerHTML = '<p>' + team[i] + '</p>'
+                    itemCopy.style.display = 'block';
+
+                    let list = document.getElementById('list2');
+                    list.append(itemCopy);
+                }
+
+                for (let i = 0; i < nominations.length; i++)
+                {
+                    let item = document.getElementsByClassName('nomination-list-row')[0];
+                    let itemCopy = item.cloneNode(true)
+                    itemCopy.getElementsByClassName('nomination-list-item')[0].innerHTML = '<p>' + nominations[i] + '</p>'
+                    itemCopy.style.display = 'block';
+
+                    let list = document.getElementById('list');
+                    list.append(itemCopy);
+                }
+            }
+        );
+JS;
+
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 ?>
