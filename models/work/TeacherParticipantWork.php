@@ -73,12 +73,20 @@ class TeacherParticipantWork extends TeacherParticipant
     public function getActString()
     {
         $part = ForeignEventParticipantsWork::find()->where(['id' => $this->participant_id])->one();
-        $result = $part->fullName . ' ('. $this->focus0->name .' направленность, номинация: ' . $this->nomination . ') - ';
+        $standard = TeamWork::find()->where(['teacher_participant_id' => $this->id])->one();
 
-        if ($this->teamNameString == null)
-            $result .= 'Индивидуальное участие';
+        if ($standard->team_name_id == null)
+            $result = $part->fullName . ' ('. $this->focus0->name .' направленность, номинация: ' . $this->nomination . ') - Индивидуальное участие';
         else
-            $result .= 'В составе команды ' . $this->teamNameString;
+        {
+            $teamParts = TeamWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $this->foreign_event_id])->andWhere(['team_name_id' => $standard->team_name_id])->all();
+
+            $result = 'Команда "' . $this->teamNameString . '" (участники: ';
+            foreach ($teamParts as $part)
+                $result .= $part->teacherParticipantWork->participantWork->fullName . ', ';
+            $result = mb_substr($result, 0, -2) . ')';
+        }
+
         return $result;
     }
 

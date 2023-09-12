@@ -283,11 +283,20 @@ use yii\jui\DatePicker;
                             <div class="col-xs-6">
                                 <?php
                                 $partsAch = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
-                                $partsAchArr = [];
+                                $partsArr = [];
                                 foreach ($partsAch as $partAch)
-                                    $partsAchArr[] = $partAch->teacher_participant_id;
+                                    $partsArr[] = $partAch->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsAchArr])->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();//->orderBy(['team_name_id' => SORT_ASCfin])->all();
+                                $teamId = [];
+                                foreach ($partsTeam as $partTeam)
+                                    if (!in_array($partTeam->team_name_id, $teamId))
+                                    {
+                                        $partsArr[] = $partTeam->teacher_participant_id;
+                                        $teamId[] = $partTeam->team_name_id;
+                                    }
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => ''

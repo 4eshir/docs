@@ -488,6 +488,25 @@ class ForeignEventWork extends ForeignEvent
                     }
                     $part->team_name_id = $team->team_name_id;
                     $part->save();
+
+                    if ($team->team_name_id != null)
+                    {
+                        $teamParts = TeamWork::find()->where(['team_name_id' => $team->team_name_id])->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])->all();
+                        foreach ($teamParts as $onePart)
+                        {
+                            $part = new ParticipantAchievement();
+                            $part->teacher_participant_id = $onePart->teacher_participant_id;
+                            $part->achievment = $achievementOne->achieve;
+                            $part->winner = $achievementOne->winner;
+                            if ($achievementOne->cert_number != '')
+                            {
+                                $part->cert_number = $achievementOne->cert_number;
+                                $part->date = $achievementOne->date;
+                            }
+                            $part->team_name_id = $team->team_name_id;
+                            $part->save();
+                        }
+                    }
                 }
                 else
                     $str .= 'Попытка добавления дубликата.<br>';
