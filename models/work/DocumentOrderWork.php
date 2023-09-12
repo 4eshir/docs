@@ -784,7 +784,6 @@ class DocumentOrderWork extends DocumentOrder
                 $forEvent->escort_id = null;
             }
             $forEvent->save();
-            var_dump($forEvent->getErrors());
 
             $this->uploadTeamName($forEvent->id);
             $this->uploadTeacherParticipants($forEvent->id);
