@@ -215,7 +215,7 @@ $session = Yii::$app->session;
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
         $.post(
-            "/index.php?r=document-order%2Fsubsupplement",
+            "/index.php?r=document-order%2FSubsupplement",
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);

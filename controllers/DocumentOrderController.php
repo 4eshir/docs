@@ -513,7 +513,6 @@ class DocumentOrderController extends Controller
     public function actionSubsupplement()
     {
         $idS = Yii::$app->request->post('id');
-        var_dump($idS);
         $id = mb_substr($idS, strripos($idS, "=")+1);
         $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
         $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
