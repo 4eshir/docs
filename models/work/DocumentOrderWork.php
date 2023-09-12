@@ -757,6 +757,7 @@ class DocumentOrderWork extends DocumentOrder
             $docSup->save();
         }
 
+        var_dump($this->foreign_event);
         if ($this->foreign_event !== null)
         {
             $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $this->id])->one();
