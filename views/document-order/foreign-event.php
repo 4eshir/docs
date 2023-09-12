@@ -1110,10 +1110,10 @@ JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 $url = Yii::$app->basePath;
-var_dump(Url::toRoute(subsupplement));
+$url = Url::toRoute('subsupplement');
 $js =<<< JS
 $.post(
-            Url::toRoute(subsupplement),
+            $url,
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);
