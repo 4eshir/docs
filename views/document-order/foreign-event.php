@@ -1113,7 +1113,7 @@ $url = Yii::$app->basePath;
 var_dump($url);
 $js =<<< JS
 $.post(
-            "/docs/web/index.php?r=document-order%2Fsubsupplement",
+            $url+"/web/index.php?r=document-order%2Fsubsupplement",
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);
