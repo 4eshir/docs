@@ -1111,10 +1111,10 @@ $this->registerJs($js, \yii\web\View::POS_LOAD);
 
 $url = /*Yii::$app->basePath .*/ '/index.php?r=document-order%2Fsubsupplement';
 $url = Url::toRoute('subsupplement');
-var_dump($url);
+var_dump($model->id);
 $js =<<< JS
 $.post(
-            "/docs/web/index.php?r=document-order%2Fsubsupplement",
+            $url,
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);
