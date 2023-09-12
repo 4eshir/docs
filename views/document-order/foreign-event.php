@@ -1113,7 +1113,7 @@ $url = /*Yii::$app->basePath .*/ '/index.php?r=document-order%2Fsubsupplement';
 //$url = Url::toRoute('subsupplement');
 $js =<<< JS
 $.post(
-            "'. $url .'",
+            '/index.php?r=document-order%2Fsubsupplement',
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);
