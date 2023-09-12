@@ -393,6 +393,13 @@ class SupportReportFunctions
     }
     //------------------------------------------
 
+    //--Функция проверки пола обучающегося--
+    static public function CheckSex($target_sex, $array_of_sex)
+    {
+        return in_array($target_sex, $array_of_sex);
+    }
+    //--------------------------------------
+
 
     //--Функция выгрузки всех учебных групп, подходящих под заданные условия--
     static public function GetTrainingGroups($test_mode, $start_date, $end_date,
@@ -451,7 +458,8 @@ class SupportReportFunctions
     static public function GetParticipantsFromGroups($test_mode, $groups,
                                                     $unique = 0,
                                                     $age = ReportConst::AGES_ALL,
-                                                    $current_date = null)
+                                                    $current_date = null,
+                                                    $sex = [ReportConst::MALE, ReportConst::FEMALE])
     {
         if ($current_date == null) $current_date = date('Y-m-d'); // если не передано значение, то выставляем текущую дату
 
@@ -575,9 +583,10 @@ class SupportReportFunctions
     /*
      * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
      * $participants - список обучающихся для выборки
+     * [$start_date : $end_date] - промежуток для поиска учебных занятий
      * $visit_type - тип учета явок
      */
-    static public function GetVisits($test_mode, $participants, $visit_type)
+    static public function GetVisits($test_mode, $participants, $start_date, $end_date, $visit_type)
     {
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
@@ -592,12 +601,18 @@ class SupportReportFunctions
         $glIds = self::GetIdFromArray($groupLessons);
 
         $visits = $test_mode == 0 ?
-            VisitWork::find()->where(['IN', 'foreign_event_participant_id', $pIds])
-                        ->andWhere(['IN', 'training_group_lesson_id', $glIds])
-                        ->andWhere(['IN', 'status', $visit_type])->all() :
-            GetGroupParticipantsVisitWork::find()->where(['IN', 'foreign_event_participant_id', $pIds])
-                ->andWhere(['IN', 'training_group_lesson_id', $glIds])
-                ->andWhere(['IN', 'status', $visit_type])->all();
+            VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
+                    ->where(['IN', 'foreign_event_participant_id', $pIds])
+                    ->andWhere(['IN', 'training_group_lesson_id', $glIds])
+                    ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
+                    ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])
+                    ->andWhere(['IN', 'status', $visit_type])->all() :
+            GetGroupParticipantsVisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
+                    ->where(['IN', 'foreign_event_participant_id', $pIds])
+                    ->andWhere(['IN', 'training_group_lesson_id', $glIds])
+                    ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
+                    ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])
+                    ->andWhere(['IN', 'status', $visit_type])->all();
 
         $visits = self::GetIdFromArray($visits);
         sort($visits);

@@ -9,7 +9,12 @@ namespace app\commands;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\Team;
+use app\models\components\report\ReportConst;
+use app\models\components\report\SupportReportFunctions;
 use app\models\LoginForm;
+use app\models\work\AllowRemoteWork;
+use app\models\work\BranchWork;
+use app\models\work\FocusWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
@@ -273,6 +278,56 @@ class SupCommandsController extends Controller
 
 
 
+    }
+
+
+    public function actionWriteGroups()
+    {
+        $main_sum = 0;
+
+        $start_date = '2023-01-01';
+        $end_date = '2023-09-12';
+
+        $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            [BranchWork::CDNTT], [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+
+        foreach ($targetGroups as $group)
+        {
+            $allCdnttTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
+            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttTechnical, $start_date, $end_date, VisitWork::PRESENCE_AND_ABSENCE);
+
+            $this->stdout($group->number." ".count($visits)."\n", Console::FG_CYAN);
+            $main_sum += count($visits);
+        }
+        $this->stdout("\n");
+
+
+        $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            [BranchWork::CDNTT], [FocusWork::ART], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+
+        foreach ($targetGroups as $group)
+        {
+            $allCdnttArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
+            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttArt, $start_date, $end_date, VisitWork::PRESENCE_AND_ABSENCE);
+
+            $this->stdout($group->number." ".count($visits)."\n", Console::FG_GREEN);
+            $main_sum += count($visits);
+        }
+        $this->stdout("\n");
+
+
+        $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            [BranchWork::CDNTT], [FocusWork::SOCIAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+
+        foreach ($targetGroups as $group)
+        {
+            $allCdnttSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
+            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttSocial, $start_date, $end_date, VisitWork::PRESENCE_AND_ABSENCE);
+
+            $this->stdout($group->number." ".count($visits)."\n", Console::FG_YELLOW);
+            $main_sum += count($visits);
+        }
+        $this->stdout("\nВсего посещений: ".$main_sum);
     }
 
 

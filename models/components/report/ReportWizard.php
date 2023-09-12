@@ -379,7 +379,7 @@ class ReportWizard
 
         //Отдел Технопарк (тех. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allTechoparkTechnical, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allTechoparkTechnical, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
 
@@ -387,7 +387,7 @@ class ReportWizard
 
         //Отдел ЦДНТТ (тех. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttTechnical, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttTechnical, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 9, count($visits));
 
@@ -395,7 +395,7 @@ class ReportWizard
 
         //Отдел ЦДНТТ (худ. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttArt, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttArt, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 10, count($visits));
 
@@ -403,7 +403,7 @@ class ReportWizard
 
         //Отдел ЦДНТТ (соц-пед. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttSocial, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCdnttSocial, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
 
@@ -411,7 +411,7 @@ class ReportWizard
 
         //Отдел Кванториум (тех. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allQuantTechnical, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allQuantTechnical, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, count($visits));
 
@@ -423,7 +423,7 @@ class ReportWizard
             [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
 
         $allMobQuantTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allMobQuantTechnical, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allMobQuantTechnical, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
 
@@ -431,7 +431,7 @@ class ReportWizard
 
         //Отдел ЦОД (тех. направленность - очная)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodTechnical, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodTechnical, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 14, count($visits));
 
@@ -443,7 +443,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE], [ReportConst::BUDGET]);
 
         $allCodTechnicalRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodTechnicalRemote, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodTechnicalRemote, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 15, count($visits));
 
@@ -451,7 +451,7 @@ class ReportWizard
 
         //Отдел ЦОД (естес.-науч. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodScience, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodScience, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 16, count($visits));
 
@@ -459,7 +459,7 @@ class ReportWizard
 
         //Отдел ЦОД (худож. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodArt, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodArt, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 17, count($visits));
 
@@ -467,7 +467,7 @@ class ReportWizard
 
         //Отдел ЦОД (физкульт.-спорт. направленность)
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodSport, $visit_type);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $allCodSport, $start_date, $end_date, $visit_type);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 18, count($visits));
 
@@ -484,4 +484,14 @@ class ReportWizard
         exit;
         //--------------------------------------------
     }
+    //----------------------------------
+
+    //--Функция генерации отчета ДОД--
+    static public function GenerateDod($start_date, $end_date)
+    {
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOD.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOD.xlsx');
+    }
+    //--------------------------------
 }

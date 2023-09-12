@@ -22,4 +22,7 @@ class ReportConst
                                 ReportConst::START_IN_END_LATER,
                                 ReportConst::START_IN_END_IN,
                                 ReportConst::START_EARLY_END_LATER]; // выборка по всем типам
+
+    const MALE = "Мужской"; // пол - мужской
+    const FEMALE = "Женский"; // пол - женский
 }
