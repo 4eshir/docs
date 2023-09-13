@@ -213,40 +213,16 @@ $session = Yii::$app->session;
         document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[0].childNodes[0].checked = true;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
+        displayDetails();
 
         let url = "<?= Url::toRoute('subsupplement'); ?>";
         console.log(window.location.search);
         console.log(url);
-        $.post(
+        $().onclick(
             url,
-            {id: window.location.search},
+            {id: '2670',/*window.location.search*/},
             function(res){
                 var result = JSON.parse(res);
-
-                document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
-                document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
-                document.getElementById('documentorderwork-foreign_event-start_date').value = result.forevent.start_date;
-                document.getElementById('documentorderwork-foreign_event-finish_date').value = result.forevent.finish_date;
-                document.getElementById('documentorderwork-foreign_event-city').value = result.forevent.city;
-                document.getElementById('documentorderwork-foreign_event-event_way_id').value = result.forevent.event_way_id;
-                document.getElementById('documentorderwork-foreign_event-event_level_id').value = result.forevent.event_level_id;
-                if (result.forevent.is_minpros === 1)
-                    document.getElementById('documentorderwork-foreign_event-is_minpros').checked = true;
-                document.getElementById('documentorderwork-foreign_event-min_participants_age').value = result.forevent.min_participants_age;
-                document.getElementById('documentorderwork-foreign_event-max_participants_age').value = result.forevent.max_participants_age;
-                document.getElementById('documentorderwork-foreign_event-key_words').value = result.forevent.key_words;
-
-                if (result.supplement.foreign_event_goals_id != null)
-                    document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-compliance_document').childNodes[result.supplement.compliance_document * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-document_details').value = result.supplement.document_details;
-                document.getElementById('documentorderwork-supplement-information_deadline').value = result.supplement.information_deadline;
-                document.getElementById('documentorderwork-supplement-input_deadline').value = result.supplement.input_deadline;
-                document.getElementById('documentorderwork-supplement-collector_id').value = result.supplement.collector_id;
-                document.getElementById('documentorderwork-supplement-contributor_id').value = result.supplement.contributor_id;
-                document.getElementById('documentorderwork-supplement-methodologist_id').value = result.supplement.methodologist_id;
-                document.getElementById('documentorderwork-supplement-informant_id').value = result.supplement.informant_id;
-                displayDetails();
 
                 team = result.team;
                 nominations = result.nominations;
