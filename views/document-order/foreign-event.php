@@ -221,7 +221,7 @@ $session = Yii::$app->session;
             url,
             {id: window.location.search},
             function(res){
-                /*var result = JSON.parse(res);
+                var result = JSON.parse(res);
 
                 document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
                 document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
@@ -271,7 +271,7 @@ $session = Yii::$app->session;
 
                     let list = document.getElementById('list');
                     list.append(itemCopy);
-                }*/
+                }
             }
         );
     }
