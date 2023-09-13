@@ -221,7 +221,7 @@ $session = Yii::$app->session;
 
         $.post(
             '/docs/web/index.php?r=document-order%2Fsubsupplement',
-            /*{id: window.location.search},*/
+            {/*id: window.location.search*/},
             function(res){
                 var result = JSON.parse(res);
 
