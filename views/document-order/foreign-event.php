@@ -1,6 +1,8 @@
 <?php
 
 use app\models\work\NomenclatureWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamNameWork;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -213,67 +215,7 @@ $session = Yii::$app->session;
         document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[0].childNodes[0].checked = true;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
-
-        let url = "<?= Url::toRoute('subsupplement'); ?>";
-        //console.log(window.location.search);
-        console.log(url);
-        $.post(
-            url,
-            {id: window.location.search},
-            function(res){
-                var result = JSON.parse(res);
-
-                document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
-                document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
-                document.getElementById('documentorderwork-foreign_event-start_date').value = result.forevent.start_date;
-                document.getElementById('documentorderwork-foreign_event-finish_date').value = result.forevent.finish_date;
-                document.getElementById('documentorderwork-foreign_event-city').value = result.forevent.city;
-                document.getElementById('documentorderwork-foreign_event-event_way_id').value = result.forevent.event_way_id;
-                document.getElementById('documentorderwork-foreign_event-event_level_id').value = result.forevent.event_level_id;
-                if (result.forevent.is_minpros === 1)
-                    document.getElementById('documentorderwork-foreign_event-is_minpros').checked = true;
-                document.getElementById('documentorderwork-foreign_event-min_participants_age').value = result.forevent.min_participants_age;
-                document.getElementById('documentorderwork-foreign_event-max_participants_age').value = result.forevent.max_participants_age;
-                document.getElementById('documentorderwork-foreign_event-key_words').value = result.forevent.key_words;
-
-                if (result.supplement.foreign_event_goals_id != null)
-                    document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-compliance_document').childNodes[result.supplement.compliance_document * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-document_details').value = result.supplement.document_details;
-                document.getElementById('documentorderwork-supplement-information_deadline').value = result.supplement.information_deadline;
-                document.getElementById('documentorderwork-supplement-input_deadline').value = result.supplement.input_deadline;
-                document.getElementById('documentorderwork-supplement-collector_id').value = result.supplement.collector_id;
-                document.getElementById('documentorderwork-supplement-contributor_id').value = result.supplement.contributor_id;
-                document.getElementById('documentorderwork-supplement-methodologist_id').value = result.supplement.methodologist_id;
-                document.getElementById('documentorderwork-supplement-informant_id').value = result.supplement.informant_id;
-                displayDetails();
-
-                team = result.team;
-                nominations = result.nominations;
-
-                for (let i = 0; i < team.length; i++)
-                {
-                    let item = document.getElementsByClassName('team-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('team-list-item')[0].innerHTML = '<p>' + team[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list2');
-                    list.append(itemCopy);
-                }
-
-                for (let i = 0; i < nominations.length; i++)
-                {
-                    let item = document.getElementsByClassName('nomination-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('nomination-list-item')[0].innerHTML = '<p>' + nominations[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list');
-                    list.append(itemCopy);
-                }
-            }
-        );
+        displayDetails();
     }
 
     function AddElem(list_row, list_item, arr, list_name)
@@ -290,6 +232,7 @@ $session = Yii::$app->session;
     function AddNom()
     {
         let elem = document.getElementById('nom-name');
+        elem.value = elem.value.replace(/ +/g, ' ').trim();
 
         if (elem.value !== '' && nominations.indexOf(elem.value) === -1)
         {
@@ -314,6 +257,7 @@ $session = Yii::$app->session;
     function AddTeam()
     {
         let elem = document.getElementById('team-name');
+        elem.value = elem.value.replace(/ +/g, ' ').trim();
 
         if (elem.value !== '' && team.indexOf(elem.value) === -1)
         {
@@ -766,6 +710,13 @@ $session = Yii::$app->session;
 
     <div id="prev-nom" style="display: none">
         <?php
+        $noms = TeacherParticipantWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
+        $nomsArr = [];
+        foreach ($noms as $nom)
+            if (!in_array($nom->nomination, $nomsArr) && $nom->nomination != null)
+                $nomsArr[] = $nom->nomination;
+
+        $nominations = $nomsArr;
         if ($nominations !== null && count($nominations))
             foreach ($nominations as $nomination)
                 echo $nomination.'%boobs%';
@@ -774,6 +725,13 @@ $session = Yii::$app->session;
 
     <div id="prev-team" style="display: none">
         <?php
+        $teams = TeamNameWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
+        $teamArr = [];
+        foreach ($teams as $team)
+            if (!in_array($team->name, $teamArr))
+                $teamArr[] = $team->name;
+
+        $teams = $teamArr;
         if ($teams !== null && count($teams))
             foreach ($teams as $team)
                 echo $team.'%boobs%';
@@ -806,7 +764,7 @@ $session = Yii::$app->session;
             <div id="list" class="nomination-list-div">
                 <?php
 
-                $flag = false;//count($nominations) > 0;
+                $flag = count($nominations) > 0;
                 $strDisplay = $flag ? 'block' : 'none';
 
                 ?>
@@ -834,7 +792,7 @@ $session = Yii::$app->session;
             <div id="list2" class="team-list-div">
                 <?php
 
-                $flag2 = false;//count($nominations) > 0;
+                $flag2 = count($nominations) > 0;
                 $strDisplay2 = $flag2 ? 'block' : 'none';
 
                 ?>

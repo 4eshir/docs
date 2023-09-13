@@ -24,6 +24,7 @@ use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
+use app\models\work\TrainingGroupWork;
 use Yii;
 use app\models\work\DocumentOrderWork;
 use app\models\SearchDocumentOrder;
@@ -210,6 +211,12 @@ class DocumentOrderController extends Controller
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
         $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::className());
         $modelType = $model->type;
+
+
+        $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
+        $model->supplement = $supplement;
+        $foreign_event = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
+        $model->foreign_event = $foreign_event;
 
         if ($model->type === 10 || $model->type === 11)
         {
@@ -508,55 +515,6 @@ class DocumentOrderController extends Controller
             //echo '<br>';
             //echo '<div id="study-type"><div class="form-group field-study_type-0"><input type="hidden" name="DocumentOrderWork[study_type]" value="0"><label><input type="checkbox" id="study_type-0" name="DocumentOrderWork[study_type]" value=""> По заявлению родителя или законного представителя</label></div></div>'.'|split|';
         }
-    }
-
-    public function actionSubsupplement()
-    {
-        $idS = Yii::$app->request->post('id');
-        $id = mb_substr($idS, strripos($idS, "=")+1);
-        $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
-        $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
-        $teams = TeamNameWork::find()->where(['foreign_event_id' => $forEvent->id])->all();
-        $noms = TeacherParticipantWork::find()->where(['foreign_event_id' => $forEvent->id])->all();
-        $teamArr = [];
-        $nomsArr = [];
-        foreach ($teams as $team)
-            if (!in_array($team->name, $teamArr))
-                $teamArr[] = $team->name;
-        foreach ($noms as $nom)
-            if (!in_array($nom->nomination, $nomsArr) && $nom->nomination != null)
-                $nomsArr[] = $nom->nomination;
-
-        $result = array(
-            'forevent' => array(
-                'name' => $forEvent->name,
-                'company_id' => $forEvent->company_id,
-                'start_date' => $forEvent->start_date,
-                'finish_date' => $forEvent->finish_date,
-                'city' => $forEvent->city,
-                'event_way_id' => $forEvent->event_way_id,
-                'event_level_id' => $forEvent->event_level_id,
-                'is_minpros' => $forEvent->is_minpros,
-                'min_participants_age' => $forEvent->min_participants_age,
-                'max_participants_age' => $forEvent->max_participants_age,
-                'key_words' => $forEvent->key_words
-            ),
-            'supplement' => array(
-                'foreign_event_goals_id' => $supplement->foreign_event_goals_id,
-                'compliance_document' => $supplement->compliance_document,
-                'document_details' => $supplement->document_details,
-                'information_deadline' => $supplement->	information_deadline,
-                'input_deadline' => $supplement->input_deadline,
-                'collector_id' => $supplement->collector_id,
-                'contributor_id' => $supplement->contributor_id,
-                'methodologist_id' => $supplement->methodologist_id,
-                'informant_id' => $supplement->informant_id
-            ),
-            'team' => $teamArr,
-            'nominations' => $nomsArr
-        );
-
-        return json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 
     /**
