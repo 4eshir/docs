@@ -576,7 +576,7 @@ class DocumentOrderController extends Controller
     }
 
     //Проверка на права доступа к CRUD-операциям
-    /*public function beforeAction($action)
+    public function beforeAction($action)
     {
         if (Yii::$app->user->isGuest)
             return $this->redirect(['/site/login']);
@@ -588,7 +588,7 @@ class DocumentOrderController extends Controller
             return false;
         }
         return parent::beforeAction($action);
-    }*/
+    }
     public function actionAmnesty ($id)
     {
         $model = $this->findModel($id);
