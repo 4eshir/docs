@@ -215,7 +215,7 @@ $session = Yii::$app->session;
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
         let url = "<?= Url::toRoute('subsupplement'); ?>";
-        console.log('check');
+        console.log(window.location.search);
         $.post(
             url,
             {id: window.location.search},
@@ -273,7 +273,6 @@ $session = Yii::$app->session;
                 }
             }
         );
-        console.log('test');
     }
 
     function AddElem(list_row, list_item, arr, list_name)
