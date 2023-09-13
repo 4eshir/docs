@@ -214,8 +214,6 @@ $session = Yii::$app->session;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
-
-        let register = new XMLHttpRequest();
         let url = "<?= Url::toRoute('subsupplement'); ?>";
         console.log('check');
         $.post(
