@@ -217,8 +217,7 @@ $session = Yii::$app->session;
 
         let register = new XMLHttpRequest();
         let url = <?= Url::toRoute('subsupplement'); ?>;
-
-
+        console.log('check');
         $.post(
             url,
             {id: window.location.search},
@@ -276,6 +275,7 @@ $session = Yii::$app->session;
                 }
             }
         );
+        console.log('test');
     }
 
     function AddElem(list_row, list_item, arr, list_name)
