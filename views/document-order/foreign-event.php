@@ -216,7 +216,7 @@ $session = Yii::$app->session;
 
 
         let register = new XMLHttpRequest();
-        let url = <?= Url::toRoute('subsupplement'); ?>;
+        let url = "<?= Url::toRoute('subsupplement'); ?>";
         console.log('check');
         $.post(
             url,
