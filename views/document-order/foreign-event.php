@@ -232,6 +232,7 @@ $session = Yii::$app->session;
     function AddNom()
     {
         let elem = document.getElementById('nom-name');
+        elem.value = elem.value.replace(/ +/g, ' ').trim();
 
         if (elem.value !== '' && nominations.indexOf(elem.value) === -1)
         {
@@ -256,6 +257,7 @@ $session = Yii::$app->session;
     function AddTeam()
     {
         let elem = document.getElementById('team-name');
+        elem.value = elem.value.replace(/ +/g, ' ').trim();
 
         if (elem.value !== '' && team.indexOf(elem.value) === -1)
         {

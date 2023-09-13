@@ -517,31 +517,6 @@ class DocumentOrderController extends Controller
         }
     }
 
-    /*public function actionSubsupplement()
-    {
-        $id = Yii::$app->request->post('id');
-        //$id = mb_substr($idS, strripos($idS, "=")+1);
-        var_dump($id);
-        $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
-        $teams = TeamNameWork::find()->where(['foreign_event_id' => $forEvent->id])->all();
-        $noms = TeacherParticipantWork::find()->where(['foreign_event_id' => $forEvent->id])->all();
-        $teamArr = [];
-        $nomsArr = [];
-        foreach ($teams as $team)
-            if (!in_array($team->name, $teamArr))
-                $teamArr[] = $team->name;
-        foreach ($noms as $nom)
-            if (!in_array($nom->nomination, $nomsArr) && $nom->nomination != null)
-                $nomsArr[] = $nom->nomination;
-
-        $result = array(
-            'team' => $teamArr,
-            'nominations' => $nomsArr
-        );
-
-        return json_encode($result, JSON_UNESCAPED_UNICODE);
-    }*/
-
     /**
      * Finds the DocumentOrder model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
