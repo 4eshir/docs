@@ -214,8 +214,8 @@ $session = Yii::$app->session;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
-        /*$.post(
-            "/docs/web/index.php?r=document-order%2Fsubsupplement",
+        $.post(
+            '/docs/web/index.php?r=document-order%2Fsubsupplement',
             {id: window.location.search},
             function(res){
                 var result = JSON.parse(res);
@@ -270,7 +270,7 @@ $session = Yii::$app->session;
                     list.append(itemCopy);
                 }
             }
-        );*/
+        );
     }
 
     function AddElem(list_row, list_item, arr, list_name)
@@ -1109,7 +1109,7 @@ $js =<<< JS
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
 
-$url = Yii::$app->basePath . '/index.php?r=document-order%2Fsubsupplement';
+/*$url = Yii::$app->basePath . '/index.php?r=document-order%2Fsubsupplement';
 $url = Url::toRoute('subsupplement');
 
 $js =<<< JS
@@ -1172,5 +1172,5 @@ $.post(
         );
 JS;
 
-$this->registerJs($js, \yii\web\View::POS_LOAD);
+$this->registerJs($js, \yii\web\View::POS_LOAD);*/
 ?>
