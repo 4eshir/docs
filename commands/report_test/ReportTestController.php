@@ -551,12 +551,14 @@ class ReportTestController extends Controller
         $participants1 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group1);
         $participants2 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::TEST, $group2);
 
-        $testResult1 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2023-03-01', VisitWork::ALL);
-        $testResult2 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2023-03-01', VisitWork::ONLY_PRESENCE);
-        $testResult3 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2023-03-01', VisitWork::PRESENCE_AND_ABSENCE);
-        $testResult4 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-01-01', VisitWork::ALL);
-        $testResult5 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-01-01', VisitWork::ONLY_PRESENCE);
-        $testResult6 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-01-01', VisitWork::PRESENCE_AND_ABSENCE);
+        $testResult1 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2024-12-12', VisitWork::ALL);
+        $testResult2 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2024-12-12', VisitWork::ONLY_PRESENCE);
+        $testResult3 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants1, '2023-01-01', '2024-12-12', VisitWork::PRESENCE_AND_ABSENCE);
+        $testResult4 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-12-12', VisitWork::ALL);
+        $testResult5 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-12-12', VisitWork::ONLY_PRESENCE);
+        $testResult6 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-01-01', '2024-12-12', VisitWork::PRESENCE_AND_ABSENCE);
+        $testResult7 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-03-02', '2024-08-02', VisitWork::PRESENCE_AND_ABSENCE);
+        $testResult8 = SupportReportFunctions::GetVisits(ReportConst::TEST, $participants2, '2023-10-05', '2024-08-02', VisitWork::PRESENCE_AND_ABSENCE);
 
         $expectedResult1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
             26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
@@ -571,6 +573,9 @@ class ReportTestController extends Controller
             31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 43, 45, 46, 48, 49, 51, 52, 53, 54];
         $expectedResult6 = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27,
             28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54];
+
+        $expectedResult7 = [6, 7, 13, 14, 27, 28, 34, 35, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54];
+        $expectedResult8 = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54];
 
 
         $this->stdout("\n-----------(Visits tests)-----------\n|" . str_repeat(" ", 34) . "|\n", Console::FG_PURPLE);
@@ -605,6 +610,16 @@ class ReportTestController extends Controller
             $this->stdout('| Test #6 was passed successfully  |' . "\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult7 == $expectedResult7)
+            $this->stdout('| Test #7 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #7 failed                   |'."\n", Console::FG_RED);
+
+        if ($testResult8 == $expectedResult8)
+            $this->stdout('| Test #8 was passed successfully  |' . "\n", Console::FG_GREEN);
+        else
+            $this->stdout('| Test #8 failed                   |'."\n", Console::FG_RED);
 
         $this->stdout(str_repeat("-", 36)."\n", Console::FG_PURPLE);
     }

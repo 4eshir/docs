@@ -20,15 +20,15 @@ class m230912_081722_get_group_participant_update_test_architecture extends Migr
 
         //--Редактируем данные в таблице get_group_participant_update_test_architecture--
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-01-01'], ['id' => 1]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2022-01-15'], ['id' => 2]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2022-02-01'], ['id' => 3]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2022-02-15'], ['id' => 4]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2022-03-01'], ['id' => 5]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-01-15'], ['id' => 2]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-02-01'], ['id' => 3]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-02-15'], ['id' => 4]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-01'], ['id' => 5]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-03'], ['id' => 6]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-05'], ['id' => 7]);
 
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-02-12'], ['id' => 8]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2022-03-01'], ['id' => 9]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-01'], ['id' => 9]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-25'], ['id' => 10]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-04-02'], ['id' => 11]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-04-10'], ['id' => 12]);
@@ -45,15 +45,15 @@ class m230912_081722_get_group_participant_update_test_architecture extends Migr
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-10-07'], ['id' => 22]);
 
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-03-02'], ['id' => 23]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-04-02'], ['id' => 24]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-05-02'], ['id' => 25]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-06-02'], ['id' => 26]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-07-02'], ['id' => 27]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-08-02'], ['id' => 28]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-09-02'], ['id' => 29]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-10-02'], ['id' => 30]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-11-02'], ['id' => 31]);
-        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-12-02'], ['id' => 32]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-04-02'], ['id' => 24]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-05-02'], ['id' => 25]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-06-02'], ['id' => 26]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-07-02'], ['id' => 27]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-08-02'], ['id' => 28]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-09-02'], ['id' => 29]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-10-02'], ['id' => 30]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-11-02'], ['id' => 31]);
+        $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2023-12-02'], ['id' => 32]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-02-02'], ['id' => 33]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-03-02'], ['id' => 34]);
         $this->update('get_group_participants_training_group_lesson', ['lesson_date' => '2024-04-02'], ['id' => 35]);
