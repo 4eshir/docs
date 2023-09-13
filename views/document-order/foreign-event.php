@@ -215,12 +215,13 @@ $session = Yii::$app->session;
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
 
         let url = "<?= Url::toRoute('subsupplement'); ?>";
-        console.log(window.location.search);
+        //console.log(window.location.search);
+        console.log(url);
         $.post(
             url,
             {id: window.location.search},
             function(res){
-                var result = JSON.parse(res);
+                /*var result = JSON.parse(res);
 
                 document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
                 document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
@@ -270,7 +271,7 @@ $session = Yii::$app->session;
 
                     let list = document.getElementById('list');
                     list.append(itemCopy);
-                }
+                }*/
             }
         );
     }
