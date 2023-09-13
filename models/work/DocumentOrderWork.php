@@ -48,8 +48,6 @@ class DocumentOrderWork extends DocumentOrder
     public $participants;
 
 
-    //public $boobs;
-
 
     public function rules()
     {

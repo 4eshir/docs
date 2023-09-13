@@ -1,6 +1,8 @@
 <?php
 
 use app\models\work\NomenclatureWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamNameWork;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -214,42 +216,6 @@ $session = Yii::$app->session;
 
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
         displayDetails();
-
-        let url = "<?= Url::toRoute('subsupplement'); ?>";
-        console.log(window.location.search);
-        console.log(url);
-        $().onclick(
-            url,
-            {id: '2670',/*window.location.search*/},
-            function(res){
-                var result = JSON.parse(res);
-
-                team = result.team;
-                nominations = result.nominations;
-
-                for (let i = 0; i < team.length; i++)
-                {
-                    let item = document.getElementsByClassName('team-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('team-list-item')[0].innerHTML = '<p>' + team[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list2');
-                    list.append(itemCopy);
-                }
-
-                for (let i = 0; i < nominations.length; i++)
-                {
-                    let item = document.getElementsByClassName('nomination-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('nomination-list-item')[0].innerHTML = '<p>' + nominations[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list');
-                    list.append(itemCopy);
-                }
-            }
-        );
     }
 
     function AddElem(list_row, list_item, arr, list_name)
@@ -742,6 +708,13 @@ $session = Yii::$app->session;
 
     <div id="prev-nom" style="display: none">
         <?php
+        $noms = TeacherParticipantWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
+        $nomsArr = [];
+        foreach ($noms as $nom)
+            if (!in_array($nom->nomination, $nomsArr) && $nom->nomination != null)
+                $nomsArr[] = $nom->nomination;
+
+        $nominations = $nomsArr;
         if ($nominations !== null && count($nominations))
             foreach ($nominations as $nomination)
                 echo $nomination.'%boobs%';
@@ -750,6 +723,13 @@ $session = Yii::$app->session;
 
     <div id="prev-team" style="display: none">
         <?php
+        $teams = TeamNameWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
+        $teamArr = [];
+        foreach ($teams as $team)
+            if (!in_array($team->name, $teamArr))
+                $teamArr[] = $team->name;
+
+        $teams = $teamArr;
         if ($teams !== null && count($teams))
             foreach ($teams as $team)
                 echo $team.'%boobs%';
@@ -782,7 +762,7 @@ $session = Yii::$app->session;
             <div id="list" class="nomination-list-div">
                 <?php
 
-                $flag = false;//count($nominations) > 0;
+                $flag = count($nominations) > 0;
                 $strDisplay = $flag ? 'block' : 'none';
 
                 ?>
@@ -810,7 +790,7 @@ $session = Yii::$app->session;
             <div id="list2" class="team-list-div">
                 <?php
 
-                $flag2 = false;//count($nominations) > 0;
+                $flag2 = count($nominations) > 0;
                 $strDisplay2 = $flag2 ? 'block' : 'none';
 
                 ?>

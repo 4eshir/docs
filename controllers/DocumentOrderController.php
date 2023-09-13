@@ -517,7 +517,7 @@ class DocumentOrderController extends Controller
         }
     }
 
-    public function actionSubsupplement()
+    /*public function actionSubsupplement()
     {
         $id = Yii::$app->request->post('id');
         //$id = mb_substr($idS, strripos($idS, "=")+1);
@@ -540,7 +540,7 @@ class DocumentOrderController extends Controller
         );
 
         return json_encode($result, JSON_UNESCAPED_UNICODE);
-    }
+    }*/
 
     /**
      * Finds the DocumentOrder model based on its primary key value.
