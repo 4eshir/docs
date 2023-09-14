@@ -192,10 +192,13 @@ class TeacherParticipantWork extends TeacherParticipant
             $team = new TeamWork();
         if ($this->team == null)
         {
+            $flag = $team->checkCollectionTeamName();
+            $team_name_id = $team->team_name_id;
+
             $team->delete();
-            if ($team->checkCollectionTeamName());
+            if ($flag && $team_name_id != null);
             {
-                $teamName = TeamNameWork::find()->where(['id' => $team->team_name_id])->one();
+                $teamName = TeamNameWork::find()->where(['id' => $team_name_id])->one();
                 $teamName->delete();
             }
             return;
@@ -223,10 +226,9 @@ class TeacherParticipantWork extends TeacherParticipant
         $this->fileString = $res.'.'.$this->file->extension;
         $this->file->saveAs( $path.$this->fileString);
 
-        $partFile = ParticipantFilesWork::find()->where(['foreign_event_id' => $this->foreign_event_id])->andWhere(['participant_id' => $this->participant_id])->one();
+        $partFile = ParticipantFilesWork::find()->where(['teacher_participant_id' => $this->id])->one();
         if ($partFile === null) $partFile = new ParticipantFilesWork();
-        //$partFile->foreign_event_id = $this->foreign_event_id;
-        //$partFile->participant_id = $this->participant_id;
+
         $partFile->teacher_participant_id = $this->id;
         $partFile->filename = $this->fileString;
         $partFile->save();

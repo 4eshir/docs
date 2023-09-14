@@ -100,7 +100,7 @@ class DocumentOrderController extends Controller
         $modelExpire = [new ExpireWork];
         $modelExpire2 = [new ExpireWork];
         $modelResponsible = [new ResponsibleWork];
-        $modelParticipants = [new ForeignEventParticipantsExtended];
+        $modelParticipants = [new ForeignEFventParticipantsExtended];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate(false)) {
             $model->signed_id = null;
@@ -158,14 +158,6 @@ class DocumentOrderController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $i = 0;
-        foreach ($modelParticipants as $modelParticipantOne)
-        {
-            $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");
-            if ($modelParticipantOne->file !== null) $modelParticipantOne->uploadFile($model->name, $model->start_date);
-            $i++;
-        }
-
         return $this->render('create', [
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
@@ -211,7 +203,6 @@ class DocumentOrderController extends Controller
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
         $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::className());
         $modelType = $model->type;
-
 
         $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
         $model->supplement = $supplement;
@@ -266,6 +257,21 @@ class DocumentOrderController extends Controller
                     $model->uploadScanFile();
                 if ($model->docFiles != null)
                     $model->uploadDocFiles(10);
+
+                $i = 0;
+                foreach ($modelParticipants as $modelParticipantOne)
+                {
+                    if (strlen($modelParticipantOne->file) == 0)
+                    {
+                        $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");
+                        if ($modelParticipantOne->file !== null) $modelParticipantOne->uploadFile($model->foreign_event["name"], $model->foreign_event["start_date"]);
+                    }
+                    else
+                    {
+                        $modelParticipantOne->uploadCopyFile($modelParticipantOne->file);
+                    }
+                    $i++;
+                }
 
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name.' '.$model->order_number.'/'.$model->order_postfix. (empty($model->order_postfix) ? '/'.$model->order_postfix : ''));
@@ -354,9 +360,11 @@ class DocumentOrderController extends Controller
         return $this->redirect('index?r=document-order/update&id='.$model->id);
     }
 
-    public function actionGetFile($fileName = null, $modelId = null, $type = null)
+    public function actionGetFile($fileName = null, $event = null, $type = null)
     {
         $filePath = '/upload/files/'.Yii::$app->controller->id;
+        if ($event == true)
+            $filePath = '/upload/files/foreign-event';
         $filePath .= $type == null ? '/' : '/'.$type.'/';
 
         $downloadServ = new FileDownloadServer($filePath, $fileName);

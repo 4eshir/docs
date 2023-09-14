@@ -15,6 +15,7 @@ use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
 use app\models\components\Logger;
+use yii\web\UploadedFile;
 
 
 class DocumentOrderWork extends DocumentOrder
@@ -351,7 +352,7 @@ class DocumentOrderWork extends DocumentOrder
         {
             $this->cleanArrParticipant($foreign_event_id);
 
-            foreach ($this->participants as $participantOne)
+            foreach ($this->participants as $key => $participantOne)
             {
                 $part = new TeacherParticipantWork();
                 $part->foreign_event_id = $foreign_event_id;

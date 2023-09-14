@@ -189,6 +189,7 @@ $session = Yii::$app->session;
 
     window.onload = function(){
         let noms = document.getElementById("prev-nom").innerHTML;
+
         if (noms.length > 5)
         {
             nominations = noms.split("%boobs%");
@@ -708,8 +709,7 @@ $session = Yii::$app->session;
 
 <?php /*------------------------------------*/?>
 
-    <div id="prev-nom" style="display: none">
-        <?php
+    <div id="prev-nom" style="display: none"><?php
         $noms = TeacherParticipantWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
         $nomsArr = [];
         foreach ($noms as $nom)
@@ -720,11 +720,9 @@ $session = Yii::$app->session;
         if ($nominations !== null && count($nominations))
             foreach ($nominations as $nomination)
                 echo $nomination.'%boobs%';
-        ?>
-    </div>
+        ?></div>
 
-    <div id="prev-team" style="display: none">
-        <?php
+    <div id="prev-team" style="display: none"><?php
         $teams = TeamNameWork::find()->where(['foreign_event_id' => $model->foreign_event->id])->all();
         $teamArr = [];
         foreach ($teams as $team)
@@ -735,8 +733,7 @@ $session = Yii::$app->session;
         if ($teams !== null && count($teams))
             foreach ($teams as $team)
                 echo $team.'%boobs%';
-        ?>
-    </div>
+        ?></div>
 
     <fieldset id="nom-team-block">
     <div class="main-div">
@@ -827,7 +824,7 @@ $session = Yii::$app->session;
     <fieldset id="foreign-block" style="filter: blur(1px);" disabled>
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Участники</h4></div>
+            <div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i>Акты участия</h4></div>
             <?php
             $forEvent = \app\models\work\ForeignEventWork::find()->where($model->id !== null ? ['order_participation_id' => $model->id] : '0')->one();
             if ($forEvent !== null)
@@ -854,6 +851,7 @@ $session = Yii::$app->session;
                 foreach ($parts as $partOne) {
                     $partOnePeople = \app\models\work\ForeignEventParticipantsWork::find()->where(['id' => $partOne->participant_id])->one();
                     $partFiles = \app\models\work\ParticipantFilesWork::find()->where(['teacher_participant_id' => $partOne->id])->one();
+                    //var_dump($partFiles);
                     $partOneTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher_id])->one();
                     $partTwoTeacher = \app\models\work\PeopleWork::find()->where(['id' => $partOne->teacher2_id])->one();
                     $teachersStr = '';
@@ -871,7 +869,7 @@ $session = Yii::$app->session;
                     if ($partFiles == null)
                         echo '<td style="padding-left: 10px; text-align: center;"> -- </td>';
                     else
-                        echo '<td style="padding-left: 10px; text-align: center;">'.Html::a('📁↓', \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
+                        echo '<td style="padding-left: 10px; text-align: center;">'.Html::a('📁↓', \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants', 'event' => true])).'</td>';
                     echo '<td style="padding-left: 10px">'.
                         Html::a($editIcon, \yii\helpers\Url::to(['document-order/update-participant', 'id' => $partOne->id, 'model_id' => $model->id])). ' ' .
                         Html::a($deleleIcon, \yii\helpers\Url::to(['document-order/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id])).
@@ -914,8 +912,7 @@ $session = Yii::$app->session;
                                     $people = \app\models\work\ForeignEventParticipantsWork::find()->orderBy(['secondname' => SORT_ASC, 'firstname' => SORT_ASC])->all();
                                     $items = \yii\helpers\ArrayHelper::map($people,'id','fullName');
                                     $params = [
-                                        'prompt' => '',
-                                        'onchange' => 'NewPart()'
+                                        'prompt' => ''
                                     ];
                                     echo $form->field($modelParticipantsOne, "[{$i}]fio")->dropDownList($items,$params)->label('ФИО участника');
 
@@ -967,7 +964,7 @@ $session = Yii::$app->session;
                                     <?= $form->field($modelParticipantsOne, "[{$i}]file")->fileInput()->label('Представленные материалы') ?>
                                     <?php
                                     if ($model->id !== null)
-                                        $files = \app\models\work\ParticipantFilesWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
+                                        $files = \app\models\work\ParticipantFilesWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $model->foreign_event->id])->all();
                                     else
                                         $files = \app\models\work\ParticipantFilesWork::find()->all();
                                     $items = \yii\helpers\ArrayHelper::map($files,'filename','filename');
@@ -1052,6 +1049,7 @@ $session = Yii::$app->session;
 <?php
 $js =<<< JS
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        NewPart();
 
         let elems = document.getElementsByClassName('base');
         
@@ -1069,69 +1067,4 @@ $js =<<< JS
 
 JS;
 $this->registerJs($js, \yii\web\View::POS_LOAD);
-
-/*$url = Yii::$app->basePath . '/index.php?r=document-order%2Fsubsupplement';
-$url = Url::toRoute('subsupplement');
-
-$js =<<< JS
-$.post(
-            "/docs/web/index.php?r=document-order%2Fsubsupplement",
-            {id: window.location.search},
-            function(res){
-                var result = JSON.parse(res);
-
-                document.getElementById('documentorderwork-foreign_event-name').value = result.forevent.name;
-                document.getElementById('documentorderwork-foreign_event-company_id').value = result.forevent.company_id;
-                document.getElementById('documentorderwork-foreign_event-start_date').value = result.forevent.start_date;
-                document.getElementById('documentorderwork-foreign_event-finish_date').value = result.forevent.finish_date;
-                document.getElementById('documentorderwork-foreign_event-city').value = result.forevent.city;
-                document.getElementById('documentorderwork-foreign_event-event_way_id').value = result.forevent.event_way_id;
-                document.getElementById('documentorderwork-foreign_event-event_level_id').value = result.forevent.event_level_id;
-                if (result.forevent.is_minpros === 1)
-                    document.getElementById('documentorderwork-foreign_event-is_minpros').checked = true;
-                document.getElementById('documentorderwork-foreign_event-min_participants_age').value = result.forevent.min_participants_age;
-                document.getElementById('documentorderwork-foreign_event-max_participants_age').value = result.forevent.max_participants_age;
-                document.getElementById('documentorderwork-foreign_event-key_words').value = result.forevent.key_words;
-
-                if (result.supplement.foreign_event_goals_id != null)
-                    document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[(result.supplement.foreign_event_goals_id - 1) * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-compliance_document').childNodes[result.supplement.compliance_document * 2].childNodes[0].checked = true;
-                document.getElementById('documentorderwork-supplement-document_details').value = result.supplement.document_details;
-                document.getElementById('documentorderwork-supplement-information_deadline').value = result.supplement.information_deadline;
-                document.getElementById('documentorderwork-supplement-input_deadline').value = result.supplement.input_deadline;
-                document.getElementById('documentorderwork-supplement-collector_id').value = result.supplement.collector_id;
-                document.getElementById('documentorderwork-supplement-contributor_id').value = result.supplement.contributor_id;
-                document.getElementById('documentorderwork-supplement-methodologist_id').value = result.supplement.methodologist_id;
-                document.getElementById('documentorderwork-supplement-informant_id').value = result.supplement.informant_id;
-                displayDetails();
-
-                team = result.team;
-                nominations = result.nominations;
-
-                for (let i = 0; i < team.length; i++)
-                {
-                    let item = document.getElementsByClassName('team-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('team-list-item')[0].innerHTML = '<p>' + team[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list2');
-                    list.append(itemCopy);
-                }
-
-                for (let i = 0; i < nominations.length; i++)
-                {
-                    let item = document.getElementsByClassName('nomination-list-row')[0];
-                    let itemCopy = item.cloneNode(true)
-                    itemCopy.getElementsByClassName('nomination-list-item')[0].innerHTML = '<p>' + nominations[i] + '</p>'
-                    itemCopy.style.display = 'block';
-
-                    let list = document.getElementById('list');
-                    list.append(itemCopy);
-                }
-            }
-        );
-JS;
-
-$this->registerJs($js, \yii\web\View::POS_LOAD);*/
 ?>

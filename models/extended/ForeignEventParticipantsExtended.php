@@ -34,7 +34,7 @@ class ForeignEventParticipantsExtended extends Model
 
     public function uploadFile($event_name, $event_date)
     {
-        $path = '@app/upload/files/foreign_event/participants/';
+        $path = '@app/upload/files/foreign-event/participants/';
         $date = $event_date;
         $new_date = '';
         $filename = '';
