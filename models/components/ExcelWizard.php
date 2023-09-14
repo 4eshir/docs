@@ -3595,6 +3595,14 @@ class ExcelWizard
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         }
 
+        $emailColumnIndex = 0;
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
+        while ($birthdateColumnIndex < 100 && $tempValue !== 'Контакт: Рабочий e-mail')
+        {
+            $emailColumnIndex++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
+        }
+
 
         $names = [];
         $curName = "_";
@@ -3619,6 +3627,17 @@ class ExcelWizard
         {
             $curDate = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startIndex + $mainIndex)->getFormattedValue();
             $birthdates[] = $curDate;
+            $mainIndex++;
+        }
+
+        $emails = [];
+        $curEmail = "_";
+        $startIndex = $startRow + 1;
+        $mainIndex = 0;
+        while ($mainIndex < $inputData->getActiveSheet()->getHighestRow() - $startRow)
+        {
+            $curEmail = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startIndex + $mainIndex)->getFormattedValue();
+            $emails[] = $curEmail;
             $mainIndex++;
         }
         //unset($birthdates[count($birthdates) - 1]);
@@ -3660,6 +3679,10 @@ class ExcelWizard
                 }
                 $newParticipant->birthdate = date("Y-m-d", strtotime($birthdates[$i]));
                 $newParticipant->sex = self::GetSex($fio[1]);
+
+                if ($newParticipant->email == null && preg_match('/\S+@\S+\.\S+/', $emails[$i]))
+                    $newParticipant->email = $emails[$i];
+
                 $newParticipant->save();
             }
             $participants[] = $newParticipant;
