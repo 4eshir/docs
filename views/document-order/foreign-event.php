@@ -69,6 +69,7 @@ $session = Yii::$app->session;
         margin: 10px;
         background-color: #f5f5f5;
         height: 80px;
+        display: flex;
     }
 
     .nomination-add-input-div, .team-add-input-div {
@@ -758,7 +759,8 @@ $session = Yii::$app->session;
                 </div>
             </div>
 
-            <div id="list" class="nomination-list-div">
+            <div style="display: flex;">
+                <div id="list" class="nomination-list-div">
                 <?php
 
                 $flag = count($nominations) > 0;
@@ -786,7 +788,7 @@ $session = Yii::$app->session;
                             </div>';?>
             </div>
 
-            <div id="list2" class="team-list-div">
+                <div id="list2" class="team-list-div">
                 <?php
 
                 $flag2 = count($nominations) > 0;
@@ -812,6 +814,7 @@ $session = Yii::$app->session;
                                 </div>
                                 <div class="team-list-item"><p>'.$team.'</p></div>
                             </div>';?>
+            </div>
             </div>
         </div>
     </div>
