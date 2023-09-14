@@ -408,7 +408,8 @@ class SupportReportFunctions
                                              $allow_remote = AllowRemoteWork::ALL,
                                              $budget = ReportConst::BUDGET_ALL,
                                              $teachers = [],
-                                             $date_type_selection = ReportConst::ALL_DATE_SELECTION)
+                                             $date_type_selection = ReportConst::ALL_DATE_SELECTION,
+                                             $network = [ReportConst::NETWORK, ReportConst::NOT_NETWORK])
     {
         $teacherGroups = $test_mode == 0 ?
             TeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
@@ -420,6 +421,7 @@ class SupportReportFunctions
                 ->andWhere(['IN', 'trainingGroup.budget', $budget])
                 ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
                 ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
+                ->andWhere(['IN', 'trainingGroup.is_network', $network])
                 ->andWhere($teachers == [] ? '1' : ['IN', 'teacher_id', $teachers])
                 ->all() :
             GetGroupParticipantsTeacherGroupWork::find()->joinWith(['trainingGroup trainingGroup'])->joinWith(['trainingGroup.trainingProgram trainingProgram'])
@@ -431,6 +433,7 @@ class SupportReportFunctions
                 ->andWhere(['IN', 'trainingGroup.budget', $budget])
                 ->andWhere(['IN', 'trainingProgram.focus_id', $focus])
                 ->andWhere(['IN', 'trainingProgram.allow_remote_id', $allow_remote])
+                ->andWhere(['IN', 'trainingGroup.is_network', $network])
                 ->andWhere($teachers == [] ? '1' : ['IN', 'teacher_id', $teachers])
                 ->all();
 

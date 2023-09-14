@@ -25,4 +25,7 @@ class ReportConst
 
     const MALE = "Мужской"; // пол - мужской
     const FEMALE = "Женский"; // пол - женский
+
+    const NETWORK = 1; // сетевая форма обучения группы
+    const NOT_NETWORK = 0; // очная форма обучения группы
 }

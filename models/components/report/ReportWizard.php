@@ -492,6 +492,13 @@ class ReportWizard
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_DOD.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_DOD.xlsx');
+
+        //----------------
+        //--Раздел 3,4,5--
+        //----------------
+
+        //--Техническая направленность--
+
     }
     //--------------------------------
 }
