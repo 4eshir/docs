@@ -13,6 +13,7 @@ use app\models\common\PeoplePositionBranch;
 use app\models\common\Position;
 use app\models\common\TeacherParticipant;
 use app\models\common\TrainingGroup;
+use app\models\components\petrovich\Petrovich;
 use app\models\extended\AccessTrainingGroup;
 use Yii;
 use yii\helpers\Html;
@@ -181,7 +182,10 @@ class PeopleWork extends People
         $post = array_unique($post);    // выкинули все повторы
         */
 
-        return mb_strtolower($pos[count($pos)-1]->positionWork->name).' '.$fio;
+        $petrovich = new Petrovich();
+        $posGenetive = $petrovich->firstname(mb_strtolower($pos[count($pos)-1]->positionWork->name), Petrovich::CASE_ACCUSATIVE);
+
+        return $posGenetive.' '.$fio;
     }
 
     public function beforeSave($insert)
