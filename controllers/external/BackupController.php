@@ -59,4 +59,28 @@ class BackupController extends Controller
             unlink($filepath);
     }
 
+    public function actionBackupFiles()
+    {
+        //
+    }
+
+    private function scan($dir)
+    {
+        $dirCanonical = realpath($dir);
+        if ($fileOrDir = opendir($dirCanonical))
+        {
+            while ($fileName = readdir($fileOrDir))
+            {
+                if($fileName == "." || $fileName == "..")
+                    continue;
+
+                $callBack=$dirCanonical.DIRECTORY_SEPARATOR.$fileName;
+                echo $callBack,"<br>";
+                if(is_dir($callBack)){
+                    $this->scan($callBack);
+                }
+            }
+        }
+    }
+
 }

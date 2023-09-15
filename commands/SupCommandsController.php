@@ -362,5 +362,45 @@ class SupCommandsController extends Controller
     }
     //--УДАЛИТЬ--*/
 
+    public function actionTemp()
+    {
+        $this->scan(Yii::$app->basePath, date('Ymd-His'));
+    }
+
+    private function scan($dir, $backup_dir_name)
+    {
+        $dirCanonical = realpath($dir);
+        if ($fileOrDir = opendir($dirCanonical))
+        {
+            while ($fileName = readdir($fileOrDir))
+            {
+                $this->createDirAndFile($backup_dir_name, $dirCanonical, !is_dir($dirCanonical.DIRECTORY_SEPARATOR.$fileName) ? $fileName : null);
+
+                if($fileName == "." || $fileName == "..")
+                    continue;
+
+                $callBack=$dirCanonical.DIRECTORY_SEPARATOR.$fileName;
+                //$this->stdout($callBack."\n");
+                if (is_dir($callBack))
+                {
+                    $this->scan($callBack, $backup_dir_name);
+                }
+            }
+        }
+    }
+
+    private function createDirAndFile($backup_dir_name, $dir, $fileName = null)
+    {
+        $real_dir = Yii::$app->basePath.'/../src_backups/'.$backup_dir_name.'__src_dskd/docs/'.str_replace($dir, Yii::$app->basePath, '');
+        $this->stdout($real_dir.' '.$fileName."\n", Console::FG_YELLOW);
+        //$this->stdout($dir.DIRECTORY_SEPARATOR.$fileName."\n", Console::FG_PURPLE);
+
+        if(!is_dir($real_dir))
+            mkdir($real_dir, 0777, true);
+
+        if ($fileName !== null)
+            copy($dir.DIRECTORY_SEPARATOR.$fileName, $real_dir.DIRECTORY_SEPARATOR.$fileName);
+    }
+
 
 }
