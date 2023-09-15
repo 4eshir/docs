@@ -100,7 +100,7 @@ class DocumentOrderController extends Controller
         $modelExpire = [new ExpireWork];
         $modelExpire2 = [new ExpireWork];
         $modelResponsible = [new ResponsibleWork];
-        $modelParticipants = [new ForeignEFventParticipantsExtended];
+        $modelParticipants = [new ForeignEventParticipantsExtended];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate(false)) {
             $model->signed_id = null;
