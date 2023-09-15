@@ -41,7 +41,7 @@ class BackupController extends Controller
         // конфигурации БД
         $db_config = include Yii::$app->basePath.'/config/db.php';
 
-        $username = $db_config["username"].'r';
+        $username = $db_config["username"];
         $password = $db_config["password"];
         $host = explode('=', explode(':', explode(';', $db_config["dsn"])[0])[1])[1];
         $db_name = explode('=', explode(';', $db_config["dsn"])[1])[1];
