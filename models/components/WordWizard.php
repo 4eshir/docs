@@ -1340,7 +1340,7 @@ class WordWizard
         $cell->addText($text, null, array('align' => 'right'));
         $section->addTextBreak(1);
 
-        $section->addText($order->order_name, null, array('align' => 'left'));
+        $section->addText($order->order_name, null, array('align' => 'both'));
         $section->addTextBreak(1);
 
         /* переменная цели и соответствия*/
@@ -1352,7 +1352,7 @@ class WordWizard
 
         $section->addText('ПРИКАЗЫВАЮ:', array('lineHeight' => 1.0), array('spaceAfter' => 0));
         $section->addText('1.	Принять участие в мероприятии «'.$foreignEvent->name.'» (далее – мероприятие) и утвердить перечень учащихся, участвующих в мероприятии, и педагогов, ответственных за подготовку и контроль результатов участия в мероприятии, согласно Приложению к настоящему приказу.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
-        $section->addText('2.	Назначить ответственными за сбор и предоставление информации об участии в мероприятии для внесения в Цифровую систему хранения документов ГАОУ АО ДО «РШТ» (далее – ЦСХД) '.$supplement->collectorWork->positionAndShortFullName.'.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('2.	Назначить ответственным за сбор и предоставление информации об участии в мероприятии для внесения в Цифровую систему хранения документов ГАОУ АО ДО «РШТ» (далее – ЦСХД) '.$supplement->collectorWork->positionAndShortFullName.'.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('3.	Определить срок предоставления информации об участии в мероприятии: '.$supplement->information_deadline.' рабочих дней со дня завершения мероприятия.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('4.	Назначить ответственным за внесение информации об участии в мероприятии в Цифровую систему хранения документов ГАОУ АО ДО «РШТ» (далее - ЦСХД) '.$supplement->contributorWork->positionAndShortFullName.'.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('5.	Определить срок для внесения информации об участии в мероприятии: '.$supplement->input_deadline.' рабочих дней со дня завершения мероприятия.', array('lineHeight' => 1.0), array('align' => 'both', 'spaceAfter' => 0));
