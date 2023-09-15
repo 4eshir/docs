@@ -183,9 +183,15 @@ class PeopleWork extends People
         */
 
         $petrovich = new Petrovich(Petrovich::GENDER_MALE);
-        $posGenetive = $petrovich->firstname(mb_strtolower($pos[count($pos)-1]->positionWork->name), Petrovich::CASE_GENITIVE);
+        //$posGenetive = $petrovich->middlename(mb_strtolower($pos[count($pos)-1]->positionWork->name), Petrovich::CASE_GENITIVE);
+        $posGenetive = explode(" ", mb_strtolower($pos[count($pos)-1]->positionWork->name));
+        $posGenetive[0] = $petrovich->firstname($posGenetive[0], Petrovich::CASE_ACCUSATIVE);
 
-        return $posGenetive.' '.$fio;
+        $result = '';
+        foreach ($posGenetive as $word)
+            $result .= $word . ' ';
+        
+        return $result.$fio;
     }
 
     public function beforeSave($insert)
