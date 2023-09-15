@@ -1340,7 +1340,7 @@ class WordWizard
         $cell->addText($text, null, array('align' => 'right'));
         $section->addTextBreak(1);
 
-        $section->addText($order->order_name, null, array('align' => 'left'));
+        $section->addText($order->order_name, null, array('align' => 'both'));
         $section->addTextBreak(1);
 
         /* переменная цели и соответствия*/
