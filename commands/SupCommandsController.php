@@ -331,5 +331,36 @@ class SupCommandsController extends Controller
     }
 
 
+    /*--УДАЛИТЬ--
+    public function actionTemp()
+    {
+        // шаблон ошибки, выводимой в файл
+        $error_template = 'mysqldump: Got error:';
+
+        // путь сохранения файла бэкапа
+        $filepath = Yii::$app->basePath.'/../db_backups/'.date('Ymd-his').'__db_dskd.sql';
+
+        // конфигурации БД
+        $db_config = include Yii::$app->basePath.'/config/db.php';
+
+        $username = $db_config["username"].'r';
+        $password = $db_config["password"];
+        $host = explode('=', explode(':', explode(';', $db_config["dsn"])[0])[1])[1];
+        $db_name = explode('=', explode(';', $db_config["dsn"])[1])[1];
+
+        // функция записи бэкапа в файл, с перенаправлением STDERR>STDOUT
+        exec('mysqldump --user=' . $username . ' --password=' . $password . ' --host=' . $host .
+            ' ' . $db_name . '> ' . $filepath . ' 2>&1');
+
+        // получаем данные из файла
+        $filedata = fopen($filepath, 'r') or die("Cannot find file!");
+        $file_first_str = htmlentities(fgets($filedata));
+
+        // если в файле информация об ошибке - удаляем файл
+        if (var_export(stripos($file_first_str, $error_template), true) !== 'false')
+            unlink($filepath);
+    }
+    //--УДАЛИТЬ--*/
+
 
 }
