@@ -190,7 +190,7 @@ class PeopleWork extends People
         $result = '';
         foreach ($posGenetive as $word)
             $result .= $word . ' ';
-        
+
         return $result.$fio;
     }
 
