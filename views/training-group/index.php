@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="training-group-index">
 
-    <?= Yii::$app->request->queryParams ?>
+    <?php var_dump(Yii::$app->request->queryParams); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
