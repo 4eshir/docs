@@ -228,6 +228,7 @@ class SiteController extends Controller
     public function actionTemp()
     {
         ini_set('error_reporting', 0);
+        ini_set('display_errors', 0);
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)
