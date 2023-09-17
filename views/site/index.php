@@ -135,8 +135,8 @@ $this->title = 'ЦСХД';
 
 <?php
 
-$img_src = "spring_item.png";
-//$img_src = "main-back.jpg";
+$img_src = "item.jpg";
+$img_src_main = "main.jpg";
 
 ?>
 
@@ -318,7 +318,7 @@ $img_src = "spring_item.png";
 
 </div>
 <div>
-    <img src="spring_back.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0"/>
+    <img src="<?php echo $img_src_main; ?>" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0"/>
 </div>
 <div>
     <!--<img src="new_year_ball.png" style="position: absolute; top: 100px; left: 50px; width: 250px; height: 250px; z-index: 0"/>-->

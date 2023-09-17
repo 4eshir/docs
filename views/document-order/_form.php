@@ -46,6 +46,44 @@ $session = Yii::$app->session;
         else { arch.style.display = "none"; ord.style.display = "block"; }
     }
 
+    function showForeignEvent()
+    {
+        var elem = document.getElementById('type-2');
+        var form = document.getElementById('foreign-event-form');
+        var nameDoc = document.getElementById('documentorderwork-order_name');
+
+        var archI = document.getElementById('archive-0');
+        var archB = document.getElementById('archive-block');
+        var arch = document.getElementById('archive-number');
+        var ord = document.getElementById('order-number-1');
+
+        var changeBlock = document.getElementById('change');
+
+        if (elem.checked)
+        {
+            form.style.display = "block";
+
+            archI.checked = false;
+            archB.style.display = "none";
+            arch.value = '';
+            arch.style.display = "none";
+            ord.style.display = "block";
+            changeBlock.style.display = "none";
+
+            nameDoc.readOnly = true;
+            nameDoc.value = 'Об участии в мероприятии';
+        }
+        else
+        {
+            form.style.display = "none";
+            archB.style.display = "block";
+            changeBlock.style.display = "block";
+
+            nameDoc.readOnly = false;
+            nameDoc.value = '';
+        }
+    }
+
     const initData = () => {
         table = document.getElementById('sortable');
         headers = table.querySelectorAll('th');
@@ -434,21 +472,148 @@ $session = Yii::$app->session;
     }
     ?>
 
-    <?= $form->field($model, 'archive_check')
-        ->checkbox([
-            'id' => 'archive-0',
-            'label' => 'Архивный приказ',
-            'onchange' => 'showArchive()',
-            'checked' => $model->type === 10,
-            'labelOptions' => [
-            ],
-        ]); ?>
+    <div id="archive-block" style="display: <?php echo $session->get('type') === '1' ? null : 'none' ?>">
+        <?= $form->field($model, 'archive_check')
+            ->checkbox([
+                'id' => 'archive-0',
+                'label' => 'Архивный приказ',
+                'onchange' => 'showArchive()',
+                'checked' => $model->type === 10,
+                'labelOptions' => [
+                ],
+            ]); ?>
+    </div>
+
+    <div id="type-block" style="display: <?php echo $session->get('type') === '1' || $session->get('type') === '10' ? null : 'none' ?>">
+        <?= $form->field($model, 'type')
+            ->checkbox([
+                'id' => 'type-2',
+                'label' => 'Приказ об участии в мероприятии',
+                'onchange' => 'showForeignEvent()',
+                'checked' => $model->type === 2,
+                'labelOptions' => [
+                ],
+            ]); ?>
+    </div>
 
     <div id="archive-number" style="display: <?php echo $model->type === 10 ? 'block' : 'none'; ?>">
         <?= $form->field($model, 'archive_number')->textInput()->label('Архивный номер'); ?>
     </div>
 
-    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'hidden' : null ?>">
+    <div id="foreign-event-form" style="display: <?php echo $model->type === '2' ? 'block' : 'none' ?>">
+        <div class="row" style="overflow-y: scroll; height: 900px">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4><i class="glyphicon glyphicon-tag"></i> Информация для создания карточки учета достижений</h4></div>
+                <div style="padding: 15px;">
+
+                    <?= $form->field($modelForeignEvent[0], 'name')->textInput($modelForeignEvent[0]->copy == 1 ? ['maxlength' => true, 'disabled' => 'disabled'] : ['maxlength' => true]) ?>
+
+                    <?php
+                    $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
+                    $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+                    $params = [
+                        'prompt' => '--',
+                    ];
+                    echo $form->field($modelForeignEvent[0], 'company_id')->dropDownList($items,$params);
+
+                    ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'start_date')->widget(\yii\jui\DatePicker::class,
+                        $modelForeignEvent[0]->copy == 1 ? (
+                        [
+                            'dateFormat' => 'php:Y-m-d',
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => 'Дата начала мероприятия',
+                                'class'=> 'form-control',
+                                'autocomplete'=>'off',
+                                'disabled' =>'disabled'
+                            ],
+                            'clientOptions' => [
+                                'changeMonth' => true,
+                                'changeYear' => true,
+                                'yearRange' => '2000:2050',
+                            ]]) : ([
+                            'dateFormat' => 'php:Y-m-d',
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => 'Дата начала мероприятия',
+                                'class'=> 'form-control',
+                                'autocomplete'=>'off',
+                            ],
+                            'clientOptions' => [
+                                'changeMonth' => true,
+                                'changeYear' => true,
+                                'yearRange' => '2000:2050',
+                            ]
+                        ])) ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'finish_date')->widget(\yii\jui\DatePicker::class,
+                        $modelForeignEvent[0]->copy == 1 ? (
+                        [
+                            'dateFormat' => 'php:Y-m-d',
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => 'Дата окончания мероприятия',
+                                'class'=> 'form-control',
+                                'autocomplete'=>'off',
+                                'disabled' => 'disabled'
+                            ],
+                            'clientOptions' => [
+                                'changeMonth' => true,
+                                'changeYear' => true,
+                                'yearRange' => '2000:2050',
+                            ]]) : ([
+                            'dateFormat' => 'php:Y-m-d',
+                            'language' => 'ru',
+                            'options' => [
+                                'placeholder' => 'Дата окончания мероприятия',
+                                'class'=> 'form-control',
+                                'autocomplete'=>'off',
+                            ],
+                            'clientOptions' => [
+                                'changeMonth' => true,
+                                'changeYear' => true,
+                                'yearRange' => '2000:2050',
+                            ]])) ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'city')->textInput(['maxlength' => true]) ?>
+
+                    <?php
+                    $ways = \app\models\work\EventWayWork::find()->orderBy(['name' => SORT_ASC])->all();
+                    $items = \yii\helpers\ArrayHelper::map($ways,'id','name');
+                    $params = [
+                    ];
+                    echo $form->field($modelForeignEvent[0], 'event_way_id')->dropDownList($items,$params);
+
+                    ?>
+
+                    <?php
+                    $levels = \app\models\work\EventLevelWork::find()->orderBy(['name' => SORT_ASC])->all();
+                    $items = \yii\helpers\ArrayHelper::map($levels,'id','name');
+                    $params = [
+                        'disabled' => 'disabled'
+                    ];
+                    $params0 = [
+                    ];
+                    echo $form->field($modelForeignEvent[0], 'event_level_id')->dropDownList($items,$modelForeignEvent[0]->copy == 1 ? $params : $params0);
+
+                    ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'is_minpros')->checkbox(); ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'min_participants_age')->textInput() ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'max_participants_age')->textInput() ?>
+
+                    <?= $form->field($modelForeignEvent[0], 'key_words')->textInput(['maxlength' => true]) ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="study-type" style="display: <?php echo $session->get('type') === '1' ? 'none' : null ?>">
         <?php
         $noms = NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one();
         if ($model->id !== null && $noms->type != 0)
@@ -523,44 +688,44 @@ $session = Yii::$app->session;
             foreach ($groupParticipants as $groupParticipant) {
                 $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
-                echo '<tr><td style="width: 10px">';
-                if (count($ordersParticipant) !== 0)
-                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                else
-                    echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                echo '</td><td style="width: auto">';
-                echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
-                echo '</td><td style="width: auto">';
-                $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
-                echo $gr->number;
-                //{
-                echo '</td><td style="width: auto; display: none">';
-                $pastaAlDente = \app\models\work\OrderGroupParticipantWork::find()->where(['IS NOT', 'link_id', null])->andWhere(['IN', 'order_group_id',
-                    (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
-
-                //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
-                $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
-                $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
-                $params = [];
-                if (count($ordersParticipant) !== 0)
+                if ($groups[0]->CheckParticipantStatus($groupParticipant) == 0 || count($ordersParticipant) !== 0)
                 {
-                    foreach ($pastaAlDente as $macaroni)
-                    {
-                        if ($macaroni->groupParticipant->participant_id == $groupParticipant->participant_id)
-                        {
-                            $params = [
-                                'value' =>  $macaroni->groupParticipant->training_group_id,
-                            ];
-                            break;
+                    echo '<tr><td style="width: 10px">';
+                    if (count($ordersParticipant) !== 0)
+                        echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    else
+                        echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    echo '</td><td style="width: auto">';
+                    echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
+                    echo '</td><td style="width: auto">';
+                    $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
+                    echo $gr->number;
+                    //{
+                    echo '</td><td style="width: auto; display: none">';
+                    $pastaAlDente = \app\models\work\OrderGroupParticipantWork::find()->where(['IS NOT', 'link_id', null])->andWhere(['IN', 'order_group_id',
+                        (new Query())->select('id')->from('order_group')->where(['document_order_id' => $model->id])])->all();
+
+                    //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->all();
+                    $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $model->order_date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
+                    $items = \yii\helpers\ArrayHelper::map($newGroups, 'id', 'number');
+                    $params = [];
+                    if (count($ordersParticipant) !== 0) {
+                        foreach ($pastaAlDente as $macaroni) {
+                            if ($macaroni->groupParticipant->participant_id == $groupParticipant->participant_id) {
+                                $params = [
+                                    'value' => $macaroni->groupParticipant->training_group_id,
+                                ];
+                                break;
+                            }
                         }
                     }
+
+
+                    //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
+                    echo $form->field($model, "new_groups_check[$groupParticipant->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
+                    //}
+                    echo '</td></tr>';
                 }
-
-
-                //echo $form->field($model, 'new_groups_check[]')->dropDownList($items, $params)->label(false);
-                echo $form->field($model, "new_groups_check[$groupParticipant->id][$groupParticipant->participant_id][]")->dropDownList($items, $params)->label(false);
-                //}
-                echo '</td></tr>';
             }
             /*----------------*/
             if (\app\models\work\NomenclatureWork::find()->where(['number' => $model->order_number])->andWhere(['actuality' => 0])->one()->type === 1)
@@ -640,7 +805,7 @@ $session = Yii::$app->session;
             ]);
     }
     ?>
-    <div class="row" style="overflow-y: scroll; height: 250px">
+    <div class="row" style="overflow-y: scroll; height: 270px">
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Ответственные</h4></div>
             <div>
@@ -715,7 +880,7 @@ $session = Yii::$app->session;
         </div>
     </div>
     <br>
-    <div class="row" <?php echo $session->get('type') !== '1' ? 'hidden' : null ?>>
+    <div id="change" class="row" <?php echo $session->get('type') !== '1' ? 'hidden' : null ?>>
         <div class="panel panel-default">
             <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Изменение документов</h4></div>
             <br>

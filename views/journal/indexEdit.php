@@ -362,9 +362,9 @@ $this->params['breadcrumbs'][] = $this->title;
         else
         {
             if ($part->success == 1)
-                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'checked' => 'checked', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'checked' => 'checked', 'label' => null, 'value' => $part->id]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
             else
-                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null, 'value' => $part->id,]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
+                echo '<td>'.$form->field($model, 'successes[]')->checkbox([$group->archive ? 'disabled' : '' => '', 'label' => null, 'value' => $part->id]).$form->field($model, 'tpIds[]')->hiddenInput(['value' => $part->id])->label(false).'</td>';
         }
         echo '</tr>';
     }

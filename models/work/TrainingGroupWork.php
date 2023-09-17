@@ -236,7 +236,7 @@ class TrainingGroupWork extends TrainingGroup
      * 1 - Отчислен
      * 2 - Переведен
      */
-    private function CheckParticipantStatus($tgp)
+    public function CheckParticipantStatus($tgp)
     {
         $ordersG = OrderGroupWork::find()->where(['training_group_id' => $tgp->training_group_id])->orderBy(['id' => SORT_DESC])->all();
 
@@ -473,7 +473,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadPhotosFile($upd = null)
     {
-        $path = '/upload/files/group/photos/';
+        $path = '/upload/files/training-group/photos/';
         $result = '';
         $counter = 0;
         if (strlen($this->photos) > 3)
@@ -491,7 +491,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/photos/';
+            $path = '@app/upload/files/training-group/photos/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -506,7 +506,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadPresentDataFile($upd = null)
     {
-        $path = '/upload/files/group/present_data/';
+        $path = '/upload/files/training-group/present-data/';
         $result = '';
         $counter = 0;
         if (strlen($this->present_data) > 3)
@@ -524,7 +524,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/present_data/';
+            $path = '@app/upload/files/training-group/present_data/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }
@@ -539,7 +539,7 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadWorkDataFile($upd = null)
     {
-        $path = '/upload/files/group/work_data/';
+        $path = '/upload/files/training-group/work-data/';
         $result = '';
         $counter = 0;
         if (strlen($this->work_data) > 3)
@@ -562,7 +562,7 @@ class TrainingGroupWork extends TrainingGroup
             $res = FileWizard::CutFilename($res);
             $res = mb_ereg_replace('[^а-яА-Я0-9a-zA-Z._]{1}', '', $res);
             $res = $this->resetFilename($path, $res, $file->extension);
-            $path = '@app/upload/files/group/work_data/';
+            $path = '@app/upload/files/training-group/work_data/';
             $file->saveAs($path . $res . '.' . $file->extension);
             $result = $result.$res . '.' . $file->extension.' ';
         }

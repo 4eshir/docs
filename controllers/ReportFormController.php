@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\components\ExcelWizard;
 use app\models\components\Logger;
+use app\models\components\report\ReportWizard;
 use app\models\components\RoleBaseAccess;
 use app\models\components\UserRBAC;
 use app\models\extended\ForeignEventReportModel;
@@ -11,6 +12,9 @@ use app\models\extended\ReportFormModel;
 use app\models\extended\ManHoursReportModel;
 use app\models\extended\ResultReportModel;
 use app\models\extended\UsefulSideReportModel;
+use app\models\work\RoleWork;
+use app\models\work\VisitWork;
+use kartik\mpdf\Pdf;
 use Yii;
 use app\models\work\PositionWork;
 use app\models\SearchPosition;
@@ -112,6 +116,19 @@ class ReportFormController extends Controller
         }
 
         return $this->render('gz', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionGz2()
+    {
+        $model = new ReportFormModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ReportWizard::GenerateGZ($model->start_date, $model->end_date, $model->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE);
+        }
+
+        return $this->render('gz-2', [
             'model' => $model,
         ]);
     }

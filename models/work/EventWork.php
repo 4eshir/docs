@@ -9,6 +9,7 @@ use app\models\common\EventExternal;
 use app\models\common\EventForm;
 use app\models\common\EventLevel;
 use app\models\common\EventParticipants;
+use app\models\common\EventScope;
 use app\models\common\EventsLink;
 use app\models\common\EventType;
 use app\models\common\ForeignEvent;
@@ -45,6 +46,45 @@ class EventWork extends Event
     public $leftAge;
     public $rightAge;
     public $eventLevelString;
+
+
+    //--Конструктор для тестов--
+    function __construct($tId = null, $tName = null, $tEventTypeId = null, $tEventFormId = null, $tEventLevelId = null, $tFinishDate = null)
+    {
+        if ($tId == null)
+            return;
+
+        $this->id = $tId;
+        $this->name = $tName;
+        $this->event_type_id = $tEventTypeId;
+        $this->event_form_id = $tEventFormId;
+        $this->event_level_id = $tEventLevelId;
+        $this->finish_date = $tFinishDate;
+
+        //--Дефолтные значения--
+        $this->old_name = 'DEFAULT';
+        $this->start_date = '1999-01-01';
+        $this->address = 'DEFAULT';
+        $this->participants_count = 0;
+        $this->is_federal = 0;
+        $this->responsible_id = 0;
+        $this->responsible2_id = 0;
+        $this->key_words = 'DEFAULT';
+        $this->comment = 'DEFAULT';
+        $this->order_id = 0;
+        $this->regulation_id = 0;
+        $this->protocol = 'DEFAULT';
+        $this->photos = 'DEFAULT';
+        $this->reporting_doc = 'DEFAULT';
+        $this->other_files = 'DEFAULT';
+        $this->contains_education = 0;
+        $this->event_way_id = 0;
+        $this->creator_id = 0;
+        $this->participation_scope_id = 0;
+        //----------------------
+    }
+    //--------------------------
+
 
     public function rules()
     {
@@ -123,6 +163,18 @@ class EventWork extends Event
         if ($this->format === 0) return 'Очный';
         if ($this->format === 1) return 'Заочный';
         if ($this->format === 2) return 'Очно-заочный';
+    }
+
+    public function getScopesSplitter()
+    {
+        $ess = EventScopeWork::find()->where(['event_id' => $this->id])->all();
+        $res = '';
+        foreach ($ess as $one)
+        {
+            $res .= $one->participationScope->name.'/';
+        }
+        $res = substr($res, 0, -1);
+        return $res;
     }
 
     public function getLinkGroups()
@@ -542,11 +594,12 @@ class EventWork extends Event
         $eventP->event_id = $this->id;
         $eventP->save();
 
-        if ($this->eventType->name == 'Соревновательный' && $insert) {
+        /* В связи с изменением в учете достижений - связка мероприятия и учета достижения не создается. Все достижения - через приказ
+         * if ($this->eventType->name == 'Соревновательный' && $insert) {
             $this->copyEvent();
         }
         else if ($this->eventType->name == 'Соревновательный')
-            $this->editCopy($changedAttributes);
+            $this->editCopy($changedAttributes);*/
 
         // тут должны работать проверки на ошибки
         $errorsCheck = new EventErrorsWork();

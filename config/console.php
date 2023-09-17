@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$db_report_test = require __DIR__ . '/db_report_test.php';
 
 $config = [
     'id' => 'basic-console',
@@ -12,7 +13,7 @@ $config = [
     // ...
         'migrate' => [
             'class' => 'yii\console\controllers\MigrateController',
-            'migrationPath' => null,
+            'migrationPath' => dirname(__DIR__).'\migrations',
             'migrationNamespaces' => [
                 // ...
                 'yii\queue\db\migrations',
@@ -37,6 +38,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        'db_report_test' => $db_report_test,
     ],
     'params' => $params,
     /*

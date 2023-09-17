@@ -228,50 +228,6 @@ class SiteController extends Controller
     public function actionTemp()
     {
 
-        $groups = TrainingGroupWork::find()->all();
-        $teacherIds = [];
-        foreach ($groups as $group)
-        {
-            $tgs = TeacherGroupWork::find()->where(['training_group_id' => $group->id])->all();
-            foreach ($tgs as $tg)
-                $teacherIds[] = $tg->teacher_id;
-        }
-
-        $teachers = PeopleWork::find()->where(['IN', 'id', $teacherIds])->orderBy(['secondname' => SORT_ASC])->all();
-
-        foreach ($teachers as $teacher)
-            echo $teacher->secondname.' '.$teacher->firstname.' '.$teacher->patronymic.'<br>';
-
-        
-        //ExcelWizard::WriteContractors('cont.xlsx');
-
-
-        //------------------
-        
-
-        //------------------
-
-
-
-
-        /*$disk = new Disk('y0_AgAEA7qjlWFzAAhnoAAAAADOk9pSLFsGZe59SkioZ4hPt40FKeSqN50');
-
-        $resource = $disk->getResource('Море.jpg');
-
-        // или и т.д.
-        $fp = fopen('php://output', 'r');
-
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=' . 'pic.jpg');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . $resource->size);
-
-        $resource->download($fp);
-
-        // продолжить работу ...
-        fseek($fp, 0);*/
-
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)

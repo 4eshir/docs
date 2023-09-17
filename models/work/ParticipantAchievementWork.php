@@ -8,6 +8,10 @@ use Yii;
 
 class ParticipantAchievementWork extends ParticipantAchievement
 {
+    const PRIZE = 0;
+    const WINNER = 1;
+    const ALL = [0, 1];
+
     public function attributeLabels()
     {
         return [
@@ -23,5 +27,27 @@ class ParticipantAchievementWork extends ParticipantAchievement
     public function getParticipantWork()
     {
         return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+    }
+
+    public function getTeacherParticipantWork()
+    {
+        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+    }
+
+    public function getStatusString()
+    {
+        return $this->winner == 1 ? 'Победитель' : 'Призер';
+    }
+
+    public function getActParticipationString()
+    {
+        $part = TeacherParticipantWork::find()->where(['id' => $this->teacher_participant_id])->one();
+        $result = 'Номинация: '. $part->nomination . '. Направленность: ' . $part->focus0->name . '. ';
+
+        if ($part->teamNameString == null)
+            $result .= 'Индивидуальное участие';
+        else
+            $result .= 'В составе команды "' . $part->teamNameString . '"';
+        return $result;
     }
 }

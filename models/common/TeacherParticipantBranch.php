@@ -16,6 +16,7 @@ use Yii;
  */
 class TeacherParticipantBranch extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */

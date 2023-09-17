@@ -11,7 +11,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Входящая документ�
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
+
 <div class="document-in-view">
+
+
+
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -48,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Тема документа', 'attribute' => 'document_theme'],
             ['label' => 'Способ получения', 'attribute' => 'send_method_id', 'value' => $model->sendMethod->name],
             ['label' => 'Скан документа', 'attribute' => 'scan', 'value' => function ($model) {
-                return Html::a($model->scan, \yii\helpers\Url::to(['document-in/get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan']));
+                return Html::a($model->scan, ['get-file', 'fileName' => $model->scan, 'modelId' => $model->id, 'type' => 'scan'],
+                    ['data-toggle' => "modal", 'data-target' => "#exampleModal"]);
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['label' => 'Редактируемые документы', 'attribute' => 'docFiles', 'value' => function ($model) {

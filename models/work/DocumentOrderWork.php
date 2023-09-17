@@ -3,7 +3,10 @@
 namespace app\models\work;
 
 use app\models\common\DocumentOrder;
+use app\models\common\DocumentOrderSupplement;
 use app\models\common\Expire;
+use app\models\common\ForeignEventParticipants;
+use app\models\common\ParticipantFiles;
 use app\models\common\People;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
@@ -12,6 +15,7 @@ use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
 use app\models\components\Logger;
+use yii\web\UploadedFile;
 
 
 class DocumentOrderWork extends DocumentOrder
@@ -40,6 +44,11 @@ class DocumentOrderWork extends DocumentOrder
 
     public $archive_number;
 
+    public $foreign_event;
+    public $supplement;
+    public $participants;
+
+
 
     public function rules()
     {
@@ -50,7 +59,7 @@ class DocumentOrderWork extends DocumentOrder
             [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
               'signedString', 'executorString', 'bringString'], 'required'],
             [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'archive_check' ], 'integer'],
-            [['order_date', 'allResp', 'groups_check', 'participants_check', 'new_groups_check', 'study_type'], 'safe'],
+            [['order_date', 'allResp', 'groups_check', 'participants_check', 'new_groups_check', 'study_type', 'foreign_event', 'supplement', 'participants'], 'safe'],
             [['state'], 'boolean'],
             [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
             [['nomenclature_number', 'archive_number'], 'string'],
@@ -59,6 +68,9 @@ class DocumentOrderWork extends DocumentOrder
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
             [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
+            [['foreign_event'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventWork::className(), 'targetAttribute' => ['id' => 'order_participation_id']],
+            //[['supplement'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrderSupplementWork::className(), 'targetAttribute' => ['id' => 'document_order_id']],
+            [['participantsFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
         ];
     }
 
@@ -71,7 +83,7 @@ class DocumentOrderWork extends DocumentOrder
                 $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['document-order/get-file', 'fileName' => $split[$i], 'modelId' => $this->id, 'type' => 'docs'])).'<br>';
         else
         {
-            if ($this->type === 0 || $this->type == 11)   // учебный
+            if ($this->type === 0 || $this->type == 11 || $this->type == 2)   // учебный или об участии
             {
                 $view = NomenclatureWork::find()->where(['number' => $this->order_number])->andWhere(['actuality' => 0])->one();
                 $result = Html::a("Сгенерировать файл", \yii\helpers\Url::to(['document-order/generation-word', 'order_id' => $this->id, 'type' => $view->type]), ['class'=>'btn btn-success']);
@@ -190,6 +202,9 @@ class DocumentOrderWork extends DocumentOrder
                     $this->order_name = 'О зачислении на обучение по дополнительной общеразвивающей программе';
         }
 
+        if (mb_substr($this->order_name, 0, 12) === 'Об участии в мероприятии')
+            $this->order_name .= ' «' . $this->foreign_event['name'] . '»';
+
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
             ->andWhere(['firstname' => $fioSigned[1]])
             ->andWhere(['patronymic' => $fioSigned[2]])->one();
@@ -225,7 +240,7 @@ class DocumentOrderWork extends DocumentOrder
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/order/scan/';
+        $path = '@app/upload/files/document-order/scan/';
         $date = $this->order_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -248,7 +263,7 @@ class DocumentOrderWork extends DocumentOrder
 
     public function uploadDocFiles($upd = null)
     {
-        $path = '@app/upload/files/order/docs/';
+        $path = '@app/upload/files/document-order/docs/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)
@@ -279,6 +294,106 @@ class DocumentOrderWork extends DocumentOrder
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен редактируемый документ ' . $filename . ' в приказ (id=' .$this->id . ')');
 
         return true;
+    }
+
+    private function uploadTeamName($foreign_event_id)
+    {
+        $teamName = [];
+        foreach ($this->participants as $partOne)
+            if (!in_array($partOne->team, $teamName) && $partOne->team !== 'NULL')
+                $teamName[] = $partOne->team;
+
+        foreach ($teamName as $oneTeam)
+        {
+            $team = new TeamNameWork();
+            $team->name = $oneTeam;
+            $team->foreign_event_id = $foreign_event_id;
+            $team->save();
+        }
+    }
+
+    private function cleanArrParticipant($foreign_event_id)
+    {
+        $arrPart = [];
+        $partsBD = TeacherParticipantWork::find()->where(['foreign_event_id' => $foreign_event_id])->all();
+
+        foreach ($this->participants as $partOne)
+        {
+            $flag = true;   // индикатор уникальности записи факта участия
+
+            foreach ($partsBD as $suspicious)   // ищем дубликаты среди новых и старых записей из БД
+            {
+                if ($suspicious->participant_id == $partOne->fio && $suspicious->nomination == $partOne->nomination && $suspicious->teamNameString == $partOne->team && $suspicious->focus == $partOne->focus)
+                {
+                    $flag = false;
+                    break;
+                }
+            }
+
+            foreach ($arrPart as $suspicious)   // ищем дубликаты в массиве участников из заполненной формы
+                if ($suspicious->fio == $partOne->fio && $suspicious->nomination == $partOne->nomination && $suspicious->team == $partOne->team && $suspicious->focus == $partOne->focus)
+                {
+                    $flag = false;
+                    break;
+                }
+
+            if ($flag)  // уникальные записи добавим в БД
+                $arrPart[] = $partOne;
+            else
+                Yii::$app->session->addFlash('warning', 'Попытка добавления дубликата акта участия');
+        }
+
+        $this->participants = $arrPart;
+    }
+
+    private function uploadTeacherParticipants($foreign_event_id)
+    {
+        if ($this->participants !== null)
+        {
+            $this->cleanArrParticipant($foreign_event_id);
+
+            foreach ($this->participants as $key => $participantOne)
+            {
+                $part = new TeacherParticipantWork();
+                $part->foreign_event_id = $foreign_event_id;
+                $part->participant_id = $participantOne->fio;
+                $part->teacher_id = $participantOne->teacher;
+                $part->teacher2_id = $participantOne->teacher2;
+                $part->focus = $participantOne->focus;
+                $part->allow_remote_id = $participantOne->allow_remote_id;
+                if ($participantOne->nomination !== 'NULL')
+                    $part->nomination = $participantOne->nomination;
+                $tpbs = [];
+                if ($participantOne->branch !== "")
+                    for ($i = 0; $i < count($participantOne->branch); $i++)
+                    {
+                        $tpb = new TeacherParticipantBranchWork();
+                        $tpb->branch_id = $participantOne->branch[$i];
+                        $tpbs[] = $tpb;
+                    }
+                $part->teacherParticipantBranches = $tpbs;
+                $part->branchs = $participantOne->branch;
+                $part->save();
+
+                if ($participantOne->team !== "NULL")
+                {
+                    $teamId = TeamNameWork::find()->where(['foreign_event_id' => $foreign_event_id])->andWhere(['name' => $participantOne->team])->one();
+
+                    $team = new TeamWork();
+                    $team->teacher_participant_id = $part->id;
+                    $team->team_name_id = $teamId->id;
+                    $team->save();
+                }
+
+                if ($participantOne->fileString !== "NULL")
+                {
+                    $partFile = new ParticipantFilesWork();
+                    $partFile->teacher_participant_id = $part->id;
+                    $partFile->filename = $participantOne->fileString;
+                    $partFile->save();
+                }
+            }
+        }
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -401,7 +516,6 @@ class DocumentOrderWork extends DocumentOrder
                     {
                         $orderOne->state = false;
                         $orderOne->save(false);
-
                     }
                 }
                 else
@@ -425,8 +539,6 @@ class DocumentOrderWork extends DocumentOrder
                 $expireOrder[$i]->save(false);
             }
         }
-
-
 
         if ($this->allResp != 1)
         {
@@ -610,7 +722,6 @@ class DocumentOrderWork extends DocumentOrder
             }
         }
 
-
         if (strlen($flashMessage) > 25)
         {
             $flashMessage = substr($flashMessage, 0, -2);
@@ -621,7 +732,6 @@ class DocumentOrderWork extends DocumentOrder
             Yii::$app->session->setFlash('danger', $flashMessage);
         }
 
-
         // если в группе была ошибка об отсутствии приказа, то тут она уйдет
         if ($this->groups_check !== null && count($this->groups_check) > 0)
         {
@@ -629,6 +739,58 @@ class DocumentOrderWork extends DocumentOrder
             $errorsCheck->CheckOrderTrainingGroup($this->groups_check);
 
         }
+
+        if ($this->supplement !== null)
+        {
+            $docSup = DocumentOrderSupplement::find()->where(['document_order_id' => $this->id])->one();
+            if ($docSup == null)
+                $docSup = new DocumentOrderSupplementWork();
+
+            $docSup->document_order_id = $this->id;
+            $docSup->foreign_event_goals_id = $this->supplement['foreign_event_goals_id'];
+            $docSup->compliance_document = $this->supplement['compliance_document'];
+            $docSup->document_details = $this->supplement['document_details'];
+            $docSup->information_deadline = $this->supplement['information_deadline'];
+            $docSup->input_deadline = $this->supplement['input_deadline'];
+            $docSup->collector_id = $this->supplement['collector_id'];
+            $docSup->contributor_id = $this->supplement['contributor_id'];
+            $docSup->methodologist_id = $this->supplement['methodologist_id'];
+            $docSup->informant_id = $this->supplement['informant_id'];
+            $docSup->save();
+        }
+
+        if ($this->foreign_event !== null)
+        {
+            $forEvent = ForeignEventWork::find()->where(['order_participation_id' => $this->id])->one();
+            if ($forEvent == null)
+                $forEvent = new ForeignEventWork();
+            $forEvent->order_participation_id = $this->id;
+            $forEvent->name = $this->foreign_event['name'];
+            $forEvent->company_id = $this->foreign_event['company_id'];
+            $forEvent->start_date = $this->foreign_event['start_date'];
+            $forEvent->finish_date = $this->foreign_event['finish_date'];
+            $forEvent->city = $this->foreign_event['city'];
+            $forEvent->event_way_id = $this->foreign_event['event_way_id'];
+            $forEvent->event_level_id = $this->foreign_event['event_level_id'];
+            $forEvent->is_minpros = $this->foreign_event['is_minpros'];
+            $forEvent->min_participants_age = $this->foreign_event['min_participants_age'];
+            $forEvent->max_participants_age = $this->foreign_event['max_participants_age'];
+            $forEvent->key_words = $this->foreign_event['key_words'];
+            $forEvent->last_edit_id = Yii::$app->user->identity->getId();
+            if ($forEvent->id == null)
+            {
+                if ($forEvent->creator_id === null)
+                    $forEvent->creator_id = Yii::$app->user->identity->getId();
+                $forEvent->business_trip = 0;
+                $forEvent->order_business_trip_id = null;
+                $forEvent->escort_id = null;
+            }
+            $forEvent->save();
+
+            $this->uploadTeamName($forEvent->id);
+            $this->uploadTeacherParticipants($forEvent->id);
+        }
+
         // тут должны работать проверки на ошибки
         $errorsCheck = new OrderErrorsWork();
         $errorsCheck->CheckErrorsDocumentOrderWithoutAmnesty($this->id);
@@ -847,6 +1009,22 @@ class DocumentOrderWork extends DocumentOrder
                 $result .= 'Внимание, КРИТИЧЕСКАЯ ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
             else $result .= 'Внимание, ошибка: ' . $errorName->number . ' ' . $errorName->name . '<br>';
         }
+        return $result;
+    }
+
+    public function getForeignEventLink()
+    {
+        $foreigns = ForeignEventWork::find()->where(['order_participation_id' => $this->id])->all();
+        $result = '';
+
+        foreach ($foreigns as $foreign)
+        {
+            $result .= Html::a($foreign->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $foreign->id]));
+            if ($foreign->getErrorsWork() !== '')
+                $result .= '<span style="color:red"> (содержит ошибки)</span>';
+            $result .= '<br>';
+        }
+
         return $result;
     }
 }

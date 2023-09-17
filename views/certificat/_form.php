@@ -29,7 +29,7 @@ if(isset($_GET['group_id'])) {
 
 
     <?php
-    $templates = \app\models\work\CertificatTemplatesWork::find()->orderBy(['id' => SORT_DESC])->all();
+    $templates = \app\models\work\CertificatTemplatesWork::find()->orderBy(['id' => SORT_ASC])->all();
     $items = \yii\helpers\ArrayHelper::map($templates,'id','name');
     $params = [];
 

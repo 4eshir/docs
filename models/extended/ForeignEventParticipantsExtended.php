@@ -21,19 +21,20 @@ class ForeignEventParticipantsExtended extends Model
     public $fileString;
 
     public $allow_remote_id;
+    public $nomination;
 
     public function rules()
     {
         return [
             [['file'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400],
-            [['teacher', 'teacher2', 'fileString', 'focus', 'team'], 'string'],
+            [['teacher', 'teacher2', 'fileString', 'focus', 'team', 'nomination'], 'string'],
             [['fio', 'branch', 'allow_remote_id'], 'integer'],
         ];
     }
 
     public function uploadFile($event_name, $event_date)
     {
-        $path = '@app/upload/files/foreign_event/participants/';
+        $path = '@app/upload/files/foreign-event/participants/';
         $date = $event_date;
         $new_date = '';
         $filename = '';

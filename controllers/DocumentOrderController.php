@@ -5,14 +5,26 @@ namespace app\controllers;
 use app\models\components\ExcelWizard;
 use app\models\components\RoleBaseAccess;
 use app\models\components\WordWizard;
+use app\models\extended\ForeignEventParticipantsExtended;
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\BranchWork;
+use app\models\work\DocumentOrderSupplementWork;
 use app\models\work\ExpireWork;
+use app\models\work\ForeignEventWork;
 use app\models\work\NomenclatureWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\ParticipantFilesWork;
 use app\models\work\RegulationWork;
 use app\models\work\ResponsibleWork;
 use app\models\components\Logger;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
+use app\models\work\TeacherParticipantBranchWork;
+use app\models\work\TeacherParticipantWork;
+use app\models\work\TeamNameWork;
+use app\models\work\TeamWork;
+use app\models\work\TrainingGroupWork;
 use Yii;
 use app\models\work\DocumentOrderWork;
 use app\models\SearchDocumentOrder;
@@ -81,15 +93,16 @@ class DocumentOrderController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($modelType = null)
     {
         $session = Yii::$app->session;
         $model = new DocumentOrderWork();
-        //$model->order_number = NomenclatureWork::find()->where([]);
         $modelExpire = [new ExpireWork];
         $modelExpire2 = [new ExpireWork];
         $modelResponsible = [new ResponsibleWork];
-        if ($model->load(Yii::$app->request->post())) {
+        $modelParticipants = [new ForeignEventParticipantsExtended];
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate(false)) {
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
@@ -102,9 +115,15 @@ class DocumentOrderController extends Controller
             $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
+            $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
+            DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
+            $model->participants = $modelParticipants;
 
-            if ($model->validate(false)) {
-                if ($model->archive_number === '')
+            if ($modelType == 2)
+                $model->type = 2;
+
+            if (true) {
+                if ($model->archive_number === '' || $model->archive_number === NULL)
                     $model->getDocumentNumber();
                 else
                 {
@@ -113,7 +132,6 @@ class DocumentOrderController extends Controller
                     $model->order_copy_id = $number[1];
                     if (count($number) > 2)
                         $model->order_postfix = $number[2];
-                    //$model->order_copy_id = $model->archive_number;
                     if ($model->nomenclature_id === 5 || $model->nomenclature_id === NULL)
                         $model->type = 10;  // административный архивный
                     else
@@ -145,6 +163,8 @@ class DocumentOrderController extends Controller
             'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
             'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
             'modelExpire2' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire2,
+            'modelParticipants' => (empty($modelParticipants)) ? [new ForeignEventParticipantsExtended] : $modelParticipants,
+            'modelType' => $modelType,
         ]);
     }
 
@@ -160,7 +180,7 @@ class DocumentOrderController extends Controller
         $model->order_date = date("Y-m-d");
         $model->scan = '';
         $model->state = true;
-        $model->type = $session->get('type') === '1' ? 1 : 0;
+        $model->type = 1;//$session->get('type') === '1' ? 1 : 0;
         $model->register_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
@@ -176,11 +196,19 @@ class DocumentOrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id, $sideCall = null)
+    public function actionUpdate($id, $sideCall = null, $modelType = null)
     {
         $model = $this->findModel($id);
         $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
         $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
+        $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::className());
+        $modelType = $model->type;
+
+        $supplement = DocumentOrderSupplementWork::find()->where(['document_order_id' => $id])->one();
+        $model->supplement = $supplement;
+        $foreign_event = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
+        $model->foreign_event = $foreign_event;
+
         if ($model->type === 10 || $model->type === 11)
         {
             $model->archive_number = $model->order_number . '/' . $model->order_copy_id;
@@ -189,7 +217,8 @@ class DocumentOrderController extends Controller
         }
         DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
         $model->responsibles = $modelResponsible;
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()))
+        {
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
             $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
@@ -198,12 +227,19 @@ class DocumentOrderController extends Controller
             $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
             DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
             $model->expires = $modelExpire;
+            $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
+            DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
+            $model->participants = $modelParticipants;
 
-            if ($model->validate(false)) {
+            if ($model->validate(false))
+            {
                 $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
-                if ($model->archive_number !== "")
-                    if ($cur->order_number !== $model->order_number)
+
+                if ($model->archive_number == "")
+                {
+                    if ($cur->order_date !== $model->order_date)
                         $model->getDocumentNumber();
+                }
                 else
                 {
                     $number = explode( '/',  $model->archive_number);
@@ -222,6 +258,21 @@ class DocumentOrderController extends Controller
                 if ($model->docFiles != null)
                     $model->uploadDocFiles(10);
 
+                $i = 0;
+                foreach ($modelParticipants as $modelParticipantOne)
+                {
+                    if (strlen($modelParticipantOne->file) == 0)
+                    {
+                        $modelParticipantOne->file = \yii\web\UploadedFile::getInstance($modelParticipantOne, "[{$i}]file");
+                        if ($modelParticipantOne->file !== null) $modelParticipantOne->uploadFile($model->foreign_event["name"], $model->foreign_event["start_date"]);
+                    }
+                    else
+                    {
+                        $modelParticipantOne->uploadCopyFile($modelParticipantOne->file);
+                    }
+                    $i++;
+                }
+
                 $model->save(false);
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен приказ '.$model->order_name.' '.$model->order_number.'/'.$model->order_postfix. (empty($model->order_postfix) ? '/'.$model->order_postfix : ''));
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -233,6 +284,8 @@ class DocumentOrderController extends Controller
                     'model' => $model,
                     'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
                     'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+                    'modelParticipants' => (empty($modelParticipants)) ? [new ForeignEventParticipantsExtended] : $modelParticipants,
+                    'modelType' => $modelType,
                 ]);
         }
 
@@ -240,6 +293,8 @@ class DocumentOrderController extends Controller
             'model' => $model,
             'modelResponsible' => (empty($modelResponsible)) ? [new ResponsibleWork] : $modelResponsible,
             'modelExpire' => (empty($modelExpire)) ? [new ExpireWork] : $modelExpire,
+            'modelParticipants' => (empty($modelParticipants)) ? [new ForeignEventParticipantsExtended] : $modelParticipants,
+            'modelType' => $modelType,
         ]);
     }
 
@@ -305,14 +360,35 @@ class DocumentOrderController extends Controller
         return $this->redirect('index?r=document-order/update&id='.$model->id);
     }
 
-    public function actionGetFile($fileName = null, $modelId = null, $type = null)
+    public function actionGetFile($fileName = null, $event = null, $type = null)
     {
-        $file = Yii::$app->basePath . '/upload/files/order/' . $type . '/' . $fileName;
-        if (file_exists($file)) {
-            return \Yii::$app->response->sendFile($file);
+        $filePath = '/upload/files/'.Yii::$app->controller->id;
+        if ($event == true)
+            $filePath = '/upload/files/foreign-event';
+        $filePath .= $type == null ? '/' : '/'.$type.'/';
+
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+
+        $downloadServ->LoadFile();
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        else return \Yii::$app->response->sendFile($downloadServ->file);
+
+        if (!$downloadYadi->success) throw new \Exception('File not found');
+        else {
+
+            $fp = fopen('php://output', 'r');
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . $downloadYadi->file->size);
+
+            $downloadYadi->file->download($fp);
+
+            fseek($fp, 0);
         }
-        throw new \Exception('Файл не найден.');
-        //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteResponsible($peopleId, $orderId)
@@ -415,31 +491,33 @@ class DocumentOrderController extends Controller
             foreach ($groupParticipants as $groupParticipant) {
                 $ordersParticipant = \app\models\work\OrderGroupParticipantWork::find()->where(['group_participant_id' => $groupParticipant->id])->andWhere(['link_id' => NULL])->andWhere(['IN', 'order_group_id',
                     (new Query())->select('id')->from('order_group')->where(['document_order_id' => $idG])])->all();
-
-                echo '<tr><td style="width: 10px">';
-                if (count($ordersParticipant) !== 0)
-                    echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                else
-                    echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
-                echo '</td><td style="width: auto">';
-                echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
-                echo '</td><td style="width: auto">';
-                $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
-                echo $gr->number;
-                //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
-                //{
-                $text = '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check">'
-                    . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check]['.$groupParticipant->id.']['.$groupParticipant->participant_id.'][]">';
-                echo $text;
-                //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
-                $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
-                if (count($newGroups) > 0) {
-                    foreach ($newGroups as $newGroup)
-                        echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
-                } else
-                    echo "<option>-</option>";
-                //-----
-                echo '</select></div></td></tr>';
+                if ($groups[0]->CheckParticipantStatus($groupParticipant) == 0 || count($ordersParticipant) !== 0)
+                {
+                    echo '<tr><td style="width: 10px">';
+                    if (count($ordersParticipant) !== 0)
+                        echo '<input type="checkbox" checked="true" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    else
+                        echo '<input type="checkbox" id="documentorderwork-participants_check" name="DocumentOrderWork[participants_check][]" class="check" value="' . $groupParticipant->id . '">';
+                    echo '</td><td style="width: auto">';
+                    echo $part->where(['id' => $groupParticipant->participant_id])->one()->getFullName();
+                    echo '</td><td style="width: auto">';
+                    $gr = $stud->where(['id' => $groupParticipant->training_group_id])->one();
+                    echo $gr->number;
+                    //else // тут выпадающий список групп, но если нет основной группы, то всё остальное скрывается js
+                    //{
+                    $text = '</td><td style="width: auto; display: none"><div class="form-group field-documentorderwork-new_groups_check">'
+                        . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check][' . $groupParticipant->id . '][' . $groupParticipant->participant_id . '][]">';
+                    echo $text;
+                    //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
+                    $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
+                    if (count($newGroups) > 0) {
+                        foreach ($newGroups as $newGroup)
+                            echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
+                    } else
+                        echo "<option>-</option>";
+                    //-----
+                    echo '</select></div></td></tr>';
+                }
             }
             echo '</tbody></table></div>'.'|split|';
             //echo '<br>';
@@ -490,19 +568,18 @@ class DocumentOrderController extends Controller
         return $this->redirect('index?r=document-order/view&id='.$id);
     }
 
-    // Новый функционал - генерация образовательных приказов
+    // Новый функционал - генерация образовательных приказов и об участии в (основной приказ)
     public function actionGenerationWord($order_id, $type)
     {
         $model = $this->findModel($order_id);
+        $checkGenerate = new OrderErrorsWork();
 
-        if ($type === '0')
-            WordWizard::Enrolment($order_id);
-        else if ($type === '1')
-        {
-            WordWizard::Deduction($order_id);
+        switch ($type) {
+            case -1: $checkGenerate->PermissionToParticipate($order_id) ? WordWizard::ParticipationEvent($order_id) : Yii::$app->session->addFlash('warning', 'Исправьте ошибки заполнения, чтобы сгенерировать приказ'); break;
+            case 0: WordWizard::Enrolment($order_id);
+            case 1: WordWizard::Deduction($order_id);
+            case 2: WordWizard::Transfer($order_id);
         }
-        else if ($type === '2')
-            WordWizard::Transfer($order_id);
 
         Logger::WriteLog(Yii::$app->user->identity->getId(),
             'Сгенерирован и выгружен файл приказа '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
@@ -523,5 +600,54 @@ class DocumentOrderController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($order_id),
         ]);
+    }
+
+    public function actionUpdateParticipant($id, $model_id)
+    {
+        $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
+        $model->getTeam();
+        $model->branchs = $model->getBranchs();
+        $back = 'order';
+        if ($model->load(Yii::$app->request->post()))
+        {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->file !== null)
+                $model->uploadParticipantFiles();
+            $model->save(false);
+
+            return $this->redirect('index.php?r=document-order/update&id='.$model_id);
+        }
+
+        return $this->render('../foreign-event/update-participant',[
+            'model' => $model,
+            'back' => $back,
+        ]);
+    }
+
+    public function actionDeleteParticipant($id, $model_id)
+    {
+        $part = TeacherParticipantWork::find()->where(['id' => $id])->one();
+        $achivment = ParticipantAchievementWork::find()->where(['teacher_participant_id' => $id])->one();
+
+        if ($achivment !== null)
+            Yii::$app->session->addFlash('warning', 'Невозможно удалить запись участия, если у участника есть достижения');
+        else
+        {
+            $team = TeamWork::find()->where(['teacher_participant_id' => $id])->one();
+            if ($team !== null)
+                $team->delete();
+
+            $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $id])->all();
+            foreach ($branchs as $branch) $branch->delete();
+
+            $file = ParticipantFilesWork::find()->where(['teacher_participant_id' => $id])->one();
+            if ($file !== null)
+                $file->delete();
+
+            $part->delete();
+        }
+
+        return $this->redirect('index.php?r=document-order/update&id='.$model_id);
     }
 }

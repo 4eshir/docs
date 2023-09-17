@@ -84,6 +84,16 @@ class ForeignEventReportModel extends \yii\base\Model
         $allTeams = 0;
         foreach ($events1 as $event)
         {
+            $realParts = [];
+            if ($focus_id !== 0)
+                $realParts = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['IN', 'teacherParticipant.focus', $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+            else
+                $realParts = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['IN', 'teacherParticipant.focus', $focus_id])->all();
+
+
+            $realPartsId = [];
+            foreach ($realParts as $one) $realPartsId[] = $one->teacherParticipant->participant_id;
+
             //ОТЛАДКА
             $debug .= $event->name.";".$event->company->name.";".$event->eventLevel->name.";".$event->start_date.";".$event->finish_date.";";
             //ОТЛАДКА
@@ -103,14 +113,24 @@ class ForeignEventReportModel extends \yii\base\Model
                     $res = null;
                     $teamName = $team->name;
                     if ($partsLink !== null)
-                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $realPartsId])->one();
                     else
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
+
                     if ($res !== null) $counterTeamWinners++;
-                    else $counterTeamPrizes++;
+                    else
+                    {
+                        if ($partsLink !== null)
+                            $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $realPartsId])->one();
+                        else
+                            $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->one();
+
+                        if ($res !== null) $counterTeamPrizes++;
+                    }
+
                     
                     if ($partsLink !== null)
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $realPartsId])->one();
                     else
                         $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
@@ -130,13 +150,13 @@ class ForeignEventReportModel extends \yii\base\Model
 
                 if ($events_id2 == 0)
                 {
-                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $pIds])->all();
-                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $realPartsId])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $realPartsId])->all();
                 }
                 else
                 {
-                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
-                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'foreign_event_id', $events_id2])->andWhere(['IN', 'participant_id', $realPartsId])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'foreign_event_id', $events_id2])->andWhere(['IN', 'participant_id', $realPartsId])->all();
                 }
                 
             }
@@ -149,8 +169,8 @@ class ForeignEventReportModel extends \yii\base\Model
                 }
                 else
                 {
-                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->all();
-                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->all();
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'foreign_event_id', $events_id2])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'foreign_Event_id', $events_id2])->all();
                 }
                 
             }
@@ -174,7 +194,8 @@ class ForeignEventReportModel extends \yii\base\Model
             //if ($event->id == 352)
             //    var_dump(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->createCommand()->getRawSql());
 
-            $debug .= count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->all()).";".$counterTeam.";".$s1.";".$counterTeamPrizes.";".$s2.";".$counterTeamWinners."\r\n";
+
+            $debug .= count(TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['IN', 'teacherParticipantBranches.branch_id', $branch_id])->andWhere(['IN', 'allow_remote_id', $allow_remote_id])->andWhere(['IN', 'participant_id', $realPartsId])->all()).";".$counterTeam.";".$s1.";".$counterTeamPrizes.";".$s2.";".$counterTeamWinners."\r\n";
             //ОТЛАДКА
 
         }

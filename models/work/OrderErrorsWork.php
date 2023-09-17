@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\common\DocumentOrderSupplement;
 use Yii;
 use app\models\common\OrderErrors;
 use app\models\work\ErrorsWork;
@@ -122,8 +123,6 @@ class OrderErrorsWork extends OrderErrors
 
     private function CheckPasta ($modelOrderID)
     {
-        
-
         $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 37])->all();
         $pastaCount = count(OrderGroupParticipantWork::find()->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $modelOrderID])->all());
 
@@ -145,27 +144,56 @@ class OrderErrorsWork extends OrderErrors
         }
     }
 
+    private function CheckForeignEvent ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 57])->all();
+        $foreignEventCount = count(ForeignEventWork::find()->where(['order_participation_id' => $modelOrderID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($foreignEventCount !== 0)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $foreignEventCount == 0)
+        {
+            $this->document_order_id = $modelOrderID;
+            $this->errors_id = 57;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
+    private function CheckSupplement ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'errors_id' => 58])->all();
+        $supplementCount = count(DocumentOrderSupplementWork::find()->where(['document_order_id' => $modelOrderID])->all());
+
+        foreach ($err as $oneErr)
+        {
+            if ($supplementCount !== 0)
+            {
+                $oneErr->time_the_end = date("Y.m.d H:i:s");
+                $oneErr->save();
+            }
+        }
+
+        if (count($err) == 0 && $supplementCount == 0)
+        {
+            $this->document_order_id = $modelOrderID;
+            $this->errors_id = 58;
+            $this->time_start = date("Y.m.d H:i:s");
+            $this->save();
+        }
+    }
+
     /*-------------------------------------------------*/
 
     public function CheckDocumentOrder ($modelOrderID)
     {
-        //ТУТ ГРУППЫ ДЕРГАЕМ МАКСИМАЛЬНО КОСТЫЛЬНЫМ ОБРАЗОМ
-
-        /*$groups = OrderGroupWork::find()->where(['document_order_id' => $modelOrderID])->all();
-        $groups_check = [];
-
-        foreach ($groups as $group) $groups_check[] = $group->training_group_id;
-
-
-        if ($groups_check !== null && count($groups_check) > 0)
-        {
-            $errorsCheck = new GroupErrorsWork();
-            $errorsCheck->CheckOrderTrainingGroup($groups_check);
-
-        }*/
-
-        //-------------------------------------------------
-
         $order = DocumentOrderWork::find()->where(['id' => $modelOrderID])->one();
         $this->CheckScan($modelOrderID, $order);
         if ($order->type === 1 || $order->type == 10)   // неучебный
@@ -177,12 +205,27 @@ class OrderErrorsWork extends OrderErrors
             if ($order->order_date >= "2022-03-01")
                 $this->CheckPasta($modelOrderID);
         }
+        if ($order->type === 2)
+        {
+            $this->CheckForeignEvent($modelOrderID);
+            $this->CheckSupplement($modelOrderID);
+        }
     }
 
     public function CheckErrorsDocumentOrderWithoutAmnesty ($modelOrderID)
     {
         $this->NoAmnesty($modelOrderID);
         $this->CheckDocumentOrder($modelOrderID);
+    }
+
+    public function PermissionToParticipate ($modelOrderID)
+    {
+        $err = OrderErrorsWork::find()->where(['document_order_id' => $modelOrderID, 'time_the_end' => null, 'amnesty' => null])
+            ->andWhere(['IN', 'errors_id', [57, 58]])->all();
+        if (count($err) == null)
+            return true;
+        else
+            return false;
     }
 
 }

@@ -152,7 +152,7 @@ class LocalResponsibilityWork extends LocalResponsibility
 
     public function uploadFiles($upd = null)
     {
-        $path = '@app/upload/files/responsibility/';
+        $path = '@app/upload/files/local-responsibility/';
         $result = '';
         $counter = 0;
         if (strlen($this->files) > 3)

@@ -9,6 +9,10 @@ use Yii;
 
 class VisitWork extends Visit
 {
+    const ALL = [0, 1, 2, 3]; // считать ВСЕ записи в таблице Visits
+    const ONLY_PRESENCE = [0, 2]; //считать только явки и дистант
+    const PRESENCE_AND_ABSENCE = [0, 1, 2]; //считать явки, неявки и дистант
+
     public function beforeDelete()
     {
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалены visit');

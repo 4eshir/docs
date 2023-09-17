@@ -91,12 +91,12 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
 
     public function getAchievements()
     {
-        $achieves = ParticipantAchievement::find()->where(['participant_id' => $this->id])->all();
+        $achieves = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $this->id])->all();
         $achievesLink = '';
         foreach ($achieves as $achieveOne)
         {
-            $achievesLink = $achievesLink.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->foreign_event_id])).
-                ' ('.$achieveOne->foreignEvent->start_date.')'.'<br>';
+            $achievesLink = $achievesLink.$achieveOne->achievment.' &mdash; '.Html::a($achieveOne->teacherParticipantWork->foreignEvent->name, \yii\helpers\Url::to(['foreign-event/view', 'id' => $achieveOne->teacherParticipantWork->foreign_event_id])).
+                ' ('.$achieveOne->teacherParticipantWork->foreignEvent->start_date.')'.'<br>';
         }
         return $achievesLink;
     }

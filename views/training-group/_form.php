@@ -930,7 +930,7 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                             $strConfirm .= '<span style="font-size: 12pt; color: green; margin-left: 10px; margin-right: 10px; padding: 0">Утверждена</span>';
                         }
 
-                        $role = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['IN', 'role_id', [5, 6, 7]])->one();
+                        $role = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['IN', 'role_id', [6, 7]])->one();
                         if ($role == null)
                             $confirmButton = '';
 

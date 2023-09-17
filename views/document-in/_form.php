@@ -99,7 +99,7 @@ use yii\jui\DatePicker;
         echo '</div>';
 
         echo '<div id="corr_div2">';
-        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->all();
+        $company = \app\models\work\CompanyWork::find()->where(['id' => $model->correspondent->company_id])->orderBy(['name' => SORT_ASC])->all();
         $items = \yii\helpers\ArrayHelper::map($company,'id','name');
         $params = [
             'id' => 'company',
@@ -121,8 +121,13 @@ use yii\jui\DatePicker;
         echo '</div>';
 
         echo '<div id="corr_div2">';
-        $company = \app\models\work\CompanyWork::find()->orderBy(['name' => SORT_ASC])->all();
-        $items = \yii\helpers\ArrayHelper::map($company,'id','name');
+        $company = \app\models\work\CompanyWork::find()->where(['!=', 'id', 7])->orderBy(['name' => SORT_ASC])->all();
+        $companyNull = \app\models\work\CompanyWork::find()->where(['id' => 7])->all();
+        $items1 = \yii\helpers\ArrayHelper::map($company,'id','name');
+        $items2 = \yii\helpers\ArrayHelper::map($companyNull,'id','name');
+
+        $items = array_merge($items2, $items1);
+
         $params = [
             'id' => 'company',
             'class' => 'form-control com',
@@ -202,7 +207,7 @@ use yii\jui\DatePicker;
 
 
 
-    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Приложения') ?>
+    <?= $form->field($model, 'applicationFiles[]')->fileInput(['multiple' => true])->label('Приложения') ?>
 
     <?php
     if ($model->applications !== null)

@@ -414,7 +414,7 @@ class TrainingProgramWork extends TrainingProgram
 
     public function uploadEditFiles($upd = null)
     {
-        $path = '@app/upload/files/program/edit_docs/';
+        $path = '@app/upload/files/training-program/edit_docs/';
         $result = '';
         $counter = 0;
         if (strlen($this->edit_docs) > 3)
@@ -443,7 +443,7 @@ class TrainingProgramWork extends TrainingProgram
 
     public function uploadDocFile()
     {
-        $path = '@app/upload/files/program/doc/';
+        $path = '@app/upload/files/training-program/doc/';
         $date = $this->ped_council_date;
         $new_date = '';
         $filename = '';
@@ -460,7 +460,7 @@ class TrainingProgramWork extends TrainingProgram
 
     public function uploadContractFile()
     {
-        $path = '@app/upload/files/program/contract/';
+        $path = '@app/upload/files/training-program/contract/';
         $date = $this->ped_council_date;
         $new_date = '';
         $filename = '';
@@ -511,7 +511,7 @@ class TrainingProgramWork extends TrainingProgram
         $tps = ThematicPlanWork::find()->where(['training_program_id' => $this->id])->all();
         foreach ($tps as $tp)
             $tp->delete();
-        $this->fileUtp->saveAs('@app/upload/files/program/temp/' . $this->fileUtp->name);
+        $this->fileUtp->saveAs('@app/upload/files/training-program/temp/' . $this->fileUtp->name);
         ExcelWizard::WriteUtp($this->fileUtp->name, $this->id);
     }
 }

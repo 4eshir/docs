@@ -17,16 +17,47 @@ $session = Yii::$app->session;
 $this->title = $session->get('type') == 1 || $session->get('type') == 10 ? 'Приказы по основной деятельности' : 'Приказы по образовательной деятельности';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<style>
+    .btn-secondary {
+        color: #fff;
+        background-color: #808080;
+        border-color: #696969;
+    }
+
+    .btn-secondary:focus, .btn-secondary:hover {
+        color: #fff;
+        background-color: #606060;
+        border-color: #4F4F4F;
+    }
+
+    .btn {
+        margin-right: 5px;
+    }
+</style>
+
 <div style="margin-left: auto; margin-right: 0; width: max-content;">
     <div class="" data-html="true" style="position: fixed; z-index: 101; width: 30px; height: 30px;  margin-left: 10px; padding: 5px 0 0 0; background: #09ab3f; color: white; text-align: center; display: inline-block; border-radius: 4px;" title="Серый цвет - приказ утратил силу или был изменен другим приказом&#10Желтый цвет - архивный приказ&#10Красный цвет - в приказе есть ошибки">❔</div>
 </div>
+
 <div class="document-order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить приказ', ['create'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']) ?>
-        <?php if($session->get('type') == 1) echo Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']) ?>
+        <?php
+            if ($session->get('type') == 1)
+            {
+               echo Html::a('Добавить приказ по основной деятельности', ['create', 'modelType' => '1'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']);
+               echo Html::a('Добавить образовательный приказ', ['create', 'modelType' => '0'], ['class' => 'btn btn-warning', 'style' => 'display: inline-block;']);
+               echo Html::a('Добавить приказ об участии', ['create', 'modelType' => '2'], ['class' => 'btn btn-info', 'style' => 'display: inline-block;']);
+               echo Html::a('Добавить резерв', ['create-reserve'], ['class' => 'btn btn-secondary', 'style' => 'display: inline-block;']);
+            }
+            else
+            {
+                echo Html::a('Добавить образовательный приказ', ['create', 'modelType' => '0'], ['class' => 'btn btn-success', 'style' => 'display: inline-block;']);
+            }
+        ?>
     </p>
     <?php
         echo $this->render('_search', ['model' => $searchModel])

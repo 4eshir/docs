@@ -64,23 +64,23 @@ class MergeParticipantModel extends \yii\base\Model
 
         //получаем достижения второго участника
 
-        $tps = ParticipantAchievementWork::find()->where(['participant_id' => $this->id2])->all();
+        /*$tps = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $this->id2])->all();
         foreach ($tps as $tp)
         {
             $tp->participant_id = $this->id1;
             $tp->save();
-        }
+        }*/
 
         //-----------------------------------------
 
         //получаем файлы второго участника
 
-        $tps = ParticipantFilesWork::find()->where(['participant_id' => $this->id2])->all();
+        /*$tps = ParticipantFilesWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $this->id2])->all();
         foreach ($tps as $tp)
         {
             $tp->participant_id = $this->id1;
             $tp->save();
-        }
+        }*/
 
         //-----------------------------------------
 
@@ -97,12 +97,12 @@ class MergeParticipantModel extends \yii\base\Model
 
         //Получаем связку с педагогом второго участника
 
-        $tps = TeacherParticipantWork::find()->where(['participant_id' => $this->id2])->all();
+        /*$tps = TeacherParticipantWork::find()->where(['participant_id' => $this->id2])->all();
         foreach ($tps as $tp)
         {
             $tp->participant_id = $this->id1;
             $tp->save(false);
-        }
+        }*/
 
         //-----------------------------------------
 

@@ -78,7 +78,7 @@ class DocumentOutWork extends DocumentOut
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/document_out/scan/';
+        $path = '@app/upload/files/docs-out/scan/';
         $date = $this->document_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -99,7 +99,7 @@ class DocumentOutWork extends DocumentOut
 
     public function uploadApplicationFiles($upd = null)
     {
-        $path = '@app/upload/files/document_out/apps/';
+        $path = '@app/upload/files/docs-out/apps/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)
@@ -135,7 +135,7 @@ class DocumentOutWork extends DocumentOut
 
     public function uploadDocFiles($upd = null)
     {
-        $path = '@app/upload/files/document_out/docs/';
+        $path = '@app/upload/files/docs-out/docs/';
         $result = '';
         $counter = 0;
         if (strlen($this->doc) > 4)

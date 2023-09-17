@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->protocol);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'protocol/'.$split[$i].'+'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i], 'type' => 'protocol'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->photos);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'photos/'.$split[$i].'+'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i], 'type' => 'photos'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->reporting_doc);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'reporting/'.$split[$i].'+'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i], 'type' => 'reporting'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $split = explode(" ", $model->other_files);
                 $result = '';
                 for ($i = 0; $i < count($split) - 1; $i++)
-                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => 'other/'.$split[$i].'+'])).'<br>';
+                    $result = $result.Html::a($split[$i], \yii\helpers\Url::to(['event/get-file', 'fileName' => $split[$i], 'type' => 'other'])).'<br>';
                 return $result;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],

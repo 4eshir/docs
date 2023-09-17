@@ -52,9 +52,9 @@ class ExcelWizard
     static public function WriteUtp($filename, $training_program_id)
     {
         ini_set('memory_limit', '512M');
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
         $reader = \PHPExcel_IOFactory::createReader($inputType);
-        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        $inputData = $reader->load(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
         $index = 2;
         while ($index <= $inputData->getActiveSheet()->getHighestRow() && strlen($inputData->getActiveSheet()->getCellByColumnAndRow(0, $index)->getValue()) > 1)
         {
@@ -70,7 +70,7 @@ class ExcelWizard
             $tp->save();
             $index++;
         }
-        unlink(Yii::$app->basePath.'/upload/files/program/temp/'.$filename);
+        unlink(Yii::$app->basePath.'/upload/files/training-program/temp/'.$filename);
     }
 
     static public function WriteContractors($filename)
@@ -360,7 +360,8 @@ class ExcelWizard
     }
 
     //получить всех участников заданного отдела мероприятий в заданный период
-    static public function GetAllParticipantsForeignEvents($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id)
+    static public function GetAllParticipantsForeignEvents
+    ($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $allow_remote = 1)
     {
         if ($events_id == 0)
             $events1 = ForeignEventWork::find()->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])->all();
@@ -377,9 +378,16 @@ class ExcelWizard
             foreach ($events1 as $event) $eIds[] = $event->id;
 
             if ($focus_id !== 0)
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
             else
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->all();
 
             foreach ($partsLink as $part) $pIds[] = $part->teacherParticipant->participant_id;
         }
@@ -404,9 +412,14 @@ class ExcelWizard
                 {
                     $teamName = $team->name;
                     if (count($partsLink) !== 0)
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
+                            ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
                 $tIds[] = $team;
@@ -419,9 +432,15 @@ class ExcelWizard
             //var_dump(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->createCommand()->getRawSql());
             //var_dump($counterTeam);
             if (count($partsLink) !== 0)
-                $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
+                $counterPart1 += count(TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                        ->where(['teacherParticipant.foreign_event_id' => $event->id])
+                        ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                        ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                        ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $tpIds])->all()) + $counterTeam;
             else
-                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+                $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])
+                        ->andWhere(['allow_remote_id' => $allow_remote])
+                        ->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
 
         }
 
@@ -596,15 +615,21 @@ class ExcelWizard
     * $start_date - левая дата для поиска групп
     * $end_date - правая дата для поиска групп
     * $branch_id - id отдела, производящего учет (0 - все отделы)
+    * $allow_remote - форма реализации
     */
-    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include)
+    static public function GetPrizesWinners($event_level, $events_id, $events_id2, $start_date, $end_date, $branch_id, $focus_id, $participants_not_include, $allow_remote = 1)
     {
         $not_include = $participants_not_include;
 
         if ($events_id == 0)
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])
+                ->where(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])
+                ->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
         else
-            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
+            $events1 = ForeignEventWork::find()->joinWith(['teacherParticipants teacherParticipants'])->joinWith(['teacherParticipants.teacherParticipantBranches teacherParticipantBranches'])
+                ->where(['IN', 'id', $events_id])->andWhere(['>=', 'finish_date', $start_date])
+                ->andWhere(['<=', 'finish_date', $end_date])
+                ->andWhere(['event_level_id' => $event_level])/*->andWhere(['teacherParticipantBranches.branch_id' => $branch_id])*/->all();
 
 
         
@@ -618,16 +643,28 @@ class ExcelWizard
             
             if ($focus_id !== 0)
             {
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.focus' => $focus_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             }
             else
-                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+                $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                    ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                    ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                    ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                    ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
             
 
         }
         else
         {
-            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
+            $partsLink = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['IN', 'teacherParticipant.foreign_event_id', $eIds])
+                ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                ->andWhere(['NOT IN', 'teacherParticipant.participant_id', $participants_not_include])->all();
         }
 
         /*if ($branch_id == 7 && $focus_id == 2)
@@ -645,7 +682,10 @@ class ExcelWizard
         /*var_dump($eIds);
         var_dump($partsLink);*/
         $events1 = ForeignEventWork::find()->where(['IN', 'id', $eIds])->all();
-        
+
+
+
+
         foreach ($pIds as $one) $not_include[] = $one;
 
 
@@ -655,11 +695,18 @@ class ExcelWizard
         $allTeams = 0;
         foreach ($events1 as $event)
         {
-            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $event->id])->andWhere(['teacher_participant_branch.branch_id' => $branch_id])->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+
+            $participantsEvent = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])
+                ->where(['teacherParticipant.foreign_event_id' => $event->id])
+                ->andWhere(['teacher_participant_branch.branch_id' => $branch_id])
+                ->andWhere(['teacherParticipant.allow_remote_id' => $allow_remote])
+                ->andWhere(['teacherParticipant.focus' => $focus_id])->all();
+
+
             $pIds = [];
             foreach ($participantsEvent as $part) $pIds[] = $part->teacherParticipant->participant_id;
 
-            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->all();
+            $teams = TeamWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->orderBy(['name' => SORT_ASC])->all();
             $tIds = [];
             $teamName = '';
             $counterTeamWinners = 0;
@@ -667,26 +714,39 @@ class ExcelWizard
             $counterTeam = 0;
             foreach ($teams as $team)
             {
+
+
+
+
                 if ($teamName != $team->name)
                 {
+
                     $teamName = $team->name;
                     if ($partsLink !== null)
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
                         $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 1])->one();
                     if ($res !== null) $counterTeamWinners++;
-                    else $counterTeamPrizes++;
+
+                    if ($partsLink !== null)
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $pIds])->one();
+                    else
+                        $res = ParticipantAchievementWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['winner' => 0])->one();
+                    if ($res !== null) $counterTeamPrizes++;
                     
                     if ($partsLink !== null)
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->andWhere(['IN', 'participant_id', $pIds])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
+                            ->andWhere(['IN', 'participant_id', $pIds])->one();
                     else
-                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+                        $res = TeacherParticipantWork::find()->where(['participant_id' => $team->participant_id])
+                            ->andWhere(['allow_remote_id' => $allow_remote])
+                            ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
                     if ($res !== null) $counterTeam++;
                 }
                 $tIds[] = $team;
             }
-
-            
 
 
             $tpIds = [];
@@ -702,8 +762,8 @@ class ExcelWizard
                 }
                 else
                 {
-                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
-                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'foreign_event_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'foreign_event_id', $events_id2])->andWhere(['IN', 'participant_id', $pIds])->all();
                 }
                 
             }
@@ -716,11 +776,13 @@ class ExcelWizard
                 }
                 else
                 {
-                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'participant_id', $events_id2])->all();
-                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'participant_id', $events_id2])->all();
+                    $achieves1 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 0])->andWhere(['IN', 'foreign_event_id', $events_id2])->all();
+                    $achieves2 = ParticipantAchievementWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['NOT IN', 'participant_id', $tpIds])->andWhere(['winner' => 1])->andWhere(['IN', 'foreign_event_id', $events_id2])->all();
                 }
                 
             }
+
+
             
             $achievesId1 = [];
             foreach ($achieves1 as $achieve) $achievesId1[] = $achieve->participant_id;
@@ -748,15 +810,36 @@ class ExcelWizard
             $counter1 += count($achieves1) + $counterTeamPrizes;
             $counter2 += count($achieves2) + $counterTeamWinners;
             $counterGZ += count($achievesId1);
-            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
+            $counterPart1 += count(TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])->andWhere(['allow_remote_id' => $allow_remote])->andWhere(['IN', 'participant_id', $pIds])->andWhere(['NOT IN', 'participant_id', $tpIds])->all()) + $counterTeam;
             $allTeams += $counterTeam;
+
+            if ($branch_id == 3 && $focus_id == 3)
+            {
+                if ($counterPart1 < $counter1 + $counter2)
+                {
+                    echo $event->name.' '.$counterPart1.' '.$counter1.' '.$counter2.'<br>---<br>';
+                    $allP = TeacherParticipantWork::find()->where(['foreign_event_id' => $event->id])
+                        ->andWhere(['allow_remote_id' => $allow_remote])
+                        ->andWhere(['IN', 'participant_id', $pIds])
+                        ->andWhere(['NOT IN', 'participant_id', $tpIds])->all();
+
+                    foreach ($allP as $oneP) echo $oneP->participantWork->fullName.'<br>';
+                    echo '<<<>>><br>';
+                    foreach ($achieves1 as $oneP) echo $oneP->participantWork->fullName.'<br>';
+                    foreach ($achieves2 as $oneP) echo $oneP->participantWork->fullName.'<br>';
+
+                    echo '-------------------------<br><br>';
+                }
+            }
+
 
         }
 
-        return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1];
+
+        return [$counter1, $counter2, $not_include, $counterGZ, $counterPart1, $allTeams];
     }
 
-    //получаем всех учеников, успешно завершивших и/или проходящих обучение в пеирод со $start_date по $end_date из групп $group_ids
+    //получаем всех учеников, успешно завершивших и/или проходящих обучение в период со $start_date по $end_date из групп $group_ids
     static public function GetParticipantsIdsFromGroups($group_ids)
     {
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $group_ids])->all(); //получаем всех учеников из групп
@@ -1406,6 +1489,7 @@ class ExcelWizard
 
     static public function DownloadDod($start_date, $end_date)
     {
+
         $counter = 0;
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_1_DOD.xlsx');
@@ -1425,6 +1509,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 1])])
             ->all();
+
 
         
         foreach ($groups as $group) $groupsId[] = $group->id;
@@ -1648,11 +1733,10 @@ class ExcelWizard
         $groupsId = [];
 
         $groups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 1])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 3])])
             ->all();
-
 
         
         foreach ($groups as $group) $groupsId[] = $group->id;
@@ -1775,7 +1859,6 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 2])])
             ->all();
 
-
         
         foreach ($groups as $group) $groupsId[] = $group->id;
 
@@ -1896,6 +1979,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 5])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['trainingProgram.focus_id' => 5])])
             ->all();
+
 
         $counter += count($groups);
         
@@ -2353,22 +2437,75 @@ class ExcelWizard
         */
     }
 
-    //получаем процент победителей и призеров от общего числа участников
-    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget)
+
+    static public function GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote_id)
     {
-        $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, []);
-        $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, []);
-        $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, []);
+        $trainingGroups = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')
+            ->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
+            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
+            ->all();
+
+        $result = 0;
+        $allParts = 0;
+        foreach ($trainingGroups as $group)
+        {
+
+            if ($group->branch_id == $branch_id && $group->trainingProgram->focus_id == $focus_id)
+            {
+                $parts = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
+                foreach ($parts as $part)
+                {
+                    if ($part->group_project_themes_id !== null)
+                        $result += 1;
+                    $allParts += 1;
+                }
+            }
+
+
+        }
+
+        return [$result, $allParts];
+    }
+
+    //получаем процент победителей и призеров от общего числа участников
+    static public function GetPercentEventParticipants($start_date, $end_date, $branch_id, $focus_id, $budget, $allow_remote = 1)
+    {
+        $winners1 = ExcelWizard::GetPrizesWinners(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
+        $winners2 = ExcelWizard::GetPrizesWinners(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
+        $winners3 = ExcelWizard::GetPrizesWinners(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, [], $allow_remote);
+
+        if ($branch_id == 4 && $focus_id == 1)
+            $extraParts = ExcelWizard::GetSchooltechProjectSuccess($start_date, $end_date, $branch_id, $focus_id, $allow_remote);
 
         //if ($branch_id == 1)
         //   var_dump($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]);
-        $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id) + ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id);
+        $all = ExcelWizard::GetAllParticipantsForeignEvents(8, 0, 0, $start_date, $end_date, $branch_id, $focus_id, $allow_remote) +
+            ExcelWizard::GetAllParticipantsForeignEvents(7, 0, 0, $start_date, $end_date, $branch_id, $focus_id, $allow_remote) +
+            ExcelWizard::GetAllParticipantsForeignEvents(6, 0, 0, $start_date, $end_date, $branch_id, $focus_id, $allow_remote);
 
         //var_dump($all);
-        
+
+        if ($branch_id == 4 && $focus_id == 1)
+        {
+            if ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1] == 0) return 0;
+        }
+        else
         if ($winners1[4] + $winners2[4] + $winners3[4] == 0) return 0;
 
-        return round(($winners1[3] + $winners2[3] + $winners3[3]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+
+        if ($branch_id == 4 && $focus_id == 1)
+        {
+            return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0] + $extraParts[0]) /
+                ($winners1[4] + $winners2[4] + $winners3[4] + $extraParts[1]) * 100);
+        }
+        else
+            return round(($winners1[1] + $winners2[1] + $winners3[1] + $winners1[0] + $winners2[0] + $winners3[0]) / ($winners1[4] + $winners2[4] + $winners3[4]) * 100);
+
+
+
+
         //return round((($winners1[0] + $winners1[1] + $winners2[0] + $winners2[1] + $winners3[0] + $winners3[1]) / $all) * 100);
     }
 
@@ -2545,215 +2682,207 @@ class ExcelWizard
 
         //Отдел Моб. Кванториум (тех. направленность)
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 4, 1));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 4, 1, 1, 1));
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setHorizontal('center');
 
-        //--------------------------------------
+                //--------------------------------------
 
-        //Отдел ЦОД (естес.-науч. направленность)
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 51, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setHorizontal('center');
+                //Отдел ЦОД (естес.-науч. направленность)
 
-        //--------------------------------------
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 4));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 51, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 4));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 4, 1));
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 49)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 51)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 52)->getStyle()->getAlignment()->setHorizontal('center');
 
-        //Отдел ЦОД (худож. направленность)
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 2));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 2));
-        /*$inputData->getSheet(1)->setCellValueByColumnAndRow(10, 57, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 2, 1));*/
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setHorizontal('center');
-        /*$inputData->getSheet(1)->getCellByColumnAndRow(10, 57)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 57)->getStyle()->getAlignment()->setHorizontal('center');*/
+                //--------------------------------------
 
-        //--------------------------------------
+                //Отдел ЦОД (худож. направленность)
 
-        //Отдел ЦОД (тех. направленность - очная)
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 1));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 43, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 1));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1));
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 43)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 43)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 44)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 44)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 2));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 56, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 2));
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 54)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 56)->getStyle()->getAlignment()->setHorizontal('center');
 
-        //--------------------------------------
+                //--------------------------------------
 
-        //Отдел ЦОД (тех. направленность - очная с дистантом)
+                //Отдел ЦОД (тех. направленность - очная)
 
-        //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, round((ExcelWizard::GetAllParticipantsFromBranch($start_date, $end_date, [7], [1], 0) / ExcelWizard::GetAllParticipantsFromProgram($start_date, $end_date, 439, 0)) * 100));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 1));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 43, ExcelWizard::GetPercentProjectParticipant($start_date, $end_date, 7, 1));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1));
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 43)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 43)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 44)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 44)->getStyle()->getAlignment()->setHorizontal('center');
 
-        //ВРЕМЕННЫЙ КОСТЫЛЬ, ИСПРАВИТЬ ПОСЛЕ СДАЧИ ГЗ-2022
+                //--------------------------------------
 
+                //Отдел ЦОД (тех. направленность - очная с дистантом)
 
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 1, 1, 2));
 
-        //---------------------------------------------------
 
-        //Отдел ЦОД (физкул.-спортивная направленность)
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 5));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 5, 1));
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setHorizontal('center');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 60)->getStyle()->getAlignment()->setVertical('top');
-        $inputData->getSheet(1)->getCellByColumnAndRow(10, 60)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setHorizontal('center');
 
-        //---------------------------------------------
+                //---------------------------------------------------
 
-        //-----------------------------------------------------
+                //Отдел ЦОД (физкул.-спортивная направленность)
 
-        //Кол-во человеко-часов
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, ExcelWizard::GetPercentDoubleParticipant($start_date, $end_date, 7, 5));
+                $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, ExcelWizard::GetPercentEventParticipants($start_date, $end_date, 7, 5, 1));
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 58)->getStyle()->getAlignment()->setHorizontal('center');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 60)->getStyle()->getAlignment()->setVertical('top');
+                $inputData->getSheet(1)->getCellByColumnAndRow(10, 60)->getStyle()->getAlignment()->setHorizontal('center');
 
-        $statusArr = [];
-        if ($visit_flag == 1) $statusArr = [0, 1, 2];
-        else $statusArr = [0, 2];
+                //---------------------------------------------
 
+                //-----------------------------------------------------
 
-        //Отдел Технопарк (тех. направленность)
+                //Кол-во человеко-часов
 
+                $statusArr = [];
+                if ($visit_flag == 1) $statusArr = [0, 1, 2];
+                else $statusArr = [0, 2];
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 2, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
+                //Отдел Технопарк (тех. направленность)
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
 
-        //---------------
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 2, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        //Отдел ЦДНТТ (тех. направленность)
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 8, count($visits));
 
-        //$visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 9, count($visits));
+                //Отдел ЦДНТТ (тех. направленность)
 
-        //---------------
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        //Отдел ЦДНТТ (худ. направленность)
+                //$visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 1)])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 9, count($visits));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 10, count($visits));
+                //---------------
 
-        //---------------
+                //Отдел ЦДНТТ (худ. направленность)
 
-        //Отдел ЦДНТТ (соц-пед. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 3)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 10, count($visits));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
+                //---------------
 
-        //---------------
+                //Отдел ЦДНТТ (соц-пед. направленность)
 
-        //Отдел Кванториум (тех. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 3, 3)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 1, 0)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 11, count($visits));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, count($visits));
+                //---------------
 
-        //---------------
+                //Отдел Кванториум (тех. направленность)
 
-        //Отдел Моб. Кванториум (тех. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 1, 0)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 12, count($visits));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
+                //---------------
 
-        //---------------
+                //Отдел Моб. Кванториум (тех. направленность)
 
-        //Отдел ЦОД (тех. направленность - очная)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 4, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $gIds = [];
-        $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
-        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
-        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
-        foreach ($groups as $group) $gIds[] = $group->id;
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 13, count($visits));
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 14, count($visits));
+                //Отдел ЦОД (тех. направленность - очная)
 
-        //---------------
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
 
-        //Отдел ЦОД (тех. направленность - дистант)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $gIds = [];
-        $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [2]])->all();
-        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
-        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
-        foreach ($groups as $group) $gIds[] = $group->id;
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 14, count($visits));
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 15, count($visits));
+                //Отдел ЦОД (тех. направленность - дистант)
 
-        //---------------
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [2]])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
 
-        //Отдел ЦОД (естес.-науч. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 1)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $gIds = [];
-        $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
-        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
-        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
-        foreach ($groups as $group) $gIds[] = $group->id;
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 15, count($visits));
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 4)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 16, count($visits));
+                //Отдел ЦОД (естес.-науч. направленность)
 
-        //---------------
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
 
-        //Отдел ЦОД (худож. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 4)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $gIds = [];
-        $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
-        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
-        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
-        foreach ($groups as $group) $gIds[] = $group->id;
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 16, count($visits));
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 17, count($visits));
+                //Отдел ЦОД (худож. направленность)
 
-        //---------------
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
 
-        //Отдел ЦОД (физкульт.-спорт. направленность)
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 2)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'trainingGroupLesson.training_group_id', $gIds])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
 
-        $gIds = [];
-        $tpIds = [];
-        $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
-        foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
-        $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
-        foreach ($groups as $group) $gIds[] = $group->id;
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 17, count($visits));
 
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 5)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+                //---------------
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 18, count($visits));
+                //Отдел ЦОД (физкульт.-спорт. направленность)
 
-        //---------------
+                $gIds = [];
+                $tpIds = [];
+                $tps = BranchProgramWork::find()->joinWith(['trainingProgram trainingProgram'])->andWhere(['IN', 'trainingProgram.allow_remote_id', [0, 1]])->all();
+                foreach ($tps as $tp) $tpIds[] = $tp->training_program_id;
+                $groups = TrainingGroupWork::find()->where(['IN', 'training_program_id', $tpIds])->all();
+                foreach ($groups as $group) $gIds[] = $group->id;
 
-        //---------------------
-        
+                $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['IN', 'trainingGroupLesson.training_group_id', ExcelWizard::GetGroupsByDatesBranchFocus($start_date, $end_date, 7, 5)])->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->andWhere(['IN', 'visit.id', (new Query())->select('visit.id')->from('visit')->where(['IN', 'status', $statusArr])])->all();
+
+                $inputData->getSheet(2)->setCellValueByColumnAndRow(10, 18, count($visits));
+
+                //---------------
+
+                //---------------------
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
@@ -2800,8 +2929,7 @@ class ExcelWizard
         $resIds = [];
         foreach ($result as $one)
         {
-            if ($one->participant_id == 7710)
-                var_dump(count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()));
+            //var_dump(count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()));
             if (count(TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $training_group_ids])->andWhere(['IN', 'participant.sex', $sex])->andWhere(['participant_id' => $one->participant_id])->all()) > 1)
                 $resIds[] = $one->participant_id;
         }
@@ -2851,7 +2979,7 @@ class ExcelWizard
             $sumArrCom[] = $sumCom;
         }
 
-        //var_dump($sumArr);
+        //var_dump($allGroups[0]);
 
         $inputData->getSheet(2)->setCellValueByColumnAndRow(15, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);
         $inputData->getSheet(2)->setCellValueByColumnAndRow(16, 21, $sumArr[0] + $sumArr[1] + $sumArr[2] + $sumArr[3] + $sumArr[4]);
@@ -2906,7 +3034,8 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 22, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 22, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+
+            //$temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']));
             
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -2931,7 +3060,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 27, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 27, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+            //$temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[1], ['Мужской', 'Женский']));
             
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -2949,16 +3078,16 @@ class ExcelWizard
 
         if ($allGroups[3] !== null)
         {
-            foreach ($allGroups[3] as $group) $allGroups[2][] = $group;
-            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[2], ['Мужской', 'Женский']));
-            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[2], ['Мужской', 'Женский']));
-            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[2], ['Мужской', 'Женский']));
-            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[2], ['Мужской', 'Женский']));
+            foreach ($allGroups[3] as $group) $allGroups[3][] = $group;
+            $temp = count(ExcelWizard::GetParticipantsFromGroupAll($allGroups[3], ['Мужской', 'Женский']));
+            $temp1 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[3], ['Мужской', 'Женский']));
+            $temp2 = count(ExcelWizard::GetParticipantsFromGroupAll($allGroupsCom[3], ['Мужской', 'Женский']));
+            $temp3 = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroupsCom[3], ['Мужской', 'Женский']));
             $inputData->getSheet(2)->setCellValueByColumnAndRow(17, 29, $temp);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 29, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 29, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+            //$temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[3], ['Мужской', 'Женский']));
            
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -2984,7 +3113,7 @@ class ExcelWizard
             $inputData->getSheet(2)->setCellValueByColumnAndRow(18, 26, $temp1);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(19, 26, $temp);
 
-            $temp = ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[0], ['Мужской', 'Женский']);
+            //$temp = count(ExcelWizard::GetParticipantsFromGroupDistinct($allGroups[4], ['Мужской', 'Женский']));
             
             $allParts += $temp;
             $allPartsDouble += $temp1;
@@ -3466,6 +3595,14 @@ class ExcelWizard
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startRow)->getValue();
         }
 
+        $emailColumnIndex = 0;
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
+        while ($birthdateColumnIndex < 100 && $tempValue !== 'Контакт: Рабочий e-mail')
+        {
+            $emailColumnIndex++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
+        }
+
 
         $names = [];
         $curName = "_";
@@ -3490,6 +3627,17 @@ class ExcelWizard
         {
             $curDate = $inputData->getActiveSheet()->getCellByColumnAndRow($birthdateColumnIndex, $startIndex + $mainIndex)->getFormattedValue();
             $birthdates[] = $curDate;
+            $mainIndex++;
+        }
+
+        $emails = [];
+        $curEmail = "_";
+        $startIndex = $startRow + 1;
+        $mainIndex = 0;
+        while ($mainIndex < $inputData->getActiveSheet()->getHighestRow() - $startRow)
+        {
+            $curEmail = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startIndex + $mainIndex)->getFormattedValue();
+            $emails[] = $curEmail;
             $mainIndex++;
         }
         //unset($birthdates[count($birthdates) - 1]);
@@ -3531,6 +3679,10 @@ class ExcelWizard
                 }
                 $newParticipant->birthdate = date("Y-m-d", strtotime($birthdates[$i]));
                 $newParticipant->sex = self::GetSex($fio[1]);
+
+                if ($newParticipant->email == null && preg_match('/\S+@\S+\.\S+/', $emails[$i]))
+                    $newParticipant->email = $emails[$i];
+
                 $newParticipant->save();
             }
             $participants[] = $newParticipant;

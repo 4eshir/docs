@@ -62,7 +62,7 @@ class AsAdminWork extends AsAdmin
 
     public function uploadScanFile()
     {
-        $path = '@app/upload/files/as_admin/scan/';
+        $path = '@app/upload/files/as-admin/scan/';
         $name = $this->as_name;
         if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
         if ($this->id == null)
@@ -77,7 +77,7 @@ class AsAdminWork extends AsAdmin
 
     public function uploadLicenseFile()
     {
-        $path = '@app/upload/files/as_admin/license/';
+        $path = '@app/upload/files/as-admin/license/';
         $name = $this->as_name;
         if (strlen($name) > 10) $name = mb_strimwidth($name, 0, 10);
         if ($this->id == null)

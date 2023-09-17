@@ -29,8 +29,8 @@ class ForeignEventWork extends ForeignEvent
     public function rules()
     {
         return [
-            [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'key_words', 'docs_achievement'], 'required'],
-            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'participantCount', 'copy', 'is_minpros', 'add_order_participation_id', 'last_edit_id'], 'integer'],
+            [['name', 'company_id', 'start_date', 'finish_date', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'key_words'], 'required'],
+            [['company_id', 'event_way_id', 'event_level_id', 'min_participants_age', 'max_participants_age', 'business_trip', 'escort_id', 'order_participation_id', 'order_business_trip_id', 'copy', 'is_minpros', 'add_order_participation_id', 'last_edit_id'], 'integer'],
             [['start_date', 'finish_date'], 'safe'],
             [['name', 'city', 'key_words', 'docs_achievement', 'companyString', 'participants'], 'string', 'max' => 1000],
             [['docs_achievement'], 'file', 'extensions' => 'jpg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
@@ -68,8 +68,8 @@ class ForeignEventWork extends ForeignEvent
             'add_order_participation_id' => 'Дополнительный приказ об участии',
             'orderParticipationString' => 'Приказ об участии',
             'addOrderParticipationString' => 'Дополнительный приказ',
-            'order_business_trip_id' => 'Приказ о командировке',
-            'orderBusinessTripString' => 'Приказ о командировке',
+            'order_business_trip_id' => 'Приказ о направлении (командировка)',
+            'orderBusinessTripString' => 'Приказ о направлении (командировка)',
             'key_words' => 'Ключевые слова',
             'docs_achievement' => 'Документы о достижениях',
             'participantsLink' => 'Участники',
@@ -160,7 +160,7 @@ class ForeignEventWork extends ForeignEvent
             $branchsId = [];
             foreach ($branchs as $branch) $branchsId[] = $branch->branch_id;
             $partsLink .= '<p ' . $this->getColor($partOne->participant_id, $partOne->id) . '>';
-            $team = TeamWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['participant_id' => $partOne->participant_id])->one();
+            $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->id])->one();
             $partsLink = $partsLink.Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' (педагог(-и): '.Html::a($partOne->teacherWork->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher_id]));
             if ($partOne->teacher2_id !== null) $partsLink .= ' '.Html::a($partOne->teacher2Work->shortName, \yii\helpers\Url::to(['people/view', 'id' => $partOne->teacher2_id]));
             $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->id])->all();
@@ -171,8 +171,8 @@ class ForeignEventWork extends ForeignEvent
 
             $partsLink .= ', отдел(-ы) для учета: ' . $tempStr;
             $partsLink .= ')';
-            if ($team !== null)
-                $partsLink = $partsLink.' - Команда '.$team->name;
+            if ($team != null)
+                $partsLink = $partsLink.' - Команда '.$team->teamNameWork->name;
             $partsLink .= '</p>';
         }
         return $partsLink;
@@ -180,15 +180,31 @@ class ForeignEventWork extends ForeignEvent
 
     public function getAchievementsLink()
     {
-        $parts = ParticipantAchievementWork::find()->where(['foreign_event_id' => $this->id])->orderBy(['winner' => SORT_DESC])->all();
+        $parts = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $this->id])->orderBy(['winner' => SORT_DESC])->all();
         $partsLink = '';
         foreach ($parts as $partOne)
         {
+            $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->participant_id])->one();
+            $tpb = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->id])->all();
+            $branchStr = '';
+            $teamStr = '[индивидуальное участие]';
+            if ($team != null)
+                $teamStr = '['.$team->teamNameWork->name.']';
+            foreach ($tpb as $one)
+                $branchStr .= $one->branch->name.' | ';
+
+            $branchStr = '[' . substr($branchStr, 0, -3) . ']';
+
             $value = $partOne->winner == 1 ? 'Победитель: ' : 'Призер: ';
 
-            $partsLink = $partsLink. $value .Html::a($partOne->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->participant_id])).' &mdash; '.$partOne->achievment.'<br>';
+            $partsLink = $partsLink. $value .Html::a($partOne->teacherParticipantWork->participantWork->shortName, \yii\helpers\Url::to(['foreign-event-participants/view', 'id' => $partOne->teacherParticipantWork->participant_id])).' '.$branchStr.' '.$teamStr.' &mdash; '.$partOne->achievment.'<br>';
         }
         return $partsLink;
+    }
+
+    public function getDocumentOrderWork()
+    {
+        return DocumentOrderWork::find()->where(['id' => $this->order_participation_id])->one();
     }
 
     public function getOrderParticipationString()
@@ -332,7 +348,7 @@ class ForeignEventWork extends ForeignEvent
 
     public function uploadAchievementsFile()
     {
-        $path = '@app/upload/files/foreign_event/achievements_files/';
+        $path = '@app/upload/files/foreign-event/achievements_files/';
         $date = $this->start_date;
         $new_date = '';
         for ($i = 0; $i < strlen($date); ++$i)
@@ -455,18 +471,42 @@ class ForeignEventWork extends ForeignEvent
         {
             foreach ($this->achievement as $achievementOne)
             {
-                //$duplicate = ParticipantAchievementWork::find()->where(['participant_id' => $achievementOne->fio])->andWhere(['foreign_event_id' => $this->id])->all();
-                if (true)//(count($duplicate) == 0)
+                $duplicate = ParticipantAchievementWork::find()->where(['teacher_participant_id' => $achievementOne->fio])->one();
+
+                if ($duplicate == null)
                 {
+                    $team = TeamWork::find()->where(['teacher_participant_id' => $achievementOne->fio])->one();
+
                     $part = new ParticipantAchievement();
-                    $part->foreign_event_id = $this->id;
-                    $part->participant_id = $achievementOne->fio;
+                    $part->teacher_participant_id = $achievementOne->fio;
                     $part->achievment = $achievementOne->achieve;
                     $part->winner = $achievementOne->winner;
-                    $part->cert_number = $achievementOne->cert_number;
-                    $part->nomination = $achievementOne->nomination;
-                    $part->date = $achievementOne->date;
+                    if ($achievementOne->cert_number != '')
+                    {
+                        $part->cert_number = $achievementOne->cert_number;
+                        $part->date = $achievementOne->date;
+                    }
+                    $part->team_name_id = $team->team_name_id;
                     $part->save();
+
+                    if ($team->team_name_id != null)
+                    {
+                        $teamParts = TeamWork::find()->where(['team_name_id' => $team->team_name_id])->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])->all();
+                        foreach ($teamParts as $onePart)
+                        {
+                            $part = new ParticipantAchievement();
+                            $part->teacher_participant_id = $onePart->teacher_participant_id;
+                            $part->achievment = $achievementOne->achieve;
+                            $part->winner = $achievementOne->winner;
+                            if ($achievementOne->cert_number != '')
+                            {
+                                $part->cert_number = $achievementOne->cert_number;
+                                $part->date = $achievementOne->date;
+                            }
+                            $part->team_name_id = $team->team_name_id;
+                            $part->save();
+                        }
+                    }
                 }
                 else
                     $str .= 'Попытка добавления дубликата.<br>';

@@ -183,6 +183,8 @@ class RoleBaseAccess
             "amnesty" => [32, 24],
             "generation-word" => [32, 24],
             "generation-protocol" => [32, 24],
+            "delete-participant" => [31, 23],
+            "update-participant" => [31, 23],
         ],
         //----------------------------------------
 
@@ -246,6 +248,7 @@ class RoleBaseAccess
             "view" => 39,
             "find-model" => 39,
             "get-file" => 39,
+            "form-order" => 40,
         ],
         //----------------------
 

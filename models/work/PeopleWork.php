@@ -13,6 +13,7 @@ use app\models\common\PeoplePositionBranch;
 use app\models\common\Position;
 use app\models\common\TeacherParticipant;
 use app\models\common\TrainingGroup;
+use app\models\components\petrovich\Petrovich;
 use app\models\extended\AccessTrainingGroup;
 use Yii;
 use yii\helpers\Html;
@@ -29,7 +30,7 @@ class PeopleWork extends People
         return [
             [['id', 'firstname', 'secondname', 'patronymic'], 'required'],
             [['id', 'company_id', 'position_id', 'branch_id', 'sex'], 'integer'],
-            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short', 'birthdate'], 'string', 'max' => 1000],
+            [['firstname', 'secondname', 'patronymic', 'stringPosition', 'short', 'birthdate', 'genitive'], 'string', 'max' => 1000],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
@@ -165,6 +166,32 @@ class PeopleWork extends People
         $pos = PeopleWork::find()->where(['id' => $this->id])->one();
         $positions .= $pos->company->name.' - '.$pos->position->name;
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic.' ('.$positions.')';
+    }
+
+    public function getPositionAndShortFullName()
+    {
+        // должность и фио в формате "директор В.В.Войков
+        $fio = mb_substr($this->firstname, 0, 1) .'. '. mb_substr($this->patronymic, 0, 1) .'. '. $this->genitive;
+
+        $pos = PeoplePositionBranchWork::find()->where(['people_id' => $this->id])->all();
+
+        /* Если нужен список всех должностей
+         * $post = [];
+        foreach ($pos as $posOne)
+            $post [] = $posOne->position_id;
+        $post = array_unique($post);    // выкинули все повторы
+        */
+
+        $petrovich = new Petrovich(Petrovich::GENDER_MALE);
+        //$posGenetive = $petrovich->middlename(mb_strtolower($pos[count($pos)-1]->positionWork->name), Petrovich::CASE_GENITIVE);
+        $posGenetive = explode(" ", $pos[count($pos)-1]->positionWork->name);
+        $posGenetive[0] = mb_strtolower($petrovich->firstname($posGenetive[0], Petrovich::CASE_ACCUSATIVE));
+
+        $result = '';
+        foreach ($posGenetive as $word)
+            $result .= $word . ' ';
+
+        return $result.$fio;
     }
 
     public function beforeSave($insert)

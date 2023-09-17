@@ -30,10 +30,37 @@ $this->params['breadcrumbs'][] = 'Редактировать';
 
     ?>
 
-    <?= $this->render('_form', [
+    <?php /*$this->render('_form', [
         'model' => $model,
         'modelResponsible' => $modelResponsible,
         'modelExpire' => $modelExpire,
-    ]) ?>
+    ])*/ ?>
+
+    <?php
+        if ($modelType == 1 || $modelType == 10) // по основной деятельности
+        {
+            echo $this->render('main-order', [
+                'model' => $model,
+                'modelResponsible' => $modelResponsible,
+                'modelExpire' => $modelExpire,
+            ]);
+        }
+        else if ($modelType == 2)   // об участии в мероприятии
+        {
+            echo $this->render('foreign-event', [
+                'model' => $model,
+                'modelResponsible' => $modelResponsible,
+                'modelParticipants' => $modelParticipants,
+            ]);
+        }
+        else if ($modelType == 0 || $modelType == 11)   // по образовательной деятельности
+        {
+            echo $this->render('education', [
+                'model' => $model,
+                'modelResponsible' => $modelResponsible,
+                'modelExpire' => $modelExpire,
+            ]);
+        }
+    ?>
 
 </div>

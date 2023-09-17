@@ -180,6 +180,9 @@ class DaemonController extends Controller
 
     public function actionBackupVisits()
     {
+        ini_set('memory_limit', '2048MB');
+        set_time_limit(10000);
+
         $bVisits = BackupVisitWork::find()->orderBy(['id' => SORT_ASC])->all();
         $cVisits = VisitWork::find()->orderBy(['id' => SORT_ASC])->all();
 
@@ -190,12 +193,14 @@ class DaemonController extends Controller
                 $diff = new BackupDifferenceWork();
                 $diff->visit_id = $bVisits[$i]->id;
                 $diff->old_status = $bVisits[$i]->status;
+                $diff->new_status = $cVisits[$i]->status;
                 $diff->date = date('Y-m-d');
                 $diff->save();
             }
         }
 
         foreach ($bVisits as $bVisit) $bVisit->delete();
+
         foreach ($cVisits as $cVisit)
         {
             $backup = new BackupVisitWork();

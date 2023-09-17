@@ -3,11 +3,16 @@
 namespace app\controllers;
 
 use app\models\components\RoleBaseAccess;
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
+use app\models\work\DocumentOrderWork;
+use app\models\work\ExpireWork;
 use app\models\work\ForeignEventErrorsWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\ResponsibleWork;
+use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
@@ -170,11 +175,12 @@ class ForeignEventController extends Controller
         ]);
     }
 
-    public function actionUpdateParticipant($id, $modelId)
+    public function actionUpdateParticipant($id)
     {
         $model = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $model->getTeam();
         $model->branchs = $model->getBranchs();
+        $back = 'event';
         if ($model->load(Yii::$app->request->post()))
         {
             $model->file = UploadedFile::getInstance($model, 'file');
@@ -182,17 +188,12 @@ class ForeignEventController extends Controller
             if ($model->file !== null)
                 $model->uploadParticipantFiles();
             $model->save(false);
-            $model = ForeignEventWork::find()->where(['id' => $modelId])->one();
-            $modelParticipants = [new ForeignEventParticipantsExtended];
-            $modelAchievement = [new ParticipantsAchievementExtended];
-            return $this->render('update',[
-                'model' => $model,
-                'modelParticipants' => $modelParticipants,
-                'modelAchievement' => $modelAchievement,
-            ]);
+
         }
+
         return $this->render('update-participant',[
             'model' => $model,
+            'back' => $back,
         ]);
     }
 
@@ -233,7 +234,7 @@ class ForeignEventController extends Controller
 
     public function actionDeleteParticipant($id, $model_id)
     {
-        $part = TeacherParticipantWork::find()->where(['id' => $id])->one();
+        /*$part = TeacherParticipantWork::find()->where(['id' => $id])->one();
         $p_id = $part->participant_id;
         $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $id])->all();
         foreach ($branchs as $branch) $branch->delete();
@@ -244,12 +245,17 @@ class ForeignEventController extends Controller
         $team = TeamWork::find()->where(['participant_id' => $p_id])->all();
         foreach ($team as $one)
             $team->delete();
-        return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
+        return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);*/
     }
 
     public function actionDeleteAchievement($id, $model_id)
     {
         $part = ParticipantAchievementWork::find()->where(['id' => $id])->one();
+        if ($part->team_name_id != null)
+        {
+            $otherPartTeam = ParticipantAchievementWork::find()->where(['team_name_id' => $part->team_name_id])->andWhere(['!=', 'id', $id])->all();
+            foreach ($otherPartTeam as $one) $one->delete();
+        }
         $part->delete();
         return $this->redirect('index.php?r=foreign-event/update&id='.$model_id);
     }
@@ -272,12 +278,32 @@ class ForeignEventController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
-        $file = Yii::$app->basePath . '/upload/files/foreign_event/' . $type . '/' . $fileName;
-        if (file_exists($file)) {
-            return \Yii::$app->response->sendFile($file);
+
+        $filePath = '/upload/files/'.Yii::$app->controller->id;
+        $filePath .= $type == null ? '/' : '/'.$type.'/';
+
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+
+        $downloadServ->LoadFile();
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        else return \Yii::$app->response->sendFile($downloadServ->file);
+
+        if (!$downloadYadi->success) throw new \Exception('File not found');
+        else {
+
+            $fp = fopen('php://output', 'r');
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . $downloadYadi->file->size);
+
+            $downloadYadi->file->download($fp);
+
+            fseek($fp, 0);
         }
-        throw new \Exception('File not found');
-        //return $this->redirect('index.php?r=docs-out/index');
     }
 
     public function actionDeleteFile($fileName = null, $modelId = null, $type = null)
@@ -328,5 +354,19 @@ class ForeignEventController extends Controller
             return $this->redirect(['/site/error-access']);
         }
         return parent::beforeAction($action); // TODO: Change the autogenerated stub
+    }
+
+    public function actionFormOrder()
+    {
+        $model = new ForeignEventWork();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен учет достижений ' . $model->name);
+        }
+
+        return $this->render('form-order', [
+            'model' => $model,
+        ]);
     }
 }
