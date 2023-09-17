@@ -62,6 +62,8 @@ class SearchTrainingGroup extends TrainingGroupWork
     public function search($params)
     {
 
+        var_dump($params);
+
         $groups = RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId())->orderBy(['start_date' => SORT_DESC, 'finish_date' => SORT_DESC]);
         if ($params["SearchTrainingGroup"]["branchId"] !== null && $params["SearchTrainingGroup"]["branchId"] !== "")
         {
