@@ -51,8 +51,14 @@ class EventController extends Controller
     {
         $searchModel = new SearchEvent();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if (Yii::$app->request->queryParams["SearchEvent"]["eventBranchs"] != null)
-            $searchModel->eventBranchs = Yii::$app->request->queryParams["SearchEvent"]["eventBranchs"];
+
+        if (array_key_exists("SearchEvent", Yii::$app->request->queryParams))
+        {
+            if (Yii::$app->request->queryParams["SearchEvent"]["eventBranchs"] != null)
+                $searchModel->eventBranchs = Yii::$app->request->queryParams["SearchEvent"]["eventBranchs"];
+        }
+
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
