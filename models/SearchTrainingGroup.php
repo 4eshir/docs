@@ -63,7 +63,7 @@ class SearchTrainingGroup extends TrainingGroupWork
     {
 
         var_dump($params);
-
+/*
         $groups = RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId())->orderBy(['start_date' => SORT_DESC, 'finish_date' => SORT_DESC]);
         if ($params["SearchTrainingGroup"]["branchId"] !== null && $params["SearchTrainingGroup"]["branchId"] !== "")
         {
@@ -127,6 +127,6 @@ class SearchTrainingGroup extends TrainingGroupWork
             ->andFilterWhere(['like', 'trainingProgram.name', $this->programName])
             ->andFilterWhere(['like', 'work_data', $this->work_data]);
 
-        return $dataProvider;
+        return $dataProvider;*/
     }
 }
