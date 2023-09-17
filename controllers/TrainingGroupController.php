@@ -77,7 +77,8 @@ class TrainingGroupController extends Controller
     {
         $searchModel = new SearchTrainingGroup();
 
-        var_dump(Yii::$app->request->queryParams);
+        print_r(Yii::$app->request->queryParams);
+
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
