@@ -50,24 +50,29 @@ class SearchTrainingProgram extends TrainingProgramWork
     {
         $query = TrainingProgramWork::find()->orderBy(['actual' => SORT_DESC]);
 
-        if ($params["SearchTrainingProgram"]["authorSearch"] != null)
+        if (array_key_exists("SearchTrainingProgram", $params))
         {
-            $authors = AuthorProgramWork::find()->where(['author_id' => $params["SearchTrainingProgram"]["authorSearch"]])->all();
-            $aIds = [];
-            foreach ($authors as $author) $aIds[] = $author->training_program_id;
-            $query = $query->where(['IN', 'training_program.id', $aIds]);
+            if ($params["SearchTrainingProgram"]["authorSearch"] != null)
+            {
+                $authors = AuthorProgramWork::find()->where(['author_id' => $params["SearchTrainingProgram"]["authorSearch"]])->all();
+                $aIds = [];
+                foreach ($authors as $author) $aIds[] = $author->training_program_id;
+                $query = $query->where(['IN', 'training_program.id', $aIds]);
+            }
+
+            if ($params["SearchTrainingProgram"]["branchSearch"] != null)
+            {
+                $branchs = BranchProgramWork::find()->where(['branch_id' => $params["SearchTrainingProgram"]["branchSearch"]])->all();
+                $aIds = [];
+                foreach ($branchs as $branch) $aIds[] = $branch->training_program_id;
+                if ($params["SearchTrainingProgram"]["authorSearch"] != null)
+                    $query = $query->andWhere(['IN', 'training_program.id', $aIds]);
+                else
+                    $query = $query->where(['IN', 'training_program.id', $aIds]);
+            }
         }
 
-        if ($params["SearchTrainingProgram"]["branchSearch"] != null)
-        {
-            $branchs = BranchProgramWork::find()->where(['branch_id' => $params["SearchTrainingProgram"]["branchSearch"]])->all();
-            $aIds = [];
-            foreach ($branchs as $branch) $aIds[] = $branch->training_program_id;
-            if ($params["SearchTrainingProgram"]["authorSearch"] != null)
-                $query = $query->andWhere(['IN', 'training_program.id', $aIds]);
-            else
-                $query = $query->where(['IN', 'training_program.id', $aIds]);
-        }
+
 
         // add conditions that should always apply here
 

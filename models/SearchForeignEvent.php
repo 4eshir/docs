@@ -5,6 +5,7 @@ namespace app\models;
 use app\models\work\EventBranchWork;
 use app\models\work\TeacherParticipantWork;
 use Yii;
+use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\ForeignEventWork;
@@ -54,34 +55,40 @@ class SearchForeignEvent extends ForeignEventWork
     public function search($params)
     {
         $query = ForeignEventWork::find()->orderBy(['finish_date' => SORT_DESC, 'start_date' => SORT_DESC]);
-        if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)
-        {
-            $tps = TeacherParticipantWork::find()->joinWith(['participant participant'])->where(['LIKE', 'participant.secondname', $params["SearchForeignEvent"]["secondnameParticipant"]])->all();
-            $tpIds = [];
-            foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
-            $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
-        }
-        if (strlen($params["SearchForeignEvent"]["start_date_search"]) > 9 && strlen($params["SearchForeignEvent"]["finish_date_search"]) > 9)
-        {
-            $query = $query->andWhere(['IN', 'foreign_event.id',
-                                        (new Query())->select('foreign_event.id')->from('foreign_event')->where(['>=', 'finish_date', $params["SearchForeignEvent"]["start_date_search"]])
-                                            ->andWhere(['<=', 'finish_date', $params["SearchForeignEvent"]["finish_date_search"]])]);
 
-        }
-        if (strlen($params["SearchForeignEvent"]["secondnameTeacher"]) > 1)
+        if (array_key_exists("SearchForeignEvent", $params))
         {
-            $tps = TeacherParticipantWork::find()->joinWith(['teacher teacher'])->where(['LIKE', 'teacher.secondname', $params["SearchForeignEvent"]["secondnameTeacher"]])->all();
-            $tpIds = [];
-            foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
-            $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
+            if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)
+            {
+                $tps = TeacherParticipantWork::find()->joinWith(['participant participant'])->where(['LIKE', 'participant.secondname', $params["SearchForeignEvent"]["secondnameParticipant"]])->all();
+                $tpIds = [];
+                foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
+                $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
+            }
+            if (strlen($params["SearchForeignEvent"]["start_date_search"]) > 9 && strlen($params["SearchForeignEvent"]["finish_date_search"]) > 9)
+            {
+                $query = $query->andWhere(['IN', 'foreign_event.id',
+                    (new Query())->select('foreign_event.id')->from('foreign_event')->where(['>=', 'finish_date', $params["SearchForeignEvent"]["start_date_search"]])
+                        ->andWhere(['<=', 'finish_date', $params["SearchForeignEvent"]["finish_date_search"]])]);
+
+            }
+            if (strlen($params["SearchForeignEvent"]["secondnameTeacher"]) > 1)
+            {
+                $tps = TeacherParticipantWork::find()->joinWith(['teacher teacher'])->where(['LIKE', 'teacher.secondname', $params["SearchForeignEvent"]["secondnameTeacher"]])->all();
+                $tpIds = [];
+                foreach ($tps as $tp) $tpIds[] = $tp->foreign_event_id;
+                $query = $query->andWhere(['IN', 'foreign_event.id', $tpIds]);
+            }
+            if (strlen($params["SearchForeignEvent"]["nameBranch"]) > 0)
+            {
+                $branchs = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['teacherParticipantBranches.branch_id' => $params["SearchForeignEvent"]["nameBranch"]])->all();
+                $bIds = [];
+                foreach ($branchs as $branch) $bIds[] = $branch->foreign_event_id;
+                $query = $query->andWhere(['IN', 'foreign_event.id', $bIds]);
+            }
         }
-        if (strlen($params["SearchForeignEvent"]["nameBranch"]) > 0)
-        {
-            $branchs = TeacherParticipantWork::find()->joinWith(['teacherParticipantBranches teacherParticipantBranches'])->where(['teacherParticipantBranches.branch_id' => $params["SearchForeignEvent"]["nameBranch"]])->all();
-            $bIds = [];
-            foreach ($branchs as $branch) $bIds[] = $branch->foreign_event_id;
-            $query = $query->andWhere(['IN', 'foreign_event.id', $bIds]);
-        }
+
+
         /*
         $qc = 1;
         if (strlen($params["SearchForeignEvent"]["secondnameParticipant"]) > 2)

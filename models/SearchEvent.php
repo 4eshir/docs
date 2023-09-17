@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\work\EventBranchWork;
+use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\EventWork;
@@ -53,21 +54,27 @@ class SearchEvent extends EventWork
     public function search($params)
     {
         $query = EventWork::find();
-        if ($params["SearchEvent"]["eventBranchs"] != null)
+
+        if (array_key_exists("SearchEvent", $params))
         {
-            $ebs = EventBranchWork::find()->where(['branch_id' => $params["SearchEvent"]["eventBranchs"]])->all();
-            $eIds = [];
-            foreach ($ebs as $eb) $eIds[] = $eb->event_id;
-            $query = EventWork::find()->where(['IN', 'event.id', $eIds]);
+            if ($params["SearchEvent"]["eventBranchs"] != null)
+            {
+                $ebs = EventBranchWork::find()->where(['branch_id' => $params["SearchEvent"]["eventBranchs"]])->all();
+                $eIds = [];
+                foreach ($ebs as $eb) $eIds[] = $eb->event_id;
+                $query = EventWork::find()->where(['IN', 'event.id', $eIds]);
+            }
+
+            if (strlen($params["SearchEvent"]["start_date_search"]) > 9 && strlen($params["SearchEvent"]["finish_date_search"]) > 9)
+            {
+                $query = $query->andWhere(['IN', 'event.id',
+                    (new Query())->select('event.id')->from('event')->where(['>=', 'start_date', $params["SearchEvent"]["start_date_search"]])
+                        ->andWhere(['<=', 'finish_date', $params["SearchEvent"]["finish_date_search"]])]);
+
+            }
         }
 
-        if (strlen($params["SearchEvent"]["start_date_search"]) > 9 && strlen($params["SearchEvent"]["finish_date_search"]) > 9)
-        {
-            $query = $query->andWhere(['IN', 'event.id',
-                (new Query())->select('event.id')->from('event')->where(['>=', 'start_date', $params["SearchEvent"]["start_date_search"]])
-                    ->andWhere(['<=', 'finish_date', $params["SearchEvent"]["finish_date_search"]])]);
 
-        }
 
         //SELECT * FROM `event` WHERE `id` IN (SELECT `event_id` FROM `event_branch` WHERE `branch_id` = 2)
 
