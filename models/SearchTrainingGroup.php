@@ -63,8 +63,9 @@ class SearchTrainingGroup extends TrainingGroupWork
     {
 
         var_dump($params);
-/*
+
         $groups = RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId())->orderBy(['start_date' => SORT_DESC, 'finish_date' => SORT_DESC]);
+        /*
         if ($params["SearchTrainingGroup"]["branchId"] !== null && $params["SearchTrainingGroup"]["branchId"] !== "")
         {
             $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])]);
@@ -84,7 +85,7 @@ class SearchTrainingGroup extends TrainingGroupWork
                 ->where(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])->andWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])
                 ->orWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])->andWhere(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])]);
 
-        }
+        }*/
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
         $query = $groups;
         $query->joinWith(['trainingProgram trainingProgram']);
@@ -127,6 +128,6 @@ class SearchTrainingGroup extends TrainingGroupWork
             ->andFilterWhere(['like', 'trainingProgram.name', $this->programName])
             ->andFilterWhere(['like', 'work_data', $this->work_data]);
 
-        return $dataProvider;*/
+        return $dataProvider;
     }
 }
