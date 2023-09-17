@@ -40,6 +40,7 @@ use Yii;
 use app\models\SearchTrainingGroup;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -78,7 +79,8 @@ class TrainingGroupController extends Controller
         $searchModel = new SearchTrainingGroup();
 
         print_r(Yii::$app->request->queryParams);
-
+        var_dump(Yii::$app->request->queryParams);
+        VarDumper::dump(Yii::$app->request->queryParams);
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
