@@ -14,6 +14,7 @@ use app\models\work\TeacherGroupWork;
 use app\models\work\UserWork;
 use app\models\components\UserRBAC;
 use Yii;
+use yii\base\BaseObject;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\work\TrainingGroupWork;
@@ -61,31 +62,33 @@ class SearchTrainingGroup extends TrainingGroupWork
      */
     public function search($params)
     {
-
-        var_dump($params);
-
         $groups = RoleBaseAccess::getGroupsByRole(Yii::$app->user->identity->getId())->orderBy(['start_date' => SORT_DESC, 'finish_date' => SORT_DESC]);
-        /*
-        if ($params["SearchTrainingGroup"]["branchId"] !== null && $params["SearchTrainingGroup"]["branchId"] !== "")
-        {
-            $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])]);
 
-        }
-        if ($params["SearchTrainingGroup"]["teacherId"] !== null && $params["SearchTrainingGroup"]["teacherId"] !== "")
+        if (array_key_exists("SearchTrainingGroup", $params))
         {
-            $tg = TeacherGroupWork::find()->where(['teacher_id' => $params["SearchTrainingGroup"]["teacherId"]])->all();
-            $tgIds = [];
-            foreach ($tg as $oneTg) $tgIds[] = $oneTg->training_group_id;
-            $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['IN', 'training_group.id', $tgIds])]);
-        }
-        if ($params["SearchTrainingGroup"]["startDateSearch"] !== null && $params["SearchTrainingGroup"]["finishDateSearch"] !== null &&
-            $params["SearchTrainingGroup"]["startDateSearch"] !== "" && $params["SearchTrainingGroup"]["finishDateSearch"] !== "")
-        {
-            $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
-                ->where(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])->andWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])
-                ->orWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])->andWhere(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])]);
+            if ($params["SearchTrainingGroup"]["branchId"] !== null && $params["SearchTrainingGroup"]["branchId"] !== "")
+            {
+                $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['branch_id' => $params ["SearchTrainingGroup"]["branchId"]])]);
 
-        }*/
+            }
+            if ($params["SearchTrainingGroup"]["teacherId"] !== null && $params["SearchTrainingGroup"]["teacherId"] !== "")
+            {
+                $tg = TeacherGroupWork::find()->where(['teacher_id' => $params["SearchTrainingGroup"]["teacherId"]])->all();
+                $tgIds = [];
+                foreach ($tg as $oneTg) $tgIds[] = $oneTg->training_group_id;
+                $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')->where(['IN', 'training_group.id', $tgIds])]);
+            }
+            if ($params["SearchTrainingGroup"]["startDateSearch"] !== null && $params["SearchTrainingGroup"]["finishDateSearch"] !== null &&
+                $params["SearchTrainingGroup"]["startDateSearch"] !== "" && $params["SearchTrainingGroup"]["finishDateSearch"] !== "")
+            {
+                $groups = $groups->andWhere(['IN', 'training_group.id', (new Query())->select('id')->from('training_group')
+                    ->where(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])->andWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])
+                    ->orWhere(['>=', 'finish_date', $params["SearchTrainingGroup"]["startDateSearch"]])->andWhere(['<=', 'start_date', $params["SearchTrainingGroup"]["finishDateSearch"]])]);
+
+            }
+        }
+
+
         //$query = TrainingGroup::find()->where(['teacher_id' => $user->aka]);
         $query = $groups;
         $query->joinWith(['trainingProgram trainingProgram']);
