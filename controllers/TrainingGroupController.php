@@ -76,6 +76,9 @@ class TrainingGroupController extends Controller
     public function actionIndex($archive = null)
     {
         $searchModel = new SearchTrainingGroup();
+
+        var_dump(Yii::$app->request->queryParams);
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
