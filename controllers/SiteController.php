@@ -229,7 +229,7 @@ class SiteController extends Controller
     {
         $do = DocumentOrderWork::find()->all()[0];
         $do->bring_id = -1;
-        echo $do->bringWork;
+        print_r($do->bringWork);
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)
