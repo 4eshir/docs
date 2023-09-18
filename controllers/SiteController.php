@@ -227,7 +227,6 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        var_dump('boobs');
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)

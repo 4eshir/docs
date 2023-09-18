@@ -5,6 +5,8 @@ namespace app\models\work;
 use app\models\common\ContractCategoryContract;
 use app\models\work\CategoryContractWork;
 use app\models\work\ContractWork;
+use app\models\null\CategoryContractNull;
+use app\models\null\ContractNull;
 use Yii;
 
 class ContractCategoryContractWork extends ContractCategoryContract
@@ -22,11 +24,13 @@ class ContractCategoryContractWork extends ContractCategoryContract
 
     public function getCategoryContractWork()
     {
-        return $this->hasOne(CategoryContractWork::className(), ['id' => 'category_contract_id']);
+        $try = $this->hasOne(CategoryContractWork::className(), ['id' => 'category_contract_id']);
+        return $try->all() ? $try : new CategoryContractNull();
     }
 
     public function getContractWork()
     {
-        return $this->hasOne(ContractWork::className(), ['id' => 'contract_id']);
+        $try = $this->hasOne(ContractWork::className(), ['id' => 'contract_id']);
+        return $try->all() ? $try : new ContractNull();
     }
 }

@@ -5,6 +5,8 @@ namespace app\models\work;
 use app\models\common\AccessLevel;
 use app\models\common\RoleFunction;
 use app\models\common\User;
+use app\models\null\UserNull;
+use app\models\null\RoleFunctionNull;
 use Yii;
 
 
@@ -35,7 +37,8 @@ class AccessLevelWork extends AccessLevel
      */
     public function getUserWork()
     {
-        return $this->hasOne(UserWork::className(), ['id' => 'user_id']);
+        $try = $this->hasOne(UserWork::className(), ['id' => 'user_id']);
+        return $try->all() ? $try : new UserNull();
     }
 
     /**
@@ -45,7 +48,8 @@ class AccessLevelWork extends AccessLevel
      */
     public function getRoleFunctionWork()
     {
-        return $this->hasOne(RoleFunctionWork::className(), ['id' => 'role_function_id']);
+        $try = $this->hasOne(RoleFunctionWork::className(), ['id' => 'role_function_id']);
+        return $try->all() ? $try : new RoleFunctionNull();
     }
 
     public function afterSave($insert, $changedAttributes)

@@ -4,6 +4,8 @@ namespace app\models\work;
 
 use app\models\common\Container;
 use app\models\work\ContainerObjectWork;
+use app\models\null\AuditoriumNull;
+use app\models\null\MaterialObjectNull;
 use yii\helpers\Html;
 use Yii;
 
@@ -42,17 +44,20 @@ class ContainerWork extends Container
 
     public function getContainerWork()
     {
-        return $this->hasOne(ContainerWork::className(), ['id' => 'container_id']);
+        $try = $this->hasOne(ContainerWork::className(), ['id' => 'container_id']);
+        return ;
     }
 
     public function getAuditoriumWork()
     {
-        return $this->hasOne(AuditoriumWork::className(), ['id' => 'auditorium_id']);
+        $try = $this->hasOne(AuditoriumWork::className(), ['id' => 'auditorium_id']);
+        return $try->all() ? $try : new AuditoriumNull();
     }
 
     public function getMaterialObjectWork()
     {
-        return $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        $try = $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        return $try->all() ? $try : new MaterialObjectNull();
     }
 
 

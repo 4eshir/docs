@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\ContainerObject;
+use app\models\null\MaterialObjectNull;
 use Yii;
 
 
@@ -29,6 +30,7 @@ class ContainerObjectWork extends ContainerObject
 
 	public function getMaterialObjectWork()
     {
-        return $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        $try = $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        return $try->all() ? $try : new MaterialObjectNull();
     }
 }

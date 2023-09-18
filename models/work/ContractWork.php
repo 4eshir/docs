@@ -4,6 +4,7 @@ namespace app\models\work;
 
 use app\models\common\Company;
 use app\models\common\Contract;
+use app\models\null\ContractCategoryContractNull;
 use Yii;
 use yii\helpers\Html;
 use app\models\components\FileWizard;
@@ -53,7 +54,8 @@ class ContractWork extends Contract
 
     public function getContractCategoryContractsWork()
     {
-        return $this->hasMany(ContractCategoryContractWork::className(), ['contract_id' => 'id']);
+        $try = $this->hasMany(ContractCategoryContractWork::className(), ['contract_id' => 'id']);
+        return $try->all() ? $try : [ContractCategoryContract()];
     }
 
     public function getFileLink()
