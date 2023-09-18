@@ -12,13 +12,16 @@ use app\models\common\Team;
 use app\models\components\report\ReportConst;
 use app\models\components\report\SupportReportFunctions;
 use app\models\LoginForm;
+use app\models\null\PeopleNull;
 use app\models\work\AllowRemoteWork;
 use app\models\work\BranchWork;
+use app\models\work\DocumentOrderWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
+use app\models\work\PeopleWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
@@ -364,7 +367,14 @@ class SupCommandsController extends Controller
 
     public function actionTemp()
     {
-        $this->scan(Yii::$app->basePath, date('Ymd-His'));
+        $do = DocumentOrderWork::find()->all()[0];
+        $do->bring_id = -1;
+
+        $try = $do->hasOne(PeopleWork::className(), ['id' => -1]);
+
+        $obj = $try == null ? new PeopleNull() : $try;
+
+        var_dump(is_null($try));
     }
 
     private function scan($dir, $backup_dir_name)
