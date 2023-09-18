@@ -97,6 +97,7 @@ class DocumentOrderWork extends DocumentOrder
     public function getBringWork()
     {
         $try = $this->hasOne(PeopleWork::className(), ['id' => 'bring_id']);
+        $test = new PeopleNull();
         return $try ? $try : new PeopleNull();
     }
 
