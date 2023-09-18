@@ -8,7 +8,7 @@ class PeopleNull extends PeopleWork
 {
     function __construct()
     {
-        $this->firstname = null;
+        $this->firstname = 'null';
         $this->secondname = null;
         $this->patronymic = null;
     }
