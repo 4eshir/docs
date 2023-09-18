@@ -141,7 +141,9 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             ],
             ['attribute' => 'executorName','label' => 'Исполнитель', 'value' => function ($model) {
-                return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
+                if ($model->executor)
+                    return $model->executor->secondname.' '.mb_substr($model->executor->firstname, 0, 1).'.'.mb_substr($model->executor->patronymic, 0, 1).'.';
+                return '';
             },
             ],
 
