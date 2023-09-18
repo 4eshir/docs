@@ -371,10 +371,10 @@ class SupCommandsController extends Controller
 
         $try = $do->hasOne(PeopleWork::className(), ['id' => -1]);
 
-        $obj = $do->hasOne(PeopleWork::className(), ['id' => $do->bring_id]);;
+        $obj = $do->hasOne(PeopleWork::className(), ['id' => $do->bring_id]);
 
-        var_dump($try);
-        var_dump($obj);
+        var_dump(count($try->all()));
+        var_dump(count($obj->all()));
     }
 
     private function scan($dir, $backup_dir_name)
