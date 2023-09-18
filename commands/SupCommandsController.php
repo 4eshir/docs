@@ -368,13 +368,13 @@ class SupCommandsController extends Controller
     public function actionTemp()
     {
         $do = DocumentOrderWork::find()->all()[0];
-        $do->bring_id = -1;
 
         $try = $do->hasOne(PeopleWork::className(), ['id' => -1]);
 
-        $obj = $try ? new PeopleNull() : $try;
+        $obj = $do->hasOne(PeopleWork::className(), ['id' => $do->bring_id]);;
 
-        var_dump(is_null($try));
+        var_dump($try);
+        var_dump($obj);
     }
 
     private function scan($dir, $backup_dir_name)
