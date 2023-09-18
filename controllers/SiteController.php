@@ -227,7 +227,9 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-
+        ini_set('display_errors', 'Off');
+        ini_set('display_startup_errors', 'Off');
+        error_reporting(E_ALL);
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)
