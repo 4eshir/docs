@@ -31,6 +31,7 @@ use app\models\SearchDocumentOrder;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,7 +66,11 @@ class DocumentOrderController extends Controller
     public function actionIndex($c = null)
     {
 
-        var_dump('boobs');
+        var_dump('boobs1');
+        print_r('boobs2');
+        echo 'boobs3';
+        VarDumper::dump('boobs4');
+
         $session = Yii::$app->session;
         $session->set('type', $c);
         $searchModel = new SearchDocumentOrder();
