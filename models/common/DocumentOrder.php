@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\null\PeopleNull;
 use Yii;
 
 /**
@@ -110,7 +111,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
      */
     public function getExecutor()
     {
-        return $this->hasOne(People::className(), ['id' => 'executor_id']);
+        return $this->hasOne(People::className(), ['id' => 'executor_id']) ? $this->hasOne(People::className(), ['id' => 'executor_id']) : new PeopleNull();
     }
 
     /**
