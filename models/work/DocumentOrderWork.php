@@ -98,7 +98,7 @@ class DocumentOrderWork extends DocumentOrder
     {
         $try = $this->hasOne(PeopleWork::className(), ['id' => 'bring_id']);
         $test = new PeopleNull();
-        return $try ? $try : new PeopleNull();
+        return $test;
     }
 
     public function getGroupsLink()

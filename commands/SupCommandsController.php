@@ -372,7 +372,7 @@ class SupCommandsController extends Controller
 
         $try = $do->hasOne(PeopleWork::className(), ['id' => -1]);
 
-        $obj = $try == null ? new PeopleNull() : $try;
+        $obj = $try ? new PeopleNull() : $try;
 
         var_dump(is_null($try));
     }

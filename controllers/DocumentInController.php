@@ -49,7 +49,6 @@ class DocumentInController extends Controller
      */
     public function actionIndex($sort = null, $archive = null, $type = null)
     {
-        var_dump('boobs');
         $session = Yii::$app->session;
         if ($archive !== null && $type !== null)
             $session->set("archiveIn", "1");
