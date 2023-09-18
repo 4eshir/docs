@@ -11,6 +11,7 @@ use app\models\common\People;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
 use app\models\components\FileWizard;
+use app\models\null\PeopleNull;
 use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
@@ -92,6 +93,12 @@ class DocumentOrderWork extends DocumentOrder
         return $result;
     }
 
+
+    public function getBringWork()
+    {
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'bring_id']);
+        return $try == null ? new PeopleNull() : $try;
+    }
 
     public function getGroupsLink()
     {
