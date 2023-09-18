@@ -66,11 +66,6 @@ class DocumentOrderController extends Controller
     public function actionIndex($c = null)
     {
 
-        var_dump('boobs1');
-        print_r('boobs2');
-        echo 'boobs3';
-        VarDumper::dump('boobs4');
-
         $session = Yii::$app->session;
         $session->set('type', $c);
         $searchModel = new SearchDocumentOrder();
