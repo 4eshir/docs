@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\Team;
+use app\models\null\TeacherParticipantNull;
+use app\models\null\TeamNameNull;
 use app\models\work\TeamNameWork;
 use Yii;
 
@@ -11,7 +13,8 @@ class TeamWork extends Team
 {
     public function getTeamNameWork()
     {
-        return $this->hasOne(TeamNameWork::className(), ['id' => 'team_name_id']);
+        $try = $this->hasOne(TeamNameWork::className(), ['id' => 'team_name_id']);
+        return $try->all() ? $try : new TeamNameNull();
     }
 
     public function checkCollectionTeamName()
@@ -28,6 +31,7 @@ class TeamWork extends Team
 
     public function getTeacherParticipantWork()
     {
-        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        $try = $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        return $try->all() ? $try : new TeacherParticipantNull();
     }
 }

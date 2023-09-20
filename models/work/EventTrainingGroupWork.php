@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\EventTrainingGroup;
+use app\models\null\TrainingGroupNull;
 use Yii;
 
 
@@ -19,6 +20,7 @@ class EventTrainingGroupWork extends EventTrainingGroup
 
     public function getTrainingGroupWork()
     {
-        return $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+        $try = $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+        return $try->all() ? $try : new TrainingGroupNull();
     }
 }

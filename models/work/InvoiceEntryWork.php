@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\InvoiceEntry;
+use app\models\null\EntryNull;
+use app\models\null\InvoiceNull;
 use Yii;
 
 
@@ -10,17 +12,14 @@ class InvoiceEntryWork extends InvoiceEntry
 {
 	public function getEntryWork()
     {
-        return $this->hasOne(EntryWork::className(), ['id' => 'entry_id']);
+        $try = $this->hasOne(EntryWork::className(), ['id' => 'entry_id']);
+        return $try->all() ? $try : new EntryNull();
     }
 
-    /**
-     * Gets query for [[Invoice]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getInvoiceWork()
     {
-        return $this->hasOne(InvoiceWork::className(), ['id' => 'invoice_id']);
+        $try = $this->hasOne(InvoiceWork::className(), ['id' => 'invoice_id']);
+        return $try->all() ? $try : new InvoiceNull();
     }
 
 

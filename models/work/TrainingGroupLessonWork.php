@@ -6,6 +6,8 @@ use app\models\common\Auditorium;
 use app\models\common\Branch;
 use app\models\common\TrainingGroup;
 use app\models\common\TrainingGroupLesson;
+use app\models\null\BranchNull;
+use app\models\null\AuditoriumNull;
 use Yii;
 
 
@@ -26,14 +28,16 @@ class TrainingGroupLessonWork extends TrainingGroupLesson
         ];
     }
 
-    public function getBranch()
+    public function getBranchWork()
     {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        $try = $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
+        return $try->all() ? $try : new BranchNull();
     }
 
-    public function getAuditorium()
+    public function getAuditoriumWork()
     {
-        return $this->hasOne(Auditorium::className(), ['id' => 'auditorium_id']);
+        $try = $this->hasOne(AuditoriumWork::className(), ['id' => 'auditorium_id']);
+        return $try->all() ? $try : new AuditoriumNull();
     }
 
     public function getFullName()

@@ -20,6 +20,8 @@ use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use app\models\components\LessonDatesJob;
 use app\models\components\RoleBaseAccess;
+use app\models\null\PeopleNull;
+use app\models\null\TrainingProgramNull;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingGroupParticipantWork;
@@ -168,7 +170,8 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getTeacherWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_Id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function getTeachersList()
@@ -611,7 +614,8 @@ class TrainingGroupWork extends TrainingGroup
 
     public function getTrainingProgramWork()
     {
-        return $this->hasOne(TrainingProgramWork::className(), ['id' => 'training_program_id']);
+        $try = $this->hasOne(TrainingProgramWork::className(), ['id' => 'training_program_id']);
+        return $try->all() ? $try : new TrainingProgramNull();
     }
 
     public function getCreatorString()

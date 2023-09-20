@@ -7,6 +7,8 @@ use app\models\common\RoleFunction;
 use app\models\common\User;
 use app\models\common\ProjectTheme;
 use app\models\common\TrainingGroup;
+use app\models\null\ProjectThemeNull;
+use app\models\null\ProjectTypeNull;
 use app\models\work\ProjectThemeWork;
 use Yii;
 
@@ -29,11 +31,13 @@ class GroupProjectThemesWork extends GroupProjectThemes
 
     public function getProjectThemeWork()
     {
-        return $this->hasOne(ProjectThemeWork::className(), ['id' => 'project_theme_id']);
+        $try = $this->hasOne(ProjectThemeWork::className(), ['id' => 'project_theme_id']);
+        return $try->all() ? $try : new ProjectThemeNull();
     }
 
     public function getProjectTypeWork()
     {
-        return $this->hasOne(ProjectTypeWork::className(), ['id' => 'project_type_id']);
+        $try = $this->hasOne(ProjectTypeWork::className(), ['id' => 'project_type_id']);
+        return $try->all() ? $try : new ProjectTypeNull();
     }   
 }

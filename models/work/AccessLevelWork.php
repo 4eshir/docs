@@ -30,22 +30,12 @@ class AccessLevelWork extends AccessLevel
         ];
     }
 
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getUserWork()
     {
         $try = $this->hasOne(UserWork::className(), ['id' => 'user_id']);
         return $try->all() ? $try : new UserNull();
     }
 
-    /**
-     * Gets query for [[RoleFunction]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRoleFunctionWork()
     {
         $try = $this->hasOne(RoleFunctionWork::className(), ['id' => 'role_function_id']);

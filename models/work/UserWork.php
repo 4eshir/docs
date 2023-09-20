@@ -5,6 +5,7 @@ namespace app\models\work;
 use app\models\common\AccessLevel;
 use app\models\common\People;
 use app\models\common\User;
+use app\models\null\PeopleNull;
 use Yii;
 use yii\base;
 use yii\base\NotSupportedException;
@@ -116,7 +117,8 @@ class UserWork extends User
 
     public function getAka()
     {
-        return $this->hasOne(People::className(), ['id' => 'aka']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'aka']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function getAkaName()

@@ -16,6 +16,9 @@ use app\models\common\ForeignEvent;
 use app\models\common\People;
 use app\models\common\Regulation;
 use app\models\components\FileWizard;
+use app\models\null\DocumentOrderNull;
+use app\models\null\ParticipationScopeNull;
+use app\models\null\PeopleNull;
 use Yii;
 use yii\helpers\Html;
 
@@ -201,8 +204,6 @@ class EventWork extends Event
     public function getChildsString()
     {
         $parts = EventParticipantsWork::find()->where(['event_id' => $this->id])->one();
-        var_dump($parts);
-        var_dump($this->id);
         return $parts->childs;
     }
 
@@ -229,24 +230,23 @@ class EventWork extends Event
         return EventTypeWork::find()->where(['id' => $this->event_type_id])->one()->name;
     }
 
-    public function getResponsible2()
-    {
-        return $this->hasOne(People::className(), ['id' => 'responsible2_id']);
-    }
 
     public function getResponsibleWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'responsible_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'responsible_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function getParticipationScopeWork()
     {
-        return $this->hasOne(ParticipationScopeWork::className(), ['id' => 'participation_scope_id']);
+        $try = $this->hasOne(ParticipationScopeWork::className(), ['id' => 'participation_scope_id']);
+        return $try->all() ? $try : new ParticipationScopeNull();
     }
 
     public function getResponsibleWork2()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'responsible2_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'responsible2_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function getEventBranchs()
@@ -262,7 +262,8 @@ class EventWork extends Event
 
     public function getOrderWork()
     {
-        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
+        $try = $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
+        return $try->all() ? $try : new DocumentOrderNull();
     }
 
     public function getResponsibleString()

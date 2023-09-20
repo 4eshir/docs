@@ -5,9 +5,11 @@ namespace app\models\work;
 use app\models\common\Certificat;
 use app\models\common\ForeignEventParticipants;
 use app\models\components\PdfWizard;
+use app\models\null\TrainingGroupParticipantNull;
 use app\models\work\CertificatTemplatesWork;
 use app\models\work\TrainingGroupParticipantWork;
 
+use Mpdf\Tag\Tr;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
@@ -51,7 +53,8 @@ class CertificatWork extends Certificat
 
     public function getTrainingGroupParticipantWork()
     {
-        return $this->hasOne(TrainingGroupParticipantWork::className(), ['id' => 'training_group_participant_id']);
+        $try = $this->hasOne(TrainingGroupParticipantWork::className(), ['id' => 'training_group_participant_id']);
+        return $try->all() ? $try : new TrainingGroupParticipantNull();
     }
 
     public function getCertificatLongNumber()

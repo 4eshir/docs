@@ -10,6 +10,10 @@ use app\models\common\People;
 use app\models\common\TeacherParticipant;
 use app\models\common\Team;
 use app\models\components\FileWizard;
+use app\models\null\ForeignEventNull;
+use app\models\null\ForeignEventParticipantsNull;
+use app\models\null\PeopleNull;
+use app\models\null\TeacherParticipantBranchNull;
 use Yii;
 
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -92,7 +96,8 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function getTeacherParticipantBranches()
     {
-        return $this->hasMany(TeacherParticipantBranchWork::className(), ['teacher_participant_id' => 'id']);
+        $try = $this->hasMany(TeacherParticipantBranchWork::className(), ['teacher_participant_id' => 'id']);
+        return $try->all() ? $try : [new TeacherParticipantBranchNull];
     }
 
 
@@ -133,22 +138,26 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function getParticipantWork()
     {
-        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        $try = $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        return $try->all() ? $try : new ForeignEventParticipantsNull();
     }
 
     public function getForeignEventWork()
     {
-        return $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
+        $try = $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
+        return $try->all() ? $try : new ForeignEventNull();
     }
 
     public function getTeacherWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function getTeacher2Work()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher2_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'teacher2_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function afterSave($insert, $changedAttributes)

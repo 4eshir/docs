@@ -3,6 +3,9 @@
 namespace app\models\work;
 
 use app\models\common\MaterialObject;
+use app\models\null\FinanceSourceNull;
+use app\models\null\KindObjectNull;
+use app\models\null\ObjectEntryNull;
 use app\models\work\ObjectCharacteristicWork;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
@@ -127,17 +130,20 @@ class MaterialObjectWork extends MaterialObject
 
     public function getKindWork()
     {
-        return $this->hasOne(KindObjectWork::className(), ['id' => 'kind_id']);
+        $try = $this->hasOne(KindObjectWork::className(), ['id' => 'kind_id']);
+        return $try->all() ? $try : new KindObjectNull();
     }
 
     public function getObjectEntryWork()
     {
-        return $this->hasOne(ObjectEntryWork::className(), ['material_object_id' => 'id']);
+        $try = $this->hasOne(ObjectEntryWork::className(), ['material_object_id' => 'id']);
+        return $try->all() ? $try : new ObjectEntryNull();
     }
 
     public function getFinanceSourceWork()
     {
-        return $this->hasOne(FinanceSourceWork::className(), ['id' => 'finance_source_id']);
+        $try = $this->hasOne(FinanceSourceWork::className(), ['id' => 'finance_source_id']);
+        return $try->all() ? $try : new FinanceSourceNull();
     }
 
     public function getKindString()

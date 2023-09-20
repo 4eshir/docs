@@ -4,6 +4,8 @@ namespace app\models\work;
 
 use app\models\common\Entry;
 use app\models\common\ObjectEntry;
+use app\models\null\InvoiceEntryNull;
+use app\models\null\MaterialObjectNull;
 use app\models\work\InvoiceWork;
 use Yii;
 
@@ -74,12 +76,14 @@ class EntryWork extends Entry
 
 	public function getObjectWork()
     {
-        return $this->hasOne(MaterialObjectWork::className(), ['entry_id' => 'id']);
+        $try = $this->hasOne(MaterialObjectWork::className(), ['entry_id' => 'id']);
+        return $try->all() ? $try : new MaterialObjectNull();
     }
 
     public function getInvoiceEntriesWork()
     {
-        return $this->hasMany(InvoiceEntryWork::className(), ['entry_id' => 'id']);
+        $try = $this->hasMany(InvoiceEntryWork::className(), ['entry_id' => 'id']);
+        return $try->all() ? $try : [new InvoiceEntryNull];
     }
 
     public function getInvoiceWork()

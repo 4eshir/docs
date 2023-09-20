@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\ParticipantAchievement;
+use app\models\null\ForeignEventParticipantsNull;
+use app\models\null\TeacherParticipantNull;
 use Yii;
 
 
@@ -26,12 +28,14 @@ class ParticipantAchievementWork extends ParticipantAchievement
 
     public function getParticipantWork()
     {
-        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        $try = $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        return $try->all() ? $try : new ForeignEventParticipantsNull();
     }
 
     public function getTeacherParticipantWork()
     {
-        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        $try = $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        return $try->all() ? $try : new TeacherParticipantNull();
     }
 
     public function getStatusString()

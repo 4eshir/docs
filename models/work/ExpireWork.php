@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\Expire;
+use app\models\null\DocumentOrderNull;
+use app\models\null\RegulationNull;
 use Yii;
 
 
@@ -10,16 +12,19 @@ class ExpireWork extends Expire
 {
     public function getExpireOrderWork()
     {
-        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'expire_order_id']);
+        $try = $this->hasOne(DocumentOrderWork::className(), ['id' => 'expire_order_id']);
+        return $try->all() ? $try : new DocumentOrderNull();
     }
 
     public function getExpireRegulationWork()
     {
-        return $this->hasOne(RegulationWork::className(), ['id' => 'expire_regulation_id']);
+        $try = $this->hasOne(RegulationWork::className(), ['id' => 'expire_regulation_id']);
+        return $try->all() ? $try : new RegulationNull();
     }
 
     public function getActiveRegulationWork()
     {
-        return $this->hasOne(DocumentOrderWork::className(), ['id' => 'active_regulation_id']);
+        $try = $this->hasOne(RegulationWork::className(), ['id' => 'active_regulation_id']);
+        return $try->all() ? $try : new RegulationNull();
     }
 }

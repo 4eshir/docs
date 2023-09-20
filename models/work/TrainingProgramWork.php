@@ -12,6 +12,9 @@ use app\models\common\ThematicPlan;
 use app\models\common\TrainingProgram;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
+use app\models\null\FocusNull;
+use app\models\null\PeopleNull;
+use app\models\null\ThematicDirectionNull;
 use Yii;
 use yii\helpers\Html;
 use app\models\components\Logger;
@@ -201,28 +204,22 @@ class TrainingProgramWork extends TrainingProgram
 
     public function getAuthorWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'author_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'author_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
-
-    public function getFocus()
-    {
-        return $this->hasOne(Focus::className(), ['id' => 'author_id']);
-    }
 
     public function getFocusWork()
     {
-        return $this->hasOne(FocusWork::className(), ['id' => 'focus_id']);
+        $try = $this->hasOne(FocusWork::className(), ['id' => 'focus_id']);
+        return $try->all() ? $try : new FocusNull();
     }
 
-    public function getThematicDirection()
-    {
-        return $this->hasOne(ThematicDirection::className(), ['id' => 'thematic_direction_id']);
-    }
 
     public function getThematicDirectionWork()
     {
-        return $this->hasOne(ThematicDirectionWork::className(), ['id' => 'thematic_direction_id']);
+        $try = $this->hasOne(ThematicDirectionWork::className(), ['id' => 'thematic_direction_id']);
+        return $try->all() ? $try : new ThematicDirectionNull();
     }
 
     public function getAuthorsList()

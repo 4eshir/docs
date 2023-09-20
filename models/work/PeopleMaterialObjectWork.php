@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\PeopleMaterialObject;
+use app\models\null\PeopleNull;
 use app\models\work\PeopleWork;
 use Mpdf\Tag\P;
 use Yii;
@@ -66,7 +67,8 @@ class PeopleMaterialObjectWork extends PeopleMaterialObject
 
     public function getPeopleWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 
     public function afterSave($insert, $changedAttributes)

@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\InOutDocs;
+use app\models\null\PeopleNull;
 use Yii;
 
 
@@ -15,6 +16,7 @@ class InOutDocsWork extends InOutDocs
 
     public function getPeopleWork()
     {
-        return $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
+        $try = $this->hasOne(PeopleWork::className(), ['id' => 'people_id']);
+        return $try->all() ? $try : new PeopleNull();
     }
 }

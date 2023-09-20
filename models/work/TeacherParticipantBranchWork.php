@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\TeacherParticipantBranch;
+use app\models\null\TeacherParticipantNull;
+use app\models\null\BranchNull;
 use Yii;
 
 
@@ -23,11 +25,13 @@ class TeacherParticipantBranchWork extends TeacherParticipantBranch
 
     public function getTeacherParticipantWork()
     {
-        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        $try = $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
+        return $try->all() ? $try : new TeacherParticipantNull();
     }
 
     public function getBranchWork()
     {
-        return $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
+        $try = $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
+        return $try->all() ? $try : new BranchNull();
     }
 }

@@ -13,6 +13,7 @@ use app\models\common\PeoplePositionBranch;
 use app\models\common\Position;
 use app\models\common\TeacherParticipant;
 use app\models\common\TrainingGroup;
+use app\models\null\BranchNull;
 use app\models\components\petrovich\Petrovich;
 use app\models\extended\AccessTrainingGroup;
 use Yii;
@@ -38,9 +39,10 @@ class PeopleWork extends People
         ];
     }
 
-    public function getBranch()
+    public function getBranchWork()
     {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        $try = $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
+        return $try->all() ? $try : new BranchNull();
     }
 
     public function checkForeignKeys()

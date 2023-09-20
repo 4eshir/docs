@@ -4,6 +4,10 @@ namespace app\models\work;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\PersonalData;
+use app\models\null\ForeignEventParticipantsNull;
+use app\models\null\GroupProjectThemesNull;
+use app\models\null\TrainingGroupNull;
+use app\models\null\CertificatNull;
 use app\models\work\PersonalDataForeignEventParticipantWork;
 use app\models\common\SendMethod;
 use app\models\common\TrainingGroup;
@@ -31,22 +35,26 @@ class TrainingGroupParticipantWork extends TrainingGroupParticipant
 
     public function getParticipantWork()
     {
-        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        $try = $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
+        return $try->all() ? $try : new ForeignEventParticipantsNull();
     }
 
     public function getTrainingGroupWork()
     {
-        return $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+        $try = $this->hasOne(TrainingGroupWork::className(), ['id' => 'training_group_id']);
+        return $try->all() ? $try : new TrainingGroupNull();
     }
 
     public function getCertificatWork()
     {
-        return $this->hasOne(CertificatWork::className(), ['training_group_participant_id' => 'id']);
+        $try = $this->hasOne(CertificatWork::className(), ['training_group_participant_id' => 'id']);
+        return $try->all() ? $try : new CertificatNull();
     }
 
     public function getGroupProjectThemesWork()
     {
-        return $this->hasOne(GroupProjectThemesWork::className(), ['id' => 'group_project_themes_id']);
+        $try = $this->hasOne(GroupProjectThemesWork::className(), ['id' => 'group_project_themes_id']);
+        return $try->all() ? $try : new GroupProjectThemesNull();
     }
 
     public function beforeDelete()

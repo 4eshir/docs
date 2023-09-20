@@ -4,6 +4,8 @@ namespace app\models\work;
 
 use app\models\common\ObjectCharacteristic;
 use app\models\components\FileWizard;
+use app\models\null\MaterialObjectNull;
+use app\models\null\CharacteristicObjectNull;
 use Yii;
 use yii\helpers\Html;
 
@@ -28,12 +30,14 @@ class ObjectCharacteristicWork extends ObjectCharacteristic
 
 	public function getMaterialObjectWork()
     {
-        return $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        $try = $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        return $try->all() ? $try : new MaterialObjectNull();
     }
 
     public function getCharacteristicObjectWork()
     {
-        return $this->hasOne(CharacteristicObjectWork::className(), ['id' => 'characteristic_object_id']);
+        $try = $this->hasOne(CharacteristicObjectWork::className(), ['id' => 'characteristic_object_id']);
+        return $try->all() ? $try : new CharacteristicObjectNull();
     }
 
     public function getValue()

@@ -55,7 +55,7 @@ class ContractWork extends Contract
     public function getContractCategoryContractsWork()
     {
         $try = $this->hasMany(ContractCategoryContractWork::className(), ['contract_id' => 'id']);
-        return $try->all() ? $try : [ContractCategoryContract()];
+        return $try->all() ? $try : [new ContractCategoryContractNull];
     }
 
     public function getFileLink()

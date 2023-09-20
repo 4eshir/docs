@@ -3,6 +3,8 @@
 namespace app\models\work;
 
 use app\models\common\ObjectEntry;
+use app\models\null\EntryNull;
+use app\models\null\MaterialObjectNull;
 use Yii;
 
 
@@ -10,13 +12,15 @@ class ObjectEntryWork extends ObjectEntry
 {
     public function getEntryWork()
     {
-        return $this->hasOne(EntryWork::className(), ['id' => 'entry_id']);
+        $try = $this->hasOne(EntryWork::className(), ['id' => 'entry_id']);
+        return $try->all() ? $try : new EntryNull();
     }
 
 
     public function getMaterialObjectWork()
     {
-        return $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        $try = $this->hasOne(MaterialObjectWork::className(), ['id' => 'material_object_id']);
+        return $try->all() ? $try : new MaterialObjectNull();
     }
 
 
