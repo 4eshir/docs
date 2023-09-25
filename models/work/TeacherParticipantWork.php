@@ -97,7 +97,8 @@ class TeacherParticipantWork extends TeacherParticipant
     public function getTeacherParticipantBranches()
     {
         $try = $this->hasMany(TeacherParticipantBranchWork::className(), ['teacher_participant_id' => 'id']);
-        return $try->all() ? $try : [new TeacherParticipantBranchNull];
+        //return $try->all() ? $try : [new TeacherParticipantBranchNull];
+        return $try;
     }
 
 
