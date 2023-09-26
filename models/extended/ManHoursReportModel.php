@@ -67,7 +67,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $this->unic, ReportConst::AGES_ALL_18, date('Y-m-d'));
 
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE, $this->teacher == null ? null : [$this->teacher]);
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE/*, $this->teacher == null ? [] : [$this->teacher]*/);
 
 
         //--Отладочная информация--
