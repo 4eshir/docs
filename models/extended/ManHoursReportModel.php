@@ -67,7 +67,7 @@ class ManHoursReportModel extends \yii\base\Model
                 '</td><td>'.count($data).' ч/ч'.'</td></tr>';
         }
 
-        $result = '</table>';
+        $result .= '</table>';
 
         return $result;
     }
