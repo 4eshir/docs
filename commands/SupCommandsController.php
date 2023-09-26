@@ -397,27 +397,7 @@ class SupCommandsController extends Controller
         $this->stdout('Выделено памяти на этап 1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
 
 
-        $memory1 = memory_get_usage();
-        $visits = VisitWork::find()->where(['IN', 'id', $visits])->all();
-
         $modelsArr = [new DebugManHoursModel];
-
-        $participantsId = [];
-        $lessonsId = [];
-        foreach ($visits as $visit)
-        {
-            $lessonsId[] = $visit->training_group_lesson_id;
-            $participantsId[] = $visit->foreign_event_participant_id;
-        }
-
-        $lessons = TrainingGroupLessonWork::find()->where(['IN', 'id', $lessonsId])->all();
-
-        $groupsId = [];
-        foreach ($lessons as $lesson) $groupsId[] = $lesson->training_group_id;
-
-        $groups = TrainingGroupWork::find()->where(['IN', 'id', $groupsId])->all();
-        $memory2 = memory_get_usage();
-        $this->stdout('Выделено памяти на этап 2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
 
         foreach ($groups as $group)
         {
@@ -425,32 +405,32 @@ class SupCommandsController extends Controller
             $model->group = $group->number;
 
             $memory1 = memory_get_usage();
-            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
+            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
+                ->andWhere(['>=', 'lesson_date', $start_date])
+                ->andWhere(['<=', 'lesson_date', $end_date])->all();
             $memory2 = memory_get_usage();
             $this->stdout('Выделено памяти на этап 3.1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
 
-            $memory1 = memory_get_usage();
-            $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->andWhere(['IN', 'id', $lessonsId])->all();
-            $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+            $lttIds = SupportReportFunctions::GetIdFromArray($lessonAllTemp);
 
             $memory1 = memory_get_usage();
             $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
             $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.3: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+            $this->stdout('Выделено памяти на этап 3.2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
 
             $memory1 = memory_get_usage();
-            $visitsTemp = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $group->id])->all();
+            $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])->all();
             $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.4: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+            $this->stdout('Выделено памяти на этап 3.3: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
 
             $model->lessonsAll = $lessonAllTemp;
-            $model->lessonsChangeTeacher = $lessonTeacherTemp;
             $model->participants = $participantsTemp;
             $model->manHours = $visitsTemp;
 
             $modelsArr[] = $model;
         }
+
+
     }
 
     private function scan($dir, $backup_dir_name)

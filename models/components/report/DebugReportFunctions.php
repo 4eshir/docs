@@ -25,7 +25,7 @@ class DebugReportFunctions
             $model->group = $group->number;
 
             $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
-                ->where(['>=', 'lesson_date', $start_date])
+                ->andWhere(['>=', 'lesson_date', $start_date])
                 ->andWhere(['<=', 'lesson_date', $end_date])->all();
             /*$lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
                 ->where(['>=', 'lesson_date', $start_date])
