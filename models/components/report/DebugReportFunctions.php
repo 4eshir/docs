@@ -12,13 +12,11 @@ class DebugReportFunctions
 {
     //--Функция, возвращающая дополнительные данные для отчета по обучающимся (человеко-часам)--
     /*
-     * $visits - массив класса visit (посещения по заданным параметрам)
+     * $groups - массив класса TrainingGroupWork, группы для учета
      * [$start_date : $end_date] - Промежуток для поиска занятий и явок (границы включены)
      */
-    static public function DebugDataManHours($groups, $visits, $start_date, $end_date)
+    static public function DebugDataManHours($groups, $start_date, $end_date)
     {
-        $visits = VisitWork::find()->where(['IN', 'id', $visits])->all();
-
         $modelsArr = [new DebugManHoursModel];
 
         foreach ($groups as $group)
@@ -26,18 +24,20 @@ class DebugReportFunctions
             $model = new DebugManHoursModel();
             $model->group = $group->number;
 
-            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
-            $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
+            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
                 ->where(['>=', 'lesson_date', $start_date])
                 ->andWhere(['<=', 'lesson_date', $end_date])->all();
+            /*$lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
+                ->where(['>=', 'lesson_date', $start_date])
+                ->andWhere(['<=', 'lesson_date', $end_date])->all();*/
 
-            $lttIds = SupportReportFunctions::GetIdFromArray($lessonTeacherTemp);
+            $lttIds = SupportReportFunctions::GetIdFromArray($lessonAllTemp);
 
             $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
             $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])->all();
 
             $model->lessonsAll = $lessonAllTemp;
-            $model->lessonsChangeTeacher = $lessonTeacherTemp;
+            //$model->lessonsChangeTeacher = $lessonTeacherTemp;
             $model->participants = $participantsTemp;
             $model->manHours = $visitsTemp;
 
