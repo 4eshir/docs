@@ -13,8 +13,9 @@ class DebugReportFunctions
     //--Функция, возвращающая дополнительные данные для отчета по обучающимся (человеко-часам)--
     /*
      * $visits - массив класса visit (посещения по заданным параметрам)
+     * [$start_date : $end_date] - Промежуток для поиска занятий и явок (границы включены)
      */
-    static public function DebugDataManHours($visits)
+    static public function DebugDataManHours($visits, $start_date, $end_date)
     {
         $visits = VisitWork::find()->where(['IN', 'id', $visits])->all();
 
@@ -43,7 +44,10 @@ class DebugReportFunctions
             $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
             $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->andWhere(['IN', 'id', $lessonsId])->all();
             $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
-            $visitsTemp = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $group->id])->all();
+            $visitsTemp = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
+                ->where(['trainingGroupLesson.training_group_id' => $group->id])
+                ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
+                ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->all();
 
             $model->lessonsAll = $lessonAllTemp;
             $model->lessonsChangeTeacher = $lessonTeacherTemp;
