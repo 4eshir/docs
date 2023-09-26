@@ -210,7 +210,7 @@ class DocumentOrderWork extends DocumentOrder
         }
 
         if (mb_substr($this->order_name, 0, 10) === 'Об участии')
-            $this->order_name = 'Об участии в мероприятии «' . $this->foreign_event['name'] . '»';
+            $this->order_name = 'Об участии в мероприятии "' . $this->foreign_event['name'] . '"';
 
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
             ->andWhere(['firstname' => $fioSigned[1]])
