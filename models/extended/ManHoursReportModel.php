@@ -116,6 +116,8 @@ class ManHoursReportModel extends \yii\base\Model
 
         $result = $this->generateView($visits, ManHoursReportModel::MAN_HOURS_REPORT);
 
+        echo $debugCSV;
+
         return [$result, $debugCSV];
     }
 
