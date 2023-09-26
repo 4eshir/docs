@@ -19,7 +19,7 @@ class DebugReportFunctions
      */
     static public function DebugDataManHours($groups, $start_date, $end_date, $status, $teachers = [])
     {
-        $modelsArr = [new DebugManHoursModel];
+        $modelsArr = [];
 
         foreach ($groups as $group)
         {
