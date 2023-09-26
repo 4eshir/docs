@@ -9,6 +9,7 @@ namespace app\commands;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\Team;
+use app\models\components\report\debug_models\DebugManHoursModel;
 use app\models\components\report\ReportConst;
 use app\models\components\report\SupportReportFunctions;
 use app\models\LoginForm;
@@ -25,6 +26,7 @@ use app\models\work\PeopleWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
+use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
@@ -367,14 +369,88 @@ class SupCommandsController extends Controller
 
     public function actionTemp()
     {
-        $do = DocumentOrderWork::find()->all()[0];
+        $start_date = '2023-01-01';
+        $end_date = '2023-09-26';
+        $branch = [BranchWork::TECHNO, BranchWork::CDNTT];
+        $focus = [FocusWork::TECHNICAL];
+        $allow_remote = [AllowRemoteWork::FULLTIME];
+        $budget = [ReportConst::BUDGET];
+        $teacher = '';
+        $unic = 0;
+        $method = 1;
 
-        $try = $do->hasOne(PeopleWork::className(), ['id' => -1]);
+        $memory1 = memory_get_usage();
+        $groups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD,
+            $start_date, $end_date,
+            $branch,
+            $focus,
+            $allow_remote,
+            $budget,
+            $teacher == '' ? [] : $teacher);
 
-        $obj = $do->hasOne(PeopleWork::className(), ['id' => $do->bring_id]);
+        $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $unic, ReportConst::AGES_ALL_18, date('Y-m-d'));
 
-        var_dump(count($try->all()));
-        var_dump(count($obj->all()));
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $start_date, $end_date, $method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE, $teacher == null ? null : [$teacher]);
+
+        $memory2 = memory_get_usage();
+
+        $this->stdout('Выделено памяти на этап 1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+
+        $memory1 = memory_get_usage();
+        $visits = VisitWork::find()->where(['IN', 'id', $visits])->all();
+
+        $modelsArr = [new DebugManHoursModel];
+
+        $participantsId = [];
+        $lessonsId = [];
+        foreach ($visits as $visit)
+        {
+            $lessonsId[] = $visit->training_group_lesson_id;
+            $participantsId[] = $visit->foreign_event_participant_id;
+        }
+
+        $lessons = TrainingGroupLessonWork::find()->where(['IN', 'id', $lessonsId])->all();
+
+        $groupsId = [];
+        foreach ($lessons as $lesson) $groupsId[] = $lesson->training_group_id;
+
+        $groups = TrainingGroupWork::find()->where(['IN', 'id', $groupsId])->all();
+        $memory2 = memory_get_usage();
+        $this->stdout('Выделено памяти на этап 2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+        foreach ($groups as $group)
+        {
+            $model = new DebugManHoursModel();
+            $model->group = $group->number;
+
+            $memory1 = memory_get_usage();
+            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
+            $memory2 = memory_get_usage();
+            $this->stdout('Выделено памяти на этап 3.1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+            $memory1 = memory_get_usage();
+            $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->andWhere(['IN', 'id', $lessonsId])->all();
+            $memory2 = memory_get_usage();
+            $this->stdout('Выделено памяти на этап 3.2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+            $memory1 = memory_get_usage();
+            $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
+            $memory2 = memory_get_usage();
+            $this->stdout('Выделено памяти на этап 3.3: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+            $memory1 = memory_get_usage();
+            $visitsTemp = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $group->id])->all();
+            $memory2 = memory_get_usage();
+            $this->stdout('Выделено памяти на этап 3.4: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
+
+            $model->lessonsAll = $lessonAllTemp;
+            $model->lessonsChangeTeacher = $lessonTeacherTemp;
+            $model->participants = $participantsTemp;
+            $model->manHours = $visitsTemp;
+
+            $modelsArr[] = $model;
+        }
     }
 
     private function scan($dir, $backup_dir_name)

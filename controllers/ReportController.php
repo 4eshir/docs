@@ -64,7 +64,7 @@ class ReportController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $newModel = new ResultReportModel();
-            $report = $model->generateReport();
+            $report = $model->generateReportNew();
             $newModel->result = $report[0];
             $newModel->debugInfo = $report[1];
             $newModel->debugInfo2 = $report[2];

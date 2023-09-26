@@ -7,6 +7,7 @@ use app\models\common\TeamName;
 use app\models\common\Visit;
 use app\models\test\work\GetGroupParticipantsCertificatWork;
 use app\models\test\work\GetGroupParticipantsForeignEventParticipantWork;
+use app\models\test\work\GetGroupParticipantsLessonThemeWork;
 use app\models\test\work\GetGroupParticipantsTeacherGroupWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupLessonWork;
 use app\models\test\work\GetGroupParticipantsTrainingGroupParticipantWork;
@@ -24,6 +25,7 @@ use app\models\work\CertificatWork;
 use app\models\work\EventLevelWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventWork;
+use app\models\work\LessonThemeWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantBranchWork;
@@ -81,7 +83,10 @@ class SupportReportFunctions
      *|        Возвращает массив обучающихся, проходивших обучение в 2-ух и более группах
      *|
      *|  13. GetCertificatsParticipantsFromGroup
-     *         Возвращает массив обучающихся, имеющих сертификаты о завершении соответствующих учебных групп
+     *|          Возвращает массив обучающихся, имеющих сертификаты о завершении соответствующих учебных групп
+     *|
+     *|  14. GetVisits (основная функция)
+     *|          Возвращает массив visit, соответствующих заданным параметрам
      *|
      */
     //|----------------------------------------------------------------------------------------------------------------
@@ -588,8 +593,9 @@ class SupportReportFunctions
      * $participants - список обучающихся для выборки
      * [$start_date : $end_date] - промежуток для поиска учебных занятий
      * $visit_type - тип учета явок
+     * $teachers - массив id педагогов, проводящих занятия
      */
-    static public function GetVisits($test_mode, $participants, $start_date, $end_date, $visit_type)
+    static public function GetVisits($test_mode, $participants, $start_date, $end_date, $visit_type, $teachers = null)
     {
         $pIds = [];
         foreach ($participants as $participant) $pIds[] = $participant->participant_id;
@@ -597,9 +603,21 @@ class SupportReportFunctions
         $gIds = []; //все группы из $participants для дальнейшего поиска занятий training_group_lessons
         foreach ($participants as $one) $gIds[] = $one->training_group_id;
 
+        if ($teachers !== null)
+        {
+            $teachIds = [];
+            $lessonThemes = $test_mode == 0 ?
+                LessonThemeWork::find()->where(['IN', 'teacher_id', $teachers])->all() :
+                GetGroupParticipantsLessonThemeWork::find()->where(['IN', 'teacher_id', $teachers])->all();
+            foreach ($lessonThemes as $one)
+                $teachIds[] = $one->training_group_lesson_id;
+        }
+        else
+            $teachIds = null;
+
         $groupLessons = $test_mode == 0 ?
-            TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->all() :
-            GetGroupParticipantsTrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->all();
+            TrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->andWhere($teachIds == null ? '1' : ['IN', 'id', $teachIds])->all() :
+            GetGroupParticipantsTrainingGroupLessonWork::find()->where(['IN', 'training_group_id', $gIds])->andWhere($teachIds == null ? '1' : ['IN', 'id', $teachIds])->all();
 
         $glIds = self::GetIdFromArray($groupLessons);
 

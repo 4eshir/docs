@@ -5,8 +5,12 @@ namespace app\models\extended;
 
 
 use app\models\common\TrainingGroup;
+use app\models\components\report\DebugReportFunctions;
+use app\models\components\report\ReportConst;
+use app\models\components\report\SupportReportFunctions;
 use app\models\work\LessonThemeWork;
 use app\models\work\TeacherGroupWork;
+use app\models\work\TeamWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\ForeignEventParticipantsWork;
@@ -46,6 +50,36 @@ class ManHoursReportModel extends \yii\base\Model
             [['type', 'branch', 'budget', 'focus', 'allow_remote'], 'safe'],
             [['method', 'teacher', 'unic'], 'integer']
         ];
+    }
+
+    public function generateReportNew()
+    {
+        ini_set('max_execution_time', '6000');
+        ini_set('memory_limit', '2048M');
+
+        $groups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD,
+                                                            $this->start_date, $this->end_date,
+                                                            $this->branch,
+                                                            $this->focus,
+                                                            $this->allow_remote,
+                                                            $this->budget,
+                                                            $this->teacher == '' ? [] : $this->teacher);
+
+        $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $this->unic, ReportConst::AGES_ALL_18, date('Y-m-d'));
+
+        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE, $this->teacher == null ? null : [$this->teacher]);
+
+
+        //--Отладочная информация--
+
+        $debugArray = DebugReportFunctions::DebugDataManHours($visits);
+
+        foreach ($debugArray as $one)
+            echo $one->group.' '.($one->participants ? count($one->participants) : '-1').' '.($one->participants ? count($one->lessonsAll) : '-1').' '.($one->participants ? count($one->lessonsChangeTeacher) : '-1').' '.($one->participants ? count($one->manHours) : '-1')."<br>";
+
+        //-------------------------
+
+        echo '<br>Всего:'.count($visits);
     }
 
     public function generateReport()

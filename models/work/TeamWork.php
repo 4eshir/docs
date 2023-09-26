@@ -11,6 +11,9 @@ use Yii;
 
 class TeamWork extends Team
 {
+    const TEAM_ON = 1;
+    const TEAM_OFF = 0;
+
     public function getTeamNameWork()
     {
         $try = $this->hasOne(TeamNameWork::className(), ['id' => 'team_name_id']);
