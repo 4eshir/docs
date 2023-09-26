@@ -117,8 +117,8 @@ class ManHoursReportModel extends \yii\base\Model
         $result = $this->generateView($visits, ManHoursReportModel::MAN_HOURS_REPORT);
 
         foreach ($debugManHours as $one)
-            echo $one->group./*";".
-            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : "-".";".
+            echo $one->group.";".
+            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : "-"./*";".
             $one->lessonsAll ? count($one->lessonsAll) : "-".";".
             $one->participants ? count($one->participants) : "-".";".
             $one->manHours ? count($one->manHours) : "-".*/"<br>";
