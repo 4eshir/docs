@@ -385,8 +385,8 @@ class ReportWizard
          */
 
         //DEBUG
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 0, count($targetGroupsDebug));
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(0, 0, count($allCodTechnical));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 1, count($targetGroupsDebug));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(0, 1, count($allCodTechnical));
         //DEBUG
 
         //Отдел Технопарк (тех. направленность)
