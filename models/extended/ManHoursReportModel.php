@@ -26,6 +26,10 @@ use yii\db\Query;
 
 class ManHoursReportModel extends \yii\base\Model
 {
+    const MAN_HOURS_REPORT = 0;
+    const PARTICIPANTS_REPORT = 1;
+
+
     public $start_date;
     public $end_date;
     public $type;
@@ -52,34 +56,67 @@ class ManHoursReportModel extends \yii\base\Model
         ];
     }
 
+
+    private function generateView($data, $type)
+    {
+        $result = '<table class="table table-bordered">';
+
+        if ($type == ManHoursReportModel::MAN_HOURS_REPORT)
+        {
+            $result .= '<tr><td>Количество человеко-часов за период с '.$this->start_date.' по '.$this->end_date.
+                '</td><td>'.count($data).' ч/ч'.'</td></tr>';
+        }
+
+        $result = '</table>';
+
+        return $result;
+    }
+
+
     public function generateReportNew()
     {
         ini_set('max_execution_time', '6000');
         ini_set('memory_limit', '2048M');
 
+        //--Основной алгоритм--
+
         $groups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD,
-                                                            $this->start_date, $this->end_date,
-                                                            $this->branch,
-                                                            $this->focus,
-                                                            $this->allow_remote,
-                                                            $this->budget,
-                                                            $this->teacher == '' ? [] : $this->teacher);
+            $this->start_date, $this->end_date,
+            $this->branch,
+            $this->focus,
+            $this->allow_remote,
+            $this->budget,
+            $this->teacher == '' ? [] : $this->teacher);
 
         $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $this->unic, ReportConst::AGES_ALL, date('Y-m-d'));
 
         $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE/*, $this->teacher == null ? [] : [$this->teacher]*/);
 
+        //---------------------
+
 
         //--Отладочная информация--
 
-        $debugArray = DebugReportFunctions::DebugDataManHours($groups, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE);
+        $debugManHours = DebugReportFunctions::DebugDataManHours($groups,
+            $this->start_date, $this->end_date,
+            $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE,
+            $this->teacher == '' ? [] : $this->teacher);
 
-        foreach ($debugArray as $one)
-            echo $one->group.' '.($one->participants ? count($one->participants) : '-1').' '.($one->participants ? count($one->lessonsAll) : '-1').' '.($one->participants ? count($one->lessonsChangeTeacher) : '-1').' '.($one->participants ? count($one->manHours) : '-1')."<br>";
+        $debugCSV = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
+
+        foreach ($debugManHours as $one)
+            $debugCSV .= $one->group.';'.
+            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : '-'.';'.
+            $one->lessonsAll ? count($one->lessonsAll) : '-'.';'.
+            $one->participants ? count($one->participants) : '-'.';'.
+            $one->manHours ? count($one->manHours) : '-'."\r\n";
 
         //-------------------------
 
-        echo '<br>Всего:'.count($visits);
+
+        $result = $this->generateView($visits, ManHoursReportModel::MAN_HOURS_REPORT);
+
+        return [$result, $debugCSV];
     }
 
     public function generateReport()
@@ -115,7 +152,7 @@ class ManHoursReportModel extends \yii\base\Model
                 $statusArr = [];
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
-                
+
                 //try
 
                 $gIds = [];
@@ -133,11 +170,11 @@ class ManHoursReportModel extends \yii\base\Model
                 $lIds = [];
                 foreach ($visit as $one) $lIds[] = $one->training_group_lesson_id;
                 $lessons = TrainingGroupLessonWork::find()->where(['IN', 'id', $lIds])->all();
-                
+
                 $progs = TrainingProgramWork::find()->where(['IN', 'focus_id', $this->focus])->andWhere(['IN', 'allow_remote_id', $this->allow_remote])->all();
                 $progsId = [];
                 foreach ($progs as $prog) $progsId[] = $prog->id;
-                
+
 
                 if ($this->teacher !== "")
                 {
@@ -202,8 +239,8 @@ class ManHoursReportModel extends \yii\base\Model
                         $dlessons = $dlessons->all();
                         foreach ($dlessons as $dlesson) $dlessonsId[] = $this->teacher = $dlesson->training_group_lesson_id;
                         $debug .= count(VisitWork::find()->joinWith('trainingGroupLesson trainingGroupLesson')
-                                ->where(['IN', 'training_group_lesson_id', $dlessonsId])->andWhere(['IN', 'status', $statusArr])
-                                ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all());
+                            ->where(['IN', 'training_group_lesson_id', $dlessonsId])->andWhere(['IN', 'status', $statusArr])
+                            ->andWhere(['trainingGroupLesson.training_group_id' => $tg->id])->all());
                         $debug .= "\r\n";
                     }
                     //----------------
@@ -275,11 +312,11 @@ class ManHoursReportModel extends \yii\base\Model
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
-                foreach ($parts as $part) 
+                foreach ($parts as $part)
                 {
                     $checkParticipantsId[] = $part->participant_id;
                 }
-                
+
 
                 $result .= '<tr><td><b>1</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' завершивших обучение в период с '.$this->start_date.' по '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
@@ -321,8 +358,8 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";1\r\n";
-                     $c++;
+                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";1\r\n";
+                    $c++;
 
                 }
                 $debug2 .= "\r\n";
@@ -330,7 +367,7 @@ class ManHoursReportModel extends \yii\base\Model
             }
             if ($oneType == '2')
             {
-                
+
                 if ($this->method == 0) $statusArr = [0, 2];
                 else $statusArr = [0, 1, 2];
 
@@ -353,7 +390,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
 
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
-                
+
 
                 $result .= '<tr><td><b>2</b></td><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
@@ -394,7 +431,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";2\r\n";
+                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";2\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -420,9 +457,9 @@ class ManHoursReportModel extends \yii\base\Model
                         ->all();
                 else
                     $parts = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupsId])->andWhere(['IN', 'participant_id', $newParticipants])->all();
-                
+
                 foreach ($parts as $part) $checkParticipantsId[] = $part->participant_id;
-                
+
 
                 $result .= '<tr><td><b>3</b></td><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->end_date.'</td><td>'.count($parts). ' чел.'.'</td></tr>';
 
@@ -455,7 +492,7 @@ class ManHoursReportModel extends \yii\base\Model
                         $positions = PeoplePositionBranchWork::find()->where(['people_id' => $one->expert_id])->all();
                         $tempPos = '';
                         foreach ($positions as $posOne) $tempPos .= $posOne->position->name.'|';
-                        
+
                         $expertPos .= $tempPos.', ';
                     }
 
@@ -466,7 +503,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";3\r\n";
+                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";3\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
@@ -538,7 +575,7 @@ class ManHoursReportModel extends \yii\base\Model
                     //------------
 
                     $debug2 .= $part->participantWork->fullName.";".$part->trainingGroupWork->number.";".$part->trainingGroupWork->start_date.";".$part->trainingGroupWork->finish_date.
-                         ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";4\r\n";
+                        ";".$part->trainingGroupWork->pureBranch.";".$part->participantWork->sex.";".$part->participantWork->birthdate.";".$part->trainingGroupWork->trainingProgramWork->focusWork->name.";".$strTeacher.";".$part->trainingGroupWork->budgetText.";".$part->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".$part->trainingGroupWork->trainingProgramWork->name.";".$part->groupProjectThemesWork->projectThemeWork->name.";".explode(" ", $part->trainingGroupWork->protection_date)[0].";".$part->groupProjectThemes->projectType->name.";".$expertFio.";".$expertType.";".$expertWork.";".$expertPos.";4\r\n";
                 }
                 $debug2 .= "\r\n";
                 //----------------
