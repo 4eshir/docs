@@ -105,11 +105,11 @@ class ManHoursReportModel extends \yii\base\Model
         $debugCSV = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
 
         foreach ($debugManHours as $one)
-            $debugCSV .= $one->group.';'.
-            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : '-'.';'.
-            $one->lessonsAll ? count($one->lessonsAll) : '-'.';'.
-            $one->participants ? count($one->participants) : '-'.';'.
-            $one->manHours ? count($one->manHours) : '-'."\r\n";
+            $debugCSV .= $one->group.";".
+            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : "-".";".
+            $one->lessonsAll ? count($one->lessonsAll) : "-".";".
+            $one->participants ? count($one->participants) : "-".";".
+            $one->manHours ? count($one->manHours) : "-"."\r\n";
 
         //-------------------------
 
