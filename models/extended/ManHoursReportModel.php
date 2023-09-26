@@ -118,7 +118,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         foreach ($debugManHours as $one)
             echo $one->group.";".
-            $one->lessonsChangeTeacher ? count($one->lessonsChangeTeacher) : "-"./*";".
+            count($one->lessonsChangeTeacher)./*";".
             $one->lessonsAll ? count($one->lessonsAll) : "-".";".
             $one->participants ? count($one->participants) : "-".";".
             $one->manHours ? count($one->manHours) : "-".*/"<br>";
