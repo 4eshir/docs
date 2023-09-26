@@ -42,12 +42,15 @@ class DebugReportFunctions
             $model->group = $group->number;
 
             $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->all();
-            $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])->andWhere(['IN', 'id', $lessonsId])->all();
+            $lessonTeacherTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
+                ->andWhere(['IN', 'id', $lessonsId])
+                ->andWhere(['>=', 'lesson_date', $start_date])
+                ->andWhere(['<=', 'lesson_date', $end_date])->all();
+
+            $lttIds = SupportReportFunctions::GetIdFromArray($lessonTeacherTemp);
+
             $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
-            $visitsTemp = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
-                ->where(['trainingGroupLesson.training_group_id' => $group->id])
-                ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
-                ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])->all();
+            $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])->all();
 
             $model->lessonsAll = $lessonAllTemp;
             $model->lessonsChangeTeacher = $lessonTeacherTemp;

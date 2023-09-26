@@ -95,7 +95,7 @@ class SupportReportFunctions
 
     //--Выгрузка id всех записей из массива--
     // Условие: наличие поля с именем 'id'
-    static private function GetIdFromArray($array)
+    static public function GetIdFromArray($array)
     {
         $IDs = [];
         if ($array !== null)
