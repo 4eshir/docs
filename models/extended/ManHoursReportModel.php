@@ -72,7 +72,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         //--Отладочная информация--
 
-        $debugArray = DebugReportFunctions::DebugDataManHours($groups, $this->start_date, $this->end_date);
+        $debugArray = DebugReportFunctions::DebugDataManHours($groups, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE);
 
         foreach ($debugArray as $one)
             echo $one->group.' '.($one->participants ? count($one->participants) : '-1').' '.($one->participants ? count($one->lessonsAll) : '-1').' '.($one->participants ? count($one->lessonsChangeTeacher) : '-1').' '.($one->participants ? count($one->manHours) : '-1')."<br>";

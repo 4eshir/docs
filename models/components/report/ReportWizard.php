@@ -292,12 +292,6 @@ class ReportWizard
 
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
-
-        //DEBUG
-        $targetGroupsDebug = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
-            [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME], [ReportConst::BUDGET]);
-        //DEBUG
-
         $allCodTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodTechnical);
 
@@ -383,11 +377,6 @@ class ReportWizard
          * | Подсчет количества человеко-часов по отделам и направленностям |
          * |----------------------------------------------------------------|
          */
-
-        //DEBUG
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 1, count($targetGroupsDebug));
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(0, 1, count($allCodTechnical));
-        //DEBUG
 
         //Отдел Технопарк (тех. направленность)
 

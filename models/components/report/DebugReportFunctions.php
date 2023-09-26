@@ -14,8 +14,9 @@ class DebugReportFunctions
     /*
      * $groups - массив класса TrainingGroupWork, группы для учета
      * [$start_date : $end_date] - Промежуток для поиска занятий и явок (границы включены)
+     * $status - массив допустимых к выгрузке
      */
-    static public function DebugDataManHours($groups, $start_date, $end_date)
+    static public function DebugDataManHours($groups, $start_date, $end_date, $status)
     {
         $modelsArr = [new DebugManHoursModel];
 
@@ -34,7 +35,8 @@ class DebugReportFunctions
             $lttIds = SupportReportFunctions::GetIdFromArray($lessonAllTemp);
 
             $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
-            $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])->all();
+            $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])
+                ->andWhere(['IN', 'status', $status])->all();
 
             $model->lessonsAll = $lessonAllTemp;
             //$model->lessonsChangeTeacher = $lessonTeacherTemp;
