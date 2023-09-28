@@ -3,6 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\ForeignEventParticipants;
+use app\models\common\GroupProjectThemes;
 use app\models\common\PersonalData;
 use app\models\null\ForeignEventParticipantsNull;
 use app\models\null\GroupProjectThemesNull;
@@ -30,8 +31,10 @@ class TrainingGroupParticipantWork extends TrainingGroupParticipant
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
             [['training_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroup::className(), 'targetAttribute' => ['training_group_id' => 'id']],
+            [['group_project_themes_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProjectThemes::className(), 'targetAttribute' => ['group_project_themes_id' => 'id']],
         ];
     }
+
 
     public function getParticipantWork()
     {

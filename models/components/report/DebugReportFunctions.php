@@ -58,4 +58,45 @@ class DebugReportFunctions
         return $modelsArr;
     }
     //------------------------------------------------------------------------------------------
+
+
+    //--Функция, возвращающая дополнительные данные для отчета по обучающимся (кол-во обучающихся)--
+    /*
+     * $participants - массив обучающихся (полный класс TrainingGroupParticipantWork или только participant->id
+     * $unic - признак уникальности (0 - все обучающиеся, 1 - только уникальные)
+     * $groupsId - идентификаторы учебных групп (для доп. поиска, если выбран unic = 1)
+     */
+    static public function DebugDataParticipantsCount($section, $participants, $unic, $groupsId = [])
+    {
+        $result = '';
+
+        if ($unic == 0)
+        {
+            foreach ($participants as $participant)
+                $result .= $participant->participantWork->fullName.";".
+                           $participant->trainingGroupWork->number.";".
+                           $participant->trainingGroupWork->start_date.";".
+                           $participant->trainingGroupWork->finish_date.";".
+                           $participant->trainingGroupWork->branchWork->name.";".
+                           $participant->participantWork->sex.";".
+                           $participant->participantWork->birthdate.";".
+                           $participant->trainingGroupWork->trainingProgramWork->focusWork->name.";".
+                           $participant->trainingGroupWork->teachersArray[0]->teacherWork->shortName.";".
+                           $participant->trainingGroupWork->budgetText.";".
+                           $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".
+                           $participant->trainingGroupWork->trainingProgramWork->name.";".
+                           $participant->groupProjectThemesWork->projectThemeWork->name.";".
+                           $participant->trainingGroupWork->protection_date.";".
+                           $participant->groupProjectThemesWork->projectTypeWork->name.";".
+                           $participant->trainingGroupWork->expertsArray[0]->expertWork->fullName.";".
+                           $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name.";".
+                           $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
+                           $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name.";".
+                           $section."\r\n";
+
+        }
+
+        return $result;
+    }
+    //----------------------------------------------------------------------------------------------
 }

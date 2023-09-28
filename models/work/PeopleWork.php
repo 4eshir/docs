@@ -16,6 +16,8 @@ use app\models\common\TrainingGroup;
 use app\models\null\BranchNull;
 use app\models\components\petrovich\Petrovich;
 use app\models\extended\AccessTrainingGroup;
+use app\models\null\CompanyNull;
+use app\models\null\PositionNull;
 use Yii;
 use yii\helpers\Html;
 
@@ -43,6 +45,18 @@ class PeopleWork extends People
     {
         $try = $this->hasOne(BranchWork::className(), ['id' => 'branch_id']);
         return $try->all() ? $try : new BranchNull();
+    }
+
+    public function getCompanyWork()
+    {
+        $try = $this->hasOne(CompanyWork::className(), ['id' => 'company_id']);
+        return $try->all() ? $try : new CompanyNull();
+    }
+
+    public function getPositionWork()
+    {
+        $try = $this->hasOne(PositionWork::className(), ['id' => 'position_id']);
+        return $try->all() ? $try : new PositionNull();
     }
 
     public function checkForeignKeys()
@@ -101,6 +115,8 @@ class PeopleWork extends People
             $result .= $posOne->position->name . '<br>';
         return $result;
     }
+
+
 
     public function getPositionsList()
     {

@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\null\ExpertTypeNull;
 use app\models\null\PeopleNull;
 use Yii;
 use app\models\common\TrainingGroupExpert;
@@ -34,6 +35,12 @@ class TrainingGroupExpertWork extends TrainingGroupExpert
     {
         $try = $this->hasOne(PeopleWork::className(), ['id' => 'expert_id']);
         return $try->all() ? $try : new PeopleNull();
+    }
+
+    public function getExpertTypeWork()
+    {
+        $try = $this->hasOne(ExpertTypeWork::className(), ['id' => 'expert_type_id']);
+        return $try->all() ? $try : new ExpertTypeNull();
     }
 
 }
