@@ -30,7 +30,7 @@ class ErrorsWork extends Errors
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 13))
         {
-            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branchWork->id;
             $groups = TrainingGroupWork::find()->where(['branch_id' => $branch])->all();
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 12))
