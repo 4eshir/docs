@@ -30,7 +30,7 @@ class ErrorsWork extends Errors
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 13))
         {
-            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branchWork->id;
             $groups = TrainingGroupWork::find()->where(['branch_id' => $branch])->all();
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 12))
@@ -91,7 +91,7 @@ class ErrorsWork extends Errors
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 15))
         {
-            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch_id;
             if ($actual == 0)
                 $programs = TrainingProgramWork::find()->joinWith(['branchPrograms branchPrograms'])->where(['branchPrograms.branch_id' => $branch])->all();
             else
@@ -372,7 +372,7 @@ class ErrorsWork extends Errors
         }
         else if (\app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 24))   // образовательные
         {
-            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $branch = PeopleWork::find()->where(['id' => $user->aka])->one()->branch_id;
             $documents = DocumentOrderWork::find()->where(['nomenclature_id' => $branch])->andWhere(['IN', 'id',
                 (new Query())->select('id')->from('document_order')->where(['type' => 0])->orWhere(['type' => 11])])->all();
         }

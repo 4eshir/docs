@@ -214,8 +214,11 @@ $session = Yii::$app->session;
             FinishTeam();
         }
 
-        document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[0].childNodes[0].checked = true;
-        var elem = document.getElementById('documentorderwork-supplement-compliance_document').childNodes[0].childNodes[0].checked = true;
+        if (document.getElementById('documentorderwork-order_date').value === '')
+        {
+            document.getElementById('documentorderwork-supplement-foreign_event_goals_id').childNodes[0].childNodes[0].checked = true;
+            document.getElementById('documentorderwork-supplement-compliance_document').childNodes[0].childNodes[0].checked = true;
+        }
         document.getElementsByClassName('form-group field-documentorderwork-foreign_event-is_minpros')[0].childNodes[4].style.color = 'white';
         displayDetails();
     }
