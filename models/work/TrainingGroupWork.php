@@ -1087,7 +1087,7 @@ class TrainingGroupWork extends TrainingGroup
         if (RoleBaseAccess::CheckRole($user_id, 5))
         {
             $user = UserWork::find()->where(['id' => $user_id])->one();
-            $branchID = PeopleWork::find()->where(['id' => $user->aka])->one()->branch->id;
+            $branchID = PeopleWork::find()->where(['id' => $user->aka])->one()->branch_id;
             $groupsConfirm = $groups->andWhere(['>=','finish_date', $dateCheck])->andWhere(['!=', 'protection_confirm', 1])->andWhere(['branch_id' => $branchID])->all();
 
             if (empty($groupsConfirm))
