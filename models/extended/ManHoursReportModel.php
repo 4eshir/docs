@@ -89,6 +89,16 @@ class ManHoursReportModel extends \yii\base\Model
         $gp2 = -1;
         $gp3 = -1;
         $gp4 = -1;
+
+        $groups1Id = [];
+        $groups2Id = [];
+        $groups3Id = [];
+        $groups4Id = [];
+
+        $groupParticipants1 = [];
+        $groupParticipants2 = [];
+        $groupParticipants3 = [];
+        $groupParticipants4 = [];
         //----------------------------
 
         $debugCSV = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
@@ -167,7 +177,8 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $gp1 = count($groupParticipants1);
 
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(1, $groupParticipants1, $this->unic, SupportReportFunctions::GetIdFromArray($groups1));
+                    if ($this->unic == 0)
+                        $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(1, $groupParticipants1, $this->unic, SupportReportFunctions::GetIdFromArray($groups1));
 
                 }
 
@@ -191,7 +202,8 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $gp2 = count($groupParticipants2);
 
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(2, $groupParticipants2, $this->unic, SupportReportFunctions::GetIdFromArray($groups2));
+                    if ($this->unic == 0)
+                        $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(2, $groupParticipants2, $this->unic, SupportReportFunctions::GetIdFromArray($groups2));
 
                 }
 
@@ -215,7 +227,8 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $gp3 = count($groupParticipants3);
 
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(3, $groupParticipants3, $this->unic, SupportReportFunctions::GetIdFromArray($groups3));
+                    if ($this->unic == 0)
+                        $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(3, $groupParticipants3, $this->unic, SupportReportFunctions::GetIdFromArray($groups3));
 
                 }
 
@@ -239,7 +252,8 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $gp4 = count($groupParticipants4);
 
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(4, $groupParticipants4, $this->unic, SupportReportFunctions::GetIdFromArray($groups4));
+                    if ($this->unic == 0)
+                        $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(4, $groupParticipants4, $this->unic, SupportReportFunctions::GetIdFromArray($groups4));
 
                 }
 
@@ -248,6 +262,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                 //--Отладочная информация--
 
+                if ($this->unic == 1)
+                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, array_merge($groupParticipants1, array_merge($groupParticipants2, array_merge($groupParticipants3, $groupParticipants4))), $this->unic,
+                        array_merge($groups1, array_merge($groups2, array_merge($groups3, $groups4))));
 
                 //-------------------------
 

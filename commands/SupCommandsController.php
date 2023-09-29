@@ -369,66 +369,19 @@ class SupCommandsController extends Controller
 
     public function actionTemp()
     {
-        $start_date = '2023-01-01';
-        $end_date = '2023-09-26';
-        $branch = [BranchWork::TECHNO, BranchWork::CDNTT];
-        $focus = [FocusWork::TECHNICAL];
-        $allow_remote = [AllowRemoteWork::FULLTIME];
-        $budget = [ReportConst::BUDGET];
-        $teacher = '';
-        $unic = 0;
-        $method = 1;
+        $groups3 = SupportReportFunctions::GetTrainingGroups(
+            ReportConst::PROD,
+            '2023-01-01', '2023-09-29',
+            [BranchWork::TECHNO],
+            [FocusWork::TECHNICAL],
+            [AllowRemoteWork::FULLTIME],
+            [ReportConst::BUDGET],
+            [],
+            [ReportConst::START_IN_END_IN]);
 
-        $memory1 = memory_get_usage();
-        $groups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD,
-            $start_date, $end_date,
-            $branch,
-            $focus,
-            $allow_remote,
-            $budget,
-            $teacher == '' ? [] : $teacher);
+        $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
-        $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $unic, ReportConst::AGES_ALL_18, date('Y-m-d'));
-
-        $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $start_date, $end_date, $method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE, $teacher == null ? null : [$teacher]);
-
-        $memory2 = memory_get_usage();
-
-        $this->stdout('Выделено памяти на этап 1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
-
-
-        $modelsArr = [new DebugManHoursModel];
-
-        foreach ($groups as $group)
-        {
-            $model = new DebugManHoursModel();
-            $model->group = $group->number;
-
-            $memory1 = memory_get_usage();
-            $lessonAllTemp = TrainingGroupLessonWork::find()->where(['training_group_id' => $group->id])
-                ->andWhere(['>=', 'lesson_date', $start_date])
-                ->andWhere(['<=', 'lesson_date', $end_date])->all();
-            $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.1: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
-
-            $lttIds = SupportReportFunctions::GetIdFromArray($lessonAllTemp);
-
-            $memory1 = memory_get_usage();
-            $participantsTemp = TrainingGroupParticipantWork::find()->where(['training_group_id' => $group->id])->all();
-            $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.2: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
-
-            $memory1 = memory_get_usage();
-            $visitsTemp = VisitWork::find()->where(['IN', 'training_group_lesson_id', $lttIds])->all();
-            $memory2 = memory_get_usage();
-            $this->stdout('Выделено памяти на этап 3.3: '.($memory2 - $memory1)."\n", Console::FG_GREEN);
-
-            $model->lessonsAll = $lessonAllTemp;
-            $model->participants = $participantsTemp;
-            $model->manHours = $visitsTemp;
-
-            $modelsArr[] = $model;
-        }
+        $this->stdout(TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups3Id])->createCommand()->getRawSql());
 
 
     }
