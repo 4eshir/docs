@@ -138,8 +138,8 @@ class SearchDocumentOrder extends DocumentOrderWork
             //->andFilterWhere(['like', 'register.secondname', $this->registerName])
             ->andFilterWhere(['like', 'bring.secondname', $this->bringName])
             ->andFilterWhere(['=', 'order_copy_id', $this->order_copy_id])
-            ->orFilterWhere(['=', 'order_number', $this->order_number])
-            ->orFilterWhere(['=', 'order_postfix', $this->order_postfix])
+            ->andFilterWhere(['=', 'order_number', $this->order_number])
+            ->andFilterWhere(['=', 'order_postfix', $this->order_postfix])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'nomenclature_id', $this->nomenclature_id]);
 
