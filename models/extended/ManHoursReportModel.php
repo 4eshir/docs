@@ -264,7 +264,7 @@ class ManHoursReportModel extends \yii\base\Model
 
                 if ($this->unic == 1)
                     $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, array_merge($groupParticipants1, array_merge($groupParticipants2, array_merge($groupParticipants3, $groupParticipants4))), $this->unic,
-                        array_merge($groups1, array_merge($groups2, array_merge($groups3, $groups4))));
+                        array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id))));
 
                 //-------------------------
 
