@@ -70,6 +70,8 @@ class DebugReportFunctions
     {
         $result = '';
 
+        var_dump($unic);
+
         if ($unic == 0)
         {
             foreach ($participants as $participant)
