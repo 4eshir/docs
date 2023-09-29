@@ -136,7 +136,6 @@ class ContractWork extends Contract
                 $ccc->contract_id = $this->id;
                 $ccc->category_contract_id = $cat_one;
                 $ccc->save();
-                var_dump($ccc->getErrors());
             }
         }
 
