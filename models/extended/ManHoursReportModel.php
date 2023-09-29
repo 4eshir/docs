@@ -260,27 +260,25 @@ class ManHoursReportModel extends \yii\base\Model
                 //---------------------
 
 
-                //--Отладочная информация--
 
-                if ($this->unic == 1)
-                {
-                    $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
-
-                    $allParticipants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->all();
-
-                    var_dump(count($allGroups));
-                    var_dump(count($allParticipants));
-                    var_dump(TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->createCommand()->getRawSql());
-
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
-                }
-
-                //-------------------------
 
                 $resultParticipantCount = $this->generateView([$gp1, $gp2, $gp3, $gp4], ManHoursReportModel::PARTICIPANTS_REPORT);
 
                 //-----------------------------------
             }
+
+            //--Отладочная информация--
+
+            if ($this->unic == 1)
+            {
+                $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
+
+                $allParticipants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->all();
+                
+                $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
+            }
+
+            //-------------------------
 
         }
 
