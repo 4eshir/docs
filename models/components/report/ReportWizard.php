@@ -207,7 +207,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
