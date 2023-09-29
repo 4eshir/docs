@@ -76,7 +76,7 @@ class ManHoursReportModel extends \yii\base\Model
         }
         else if ($type == ManHoursReportModel::PARTICIPANTS_UNIQUE_REPORT)
         {
-            $result .= '<tr><td>Общее количество уникальных обучающихся</td><td>'.$data.'</td></tr>';
+            $result .= '<tr><td>Общее количество уникальных обучающихся</td><td>'.count($data).'</td></tr>';
         }
 
         return $result;
@@ -109,11 +109,19 @@ class ManHoursReportModel extends \yii\base\Model
         $debugCSV = "Группа;Кол-во занятий выбранного педагога;Кол-во занятий всех педагогов;Кол-во учеников;Кол-во ч/ч\r\n";
         $debugCSV2 = "ФИО обучающегося;Группа;Дата начала занятий;Дата окончания занятий;Отдел;Пол;Дата рождения;Направленность;Педагог;Основа;Тематическое направление;Образовательная программа;Тема проекта;Дата защиты;Тип проекта;ФИО эксперта;Тип эксперта;Место работы эксперта;Должность эксперта;Раздел\r\n";
 
+
+        $mainHeader = "<b>Отчет по</b><br>";
+        $firstHeader = '';
+        $secondHeader = '';
+
+
         foreach ($this->type as $oneType)
         {
 
             if ($oneType == '0')
             {
+                if ($firstHeader !== '') $firstHeader = "человеко-часам<br>";
+
                 //--ОТЧЕТ ПО ЧЕЛОВЕКО-ЧАСАМ--
 
                 //--Основной алгоритм--
@@ -157,6 +165,8 @@ class ManHoursReportModel extends \yii\base\Model
             }
             else
             {
+                if ($secondHeader !== '') $secondHeader = "обучающимся<br>";
+
                 //--ОТЧЕТ ПО КОЛИЧЕСТВУ ОБУЧАЮЩИХСЯ--
 
                 //--Основной алгоритм--
@@ -297,7 +307,7 @@ class ManHoursReportModel extends \yii\base\Model
 
 
 
-        return [$result, $debugCSV, $debugCSV2];
+        return [$mainHeader.$firstHeader,$secondHeader, $result, $debugCSV, $debugCSV2];
     }
 
     public function generateReport()
