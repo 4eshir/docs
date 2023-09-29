@@ -28,6 +28,7 @@ class ManHoursReportModel extends \yii\base\Model
 {
     const MAN_HOURS_REPORT = 0;
     const PARTICIPANTS_REPORT = 1;
+    const PARTICIPANTS_UNIQUE_REPORT = 2;
 
 
     public $start_date;
@@ -72,6 +73,10 @@ class ManHoursReportModel extends \yii\base\Model
             $result .= $data[1] == -1 ? '' : '<tr><td><b>2</b></td><td>Количество обучающихся, начавших обучение в период с '.$this->start_date.' по '.$this->end_date.' и завершивших обучение после '.$this->start_date.' по '.$this->end_date.'</td><td>'.$data[1]. ' чел.'.'</td></tr>';
             $result .= $data[2] == -1 ? '' : '<tr><td><b>3</b></td><td>Количество обучающихся, начавших обучение после '.$this->start_date.' и завершивших до '.$this->start_date.' по '.$this->end_date.'</td><td>'.$data[2]. ' чел.'.'</td></tr>';
             $result .= $data[3] == -1 ? '' : '<tr><td><b>4</b></td><td>Количество обучающихся, начавших обучение до '.$this->start_date.' и завершивших после '.$this->start_date.' по '.$this->end_date.'</td><td>'.$data[3]. ' чел.'.'</td></tr>';
+        }
+        else if ($type == ManHoursReportModel::PARTICIPANTS_UNIQUE_REPORT)
+        {
+            $result .= '<tr><td>Общее количество уникальных обучающихся</td><td>'.$data.'</td></tr>';
         }
 
         return $result;
@@ -259,16 +264,11 @@ class ManHoursReportModel extends \yii\base\Model
 
                 //---------------------
 
-
-
-
-                $resultParticipantCount = $this->generateView([$gp1, $gp2, $gp3, $gp4], ManHoursReportModel::PARTICIPANTS_REPORT);
+                if ($this->unic == 0)
+                    $resultParticipantCount = $this->generateView([$gp1, $gp2, $gp3, $gp4], ManHoursReportModel::PARTICIPANTS_REPORT);
 
                 //-----------------------------------
             }
-
-
-
         }
 
 
@@ -281,6 +281,8 @@ class ManHoursReportModel extends \yii\base\Model
             $allParticipants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->all();
 
             $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
+
+            $resultParticipantCount = $this->generateView($allParticipants, ManHoursReportModel::PARTICIPANTS_UNIQUE_REPORT);
         }
 
         //-------------------------
