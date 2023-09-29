@@ -203,15 +203,15 @@ class ReportWizard
 
         //Отдел Моб. Кванториум (тех. направленность)
 
-        // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
-            [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
-            [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL]);
-        $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(11, 39, count($all));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(12, 39, count($target));
+        // Процент успешно защитивших проект (получивших сертификат)
+        $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $allMobTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
+        $all = count($allMobTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
+        $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : round(count($target) * 1.0 / $all * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
