@@ -160,6 +160,8 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups1Id = SupportReportFunctions::GetIdFromArray($groups1);
 
+                    var_dump($this->unic);
+
                     $groupParticipants1 = $this->unic == 1 ?
                         TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups1Id])->all() :
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups1Id])->all();
