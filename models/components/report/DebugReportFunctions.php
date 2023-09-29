@@ -103,7 +103,7 @@ class DebugReportFunctions
             $participantsId = [];
             foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
-            var_dump($unic);
+            var_dump('ffffff');
 
             foreach ($participantsId as $pId)
             {
