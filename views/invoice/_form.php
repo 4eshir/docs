@@ -229,10 +229,10 @@ use yii\helpers\Url;
 
         <div id="con_id" style="display: <?php echo $model->type == 0 || $model->type == 2 ? 'block' : 'none'?>">
             <?php
-            if ($model->contractor_id === null || $model->type === 0 || $model->type === 2)
-                echo $form->field($model, 'contract_id')->dropDownList([], $params);
-            else
-            {
+            //if ($model->contractor_id === null || $model->type === 0 || $model->type === 2)
+            //    echo $form->field($model, 'contract_id')->dropDownList([], $params);
+            //else
+            //{
                 $contract = \app\models\work\ContractWork::find()->where(['contractor_id' => $model->contractor_id])->orderBy(['date' => SORT_ASC])->all();
                 $items = \yii\helpers\ArrayHelper::map($contract, 'id', 'contractFullName');
                 $params = [
@@ -240,7 +240,7 @@ use yii\helpers\Url;
                     'style' => 'width: 60%'
                 ];
                 echo $form->field($model, 'contract_id')->dropDownList($items, $params);
-            }
+            //}
             ?>
         </div>
 
