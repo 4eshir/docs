@@ -101,6 +101,8 @@ class DebugReportFunctions
             $participantsId = [];
             foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
 
+            var_dump($participantsId);
+
             foreach ($participantsId as $pId)
             {
                 $participant = TrainingGroupParticipantWork::find()->where(['participant_id' => $pId])->andWhere(['IN', 'training_group_id', $groupsId])->one();
