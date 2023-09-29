@@ -263,8 +263,13 @@ class ManHoursReportModel extends \yii\base\Model
                 //--Отладочная информация--
 
                 if ($this->unic == 1)
-                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, array_merge($groupParticipants1, array_merge($groupParticipants2, array_merge($groupParticipants3, $groupParticipants4))), $this->unic,
-                        array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id))));
+                {
+                    $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
+
+                    $allParticipants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->all();
+
+                    $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
+                }
 
                 //-------------------------
 
