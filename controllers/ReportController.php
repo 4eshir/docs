@@ -114,8 +114,8 @@ class ReportController extends Controller
             $report = $model->generateReport();
             $newModel->header = $report[0];
             $newModel->result = $report[1];
-            $newModel->debugInfo3 = $report[2];
-            $newModel->header = $report[3];
+            $newModel->debugInfo = $report[2];
+            $newModel->debugInfo2 = $report[3];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);

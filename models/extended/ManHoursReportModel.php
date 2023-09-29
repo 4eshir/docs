@@ -307,7 +307,7 @@ class ManHoursReportModel extends \yii\base\Model
 
 
 
-        return [$mainHeader.$firstHeader,$secondHeader, $result, $debugCSV, $debugCSV2];
+        return [$mainHeader.$firstHeader.$secondHeader, $result, $debugCSV, $debugCSV2];
     }
 
     public function generateReport()
