@@ -70,7 +70,7 @@ class DebugReportFunctions
     {
         $result = '';
 
-        var_dump($unic);
+
 
         if ($unic == 0)
         {
@@ -102,6 +102,8 @@ class DebugReportFunctions
             // если обучающиеся уникальные, то у нас есть только $participant->participant_id
             $participantsId = [];
             foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
+
+            var_dump($unic);
 
             foreach ($participantsId as $pId)
             {
