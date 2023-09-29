@@ -208,6 +208,8 @@ class ReportWizard
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
+        var_dump(count($all));
+        var_dump(count($target));
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
