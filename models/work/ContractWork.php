@@ -19,7 +19,7 @@ class ContractWork extends Contract
     {
         return [
             [['date', 'number'], 'required'],
-            [['date'], 'safe'],
+            [['date', 'category'], 'safe'],
             [['contractor_id'], 'integer'],
             [['number'], 'string', 'max' => 100],
             [['file', 'key_words'], 'string', 'max' => 1000],
@@ -56,6 +56,18 @@ class ContractWork extends Contract
     {
         $try = $this->hasMany(ContractCategoryContractWork::className(), ['contract_id' => 'id']);
         return $try->all() ? $try : [new ContractCategoryContractNull];
+    }
+
+    public function getCategoriesString()
+    {
+        $result = '';
+        $categories = ContractCategoryContractWork::find()->where(['contract_id' => $this->id])->all();
+
+        if ($categories !== null)
+            foreach ($categories as $category)
+                $result .= $category->categoryContractWork->name.'<br>';
+
+        return $result;
     }
 
     public function getFileLink()

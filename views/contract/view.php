@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             ['label' => 'Дата договора', 'attribute' => 'date'],
             ['label' => 'Номер договора', 'attribute' => 'number'],
+            ['label' => 'Категории материальных объектов в договоре', 'attribute' => 'categoriesString', 'format' => 'raw'],
             ['attribute' => 'contractorLink', 'format' => 'raw'],
             ['attribute' => 'file', 'value' => function ($model) {
                 return Html::a($model->file, \yii\helpers\Url::to(['contract/get-file', 'fileName' => $model->file, 'modelId' => $model->id]));
