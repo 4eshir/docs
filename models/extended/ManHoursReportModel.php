@@ -268,6 +268,10 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $allParticipants = TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->all();
 
+                    var_dump(count($allGroups));
+                    var_dump(count($allParticipants));
+                    var_dump(TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $allGroups])->createCommand()->getRawSql());
+
                     $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
                 }
 
