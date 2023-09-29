@@ -9,6 +9,7 @@ use app\models\common\People;
 use app\models\common\Position;
 use app\models\common\User;
 use app\models\components\FileWizard;
+use app\models\null\UserNull;
 use Yii;
 use ZipStream\File;
 
@@ -36,20 +37,57 @@ class DocumentInWork extends DocumentIn
 
             [['signedString', 'getString'], 'string', 'message' => 'Введите корректные ФИО'],
             [['dateAnswer', 'nameAnswer'], 'string'],
-            [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
-            [['local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id', 'correspondent_id', 'local_postfix'], 'integer'],
+            [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'creator_id', 'last_edit_id'], 'required'],
+            [['local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'creator_id', 'last_edit_id', 'correspondent_id', 'local_postfix'], 'integer'],
             [['needAnswer'], 'boolean'],
             [['local_date', 'real_date'], 'safe'],
             [['document_theme', 'target', 'scan', 'applications', 'key_words', 'real_number'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['get_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['get_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'local_number' => '№ п/п',
+            'local_date' => 'Дата поступления документа',
+            'real_number' => 'Регистрационный номер входящего документа ',
+            'real_date' => 'Дата входящего документа ',
+            'position_id' => 'Должность',
+            'company_id' => 'Организация',
+            'document_theme' => 'Тема документа',
+            'signed_id' => 'Кем подписан',
+            'target' => 'Кому адресован',
+            'get_id' => 'Кем получен',
+            'scan' => 'Скан',
+            'applications' => 'Приложения',
+            'creator_id' => 'Регистратор карточки',
+            'last_edit_id' => 'Последний редактор карточки',
+            'key_words' => 'Ключевые слова',
+            'needAnswer' => 'Требуется ответ'
+        ];
+    }
+
     //-----------------------------------
+
+    public function getCreatorWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'creator_id']);
+        return $try->all() ? $try : new UserNull();
+    }
+
+    public function getLastEditWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'last_edit_id']);
+        return $try->all() ? $try : new UserNull();
+    }
+
 
     public function uploadScanFile()
     {
@@ -168,7 +206,7 @@ class DocumentInWork extends DocumentIn
         if ($fioGetDb !== null)
             $this->get_id = $fioGetDb->id;
 
-        $this->register_id = Yii::$app->user->identity->getId();
+        $this->last_edit_id = Yii::$app->user->identity->getId();
 
         if ($this->correspondent_id != null)
         {

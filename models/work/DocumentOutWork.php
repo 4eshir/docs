@@ -10,10 +10,12 @@ use app\models\common\People;
 use app\models\common\Position;
 use app\models\common\SendMethod;
 use app\models\components\FileWizard;
+use app\models\null\UserNull;
 use Faker\Provider\File;
 use Yii;
 use yii\helpers\ArrayHelper;
 use app\models\components\YandexDiskContext;
+use yii\helpers\Html;
 
 
 class DocumentOutWork extends DocumentOut
@@ -23,7 +25,7 @@ class DocumentOutWork extends DocumentOut
     public $applicationFiles;
     public $signedString;
     public $executorString;
-    public $registerString;
+    public $creatorString;
     public $positionCompany;
 
     public $isAnswer;
@@ -35,19 +37,53 @@ class DocumentOutWork extends DocumentOut
             [['docFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag', 'maxFiles' => 10],
             [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'ppt, pptx, xls, xlsx, png, jpg, pdf, doc, docx, zip, rar, 7z, tag', 'maxFiles' => 10],
             [['positionCompany'], 'safe'],
-            [['signedString', 'executorString', 'registerString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
+            [['signedString', 'executorString', 'creatorString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'creator_id', 'document_number', 'signedString', 'executorString'], 'required'],
             [['document_date', 'sent_date', 'isAnswer'], 'safe'],
-            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_postfix', 'document_number'], 'integer'],
+            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'creator_id', 'last_edit_id', 'document_postfix', 'document_number'], 'integer'],
             [['document_theme', 'Scan', 'key_words', 'isAnswer'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
             [['correspondent_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['correspondent_id' => 'id']],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'document_number' => 'Номер документа',
+            'document_date' => 'Дата документа',
+            'document_theme' => 'Тема документа',
+            'company_id' => 'Организация',
+            'position_id' => 'Должность',
+            'signed_id' => 'Кем подписан',
+            'executor_id' => 'Кто исполнил',
+            'send_method_id' => 'Способ отправки',
+            'sent_date' => 'Дата отправки',
+            'Scan' => 'Скан',
+            'applications' => 'Приложения',
+            'creator_id' => 'Регистратор карточки',
+            'key_words' => 'Ключевые слова',
+            'last_edit_id' => 'Последний редактор карточки',
+        ];
+    }
+
+    public function getCreatorWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'creator_id']);
+        return $try->all() ? $try : new UserNull();
+    }
+
+    public function getLastEditWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'last_edit_id']);
+        return $try->all() ? $try : new UserNull();
     }
 
     public function getImagesLinks()
@@ -216,6 +252,7 @@ class DocumentOutWork extends DocumentOut
 
     public function beforeSave($insert)
     {
+        $this->last_edit_id = Yii::$app->user->identity->getId();
         return parent::beforeSave($insert); // TODO: Change the autogenerated stub
     }
 

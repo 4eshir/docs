@@ -26,11 +26,13 @@ use yii\helpers\ArrayHelper;
  * @property string $Scan
  * @property string $doc
  * @property string $applications
- * @property int $register_id
+ * @property int $creator_id
+ * @property int $last_edit
  * @property string $key_words
  *
  * @property People $executor
- * @property People $register
+ * @property People $creator
+ * @property People $lastEdit
  * @property People $correspondent
  * @property SendMethod $sendMethod
  * @property People $signed
@@ -51,12 +53,13 @@ class DocumentOut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'register_id', 'document_number', 'signedString', 'executorString'], 'required'],
-            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_postfix', 'document_number'], 'integer'],
+            [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'creator_id', 'document_number', 'signedString', 'executorString'], 'required'],
+            [['company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'creator_id', 'last_edit_id', 'document_postfix', 'document_number'], 'integer'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['send_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => SendMethod::className(), 'targetAttribute' => ['send_method_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
             [['correspondent_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['correspondent_id' => 'id']],
@@ -81,7 +84,7 @@ class DocumentOut extends \yii\db\ActiveRecord
             'sent_date' => 'Дата отправки',
             'Scan' => 'Скан',
             'applications' => 'Приложения',
-            'register_id' => 'Кто зарегистрировал',
+            'creator_id' => 'Кто зарегистрировал',
             'key_words' => 'Ключевые слова',
         ];
     }
@@ -117,13 +120,13 @@ class DocumentOut extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Register]].
+     * Gets query for [[Creator]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRegister()
+    public function getCreator()
     {
-        return $this->hasOne(User::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
     }
 
     /**

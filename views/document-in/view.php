@@ -84,7 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('Исходящий документ "'.\app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->document_theme.'"',
                         \yii\helpers\Url::to(['docs-out/view', 'id' => \app\models\work\DocumentOutWork::find()->where(['id' => $links->document_out_id])->one()->id]));
             }, 'format' => 'raw'],
-            ['label' => 'Регистратор документа', 'attribute' => 'register_id', 'value' => $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1).'.'],
+            ['label' => 'Создатель карточки', 'attribute' => 'creator_id', 'value' => $model->creatorWork->secondname.' '.mb_substr($model->creatorWork->firstname, 0, 1).'. '.mb_substr($model->creatorWork->patronymic, 0, 1).'.'],
+            ['label' => 'Последний редактор', 'attribute' => 'last_edit_id', 'value' => $model->lastEditWork->secondname.' '.mb_substr($model->lastEditWork->firstname, 0, 1).'. '.mb_substr($model->lastEditWork->patronymic, 0, 1).'.'],
         ],
     ]) ?>
 

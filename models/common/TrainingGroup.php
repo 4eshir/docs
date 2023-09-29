@@ -24,6 +24,7 @@ use Yii;
  * @property int $order_stop
  * @property int $archive
  * @property int|null $creator_id
+ * @property int|null $last_edit_id
  * @property string|null $protection_date
  * @property int|null $protection_confirm
  * @property int|null $is_network
@@ -36,6 +37,7 @@ use Yii;
  * @property People $teacher
  * @property TrainingProgram $trainingProgram
  * @property User $creator
+ * @property User $lastEdit
  * @property Branch $branch
  * @property TrainingGroupExpert[] $trainingGroupExperts
  * @property TrainingGroupLesson[] $trainingGroupLessons
@@ -58,13 +60,14 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return [
             [['number', 'branch_id'], 'required'],
-            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive', 'creator_id', 'protection_confirm', 'is_network'], 'integer'],
+            [['training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive', 'creator_id', 'last_edit_id', 'protection_confirm', 'is_network'], 'integer'],
             [['start_date', 'finish_date', 'protection_date'], 'safe'],
             [['number'], 'string', 'max' => 100],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgram::className(), 'targetAttribute' => ['training_program_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
         ];
     }

@@ -340,7 +340,7 @@ class ForeignEventWork extends ForeignEvent
         return $user->fullName;
     }
 
-    public function GetEditString()
+    public function GetEditorString()
     {
         $user = UserWork::find()->where(['id' => $this->last_edit_id])->one();
         return $user->fullName;

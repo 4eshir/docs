@@ -159,6 +159,7 @@ $this->params['breadcrumbs'][] = 'Группа '.$this->title;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             'creatorString',
+            'editorString',
             ['attribute' => 'openText', 'label' => 'Темы занятий перенесены (при наличии)'],
         ],
     ]) ?>

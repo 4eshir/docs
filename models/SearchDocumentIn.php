@@ -32,7 +32,7 @@ class SearchDocumentIn extends DocumentInWork
     public function rules()
     {
         return [
-            [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id', 'archive'], 'integer'],
+            [['id', 'local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'creator_id', 'archive'], 'integer'],
             [['real_number', 'fullNumber'], 'string'],
             [['local_date', 'real_date', 'document_theme', 'target', 'scan', 'applications', 'key_words', 'correspondentName', 'companyName', 'sendMethodName',
                 'start_date_search', 'finish_date_search'], 'safe'],
@@ -183,7 +183,7 @@ class SearchDocumentIn extends DocumentInWork
             'correspondent_id' => $this->correspondent_id,
             'signed_id' => $this->signed_id,
             'get_id' => $this->get_id,
-            'register_id' => $this->register_id,
+            'creator_id' => $this->creator_id,
         ]);
 
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])

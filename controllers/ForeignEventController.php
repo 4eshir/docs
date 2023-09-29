@@ -91,7 +91,7 @@ class ForeignEventController extends Controller
         $modelAchievement = [new ParticipantsAchievementExtended];
 
         if ($model->load(Yii::$app->request->post())) {
-
+            $model->creator_id = Yii::$app->user->identity->getId();
             $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
             DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
             $modelAchievement = DynamicModel::createMultiple(ParticipantsAchievementExtended::classname());

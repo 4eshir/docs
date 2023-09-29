@@ -159,7 +159,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 //return Html::a($model->Scan, 'index.php?r=docs-out/get-file&filename='.$model->Scan);
             }, 'format' => 'raw'],
             ['attribute' => 'linkGroups', 'format' => 'raw'],
-            'creatorString'
+            'creatorString',
+            'editorString'
         ],
     ]) ?>
 

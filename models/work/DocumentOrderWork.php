@@ -8,10 +8,12 @@ use app\models\common\Expire;
 use app\models\common\ForeignEventParticipants;
 use app\models\common\ParticipantFiles;
 use app\models\common\People;
+use app\models\common\User;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
 use app\models\components\FileWizard;
 use app\models\null\PeopleNull;
+use app\models\null\UserNull;
 use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
@@ -31,7 +33,7 @@ class DocumentOrderWork extends DocumentOrder
     public $signedString;
     public $executorString;
     public $bringString;
-    public $registerString;
+    public $creatorString;
 
     public $allResp;
 
@@ -56,10 +58,10 @@ class DocumentOrderWork extends DocumentOrder
         return [
             [['scanFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
             [['docFiles'], 'file', 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['signedString', 'executorString', 'bringString', 'registerString', 'documentNumberString'], 'string'],
-            [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'register_id',
+            [['signedString', 'executorString', 'bringString', 'creatorString', 'documentNumberString'], 'string'],
+            [['order_number', 'order_name', 'order_date', 'signed_id', 'bring_id', 'executor_id', 'creator_id',
               'signedString', 'executorString', 'bringString'], 'required'],
-            [['signed_id', 'bring_id', 'executor_id', 'register_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'archive_check' ], 'integer'],
+            [['signed_id', 'bring_id', 'executor_id', 'creator_id', 'last_edit_id', 'order_postfix', 'order_copy_id', 'type', 'nomenclature_id', 'archive_check' ], 'integer'],
             [['order_date', 'allResp', 'groups_check', 'participants_check', 'new_groups_check', 'study_type', 'foreign_event', 'supplement', 'participants'], 'safe'],
             [['state'], 'boolean'],
             [['order_name', 'scan', 'key_words'], 'string', 'max' => 1000],
@@ -67,12 +69,25 @@ class DocumentOrderWork extends DocumentOrder
             [['order_number'], 'string', 'max' => 100],
             [['bring_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['bring_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
             [['foreign_event'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventWork::className(), 'targetAttribute' => ['id' => 'order_participation_id']],
             //[['supplement'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrderSupplementWork::className(), 'targetAttribute' => ['id' => 'document_order_id']],
             [['participantsFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
         ];
+    }
+
+    public function getCreatorWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'creator_id']);
+        return $try->all() ? $try : new UserNull();
+    }
+
+    public function getLastEditWork()
+    {
+        $try = $this->hasOne(UserWork::className(), ['id' => 'last_edit_id']);
+        return $try->all() ? $try : new UserNull();
     }
 
     public function getChangeDocFile()
@@ -197,7 +212,7 @@ class DocumentOrderWork extends DocumentOrder
     {
         $fioSigned = explode(" ", $this->signedString);
         $fioExecutor = explode(" ", $this->executorString);
-        $fioRegister = explode(" ", $this->registerString);
+        $fioCreator = explode(" ", $this->creatorString);
         $fioBring = explode(" ", $this->bringString);
 
         if (mb_substr($this->order_name, 0, 12) === 'О зачислении')
@@ -218,9 +233,9 @@ class DocumentOrderWork extends DocumentOrder
         $fioExecutorDb = People::find()->where(['secondname' => $fioExecutor[0]])
             ->andWhere(['firstname' => $fioExecutor[1]])
             ->andWhere(['patronymic' => $fioExecutor[2]])->one();
-        $fioRegisterDb = People::find()->where(['secondname' => $fioRegister[0]])
-            ->andWhere(['firstname' => $fioRegister[1]])
-            ->andWhere(['patronymic' => $fioRegister[2]])->one();
+        $fioCreatorDb = People::find()->where(['secondname' => $fioCreator[0]])
+            ->andWhere(['firstname' => $fioCreator[1]])
+            ->andWhere(['patronymic' => $fioCreator[2]])->one();
         $fioBringDb = People::find()->where(['secondname' => $fioBring[0]])
             ->andWhere(['firstname' => $fioBring[1]])
             ->andWhere(['patronymic' => $fioBring[2]])->one();
@@ -231,13 +246,13 @@ class DocumentOrderWork extends DocumentOrder
         if ($fioExecutorDb !== null)
             $this->executor_id = $fioExecutorDb->id;
 
-        if ($fioRegisterDb !== null)
-            $this->register_id = $fioRegisterDb->id;
+        if ($fioCreatorDb !== null)
+            $this->creator_id = $fioCreatorDb->id;
 
-        if ($fioRegisterDb !== null)
+        if ($fioBringDb !== null)
             $this->bring_id = $fioBringDb->id;
 
-        $this->register_id = Yii::$app->user->identity->getId();
+        $this->last_edit_id = Yii::$app->user->identity->getId();
 
         if ($this->type === 1 || $this->type == 10 || mb_substr($this->order_name, 0, 12) === 'О зачислении')
             $this->study_type = NULL;

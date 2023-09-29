@@ -32,6 +32,7 @@ use Yii;
  * @property string|null $other_files
  * @property int|null $event_way_id
  * @property int|null $creator_id
+ * @property int|null $last_edit_id
  * @property int|null $participation_scope_id
  *
  * @property EventForm $eventForm
@@ -44,6 +45,7 @@ use Yii;
  * @property Regulation $regulation
  * @property EventWay $eventWay
  * @property User $creator
+ * @property User $lastEdit
  * @property EventBranch[] $eventBranches
  * @property EventErrors[] $eventErrors
  * @property EventParticipants[] $eventParticipants
@@ -69,7 +71,7 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['name', 'start_date', 'finish_date', 'event_type_id', 'event_form_id', 'address', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'key_words', 'comment', 'contains_education'], 'required'],
             [['start_date', 'finish_date'], 'safe'],
-            [['event_type_id', 'event_form_id', 'format', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'responsible2_id', 'order_id', 'regulation_id', 'contains_education', 'event_way_id', 'creator_id', 'participation_scope_id'], 'integer'],
+            [['event_type_id', 'event_form_id', 'format', 'event_level_id', 'participants_count', 'is_federal', 'responsible_id', 'responsible2_id', 'order_id', 'regulation_id', 'contains_education', 'event_way_id', 'creator_id', 'last_edit_id', 'participation_scope_id'], 'integer'],
             [['name', 'old_name', 'address', 'key_words', 'comment', 'protocol', 'photos', 'reporting_doc', 'other_files'], 'string', 'max' => 1000],
             [['event_form_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventForm::className(), 'targetAttribute' => ['event_form_id' => 'id']],
             [['participation_scope_id'], 'exist', 'skipOnError' => true, 'targetClass' => ParticipationScope::className(), 'targetAttribute' => ['participation_scope_id' => 'id']],
@@ -81,6 +83,7 @@ class Event extends \yii\db\ActiveRecord
             [['regulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Regulation::className(), 'targetAttribute' => ['regulation_id' => 'id']],
             [['event_way_id'], 'exist', 'skipOnError' => true, 'targetClass' => EventWay::className(), 'targetAttribute' => ['event_way_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
         ];
     }
 

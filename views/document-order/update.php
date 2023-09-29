@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->executor_id])->one();
     $model->executorString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
-    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->register_id])->one();
-    $model->registerString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
+    $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->creator_id])->one();
+    $model->creatorString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;
 
     $fioDb = \app\models\work\PeopleWork::find()->where(['id' => $model->bring_id])->one();
     $model->bringString = $fioDb->secondname.' '.$fioDb->firstname.' '.$fioDb->patronymic;

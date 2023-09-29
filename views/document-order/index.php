@@ -90,9 +90,9 @@ $this->params['breadcrumbs'][] = $this->title;
             else
                 return 'Утратил силу';
         }],
-        ['attribute' => 'registerName', 'label' => 'Регистратор приказа', 'value' => function($model)
+        ['attribute' => 'creatorName', 'label' => 'Регистратор приказа', 'value' => function($model)
         {
-            return $model->register->secondname.' '.mb_substr($model->register->firstname, 0, 1).'. '.mb_substr($model->register->patronymic, 0, 1);
+            return $model->creatorWork->secondname.' '.mb_substr($model->creatorWork->firstname, 0, 1).'. '.mb_substr($model->creatorWork->patronymic, 0, 1);
         }],
         ['attribute' => 'key_words', 'label' => 'Ключевые слова', 'value' => function($model)
         {

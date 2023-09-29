@@ -14,7 +14,7 @@ class SearchDocumentOrder extends DocumentOrderWork
 {
     public $signedName;
     public $executorName;
-    public $registerName;
+    public $creatorName;
     public $bringName;
     public $stateName;
     public $branchString;
@@ -26,9 +26,9 @@ class SearchDocumentOrder extends DocumentOrderWork
     public function rules()
     {
         return [
-            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'register_id', 'branchString', 'nomenclature_id'], 'integer'],
-            [['signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'documentNumberString'], 'string'],
-            [['order_name', 'order_date', 'signedName', 'executorName', 'registerName', 'bringName', 'stateName', 'key_words'], 'safe'],
+            [['id', 'order_number', 'signed_id', 'bring_id', 'executor_id', 'scan', 'creator_id', 'branchString', 'nomenclature_id'], 'integer'],
+            [['signedName', 'executorName', 'creatorName', 'bringName', 'stateName', 'documentNumberString'], 'string'],
+            [['order_name', 'order_date', 'signedName', 'executorName', 'creatorName', 'bringName', 'stateName', 'key_words'], 'safe'],
         ];
     }
 
@@ -55,7 +55,7 @@ class SearchDocumentOrder extends DocumentOrderWork
             $query = DocumentOrderWork::find()->where(['type' => 1])->orWhere(['type' => 10])->orWhere(['type' => 2]);  // основные, основно-архивые и по учету достижений
         else
             $query = DocumentOrderWork::find()->where(['type' => 0])->orWhere(['type' => 11]);  // учебные и учебно-архивные
-        $query->joinWith(['signed signed', 'executor executor', 'register register', 'bring bring']);
+        $query->joinWith(['signed signed', 'executor executor', /*'register register', */'bring bring']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -73,10 +73,10 @@ class SearchDocumentOrder extends DocumentOrderWork
             'desc' => ['executor.secondname' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['registerName'] = [
+        /*$dataProvider->sort->attributes['registerName'] = [
             'asc' => ['register.secondname' => SORT_ASC],
             'desc' => ['register.secondname' => SORT_DESC],
-        ];
+        ];*/
 
         $dataProvider->sort->attributes['bringName'] = [
             'asc' => ['bring.secondname' => SORT_ASC],
@@ -109,14 +109,14 @@ class SearchDocumentOrder extends DocumentOrderWork
             'bring_id' => $this->bring_id,
             'executor_id' => $this->executor_id,
             'scan' => $this->scan,
-            'register_id' => $this->register_id,
+            'creator_id' => $this->creator_id,
             'state' => $this->state,
         ]);
 
         $query->andFilterWhere(['like', 'order_name', $this->order_name])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
-            ->andFilterWhere(['like', 'register.secondname', $this->registerName])
+            //->andFilterWhere(['like', 'register.secondname', $this->registerName])
             ->andFilterWhere(['like', 'bring.secondname', $this->bringName])
             ->andFilterWhere(['=', 'order_copy_id', $this->documentNumberString])
             ->orFilterWhere(['=', 'order_number', $this->documentNumberString])

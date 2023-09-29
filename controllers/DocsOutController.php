@@ -108,7 +108,7 @@ class DocsOutController extends Controller
             $model->getDocumentNumber();
             $model->Scan = '';
 
-            $model->register_id = Yii::$app->user->identity->getId();
+            $model->creator_id = Yii::$app->user->identity->getId();
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->applicationFiles = UploadedFile::getInstances($model, 'applicationFiles');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');

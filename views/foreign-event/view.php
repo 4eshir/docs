@@ -71,7 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'key_words',
                 ['attribute' => 'docString', 'format' => 'raw'],
-                'creatorString'
+                'creatorString',
+                'editorString',
             ],
         ]) ?>
     <?php }

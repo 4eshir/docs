@@ -26,14 +26,16 @@ use ZipStream\File;
  * @property string $scan
  * @property string $doc
  * @property string $applications
- * @property int $register_id
+ * @property int $creator_id
+ * @property int $last_edit_id
  * @property string $key_words
  * @property boolean|null $needAnswer
  *
  * @property Company $company
  * @property User $get
  * @property Position $position
- * @property User $register
+ * @property User $creator
+ * @property User $lastEdit
  * @property People $signed
  * @property SendMethod $sendMethod
  * @property People $correspondent
@@ -55,15 +57,16 @@ class DocumentIn extends \yii\db\ActiveRecord
     {
         return [
 
-            [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'register_id'], 'required'],
-            [['local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'register_id', 'correspondent_id', 'local_postfix'], 'integer'],
+            [['local_date', 'real_date', 'send_method_id', 'position_id', 'company_id', 'document_theme', 'signed_id', 'target', 'get_id', 'creator_id', 'last_edit_id'], 'required'],
+            [['local_number', 'position_id', 'company_id', 'signed_id', 'get_id', 'creator_id', 'last_edit_id', 'correspondent_id', 'local_postfix'], 'integer'],
             [['needAnswer'], 'boolean'],
             [['local_date', 'real_date'], 'safe'],
             [['document_theme', 'target', 'scan', 'applications', 'key_words', 'real_number'], 'string', 'max' => 1000],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['get_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['get_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::className(), 'targetAttribute' => ['position_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
         ];
     }
@@ -87,7 +90,8 @@ class DocumentIn extends \yii\db\ActiveRecord
             'get_id' => 'Кем получен',
             'scan' => 'Скан',
             'applications' => 'Приложения',
-            'register_id' => 'Регистратор документа',
+            'creator_id' => 'Регистратор карточки',
+            'last_edit_id' => 'Последний редактор карточки',
             'key_words' => 'Ключевые слова',
             'needAnswer' => 'Требуется ответ'
         ];
@@ -124,13 +128,13 @@ class DocumentIn extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Register]].
+     * Gets query for [[Creator]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRegister()
+    public function getCreator()
     {
-        return $this->hasOne(User::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
     }
 
     /**

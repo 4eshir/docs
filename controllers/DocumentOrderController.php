@@ -105,6 +105,7 @@ class DocumentOrderController extends Controller
         $modelParticipants = [new ForeignEventParticipantsExtended];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate(false)) {
+            $model->creator_id = Yii::$app->user->identity->getId();
             $model->signed_id = null;
             $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
             $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
@@ -183,7 +184,7 @@ class DocumentOrderController extends Controller
         $model->scan = '';
         $model->state = true;
         $model->type = 1;//$session->get('type') === '1' ? 1 : 0;
-        $model->register_id = Yii::$app->user->identity->getId();
+        $model->creator_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);

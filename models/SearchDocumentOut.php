@@ -23,7 +23,7 @@ class SearchDocumentOut extends DocumentOutWork
 
     public $signedName;
     public $executorName;
-    public $registerName;
+    public $creatorName;
     public $sendMethodName;
     public $positionCompany;
     public $start_date_search;
@@ -36,9 +36,9 @@ class SearchDocumentOut extends DocumentOutWork
     public function rules()
     {
         return [
-            [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'register_id', 'document_number', 'archive'], 'integer'],
+            [['id', 'company_id', 'position_id', 'signed_id', 'executor_id', 'send_method_id', 'creator_id', 'document_number', 'archive'], 'integer'],
             [['document_name', 'document_date', 'document_theme', 'sent_date', 'Scan', 'signedName', 'document_date',
-                'executorName', 'registerName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words', 'isAnswer',
+                'executorName', 'creatorName', 'sendMethodName', 'positionCompany', 'document_number', 'key_words', 'isAnswer',
                 'start_date_search', 'finish_date_search'], 'safe'],
         ];
     }
@@ -72,7 +72,7 @@ class SearchDocumentOut extends DocumentOutWork
 
         $query = DocumentOutWork::find();
         $query->joinWith(['signed signed', 'executor executor']);
-        $query->joinWith(['register']);
+        $query->joinWith(['creator']);
         $query->joinWith(['sendMethod']);
         $query->joinWith(['company']);
         $query->joinWith(['position']);
@@ -130,9 +130,9 @@ class SearchDocumentOut extends DocumentOutWork
             'desc' => ['executor.secondname' => SORT_DESC],
         ];
             
-        $dataProvider->sort->attributes['registerName'] = [
-            'asc' => ['register.secondname' => SORT_ASC],
-            'desc' => ['register.secondname' => SORT_DESC],
+        $dataProvider->sort->attributes['creatorName'] = [
+            'asc' => ['creator.secondname' => SORT_ASC],
+            'desc' => ['creator.secondname' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['sendMethodName'] = [
@@ -140,7 +140,7 @@ class SearchDocumentOut extends DocumentOutWork
             'desc' => [SendMethodWork::tableName().'.name' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['registerName'] = [
+        $dataProvider->sort->attributes['creatorName'] = [
             'asc' => [UserWork::tableName().'.secondname' => SORT_ASC],
             'desc' => [UserWork::tableName().'.secondname' => SORT_DESC],
         ];
@@ -173,7 +173,7 @@ class SearchDocumentOut extends DocumentOutWork
 
             'send_method_id' => $this->send_method_id,
             'sent_date' => $this->sent_date,
-            'register_id' => $this->register_id,
+            'creator_id' => $this->creator_id,
         ]);
 
         $query->andFilterWhere(['like', 'document_theme', $this->document_theme])
@@ -181,7 +181,7 @@ class SearchDocumentOut extends DocumentOutWork
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
-            ->andFilterWhere(['like', UserWork::tableName().'.secondname', $this->registerName])
+            ->andFilterWhere(['like', UserWork::tableName().'.secondname', $this->creatorName])
             ->andFilterWhere(['like', SendMethodWork::tableName().'.name', $this->sendMethodName])
             ->andFilterWhere(['like', 'position.name', $this->positionCompany])
             ->orFilterWhere(['like', 'company.name', $this->positionCompany]);

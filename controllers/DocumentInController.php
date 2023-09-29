@@ -136,7 +136,7 @@ class DocumentInController extends Controller
         $model->real_date = '1999-01-01';
         $model->scan = '';
         $model->applications = '';
-        $model->register_id = Yii::$app->user->identity->getId();
+        $model->creator_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);

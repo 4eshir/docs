@@ -20,10 +20,14 @@ use Yii;
  * @property int regulation_type_id
  * @property int $state
  * @property string $scan
+ * @property int $creator_id
+ * @property int $last_edit_id
  *
  * @property Expire[] $expires
  * @property Expire[] $expires0
  * @property DocumentOrder $order
+ * @property User $creator
+ * @property User $lastEdit
  */
 class Regulation extends \yii\db\ActiveRecord
 {
@@ -44,9 +48,11 @@ class Regulation extends \yii\db\ActiveRecord
         return [
             [['date', 'name', 'order_id', 'state'], 'required'],
             [['date', 'ped_council_date', 'par_council_date'], 'safe'],
-            [['order_id', 'ped_council_number', 'par_council_number', 'state', 'regulation_type_id'], 'integer'],
+            [['order_id', 'ped_council_number', 'par_council_number', 'state', 'regulation_type_id', 'creator_id', 'last_edit_id'], 'integer'],
             [['name', 'scan', 'short_name'], 'string', 'max' => 1000],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentOrder::className(), 'targetAttribute' => ['order_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
         ];
     }
 
@@ -68,6 +74,16 @@ class Regulation extends \yii\db\ActiveRecord
             'state' => 'Состояние',
             'scan' => 'Скан',
         ];
+    }
+
+    /**
+     * Gets query for [[Creator]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
     }
 
     /**

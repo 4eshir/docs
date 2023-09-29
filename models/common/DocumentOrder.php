@@ -19,7 +19,8 @@ use Yii;
  * @property int|null $executor_id
  * @property string $scan
  * @property string|null $doc
- * @property int $register_id
+ * @property int $creator_id
+ * @property int $last_edit_id
  * @property int|null $type
  * @property int|null $study_type
  * @property string|null $key_words
@@ -28,7 +29,8 @@ use Yii;
  *
  * @property People $bring
  * @property People $executor
- * @property People $register
+ * @property People $creator
+ * @property User $lastEdit
  * @property People $signed
  * @property Branch $nomenclature
  * @property Expire[] $expires
@@ -56,14 +58,15 @@ class DocumentOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_copy_id', 'order_number', 'order_name', 'order_date', 'scan', 'register_id'], 'required'],
-            [['order_copy_id', 'order_postfix', 'signed_id', 'bring_id', 'executor_id', 'register_id', 'type', 'state', 'nomenclature_id'], 'integer'],
+            [['order_copy_id', 'order_number', 'order_name', 'order_date', 'scan', 'creator_id', 'last_edit_id'], 'required'],
+            [['order_copy_id', 'order_postfix', 'signed_id', 'bring_id', 'executor_id', 'creator_id', 'last_edit_id', 'type', 'state', 'nomenclature_id'], 'integer'],
             [['order_date'], 'safe'],
             [['order_number'], 'string', 'max' => 100],
             [['order_name', 'scan', 'doc', 'key_words'], 'string', 'max' => 1000],
             [['bring_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['bring_id' => 'id']],
             [['executor_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['executor_id' => 'id']],
-            [['register_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['register_id' => 'id']],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['signed_id'], 'exist', 'skipOnError' => true, 'targetClass' => People::className(), 'targetAttribute' => ['signed_id' => 'id']],
             [['nomenclature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['nomenclature_id' => 'id']],
         ];
@@ -86,7 +89,7 @@ class DocumentOrder extends \yii\db\ActiveRecord
             'executor_id' => 'Executor ID',
             'scan' => 'Scan',
             'doc' => 'Doc',
-            'register_id' => 'Register ID',
+            'creator_id' => 'Register ID',
             'type' => 'Type',
             'key_words' => 'Key Words',
             'state' => 'State',
@@ -115,13 +118,13 @@ class DocumentOrder extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Register]].
+     * Gets query for [[Creator]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRegister()
+    public function getCreator()
     {
-        return $this->hasOne(User::className(), ['id' => 'register_id']);
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
     }
 
     /**
