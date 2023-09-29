@@ -47,7 +47,7 @@ class SearchCertificat extends CertificatWork
      */
     public function search($params)
     {
-        $query = CertificatWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->joinWith(['trainingGroupParticipant.participantWork participant'])->joinWith(['trainingGroupParticipant.trainingGroupWork group'])->joinWith(['certificatTemplate template']);
+        $query = CertificatWork::find()->joinWith(['trainingGroupParticipant trainingGroupParticipant'])->joinWith(['trainingGroupParticipant.participant participant'])->joinWith(['trainingGroupParticipant.trainingGroup group'])->joinWith(['certificatTemplate template']);
 
         // add conditions that should always apply here
 
