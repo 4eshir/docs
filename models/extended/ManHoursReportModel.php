@@ -120,7 +120,7 @@ class ManHoursReportModel extends \yii\base\Model
 
             if ($oneType == '0')
             {
-                if ($firstHeader !== '') $firstHeader = "человеко-часам<br>";
+                if ($firstHeader == '') $firstHeader = "человеко-часам<br>";
 
                 //--ОТЧЕТ ПО ЧЕЛОВЕКО-ЧАСАМ--
 
@@ -165,7 +165,7 @@ class ManHoursReportModel extends \yii\base\Model
             }
             else
             {
-                if ($secondHeader !== '') $secondHeader = "обучающимся<br>";
+                if ($secondHeader == '') $secondHeader = "обучающимся<br>";
 
                 //--ОТЧЕТ ПО КОЛИЧЕСТВУ ОБУЧАЮЩИХСЯ--
 
