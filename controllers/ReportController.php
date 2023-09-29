@@ -65,9 +65,10 @@ class ReportController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $newModel = new ResultReportModel();
             $report = $model->generateReportNew();
-            $newModel->result = $report[0];
-            $newModel->debugInfo = $report[1];
-            $newModel->debugInfo2 = $report[2];
+            $newModel->header = $report[0];
+            $newModel->result = $report[1];
+            $newModel->debugInfo = $report[2];
+            $newModel->debugInfo2 = $report[3];
             //$newModel->header = $report[3];
             return $this->render('report-result', [
                 'model' => $newModel,
@@ -111,11 +112,10 @@ class ReportController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $newModel = new ResultReportModel();
-            $report = $model->generateReportNew();
-            $newModel->header = $report[0];
-            $newModel->result = $report[1];
-            $newModel->debugInfo = $report[2];
-            $newModel->debugInfo2 = $report[3];
+            $report = $model->generateReport();
+            $newModel->result = $report[0];
+            $newModel->debugInfo3 = $report[1];
+            $newModel->header = $report[2];
             return $this->render('report-result', [
                 'model' => $newModel,
             ]);
