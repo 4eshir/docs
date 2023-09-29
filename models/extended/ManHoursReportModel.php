@@ -161,9 +161,9 @@ class ManHoursReportModel extends \yii\base\Model
                     $groups1Id = SupportReportFunctions::GetIdFromArray($groups1);
 
 
-                    $groupParticipants1 = $this->unic == 1 ?
-                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups1Id])->all() :
+                    $groupParticipants1 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups1Id])->all();
+                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups1Id])->all() :
 
                     $gp1 = count($groupParticipants1);
 
@@ -185,9 +185,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups2Id = SupportReportFunctions::GetIdFromArray($groups2);
 
-                    $groupParticipants2 = $this->unic == 1 ?
-                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups2Id])->all() :
+                    $groupParticipants2 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups2Id])->all();
+                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups2Id])->all() :
 
                     $gp2 = count($groupParticipants2);
 
@@ -209,9 +209,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
-                    $groupParticipants3 = $this->unic == 1 ?
-                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups3Id])->all() :
+                    $groupParticipants3 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups3Id])->all();
+                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups3Id])->all() :
 
                     $gp3 = count($groupParticipants3);
 
@@ -233,9 +233,9 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups4Id = SupportReportFunctions::GetIdFromArray($groups4);
 
-                    $groupParticipants4 = $this->unic == 1 ?
-                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups4Id])->all() :
+                    $groupParticipants4 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups4Id])->all();
+                        TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups4Id])->all() :
 
                     $gp4 = count($groupParticipants4);
 
