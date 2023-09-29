@@ -111,7 +111,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $this->budget,
                     $this->teacher == '' ? [] : $this->teacher);
 
-                $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, $this->unic, ReportConst::AGES_ALL, date('Y-m-d'));
+                $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, 0, ReportConst::AGES_ALL, date('Y-m-d'));
 
                 $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $participants, $this->start_date, $this->end_date, $this->method == 0 ? VisitWork::ONLY_PRESENCE : VisitWork::PRESENCE_AND_ABSENCE/*, $this->teacher == null ? [] : [$this->teacher]*/);
 
