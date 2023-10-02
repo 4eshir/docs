@@ -212,6 +212,7 @@ class ReportWizard
         $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, $all == 0 ? 0 : round(count($target) * 1.0 / $all * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, $all.' '.count($target));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
