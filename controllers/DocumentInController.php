@@ -88,6 +88,7 @@ class DocumentInController extends Controller
 
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->creator_id = Yii::$app->user->identity->getId();
             $model->local_number = 0;
             $model->signed_id = null;
             $model->target = null;

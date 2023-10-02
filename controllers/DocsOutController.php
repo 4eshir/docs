@@ -146,7 +146,7 @@ class DocsOutController extends Controller
         $model->sent_date = '1999-01-01';
         $model->Scan = '';
         $model->applications = '';
-        $model->register_id = Yii::$app->user->identity->getId();
+        $model->creator_id = Yii::$app->user->identity->getId();
         $model->getDocumentNumber();
         Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
         $model->save(false);

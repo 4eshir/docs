@@ -59,20 +59,6 @@ class SearchDocumentOrder extends DocumentOrderWork
         $query->joinWith(['signed signed', 'executor executor', /*'register register', */'bring bring']);
         // add conditions that should always apply here
 
-        if ($this->documentNumberString != null)
-        {
-            $temp = explode("/", $this->documentNumberString);
-var_dump($this->documentNumberString);
-            if (count($temp) == 1)
-                $this->order_copy_id = $temp;
-            else
-            {
-                $this->order_number = $temp[0];
-                $this->order_copy_id = $temp[1];
-                if (count($temp) > 2) $this->order_postfix = $temp[2];
-            }
-        }
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'=> ['defaultOrder' => ['order_date' => SORT_DESC, 'order_copy_id' => SORT_DESC, 'order_postfix' => SORT_DESC]]
@@ -128,14 +114,32 @@ var_dump($this->documentNumberString);
             'state' => $this->state,
         ]);
 
+        if ($this->documentNumberString != null)
+        {
+            $temp = explode("/", $this->documentNumberString);
+            if (count($temp) == 1)
+            {
+                if (strripos($this->documentNumberString, '-'))
+                    $this->order_number = $temp[0];
+                else
+                    $this->order_copy_id = $temp[0];
+            }
+            else
+            {
+                $this->order_number = $temp[0];
+                $this->order_copy_id = $temp[1];
+                if (count($temp) > 2) $this->order_postfix = $temp[2];
+            }
+        }
+
         $query->andFilterWhere(['like', 'order_name', $this->order_name])
             ->andFilterWhere(['like', 'signed.secondname', $this->signedName])
             ->andFilterWhere(['like', 'executor.secondname', $this->executorName])
             //->andFilterWhere(['like', 'register.secondname', $this->registerName])
             ->andFilterWhere(['like', 'bring.secondname', $this->bringName])
             ->andFilterWhere(['=', 'order_copy_id', $this->order_copy_id])
-            ->orFilterWhere(['=', 'order_number', $this->order_number])
-            ->orFilterWhere(['=', 'order_postfix', $this->order_postfix])
+            ->andFilterWhere(['=', 'order_number', $this->order_number])
+            ->andFilterWhere(['=', 'order_postfix', $this->order_postfix])
             ->andFilterWhere(['like', 'key_words', $this->key_words])
             ->andFilterWhere(['like', 'nomenclature_id', $this->nomenclature_id]);
 
