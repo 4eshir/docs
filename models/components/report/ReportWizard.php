@@ -209,9 +209,9 @@ class ReportWizard
         $allMobTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allMobTechnical);
 
-        $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allMobTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, count($all[0]) == 0 ? 0 : round(count($target) * 1.0 / $all * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, $all == 0 ? 0 : round(count($target) * 1.0 / $all * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
