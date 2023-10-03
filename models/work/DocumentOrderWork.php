@@ -224,7 +224,7 @@ class DocumentOrderWork extends DocumentOrder
                     $this->order_name = 'О зачислении на обучение по дополнительной общеразвивающей программе';
         }
 
-        if (mb_substr($this->order_name, 0, 10) === 'Об участии')
+        if (mb_substr($this->order_name, 0, 10) === 'Об участии' && $this->type === 2)
             $this->order_name = 'Об участии в мероприятии "' . $this->foreign_event['name'] . '"';
 
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
