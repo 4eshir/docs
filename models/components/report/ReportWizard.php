@@ -364,13 +364,16 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, count($all));
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, count($all[0]));
         $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 22, count($target));
 
-        foreach ($all as $one)
+        $i = 0;
+        foreach ($all[0] as $one)
         {
             $participant = ForeignEventParticipantsWork::find()->where(['id' => $one])->one();
-            //$inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
+            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 24 + $i, $participant->fullName);
+
+            $i += 1;
         }
 
 
