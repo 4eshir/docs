@@ -177,10 +177,13 @@ class ForeignEventErrorsWork extends ForeignEventErrors
         }*/
     }
 
-    private function CheckAchievement ($modelForeignEventID)
+    private function CheckAchievement ($modelForeignEventID, $participants)
     {
         $err = ForeignEventErrorsWork::find()->where(['foreign_event_id' => $modelForeignEventID, 'time_the_end' => null, 'errors_id' => 26])->all();
-        $achievementCount = count(ParticipantAchievementWork::find()->where(['foreign_event_id' => $modelForeignEventID])->all());
+        $partsID = [];
+        foreach ($participants as $participant)
+            $partsID[] = $participant->id;
+        $achievementCount = count(ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $partsID])->all());
 
         foreach ($err as $oneErr)
         {
@@ -314,7 +317,7 @@ class ForeignEventErrorsWork extends ForeignEventErrors
             $this->CheckParticipantGroup($modelForeignEventID, $participants);
             $this->CheckBranch($modelForeignEventID, $participants);
         }
-        $this->CheckAchievement($modelForeignEventID);
+        $this->CheckAchievement($modelForeignEventID, $participants);
         $this->CheckDoc($modelForeignEventID, $foreignEvent);
         $this->CheckCompany($modelForeignEventID, $foreignEvent);
         $this->CheckEventWay($modelForeignEventID, $foreignEvent);

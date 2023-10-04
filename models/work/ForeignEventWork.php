@@ -87,7 +87,7 @@ class ForeignEventWork extends ForeignEvent
             'is_minpros' => 'Входит в перечень Минпросвещения РФ',
             'isMinpros' => 'Входит в перечень Минпросвещения РФ',
             'last_edit_id' => 'Последний редактор карточки',
-            'editString' => 'Последний редактор карточки',
+            'editorString' => 'Последний редактор карточки',
         ];
     }
 
