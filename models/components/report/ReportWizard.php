@@ -364,7 +364,7 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, count($all[2]));
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, count($all[1]));
         $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 22, count($target));
 
         $i = 0;
