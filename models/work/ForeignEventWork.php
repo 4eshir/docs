@@ -299,9 +299,9 @@ class ForeignEventWork extends ForeignEvent
         {
             $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacher_participant_id])->one();
             if ($team !== null)
-                $partsList = $partsList.$partOne->participantWork->shortName.' ('.$team->teamNameWork->name.')<br>';
+                $partsList = $partsList.$partOne->teacherParticipantWork->participantWork->shortName.' ('.$team->teamNameWork->name.')<br>';
             else
-                $partsList = $partsList.$partOne->participantWork->shortName.'<br>';
+                $partsList = $partsList.$partOne->teacherParticipantWork->participantWork->shortName.'<br>';
         }
         return $partsList;
     }
@@ -312,7 +312,7 @@ class ForeignEventWork extends ForeignEvent
         $partsList = '';
         foreach ($parts as $partOne)
         {
-            $partsList = $partsList.$partOne->participantWork->shortName.'<br>';
+            $partsList = $partsList.$partOne->teacherParticipantWork->participantWork->shortName.'<br>';
         }
         return $partsList;
     }
