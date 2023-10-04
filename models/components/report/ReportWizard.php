@@ -371,10 +371,8 @@ class ReportWizard
         {
             $participant = ForeignEventParticipantsWork::find()->where(['id' => $one])->one();
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
-            var_dump($participant->fullName."<br>");
         }
 
-        var_dump("<br>------------------------------------<br>");
 
         foreach ($target as $one)
         {
