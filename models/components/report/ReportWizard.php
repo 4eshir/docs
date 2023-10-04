@@ -371,13 +371,6 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, "Мероприятия");
-        $i = 1;
-        foreach ($all[6] as $event) {
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22 + $i, $event->name);
-            $i += 1;
-        }
-
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
