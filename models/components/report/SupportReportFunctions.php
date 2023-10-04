@@ -291,7 +291,7 @@ class SupportReportFunctions
 
         if ($team_mode == 1)
         {
-            //--Получаем всех участников из teacher_aprticipant--
+            //--Получаем всех участников из teacher_participant--
             $teacherParticipantsAll = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, []);
             $tpmIds = self::GetIdFromArray($teacherParticipantsAll);
             //--Получаем всех участников команд, соответствующих заданным условиям (относительно самих участников)--
