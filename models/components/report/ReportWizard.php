@@ -370,6 +370,9 @@ class ReportWizard
         $allCodSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodSport);
 
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 22, $all);
+
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
