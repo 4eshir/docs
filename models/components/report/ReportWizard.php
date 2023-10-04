@@ -368,10 +368,10 @@ class ReportWizard
         {
             $participant = ForeignEventParticipantsWork::find()->where(['id' => $one])->one();
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
-            echo $participant->fullName."<br>";
+            var_dump($participant->fullName."<br>");
         }
 
-        echo "<br>------------------------------------<br>";
+        var_dump("<br>------------------------------------<br>");
 
         foreach ($target as $one)
         {
@@ -379,7 +379,7 @@ class ReportWizard
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(4, 22, $one->foreignEventWork->name);
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(5, 22, $one->achievement);
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(6, 22, $one->winner == 0 ? 'Призер' : 'Победитель');
-            echo $one->participantWork->fullName." " . $one->foreignEventWork->name." " . $one->achievement." " . $one->winner == 0 ? 'Призер' : 'Победитель'."<br>";
+            var_dump($one->participantWork->fullName." " . $one->foreignEventWork->name." " . $one->achievement." " . $one->winner == 0 ? 'Призер' : 'Победитель'."<br>");
         }
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
