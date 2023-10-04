@@ -358,20 +358,10 @@ class ReportWizard
         $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             [BranchWork::COD], [FocusWork::SPORT], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
 
-        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, "Группы");
-        $i = 1;
-        foreach ($targetGroups as $group) {
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22 + $i, $group->number);
-            $i += 1;
-        }
-
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodSport);
-
-        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 22, $all);
-
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target / $all) * 100));
 
@@ -380,6 +370,13 @@ class ReportWizard
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, "Мероприятия");
+        $i = 1;
+        foreach ($all[6] as $event) {
+            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22 + $i, $event->name);
+            $i += 1;
+        }
 
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
