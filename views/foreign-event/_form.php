@@ -226,7 +226,7 @@ use yii\jui\DatePicker;
             
             
             <?php
-            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])/*->groupBy(['team_name_id'])*/->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
@@ -299,7 +299,7 @@ use yii\jui\DatePicker;
                                 foreach ($partsAch as $partAch)
                                     $partsArr[] = $partAch->teacher_participant_id;
 
-                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])/*->groupBy(['team_name_id'])*/->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->groupBy(['team_name_id'])->all();
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;
 

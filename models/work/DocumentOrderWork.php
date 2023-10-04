@@ -322,7 +322,7 @@ class DocumentOrderWork extends DocumentOrder
     {
         $teamName = [];
         foreach ($this->participants as $partOne)
-            if (!in_array($partOne->team, $teamName) && $partOne->team !== 'NULL')
+            if (!in_array($partOne->team, $teamName) && $partOne->team != null)
                 $teamName[] = $partOne->team;
 
         foreach ($teamName as $oneTeam)
