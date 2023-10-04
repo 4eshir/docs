@@ -367,15 +367,19 @@ class ReportWizard
         foreach ($all as $one)
         {
             $participant = ForeignEventParticipantsWork::find()->where(['id' => $one])->one();
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
+            //$inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
+            echo $participant->fullName."<br>";
         }
+
+        echo "<br>------------------------------------<br>";
 
         foreach ($target as $one)
         {
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 22, $one->participantWork->fullName);
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(4, 22, $one->foreignEventWork->name);
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(5, 22, $one->achievement);
-            $inputData->getSheet(3)->setCellValueByColumnAndRow(6, 22, $one->winner == 0 ? 'Призер' : 'Победитель');
+            //$inputData->getSheet(3)->setCellValueByColumnAndRow(3, 22, $one->participantWork->fullName);
+            //$inputData->getSheet(3)->setCellValueByColumnAndRow(4, 22, $one->foreignEventWork->name);
+            //$inputData->getSheet(3)->setCellValueByColumnAndRow(5, 22, $one->achievement);
+            //$inputData->getSheet(3)->setCellValueByColumnAndRow(6, 22, $one->winner == 0 ? 'Призер' : 'Победитель');
+            echo $one->participantWork->fullName." " . $one->foreignEventWork->name." " . $one->achievement." " . $one->winner == 0 ? 'Призер' : 'Победитель'."<br>";
         }
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
