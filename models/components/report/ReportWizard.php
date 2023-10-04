@@ -344,7 +344,7 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodTechnicalRemote));
 
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, $all == 0 ? 0 : round($target * 1.0 / $all) * 100);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 48)->getStyle()->getAlignment()->setVertical('top');
