@@ -293,13 +293,13 @@ class ForeignEventWork extends ForeignEvent
 
     public function getWinners()
     {
-        $parts = ParticipantAchievementWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['winner' => 1])->all();
+        $parts = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $this->id])->andWhere(['winner' => 1])->all();
         $partsList = '';
         foreach ($parts as $partOne)
         {
-            $team = TeamWork::find()->where(['participant_id' => $partOne->participant_id])->andWhere(['foreign_event_id' => $this->id])->one();
+            $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacher_participant_id])->one();
             if ($team !== null)
-                $partsList = $partsList.$partOne->participantWork->shortName.' ('.$team->name.')<br>';
+                $partsList = $partsList.$partOne->participantWork->shortName.' ('.$team->teamNameWork->name.')<br>';
             else
                 $partsList = $partsList.$partOne->participantWork->shortName.'<br>';
         }
@@ -308,7 +308,7 @@ class ForeignEventWork extends ForeignEvent
 
     public function getPrizes()
     {
-        $parts = ParticipantAchievementWork::find()->where(['foreign_event_id' => $this->id])->andWhere(['winner' => 0])->all();
+        $parts = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $this->id])->andWhere(['winner' => 0])->all();
         $partsList = '';
         foreach ($parts as $partOne)
         {
