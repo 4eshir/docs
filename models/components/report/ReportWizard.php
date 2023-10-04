@@ -358,6 +358,13 @@ class ReportWizard
         $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             [BranchWork::COD], [FocusWork::SPORT], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
 
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, "Группы");
+        $i = 1;
+        foreach ($targetGroups as $group) {
+            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22 + $i, $group->number);
+            $i += 1;
+        }
+
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
