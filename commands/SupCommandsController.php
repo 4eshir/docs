@@ -369,7 +369,7 @@ class SupCommandsController extends Controller
 
     public function actionTest()
     {
-        $this->stdout('BOOBS', Console::FG_CYAN);
+        $this->stdout("\nBOOBS\n", Console::FG_CYAN);
     }
 
     public function actionTemp()
