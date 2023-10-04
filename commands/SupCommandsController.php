@@ -367,6 +367,11 @@ class SupCommandsController extends Controller
     }
     //--УДАЛИТЬ--*/
 
+    public function actionTest()
+    {
+        $this->stdout('BOOBS', Console::FG_CYAN);
+    }
+
     public function actionTemp()
     {
         $groups3 = SupportReportFunctions::GetTrainingGroups(
