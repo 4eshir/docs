@@ -364,14 +364,18 @@ class ReportWizard
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
 
-        foreach ($all as $one)
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, count($all[0]));
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 22, count($target));
+
+        $i = 0;
+        foreach ($all[0] as $one)
         {
             $participant = ForeignEventParticipantsWork::find()->where(['id' => $one])->one();
-            //$inputData->getSheet(3)->setCellValueByColumnAndRow(1, 22, $participant->fullName);
-            var_dump($participant->fullName."<br>");
+            $inputData->getSheet(3)->setCellValueByColumnAndRow(1, 24 + $i, $participant->fullName);
+
+            $i += 1;
         }
 
-        var_dump("<br>------------------------------------<br>");
 
         foreach ($target as $one)
         {
@@ -379,7 +383,7 @@ class ReportWizard
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(4, 22, $one->foreignEventWork->name);
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(5, 22, $one->achievement);
             //$inputData->getSheet(3)->setCellValueByColumnAndRow(6, 22, $one->winner == 0 ? 'Призер' : 'Победитель');
-            var_dump($one->participantWork->fullName." " . $one->foreignEventWork->name." " . $one->achievement." " . $one->winner == 0 ? 'Призер' : 'Победитель'."<br>");
+            $inputData->getSheet(3)->setCellValueByColumnAndRow(6, 22, $one->participantWork->fullName." " . $one->foreignEventWork->name." " . $one->achievement." " . $one->winner == 0 ? 'Призер' : 'Победитель'."<br>");
         }
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
