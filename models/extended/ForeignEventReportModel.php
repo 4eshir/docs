@@ -214,6 +214,13 @@ class ForeignEventReportModel extends \yii\base\Model
 
     }
 
+
+    public function generateReportNew()
+    {
+
+    }
+
+
     public function generateReport()
     {
         $header = "Отчет по учету достижений в мероприятиях за период с ".$this->start_date." по ".$this->end_date;
