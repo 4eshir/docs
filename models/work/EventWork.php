@@ -264,8 +264,11 @@ class EventWork extends Event
 
     public function getOrderWork()
     {
-        $try = $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
-        return $try->all() ? $try : new DocumentOrderNull();
+        if ($this->order_id != null)
+        {
+            $try = $this->hasOne(DocumentOrderWork::className(), ['id' => 'order_id']);
+            return $try->all() ? $try : new DocumentOrderNull();
+        }
     }
 
     public function getResponsibleString()
