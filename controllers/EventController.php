@@ -216,7 +216,7 @@ class EventController extends Controller
     public function actionDelete($id)
     {
         $eventP = EventParticipantsWork::find()->where(['event_id' => $id])->one();
-        $eventP->delete();
+        if ($eventP != null) $eventP->delete();
         $links = EventsLinkWork::find()->where(['event_id' => $id])->all();
         $name = $this->findModel($id)->name;
         foreach ($links as $link)
