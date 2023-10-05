@@ -13,7 +13,7 @@ class DocumentOrderNull extends DocumentOrderWork
         $this->order_name = null;
         $this->order_date = null;
         $this->scan = null;
-        $this->register_id = null;
+        $this->creator_id = null;
         $this->order_postfix = null;
         $this->signed_id = null;
         $this->bring_id = null;
