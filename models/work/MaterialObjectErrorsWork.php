@@ -82,11 +82,11 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         $err = MaterialObjectErrorsWork::find()->where(['material_object_id' => $modelMaterialObjectID, 'time_the_end' => null, 'errors_id' => 56])->all();
 
         $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $modelMaterialObjectID])->orderBy(['id' => SORT_DESC])->one();
-        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->all();
+        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->orderBy(['id' => SORT_DESC])->all();
 
         $flag = false;
-        if ($hist_trans !== null)
-            if (count($hist_trans) > 1)
+        if ($hist_trans != null)
+            if ($hist_trans[0]->people_get_id != null)
                 $flag = true;
 
 
