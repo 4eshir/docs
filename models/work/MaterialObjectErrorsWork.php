@@ -82,7 +82,7 @@ class MaterialObjectErrorsWork extends MaterialObjectErrors
         $err = MaterialObjectErrorsWork::find()->where(['material_object_id' => $modelMaterialObjectID, 'time_the_end' => null, 'errors_id' => 56])->all();
 
         $hist_obj = HistoryObjectWork::find()->where(['material_object_id' => $modelMaterialObjectID])->orderBy(['id' => SORT_DESC])->one();
-        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->one();
+        $hist_trans = HistoryTransactionWork::find()->where(['id' => $hist_obj->history_transaction_id])->all();
 
         $flag = false;
         if ($hist_trans !== null)

@@ -224,7 +224,6 @@ class EventController extends Controller
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие '.$name);
         $this->findModel($id)->delete();
 
-
         return $this->redirect(['index']);
     }
 
