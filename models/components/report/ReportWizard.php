@@ -341,7 +341,9 @@ class ReportWizard
         $allCodTechnicalRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodTechnicalRemote);
 
-        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodTechnicalRemote));
+        $target = count(SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
+            [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
+            [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]));
 
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
