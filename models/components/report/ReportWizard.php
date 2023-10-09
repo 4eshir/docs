@@ -337,13 +337,11 @@ class ReportWizard
         $targetGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE], [ReportConst::BUDGET]);
 
-        // Процент успешно защитивших проект (получивших сертификат)
+        // Процент успешно защитивших проект (получивших сертификат) [это неправда но это так]
         $allCodTechnicalRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodTechnicalRemote);
 
-        $target = count(SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
-            [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
-            [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]));
+        $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allCodTechnicalRemote));
 
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 48, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));

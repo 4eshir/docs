@@ -215,10 +215,14 @@ class ForeignEventReportModel extends \yii\base\Model
     }
 
 
+    //--Новый генератор отчетов--
+
     public function generateReportNew()
     {
 
     }
+
+    //---------------------------
 
 
     public function generateReport()
@@ -360,7 +364,7 @@ class ForeignEventReportModel extends \yii\base\Model
         {
             $result = ForeignEventReportModel::GetPrizesWinners(5, 0, 0, $this->start_date, $this->end_date, $this->branch, $this->focus, $this->allow_remote, []);
             $debug .= $result[4];
-            
+
             $r1 = 0;
             $r2 = 0;
             $r3 = 0;
