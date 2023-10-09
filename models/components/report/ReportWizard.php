@@ -59,7 +59,7 @@ class ReportWizard
 
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::TECHNO], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -90,7 +90,7 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -119,7 +119,7 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::ART]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -148,7 +148,7 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::SOCIAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -185,7 +185,7 @@ class ReportWizard
 
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::QUANT], [FocusWork::TECHNICAL]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -243,7 +243,7 @@ class ReportWizard
 
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::SCIENCE]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -311,7 +311,7 @@ class ReportWizard
 
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
@@ -363,10 +363,10 @@ class ReportWizard
         $allCodSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $all = count($allCodSport);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
         // Процент победителей и призеров от общего числа участников
-        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 1, 0,
+        $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::SPORT]);
         $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);

@@ -239,8 +239,8 @@ class SupportReportFunctions
             TeamWork::find()->where(['IN', 'team_name_id', $teamArray])->all() :
             GetParticipantsTeamWork::find()->where(['IN', 'team_name_id', $teamArray])->all();
 
-
-        foreach ($teamParticipants as $one) $teamParticipantsId[] = $one->teacher_participant_id;
+        if ($team_mode == 1)
+            foreach ($teamParticipants as $one) $teamParticipantsId[] = $one->teacher_participant_id;
         //------------------------------
 
         //---------------------------------------------------------------------------
@@ -253,7 +253,7 @@ class SupportReportFunctions
         //-----------------------------------------------------------
 
         // Получаем teacher_participant, подходящие под focus и allow_remote и не входящие в состав команд
-        $teacherParticipants = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, []/*$teamParticipantsId*/);
+        $teacherParticipants = self::GetTeacherParticipant($test_mode, $eIds, $tpbIds, $focus, $allow_remote, $teamParticipantsId);
         $tpIds = $unique == 0 ?
             self::GetIdFromArray($teacherParticipants) :
             self::GetUniqueTeacherParticipantId($teacherParticipants);
