@@ -226,7 +226,7 @@ use yii\jui\DatePicker;
             
             
             <?php
-            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
