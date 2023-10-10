@@ -299,14 +299,10 @@ use yii\jui\DatePicker;
                                 foreach ($partsAch as $partAch)
                                     $partsArr[] = $partAch->teacher_participant_id;
 
-                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])/*->groupBy(['team_name_id'])*/->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])
+                                    ->groupBy(['nomination'])->groupBy(['focus'])->groupBy(['team_name_id'])->all();
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;
-
-                                $partTeam2 = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])
-                                    ->groupBy(['nomination'])->groupBy(['focus'])->groupBy(['team_name_id'])->all();
-                                foreach ($partTeam2 as $partTeam)
-                                    $inclArr[] = $partTeam->teacher_participant_id;
 
                                 $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
