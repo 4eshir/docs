@@ -88,7 +88,7 @@ class TeacherParticipantWork extends TeacherParticipant
 
             $result = 'Команда "' . $this->teamNameString . '" [участники: ';
             foreach ($teamParts as $part)
-                $result .= $part->participantWork->fullName . ', ';
+                $result .= $part->participantWork->shortName . ', ';
             $result = mb_substr($result, 0, -2) . ']' . ' ('. $this->focus0->name .' направленность, номинация: ' . $this->nomination . ')';
         }
 
