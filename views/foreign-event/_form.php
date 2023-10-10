@@ -308,7 +308,7 @@ use yii\jui\DatePicker;
                                 foreach ($partTeam2 as $partTeam)
                                     $inclArr[] = $partTeam->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->andWhere(['IN', 'id', $inclArr])->all();
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => '--'
