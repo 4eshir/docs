@@ -85,11 +85,11 @@ class TeacherParticipantWork extends TeacherParticipant
         {
             $teamParts = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $this->foreign_event_id])
                 ->andWhere(['teams.team_name_id' => $standard->team_name_id])->andWhere(['focus' => $this->focus])->andWhere(['nomination' => $this->nomination])->all();
-var_dump($teamParts);
+
             $result = 'Команда "' . $this->teamNameString . '" (участники: ';
-            /*foreach ($teamParts as $part)
+            foreach ($teamParts as $part)
                 $result .= $part->participantWork->fullName . ', ';
-            $result = mb_substr($result, 0, -2) . ')';*/
+            $result = mb_substr($result, 0, -2) . ')';
         }
 
         return $result;
