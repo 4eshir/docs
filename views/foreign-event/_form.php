@@ -240,7 +240,7 @@ use yii\jui\DatePicker;
                         <td style="padding-left: 20px; border-bottom: 2px solid black; width: 110px;"></td>
                       </tr>';
                 foreach ($parts as $partOne) {
-                    if ($partOne->team_name_id == null)
+                    if ($partOne->teacherParticipantWork->team_name_id == null)
                         $namePart = $partOne->teacherParticipantWork->participantWork->shortName;
                     else
                     {
@@ -299,7 +299,7 @@ use yii\jui\DatePicker;
                                 foreach ($partsAch as $partAch)
                                     $partsArr[] = $partAch->teacher_participant_id;
 
-                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->groupBy(['team_name_id'])->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])/*->groupBy(['team_name_id'])*/->all();
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;
 
