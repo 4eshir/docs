@@ -303,7 +303,7 @@ use yii\jui\DatePicker;
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;*/
                                 $partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
-                                    ->groupBy(['nomination'])->groupBy(['teams.team_name_id'])->all();
+                                    ->groupBy(['teams.team_name_id'])->groupBy(['nomination'])->all();
                                 var_dump($partsTeam);
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->id;
