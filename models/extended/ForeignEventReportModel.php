@@ -266,8 +266,9 @@ class ForeignEventReportModel extends \yii\base\Model
         $events = ForeignEventWork::find()->where(['IN', 'id', $events])->all();
 
         $debugData = DebugReportFunctions::DebugDataForeignEvents($events, $this->branch, $this->focus, $this->allow_remote);
+        $header = "Отчет по учету достижений в мероприятиях за период с ".$this->start_date." по ".$this->end_date;
 
-        return [$resultHTML, $debugData, ''];
+        return [$resultHTML, $debugData, $header];
     }
 
     //---------------------------
