@@ -226,7 +226,7 @@ use yii\jui\DatePicker;
             
             
             <?php
-            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->groupBy(['team_name_id'])->all();
+            $parts = \app\models\work\ParticipantAchievementWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->all();
             if ($parts != null)
             {
                 echo '<table class="table table-bordered">';
@@ -240,7 +240,7 @@ use yii\jui\DatePicker;
                         <td style="padding-left: 20px; border-bottom: 2px solid black; width: 110px;"></td>
                       </tr>';
                 foreach ($parts as $partOne) {
-                    if ($partOne->team_name_id == null)
+                    if ($partOne->teacherParticipantWork->team == null)
                         $namePart = $partOne->teacherParticipantWork->participantWork->shortName;
                     else
                     {
@@ -299,11 +299,14 @@ use yii\jui\DatePicker;
                                 foreach ($partsAch as $partAch)
                                     $partsArr[] = $partAch->teacher_participant_id;
 
-                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->groupBy(['team_name_id'])->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->all();
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
+                                $partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
+                                    ->groupBy(['focus'])->groupBy(['teams.team_name_id'])->groupBy(['nomination']);
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->union($partsTeam)->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => '--'
