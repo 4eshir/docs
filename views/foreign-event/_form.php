@@ -299,16 +299,14 @@ use yii\jui\DatePicker;
                                 foreach ($partsAch as $partAch)
                                     $partsArr[] = $partAch->teacher_participant_id;
 
-                                /*$partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->all();
+                                $partsTeam = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])->all();
                                 foreach ($partsTeam as $partTeam)
-                                    $partsArr[] = $partTeam->teacher_participant_id;*/
-                                $partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
-                                    ->groupBy(['focus'])->groupBy(['teams.team_name_id'])->groupBy(['nomination'])->all();
-                                var_dump($partsTeam);
-                                foreach ($partsTeam as $partTeam)
-                                    $partsArr[] = $partTeam->id;
+                                    $partsArr[] = $partTeam->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
+                                $partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
+                                    ->groupBy(['focus'])->groupBy(['teams.team_name_id'])->groupBy(['nomination']);
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->union($partsTeam)->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => '--'
