@@ -62,7 +62,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::TECHNO], [FocusWork::TECHNICAL]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 19, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -93,7 +93,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::TECHNICAL]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 23, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -122,7 +122,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::ART]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 27, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -151,7 +151,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::CDNTT], [FocusWork::SOCIAL]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 31, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -188,7 +188,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::QUANT], [FocusWork::TECHNICAL]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 36, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -246,7 +246,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::SCIENCE]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 52, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -314,7 +314,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 44, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));
 
@@ -369,7 +369,7 @@ class ReportWizard
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
             [EventLevelWork::REGIONAL, EventLevelWork::FEDERAL, EventLevelWork::INTERNATIONAL],
             [BranchWork::COD], [FocusWork::SPORT]);
-        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all);
+        $target = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $all)[0];
 
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 60, count($all[0]) == 0 ? 0 : round((count($target) * 1.0 / count($all[0])) * 100));

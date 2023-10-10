@@ -6,6 +6,9 @@ namespace app\models\extended;
 
 use app\models\common\ParticipantAchievement;
 use app\models\common\TrainingGroup;
+use app\models\components\report\DebugReportFunctions;
+use app\models\components\report\ReportConst;
+use app\models\components\report\SupportReportFunctions;
 use app\models\work\ForeignEventWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\LessonThemeWork;
@@ -219,7 +222,52 @@ class ForeignEventReportModel extends \yii\base\Model
 
     public function generateReportNew()
     {
+        $resultHTML = "<table class='table table-bordered'><tr><td><b>Наименование показателя</b></td><td><b>Значение показателя</b></td></tr>";
 
+        $participantsMoreThatCity = 0;
+        $achievesMoreThatCity = 0;
+
+        $events = [];
+
+        foreach ($this->level as $level)
+        {
+            $result = SupportReportFunctions::GetParticipants(ReportConst::PROD,
+                $this->start_date, $this->end_date,
+                TeamWork::TEAM_ON, 0,
+                $level, $this->branch, $this->focus, $this->allow_remote);
+
+            $events = array_merge($events, $result[5]);
+
+            $prizes = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $result, 0, [ParticipantAchievementWork::PRIZE])[0];
+            $winners = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $result, 0, [ParticipantAchievementWork::WINNER])[0];
+
+            if ($level >= 6)
+            {
+                $participantsMoreThatCity += count($result[0]);
+                $achievesMoreThatCity += count($prizes) + count($winners);
+            }
+
+            $levelStr = "международных";
+            if ($level == 3) $levelStr = "внутренних";
+            if ($level == 4) $levelStr = "районных";
+            if ($level == 5) $levelStr = "городских";
+            if ($level == 6) $levelStr = "региональных";
+            if ($level == 7) $levelStr = "федеральных";
+            if ($level == 9) $levelStr = "межрегиональных";
+
+            $resultHTML .= "<tr><td>Число учащихся, являющихся участниками $levelStr конкурсных мероприятий</td><td>".$result[2]."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся призерами $levelStr конкурсных мероприятий</td><td>".count($prizes)."</td></tr>";
+            $resultHTML .= "<tr><td>Число учащихся, являющихся победителями $levelStr конкурсных мероприятий</td><td>".count($winners)."</td></tr>";
+        }
+
+        $resultHTML .= "<tr><td>Доля учащихся, являющихся победителями и призерами мероприятий, не ниже регионального уровня</td><td>".round($achievesMoreThatCity * 1.0 / $participantsMoreThatCity, 2)."</td></tr>";
+        $resultHTML .= "</table>";
+
+        $events = ForeignEventWork::find()->where(['IN', 'id', $events])->all();
+
+        $debugData = DebugReportFunctions::DebugDataForeignEvents($events, $this->branch, $this->focus, $this->allow_remote);
+
+        return [$resultHTML, $debugData, ''];
     }
 
     //---------------------------

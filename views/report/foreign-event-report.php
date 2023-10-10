@@ -100,7 +100,7 @@ $this->title = 'Генерация отчета по мероприятиям';
             return
                 '<div class="checkbox" style="font-size: 16px; font-family: Arial; color: black;">
                     <label for="budget-'. $index .'">
-                        <input id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
+                        <input disabled id="budget-'. $index .'" name="'. $name .'" type="checkbox" '. $checked .' value="'. $value .'">
                         '. $label .'
                     </label>
                 </div>';
