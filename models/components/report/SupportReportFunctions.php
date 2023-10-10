@@ -321,7 +321,7 @@ class SupportReportFunctions
         sort($result);
         sort($teamArray);
         // если считаем с командами - то возвращаем данные по ним, иначе - null и стандартное количество участников в соответствии с unique
-        return [$result, $team_mode == 0 ? [] : $teamArray, $countParticipants, $tpIds, $tpmIds, $teamArray, $events];
+        return [$result, $team_mode == 0 ? [] : $teamArray, $countParticipants, $tpIds, $tpmIds, $events];
     }
     //-----------------------------------------------------------------------
 
