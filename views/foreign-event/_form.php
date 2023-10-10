@@ -303,7 +303,12 @@ use yii\jui\DatePicker;
                                 foreach ($partsTeam as $partTeam)
                                     $partsArr[] = $partTeam->teacher_participant_id;
 
-                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->all();
+                                $partTeam2 = \app\models\work\TeamWork::find()->joinWith('teacherParticipant teacherParticipant')->where(['teacherParticipant.foreign_event_id' => $model->id])->andWhere(['IS NOT','team_name_id', null])
+                                    ->groupBy(['nomination'])->groupBy(['focus'])->groupBy(['team_name_id'])->all();
+                                foreach ($partTeam2 as $partTeam)
+                                    $inclArr[] = $partTeam->teacher_participant_id;
+
+                                $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->andWhere(['IN', 'id', $inclArr])->all();
                                 $items = \yii\helpers\ArrayHelper::map($parts,'id','actString');
                                 $params = [
                                     'prompt' => '--'
