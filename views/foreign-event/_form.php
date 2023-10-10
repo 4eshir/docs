@@ -240,7 +240,7 @@ use yii\jui\DatePicker;
                         <td style="padding-left: 20px; border-bottom: 2px solid black; width: 110px;"></td>
                       </tr>';
                 foreach ($parts as $partOne) {
-                    if ($partOne->teacherParticipantWork->team_name_id == null)
+                    if ($partOne->teacherParticipantWork->team == null)
                         $namePart = $partOne->teacherParticipantWork->participantWork->shortName;
                     else
                     {
