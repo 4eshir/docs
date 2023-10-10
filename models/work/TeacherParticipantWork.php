@@ -85,7 +85,7 @@ class TeacherParticipantWork extends TeacherParticipant
         {
             $teamParts = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['foreign_event_id' => $this->foreign_event_id])
                 ->andWhere(['teams.team_name_id' => $standard->team_name_id])->andWhere(['focus' => $this->focus])->andWhere(['nomination' => $this->nomination])->all();
-
+var_dump($teamParts);
             $result = 'Команда "' . $this->teamNameString . '" (участники: ';
             /*foreach ($teamParts as $part)
                 $result .= $part->participantWork->fullName . ', ';
