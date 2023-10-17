@@ -59,7 +59,7 @@ class UserWork extends User
     {
         return [
             [['firstname', 'secondname', 'patronymic', 'username', 'email', 'password_hash', 'newPass', 'oldPass', 'password_hash'], 'string'],
-            [['aka'], 'integer'],
+            [['aka', 'creator_id', 'last_edit_id'], 'integer'],
             ['roles', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],

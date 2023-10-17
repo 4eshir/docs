@@ -47,8 +47,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['secondname', 'firstname', 'patronymic', 'username', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
-            [['aka', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['secondname', 'firstname', 'patronymic', 'username', 'auth_key', 'password_hash', 'last_update_id'], 'required'],
+            [['aka', 'status', 'creator_at', 'last_update_id'], 'integer'],
             [['secondname', 'firstname', 'patronymic'], 'string', 'max' => 1000],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
@@ -75,8 +75,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'aka' => 'Aka',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'creator_id' => 'Created At',
+            'last_update_id' => 'Updated At',
         ];
     }
 

@@ -86,7 +86,7 @@ class InvoiceWork extends Invoice
 
     public function getDocumentLink()
     {
-        return Html::a($this->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $this->document, 'modelId' => $this->id, 'type' => null]));
+        return Html::a($this->document, \yii\helpers\Url::to(['invoice/get-file', 'fileName' => $this->document, 'modelId' => $this->id, 'type' => 'document']));
     }
 
     public function getEntries()

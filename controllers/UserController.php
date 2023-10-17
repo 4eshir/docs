@@ -113,6 +113,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model->password_hash);
             $model->generateAuthKey();
+            $model->creator_id = Yii::$app->user->identity->getId();
             $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен новый пользователь '.$model->username);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -140,6 +141,7 @@ class UserController extends Controller
             $modelRole = DynamicModel::createMultiple(RoleWork::classname());
             DynamicModel::loadMultiple($modelRole, Yii::$app->request->post());
             $model->roles = $modelRole;
+            //$model->last_update_id = Yii::$app->user->identity->getId();
             $model->save();
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'Изменен пользователь '.$model->username);
             return $this->redirect(['view', 'id' => $model->id]);

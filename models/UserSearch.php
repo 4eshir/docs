@@ -17,7 +17,7 @@ class UserSearch extends UserWork
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'status', /*'created_at', 'updated_at'*/], 'integer'],
             [['secondname', 'firstname', 'patronymic', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
         ];
     }
@@ -60,8 +60,8 @@ class UserSearch extends UserWork
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'created_at' => $this->created_at,
+            //'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'secondname', $this->secondname])
