@@ -3,7 +3,13 @@
 namespace app\models\components\report;
 
 use app\models\components\report\debug_models\DebugManHoursModel;
+use app\models\work\AllowRemoteWork;
+use app\models\work\BranchWork;
+use app\models\work\EventLevelWork;
+use app\models\work\FocusWork;
 use app\models\work\LessonThemeWork;
+use app\models\work\ParticipantAchievementWork;
+use app\models\work\TeamWork;
 use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
@@ -70,8 +76,6 @@ class DebugReportFunctions
     {
         $result = '';
 
-
-
         if ($unic == 0)
         {
             foreach ($participants as $participant)
@@ -133,4 +137,34 @@ class DebugReportFunctions
         return $result;
     }
     //----------------------------------------------------------------------------------------------
+
+
+    //--Функция, возвращающая дополнительные данные для отчета по мероприятиям--
+    /*
+     * $events - список мероприятий из отчета
+     * $branch - отделы учета
+     * $focus - направленность участия ребенка
+     * $allow_remote - форма реализации участия
+     */
+    static public function DebugDataForeignEvents($events, $branch, $focus, $allow_remote)
+    {
+        $debug = "Мероприятие;Организатор;Уровень;Дата начала;Дата окончания;Кол-во инд. участников;Кол-во команд;Призеры инд.;Призеры-команды;Победители инд.;Победители-команды\r\n";
+
+        foreach ($events as $event)
+        {
+            $participants = SupportReportFunctions::GetParticipants(ReportConst::PROD, '0000-00-00', '0000-00-00',
+                TeamWork::TEAM_ON, 0, EventLevelWork::ALL, $branch, $focus, $allow_remote, $event->id);
+
+            $allPrizes = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::PRIZE]);
+            $allWinners = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::WINNER]);
+
+            $debug .= $event->name.";".$event->companyWork->name.";".$event->eventLevelWork->name.";".$event->start_date.";".$event->finish_date.
+                ";".($participants[2] - count($participants[1])).";".count($participants[1]).";".
+                count($allPrizes[1]).";".count($allPrizes[2]).";".count($allWinners[1]).";".count($allWinners[2])."\r\n";
+
+        }
+
+        return $debug;
+    }
+    //--------------------------------------------------------------------------
 }

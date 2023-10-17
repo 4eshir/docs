@@ -215,10 +215,12 @@ class SupportReportFunctions
                                            $event_level = EventLevelWork::ALL,
                                            $branch = BranchWork::ALL,
                                            $focus = FocusWork::ALL,
-                                           $allow_remote = AllowRemoteWork::ALL)
+                                           $allow_remote = AllowRemoteWork::ALL,
+                                           $one_event_id = null)
     {
         // Получаем подходящие мероприятия
-        $events = self::GetForeignEvents($test_mode, $start_date, $end_date, $event_level);
+        if ($one_event_id == null) $events = self::GetForeignEvents($test_mode, $start_date, $end_date, $event_level);
+        else $events = ForeignEventWork::find()->where(['id' => $one_event_id])->all();
         $eIds = self::GetIdFromArray($events);
         //--------------------------------
 
@@ -351,7 +353,7 @@ class SupportReportFunctions
     //-|---------------------------------------------------------------------|-
     /*
      * $test_mode - режим запуска функции (0 - боевой, 1 - тестовый)
-     * $participants - список актов участия, из которого будет произведена выборка (teacher_participant)
+     * $participants - список актов участия, из которого будет произведена выборка (результат работы функции GetParticipants)
      * $unique_achieve - считать победителя/призера один раз или каждый акт (0 - считать всех, 1 - считать один раз)
      * $achieve_mode - массив типов победителей (победители, призеры)
      *
@@ -378,10 +380,18 @@ class SupportReportFunctions
             ParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all() :
             GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all());
 
-        $achievements = array_merge($achievements, $achievementsTeam);
+        /*$achievements = array_merge($achievements, $achievementsTeam);
 
         sort($achievements);
-        return $achievements;
+        return $achievements;*/
+
+
+        $achievesAll = array_merge($achievements, $achievementsTeam);
+        sort($achievesAll);
+        sort($achievements);
+        sort($achievementsTeam);
+
+        return [$achievesAll, $achievements, $achievementsTeam];
     }
     //-------------------------------------------------------------------------
 

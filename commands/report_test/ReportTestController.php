@@ -98,16 +98,17 @@ class ReportTestController extends Controller
         $testResult9 = SupportReportFunctions::GetParticipants(ReportConst::TEST, '2022-01-01', '2023-01-01', 1, 0, EventLevelWork::ALL, BranchWork::ALL, [FocusWork::ART, FocusWork::SPORT]);
         $testResult10 = SupportReportFunctions::GetParticipants(ReportConst::TEST, '2022-01-01', '2022-01-30', 0, 1, EventLevelWork::ALL, BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL);
 
-        $expectedResult1 = [[2, 2, 3, 5, 6, 7, 8], [], 7];
+
+        $expectedResult1 = [[1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8], [], 11];
         $expectedResult2 = [[2, 2, 3, 5, 6, 7, 8], [1, 2], 9];
-        $expectedResult3 = [[2, 3, 5, 6, 7, 8], [], 6];
+        $expectedResult3 = [[1, 2, 3, 4, 5, 6, 7, 8], [], 8];
         $expectedResult4 = [[2, 3, 5, 6, 7, 8], [1, 2], 8];
         $expectedResult5 = [[2, 3], [1], 3];
         $expectedResult6 = [[2, 3], [1], 3];
         $expectedResult7 = [[], [1], 1];
-        $expectedResult8 = [[6, 7, 8], [], 3];
+        $expectedResult8 = [[1, 6, 7, 8], [], 4];
         $expectedResult9 = [[2, 3, 5], [], 3];
-        $expectedResult10 = [[], [], 0];
+        $expectedResult10 = [[1, 4], [], 2];
 
         if ($testResult1[0] === $expectedResult1[0] &&
             $testResult1[1] === $expectedResult1[1] &&
@@ -278,42 +279,42 @@ class ReportTestController extends Controller
 
 
 
-        if ($testResult1 == $expectedResult1)
+        if ($testResult1[0] == $expectedResult1)
             $this->stdout('| Test #1 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #1 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult2 == $expectedResult2)
+        if ($testResult2[0] == $expectedResult2)
             $this->stdout('| Test #2 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #2 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult3 == $expectedResult3)
+        if ($testResult3[0] == $expectedResult3)
             $this->stdout('| Test #3 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #3 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult4 == $expectedResult4)
+        if ($testResult4[0] == $expectedResult4)
             $this->stdout('| Test #4 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #4 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult5 == $expectedResult5)
+        if ($testResult5[0] == $expectedResult5)
             $this->stdout('| Test #5 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #5 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult6 == $expectedResult6)
+        if ($testResult6[0] == $expectedResult6)
             $this->stdout('| Test #6 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #6 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult7 == $expectedResult7)
+        if ($testResult7[0] == $expectedResult7)
             $this->stdout('| Test #7 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #7 failed                   |'."\n", Console::FG_RED);
 
-        if ($testResult8 == $expectedResult8)
+        if ($testResult8[0] == $expectedResult8)
             $this->stdout('| Test #8 was passed successfully  |'."\n", Console::FG_GREEN);
         else
             $this->stdout('| Test #8 failed                   |' . "\n", Console::FG_RED);

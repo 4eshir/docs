@@ -14,6 +14,8 @@ use app\models\common\TeacherParticipant;
 use app\models\common\Team;
 use app\models\common\User;
 use app\models\components\FileWizard;
+use app\models\null\CompanyNull;
+use app\models\null\EventLevelNull;
 use Yii;
 use yii\helpers\Html;
 
@@ -89,6 +91,18 @@ class ForeignEventWork extends ForeignEvent
             'last_edit_id' => 'Последний редактор карточки',
             'editorString' => 'Последний редактор карточки',
         ];
+    }
+
+    public function getCompanyWork()
+    {
+        $try = $this->hasOne(CompanyWork::className(), ['id' => 'company_id']);
+        return $try->all() ? $try : new CompanyNull();
+    }
+
+    public function getEventLevelWork()
+    {
+        $try = $this->hasOne(EventLevelWork::className(), ['id' => 'event_level_id']);
+        return $try->all() ? $try : new EventLevelNull();
     }
 
     public function getIsMinpros()
