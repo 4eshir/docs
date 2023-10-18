@@ -41,7 +41,7 @@ class ForeignEventParticipantsWork extends ForeignEventParticipants
             'email' => 'E-mail',
             'is_true' => 'Is True',
             'guaranted_true' => 'Данные корректны',
-            'documents' => 'Заявки на меропрития',
+            'documents' => 'Заявки на мероприятия',
             'achievements' => 'Достижения',
             'events' => 'Мероприятия',
             'studies' => 'Учебные группы',
