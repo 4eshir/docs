@@ -270,7 +270,7 @@ class TrainingProgramController extends Controller
             header('Content-Transfer-Encoding: binary');
             header('Content-Length: ' . $downloadYadi->file->size);
 
-            $downloadYadi->file->download($fp);
+            $downloadYadi->file->download($fp, true);
 
             fseek($fp, 0);
         }
