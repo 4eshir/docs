@@ -254,6 +254,7 @@ class TrainingProgramController extends Controller
         $downloadServ = new FileDownloadServer($filePath, $fileName);
         Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadServ->success ? 'true' : 'false');
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadYadi->success ? 'true' : 'false');
 
 
         $downloadServ->LoadFile();
