@@ -269,7 +269,7 @@ class DocsOutController extends Controller
             $fp = fopen('php://output', 'r');
 
             header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
+            header('Content-Type: application/pdf');
             header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
             header('Content-Transfer-Encoding: binary');
             header('Content-Length: ' . $downloadYadi->file->size);
