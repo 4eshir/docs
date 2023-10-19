@@ -266,7 +266,7 @@ class DocsOutController extends Controller
         else
         {
 
-            $fp = fopen('php://stdout', 'r');
+            $fp = fopen('php://output', 'r');
 
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
