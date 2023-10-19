@@ -276,7 +276,7 @@ class DocsOutController extends Controller
 
             $downloadYadi->file->download($fp);
 
-            fseek($fp, 0);
+            exit;
 
         }
     }
