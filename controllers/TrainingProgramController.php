@@ -252,9 +252,7 @@ class TrainingProgramController extends Controller
         $filePath .= $type == null ? '/' : '/'.$type.'/';
         //Logger::WriteLog(Yii::$app->user->identity->getId(), $filePath . ' -- ' . $fileName);
         $downloadServ = new FileDownloadServer($filePath, $fileName);
-        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadServ->success ? 'true' : 'false');
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
-        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadYadi->success ? 'true' : 'false');
 
 
         $downloadServ->LoadFile();
@@ -263,7 +261,7 @@ class TrainingProgramController extends Controller
 
         if (!$downloadYadi->success) throw new \Exception('File not found');
         else {
-
+            Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadYadi->filename . ' -- ' . $downloadYadi->file->size);
             $fp = fopen('php://output', 'r');
 
             header('Content-Description: File Transfer');
