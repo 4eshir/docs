@@ -254,7 +254,7 @@ class TrainingProgramController extends Controller
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
 
         $downloadServ->LoadFile();
-        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        if (!$downloadServ->success) {var_dump('boobs');$downloadYadi->LoadFile();}
         else return \Yii::$app->response->sendFile($downloadServ->file);
 
         if (!$downloadYadi->success) throw new \Exception('File not found');
