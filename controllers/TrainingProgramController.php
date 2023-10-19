@@ -244,6 +244,7 @@ class TrainingProgramController extends Controller
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
     {
+        Logger::WriteLog(Yii::$app->user->identity->getId(), $fileName . ' -- ' . $type);
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
         //$path = \Yii::getAlias('@upload') ;
 
