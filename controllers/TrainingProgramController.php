@@ -269,7 +269,7 @@ class TrainingProgramController extends Controller
             header('Content-Length: ' . $downloadYadi->file->size);
 
             $downloadYadi->file->download($fp, true);
-
+            exit;
         }
     }
 
