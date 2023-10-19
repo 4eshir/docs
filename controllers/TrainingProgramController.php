@@ -243,7 +243,7 @@ class TrainingProgramController extends Controller
     }
 
     public function actionGetFile($fileName = null, $modelId = null, $type = null)
-    {
+    {var_dump('$downloadServ->success');
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Загружен файл '.$fileName);
         //$path = \Yii::getAlias('@upload') ;
 
@@ -253,7 +253,7 @@ class TrainingProgramController extends Controller
         $downloadServ = new FileDownloadServer($filePath, $fileName);
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
 
-        $downloadServ->LoadFile();var_dump($downloadServ->success);
+        $downloadServ->LoadFile();
         if (!$downloadServ->success) $downloadYadi->LoadFile();
         else return \Yii::$app->response->sendFile($downloadServ->file);
 
