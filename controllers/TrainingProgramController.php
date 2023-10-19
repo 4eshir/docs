@@ -249,13 +249,13 @@ class TrainingProgramController extends Controller
 
         $filePath = '/upload/files/'.Yii::$app->controller->id;
         $filePath .= $type == null ? '/' : '/'.$type.'/';
-
+        Logger::WriteLog(Yii::$app->user->identity->getId(), '$downloadServ->success');
         $downloadServ = new FileDownloadServer($filePath, $fileName);
+        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadServ->success);
         $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
 
-        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadServ->success);
+
         $downloadServ->LoadFile();
-        Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadServ->success);
         if (!$downloadServ->success) $downloadYadi->LoadFile();
         else return \Yii::$app->response->sendFile($downloadServ->file);
 
