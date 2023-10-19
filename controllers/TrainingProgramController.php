@@ -264,11 +264,11 @@ class TrainingProgramController extends Controller
             Logger::WriteLog(Yii::$app->user->identity->getId(), $downloadYadi->filename . ' -- ' . $downloadYadi->file->size);
             $fp = fopen('php://output', 'r');
 
-            header('Content-Description: File Transfer');
+            //header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
             header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
-            header('Content-Transfer-Encoding: binary');
-            header('Content-Length: ' . $downloadYadi->file->size);
+            //header('Content-Transfer-Encoding: binary');
+            //header('Content-Length: ' . $downloadYadi->file->size);
 
             $downloadYadi->file->download($fp, true);
 
