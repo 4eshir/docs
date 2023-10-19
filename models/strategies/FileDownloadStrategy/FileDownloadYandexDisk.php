@@ -4,7 +4,6 @@
 namespace app\models\strategies\FileDownloadStrategy;
 
 use app\models\components\YandexDiskContext;
-use app\models\strategies\FileDownloadStrategy\AbstractFileUpload;
 use yii\db\ActiveRecord;
 
 class FileDownloadYandexDisk extends AbstractFileDownload

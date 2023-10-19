@@ -9,11 +9,14 @@ namespace app\commands;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\Team;
+use app\models\components\Logger;
 use app\models\components\report\debug_models\DebugManHoursModel;
 use app\models\components\report\ReportConst;
 use app\models\components\report\SupportReportFunctions;
 use app\models\LoginForm;
 use app\models\null\PeopleNull;
+use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
+use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\AllowRemoteWork;
 use app\models\work\BranchWork;
 use app\models\work\DocumentOrderWork;
@@ -369,7 +372,39 @@ class SupCommandsController extends Controller
 
     public function actionTest()
     {
-        $this->stdout("\nBOOBS\n", Console::FG_CYAN);
+        //$this->stdout("\nBOOBS\n", Console::FG_CYAN);
+        $fileName = 'Док.20220812_Основы_микробиологии_и_биотехнологии.docx';
+        $type = 'doc';
+        //$path = \Yii::getAlias('@upload') ;
+
+        $filePath = '/upload/files/training-program';
+        $filePath .= $type == null ? '/' : '/'.$type.'/';
+
+        $downloadServ = new FileDownloadServer($filePath, $fileName);
+        $this->stdout('$downloadServ OK', Console::FG_RED);
+        $downloadYadi = new FileDownloadYandexDisk($filePath, $fileName);
+        $this->stdout('downloadYadi OK', Console::FG_RED);
+
+        $downloadServ->LoadFile();
+        $this->stdout($downloadServ->success ? 'true' : 'false', Console::FG_CYAN);
+        if (!$downloadServ->success) $downloadYadi->LoadFile();
+        else return \Yii::$app->response->sendFile($downloadServ->file);
+        $this->stdout($downloadYadi->success ? 'true' : 'false', Console::FG_YELLOW);
+        /*if (!$downloadYadi->success) throw new \Exception('File not found');
+        else {
+
+            $fp = fopen('php://output', 'r');
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $downloadYadi->filename);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . $downloadYadi->file->size);
+
+            $downloadYadi->file->download($fp);
+
+            fseek($fp, 0);
+        }*/
     }
 
     public function actionTemp()
