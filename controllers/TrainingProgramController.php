@@ -260,6 +260,7 @@ class TrainingProgramController extends Controller
         if (!$downloadYadi->success) throw new \Exception('File not found');
         else {
 
+            ob_clean();
             $fp = fopen('php://output', 'r');
 
             header('Content-Description: File Transfer');
@@ -271,6 +272,7 @@ class TrainingProgramController extends Controller
             $downloadYadi->file->download($fp);
 
             fseek($fp, 0);
+            ob_end_clean();
         }
     }
 
