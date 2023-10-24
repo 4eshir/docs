@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
     <?php
     if ($back == 'event')
     {
-        echo $form->field($model, 'nom')->textInput(['readonly' => true, 'value' => $model->nomination])->label('Номинация');
+        echo $form->field($model, 'nomination')->textInput(['readonly' => true, 'value' => $model->nomination])->label('Номинация');
     }
     else
     {
