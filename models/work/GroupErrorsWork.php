@@ -18,7 +18,7 @@ class GroupErrorsWork extends GroupErrors
         foreach ($errors as $err)
         {
             $err->amnesty = 1;
-            if ($err->id != 21) $err->save();
+            if ($err->errors_id != 21) $err->save();
         }
     }
 
