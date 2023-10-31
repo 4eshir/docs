@@ -408,7 +408,7 @@ use yii\jui\DatePicker;
     ?>
 
     <?php
-    $orders = \app\models\work\DocumentOrderWork::find()->where(['type' => 1])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-9 month'))])->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->where(['in', 'type', [1, 2]])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-9 month'))])->all();
 
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
