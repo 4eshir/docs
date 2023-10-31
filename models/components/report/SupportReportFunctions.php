@@ -485,8 +485,8 @@ class SupportReportFunctions
 
         //--Находим подходящих по группе обучающихся--
         $participants = $test_mode == 0 ?
-            TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all() :
-            GetGroupParticipantsTrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groupIds])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all();
+            TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $groupIds])->andWhere(['IN', 'participant.sex', $sex])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all() :
+            GetGroupParticipantsTrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $groupIds])->andWhere(['IN', 'participant.sex', $sex])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all();
         //--------------------------------------------
 
         //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
