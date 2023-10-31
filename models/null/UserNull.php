@@ -14,8 +14,8 @@ class UserNull extends UserWork
         $this->username = null;
         $this->auth_key = null;
         $this->password_hash = null;
-        $this->created_at = null;
-        $this->updated_at = null;
+        //$this->creator_at = null;
+        //$this->updated_at = null;
     }
 
 }
