@@ -61,19 +61,24 @@ $session = Yii::$app->session;
 
     $form = ActiveForm::begin(['id' => 'dynamic-form', 'options' => ['onsubmit' => 'save()']]); ?>
 
-    <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
-        'dateFormat' => 'php:Y-m-d',
-        'language' => 'ru',
-        'options' => [
-            'placeholder' => 'Дата документа',
-            'class'=> 'form-control',
-            'autocomplete'=>'off'
-        ],
-        'clientOptions' => [
-            'changeMonth' => true,
-            'changeYear' => true,
-            'yearRange' => '2000:2050',
-        ]])->label('Дата приказа') ?>
+    <?php
+        if ($model->id != NULL)
+            echo $form->field($model, 'order_date')->textInput([ 'readonly' => true])->label('Дата приказа');
+        else
+            echo $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'php:Y-m-d',
+            'language' => 'ru',
+            'options' => [
+                'placeholder' => 'Дата документа',
+                'class'=> 'form-control',
+                'autocomplete'=>'off'
+            ],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true,
+                'yearRange' => '2000:2050',
+            ]])->label('Дата приказа');
+    ?>
 
 
     <!---      -->
