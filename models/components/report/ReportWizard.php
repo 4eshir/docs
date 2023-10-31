@@ -589,29 +589,29 @@ class ReportWizard
 
 
         //--Заполнение раздела 3--
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 8, count($technicalAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($scienceAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 11, count($socialAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 13, count($artAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 14, count($sportAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 8, count($technicalAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 9, count($scienceAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 11, count($socialAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 13, count($artAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 14, count($sportAll));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, count($technicalFemale));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($scienceFemale));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, count($socialFemale));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 13, count($artFemale));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 14, count($sportFemale));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 8, count($technicalFemale));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 9, count($scienceFemale));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 11, count($socialFemale));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 13, count($artFemale));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(3, 14, count($sportFemale));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 8, count($technicalNetworkAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 9, count($scienceNetworkAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 11, count($socialNetworkAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 13, count($artNetworkAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 14, count($sportNetworkAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 8, count($technicalNetworkAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 9, count($scienceNetworkAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 11, count($socialNetworkAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 13, count($artNetworkAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(4, 14, count($sportNetworkAll));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 8, count($technicalRemoteAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 9, count($scienceRemoteAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 11, count($socialRemoteAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 13, count($artRemoteAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 14, count($sportRemoteAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 8, count($technicalRemoteAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 9, count($scienceRemoteAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 11, count($socialRemoteAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 13, count($artRemoteAll));
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 14, count($sportRemoteAll));
         //------------------------
 
 
