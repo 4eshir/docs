@@ -164,7 +164,7 @@ class ReportFormController extends Controller
         $model = new ReportFormModel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            ReportWizard::DownloadDod($model->start_date, $model->end_date);
+            ReportWizard::GenerateDod($model->start_date, $model->end_date);
         }
 
         return $this->render('dod', [
