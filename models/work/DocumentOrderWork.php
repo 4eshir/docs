@@ -397,7 +397,7 @@ class DocumentOrderWork extends DocumentOrder
                 $part->branchs = $participantOne->branch;
                 $part->save();
 
-                if ($participantOne->team !== NULL && $participantOne->team !== '--')
+                if ($participantOne->team !== NULL && $participantOne->team !== '--' && $participantOne->team !== 'NULL')
                 {
                     $teamId = TeamNameWork::find()->where(['foreign_event_id' => $foreign_event_id])->andWhere(['name' => $participantOne->team])->one();
 
