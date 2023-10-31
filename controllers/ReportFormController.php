@@ -159,6 +159,19 @@ class ReportFormController extends Controller
         ]);
     }
 
+    public function actionDod2()
+    {
+        $model = new ReportFormModel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ReportWizard::DownloadDod($model->start_date, $model->end_date);
+        }
+
+        return $this->render('dod', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionTeacher()
     {
         $model = new ReportFormModel();

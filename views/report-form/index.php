@@ -28,6 +28,8 @@ echo Html::a("Расчет выработки пед. работников", \yi
 echo '<div style="padding-top: 50px"></div>';
 echo Html::a("Отчет гос. задание 2.0", \yii\helpers\Url::to(['report-form/gz-2']), ['class'=>'btn btn-primary']);
 echo '<div style="padding-top: 7px"></div>';
+echo Html::a("Отчет ДОД 2.0", \yii\helpers\Url::to(['report-form/dod-2']), ['class'=>'btn btn-primary']);
+echo '<div style="padding-top: 7px"></div>';
 
 ?>
 

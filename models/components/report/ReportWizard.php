@@ -13,11 +13,13 @@ use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\TeamWork;
 use app\models\work\VisitWork;
+use Codeception\PHPUnit\ResultPrinter\Report;
 use Yii;
 use yii\db\Query;
 
 class ReportWizard
 {
+
     //--Функция генерации гос. задания--
     static public function GenerateGZ($start_date, $end_date, $visit_type = VisitWork::PRESENCE_AND_ABSENCE)
     {
@@ -511,7 +513,122 @@ class ReportWizard
         //----------------
 
         //--Техническая направленность--
+        $technicalGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::TECHNICAL]);
+        $technicalAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups);
+        $technicalFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
 
+        $technicalNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL,
+            ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
+        $technicalNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalNetworkGroups);
+
+        $technicalRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
+        $technicalRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalRemoteGroups);
+        //------------------------------
+
+        //--Естественнонаучное направленность--
+        $scienceGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SCIENCE]);
+        $scienceAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups);
+        $scienceFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+
+        $scienceNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SCIENCE], AllowRemoteWork::ALL,
+            ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
+        $scienceNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceNetworkGroups);
+
+        $scienceRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SCIENCE], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
+        $scienceRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceRemoteGroups);
+        //-------------------------------------
+
+        //--Соц-пед направленность--
+        $socialGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SOCIAL]);
+        $socialAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups);
+        $socialFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+
+        $socialNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SOCIAL], AllowRemoteWork::ALL,
+            ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
+        $socialNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialNetworkGroups);
+
+        $socialRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SOCIAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
+        $socialRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialRemoteGroups);
+        //--------------------------
+
+        //--Художественная направленность--
+        $artGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::ART]);
+        $artAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups);
+        $artFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+
+        $artNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::ART], AllowRemoteWork::ALL,
+            ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
+        $artNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artNetworkGroups);
+
+        $artRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::ART], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
+        $artRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artRemoteGroups);
+        //---------------------------------
+
+        //--Спортивная направленность--
+        $sportGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SPORT]);
+        $sportAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups);
+        $sportFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+
+        $sportNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SPORT], AllowRemoteWork::ALL,
+            ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
+        $sportNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportNetworkGroups);
+
+        $sportRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
+            BranchWork::ALL, [FocusWork::SPORT], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
+        $sportRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportRemoteGroups);
+        //-----------------------------
+
+
+        //--Заполнение раздела 3--
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 8, count($technicalAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($scienceAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 11, count($socialAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 13, count($artAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 14, count($sportAll));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, count($technicalFemale));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($scienceFemale));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, count($socialFemale));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 13, count($artFemale));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 14, count($sportFemale));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 8, count($technicalNetworkAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 9, count($scienceNetworkAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 11, count($socialNetworkAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 13, count($artNetworkAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(4, 14, count($sportNetworkAll));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 8, count($technicalRemoteAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 9, count($scienceRemoteAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 11, count($socialRemoteAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 13, count($artRemoteAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(5, 14, count($sportRemoteAll));
+        //------------------------
+
+
+
+
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="report.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
+        $writer->save('php://output');
+        exit;
     }
     //--------------------------------
+
+
+
 }
