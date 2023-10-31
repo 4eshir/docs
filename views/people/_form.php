@@ -74,7 +74,7 @@ use app\models\work\PositionWork;
                                 <div class="col-xs-4">
                                     <?php
 
-                                    $pos = \app\models\work\PositionWork::find()->all();
+                                    $pos = \app\models\work\PositionWork::find()->orderBy('name ASC')->all();
                                     $items = \yii\helpers\ArrayHelper::map($pos,'id','name');
                                     $params = [
                                         'prompt' => '',
