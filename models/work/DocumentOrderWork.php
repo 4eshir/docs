@@ -321,8 +321,14 @@ class DocumentOrderWork extends DocumentOrder
     private function uploadTeamName($foreign_event_id)
     {
         $teamName = [];
+        $teamNameException = [];
+
+        $teamNameaExisting = TeamNameWork::find()->where(['foreign_event_id' => $foreign_event_id])->all();
+        foreach ($teamNameaExisting as $one)
+            $teamNameException[] = $one->name;
+
         foreach ($this->participants as $partOne)
-            if (!in_array($partOne->team, $teamName) && $partOne->team != NULL && $partOne->team != '--' && $partOne->team != 'NULL')
+            if (!in_array($partOne->team, $teamName) && !in_array($partOne->team, $teamNameException) && $partOne->team != NULL && $partOne->team != '--' && $partOne->team != 'NULL')
                 $teamName[] = $partOne->team;
 
         foreach ($teamName as $oneTeam)
