@@ -96,5 +96,9 @@ class People extends \yii\db\ActiveRecord
      * @return string
      */
 
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+    }
 
 }
