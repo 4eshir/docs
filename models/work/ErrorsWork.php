@@ -201,7 +201,7 @@ class ErrorsWork extends Errors
             $groups = $groupsSet->joinWith(['teacherGroups teacherGroups'])->where(['teacherGroups.teacher_id' => $user->aka])->all();
 
         // Приказы
-        /*if (count(array_intersect([32], $functions)) > 0 && count(array_intersect([24], $functions)) > 0)
+        if (count(array_intersect([32], $functions)) > 0 && count(array_intersect([24], $functions)) > 0)
             $orders = $ordersSet->all();
         else if (count(array_intersect([32], $functions)) > 0)
             $orders = $ordersSet->where(['type' => 1])->orWhere(['type' => 10])->all();
@@ -215,7 +215,7 @@ class ErrorsWork extends Errors
 
         // Участие в мероприятиях
         if (count(array_intersect([40], $functions)) > 0)
-            $foreignEvents = $foreignEventsSet->all();*/
+            $foreignEvents = $foreignEventsSet->all();
 
 
         if ($groups !== '' || $programs !== '' || $orders !== '' || $events !== '' || $foreignEvents !== '')
