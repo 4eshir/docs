@@ -515,7 +515,7 @@ class ReportWizard
         //--Техническая направленность--
         $technicalGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::TECHNICAL]);
         $technicalAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups);
-        $technicalFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+        $technicalFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
 
         $technicalNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL,
@@ -530,7 +530,7 @@ class ReportWizard
         //--Естественнонаучное направленность--
         $scienceGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SCIENCE]);
         $scienceAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups);
-        $scienceFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+        $scienceFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
 
         $scienceNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SCIENCE], AllowRemoteWork::ALL,
@@ -545,7 +545,7 @@ class ReportWizard
         //--Соц-пед направленность--
         $socialGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SOCIAL]);
         $socialAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups);
-        $socialFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+        $socialFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
 
         $socialNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SOCIAL], AllowRemoteWork::ALL,
@@ -560,7 +560,7 @@ class ReportWizard
         //--Художественная направленность--
         $artGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::ART]);
         $artAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups);
-        $artFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+        $artFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
 
         $artNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::ART], AllowRemoteWork::ALL,
@@ -575,7 +575,7 @@ class ReportWizard
         //--Спортивная направленность--
         $sportGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SPORT]);
         $sportAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups);
-        $sportFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, ReportConst::AGES_ALL_18, null, [ReportConst::FEMALE]);
+        $sportFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
 
         $sportNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SPORT], AllowRemoteWork::ALL,
