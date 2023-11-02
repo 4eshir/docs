@@ -616,56 +616,56 @@ class ReportWizard
 
 
         //--Разбиваем детей по возрастам (техническая направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [0, 1, 2], explode("-", $start_date)[0].'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [$i], explode("-", $start_date)[0].'-01-01');
+            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 6, count($ageParticipants));
         }
         //-------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (естественнонаучная направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], explode("-", $start_date)[0].'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [$i], explode("-", $start_date)[0].'-01-01');
+            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 7, count($ageParticipants));
         }
         //--------------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (соц-пед направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, [0, 1, 2], explode("-", $start_date)[0].'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, [$i], explode("-", $start_date)[0].'-01-01');
+            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 9, count($ageParticipants));
         }
         //---------------------------------------------------------
 
         //--Разбиваем детей по возрастам (художественная направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, [0, 1, 2], explode("-", $start_date)[0].'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 11, count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, [$i], explode("-", $start_date)[0].'-01-01');
+            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 11, count($ageParticipants));
         }
         //-----------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (спортивная направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, [0, 1, 2], explode("-", $start_date)[0].'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 12, count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, [$i], explode("-", $start_date)[0].'-01-01');
+            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 12, count($ageParticipants));
         }
         //------------------------------------------------------------
