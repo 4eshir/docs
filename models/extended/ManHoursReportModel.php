@@ -85,8 +85,9 @@ class ManHoursReportModel extends \yii\base\Model
 
     public function generateReport()
     {
-        ini_set('max_execution_time', '6000');
+        //ini_set('max_execution_time', '6000');
         ini_set('memory_limit', '2048M');
+        set_time_limit(600);
 
         //--Основные отчетные данные--
         //Ожидается массив, если -1 - значит соответствующий пункт не выбран
