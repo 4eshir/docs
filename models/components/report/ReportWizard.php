@@ -695,11 +695,13 @@ class ReportWizard
         //--------------------------------
 
         //--Заполняем суммы по направленностям--
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 8, count($technicalAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($scienceAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 11, count($socialAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($artAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 14, count($sportAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($technicalAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, count($scienceAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($socialAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($artAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($sportAll));
+
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, count($technicalAll) + count($scienceAll) + count($socialAll) + count($artAll) + count($sportAll));
         //--------------------------------------
 
 
