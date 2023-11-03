@@ -6,6 +6,7 @@ namespace app\models\components\report;
 //----Бизнес-логика реализована в методах класса SupportReportFunctions
 use app\models\components\ExcelWizard;
 use app\models\work\AllowRemoteWork;
+use app\models\work\AuditoriumWork;
 use app\models\work\BranchWork;
 use app\models\work\EventLevelWork;
 use app\models\work\FocusWork;
@@ -753,6 +754,125 @@ class ReportWizard
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 12, count($commSport));
 
         //------------------------
+
+        //-------------
+        //--Раздел 10--
+        //-------------
+
+        //--Получаем все помещения--
+
+        $audsAll = AuditoriumWork::find()/*->where(['branch_id' => 3])*/;
+
+        //--Получаем все помещения не в собственности--
+
+        $audsRent = AuditoriumWork::find()->where(['!=', 'branch_id', 3]);
+
+        //----Ищем лаборатории--
+
+        $labs = (clone $audsAll)->andWhere(['auditorium_type_id' => 1])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 13, count($labs) > 0 ? 1 : 2);
+
+        $labs = (clone $audsRent)->andWhere(['auditorium_type_id' => 1])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 13, count($labs) > 0 ? 1 : 2);
+
+        //----------------------
+
+        //----Ищем мастерские--
+
+        $work = (clone $audsAll)->andWhere(['auditorium_type_id' => 2])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 14, count($work) > 0 ? 1 : 2);
+
+        $work = (clone $audsRent)->andWhere(['auditorium_type_id' => 2])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 14, count($work) > 0 ? 1 : 2);
+
+        //---------------------
+
+        //----Ищем учебные классы--
+
+        $stud = (clone $audsAll)->andWhere(['auditorium_type_id' => 3])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 12, count($stud) > 0 ? 1 : 2);
+
+        $stud = (clone $audsRent)->andWhere(['auditorium_type_id' => 3])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 12, count($stud) > 0 ? 1 : 2);
+
+        //-------------------------
+
+        //----Ищем лекционные аудитории--
+
+        $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 4])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 20, count($lec) > 0 ? 1 : 2);
+
+        $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 4])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 20, count($lec) > 0 ? 1 : 2);
+
+        //-------------------------------
+
+        //----Ищем компьютерные кабинеты--
+
+        $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 5])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 21, count($lec) > 0 ? 1 : 2);
+
+        $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 5])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 21, count($lec) > 0 ? 1 : 2);
+
+        //--------------------------------
+
+        //----Ищем актовые залы--
+
+        $lec = (clone $audsAll)->andWhere(['auditorium_type_id' => 6])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(2, 8, count($lec) > 0 ? 1 : 2);
+
+        $lec = (clone $audsRent)->andWhere(['auditorium_type_id' => 6])->all();
+        $inputData->getSheet(3)->setCellValueByColumnAndRow(3, 8, count($lec) > 0 ? 1 : 2);
+
+        //-----------------------
+
+
+        //-------------
+        //--Раздел 11--
+        //-------------
+
+        //--Получаем все аудитории--
+
+        $auds = AuditoriumWork::find()->where(['include_square' => 1]);
+
+        //--Считаем площадь помещений--
+
+        $sumArea = 0.0;
+        $sumStudyArea = 0.0;
+        $sumRentArea = 0.0;
+        $sumRentStudyArea = 0.0;
+        $sumOperationArea = 0.0;
+        $sumOperationStudyArea = 0.0;
+
+        $audsAll = (clone $auds)->all();
+        foreach ($audsAll as $aud)
+        {
+            $sumArea += $aud->square;
+            if ($aud->is_education == 1) $sumStudyArea += $aud->square;
+
+            if ($aud->branch_id == 3 || $aud->branch_id == 8)
+            {
+                $sumOperationArea += $aud->square;
+                if ($aud->is_education == 1) $sumOperationStudyArea += $aud->square;
+            }
+            else /*if ($aud->branch_id == 1 || $aud->branch_id == 2)*/
+            {
+                $sumRentArea += $aud->square;
+                if ($aud->is_education == 1) $sumRentStudyArea += $aud->square;
+            }
+
+        }
+
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 8, $sumArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 8, $sumOperationArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 8, $sumRentArea);
+
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(2, 9, $sumStudyArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(5, 9, $sumOperationStudyArea);
+        $inputData->getSheet(4)->setCellValueByColumnAndRow(6, 9, $sumRentStudyArea);
+
+        //--------------------------
 
 
 
