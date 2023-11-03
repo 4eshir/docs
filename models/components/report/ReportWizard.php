@@ -615,6 +615,8 @@ class ReportWizard
         //------------------------
 
 
+        //--Заполнение раздела 4--
+
         //--Суммы по возрастам--
         $sumAge12 = 0;
         $sumAges = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -703,6 +705,55 @@ class ReportWizard
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, count($technicalAll) + count($scienceAll) + count($socialAll) + count($artAll) + count($sportAll));
         //--------------------------------------
+
+        //------------------------
+
+
+        //--Заполнение раздела 5--
+
+        $technicalGroupsBudget = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $technicalGroupsComm = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::COMMERCIAL]);
+        $budgetTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsBudget, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $commTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsComm, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $scienceGroupsBudget = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SCIENCE], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $scienceGroupsComm = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SCIENCE], AllowRemoteWork::ALL, [ReportConst::COMMERCIAL]);
+        $budgetScience = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroupsBudget, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $commScience = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroupsComm, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $socialGroupsBudget = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SOCIAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $socialGroupsComm = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SOCIAL], AllowRemoteWork::ALL, [ReportConst::COMMERCIAL]);
+        $budgetSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroupsBudget, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $commSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroupsComm, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $artGroupsBudget = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::ART], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $artGroupsComm = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::ART], AllowRemoteWork::ALL, [ReportConst::COMMERCIAL]);
+        $budgetArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroupsBudget, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $commArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroupsComm, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $sportGroupsBudget = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SPORT], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
+        $sportGroupsComm = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::SPORT], AllowRemoteWork::ALL, [ReportConst::COMMERCIAL]);
+        $budgetSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroupsBudget, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $commSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroupsComm, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 6, count($budgetTechnical));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 6, count($commTechnical));
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 7, count($budgetScience));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 7, count($commScience));
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 9, count($budgetSocial));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 9, count($commSocial));
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 10, count($budgetArt));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 10, count($commArt));
+
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 12, count($budgetSport));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 12, count($commSport));
+
+        //------------------------
+
 
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
