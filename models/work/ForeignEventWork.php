@@ -198,7 +198,7 @@ class ForeignEventWork extends ForeignEvent
         $partsLink = '';
         foreach ($parts as $partOne)
         {
-            $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->participant_id])->one();
+            $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->id])->one();
             $tpb = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->id])->all();
             $branchStr = '';
             $teamStr = '[индивидуальное участие]';
