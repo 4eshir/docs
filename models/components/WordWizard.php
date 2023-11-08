@@ -93,7 +93,7 @@ class WordWizard
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
+        $cell->addText(' +7 8512 442428 • schooltech@astrobl.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -474,7 +474,7 @@ class WordWizard
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
+        $cell->addText(' +7 8512 442428 • schooltech@astrobl.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -810,7 +810,7 @@ class WordWizard
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
+        $cell->addText(' +7 8512 442428 • schooltech@astrobl.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРИКАЗ', array('bold' => true), array('align' => 'center'));
@@ -1113,7 +1113,7 @@ class WordWizard
         $cell = $table->addCell(2000, array('valign' => 'top'));
         $cell->addText('ТЕХНОПАРК', array('name' => 'Calibri', 'size' => '14'), array('align' => 'center'));
         $cell = $table->addCell(22000);
-        $cell->addText(' +7 8512 442428 • info@schooltech.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
+        $cell->addText(' +7 8512 442428 • schooltech@astrobl.ru • www.школьныйтехнопарк.рф', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array('align' => 'right', 'spaceAfter' => 0));
         //----------
         $section->addTextBreak(1);
         $section->addText('ПРОТОКОЛ', array('bold' => true), array('align' => 'center'));
