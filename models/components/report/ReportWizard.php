@@ -53,7 +53,7 @@ class ReportWizard
         $allU = count($allTechoparkTechnicalUnique);
         $all = count($allTechoparkTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $all == 0 ? 0 : round(($target / $allU) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $allU == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -94,7 +94,7 @@ class ReportWizard
         $allU = count($allCdnttTechnicalUnique);
         $all = count($allCdnttTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, $allU == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -125,7 +125,7 @@ class ReportWizard
         $allU = count($allCdnttArtUnique);
         $all = count($allCdnttArt);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $allU == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -156,7 +156,7 @@ class ReportWizard
         $allU = count($allCdnttSocialUnique);
         $all = count($allCdnttSocial);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $allU == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -187,7 +187,7 @@ class ReportWizard
         $allU = count($allQuantTechnicalUnique);
         $all = count($allQuantTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $all == 0 ? 0 : round(($target / $allU) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $allU == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -223,11 +223,12 @@ class ReportWizard
             [BranchWork::MOB_QUANT], [FocusWork::TECHNICAL], AllowRemoteWork::ALL, [ReportConst::BUDGET]);
         $allMobTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allMobTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allMobTechnicalUnique);
+        $allU = count($allMobTechnicalUnique);
+        $all = count($allMobTechnical);
 
         $target = SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allMobTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, $all == 0 ? 0 : round(count($target) * 1.0 / $all * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 39, $allU == 0 ? 0 : round(count($target) * 1.0 / $allU * 100));
 
         // Стилизация ячеек
         $inputData->getSheet(1)->getCellByColumnAndRow(10, 39)->getStyle()->getAlignment()->setVertical('top');
