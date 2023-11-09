@@ -50,9 +50,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allTechoparkTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allTechoparkTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allTechoparkTechnicalUnique);
+        $allU = count($allTechoparkTechnicalUnique);
+        $all = count($allTechoparkTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 16, $all == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -90,9 +91,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCdnttTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCdnttTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCdnttTechnicalUnique);
+        $allU = count($allCdnttTechnicalUnique);
+        $all = count($allCdnttTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 21, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -120,9 +122,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCdnttArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCdnttArtUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCdnttArtUnique);
+        $allU = count($allCdnttArtUnique);
+        $all = count($allCdnttArt);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 25, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -150,9 +153,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCdnttSocial = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCdnttSocialUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCdnttSocialUnique);
+        $allU = count($allCdnttSocialUnique);
+        $all = count($allCdnttSocial);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 29, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
@@ -180,9 +184,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allQuantTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allQuantTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allQuantTechnicalUnique);
+        $allU = count($allQuantTechnicalUnique);
+        $all = count($allQuantTechnical);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 33, $all == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -240,9 +245,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodScience = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCodScienceUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCodScienceUnique);
+        $allU = count($allCodScienceUnique);
+        $all = count($allCodScience);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 49, $all == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -280,9 +286,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodArt = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCodArtUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCodArtUnique);
+        $allU = count($allCodArtUnique);
+        $all = count($allCodArt);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 54, $all == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -309,10 +316,11 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCodTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCodTechnicalUnique);
+        $allU = count($allCodTechnicalUnique);
+        $all = count($allCodTechnical);
 
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, $all == 0 ? 0 : round(($target / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 41, $all == 0 ? 0 : round(($target / $allU) * 100));
 
 
         // Процент успешно защитивших проект (получивших сертификат)
@@ -374,9 +382,10 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
         $allCodSportUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
-        $all = count($allCodSportUnique);
+        $allU = count($allCodSportUnique);
+        $all = count($allCodSport);
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 58, $all == 0 ? 0 : round(($target * 1.0 / $allU) * 100));
 
         // Процент победителей и призеров от общего числа участников
         $all = SupportReportFunctions::GetParticipants(ReportConst::PROD, $start_date, $end_date, 0, 0,
