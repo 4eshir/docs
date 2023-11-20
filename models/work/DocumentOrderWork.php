@@ -225,7 +225,18 @@ class DocumentOrderWork extends DocumentOrder
         }
 
         if (mb_substr($this->order_name, 0, 10) === 'Об участии' && $this->type === 2)
-            $this->order_name = 'Об участии в мероприятии "' . $this->foreign_event['name'] . '"';
+        {
+            $pos = strripos($this->foreign_event['name'], '"');
+            if ($pos) $this->foreign_event['name'] = str_replace('"', '«', $this->foreign_event['name'], 1);
+            $pos = strripos($this->foreign_event['name'], '"');
+            if ($pos) $this->foreign_event['name'] = str_replace('"', '»', $this->foreign_event['name'], 1);
+
+            $this->order_name = 'Об участии в мероприятии «' . $this->foreign_event['name'] . '»';
+            $arrName = str_split($this->foreign_event['name']);
+            $lenght = strlen($this->foreign_event['name']);
+            if ($arrName[$lenght-1] == $arrName[$lenght-2]) $this->order_name = substr($this->order_name, 0, -1);
+        }
+
 
         $fioSignedDb = People::find()->where(['secondname' => $fioSigned[0]])
             ->andWhere(['firstname' => $fioSigned[1]])
