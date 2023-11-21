@@ -232,11 +232,9 @@ class DocumentOrderWork extends DocumentOrder
             if ($pos) $this->foreign_event['name'] = str_replace('"', '»', $this->foreign_event['name'], 1);
 
             $this->order_name = 'Об участии в мероприятии «' . $this->foreign_event['name'] . '»';
-            $arrName = str_split($this->foreign_event['name']);
-            $lenght = strlen($this->foreign_event['name']);
-            var_dump($arrName[$lenght-1]);
-            var_dump($arrName[$lenght-2]);
-            if ($arrName[$lenght-1] == $arrName[$lenght-2]) $this->order_name = substr($this->order_name, 0, -1);
+            $arrName = str_split($this->order_name);
+            $lenght = strlen($this->order_name);
+            if ($arrName[$lenght-1] === $arrName[$lenght-2]) $this->order_name = substr($this->order_name, 0, -1);
         }
 
 
