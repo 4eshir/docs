@@ -227,7 +227,7 @@ class DocumentOrderWork extends DocumentOrder
         if (mb_substr($this->order_name, 0, 10) === 'Об участии' && $this->type === 2)
         {
             $pos = strripos($this->foreign_event['name'], '"');
-            if ($pos && $this->foreign_event['name'] !== null) $this->foreign_event['name'] = str_replace(' "', '«', $this->foreign_event['name']);
+            if ($pos && $this->foreign_event['name'] !== null) $this->foreign_event['name'] = str_replace(' "', ' «', $this->foreign_event['name']);
             $pos = strripos($this->foreign_event['name'], '"');
             if ($pos && $this->foreign_event['name'] !== null) $this->foreign_event['name'] = str_replace('"', '»', $this->foreign_event['name']);
 
