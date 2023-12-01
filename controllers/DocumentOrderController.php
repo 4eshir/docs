@@ -512,7 +512,7 @@ class DocumentOrderController extends Controller
                         . '<select id="documentorderwork-new_groups_check" class="form-control" name="DocumentOrderWork[new_groups_check][' . $groupParticipant->id . '][' . $groupParticipant->participant_id . '][]">';
                     echo $text;
                     //$newGroups = $stud->where(['training_program_id' => $gr->training_program_id])->andWhere(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->all();
-                    $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
+                    $newGroups = $stud->where(['!=', 'id', $gr->id])->andWhere(['>=', 'finish_date', $date])->andWhere(['branch_id' => $gr->branch_id])->andWhere(['archive' => 0])->all();
                     if (count($newGroups) > 0) {
                         foreach ($newGroups as $newGroup)
                             echo "<option value='" . $newGroup->id . "'>" . $newGroup->number . "</option>";
