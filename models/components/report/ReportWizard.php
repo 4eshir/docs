@@ -315,6 +315,19 @@ class ReportWizard
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
+
+        //-------------------------------
+
+        foreach ($targetGroups as $group)
+        {
+            $tgps = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
+            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $tgps, $start_date, $end_date, $visit_type);
+            echo $group->number.' '.count($visits).'<br>';
+        }
+
+
+        //-------------------------------
+
         $allCodTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
         $allU = count($allCodTechnicalUnique);
         $all = count($allCodTechnical);
