@@ -244,6 +244,19 @@ class ReportWizard
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodScience = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
+
+        //-------------------------------
+
+        foreach ($targetGroups as $group)
+        {
+            $tgps = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
+            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $tgps, $start_date, $end_date, $visit_type);
+            var_dump( $group->number.' '.count($visits).'<br>');
+        }
+
+
+        //-------------------------------
+
         $allCodScienceUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
         $allU = count($allCodScienceUnique);
         $all = count($allCodScience);
@@ -316,17 +329,7 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
         $allCodTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
 
-        //-------------------------------
 
-        /*foreach ($targetGroups as $group)
-        {
-            $tgps = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
-            $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $tgps, $start_date, $end_date, $visit_type);
-            var_dump( $group->number.' '.count($visits).'<br>');
-        }*/
-
-
-        //-------------------------------
 
         $allCodTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
         $allU = count($allCodTechnicalUnique);
@@ -523,13 +526,13 @@ class ReportWizard
 
 
         //--Формирование заголовков и ответа сервера--
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        /*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
         header('Cache-Control: max-age=0');
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
-        exit;
+        exit;*/return true;
         //--------------------------------------------
     }
     //----------------------------------
