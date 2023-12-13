@@ -322,7 +322,7 @@ class ReportWizard
         {
             $tgps = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, [$group], 0, ReportConst::AGES_ALL, $end_date);
             $visits = SupportReportFunctions::GetVisits(ReportConst::PROD, $tgps, $start_date, $end_date, $visit_type);
-            echo $group->number.' '.count($visits).'<br>';
+            var_dump( $group->number.' '.count($visits).'<br>');
         }
 
 
