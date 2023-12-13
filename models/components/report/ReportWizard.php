@@ -523,13 +523,14 @@ class ReportWizard
 
 
         //--Формирование заголовков и ответа сервера--
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        /*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="report.xlsx"');
         header('Cache-Control: max-age=0');
         mb_internal_encoding('Windows-1251');
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
-        exit;
+        exit;*/
+        return true;
         //--------------------------------------------
     }
     //----------------------------------
