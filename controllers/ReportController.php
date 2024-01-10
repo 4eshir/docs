@@ -129,7 +129,6 @@ class ReportController extends Controller
     public function actionGetFullReport($type)
     {
         $session = Yii::$app->session;
-        var_dump($session);
         $fileName = "file.csv";
         //$data = $session->get('csv1') === null ? $session->get('csv2') : $session->get('csv1');
 
