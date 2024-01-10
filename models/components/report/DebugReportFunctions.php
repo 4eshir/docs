@@ -130,6 +130,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name.";".
                     $section."\r\n";
+                var_dump($participant->trainingGroupWork->branchWork);
             }
 
         }
