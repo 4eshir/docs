@@ -83,7 +83,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->number . ";" .
                     $participant->trainingGroupWork->start_date . ";" .
                     $participant->trainingGroupWork->finish_date . ";" .
-                    $participant->trainingGroupWork->branchWork->name . ";" .
+                    $participant->trainingGroupWork->branchNameNoLink . ";" .
                     $participant->participantWork->sex . ";" .
                     $participant->participantWork->birthdate . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->focusWork->name . ";" .
@@ -99,7 +99,6 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name . ";" .
                     $section . "\r\n";
-                var_dump($participant->trainingGroupWork->branchWork);
             }
 
         }
@@ -117,6 +116,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->start_date.";".
                     $participant->trainingGroupWork->finish_date.";".
                     $participant->trainingGroupWork->branchWork->name.";".
+                    $participant->trainingGroupWork->branchNameNoLink.";".
                     $participant->participantWork->sex.";".
                     $participant->participantWork->birthdate.";".
                     $participant->trainingGroupWork->trainingProgramWork->focusWork->name.";".
@@ -135,7 +135,7 @@ class DebugReportFunctions
             }
 
         }
-//var_dump($result);
+var_dump($result);
         return $result;
     }
     //----------------------------------------------------------------------------------------------
