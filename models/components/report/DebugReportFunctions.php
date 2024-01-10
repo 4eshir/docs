@@ -78,27 +78,29 @@ class DebugReportFunctions
 
         if ($unic == 0)
         {
-            foreach ($participants as $participant)
-                $result .= $participant->participantWork->fullName.";".
-                           $participant->trainingGroupWork->number.";".
-                           $participant->trainingGroupWork->start_date.";".
-                           $participant->trainingGroupWork->finish_date.";".
-                           $participant->trainingGroupWork->branchWork->name.";".
-                           $participant->participantWork->sex.";".
-                           $participant->participantWork->birthdate.";".
-                           $participant->trainingGroupWork->trainingProgramWork->focusWork->name.";".
-                           $participant->trainingGroupWork->teachersArray[0]->teacherWork->shortName.";".
-                           $participant->trainingGroupWork->budgetText.";".
-                           $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".
-                           $participant->trainingGroupWork->trainingProgramWork->name.";".
-                           $participant->groupProjectThemesWork->projectThemeWork->name.";".
-                           $participant->trainingGroupWork->protection_date.";".
-                           $participant->groupProjectThemesWork->projectTypeWork->name.";".
-                           $participant->trainingGroupWork->expertsArray[0]->expertWork->fullName.";".
-                           $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name.";".
-                           $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
-                           $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name.";".
-                           $section."\r\n";
+            foreach ($participants as $participant) {
+                $result .= $participant->participantWork->fullName . ";" .
+                    $participant->trainingGroupWork->number . ";" .
+                    $participant->trainingGroupWork->start_date . ";" .
+                    $participant->trainingGroupWork->finish_date . ";" .
+                    $participant->trainingGroupWork->branchWork->name . ";" .
+                    $participant->participantWork->sex . ";" .
+                    $participant->participantWork->birthdate . ";" .
+                    $participant->trainingGroupWork->trainingProgramWork->focusWork->name . ";" .
+                    $participant->trainingGroupWork->teachersArray[0]->teacherWork->shortName . ";" .
+                    $participant->trainingGroupWork->budgetText . ";" .
+                    $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name . ";" .
+                    $participant->trainingGroupWork->trainingProgramWork->name . ";" .
+                    $participant->groupProjectThemesWork->projectThemeWork->name . ";" .
+                    $participant->trainingGroupWork->protection_date . ";" .
+                    $participant->groupProjectThemesWork->projectTypeWork->name . ";" .
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->fullName . ";" .
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name . ";" .
+                    $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name . ";" .
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name . ";" .
+                    $section . "\r\n";
+                var_dump($participant->trainingGroupWork->branchWork);
+            }
 
         }
         else
@@ -106,7 +108,7 @@ class DebugReportFunctions
             // если обучающиеся уникальные, то у нас есть только $participant->participant_id
             $participantsId = [];
             foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
-var_dump(count($participantsId));
+
             foreach ($participantsId as $pId)
             {
                 $participant = TrainingGroupParticipantWork::find()->where(['participant_id' => $pId])->andWhere(['IN', 'training_group_id', $groupsId])->one();
@@ -130,7 +132,6 @@ var_dump(count($participantsId));
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name.";".
                     $section."\r\n";
-                var_dump($participant->trainingGroupWork->branchWork);
             }
 
         }
