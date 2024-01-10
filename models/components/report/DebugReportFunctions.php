@@ -115,7 +115,6 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->number.";".
                     $participant->trainingGroupWork->start_date.";".
                     $participant->trainingGroupWork->finish_date.";".
-                    $participant->trainingGroupWork->branchWork->name.";".
                     $participant->trainingGroupWork->branchNameNoLink.";".
                     $participant->participantWork->sex.";".
                     $participant->participantWork->birthdate.";".
@@ -135,7 +134,7 @@ class DebugReportFunctions
             }
 
         }
-var_dump($result);
+
         return $result;
     }
     //----------------------------------------------------------------------------------------------
