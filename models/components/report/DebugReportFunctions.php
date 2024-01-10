@@ -106,7 +106,7 @@ class DebugReportFunctions
             // если обучающиеся уникальные, то у нас есть только $participant->participant_id
             $participantsId = [];
             foreach ($participants as $participant) $participantsId[] = $participant->participant_id;
-
+var_dump(count($participantsId));
             foreach ($participantsId as $pId)
             {
                 $participant = TrainingGroupParticipantWork::find()->where(['participant_id' => $pId])->andWhere(['IN', 'training_group_id', $groupsId])->one();
