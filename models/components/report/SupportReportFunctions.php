@@ -393,6 +393,7 @@ class SupportReportFunctions
         sort($achievements);
         return $achievements;*/
 
+        $achievementsTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'id', $teamParticipantIds])->all();
 
         $achievesAll = array_merge($achievements, $achievementsTeam);
         sort($achievesAll);
