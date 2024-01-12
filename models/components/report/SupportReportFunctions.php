@@ -372,6 +372,8 @@ class SupportReportFunctions
                 ->where(['IN', 'teacher_participant_id', $participants[3]])
                 ->andWhere(['IN', 'winner', $achieve_mode]);
 
+
+
         $achievements = $unique_achieve == 0 ?
             self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
             self::GetUniqueParticipantAchievementId($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all());
