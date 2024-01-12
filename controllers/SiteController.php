@@ -237,8 +237,12 @@ class SiteController extends Controller
                 ->andWhere(['participant_id' => $team->participant_id])
                 ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
 
-            $participant->team_name_id = $team->team_name_id;
-            $participant->save();
+            if ($participant !== null)
+            {
+                $participant->team_name_id = $team->team_name_id;
+                $participant->save();
+            }
+
         }
 
         //var_dump($stream->getSize());
