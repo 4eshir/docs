@@ -373,11 +373,11 @@ class SupportReportFunctions
         $achievements = $test_mode == 0 ?
             ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['IN', 'teacher_participant_id', $participants[3]])
-                ->andWhere(['NOT IN', 'id', $teamParticipantIds])
+                ->andWhere(['NOT IN', 'participant_achievement.id', $teamParticipantIds])
                 ->andWhere(['IN', 'winner', $achieve_mode]) :
             GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['IN', 'teacher_participant_id', $participants[3]])
-                ->andWhere(['NOT IN', 'id', $teamParticipantIds])
+                ->andWhere(['NOT IN', 'participant_achievement.id', $teamParticipantIds])
                 ->andWhere(['IN', 'winner', $achieve_mode]);
 
 
