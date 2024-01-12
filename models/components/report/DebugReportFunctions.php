@@ -163,7 +163,7 @@ class DebugReportFunctions
             {
                 var_dump($participants[4]);
                 var_dump(ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
-                    ->where(['IN', 'teacher_participant_id', $participants[3]])
+                    ->where(['IN', 'teacher_participant_id', $participants[4]])
                     ->andWhere(['IN', 'winner', [ParticipantAchievementWork::PRIZE]])->createCommand()->getRawSql());
             }
 
