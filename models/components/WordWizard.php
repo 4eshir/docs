@@ -82,11 +82,11 @@ class WordWizard
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'), array('spaceAfter' => 0));
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'), array('spaceAfter' => 0));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right', 'spaceAfter' => 0));
         $table->addRow();
         $cell = $table->addCell(2000);
         $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
@@ -463,11 +463,11 @@ class WordWizard
         $table = $section->addTable();
         $table->addRow();
         $cell = $table->addCell(2000);
-        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell->addText('РЕГИОНАЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'), array('spaceAfter' => 0));
         $cell = $table->addCell(2000, array('borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'));
+        $cell->addText(' ШКОЛЬНЫЙ', array('name' => 'Calibri', 'size' => '14'), array('spaceAfter' => 0));
         $cell = $table->addCell(22000, array('valign' => 'bottom', 'borderSize' => 2, 'borderColor' => 'white', 'borderBottomColor' => 'red'));
-        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right'));
+        $cell->addText('  414000, г. Астрахань, ул. Адмиралтейская, д. 21, помещение № 66', array('name' => 'Calibri', 'size' => '9', 'color' => 'red'), array( 'align' => 'right', 'spaceAfter' => 0));
         $table->addRow();
         $cell = $table->addCell(2000);
         $cell->addImage(Yii::$app->basePath.'/templates/logo.png', array('width'=>100, 'height'=>40, 'align'=>'left'));
@@ -518,10 +518,21 @@ class WordWizard
         $countPasta = count($pastaAlDente->joinWith(['orderGroup orderGroup'])->where(['orderGroup.document_order_id' => $order->id])->all());
 
         if ($order->study_type == 0)        // Ф-3
-            $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ», на основании решения аттестационной комиссии/ протоколов жюри/ судейской коллегии/ итоговой диагностической карты от ' .
-                '«' . date("d", strtotime($order->order_date)) . '» ' . WordWizard::Month(date("m", strtotime($order->order_date))) . ' ' . date("Y", strtotime($order->order_date)) . ' г.';
+        {
+            $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ», на основании ';
+            if ($countPasta > 1)
+                $text .= 'протоколов итоговой аттестации от «___»_______ 20___ г.';
+            else
+                $text .= 'протокола итоговой аттестации от «___»_______ 20___ г.';
+        }
         else if ($order->study_type == 1)    //Ф-4
-            $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ»';
+        {
+            $text = '          В связи с завершением обучения в ГАОУ АО ДО «РШТ»», на основании ';
+            if ($countPasta > 1)
+                $text .= 'протоколов итоговой аттестации от «___»_______ 20___ г.';
+            else
+                $text .= 'протокола итоговой аттестации от «___»_______ 20___ г.';
+        }
         else if ($order->study_type == 2)
         {
             $text = '          В связи с досрочным прекращением образовательных отношений на основании статьи 61 Федерального закона от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации» и ';
