@@ -159,6 +159,11 @@ class DebugReportFunctions
             $participants = SupportReportFunctions::GetParticipants(ReportConst::PROD, '0000-00-00', '0000-00-00',
                 TeamWork::TEAM_ON, 0, EventLevelWork::ALL, $branch, $focus, $allow_remote, $event->id);
 
+            if ($event->id == 530)
+            {
+                var_dump($participants[1]);
+            }
+
             $allPrizes = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::PRIZE]);
             $allWinners = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::WINNER]);
 
