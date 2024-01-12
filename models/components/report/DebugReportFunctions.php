@@ -159,9 +159,9 @@ class DebugReportFunctions
             $participants = SupportReportFunctions::GetParticipants(ReportConst::PROD, '0000-00-00', '0000-00-00',
                 TeamWork::TEAM_ON, 0, EventLevelWork::ALL, $branch, $focus, $allow_remote, $event->id);
 
-            if ($event->id == 530)
+            if ($event->id == 616)
             {
-                var_dump(ParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', [ParticipantAchievementWork::PRIZE]])->createCommand()->getRawSql());
+                var_dump($participants[1]);
             }
 
             $allPrizes = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::PRIZE]);
