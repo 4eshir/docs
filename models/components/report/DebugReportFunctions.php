@@ -91,7 +91,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->name . ";" .
-                    $participant->success == 0 ? 'Нет' : 'Да'.
+                    $participant->success == 0 ? 'Нет' : 'Да'.";".
                     $participant->groupProjectThemesWork->projectThemeWork->name . ";" .
                     $participant->trainingGroupWork->protection_date . ";" .
                     $participant->groupProjectThemesWork->projectTypeWork->name . ";" .
@@ -124,7 +124,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText.";".
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".
                     $participant->trainingGroupWork->trainingProgramWork->name.";".
-                    $participant->success == 0 ? 'Нет' : 'Да'.
+                    $participant->success == 0 ? 'Нет' : 'Да'.";".
                     $participant->groupProjectThemesWork->projectThemeWork->name.";".
                     $participant->trainingGroupWork->protection_date.";".
                     $participant->groupProjectThemesWork->projectTypeWork->name.";".
