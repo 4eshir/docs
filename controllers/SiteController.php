@@ -235,7 +235,7 @@ class SiteController extends Controller
             $participant = ParticipantAchievementWork::find()
                 ->where(['teacher_participant_id' => $team->teacher_participant_id])
                 ->andWhere(['participant_id' => $team->participant_id])
-                ->andWhere(['fpreign_event_id' => $team->foreign_event_id])->one();
+                ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
 
             $participant->team_name_id = $team->team_name_id;
             $participant->save();
