@@ -364,12 +364,20 @@ class SupportReportFunctions
                                                       $unique_achieve = 0,
                                                       $achieve_mode = ParticipantAchievementWork::ALL)
     {
+        $achievementsTeam = self::GetIdFromArray($test_mode == 0 ?
+            ParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all() :
+            GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all());
+
+        $teamParticipantIds = self::GetIdFromArray($achievementsTeam);
+
         $achievements = $test_mode == 0 ?
             ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['IN', 'teacher_participant_id', $participants[3]])
+                ->andWhere(['NOT IN', 'id', $teamParticipantIds])
                 ->andWhere(['IN', 'winner', $achieve_mode]) :
             GetParticipantAchievementsParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])
                 ->where(['IN', 'teacher_participant_id', $participants[3]])
+                ->andWhere(['NOT IN', 'id', $teamParticipantIds])
                 ->andWhere(['IN', 'winner', $achieve_mode]);
 
 
@@ -378,9 +386,7 @@ class SupportReportFunctions
             self::GetIdFromArray($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all()) :
             self::GetUniqueParticipantAchievementId($achievements->orderBy(['teacherParticipant.participant_id' => SORT_ASC])->all());
 
-        $achievementsTeam = self::GetIdFromArray($test_mode == 0 ?
-            ParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all() :
-            GetParticipantAchievementsParticipantAchievementWork::find()->where(['IN', 'team_name_id', $participants[1]])->andWhere(['IN', 'winner', $achieve_mode])->all());
+
 
         /*$achievements = array_merge($achievements, $achievementsTeam);
 
