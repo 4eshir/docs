@@ -13,6 +13,18 @@ class VisitWork extends Visit
     const ONLY_PRESENCE = [0, 2]; //считать только явки и дистант
     const PRESENCE_AND_ABSENCE = [0, 1, 2]; //считать явки, неявки и дистант
 
+
+    // Основная функция для получения экземпляра объекта VisitWork
+    public static function get($training_group_participant_id, $training_group_lesson_id)
+    {
+        $visit = VisitWork::find()
+            ->where(['training_group_participant_id' => $training_group_participant_id])
+            ->andWhere(['training_group_lesson_id' => $training_group_lesson_id])
+            ->one();
+
+        return $visit;
+    }
+
     public function beforeDelete()
     {
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалены visit');
