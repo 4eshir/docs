@@ -163,12 +163,6 @@ class DebugReportFunctions
             $allWinners = SupportReportFunctions::GetParticipantAchievements(ReportConst::PROD, $participants, 0, [ParticipantAchievementWork::WINNER]);
 
 
-            if ($event->id == 616)
-            {
-                var_dump($allPrizes);
-            }
-
-
             $debug .= $event->name.";".$event->companyWork->name.";".$event->eventLevelWork->name.";".$event->start_date.";".$event->finish_date.
                 ";".($participants[2] - count($participants[1])).";".count($participants[1]).";".
                 count($allPrizes[1]).";".count($allPrizes[2]).";".count($allWinners[1]).";".count($allWinners[2])."\r\n";

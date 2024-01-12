@@ -7,6 +7,7 @@ use app\models\components\ExcelWizard;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
+use app\models\work\ParticipantAchievementWork;
 use app\models\work\PeopleWork;
 use app\models\work\LogWork;
 use app\models\work\TeacherGroupWork;
@@ -227,6 +228,19 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
+        $teams = TeamWork::find()->all();
+
+        foreach ($teams as $team)
+        {
+            $participant = ParticipantAchievementWork::find()
+                ->where(['teacher_participant_id' => $team->teacher_participant_id])
+                ->andWhere(['participant_id' => $team->participant_id])
+                ->andWhere(['fpreign_event_id' => $team->foreign_event_id])->one();
+
+            $participant->team_name_id = $team->team_name_id;
+            $participant->save();
+        }
+
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();
         foreach ($logs as $log)
