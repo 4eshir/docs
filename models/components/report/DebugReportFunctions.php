@@ -79,6 +79,7 @@ class DebugReportFunctions
         if ($unic == 0)
         {
             foreach ($participants as $participant) {
+                $successString = $participant->success == 0 ? "Нет" : "Да";
                 $result .= $participant->participantWork->fullName . ";" .
                     $participant->trainingGroupWork->number . ";" .
                     $participant->trainingGroupWork->start_date . ";" .
@@ -91,7 +92,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->name . ";" .
-                    $participant->success == 0 ? "Нет;" : "Да;".
+                    $successString . ";" .
                     $participant->groupProjectThemesWork->projectThemeWork->name . ";" .
                     $participant->trainingGroupWork->protection_date . ";" .
                     $participant->groupProjectThemesWork->projectTypeWork->name . ";" .
