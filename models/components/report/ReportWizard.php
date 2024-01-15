@@ -60,6 +60,9 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allTechoparkTechnical));
         //$all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
+        var_dump($target);
+        var_dump($all);
+
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
 
