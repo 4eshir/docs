@@ -62,6 +62,7 @@ class ReportWizard
 
         var_dump($target);
         var_dump($all);
+        return;
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
