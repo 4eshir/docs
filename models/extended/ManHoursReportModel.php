@@ -185,8 +185,6 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_EARLY_END_IN]);
 
-                    var_dump(count($groups1));
-
                     $groups1Id = SupportReportFunctions::GetIdFromArray($groups1);
 
 
@@ -213,8 +211,6 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_IN_END_LATER]);
 
-                    var_dump(count($groups2));
-
                     $groups2Id = SupportReportFunctions::GetIdFromArray($groups2);
 
                     $groupParticipants2 = $this->unic == 0 ?
@@ -239,8 +235,6 @@ class ManHoursReportModel extends \yii\base\Model
                         $this->budget,
                         [],
                         [ReportConst::START_IN_END_IN]);
-
-                    var_dump(count($groups3));
 
                     $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
@@ -267,8 +261,6 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_EARLY_END_LATER]);
 
-                    var_dump(count($groups4));
-
                     $groups4Id = SupportReportFunctions::GetIdFromArray($groups4);
 
                     $groupParticipants4 = $this->unic == 0 ?
@@ -294,6 +286,8 @@ class ManHoursReportModel extends \yii\base\Model
 
         //--Отладочная информация--
 
+        $allGroups = null;
+
         if ($this->unic == 1)
         {
             $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
@@ -312,6 +306,12 @@ class ManHoursReportModel extends \yii\base\Model
 
         $result .= $resultManHours;
         $result .= $resultParticipantCount;
+
+        $result .= "<tr>";
+        foreach ($allGroups as $group) {
+            $result .= "<td>".$group."</td>";
+        }
+        $result .= "</tr>";
 
         $result .= '</table>';
 
