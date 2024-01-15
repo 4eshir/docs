@@ -238,6 +238,13 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
+                    var_dump($this->start_date);
+                    var_dump($this->end_date);
+                    var_dump($this->branch);
+                    var_dump($this->focus);
+                    var_dump($this->allow_remote);
+                    var_dump($this->budget);
+
                     $groupParticipants3 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups3Id])->all() :
                         TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups3Id])->all();
@@ -286,7 +293,6 @@ class ManHoursReportModel extends \yii\base\Model
 
         //--Отладочная информация--
 
-        $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
 
         if ($this->unic == 1)
         {
@@ -306,12 +312,6 @@ class ManHoursReportModel extends \yii\base\Model
 
         $result .= $resultManHours;
         $result .= $resultParticipantCount;
-
-        $result .= "<tr>";
-        foreach ($allGroups as $group) {
-            $result .= $group.";";
-        }
-        $result .= "</tr>";
 
         $result .= '</table>';
 
