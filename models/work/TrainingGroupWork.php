@@ -1024,8 +1024,11 @@ class TrainingGroupWork extends TrainingGroup
             }
 
             // тут должны работать проверки на ошибки
-            $errorsCheck = new GroupErrorsWork();
-            $errorsCheck->CheckErrorsTrainingGroupWithoutAmnesty($this->id);
+            if ($this->archive !== 1)
+            {
+                $errorsCheck = new GroupErrorsWork();
+                $errorsCheck->CheckErrorsTrainingGroupWithoutAmnesty($this->id);
+            }
         }
     }
 
