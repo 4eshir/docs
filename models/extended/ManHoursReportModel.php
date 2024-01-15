@@ -309,7 +309,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         $result .= "<tr>";
         foreach ($allGroups as $group) {
-            $result .= "<td>".$group."</td>";
+            $result .= $group.";";
         }
         $result .= "</tr>";
 
