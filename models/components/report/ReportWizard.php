@@ -63,7 +63,7 @@ class ReportWizard
         $i = 1;
         foreach ($targetGroups as $group)
         {
-            $inputData->getSheet(1)->setCellValueByColumnAndRow(1, $i, $group->id);
+            $inputData->getSheet(1)->setCellValueByColumnAndRow(15, $i, $group->id);
             $i++;
         }
 
