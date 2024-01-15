@@ -286,7 +286,7 @@ class ManHoursReportModel extends \yii\base\Model
 
         //--Отладочная информация--
 
-        $allGroups = null;
+        $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
 
         if ($this->unic == 1)
         {
