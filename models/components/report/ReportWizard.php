@@ -48,8 +48,8 @@ class ReportWizard
 
         // Процент обучающихся в 2+ группах
         $target = count(SupportReportFunctions::GetDoubleParticipantsFromGroup(ReportConst::PROD, $targetGroups, ReportConst::AGES_ALL, $end_date));
-        $allTechoparkTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date);
-        $allTechoparkTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, $end_date);
+        $allTechoparkTechnical = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, date('Y-m-d'));
+        $allTechoparkTechnicalUnique = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $targetGroups, 1, ReportConst::AGES_ALL, date('Y-m-d'));
         $allU = count($allTechoparkTechnicalUnique);
         $all = count($allTechoparkTechnical);
 
