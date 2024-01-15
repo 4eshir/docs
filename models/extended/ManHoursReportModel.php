@@ -135,8 +135,6 @@ class ManHoursReportModel extends \yii\base\Model
                     $this->budget,
                     $this->teacher == '' ? [] : $this->teacher);
 
-                var_dump(count($groups));
-                return;
 
                 $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, 0, ReportConst::AGES_ALL, date('Y-m-d'));
 
@@ -187,6 +185,8 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_EARLY_END_IN]);
 
+                    var_dump(count($groups1));
+
                     $groups1Id = SupportReportFunctions::GetIdFromArray($groups1);
 
 
@@ -213,6 +213,8 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_IN_END_LATER]);
 
+                    var_dump(count($groups2));
+
                     $groups2Id = SupportReportFunctions::GetIdFromArray($groups2);
 
                     $groupParticipants2 = $this->unic == 0 ?
@@ -238,6 +240,8 @@ class ManHoursReportModel extends \yii\base\Model
                         [],
                         [ReportConst::START_IN_END_IN]);
 
+                    var_dump(count($groups3));
+
                     $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
                     $groupParticipants3 = $this->unic == 0 ?
@@ -262,6 +266,8 @@ class ManHoursReportModel extends \yii\base\Model
                         $this->budget,
                         [],
                         [ReportConst::START_EARLY_END_LATER]);
+
+                    var_dump(count($groups4));
 
                     $groups4Id = SupportReportFunctions::GetIdFromArray($groups4);
 
