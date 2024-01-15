@@ -238,13 +238,6 @@ class ManHoursReportModel extends \yii\base\Model
 
                     $groups3Id = SupportReportFunctions::GetIdFromArray($groups3);
 
-                    var_dump($this->start_date);
-                    var_dump($this->end_date);
-                    var_dump($this->branch);
-                    var_dump($this->focus);
-                    var_dump($this->allow_remote);
-                    var_dump($this->budget);
-
                     $groupParticipants3 = $this->unic == 0 ?
                         TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $groups3Id])->all() :
                         TrainingGroupParticipantWork::find()->select('participant_id')->distinct()->where(['IN', 'training_group_id', $groups3Id])->all();

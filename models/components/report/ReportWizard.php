@@ -60,14 +60,6 @@ class ReportWizard
         $target = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $allTechoparkTechnical));
         //$all = count(SupportReportFunctions::GetCertificatsParticipantsFromGroup(ReportConst::PROD, $targetGroups, 0, ReportConst::AGES_ALL, $end_date));
 
-        var_dump($start_date);
-        var_dump($end_date);
-        var_dump([BranchWork::TECHNO]);
-        var_dump([FocusWork::TECHNICAL]);
-        var_dump(AllowRemoteWork::ALL);
-        var_dump([ReportConst::BUDGET]);
-        return;
-
         $inputData->getSheet(1)->setCellValueByColumnAndRow(10, 18, $all == 0 ? 0 : round(($target * 1.0 / $all) * 100));
 
 
