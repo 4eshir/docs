@@ -136,6 +136,7 @@ class ManHoursReportModel extends \yii\base\Model
                     $this->teacher == '' ? [] : $this->teacher);
 
                 var_dump(count($groups));
+                return;
 
                 $participants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $groups, 0, ReportConst::AGES_ALL, date('Y-m-d'));
 
