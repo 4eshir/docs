@@ -267,7 +267,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $group = \app\models\work\TrainingGroupWork::find()->where(['id' => $model->trainingGroup])->one();
         $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$app->user->identity->getId()])->andWhere(['in', 'role_id', $roles])->one();
         $isToken = \app\models\components\RoleBaseAccess::CheckSingleAccess(Yii::$app->user->identity->getId(), 49);
-        if (($isMethodist || $isToken || $lesson->lesson_date >= $date->format('Y-m-d') || $lesson->lesson_date < $tomorrow->format('Y-m-d')) && !$group->archive == 1) $dis = false;
+        if (($isMethodist || $isToken || ($lesson->lesson_date >= $date->format('Y-m-d') && $lesson->lesson_date < $tomorrow->format('Y-m-d'))) && !$group->archive == 1) $dis = false;
         if (!$dis)
             echo "<th>".date("d.m", strtotime($lesson->lesson_date)).'<br><a onclick="return allAdd('.$c.');" class="btn btn-success" style="margin-bottom: 5px">Все Я</a><a onclick="return allClear('.$c.');" class="btn btn-default">Все --</a>'."</th>";
         else
