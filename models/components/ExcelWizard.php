@@ -3597,7 +3597,7 @@ class ExcelWizard
 
         $emailColumnIndex = 0;
         $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
-        while ($birthdateColumnIndex < 100 && $tempValue !== 'Контакт: Рабочий e-mail')
+        while ($emailColumnIndex < 100 && $tempValue !== 'Контакт: Рабочий e-mail')
         {
             $emailColumnIndex++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($emailColumnIndex, $startRow)->getValue();
