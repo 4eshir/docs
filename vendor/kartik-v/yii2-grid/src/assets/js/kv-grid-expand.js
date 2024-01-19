@@ -1,13 +1,13 @@
 /*!
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
- * @version   3.5.0
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2023
+ * @version   3.5.3
  *
  * jQuery methods library for yii2-grid expand row column
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2022, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2023, Kartik Visweswaran, Krajee.com
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
@@ -311,7 +311,7 @@ var kvExpandRow;
                         var $rowSpanTds = $(tr).find('td.' + gridId + '[rowspan]');
                         $.each($rowSpanTds, function (j, td) {
                             var rowSpan = parseInt($(td).attr('rowspan'));
-                            if (!isNaN(rowspan) && $(tr).index() + rowSpan > expandRowPosition) {
+                            if (!isNaN(rowSpan) && $(tr).index() + rowSpan > expandRowPosition) {
                                 $(td).attr('rowspan', rowSpan + 1);
                             }
                         });
@@ -349,7 +349,7 @@ var kvExpandRow;
                             var $rowSpanTds = $(tr).find('td.' + gridId + '[rowspan]');
                             $.each($rowSpanTds, function (j, td) {
                                 var rowSpan = parseInt($(td).attr('rowspan'));
-                                if (!isNaN(rowspan) && $(tr).index() + rowSpan > expandRowPosition) {
+                                if (!isNaN(rowSpan) && $(tr).index() + rowSpan > expandRowPosition) {
                                     $(td).attr('rowspan', rowSpan - 1);
                                 }
                             });

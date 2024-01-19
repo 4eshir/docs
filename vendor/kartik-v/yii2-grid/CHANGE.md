@@ -1,6 +1,40 @@
 Change Log: `yii2-grid`
 =======================
 
+## Version 3.5.3
+
+**Date:** 25-Jul-2023
+
+- (enh #1073): Fix bug in `GridView::replacePart`.
+ 
+## Version 3.5.2
+
+**Date:** 25-Jul-2023
+
+- (enh #1072): *BC Breaking*: Gridview `replaceTags` optimized to render content only if necessary using callbacks.
+- (enh #1071): Enhance default dropdown filters styling for Bootstrap 5.x.
+- (enh #1070): Enhance grid header styling for use without panel.
+
+## Version 3.5.1
+
+**Date:** 23-Jul-2023
+
+- (enh #1066, #1067): Enhance resizable columns plugin with new `visibilityWaitTimeout` setting.
+- (enh #1065): Add back `kv-export-form` class to export form.
+- (bug #1064): Fix `filterAttribute` usage in `renderFilterCellContent`.
+- (enh #1057): Persist resize uniq column ids.
+- (enh #1056): Enhance GridView layout parts rendering for preventing wrong Bootstrap 5 plugin initializations.  
+- (enh #1054): Update Dutch Translations.
+- (enh #1050): Fix documentation and code mismatch.
+- (enh #1045): Add `isFilterEqual` method to validate filters correctly.
+- (enh #1040): Add sample code to docs for use cases where editable popover is always shown on page load.
+- (bug #1037): Correct resizable columns persist resize.
+- (bug #1036): Correct usage of `layout` property in `GridView`.
+- (enh #1031, #1032, #1033, #1034): Update Uzbek Translations.
+- (enh #1019): Update Arabic Translations.
+- Ability to set custom "resizable-column-id" for resizable colums
+     - set via column's `headerOptions['data-resizable-column-id']` property
+
 ## Version 3.5.0
 
 **Date:** 25-Feb-2022

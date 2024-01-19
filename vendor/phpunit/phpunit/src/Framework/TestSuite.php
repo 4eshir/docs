@@ -12,6 +12,7 @@ namespace PHPUnit\Framework;
 use const PHP_EOL;
 use function array_keys;
 use function array_merge;
+use function array_slice;
 use function basename;
 use function call_user_func;
 use function class_exists;
@@ -42,6 +43,8 @@ use ReflectionMethod;
 use Throwable;
 
 /**
+ * @template-implements IteratorAggregate<int, Test>
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 class TestSuite implements IteratorAggregate, SelfDescribing, Test
@@ -169,7 +172,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
                 } catch (ReflectionException $e) {
                     throw new Exception(
                         $e->getMessage(),
-                        (int) $e->getCode(),
+                        $e->getCode(),
                         $e
                     );
                 }
@@ -252,7 +255,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
         } catch (ReflectionException $e) {
             throw new Exception(
                 $e->getMessage(),
-                (int) $e->getCode(),
+                $e->getCode(),
                 $e
             );
         }
@@ -307,7 +310,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
             } catch (ReflectionException $e) {
                 throw new Exception(
                     $e->getMessage(),
-                    (int) $e->getCode(),
+                    $e->getCode(),
                     $e
                 );
             }
@@ -328,7 +331,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
                 } catch (ReflectionException $e) {
                     throw new Exception(
                         $e->getMessage(),
-                        (int) $e->getCode(),
+                        $e->getCode(),
                         $e
                     );
                 }
@@ -403,7 +406,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
                 } catch (ReflectionException $e) {
                     throw new Exception(
                         $e->getMessage(),
-                        (int) $e->getCode(),
+                        $e->getCode(),
                         $e
                     );
                 }
@@ -425,7 +428,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
             } catch (ReflectionException $e) {
                 throw new Exception(
                     $e->getMessage(),
-                    (int) $e->getCode(),
+                    $e->getCode(),
                     $e
                 );
             }
@@ -445,7 +448,7 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
                     } catch (ReflectionException $e) {
                         throw new Exception(
                             $e->getMessage(),
-                            (int) $e->getCode(),
+                            $e->getCode(),
                             $e
                         );
                     }
@@ -527,13 +530,13 @@ class TestSuite implements IteratorAggregate, SelfDescribing, Test
     /**
      * Runs the tests and collects their result in a TestResult.
      *
-     * @throws \PHPUnit\Framework\CodeCoverageException
      * @throws \SebastianBergmann\CodeCoverage\CoveredCodeNotExecutedException
      * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
      * @throws \SebastianBergmann\CodeCoverage\MissingCoversAnnotationException
      * @throws \SebastianBergmann\CodeCoverage\RuntimeException
      * @throws \SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws CodeCoverageException
      * @throws Warning
      */
     public function run(TestResult $result = null): TestResult

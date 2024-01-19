@@ -3,16 +3,16 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
- * @version   3.5.0
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2023
+ * @version   3.5.3
  */
 
 namespace kartik\grid;
 
+use Exception;
 use kartik\base\BootstrapInterface;
 use kartik\base\BootstrapTrait;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\grid\Column;
 use yii\grid\GridView as YiiGridView;
 use yii\helpers\ArrayHelper;
@@ -52,6 +52,29 @@ class GridView extends YiiGridView implements BootstrapInterface, GridViewInterf
 {
     use GridViewTrait;
     use BootstrapTrait;
+
+    /**
+     * @var string the layout that determines how different sections of the list view should be organized.
+     * The layout template will be automatically set based on the [[panel]] setting. If [[panel]] is a valid
+     * array, then the [[layout]] will default to the [[panelTemplate]] property. If the [[panel]] property
+     * is set to `false`, then the [[layout]] will default to `{summary}\n{items}\n{pager}`.
+     *
+     * The following tokens will be replaced with the corresponding section contents:
+     *
+     * - `{summary}`: the summary section. See [[renderSummary()]].
+     * - `{errors}`: the filter model error summary. See [[renderErrors()]].
+     * - `{items}`: the list items. See [[renderItems()]].
+     * - `{sorter}`: the sorter. See [[renderSorter()]].
+     * - `{pager}`: the pager. See [[renderPager()]].
+     * - `{export}`: the grid export button menu. See [[renderExport()]].
+     * - `{toolbar}`: the grid panel toolbar. See [[renderToolbar()]].
+     * - `{toolbarContainer}`: the toolbar container. See [[renderToolbarContainer()]].
+     *
+     * In addition to the above tokens, refer the [[panelTemplate]] property for other tokens supported as
+     * part of the bootstrap styled panel.
+     *
+     */
+    public $layout = "{summary}\n{items}\n{pager}";
 
     /**
      * @var string the default data column class if the class name is not explicitly specified when configuring a data
@@ -95,7 +118,7 @@ class GridView extends YiiGridView implements BootstrapInterface, GridViewInterf
 
     /**
      * @inheritdoc
-     * @throws InvalidConfigException
+     * @throws Exception
      */
     public function renderTableBody()
     {
@@ -114,7 +137,22 @@ class GridView extends YiiGridView implements BootstrapInterface, GridViewInterf
      */
     public function renderTableHeader()
     {
-        return $this->renderTablePart('thead', parent::renderTableHeader());
+        $cells = [];
+        foreach ($this->columns as $index => $column) {
+            /* @var DataColumn $column */
+            if ($this->resizableColumns && $this->persistResize && !isset($column->headerOptions['data-resizable-column-id'])) {
+                $column->headerOptions['data-resizable-column-id'] = "kv-col-{$index}";
+            }
+            $cells[] = $column->renderHeaderCell();
+        }
+        $content = Html::tag('tr', implode('', $cells), $this->headerRowOptions);
+        if ($this->filterPosition == self::FILTER_POS_HEADER) {
+            $content = $this->renderFilters() . $content;
+        } elseif ($this->filterPosition == self::FILTER_POS_BODY) {
+            $content .= $this->renderFilters();
+        }
+
+        return $this->renderTablePart('thead', $content);
     }
 
     /**
@@ -122,7 +160,16 @@ class GridView extends YiiGridView implements BootstrapInterface, GridViewInterf
      */
     public function renderTableFooter()
     {
-        return $this->renderTablePart('tfoot', parent::renderTableFooter());
+        $cells = [];
+        foreach ($this->columns as $column) {
+            /* @var $column Column */
+            $cells[] = $column->renderFooterCell();
+        }
+        $content = Html::tag('tr', implode('', $cells), $this->footerRowOptions);
+        if ($this->filterPosition === self::FILTER_POS_FOOTER) {
+            $content .= $this->renderFilters();
+        }
+        return $this->renderTablePart('tfoot', $content);
     }
 
     /**

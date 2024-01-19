@@ -8,7 +8,7 @@ Select2
 Select2 is a jQuery-based replacement for select boxes. It supports searching,
 remote data sets, and pagination of results.
 
-To get started, checkout examples and documentation at
+To get started, check out examples and documentation at
 https://select2.org/
 
 Use cases
@@ -141,7 +141,7 @@ Support this project with your organization. Your logo will show up here with a 
 [django]: https://www.djangoproject.com/
 [django-autocomplete-light]: https://github.com/yourlabs/django-autocomplete-light
 [django-easy-select2]: https://github.com/asyncee/django-easy-select2
-[django-select2]: https://github.com/applegrew/django-select2
+[django-select2]: https://github.com/codingjoe/django-select2
 [drupal]: https://www.drupal.org/
 [drupal-select2]: https://www.drupal.org/project/select2
 [flat-ui]: http://designmodo.github.io/Flat-UI/

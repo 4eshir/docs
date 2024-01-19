@@ -28,6 +28,8 @@ use yii\queue\cli\Queue as CliQueue;
 /**
  * Amqp Queue.
  *
+ * @property-read AmqpContext $context
+ *
  * @author Maksym Kotliar <kotlyar.maksim@gmail.com>
  * @since 2.0.2
  */
@@ -42,7 +44,7 @@ class Queue extends CliQueue
     const ENQUEUE_AMQP_BUNNY = 'enqueue/amqp-bunny';
 
     /**
-     * The connection to the borker could be configured as an array of options
+     * The connection to the broker could be configured as an array of options
      * or as a DSN string like amqp:, amqps:, amqps://user:pass@localhost:1000/vhost.
      *
      * @var string
@@ -233,6 +235,19 @@ class Queue extends CliQueue
      * @var string command class name
      */
     public $commandClass = Command::class;
+    /**
+     * Headers to send along with the message
+     * ```php
+     * [
+     *    'header-1' => 'header-value-1',
+     *    'header-2' => 'header-value-2',
+     * ]
+     * ```
+     *
+     * @var array
+     * @since 3.0.0
+     */
+    public $setMessageHeaders = [];
 
     /**
      * Amqp interop context.
@@ -351,8 +366,13 @@ class Queue extends CliQueue
         $message->setDeliveryMode(AmqpMessage::DELIVERY_MODE_PERSISTENT);
         $message->setMessageId(uniqid('', true));
         $message->setTimestamp(time());
-        $message->setProperty(self::ATTEMPT, 1);
-        $message->setProperty(self::TTR, $ttr);
+        $message->setProperties(array_merge(
+            $this->setMessageHeaders,
+            [
+                self::ATTEMPT => 1,
+                self::TTR => $ttr,
+            ]
+        ));
 
         $producer = $this->context->createProducer();
 

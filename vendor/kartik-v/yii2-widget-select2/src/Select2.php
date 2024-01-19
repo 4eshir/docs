@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2023
  * @package yii2-widgets
  * @subpackage yii2-widget-select2
- * @version 2.2.4
+ * @version 2.2.5
  */
 
 namespace kartik\select2;
@@ -82,7 +82,7 @@ class Select2 extends InputWidget
     const THEME_BOOTSTRAP = 'bootstrap';
     /**
      * Select2 Krajee theme (default for BS3)
-     * @deprecated since v2.2.4
+     * @deprecated since v2.2.5
      */
     const THEME_KRAJEE = 'krajee-bs3';
     /**
@@ -457,7 +457,7 @@ class Select2 extends InputWidget
         $this->_s2OptionsVar = 's2options_'.hash('crc32', $options);
         $this->options['data-s2-options'] = $this->_s2OptionsVar;
         $view = $this->getView();
-        $view->registerJs("var {$this->_s2OptionsVar} = {$options};", $this->hashVarLoadPosition);
+        $view->registerJs("window.{$this->_s2OptionsVar} = {$options};", $this->hashVarLoadPosition);
         if ($this->maintainOrder) {
             $val = Json::encode(is_array($this->value) ? $this->value : [$this->value]);
             $view->registerJs("initS2Order('{$id}',{$val});");
