@@ -693,7 +693,7 @@ class ReportWizard
             $sumAges[$i] += count($ageParticipants);
         }
         
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($sumAges));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, array_sum($sumAges));
         //--------------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (соц-пед направленность)--
