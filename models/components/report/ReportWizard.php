@@ -668,14 +668,14 @@ class ReportWizard
 
 
         //--Разбиваем детей по возрастам (техническая направленность)--
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($ageParticipants12));
         $sumAge12 += count($ageParticipants12);
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipantsFulltime = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
-            $ageParticipantsRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            $ageParticipantsFulltime = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            $ageParticipantsRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 6, count($ageParticipantsRemote) + count($ageParticipantsFulltime));
             $sumAges[$i] += count($ageParticipantsRemote) + count($ageParticipantsFulltime);
         }
