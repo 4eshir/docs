@@ -692,6 +692,8 @@ class ReportWizard
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 7, count($ageParticipants));
             $sumAges[$i] += count($ageParticipants);
         }
+        
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($sumAges));
         //--------------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (соц-пед направленность)--
@@ -749,11 +751,11 @@ class ReportWizard
         //--------------------------------
 
         //--Заполняем суммы по направленностям--
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($technicalAll));
+        /*$inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, count($technicalAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, count($scienceAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($socialAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($artAll));
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($sportAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($sportAll));*/
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, $sumAgesUnic);
         //--------------------------------------
