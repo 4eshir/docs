@@ -803,7 +803,7 @@ class TrainingGroupWork extends TrainingGroup
                 foreach ($this->participants as $participant) {
                     if ($participant->participant_id !== "")
                     {
-                        if ($currentCountParts < 100)
+                        if ($currentCountParts <= 100)
                         {
                             $trainingParticipant = new TrainingGroupParticipant();
                             $trainingParticipant->participant_id = $participant->participant_id;

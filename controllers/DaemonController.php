@@ -130,6 +130,11 @@ class DaemonController extends Controller
         }
     }
 
+    public function actionsCheck()
+    {
+        Logger::WriteLog(1, 'Проверка крона');
+    }
+
     public function actionMessageErrors()
     {
         $users = UserWork::find()->all();
