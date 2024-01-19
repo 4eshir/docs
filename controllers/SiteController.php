@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\components\ArraySqlConstructor;
 use app\models\components\ExcelWizard;
+use app\models\work\BackupVisitWork;
 use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\FeedbackWork;
@@ -27,9 +28,11 @@ use app\models\extended\FeedbackAnswer;
 use app\models\ForgotPassword;
 use app\models\SearchDocumentOut;
 use app\models\SearchOutDocsModel;
+use app\models\work\VisitWork;
 use Yii;
 use yii\console\ExitCode;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
@@ -228,22 +231,40 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        $teams = TeamWork::find()->all();
+        set_time_limit(0);
 
-        foreach ($teams as $team)
+        $start = microtime(true);
+
+        $data = VisitWork::find()->orderBy(['id' => SORT_DESC])->limit(100000)->all();
+
+        /*$data=array_map(function($m) {
+            return $m->getAttributes(array('id','foreign_event_participant_id'));
+        }, $data);*/
+
+        //file_put_contents(Yii::$app->basePath."/upload/files/backup_visits.json", strval($data[0]));
+
+        $json = json_encode($data);
+        //$data = json_decode($json, true);
+
+        $backup = new BackupVisitWork(5, $json);
+        $backup->save();
+        var_dump($backup->getErrors());
+
+        /*for ($i = 0; $i != count($data); $i++)
         {
-            $participant = ParticipantAchievementWork::find()
-                ->where(['teacher_participant_id' => $team->teacher_participant_id])
-                ->andWhere(['participant_id' => $team->participant_id])
-                ->andWhere(['foreign_event_id' => $team->foreign_event_id])->one();
+            $backup = new BackupVisitWork(
+                $data[$i]->id,
+                $data[$i]->foreign_event_participant_id,
+                $data[$i]->training_group_lesson_id,
+                $data[$i]->status
+            );
 
-            if ($participant !== null)
-            {
-                $participant->team_name_id = $team->team_name_id;
-                $participant->save();
-            }
+            $backup->save();
+        }*/
 
-        }
+        $diff = sprintf('%.6f sec.', microtime(true) - $start);
+
+        var_dump($diff);
 
         //var_dump($stream->getSize());
         /*$logs = LogWork::find()->where(['like', 'text', 'Добавлена группа%', false])->all();

@@ -8,11 +8,10 @@ use Yii;
  * This is the model class for table "backup_visit".
  *
  * @property int $id
- * @property int $foreign_event_participant_id
- * @property int $training_group_lesson_id
- * @property int $status
- *
- * @property ForeignEventParticipants $foreignEventParticipant
+ * @property int|null $foreign_event_participant_id
+ * @property int|null $training_group_lesson_id
+ * @property int|null $status
+ * @property string|null $structure
  */
 class BackupVisit extends \yii\db\ActiveRecord
 {
@@ -30,9 +29,8 @@ class BackupVisit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['foreign_event_participant_id', 'training_group_lesson_id'], 'required'],
             [['foreign_event_participant_id', 'training_group_lesson_id', 'status'], 'integer'],
-            [['foreign_event_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['foreign_event_participant_id' => 'id']],
+            [['structure'], 'string'],
         ];
     }
 
@@ -46,16 +44,7 @@ class BackupVisit extends \yii\db\ActiveRecord
             'foreign_event_participant_id' => 'Foreign Event Participant ID',
             'training_group_lesson_id' => 'Training Group Lesson ID',
             'status' => 'Status',
+            'structure' => 'Structure',
         ];
-    }
-
-    /**
-     * Gets query for [[ForeignEventParticipant]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getForeignEventParticipant()
-    {
-        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'foreign_event_participant_id']);
     }
 }

@@ -15,6 +15,7 @@ use app\models\work\ResponsibleWork;
 use app\models\work\UseYearsWork;
 use app\models\components\UserRBAC;
 use app\models\DynamicModel;
+use app\models\work\VisitWork;
 use DateTime;
 use Yii;
 use app\models\work\AsAdminWork;
@@ -35,7 +36,7 @@ class VisitDebugController extends Controller
 
     public function actionPartialCopyVisits($partCount = 1000)
     {
-        
+        var_dump(VisitWork::find()->orderBy(['id' => SORT_DESC])->limit(1000));
     }
 
 }

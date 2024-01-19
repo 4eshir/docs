@@ -556,11 +556,11 @@ class ReportWizard
         $technicalNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL,
             ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
-        $technicalNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalNetworkGroups);
+        $technicalNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalNetworkGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $technicalRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
-        $technicalRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalRemoteGroups);
+        $technicalRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalRemoteGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
         //------------------------------
 
         //--Естественнонаучное направленность--
@@ -571,11 +571,11 @@ class ReportWizard
         $scienceNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SCIENCE], AllowRemoteWork::ALL,
             ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
-        $scienceNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceNetworkGroups);
+        $scienceNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceNetworkGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $scienceRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SCIENCE], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
-        $scienceRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceRemoteGroups);
+        $scienceRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceRemoteGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
         //-------------------------------------
 
         //--Соц-пед направленность--
@@ -586,11 +586,11 @@ class ReportWizard
         $socialNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SOCIAL], AllowRemoteWork::ALL,
             ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
-        $socialNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialNetworkGroups);
+        $socialNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialNetworkGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $socialRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SOCIAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
-        $socialRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialRemoteGroups);
+        $socialRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialRemoteGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
         //--------------------------
 
         //--Художественная направленность--
@@ -601,11 +601,11 @@ class ReportWizard
         $artNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::ART], AllowRemoteWork::ALL,
             ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
-        $artNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artNetworkGroups);
+        $artNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artNetworkGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $artRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::ART], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
-        $artRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artRemoteGroups);
+        $artRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artRemoteGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
         //---------------------------------
 
         //--Спортивная направленность--
@@ -616,11 +616,11 @@ class ReportWizard
         $sportNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SPORT], AllowRemoteWork::ALL,
             ReportConst::BUDGET_ALL, [], ReportConst::ALL_DATE_SELECTION, [ReportConst::NETWORK]);
-        $sportNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportNetworkGroups);
+        $sportNetworkAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportNetworkGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $sportRemoteGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::SPORT], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
-        $sportRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportRemoteGroups);
+        $sportRemoteAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportRemoteGroups, 0, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
         //-----------------------------
 
 
