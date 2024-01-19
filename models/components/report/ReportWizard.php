@@ -669,9 +669,10 @@ class ReportWizard
 
         for ($i = 3; $i < 18; $i++)
         {
-            $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
-            $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 6, count($ageParticipants));
-            $sumAges[$i] += count($ageParticipants);
+            $ageParticipantsFulltime = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            $ageParticipantsRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 6, count($ageParticipantsRemote) + count($ageParticipantsFulltime));
+            $sumAges[$i] += count($ageParticipantsRemote) + count($ageParticipantsFulltime);
         }
         //-------------------------------------------------------------
 
