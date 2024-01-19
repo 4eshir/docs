@@ -728,13 +728,14 @@ class ReportWizard
         //--Заполняем суммы по возрастам--
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 12, 0);
 
+        $sumAgesUnic = 0;
         for ($i = 3; $i < 18; $i++)
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD,
                 array_merge($technicalGroups, array_merge($scienceGroups, array_merge($socialGroups, array_merge($artGroups, $sportGroups)))),
                 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 16, count($ageParticipants));
-
+            $sumAgesUnic += count($ageParticipants);
         }
         //--------------------------------
 
@@ -745,7 +746,7 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($artAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($sportAll));
 
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, count($technicalAll) + count($scienceAll) + count($socialAll) + count($artAll) + count($sportAll));
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, $sumAgesUnic);
         //--------------------------------------
 
         //------------------------
