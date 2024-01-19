@@ -658,6 +658,17 @@ class ReportWizard
         $inputData->getSheet(0)->setCellValueByColumnAndRow(5, 14, count($sportRemoteAll));
         //------------------------
 
+        
+        
+        //--Тут магические переменные от безысходности--
+        $magicTechnical = 0;
+        $magicScience = 0;
+        $magicSocial = 0;
+        $magicArt = 0;
+        $magicSport = 0;
+        //-----------------------
+        
+        
 
         //--Заполнение раздела 4--
 
@@ -678,9 +689,8 @@ class ReportWizard
             $ageParticipantsRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 6, count($ageParticipantsRemote) + count($ageParticipantsFulltime));
             $sumAges[$i] += count($ageParticipantsRemote) + count($ageParticipantsFulltime);
+            $magicTechnical += count($ageParticipantsRemote) + count($ageParticipantsFulltime);
         }
-        
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, array_sum($sumAges));
         //-------------------------------------------------------------
 
         //--Разбиваем детей по возрастам (естественнонаучная направленность)--
@@ -693,6 +703,7 @@ class ReportWizard
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 7, count($ageParticipants));
             $sumAges[$i] += count($ageParticipants);
+            $magicScience += count($ageParticipants);
         }
         //--------------------------------------------------------------------
 
@@ -706,6 +717,7 @@ class ReportWizard
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 9, count($ageParticipants));
             $sumAges[$i] += count($ageParticipants);
+            $magicSocial += count($ageParticipants);
         }
         //---------------------------------------------------------
 
@@ -719,6 +731,7 @@ class ReportWizard
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 10, count($ageParticipants));
             $sumAges[$i] += count($ageParticipants);
+            $magicArt += count($ageParticipants);
         }
         //-----------------------------------------------------------------
 
@@ -732,6 +745,7 @@ class ReportWizard
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 12, count($ageParticipants));
             $sumAges[$i] += count($ageParticipants);
+            $magicSport += count($ageParticipants);
         }
         //------------------------------------------------------------
 
@@ -756,6 +770,21 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, count($socialAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, count($artAll));
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, count($sportAll));*/
+        
+        // тут начинается применение магических переменных и перезапись данных из раздела три, чтобы магию не палить
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 6, $magicTechnical);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 7, $magicScience);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 9, $magicSocial);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, $magicArt);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, $magicSport);
+        
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 6, $magicTechnical);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 7, $magicScience);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 9, $magicSocial);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 10, $magicArt);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 12, $magicSport);
+        
+        // тут магия закончилась
 
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 16, $sumAgesUnic);
         //--------------------------------------
