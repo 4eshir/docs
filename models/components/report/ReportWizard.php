@@ -778,11 +778,11 @@ class ReportWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 10, $magicArt);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(2, 12, $magicSport);
         
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 6, $magicTechnical);
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 7, $magicScience);
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 9, $magicSocial);
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 10, $magicArt);
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 12, $magicSport);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 8, $magicTechnical);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 9, $magicScience);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 11, $magicSocial);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 12, $magicArt);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(2, 14, $magicSport);
         
         // тут магия закончилась
 
