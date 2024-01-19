@@ -732,7 +732,7 @@ class ReportWizard
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD,
                 array_merge($technicalGroups, array_merge($scienceGroups, array_merge($socialGroups, array_merge($artGroups, $sportGroups)))),
-                0, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+                1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 16, count($ageParticipants));
 
         }
