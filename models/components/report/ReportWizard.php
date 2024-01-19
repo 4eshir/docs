@@ -553,8 +553,13 @@ class ReportWizard
         $technicalGroupsRemote = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date, BranchWork::ALL, [FocusWork::TECHNICAL], [AllowRemoteWork::FULLTIME_WITH_REMOTE]);
         $technicalGroups = array_merge($technicalGroupsRemote, $technicalGroupsFulltime);
         
-        $technicalAll = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
-        $technicalFemale = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
+        $technicalAllFulltime = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $technicalAllRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $technicalAll = array_merge($technicalAllFulltime, $technicalAllRemote);
+
+        $technicalFemaleFulltime = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
+        $technicalFemaleRemote = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01', [ReportConst::FEMALE]);
+        $technicalFemale = array_merge($technicalFemaleFulltime, $technicalFemaleRemote);
 
         $technicalNetworkGroups = SupportReportFunctions::GetTrainingGroups(ReportConst::PROD, $start_date, $end_date,
             BranchWork::ALL, [FocusWork::TECHNICAL], AllowRemoteWork::ALL,
