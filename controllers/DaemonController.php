@@ -130,7 +130,7 @@ class DaemonController extends Controller
         }
     }
 
-    public function actionsCheck()
+    public function actionCheck()
     {
         Logger::WriteLog(1, 'Проверка крона');
     }

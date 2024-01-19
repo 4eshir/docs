@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '5b570937063daf6cc01031a726608f80a3e39ef1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -265,9 +265,7 @@
             'reference' => 'f8ae7cb4c654e9d6f31c10271321ea99f7ca8ae9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
-            'aliases' => array(
-                0 => '2.2.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => true,
         ),
         'kartik-v/dependent-dropdown' => array(
@@ -409,24 +407,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.6.x-dev',
-            'version' => '2.6.9999999.9999999-dev',
-            'reference' => '46879b76891c81d154f3f3c8ece7a5dd395015d6',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../laminas/laminas-escaper',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'laminas/laminas-zendframework-bridge' => array(
-            'pretty_version' => '1.1.x-dev',
-            'version' => '1.1.9999999.9999999-dev',
-            'reference' => '69d7803570f4da0bf396d25cd5a6b0665afb717b',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'league/event' => array(
             'pretty_version' => '2.2.0',
             'version' => '2.2.0.0',
@@ -546,9 +526,7 @@
             'reference' => '2ed4245a817d859dd0c1d51c7078cdb343cf5233',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/curl-client',
-            'aliases' => array(
-                0 => '2.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'php-http/discovery' => array(
@@ -566,9 +544,7 @@
             'reference' => 'f640739f80dfa1152533976e3c112477f69274eb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/httplug',
-            'aliases' => array(
-                0 => '2.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'php-http/message' => array(
@@ -578,17 +554,6 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/message',
             'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'php-http/message-factory' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '597f30e6dfd32a85fd7dbe58cb47554b5bad910e',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../php-http/message-factory',
-            'aliases' => array(
-                0 => '1.0.x-dev',
-            ),
             'dev_requirement' => false,
         ),
         'php-http/message-factory-implementation' => array(
@@ -603,41 +568,8 @@
             'reference' => '4c4c1f9b7289a2ec57cde7f1e9762a5789506f88',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/promise',
-            'aliases' => array(
-                0 => '1.1.x-dev',
-            ),
-            'dev_requirement' => false,
-        ),
-        'phpdocumentor/reflection-common' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'a0eeab580cbdf4414fef6978732510a36ed0a9d6',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpdocumentor/reflection-common',
-            'aliases' => array(
-                0 => '2.x-dev',
-            ),
-            'dev_requirement' => true,
-        ),
-        'phpdocumentor/reflection-docblock' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '9455bde915e322a823d464a2c41e5c0de03512a6',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpdocumentor/reflection-docblock',
-            'aliases' => array(
-                0 => '5.x-dev',
-            ),
-            'dev_requirement' => true,
-        ),
-        'phpdocumentor/type-resolver' => array(
-            'pretty_version' => '1.x-dev',
-            'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => '77a32518733312af16a44300404e945338981de3',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpdocumentor/type-resolver',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'phpoffice/phpexcel' => array(
             'pretty_version' => '1.8.x-dev',
@@ -663,9 +595,7 @@
             'reference' => 'be0190cd5d8f95b4be08d5853b107aa4e352759a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpword',
-            'aliases' => array(
-                0 => '0.19.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'phpspec/php-diff' => array(
@@ -675,17 +605,6 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpspec/php-diff',
             'aliases' => array(),
-            'dev_requirement' => true,
-        ),
-        'phpspec/prophecy' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'bbcd7380b0ebf3961ee21409db7b38bc31d69a13',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpspec/prophecy',
-            'aliases' => array(
-                0 => '1.x-dev',
-            ),
             'dev_requirement' => true,
         ),
         'phpunit/php-code-coverage' => array(
@@ -808,9 +727,7 @@
             'reference' => 'efd67d1dc14a7ef4fc4e518e7dee91c271d524e4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/http-message',
-            'aliases' => array(
-                0 => '1.0.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'psr/http-message-implementation' => array(
@@ -1082,9 +999,7 @@
             'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-iconv' => array(
@@ -1093,9 +1008,7 @@
             'reference' => '143f1881e655bebca1312722af8068de235ae5dc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-iconv',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-grapheme' => array(
@@ -1104,9 +1017,7 @@
             'reference' => '433d05519ce6990bf3530fba6957499d327395c2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-intl-grapheme',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => true,
         ),
         'symfony/polyfill-intl-idn' => array(
@@ -1115,9 +1026,7 @@
             'reference' => '59a8d271f00dd0e4c2e518104cc7963f655a1aa8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-intl-idn',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-normalizer' => array(
@@ -1126,9 +1035,7 @@
             'reference' => '219aa369ceff116e673852dce47c3a41794c14bd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-intl-normalizer',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-mbstring' => array(
@@ -1137,9 +1044,7 @@
             'reference' => '9344f9cb97f3b19424af1a21a3b0e75b0a7d8d7e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-php72' => array(
@@ -1148,9 +1053,7 @@
             'reference' => 'bf44a9fd41feaac72b074de600314a93e2ae78e2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php72',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-php73' => array(
@@ -1159,9 +1062,7 @@
             'reference' => 'e440d35fa0286f77fb45b79a03fedbeda9307e85',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php73',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/polyfill-php80' => array(
@@ -1170,9 +1071,7 @@
             'reference' => 'cfa0ae98841b9e461207c13ab093d76b0fa7bace',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php80',
-            'aliases' => array(
-                0 => '1.26.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/process' => array(
@@ -1231,15 +1130,6 @@
             ),
             'dev_requirement' => false,
         ),
-        'webmozart/assert' => array(
-            'pretty_version' => '1.11.0',
-            'version' => '1.11.0.0',
-            'reference' => '11cb2199493b2f8a3b53e7f19068fc6aac760991',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../webmozart/assert',
-            'aliases' => array(),
-            'dev_requirement' => true,
-        ),
         'yiisoft/yii2' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -1252,9 +1142,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '5b570937063daf6cc01031a726608f80a3e39ef1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1332,12 +1222,6 @@
                 0 => '2.1.x-dev',
             ),
             'dev_requirement' => false,
-        ),
-        'zendframework/zend-escaper' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^2.6.1',
-            ),
         ),
         'zhuravljov/yii2-queue' => array(
             'pretty_version' => 'dev-master',
