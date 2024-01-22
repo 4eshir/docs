@@ -824,19 +824,19 @@ class ReportWizard
         $commSport = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroupsComm, 1, ReportConst::AGES_ALL_18, ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 6, count($technicalAll) - count($commTechnical));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 6, $magicTechnical - count($commTechnical));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 6, count($commTechnical));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 7, count($scienceAll) - count($commScience));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 7, $magicScience - count($commScience));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 7, count($commScience));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 9, count($socialAll) - count($commSocial));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 9, $magicSocial - count($commSocial));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 9, count($commSocial));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 10, count($artAll) - count($commArt));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 10, $magicArt - count($commArt));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 10, count($commArt));
 
-        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 12, count($sportAll) - count($budgetSport));
+        $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 12, $magicSport - count($budgetSport));
         $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 12, count($commSport));
 
         //------------------------
