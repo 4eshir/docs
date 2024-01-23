@@ -113,6 +113,7 @@ class DebugReportFunctions
             foreach ($participantsId as $pId)
             {
                 $participant = TrainingGroupParticipantWork::find()->where(['participant_id' => $pId])->andWhere(['IN', 'training_group_id', $groupsId])->one();
+                $successString = $participant->success == 0 ? "Нет" : "Да";
                 $result .= $participant->participantWork->fullName.";".
                     $participant->trainingGroupWork->number.";".
                     $participant->trainingGroupWork->start_date.";".
@@ -125,7 +126,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText.";".
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".
                     $participant->trainingGroupWork->trainingProgramWork->name.";".
-                    $participant->success == 0 ? "Нет;" : "Да;".
+                    $successString.";".
                     $participant->groupProjectThemesWork->projectThemeWork->name.";".
                     $participant->trainingGroupWork->protection_date.";".
                     $participant->groupProjectThemesWork->projectTypeWork->name.";".

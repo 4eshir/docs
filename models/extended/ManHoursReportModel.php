@@ -287,7 +287,7 @@ class ManHoursReportModel extends \yii\base\Model
         //--Отладочная информация--
 
 
-        /*if ($this->unic == 1)
+        if ($this->unic == 1)
         {
             $allGroups = array_merge($groups1Id, array_merge($groups2Id, array_merge($groups3Id, $groups4Id)));
 
@@ -296,7 +296,7 @@ class ManHoursReportModel extends \yii\base\Model
             $debugCSV2 .= DebugReportFunctions::DebugDataParticipantsCount(0, $allParticipants, $this->unic, $allGroups);
 
             $resultParticipantCount = $this->generateView($allParticipants, ManHoursReportModel::PARTICIPANTS_UNIQUE_REPORT);
-        }*/
+        }
 
         //-------------------------
 
