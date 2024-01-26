@@ -253,15 +253,26 @@ class SiteController extends Controller
         $sign = hash('sha256', implode(":", $arr_sign)); 
 
         if(!in_array($_SERVER['REMOTE_ADDR'], $arr_ip)){
+
+        $log = new LogWork();
+        $log->user_id = 1;
+        $log->text = 'BADIP_pay';
           die("bad ip!");
         } 
 
         if($sign != $_REQUEST['sign']){
+
+        $log = new LogWork();
+        $log->user_id = 1;
+        $log->text = 'WRONGSIGN_pay';
           die('wrong sign!');
         }
 
         // Оплата прошла успешно, можно проводить операцию  
 
+        $log = new LogWork();
+        $log->user_id = 1;
+        $log->text = 'OK_pay';
         die('OK');  
         /*set_time_limit(0);
 
