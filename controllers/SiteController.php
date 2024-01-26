@@ -231,15 +231,43 @@ class SiteController extends Controller
 
     public function actionTemp()
     {
-        set_time_limit(0);
+        $project_id = '13574';
+        $status = 'paid';
+        $secret_key = 'nAIkdOTMvPPEDHX68fsN';
+
+        $arr_ip = array(
+          '185.162.128.38', 
+          '185.162.128.39', 
+          '185.162.128.88'
+        );
+
+        $arr_sign = array(
+          $_REQUEST['currency'], 
+          $_REQUEST['amount'], 
+          $_REQUEST['pay_id'],
+          $project_id,
+          $status,
+          $secret_key
+        );
+
+        $sign = hash('sha256', implode(":", $arr_sign)); 
+
+        if(!in_array($_SERVER['REMOTE_ADDR'], $arr_ip)){
+          die("bad ip!");
+        } 
+
+        if($sign != $_REQUEST['sign']){
+          die('wrong sign!');
+        }
+
+        // Оплата прошла успешно, можно проводить операцию  
+
+        die('OK');  
+        /*set_time_limit(0);
 
         $start = microtime(true);
 
         $data = VisitWork::find()->orderBy(['id' => SORT_DESC])->limit(100000)->all();
-
-        /*$data=array_map(function($m) {
-            return $m->getAttributes(array('id','foreign_event_participant_id'));
-        }, $data);*/
 
         //file_put_contents(Yii::$app->basePath."/upload/files/backup_visits.json", strval($data[0]));
 
@@ -248,7 +276,7 @@ class SiteController extends Controller
 
         $backup = new BackupVisitWork(5, $json);
         $backup->save();
-        var_dump($backup->getErrors());
+        var_dump($backup->getErrors());*/
 
         /*for ($i = 0; $i != count($data); $i++)
         {
