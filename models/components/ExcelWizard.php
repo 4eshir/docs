@@ -907,22 +907,15 @@ class ExcelWizard
 
     static public function DownloadEffectiveContract($start_date, $end_date, $budget)
     {
-        
+        set_time_limit(0);
 
         $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/report_EC.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/report_EC.xlsx');
-        //var_dump($inputData);
+
 
         $tgIds = [];
 
-
-        /*$trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['IN', 'budget', $budget])])
-            ->all();
-*/
         $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
@@ -934,32 +927,6 @@ class ExcelWizard
         
         foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
 
-        //Получаем количество учеников
-        /*
-        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])->andWhere(['<', 'start_date', $end_date])->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        
-        foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-
-        $trainingGroups2 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])->andWhere(['>', 'finish_date', $start_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        foreach ($trainingGroups2 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-
-        $trainingGroups3 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['<', 'start_date', $start_date])->andWhere(['>', 'finish_date', $end_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        foreach ($trainingGroups3 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-
-        $trainingGroups4 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['>', 'start_date', $start_date])->andWhere(['<', 'finish_date', $end_date])
-            ->andWhere(['IN', 'budget', $budget])
-            ->all();
-
-        foreach ($trainingGroups4 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-        */
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($tgIds)])->all();
 
@@ -982,10 +949,6 @@ class ExcelWizard
 
         $events = ForeignEventWork::find()->andWhere(['>=', 'finish_date', $start_date])->andWhere(['<=', 'finish_date', $end_date]);
 
-
-
-        //var_dump(count(ExcelWizard::GetParticipantAchievements([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date)[0]));
-    
 
         //-------------------------------------------
 

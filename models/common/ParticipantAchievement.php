@@ -8,21 +8,20 @@ use Yii;
  * This is the model class for table "participant_achievement".
  *
  * @property int $id
- * @property int|null $participant_id
- * @property int|null $foreign_event_id
  * @property int $teacher_participant_id
+ * @property int $participant_id
+ * @property int $foreign_event_id
  * @property string $achievment
  * @property int $winner
  * @property string|null $cert_number
  * @property string|null $nomination
  * @property string|null $date
+ * @property int|null $team_name_id
  *
  * @property ForeignEvent $foreignEvent
  * @property ForeignEventParticipants $participant
- * @property int|null $team_name_id
- *
- * @property TeamName $teamName
  * @property TeacherParticipant $teacherParticipant
+ * @property TeamName $teamName
  */
 class ParticipantAchievement extends \yii\db\ActiveRecord
 {
@@ -40,12 +39,15 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['teacher_participant_id', 'achievment'], 'required'],
-            [['participant_id', 'foreign_event_id', 'teacher_participant_id', 'winner'], 'integer'],
+            [['id', 'participant_id', 'foreign_event_id', 'achievment'], 'required'],
+            [['id', 'teacher_participant_id', 'participant_id', 'foreign_event_id', 'winner', 'team_name_id'], 'integer'],
             [['date'], 'safe'],
             [['achievment', 'cert_number', 'nomination'], 'string', 'max' => 1000],
+            [['id'], 'unique'],
             [['foreign_event_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEvent::className(), 'targetAttribute' => ['foreign_event_id' => 'id']],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['participant_id' => 'id']],
+            [['teacher_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TeacherParticipant::className(), 'targetAttribute' => ['teacher_participant_id' => 'id']],
+            [['team_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => TeamName::className(), 'targetAttribute' => ['team_name_id' => 'id']],
         ];
     }
 
@@ -57,6 +59,8 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'teacher_participant_id' => 'Teacher Participant ID',
+            'participant_id' => 'Participant ID',
+            'foreign_event_id' => 'Foreign Event ID',
             'achievment' => 'Achievment',
             'winner' => 'Winner',
             'cert_number' => 'Cert Number',
@@ -67,15 +71,24 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[TeamName]].
+     * Gets query for [[ForeignEvent]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTeamName()
+    public function getForeignEvent()
     {
-        return $this->hasOne(TeamName::className(), ['id' => 'team_name_id']);
+        return $this->hasOne(ForeignEvent::className(), ['id' => 'foreign_event_id']);
     }
 
+    /**
+     * Gets query for [[Participant]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParticipant()
+    {
+        return $this->hasOne(ForeignEventParticipants::className(), ['id' => 'participant_id']);
+    }
 
     /**
      * Gets query for [[TeacherParticipant]].
@@ -85,5 +98,15 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     public function getTeacherParticipant()
     {
         return $this->hasOne(TeacherParticipant::className(), ['id' => 'teacher_participant_id']);
+    }
+
+    /**
+     * Gets query for [[TeamName]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeamName()
+    {
+        return $this->hasOne(TeamName::className(), ['id' => 'team_name_id']);
     }
 }

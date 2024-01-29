@@ -2,6 +2,7 @@
 
 namespace app\models\work;
 
+use app\models\common\ForeignEvent;
 use app\models\common\ParticipantAchievement;
 use app\models\null\ForeignEventParticipantsNull;
 use app\models\null\TeacherParticipantNull;
@@ -24,6 +25,11 @@ class ParticipantAchievementWork extends ParticipantAchievement
             'nomination' => 'Номинация',
             'date' => 'Дата наградного документа',
         ];
+    }
+
+    public function getForeignEventWork()
+    {
+        return $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
     }
 
     public function getParticipantWork()

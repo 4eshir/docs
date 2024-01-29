@@ -15,64 +15,19 @@ return array (
   'kartik-v/yii2-widget-depdrop' => 
   array (
     'name' => 'kartik-v/yii2-widget-depdrop',
-    'version' => 'dev-master',
+    'version' => '9999999-dev',
     'alias' => 
     array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop/src',
     ),
   ),
-  'kartik-v/yii2-sortable' => 
-  array (
-    'name' => 'kartik-v/yii2-sortable',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@kartik/sortable' => $vendorDir . '/kartik-v/yii2-sortable/src',
-    ),
-  ),
-  'la-haute-societe/yii2-save-relations-behavior' => 
-  array (
-    'name' => 'la-haute-societe/yii2-save-relations-behavior',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@lhs/Yii2SaveRelationsBehavior' => $vendorDir . '/la-haute-societe/yii2-save-relations-behavior/src',
-    ),
-  ),
-  'wbraganca/yii2-dynamicform' => 
-  array (
-    'name' => 'wbraganca/yii2-dynamicform',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform',
-    ),
-  ),
-  'kartik-v/yii2-krajee-base' => 
-  array (
-    'name' => 'kartik-v/yii2-krajee-base',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base/src',
-    ),
-  ),
-  'kartik-v/yii2-dialog' => 
-  array (
-    'name' => 'kartik-v/yii2-dialog',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@kartik/dialog' => $vendorDir . '/kartik-v/yii2-dialog/src',
-    ),
-  ),
   'kartik-v/yii2-mpdf' => 
   array (
     'name' => 'kartik-v/yii2-mpdf',
-    'version' => 'dev-master',
+    'version' => '1.0.1.0',
     'alias' => 
     array (
-      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf/src',
+      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf',
     ),
   ),
   'kartik-v/yii2-widget-activeform' => 
@@ -84,6 +39,15 @@ return array (
       '@kartik/form' => $vendorDir . '/kartik-v/yii2-widget-activeform/src',
     ),
   ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base/src',
+    ),
+  ),
   'kartik-v/yii2-widget-select2' => 
   array (
     'name' => 'kartik-v/yii2-widget-select2',
@@ -91,6 +55,42 @@ return array (
     'alias' => 
     array (
       '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2/src',
+    ),
+  ),
+  'kartik-v/yii2-sortable' => 
+  array (
+    'name' => 'kartik-v/yii2-sortable',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/sortable' => $vendorDir . '/kartik-v/yii2-sortable/src',
+    ),
+  ),
+  'kartik-v/yii2-dialog' => 
+  array (
+    'name' => 'kartik-v/yii2-dialog',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/dialog' => $vendorDir . '/kartik-v/yii2-dialog/src',
+    ),
+  ),
+  'kartik-v/yii2-grid' => 
+  array (
+    'name' => 'kartik-v/yii2-grid',
+    'version' => '3.5.0.0',
+    'alias' => 
+    array (
+      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid/src',
+    ),
+  ),
+  'la-haute-societe/yii2-save-relations-behavior' => 
+  array (
+    'name' => 'la-haute-societe/yii2-save-relations-behavior',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@lhs/Yii2SaveRelationsBehavior' => $vendorDir . '/la-haute-societe/yii2-save-relations-behavior/src',
     ),
   ),
   'kartik-v/yii2-dynagrid' => 
@@ -111,13 +111,13 @@ return array (
       '@kartik/export' => $vendorDir . '/kartik-v/yii2-export/src',
     ),
   ),
-  'kartik-v/yii2-grid' => 
+  'wbraganca/yii2-dynamicform' => 
   array (
-    'name' => 'kartik-v/yii2-grid',
+    'name' => 'wbraganca/yii2-dynamicform',
     'version' => 'dev-master',
     'alias' => 
     array (
-      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid/src',
+      '@wbraganca/dynamicform' => $vendorDir . '/wbraganca/yii2-dynamicform',
     ),
   ),
   'yiisoft/yii2-bootstrap' => 
@@ -135,7 +135,16 @@ return array (
     'version' => 'dev-master',
     'alias' => 
     array (
-      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui/src',
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
+    ),
+  ),
+  'yiisoft/yii2-debug' => 
+  array (
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.1.18.0',
+    'alias' => 
+    array (
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
     ),
   ),
   'yiisoft/yii2-swiftmailer' => 
@@ -145,53 +154,6 @@ return array (
     'alias' => 
     array (
       '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
-    ),
-  ),
-  'zhuravljov/yii2-queue' => 
-  array (
-    'name' => 'zhuravljov/yii2-queue',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@yii/queue' => $vendorDir . '/zhuravljov/yii2-queue/src',
-      '@yii/queue/db' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/db',
-      '@yii/queue/sqs' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/sqs',
-      '@yii/queue/amqp' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/amqp',
-      '@yii/queue/file' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/file',
-      '@yii/queue/sync' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/sync',
-      '@yii/queue/redis' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/redis',
-      '@yii/queue/stomp' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/stomp',
-      '@yii/queue/gearman' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/gearman',
-      '@yii/queue/beanstalk' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/beanstalk',
-      '@yii/queue/amqp_interop' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/amqp_interop',
-    ),
-  ),
-  'yiisoft/yii2-queue' => 
-  array (
-    'name' => 'yiisoft/yii2-queue',
-    'version' => 'dev-master',
-    'alias' => 
-    array (
-      '@yii/queue' => $vendorDir . '/yiisoft/yii2-queue/src',
-      '@yii/queue/db' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/db',
-      '@yii/queue/sqs' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sqs',
-      '@yii/queue/amqp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp',
-      '@yii/queue/file' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/file',
-      '@yii/queue/sync' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sync',
-      '@yii/queue/redis' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/redis',
-      '@yii/queue/stomp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/stomp',
-      '@yii/queue/gearman' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/gearman',
-      '@yii/queue/beanstalk' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/beanstalk',
-      '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
-    ),
-  ),
-  'yiisoft/yii2-debug' => 
-  array (
-    'name' => 'yiisoft/yii2-debug',
-    'version' => '2.1.25.0',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
     ),
   ),
 );
