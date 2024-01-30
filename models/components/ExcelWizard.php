@@ -524,7 +524,7 @@ class ExcelWizard
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>=', 'foreignEvent.finish_date', $start_date])->andWhere(['<=', 'foreignEvent.finish_date', $end_date])->all();
-
+        var_dump(count($teacherPart));
         //выборка команд
 
         $notIncludeIds = [];
@@ -954,7 +954,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        $result = ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
+        /*$result = ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, $result[1] + $result[3]);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[0] + $result[2]);
@@ -982,7 +982,7 @@ class ExcelWizard
         $result = ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date);
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, $result[1] + $result[3]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[0] + $result[2]);
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[0] + $result[2]);*/
 
         //----------------------------------
 
