@@ -572,6 +572,8 @@ class ExcelWizard
 
                     $notIncludeIds[] = $onePart->id;
                 }
+
+                $notIncludeIds = array_unique($notIncludeIds);
             }
 
         }
