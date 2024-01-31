@@ -524,7 +524,6 @@ class ExcelWizard
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>=', 'foreignEvent.finish_date', $start_date])->andWhere(['<=', 'foreignEvent.finish_date', $end_date])->all();
-        var_dump(count($teacherPart));
         //выборка команд
 
         $notIncludeIds = [];

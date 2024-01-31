@@ -1,0 +1,92 @@
+2024-01-31 08:51:02 [127.0.0.1][1][-][error][yii\base\ErrorException:2] yii\base\ErrorException: Cannot modify header information - headers already sent by (output started at C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:527) in C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php:1020
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError()
+#1 C:\OpenServer\domains\localhost\docs\models\components\ExcelWizard.php(1020): header()
+#2 C:\OpenServer\domains\localhost\docs\controllers\ReportFormController.php(89): app\models\components\ExcelWizard::DownloadEffectiveContract()
+#3 [internal function]: app\controllers\ReportFormController->actionEffectiveContract()
+#4 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#5 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#6 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#7 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#8 C:\OpenServer\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#9 C:\OpenServer\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2024-01-31 08:50:40 [127.0.0.1][1][-][info][application] $_GET = [
+    'r' => 'report-form/effective-contract'
+]
+
+$_POST = [
+    '_csrf' => '7y91TWajKfrfFHbKTeL9w80uTrfC7gqwYhokZHCAREaOfR4hS5QalJl2Nfsst86tjHoJz6WqQfMaLWFSOtF9Ig=='
+    'ForeignEventReportModel' => [
+        'start_date' => '2023-01-01'
+        'end_date' => '2024-01-01'
+        'budget' => [
+            0 => '1'
+        ]
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'um3bq0ukdrn8hj22h83fdt7tk9d3csai'
+    '_identity' => '04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba:2:{i:0;s:9:\"_identity\";i:1;s:45:\"[1,\"PATsN8FUOCjpbl5zd80jBQgl8H94QJEf\",362400]\";}'
+    '_csrf' => 'a818dd62e219ffc18bd67d0b20270c4fc5cd1a5a6f245f1f9d60add94247309da:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"aRkl-73nFbC1aU3nATGxgDKCx7E6JQ9d\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/index.php?r='
+    'userSessionTimeout' => 8640000
+    '__id' => 1
+    '__authKey' => 'PATsN8FUOCjpbl5zd80jBQgl8H94QJEf'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_X_REAL_IP' => '127.0.0.1'
+    'HTTP_X_FORWARDED_PROTO' => 'http'
+    'HTTP_CONNECTION' => 'close'
+    'CONTENT_LENGTH' => '279'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ORIGIN' => 'http://docs'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=report-form%2Feffective-contract'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=um3bq0ukdrn8hj22h83fdt7tk9d3csai; _identity=04bdd8198866bcab9f7fcb73ecfaae7e95b017a33f4f656615ae17253aa7a3bba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A45%3A%22%5B1%2C%22PATsN8FUOCjpbl5zd80jBQgl8H94QJEf%22%2C362400%5D%22%3B%7D; _csrf=a818dd62e219ffc18bd67d0b20270c4fc5cd1a5a6f245f1f9d60add94247309da%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22aRkl-73nFbC1aU3nATGxgDKCx7E6JQ9d%22%3B%7D'
+    'PATH' => 'c:\\openserver\\modules\\php\\PHP_7.4\\ext;c:\\openserver\\modules\\php\\PHP_7.4\\pear;c:\\openserver\\modules\\php\\PHP_7.4\\pear\\bin;c:\\openserver\\modules\\php\\PHP_7.4;c:\\openserver\\modules\\wget\\bin;c:\\openserver\\modules\\database\\MariaDB-10.3\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17\\bin;c:\\openserver\\modules\\http\\Apache_2.4-PHP_7.2-7.4+Nginx_1.17;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OpenServer/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OpenServer/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '51553'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=report-form%2Feffective-contract'
+    'REQUEST_URI' => '/index.php?r=report-form%2Feffective-contract'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1706680240.295
+    'REQUEST_TIME' => 1706680240
+    'argv' => [
+        0 => 'r=report-form%2Feffective-contract'
+    ]
+    'argc' => 1
+]
