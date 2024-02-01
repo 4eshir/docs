@@ -126,7 +126,7 @@ use yii\jui\DatePicker;
         $items1 = \yii\helpers\ArrayHelper::map($company,'id','name');
         $items2 = \yii\helpers\ArrayHelper::map($companyNull,'id','name');
 
-        $items = array_merge($items2, $items1);
+        $items = $items2 + $items1;
 
         $params = [
             'id' => 'company',
