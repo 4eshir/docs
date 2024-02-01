@@ -6,6 +6,7 @@ namespace app\models\components;
 
 use app\models\common\ForeignEventParticipants;
 use app\models\common\RussianNames;
+use app\models\components\report\SupportReportFunctions;
 use app\models\extended\JournalModel;
 use app\models\work\CompanyWork;
 use app\models\work\DocumentOrderWork;
@@ -18,6 +19,7 @@ use app\models\work\ResponsibleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeacherParticipantBranchWork;
+use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
 use app\models\work\BranchWork;
 use app\models\work\FocusWork;
@@ -526,7 +528,26 @@ class ExcelWizard
         $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>=', 'foreignEvent.finish_date', $start_date])->andWhere(['<=', 'foreignEvent.finish_date', $end_date])->all();
         //выборка команд
 
-        $notIncludeIds = [];
+        $eventIds = [];
+        $tpIds = [];
+        foreach ($teacherPart as $one)
+        {
+            $eventIds[] = $one->teacherParticipantWork->foreign_event_id;
+            $tpIds[] = $one->teacher_participant_id;
+        }
+
+        $teamNames = TeamNameWork::find()->where(['IN', 'foreign_event_id', $eventIds])->all();
+        $tnIds = SupportReportFunctions::GetIdFromArray($teamNames);
+
+        // получаем всех победителей и призеров за исключением командных
+        $winners = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
+        $prizes = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
+
+        // получаем всех победителей и призеров в командах
+        $winnersTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
+        $prizesTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
+
+        /*$notIncludeIds = [];
         $teamPartWinIds = [];
         $teamPartPrizeIds = [];
         $prizeTeam = 0;
@@ -603,9 +624,9 @@ class ExcelWizard
                 $partId[] = $temp->participant_id;
                 $achieves[] = $temp->winner;
             }
-        }
+        }*/
 
-        return [count($winners)/* - count($teamPartWinIds)*/, count($prize)/* - count($teamPartPrizeIds)*/, $winTeam, $prizeTeam];
+        return [count($winners)/* - count($teamPartWinIds)*/, count($prizes)/* - count($teamPartPrizeIds)*/, count($winnersTeam), count($prizesTeam)];
     }
 
     //получить всех призеров и победителей мероприятий заданного уровня
