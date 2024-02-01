@@ -976,7 +976,7 @@ class ExcelWizard
 
         //Международные победители и призеры
 
-        /*$result = ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
+        $result = ExcelWizard::NewGetPrizeWinners(8, [1, 2, 3, 4, 7], $start_date, $end_date);
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, $result[1] + $result[3]);
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[0] + $result[2]);
@@ -1004,7 +1004,7 @@ class ExcelWizard
         $result = ExcelWizard::NewGetPrizeWinners(7, [1, 2, 3, 4, 7], $start_date, $end_date);
         
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 8, $result[1] + $result[3]);
-        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[0] + $result[2]);*/
+        $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 9, $result[0] + $result[2]);
 
         //----------------------------------
 
