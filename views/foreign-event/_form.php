@@ -165,7 +165,7 @@ use yii\jui\DatePicker;
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Форма реализации</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Материалы</b></h4></td>
+                            <td style="padding-left: 20px; border-bottom: 2px solid black; max-width: 50px; overflow-wrap: break-word;"><h4><b>Материалы</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black; width: 50px;"><h4><b></b></h4></td>
 
                        </tr>';
