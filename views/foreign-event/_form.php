@@ -165,7 +165,7 @@ use yii\jui\DatePicker;
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Номинация</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Команда</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Форма реализации</b></h4></td>
-                            <td style="padding-left: 20px; border-bottom: 2px solid black"><h4><b>Материалы</b></h4></td>
+                            <td style="padding-left: 20px; border-bottom: 2px solid black;"><h4><b>Материалы</b></h4></td>
                             <td style="padding-left: 20px; border-bottom: 2px solid black; width: 50px;"><h4><b></b></h4></td>
 
                        </tr>';
@@ -191,7 +191,7 @@ use yii\jui\DatePicker;
                     if ($partFiles == null)
                         echo '<td style="padding-left: 10px; text-align: center;"> -- </td>';
                     else
-                        echo '<td style="padding-left: 10px; text-align: center;">'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
+                        echo '<td style="padding-left: 10px; text-align: center; max-width: 150px; overflow-wrap: break-word;">'.Html::a($partFiles->filename, \yii\helpers\Url::to(['foreign-event/get-file', 'fileName' => $partFiles->filename, 'type' => 'participants'])).'</td>';
                     echo '<td style="padding-left: 10px">'.
                         Html::a($editIcon, \yii\helpers\Url::to(['foreign-event/update-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-primary', 'style' => 'margin: 2px;']). ' ' .
                         Html::a($deleleIcon, \yii\helpers\Url::to(['foreign-event/delete-participant', 'id' => $partOne->id, 'model_id' => $model->id]), ['class' => 'btn btn-danger', 'style' => 'width: 40px; margin: 2px;']).
