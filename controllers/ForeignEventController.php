@@ -238,10 +238,12 @@ class ForeignEventController extends Controller
         $p_id = $part->participant_id;
         $branchs = TeacherParticipantBranchWork::find()->where(['teacher_participant_id' => $id])->all();
         foreach ($branchs as $branch) $branch->delete();
-        $part->delete();
         $files = ParticipantFilesWork::find()->where(['participant_id' => $p_id])->one();
         if ($files !== null)
             $files->delete();
+
+        $part->delete();
+
         $team = TeamWork::find()->where(['participant_id' => $p_id])->all();
         foreach ($team as $one)
             $one->delete();
