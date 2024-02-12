@@ -72,4 +72,9 @@ class ParticipantAchievement extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TeacherParticipant::className(), ['id' => 'teacher_participant_id']);
     }
+
+    public function getForeignEvent()
+    {
+        return $this->hasOne(ForeignEvent::className(), ['id' => 'foreign_event_id']);
+    }
 }
