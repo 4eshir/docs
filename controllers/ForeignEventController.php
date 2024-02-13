@@ -271,10 +271,11 @@ class ForeignEventController extends Controller
      */
     public function actionDelete($id)
     {
-        Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие' . $this->findModel($id)->name);
+        //-- Удаление только через приказ --
+        /*Logger::WriteLog(Yii::$app->user->identity->getId(), 'Удалено мероприятие' . $this->findModel($id)->name);
         $this->findModel($id)->delete();
         
-        return $this->redirect(['index']);
+        return $this->redirect(['index']);*/
     }
 
 
