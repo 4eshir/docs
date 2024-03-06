@@ -33,9 +33,9 @@ class DocumentOutWork extends DocumentOut
     public function rules()
     {
         return [
-            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, zip, rar, 7z, tag', 'skipOnEmpty' => true],
-            [['docFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag', 'maxFiles' => 10],
-            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'ppt, pptx, xls, xlsx, png, jpg, pdf, doc, docx, zip, rar, 7z, tag', 'maxFiles' => 10],
+            [['scanFile'], 'file', 'extensions' => 'png, jpg, pdf, zip, rar, 7z, tag, txt', 'skipOnEmpty' => true],
+            [['docFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'xls, xlsx, doc, docx, zip, rar, 7z, tag, txt', 'maxFiles' => 10],
+            [['applicationFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'ppt, pptx, xls, xlsx, png, jpg, pdf, doc, docx, zip, rar, 7z, tag, txt', 'maxFiles' => 10],
             [['positionCompany'], 'safe'],
             [['signedString', 'executorString', 'creatorString', 'key_words'], 'string', 'message' => 'Введите корректные ФИО'],
             [['document_name', 'document_date', 'document_theme', 'signed_id', 'executor_id', 'send_method_id', 'sent_date', 'creator_id', 'document_number', 'signedString', 'executorString'], 'required'],
