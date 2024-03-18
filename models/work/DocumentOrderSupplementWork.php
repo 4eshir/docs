@@ -2,13 +2,11 @@
 
 namespace app\models\work;
 
-use app\models\common\DocumentOrder;
 use app\models\common\DocumentOrderSupplement;
-use app\models\work\PeopleWork;
-use app\models\null\ForeignEventGoalsNull;
 use app\models\null\DocumentOrderNull;
+use app\models\null\ForeignEventGoalsNull;
 use app\models\null\PeopleNull;
-use Yii;
+use app\models\work\order\DocumentOrderWork;
 
 class DocumentOrderSupplementWork extends DocumentOrderSupplement
 {

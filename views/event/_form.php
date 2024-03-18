@@ -1,10 +1,9 @@
 <?php
 
+use app\models\work\EventScopeWork;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
-use app\models\work\EventScopeWork;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\EventWork */
@@ -241,7 +240,7 @@ use app\models\work\EventScopeWork;
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\work\DocumentOrderWork::find()->all();
+    $orders = \app\models\work\order\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => 'Нет'

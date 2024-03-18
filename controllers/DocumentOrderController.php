@@ -2,10 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\components\ExcelWizard;
+use app\controllers\services\order\DocumentOrderService;
+use app\models\components\Logger;
 use app\models\components\RoleBaseAccess;
 use app\models\components\WordWizard;
+use app\models\DynamicModel;
 use app\models\extended\ForeignEventParticipantsExtended;
+use app\models\SearchDocumentOrder;
 use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\BranchWork;
@@ -13,37 +16,38 @@ use app\models\work\DocumentOrderSupplementWork;
 use app\models\work\ExpireWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\NomenclatureWork;
+use app\models\work\order\DocumentOrderRepository;
+use app\models\work\order\DocumentOrderWork;
+use app\models\work\OrderErrorsWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\RegulationWork;
 use app\models\work\ResponsibleWork;
-use app\models\components\Logger;
-use app\models\components\UserRBAC;
-use app\models\DynamicModel;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
-use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
-use app\models\work\TrainingGroupWork;
 use Yii;
-use app\models\work\DocumentOrderWork;
-use app\models\SearchDocumentOrder;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
-use yii\helpers\VarDumper;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\widgets\ActiveForm;
-use app\models\work\OrderErrorsWork;
 
 /**
  * DocumentOrderController implements the CRUD actions for DocumentOrder model.
  */
 class DocumentOrderController extends Controller
 {
+    private DocumentOrderService $service;
+    private DocumentOrderRepository $repository;
+
+    public function __construct($id, $module, DocumentOrderService $service, DocumentOrderRepository $repository, $config = [])
+    {
+        $this->service = $service;
+        $this->repository = $repository;
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -97,7 +101,6 @@ class DocumentOrderController extends Controller
      */
     public function actionCreate($modelType = null)
     {
-        $session = Yii::$app->session;
         $model = new DocumentOrderWork();
         $modelExpire = [new ExpireWork];
         $modelExpire2 = [new ExpireWork];
@@ -105,59 +108,27 @@ class DocumentOrderController extends Controller
         $modelParticipants = [new ForeignEventParticipantsExtended];
 
         if ($model->load(Yii::$app->request->post()) && $model->validate(false)) {
-            $model->creator_id = Yii::$app->user->identity->getId();
-            $model->signed_id = null;
-            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
-            $model->scan = '';
-            $model->state = true;
+            $model->setExtraAttributes(UploadedFile::getInstance($model, 'scanFile'), UploadedFile::getInstances($model, 'docFiles'));
+            $model->loadDynamicModel();
 
-            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
-            DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
-            $model->responsibles = $modelResponsible;
-            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
-            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
-            $model->expires = $modelExpire;
-            $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
-            DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
-            $model->participants = $modelParticipants;
-
+            // что делает?
             if ($modelType == 2)
                 $model->type = 2;
+            // -----------
 
-            if (true) {
-                if ($model->archive_number === '' || $model->archive_number === NULL)
-                    $model->getDocumentNumber();
-                else
-                {
-                    $number = explode( '/',  $model->archive_number);
-                    $model->order_number = $number[0];
-                    $model->order_copy_id = $number[1];
-                    if (count($number) > 2)
-                        $model->order_postfix = $number[2];
-                    if ($model->nomenclature_id === 5 || $model->nomenclature_id === NULL)
-                        $model->type = 10;  // административный архивный
-                    else
-                        $model->type = 11;  // учебный архивный
-                }
-
-                if ($model->scanFile !== null)
-                {
-                    Logger::WriteLog(Yii::$app->user->identity->getId(),
-                        'Добавлен скан к приказу ' . $model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
-                    $model->uploadScanFile();
-                }
-                if ($model->docFiles != null)
-                {
-                    Logger::WriteLog(Yii::$app->user->identity->getId(),
-                        'Добавлен редактируемый файл к приказу ' . $model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
-                    $model->uploadDocFiles();
-                }
-
-                $model->save(false);
-                Logger::WriteLog(Yii::$app->user->identity->getId(),
-                    'Создан приказ '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
+            if (!$model->isArchiveOrder()) {
+                $model->getDocumentNumber();
             }
+            else {
+                $model->createArchiveDocumentNumber();
+            }
+
+            $model->uploadFiles();
+
+            $model->save(false);
+            Logger::WriteLog(Yii::$app->user->identity->getId(),
+                'Создан приказ '.$model->order_name . ' ' . $model->order_number . '/' . $model->order_copy_id . (empty($model->order_postfix) ? '/' . $model->order_postfix : ''));
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -177,19 +148,10 @@ class DocumentOrderController extends Controller
             return $this->redirect(['/site/error-access']);
         }
         $model = new DocumentOrderWork();
-        $session = Yii::$app->session;
-        $model->order_name = 'Резерв';
-        $model->order_number = '02-02';
-        $model->order_date = date("Y-m-d");
-        $model->scan = '';
-        $model->state = true;
-        $model->type = 1;//$session->get('type') === '1' ? 1 : 0;
-        $model->creator_id = Yii::$app->user->identity->getId();
-        $model->getDocumentNumber();
-        Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
+        $model->makeReserveOrder();
         $model->save(false);
         Logger::WriteLog(Yii::$app->user->identity->getId(), 'Добавлен резерв приказа '.$model->order_number.'/'.$model->order_postfix);
-        return $this->redirect('index.php?r=document-order/index&c='.$session->get('type'));
+        return $this->redirect('index.php?r=document-order/index&c=' . Yii::$app->session->get('type'));
     }
 
     /**
@@ -212,7 +174,7 @@ class DocumentOrderController extends Controller
         $foreign_event = ForeignEventWork::find()->where(['order_participation_id' => $id])->one();
         $model->foreign_event = $foreign_event;
 
-        if ($model->type === 10 || $model->type === 11)
+        if ($model->isArchive())
         {
             $model->archive_number = $model->order_number . '/' . $model->order_copy_id;
             if ($model->order_postfix !== null)
@@ -222,21 +184,12 @@ class DocumentOrderController extends Controller
         $model->responsibles = $modelResponsible;
         if ($model->load(Yii::$app->request->post()))
         {
-            $model->scanFile = UploadedFile::getInstance($model, 'scanFile');
-            $model->docFiles = UploadedFile::getInstances($model, 'docFiles');
-            $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
-            DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
-            $model->responsibles = $modelResponsible;
-            $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
-            DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
-            $model->expires = $modelExpire;
-            $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
-            DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
-            $model->participants = $modelParticipants;
+            $model->setExtraAttributes(UploadedFile::getInstance($model, 'scanFile'), UploadedFile::getInstances($model, 'docFiles'));
+            $model->loadDynamicModel();
 
             if ($model->validate(false))
             {
-                $cur = DocumentOrderWork::find()->where(['id' => $model->id])->one();
+                $cur = $this->repository->find($id);
 
                 if ($model->archive_number == "")
                 {
@@ -245,16 +198,7 @@ class DocumentOrderController extends Controller
                 }
                 else
                 {
-                    $number = explode( '/',  $model->archive_number);
-                    $model->order_number = $number[0];
-                    $model->order_copy_id = $number[1];
-                    if (count($number) > 2)
-                        $model->order_postfix = $number[2];
-                    //$model->order_copy_id = $model->archive_number;
-                    if ($model->nomenclature_id === 5 || $model->nomenclature_id === NULL)
-                        $model->type = 10;  // административный архивный
-                    else
-                        $model->type = 11;  // учебный архивный
+                    $model->createArchiveDocumentNumber();
                 }
                 if ($model->scanFile !== null)
                     $model->uploadScanFile();

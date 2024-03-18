@@ -3,38 +3,23 @@
 namespace app\models\work;
 
 use app\models\common\Auditorium;
-use app\models\common\BranchProgram;
-use app\models\common\ForeignEventParticipants;
-use app\models\common\GroupErrors;
 use app\models\common\LessonTheme;
 use app\models\common\OrderGroup;
-use app\models\common\People;
 use app\models\common\TeacherGroup;
-use app\models\common\ThematicPlan;
 use app\models\common\TrainingGroup;
 use app\models\common\TrainingGroupLesson;
 use app\models\common\TrainingGroupParticipant;
-use app\models\common\TrainingProgram;
 use app\models\common\Visit;
 use app\models\components\ExcelWizard;
 use app\models\components\FileWizard;
 use app\models\components\LessonDatesJob;
+use app\models\components\Logger;
 use app\models\components\RoleBaseAccess;
 use app\models\null\PeopleNull;
 use app\models\null\TrainingProgramNull;
-use app\models\work\PeopleWork;
-use app\models\work\TeacherGroupWork;
-use app\models\work\TrainingGroupParticipantWork;
-use app\models\work\TrainingProgramWork;
-use app\models\work\TrainingGroupExpertWork;
-use app\models\work\GroupProjectThemesWork;
-use app\models\work\UserWork;
-use Mpdf\Tag\Tr;
+use app\models\work\order\DocumentOrderWork;
 use Yii;
 use yii\helpers\Html;
-use yii\queue\db\Queue;
-use app\models\common;
-use app\models\components\Logger;
 
 
 const _MAX_FILE_SIZE = 26214400;
@@ -734,47 +719,7 @@ class TrainingGroupWork extends TrainingGroup
                             $lesson->delete();
                     }
                 }
-                /*
-                            $extEvents = \app\models\work\TrainingGroupLessonWork::find()->where(['training_group_id' => $this->id])->orderBy(['lesson_date' => SORT_ASC, 'lesson_start_time' => SORT_ASC])->all();
-                            $newArr = [];
-                            $idsArr = [];
-                            $index = 0;
-                            while (count($newArr) < count($extEvents))
-                            {
-                                if ($this->delArr[$index] == 0 && $this->delArr[$index + 1] == 0)
-                                {
-                                    $newArr[] = 0;
-                                    $index += 2;
-                                }
-                                else if ($this->delArr[$index] == 0)
-                                {
-                                    $newArr[] = 1;
-                                    $index += 2;
-                                }
-                                else
-                                {
-                                    $newArr[] = 1;
-                                    $index += 1;
-                                }
-                            }
 
-                            for ($i = 0; $i < count($newArr); $i++)
-                                if ($newArr[$i] === 1)
-                                    $idsArr[] = $extEvents[$i]->id;
-
-                            for ($i = 0; $i < count($idsArr); $i++)
-                            {
-
-                                $themes = LessonThemeWork::find()->where(['training_group_lesson_id' => $idsArr[$i]])->all();
-                                $visits = Visit::find()->where(['training_group_lesson_id' => $idsArr[$i]])->all();
-                                //foreach ($themes as $theme) $theme->delete();
-                                //foreach ($visits as $visit) $visit->delete();
-                                $event = TrainingGroupLessonWork::find()->where(['id' => $idsArr[$i]])->one();
-
-                                //$event->delete();
-
-                            }
-                */
             }
 
             $partsArr = [];
@@ -912,22 +857,28 @@ class TrainingGroupWork extends TrainingGroup
             $participants = TrainingGroupParticipant::find()->where(['training_group_id' => $this->id])->all();
             $participantsId = [];
             foreach ($participants as $pOne)
-                $participantsId[] = $pOne->participant_id;
+                $participantsId[] = $pOne->id;
 
             $lessons = TrainingGroupLesson::find()->where(['training_group_id' => $this->id])->all();
             $lessonsId = [];
             foreach ($lessons as $lOne)
                 $lessonsId[] = $lOne->id;
 
+            $counter = 0;
             foreach ($lessonsId as $lId) {
                 foreach ($participantsId as $pId) {
-                    $visit = Visit::find()->where(['foreign_event_participant_id' => $pId])->andWhere(['training_group_lesson_id' => $lId])->one();
+                    $visit = Visit::find()
+                        ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+                        ->where(['trainingGroupParticipant.id' => $pId])
+                        ->andWhere(['training_group_lesson_id' => $lId])->one();
                     if ($visit === null) {
-                        $visit = new Visit();
-                        $visit->foreign_event_participant_id = $pId;
+                        $visit = new VisitWork();
+                        //$visit->foreign_event_participant_id = $pId;
                         $visit->training_group_lesson_id = $lId;
+                        $visit->training_group_participant_id = $pId;
                         $visit->status = 3;
                         $visit->save(false);
+                        $counter++;
                     }
                 }
             }

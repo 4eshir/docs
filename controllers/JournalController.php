@@ -54,7 +54,16 @@ class JournalController extends Controller
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'foreignEventParticipant.patronymic' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()
+            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+            ->joinWith(['trainingGroupParticipant.participant participant'])
+            ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+            ->where(['in', 'training_group_lesson_id', $newLessons])
+            ->orderBy(['participant.secondname' => SORT_ASC,
+                'participant.firstname' => SORT_ASC,
+                'participant.patronymic' => SORT_ASC,
+                'trainingGroupLesson.lesson_date' => SORT_ASC,
+                'trainingGroupLesson.id' => SORT_ASC])->all();
 
         $newVisits = array();
         $newVisitsId = array();
@@ -70,7 +79,16 @@ class JournalController extends Controller
             $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
             $newLessons = array();
             foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-            $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'foreignEventParticipant.patronymic' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+            $visits = VisitWork::find()
+                ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+                ->joinWith(['trainingGroupParticipant.participant participant'])
+                ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+                ->where(['in', 'training_group_lesson_id', $newLessons])
+                ->orderBy(['participant.secondname' => SORT_ASC,
+                    'participant.firstname' => SORT_ASC,
+                    'participant.patronymic' => SORT_ASC,
+                    'trainingGroupLesson.lesson_date' => SORT_ASC,
+                    'trainingGroupLesson.id' => SORT_ASC])->all();
 
             $newVisits = array();
             $newVisitsId = array();
@@ -97,7 +115,16 @@ class JournalController extends Controller
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'foreignEventParticipant.patronymic' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()
+            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+            ->joinWith(['trainingGroupParticipant.participant participant'])
+            ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+            ->where(['in', 'training_group_lesson_id', $newLessons])
+            ->orderBy(['participant.secondname' => SORT_ASC,
+                'participant.firstname' => SORT_ASC,
+                'participant.patronymic' => SORT_ASC,
+                'trainingGroupLesson.lesson_date' => SORT_ASC,
+                'trainingGroupLesson.id' => SORT_ASC])->all();
 
 
         $newVisits = array();
@@ -111,7 +138,6 @@ class JournalController extends Controller
             $modelProjectThemes = DynamicModel::createMultiple(GroupProjectThemesWork::classname());
             DynamicModel::loadMultiple($modelProjectThemes, Yii::$app->request->post());
             $model->groupProjectThemes = $modelProjectThemes;
-            //var_dump($model->projectThemes);
 
             $model->save();
             $group = TrainingGroupWork::find()->where(['id' => $group_id])->one();
@@ -255,7 +281,16 @@ class JournalController extends Controller
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()
+            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+            ->joinWith(['trainingGroupParticipant.participant participant'])
+            ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+            ->where(['in', 'training_group_lesson_id', $newLessons])
+            ->orderBy(['participant.secondname' => SORT_ASC,
+                'participant.firstname' => SORT_ASC,
+                'participant.patronymic' => SORT_ASC,
+                'trainingGroupLesson.lesson_date' => SORT_ASC,
+                'trainingGroupLesson.id' => SORT_ASC])->all();
 
 
         $newVisits = array();
@@ -289,7 +324,16 @@ class JournalController extends Controller
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
         foreach ($lessons as $lesson) $newLessons[] = $lesson->id;
-        $visits = VisitWork::find()->joinWith(['foreignEventParticipant foreignEventParticipant'])->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['in', 'training_group_lesson_id', $newLessons])->orderBy(['foreignEventParticipant.secondname' => SORT_ASC, 'foreignEventParticipant.firstname' => SORT_ASC, 'trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.id' => SORT_ASC])->all();
+        $visits = VisitWork::find()
+            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+            ->joinWith(['trainingGroupParticipant.participant participant'])
+            ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+            ->where(['in', 'training_group_lesson_id', $newLessons])
+            ->orderBy(['participant.secondname' => SORT_ASC,
+                'participant.firstname' => SORT_ASC,
+                'participant.patronymic' => SORT_ASC,
+                'trainingGroupLesson.lesson_date' => SORT_ASC,
+                'trainingGroupLesson.id' => SORT_ASC])->all();
 
 
         $newVisits = array();

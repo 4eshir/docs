@@ -2,11 +2,10 @@
 
 namespace app\models\work;
 
-use app\models\common\DocumentOrder;
 use app\models\common\LegacyResponsible;
 use app\models\null\DocumentOrderNull;
 use app\models\null\PeopleNull;
-use Yii;
+use app\models\work\order\DocumentOrderWork;
 
 
 class LegacyResponsibleWork extends LegacyResponsible

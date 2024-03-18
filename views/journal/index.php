@@ -3,6 +3,7 @@
 use app\models\work\TrainingGroupWork;
 use app\models\work\UserWork;
 use app\models\components\UserRBAC;
+use app\models\work\VisitWork;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\ActiveForm;
@@ -165,7 +166,7 @@ $this->params['breadcrumbs'][] = $this->title;
         foreach ($lessons as $lesson)
         {
             //$visits = \app\models\work\VisitWork::find()->where(['training_group_lesson_id' => $lesson->id])->andWhere(['foreign_event_participant_id' => $part->participant->id])->one();
-            $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
+            $visits = VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             echo $visits->prettyStatus;
             $counter++;
         }

@@ -1,11 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use wbraganca\dynamicform\DynamicFormAsset;
-use wbraganca\dynamicform\DynamicFormWidget;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\work\DocumentOrderWork */
+/* @var $model \app\models\work\order\DocumentOrderWork */
 $session = Yii::$app->session;
 $this->title = 'Добавить приказ';
 $this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index', 'c' => $session->get('type') == 1 ? 1 : 0]];

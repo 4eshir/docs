@@ -2,10 +2,9 @@
 
 namespace app\models;
 
-use app\models\work\PeopleWork;
+use app\models\work\order\DocumentOrderWork;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\work\DocumentOrderWork;
 
 /**
  * SearchDocumentOrder represents the model behind the search form of `app\models\common\DocumentOrder`.

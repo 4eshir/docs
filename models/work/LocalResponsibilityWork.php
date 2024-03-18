@@ -7,13 +7,9 @@ use app\models\common\Branch;
 use app\models\common\DocumentOrder;
 use app\models\common\LegacyResponsible;
 use app\models\common\LocalResponsibility;
-use app\models\extended\AccessTrainingGroup;
-use app\models\work\PeopleWork;
 use app\models\common\Regulation;
 use app\models\common\ResponsibilityType;
 use app\models\components\FileWizard;
-use Yii;
-use yii\helpers\Console;
 use yii\helpers\Html;
 
 
@@ -140,14 +136,14 @@ class LocalResponsibilityWork extends LocalResponsibility
     {
         $leg = LegacyResponsible::find()->where(['people_id' => $this->people_id])->andWhere(['responsibility_type_id' => $this->responsibility_type_id])->andWhere(['IS', 'end_date', null])
             ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->one();
-        return Html::a(\app\models\work\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id]));
+        return Html::a(order\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $leg->order_id]));
     }
 
     public function getOrderStrEx()
     {
         $leg = LegacyResponsible::find()->where(['people_id' => $this->people_id])->andWhere(['responsibility_type_id' => $this->responsibility_type_id])->andWhere(['IS', 'end_date', null])
             ->andWhere(['branch_id' => $this->branch_id])->andWhere(['auditorium_id' => $this->auditorium_id])->one();
-        return \app\models\work\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName;
+        return order\DocumentOrderWork::find()->where(['id' => $leg->order_id])->one()->fullName;
     }
 
     public function uploadFiles($upd = null)

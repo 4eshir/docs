@@ -8,11 +8,12 @@ use Yii;
  * This is the model class for table "visit".
  *
  * @property int $id
- * @property int $foreign_event_participant_id
+ * @property int|null $foreign_event_participant_id
  * @property int $training_group_lesson_id
+ * @property int|null $training_group_participant_id
  * @property int $status
  *
- * @property ForeignEventParticipants $foreignEventParticipant
+ * @property TrainingGroupParticipant $trainingGroupParticipant
  * @property TrainingGroupLesson $trainingGroupLesson
  */
 class Visit extends \yii\db\ActiveRecord
@@ -31,9 +32,10 @@ class Visit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['foreign_event_participant', 'training_group_lesson_id'], 'required'],
-            [['foreign_event_participant_id', 'training_group_lesson_id', 'status'], 'integer'],
-            [['foreign_event_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => ForeignEventParticipants::className(), 'targetAttribute' => ['foreign_event_participants' => 'id']],
+            [['id', 'foreign_event_participant_id', 'training_group_lesson_id'], 'required'],
+            [['id', 'foreign_event_participant_id', 'training_group_lesson_id', 'training_group_participant_id', 'status'], 'integer'],
+            [['id'], 'unique'],
+            [['training_group_participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupParticipant::className(), 'targetAttribute' => ['training_group_participant_id' => 'id']],
             [['training_group_lesson_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingGroupLesson::className(), 'targetAttribute' => ['training_group_lesson_id' => 'id']],
         ];
     }
@@ -45,8 +47,9 @@ class Visit extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'foreign_event_participant_id' => 'Foreign Event Participants',
+            'foreign_event_participant_id' => 'Foreign Event Participant ID',
             'training_group_lesson_id' => 'Training Group Lesson ID',
+            'training_group_participant_id' => 'Training Group Participant ID',
             'status' => 'Status',
         ];
     }
@@ -62,6 +65,16 @@ class Visit extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[TrainingGroupParticipant]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTrainingGroupParticipant()
+    {
+        return $this->hasOne(TrainingGroupParticipant::className(), ['id' => 'training_group_participant_id']);
+    }
+
+    /**
      * Gets query for [[TrainingGroupLesson]].
      *
      * @return \yii\db\ActiveQuery
@@ -70,5 +83,4 @@ class Visit extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TrainingGroupLesson::className(), ['id' => 'training_group_lesson_id']);
     }
-    
 }

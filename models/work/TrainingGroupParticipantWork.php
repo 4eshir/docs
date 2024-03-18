@@ -62,8 +62,11 @@ class TrainingGroupParticipantWork extends TrainingGroupParticipant
 
     public function beforeDelete()
     {
-        //var_dump(self::EVENT_BEFORE_DELETE);
-        $visits = VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['foreign_event_participant_id' => $this->participant_id])->andWhere(['trainingGroupLesson.training_group_id' => $this->training_group_id])->all();
+        $visits = VisitWork::find()
+            ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+            ->where(['trainingGroupParticipant.participant_id' => $this->participant_id])
+            ->andWhere(['trainingGroupLesson.training_group_id' => $this->training_group_id])->all();
 
         foreach ($visits as $visit) {
             $visit->delete();
@@ -84,7 +87,10 @@ class TrainingGroupParticipantWork extends TrainingGroupParticipant
             $lessonsId[] = $lOne->id;
 
         foreach ($lessonsId as $lId) {
-            $visit = VisitWork::find()->where(['foreign_event_participant_id' => $participant_id])->andWhere(['training_group_lesson_id' => $lId])->one();
+            $visit = VisitWork::find()
+                ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+                ->where(['trainingGroupParticipant.participant_id' => $participant_id])
+                ->andWhere(['training_group_lesson_id' => $lId])->one();
             if ($visit === null) {
                 $visit = new VisitWork();
                 $visit->foreign_event_participant_id = $participant_id;

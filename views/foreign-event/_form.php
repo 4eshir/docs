@@ -2,8 +2,8 @@
 
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\ForeignEventWork */
@@ -392,7 +392,7 @@ use yii\jui\DatePicker;
 
     <div id="divOrderTrip" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
-        $orders = \app\models\work\DocumentOrderWork::find()->where(['type' => 1])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-6 month'))])->all();
+        $orders = \app\models\work\order\DocumentOrderWork::find()->where(['type' => 1])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-6 month'))])->all();
 
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
@@ -404,12 +404,12 @@ use yii\jui\DatePicker;
     </div>
 
     <?php
-    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_participation_id])->one();
+    $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_participation_id])->one();
     echo $form->field($model, 'order_participation')->textInput(['readonly' => true, 'value' => $order->fullName])->label('Приказ об участии');
     ?>
 
     <?php
-    $orders = \app\models\work\DocumentOrderWork::find()->where(['in', 'type', [1, 2]])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-9 month'))])->all();
+    $orders = \app\models\work\order\DocumentOrderWork::find()->where(['in', 'type', [1, 2]])->andWhere(['>=', 'order_date', date('Y-m-d', strtotime($model->start_date . '-9 month'))])->all();
 
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [

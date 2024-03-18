@@ -36,7 +36,7 @@ class VisitDebugController extends Controller
 
     public function actionPartialCopyVisits($partCount = 1000)
     {
-        var_dump(VisitWork::find()->orderBy(['id' => SORT_DESC])->limit(1000));
+        //var_dump(VisitWork::find()->orderBy(['id' => SORT_DESC])->limit(1000));
     }
 
 }

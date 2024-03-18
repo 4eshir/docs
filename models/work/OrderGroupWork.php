@@ -5,7 +5,7 @@ namespace app\models\work;
 use app\models\common\OrderGroup;
 use app\models\null\DocumentOrderNull;
 use app\models\null\TrainingGroupNull;
-use Yii;
+use app\models\work\order\DocumentOrderWork;
 
 
 class OrderGroupWork extends OrderGroup

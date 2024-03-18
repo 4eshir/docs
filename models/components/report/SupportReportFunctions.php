@@ -641,14 +641,16 @@ class SupportReportFunctions
         $glIds = self::GetIdFromArray($groupLessons);
 
         $visits = $test_mode == 0 ?
-            VisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
-                    ->where(['IN', 'foreign_event_participant_id', $pIds])
+            VisitWork::find()
+                ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
+                ->joinWith(['trainingGroupLesson trainingGroupLesson'])
+                    ->where(['IN', 'trainingGroupParticipant.participant_id', $pIds])
                     ->andWhere(['IN', 'training_group_lesson_id', $glIds])
                     ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
                     ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])
                     ->andWhere(['IN', 'status', $visit_type])->all() :
             GetGroupParticipantsVisitWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])
-                    ->where(['IN', 'foreign_event_participant_id', $pIds])
+                    ->where(['IN', 'trainingGroupParticipant.participant_id', $pIds])
                     ->andWhere(['IN', 'training_group_lesson_id', $glIds])
                     ->andWhere(['>=', 'trainingGroupLesson.lesson_date', $start_date])
                     ->andWhere(['<=', 'trainingGroupLesson.lesson_date', $end_date])

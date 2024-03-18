@@ -2,7 +2,7 @@
 
 namespace app\models\null;
 
-use app\models\work\DocumentOrderWork;
+use app\models\work\order\DocumentOrderWork;
 
 class DocumentOrderNull extends DocumentOrderWork
 {
