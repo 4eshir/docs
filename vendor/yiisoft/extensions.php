@@ -156,4 +156,42 @@ return array (
       '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer/src',
     ),
   ),
+  'yiisoft/yii2-queue' => 
+  array (
+    'name' => 'yiisoft/yii2-queue',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@yii/queue' => $vendorDir . '/yiisoft/yii2-queue/src',
+      '@yii/queue/db' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/db',
+      '@yii/queue/sqs' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sqs',
+      '@yii/queue/amqp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp',
+      '@yii/queue/file' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/file',
+      '@yii/queue/sync' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/sync',
+      '@yii/queue/redis' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/redis',
+      '@yii/queue/stomp' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/stomp',
+      '@yii/queue/gearman' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/gearman',
+      '@yii/queue/beanstalk' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/beanstalk',
+      '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
+    ),
+  ),
+  'zhuravljov/yii2-queue' => 
+  array (
+    'name' => 'zhuravljov/yii2-queue',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@yii/queue' => $vendorDir . '/zhuravljov/yii2-queue/src',
+      '@yii/queue/db' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/db',
+      '@yii/queue/sqs' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/sqs',
+      '@yii/queue/amqp' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/amqp',
+      '@yii/queue/file' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/file',
+      '@yii/queue/sync' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/sync',
+      '@yii/queue/redis' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/redis',
+      '@yii/queue/stomp' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/stomp',
+      '@yii/queue/gearman' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/gearman',
+      '@yii/queue/beanstalk' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/beanstalk',
+      '@yii/queue/amqp_interop' => $vendorDir . '/zhuravljov/yii2-queue/src/drivers/amqp_interop',
+    ),
+  ),
 );

@@ -3,7 +3,7 @@ import {keys} from "../lib/keycode";
 export default function (qunit, Inputmask) {
 	var $ = Inputmask.dependencyLib;
 
-	function pad (val, len) {
+	function pad(val, len) {
 		val = String(val);
 		len = len || 2;
 		while (val.length < len) val = "0" + val;
@@ -1171,5 +1171,154 @@ export default function (qunit, Inputmask) {
 		$("#testmask").Type("30/03/2020 11:00:00 PM");
 
 		assert.equal(testmask.value, "30/03/2020 11:00:00 PM", "Result " + testmask.value);
+	});
+
+	qunit.test("dd/mm/yyyy can't enter a day greater than the 9 #2723", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "dd/mm/yyyy",
+		}).mask(testmask);
+
+		testmask.focus();
+		$("#testmask").Type("9920");
+		$.caret(testmask, 0);
+		$("#testmask").Type("1");
+
+		assert.true(testmask.value.indexOf("19/09/") == 0, "Result " + testmask.value);
+	});
+
+	qunit.test("dd/mm/yyyy 9929 home 2 2 - #2723", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "dd/mm/yyyy",
+		}).mask(testmask);
+
+		testmask.focus();
+		$("#testmask").Type("992023");
+		$.caret(testmask, 0);
+		$("#testmask").Type("2");
+		$.caret(testmask, 3);
+		$("#testmask").Type("2");
+
+		assert.true(testmask.value.indexOf("29/09/") == 0, "Result " + testmask.value);
+	});
+
+	qunit.test("dd/mm/yyyy 9929 home 282 - #2723", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "dd/mm/yyyy",
+		}).mask(testmask);
+
+		testmask.focus();
+		$("#testmask").Type("9920");
+		$.caret(testmask, 0);
+		$("#testmask").Type("282");
+
+		assert.true(testmask.value.indexOf("28/02/") == 0, "Result " + testmask.value);
+	});
+
+	qunit.test("leapyear normal - #2647", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "dd/mm/yyyy",
+		}).mask(testmask);
+
+		testmask.focus();
+		$("#testmask").Type("2922024");
+
+		assert.equal(testmask.value, "29/02/2024", "Result " + testmask.value);
+	});
+
+	qunit.test("leapyear jitMasking - #2647", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "dd/mm/yyyy",
+			jitMasking: true
+		}).mask(testmask);
+
+		testmask.focus();
+		$("#testmask").Type("2922024");
+
+		assert.equal(testmask.value, "29/02/2024", "Result " + testmask.value);
+	});
+
+	qunit.test("Problem with seconds in format 'HH:MM:ss' - #2745", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" value='11:11' />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "HH:MM:ss",
+			placeholder: "HH:MM:SS"
+		}).mask(testmask);
+
+		testmask.focus();
+
+		assert.equal(testmask.value, "11:11:SS", "Result " + testmask.value);
+	});
+
+	qunit.test("mm/dd/yyyy + min/max - 09 - #2754", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "mm/dd/yyyy",
+			min: "10/25/2023",
+			max: "11/25/2023",
+		}).mask(testmask);
+		testmask.focus();
+		$("#testmask").Type("09");
+		assert.equal(testmask.value, "", "Result " + testmask.value);
+	});
+
+
+	qunit.test("mm/dd/yyyy + min/max - enter 9 - #2754", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "mm/dd/yyyy",
+			min: "10/25/2023",
+			max: "11/25/2023",
+		}).mask(testmask);
+		testmask.focus();
+		$("#testmask").Type("9");
+		assert.equal(testmask.value, "", "Result " + testmask.value);
+	});
+
+	qunit.test("mm/dd/yyyy + min/max - enter min - #2754", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "mm/dd/yyyy",
+			min: "10/25/2023",
+			max: "11/25/2023",
+		}).mask(testmask);
+		testmask.focus();
+		$("#testmask").Type("10252023");
+		assert.equal(testmask.value, "10/25/2023", "Result " + testmask.value);
+	});
+	qunit.test("mm/dd/yyyy + min/max - enter max - #2754", function (assert) {
+		var $fixture = $("#qunit-fixture");
+		$fixture.append("<input type=\"text\" id=\"testmask\" />");
+		var testmask = document.getElementById("testmask");
+		Inputmask("datetime", {
+			inputFormat: "mm/dd/yyyy",
+			min: "10/25/2023",
+			max: "11/25/2023",
+		}).mask(testmask);
+		testmask.focus();
+		$("#testmask").Type("11252023");
+		assert.equal(testmask.value, "11/25/2023", "Result " + testmask.value);
 	});
 }
