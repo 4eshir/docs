@@ -311,6 +311,96 @@ class m240411_053943_base_table_2 extends Migration
             'is_network' => $this->boolean()->null(),
             'contract' => $this->string(1024)->null(),
         ]);
+
+        $this->addForeignKey(
+            'fk-training_program-1',
+            '{{%training_program}}',
+            'thematic_direction_id',
+            '{{%thematic_direction}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-2',
+            '{{%training_program}}',
+            'author_id',
+            '{{%user}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-3',
+            '{{%training_program}}',
+            'focus_id',
+            '{{%focus}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-4',
+            '{{%training_program}}',
+            'allow_remote_id',
+            '{{%allow_remote}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-5',
+            '{{%training_program}}',
+            'certificat_type_id',
+            '{{%certificat_type}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-6',
+            '{{%training_program}}',
+            'creator_id',
+            '{{%user}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-training_program-7',
+            '{{%training_program}}',
+            'last_update_id',
+            '{{%user}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-author_program-1',
+            '{{%author_program}}',
+            'author_id',
+            '{{%user}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk-author_program-2',
+            '{{%author_program}}',
+            'training_program_id',
+            '{{%training_program}}',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
     }
 
     /**
