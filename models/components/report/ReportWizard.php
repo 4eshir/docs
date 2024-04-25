@@ -697,27 +697,27 @@ class ReportWizard
 
         $counter = 20;
         foreach ($ageParticipantsTechDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
             $counter++;
         }
 
         foreach ($ageParticipantsSciDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
             $counter++;
         }
 
         foreach ($ageParticipantsSocDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
             $counter++;
         }
 
         foreach ($ageParticipantsArtDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
             $counter++;
         }
 
         foreach ($ageParticipantsSportDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
             $counter++;
         }
 
