@@ -1,13 +1,17 @@
 <?php
 
+use app\models\work\NomenclatureWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
-use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use wbraganca\dynamicform\DynamicFormAsset;
+use wbraganca\dynamicform\DynamicFormWidget;
+use yii\db\Query;
 
 /* @var $this yii\web\View */
-/* @var $model \app\models\work\order\DocumentOrderWork */
+/* @var $model app\models\work\DocumentOrderWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

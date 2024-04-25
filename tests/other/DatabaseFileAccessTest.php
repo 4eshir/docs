@@ -2,15 +2,16 @@
 
 namespace tests\other;
 
+use app\models\common\TrainingProgram;
 use app\models\components\YandexDiskContext;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\BackupVisitWork;
 use app\models\work\DocumentInWork;
+use app\models\work\DocumentOrderWork;
 use app\models\work\DocumentOutWork;
 use app\models\work\EventWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\InvoiceWork;
-use app\models\work\order\DocumentOrderWork;
 use app\models\work\ParticipantFilesWork;
 use app\models\work\RegulationWork;
 use app\models\work\TrainingGroupLessonWork;

@@ -3,12 +3,14 @@
 //--g
 namespace app\models\components;
 
+use app\models\extended\AccessTrainingGroup;
 use app\models\work\DocumentOrderSupplementWork;
+use app\models\work\DocumentOrderWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
-use app\models\work\order\DocumentOrderWork;
 use app\models\work\OrderGroupParticipantWork;
 use app\models\work\OrderGroupWork;
+use app\models\components\petrovich\Petrovich;
 use app\models\work\PeoplePositionBranchWork;
 use app\models\work\PositionWork;
 use app\models\work\ResponsibleWork;
@@ -18,8 +20,14 @@ use app\models\work\TeacherParticipantWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
+use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+
+use PhpOffice\PhpWord\Writer\PDF;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\Query;
+use yii\helpers\Html;
 
 
 class WordWizard

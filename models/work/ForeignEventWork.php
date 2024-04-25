@@ -9,13 +9,13 @@ use app\models\common\EventWay;
 use app\models\common\ForeignEvent;
 use app\models\common\ParticipantAchievement;
 use app\models\common\ParticipantFiles;
+use app\models\common\People;
 use app\models\common\TeacherParticipant;
 use app\models\common\Team;
 use app\models\common\User;
 use app\models\components\FileWizard;
 use app\models\null\CompanyNull;
 use app\models\null\EventLevelNull;
-use app\models\work\order\DocumentOrderWork;
 use Yii;
 use yii\helpers\Html;
 
@@ -223,19 +223,19 @@ class ForeignEventWork extends ForeignEvent
 
     public function getOrderParticipationString()
     {
-        $order = order\DocumentOrderWork::find()->where(['id' => $this->order_participation_id])->one();
+        $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->order_participation_id])->one();
         return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
     }
 
     public function getAddOrderParticipationString()
     {
-        $order = order\DocumentOrderWork::find()->where(['id' => $this->add_order_participation_id])->one();
+        $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->add_order_participation_id])->one();
         return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
     }
 
     public function getOrderBusinessTripString()
     {
-        $order = order\DocumentOrderWork::find()->where(['id' => $this->order_business_trip_id])->one();
+        $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $this->order_business_trip_id])->one();
         return Html::a($order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
     }
 

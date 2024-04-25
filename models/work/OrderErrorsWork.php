@@ -2,8 +2,10 @@
 
 namespace app\models\work;
 
+use app\models\common\DocumentOrderSupplement;
+use Yii;
 use app\models\common\OrderErrors;
-use app\models\work\order\DocumentOrderWork;
+use app\models\work\ErrorsWork;
 
 
 class OrderErrorsWork extends OrderErrors

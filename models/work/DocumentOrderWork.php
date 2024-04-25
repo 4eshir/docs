@@ -1,53 +1,28 @@
 <?php
 
-namespace app\models\work\order;
+namespace app\models\work;
 
 use app\models\common\DocumentOrder;
 use app\models\common\DocumentOrderSupplement;
 use app\models\common\Expire;
+use app\models\common\ForeignEventParticipants;
+use app\models\common\ParticipantFiles;
 use app\models\common\People;
+use app\models\common\User;
 use app\models\common\Regulation;
 use app\models\common\Responsible;
-use app\models\common\User;
 use app\models\components\FileWizard;
-use app\models\components\Logger;
-use app\models\DynamicModel;
-use app\models\extended\ForeignEventParticipantsExtended;
 use app\models\null\PeopleNull;
 use app\models\null\UserNull;
-use app\models\work\DocumentOrderSupplementWork;
-use app\models\work\ErrorsWork;
-use app\models\work\ExpireWork;
-use app\models\work\ForeignEventWork;
-use app\models\work\GroupErrorsWork;
-use app\models\work\NomenclatureWork;
-use app\models\work\OrderErrorsWork;
-use app\models\work\OrderGroupParticipantWork;
-use app\models\work\OrderGroupWork;
-use app\models\work\ParticipantFilesWork;
-use app\models\work\PeopleWork;
-use app\models\work\ResponsibleWork;
-use app\models\work\TeacherParticipantBranchWork;
-use app\models\work\TeacherParticipantWork;
-use app\models\work\TeamNameWork;
-use app\models\work\TeamWork;
-use app\models\work\TrainingGroupLessonWork;
-use app\models\work\TrainingGroupParticipantWork;
-use app\models\work\TrainingGroupWork;
-use app\models\work\UserWork;
-use app\models\work\VisitWork;
+use Psr\Log\NullLogger;
 use Yii;
 use yii\helpers\Html;
+use app\models\components\Logger;
 use yii\web\UploadedFile;
 
 
 class DocumentOrderWork extends DocumentOrder
 {
-    const TYPE_ADMIN = 1;
-    const TYPE_STUDY = 2;
-    const TYPE_STUDY_ARCHIVE = 10;
-    const TYPE_ADMIN_ARCHIVE = 11;
-
     public $scanFile;
     public $docFiles;
     public $responsibles;
@@ -102,55 +77,6 @@ class DocumentOrderWork extends DocumentOrder
             [['participantsFile'], 'file', 'extensions' => 'jpg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true],
         ];
     }
-
-    // REFACTOR
-
-    public function setExtraAttributes($scanFile, $docFiles)
-    {
-        $this->creator_id = Yii::$app->user->identity->getId();
-        $this->signed_id = null;
-        $this->scanFile = $scanFile;
-        $this->docFiles = $docFiles;
-        $this->scan = '';
-        $this->state = true;
-    }
-
-    public function isArchiveOrder()
-    {
-        return !($this->archive_number === '' || $this->archive_number === NULL);
-    }
-
-    public function createArchiveDocumentNumber()
-    {
-        $number = explode( '/',  $this->archive_number);
-        $this->order_number = $number[0];
-        $this->order_copy_id = $number[1];
-        if (count($number) > 2)
-            $this->order_postfix = $number[2];
-        if ($this->nomenclature_id === 5 || $this->nomenclature_id === NULL)
-            $this->type = self::TYPE_ADMIN_ARCHIVE;  // административный архивный
-        else
-            $this->type = self::TYPE_STUDY_ARCHIVE;  // учебный архивный
-    }
-
-    public function uploadFiles()
-    {
-        if ($this->scanFile !== null)
-        {
-            Logger::WriteLog(Yii::$app->user->identity->getId(),
-                'Добавлен скан к приказу ' . $this->order_name . ' ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : ''));
-            $this->uploadScanFile();
-        }
-        if ($this->docFiles != null)
-        {
-            Logger::WriteLog(Yii::$app->user->identity->getId(),
-                'Добавлен редактируемый файл к приказу ' . $this->order_name . ' ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : ''));
-            $this->uploadDocFiles();
-        }
-    }
-
-    // REFACTOR
-
 
     public function getCreatorWork()
     {
@@ -281,41 +207,6 @@ class DocumentOrderWork extends DocumentOrder
         }
         return $result;
     }
-
-    // REFACTOR
-
-    public function isArchive()
-    {
-        return $this->type === self::TYPE_STUDY_ARCHIVE || $this->type === self::TYPE_ADMIN_ARCHIVE;
-    }
-
-    public function loadDynamicModel()
-    {
-        $modelResponsible = DynamicModel::createMultiple(ResponsibleWork::classname());
-        DynamicModel::loadMultiple($modelResponsible, Yii::$app->request->post());
-        $this->responsibles = $modelResponsible;
-        $modelExpire = DynamicModel::createMultiple(ExpireWork::classname());
-        DynamicModel::loadMultiple($modelExpire, Yii::$app->request->post());
-        $this->expires = $modelExpire;
-        $modelParticipants = DynamicModel::createMultiple(ForeignEventParticipantsExtended::classname());
-        DynamicModel::loadMultiple($modelParticipants, Yii::$app->request->post());
-        $this->participants = $modelParticipants;
-    }
-
-    public function makeReserveOrder()
-    {
-        $this->order_name = 'Резерв';
-        $this->order_number = '02-02';
-        $this->order_date = date("Y-m-d");
-        $this->scan = '';
-        $this->state = true;
-        $this->type = 1;
-        $this->creator_id = Yii::$app->user->identity->getId();
-        $this->getDocumentNumber();
-        Yii::$app->session->addFlash('success', 'Резерв успешно добавлен');
-    }
-
-    // REFACTOR
 
     public function beforeSave($insert)
     {
@@ -754,10 +645,7 @@ class DocumentOrderWork extends DocumentOrder
                         $lessonIds = [];
                         foreach ($lessons as $lesson) $lessonIds[] = $lesson->id;
 
-                        $visits = VisitWork::find()
-                            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
-                            ->where(['trainingGroupParticipant.participant_id' => $group->participant_id])
-                            ->andWhere(['IN', 'training_group_lesson_id', $lessonIds])->all();
+                        $visits = VisitWork::find()->where(['foreign_event_participant_id' => $group->participant_id])->andWhere(['IN', 'training_group_lesson_id', $lessonIds])->all();
                         if (empty($visits))
                             Logger::WriteLog(Yii::$app->user->identity->getId(),
                                 'Были удалены лишние явки у participant_id='.$group->participant_id.' в связи с несовпадением дат занятий и даты приказа '.$this->order_name . ' № ' . $this->order_number . '/' . $this->order_copy_id . (empty($this->order_postfix) ? '/' . $this->order_postfix : ''));

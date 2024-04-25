@@ -1,11 +1,15 @@
 <?php
 
-use wbraganca\dynamicform\DynamicFormWidget;
+use app\models\work\NomenclatureWork;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use wbraganca\dynamicform\DynamicFormAsset;
+use wbraganca\dynamicform\DynamicFormWidget;
+use yii\db\Query;
 
 /* @var $this yii\web\View */
-/* @var $model \app\models\work\order\DocumentOrderWork */
+/* @var $model app\models\work\DocumentOrderWork */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -309,9 +313,9 @@ $session = Yii::$app->session;
                                     <?php
                                     $orders = [];
                                     if ($model->id == null)
-                                        $orders = \app\models\work\order\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
+                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
                                     else
-                                        $orders = \app\models\work\order\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
+                                        $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->andWhere(['!=', 'id', $model->id])->all();
                                     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
                                     $params = [
                                         'prompt' => '',

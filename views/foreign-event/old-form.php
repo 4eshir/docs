@@ -2,8 +2,8 @@
 
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
-use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\work\ForeignEventWork */
@@ -425,7 +425,7 @@ use yii\widgets\ActiveForm;
 
     <div id="divOrderTrip" <?php echo $model->business_trip == 0 ? 'hidden' : '' ?>>
         <?php
-        $orders = \app\models\work\order\DocumentOrderWork::find()->all();
+        $orders = \app\models\work\DocumentOrderWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
             'prompt' => '--',
@@ -436,7 +436,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php
-    $orders = \app\models\work\order\DocumentOrderWork::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => '--',
@@ -446,7 +446,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    $orders = \app\models\work\order\DocumentOrderWork::find()->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [
         'prompt' => '--',

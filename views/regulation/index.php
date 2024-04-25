@@ -1,8 +1,8 @@
 <?php
 
 use kartik\export\ExportMenu;
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchRegulation */
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'date', 'label' => 'Дата положения'],
         ['attribute' => 'name'],
         ['attribute' => 'orderString', 'label' => 'Приказ', 'value' => function($model){
-            $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+            $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
             $doc_num = 0;
             if ($order->order_postfix == null)
                 $doc_num = $order->order_number.'/'.$order->order_copy_id;
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $model->order_id])->one();
                 if ($exp == null)
                     $exp = \app\models\work\ExpireWork::find()->where(['expire_regulation_id' => $model->id])->one();
-                $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                 $doc_num = 0;
 
                 if ($order->order_postfix == null)
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'date', 'label' => 'Дата положения'],
             ['attribute' => 'name'],
             ['attribute' => 'orderString', 'label' => 'Приказ', 'value' => function($model){
-                $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 $doc_num = 0;
                 if ($order->order_postfix == null)
                     $doc_num = $order->order_number.'/'.$order->order_copy_id;
@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $exp = \app\models\work\ExpireWork::find()->where(['expire_order_id' => $model->order_id])->one();
                     if ($exp == null)
                         $exp = \app\models\work\ExpireWork::find()->where(['expire_regulation_id' => $model->id])->one();
-                    $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $exp->active_regulation_id])->one();
                     $doc_num = 0;
 
                     if ($order->order_postfix == null)

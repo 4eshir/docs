@@ -3,7 +3,7 @@
 namespace app\models\work;
 
 use app\models\common\Errors;
-use app\models\work\order\DocumentOrderWork;
+use app\models\extended\AccessTrainingGroup;
 use Yii;
 use yii\db\Query;
 use yii\helpers\Html;

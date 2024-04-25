@@ -1,8 +1,8 @@
 <?php
 
 use kartik\export\ExportMenu;
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchEvent */
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }, 'filter' => [1 => "Да", 0 => "Нет"]],
         ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
         ['attribute' => 'orderString', 'value' => function($model){
-            $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+            $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
             if ($order == null)
                 return 'Нет';
             return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }, 'filter' => [1 => "Да", 0 => "Нет"]],
             ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
             ['attribute' => 'orderString', 'value' => function($model){
-                $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
+                $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
                 if ($order == null)
                     return 'Нет';
                 return Html::a('№'.$order->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $order->id]));

@@ -60,16 +60,51 @@ class MergeParticipantModel extends \yii\base\Model
             $tp->save();
         }
 
+        //-----------------------------------------
+
+        //получаем достижения второго участника
+
+        /*$tps = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $this->id2])->all();
+        foreach ($tps as $tp)
+        {
+            $tp->participant_id = $this->id1;
+            $tp->save();
+        }*/
+
+        //-----------------------------------------
+
+        //получаем файлы второго участника
+
+        /*$tps = ParticipantFilesWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.participant_id' => $this->id2])->all();
+        foreach ($tps as $tp)
+        {
+            $tp->participant_id = $this->id1;
+            $tp->save();
+        }*/
+
+        //-----------------------------------------
+
         //получаем явки/неявки второго участника
 
-        $tps = VisitWork::find()
-            ->joinWith(['trainingGroupParticipant trainingGroupParticipant'])
-            ->where(['trainingGroupParticipant.participant_id' => $this->id2])->all();
+        $tps = VisitWork::find()->where(['foreign_event_participant_id' => $this->id2])->all();
         foreach ($tps as $tp)
         {
             $tp->foreign_event_participant_id = $this->id1;
             $tp->save(false);
         }
+
+        //-----------------------------------------
+
+        //Получаем связку с педагогом второго участника
+
+        /*$tps = TeacherParticipantWork::find()->where(['participant_id' => $this->id2])->all();
+        foreach ($tps as $tp)
+        {
+            $tp->participant_id = $this->id1;
+            $tp->save(false);
+        }*/
+
+        //-----------------------------------------
 
         //удаляем второго участника
 

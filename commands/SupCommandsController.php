@@ -7,25 +7,37 @@
 
 namespace app\commands;
 
+use app\models\common\ForeignEventParticipants;
+use app\models\common\Team;
+use app\models\components\Logger;
+use app\models\components\report\debug_models\DebugManHoursModel;
 use app\models\components\report\ReportConst;
 use app\models\components\report\SupportReportFunctions;
+use app\models\LoginForm;
+use app\models\null\PeopleNull;
 use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\AllowRemoteWork;
 use app\models\work\BranchWork;
+use app\models\work\DocumentOrderWork;
 use app\models\work\FocusWork;
 use app\models\work\ForeignEventParticipantsWork;
 use app\models\work\ForeignEventWork;
 use app\models\work\ParticipantAchievementWork;
 use app\models\work\ParticipantFilesWork;
+use app\models\work\PeopleWork;
 use app\models\work\TeacherParticipantWork;
 use app\models\work\TeamNameWork;
 use app\models\work\TeamWork;
+use app\models\work\TrainingGroupLessonWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
 use app\models\work\VisitWork;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\Console;
 
 /**

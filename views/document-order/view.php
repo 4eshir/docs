@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model \app\models\work\order\DocumentOrderWork */
+/* @var $model app\models\work\DocumentOrderWork */
 
 $this->title = $model->order_name;
 $session = Yii::$app->session;
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $res = '';
                 foreach ($exp as $expOne)
                 {
-                    $order = \app\models\work\order\DocumentOrderWork::find()->where(['id' => $expOne->expire_order_id])->one();
+                    $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $expOne->expire_order_id])->one();
                     $doc_num = 0;
                     if ($order->order_postfix == null)
                         $doc_num = $order->order_number.'/'.$order->order_copy_id;

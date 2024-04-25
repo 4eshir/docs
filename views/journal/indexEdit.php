@@ -1,6 +1,5 @@
 <?php
 
-use app\models\work\VisitWork;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
@@ -309,7 +308,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         foreach ($lessons as $lesson)
         {
-            $visits = VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
+            $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             $value = false;
             $dis = true;
             $date = new DateTime(date("Y-m-d"));

@@ -5,7 +5,7 @@ namespace app\models\work;
 use app\models\common\Expire;
 use app\models\null\DocumentOrderNull;
 use app\models\null\RegulationNull;
-use app\models\work\order\DocumentOrderWork;
+use Yii;
 
 
 class ExpireWork extends Expire

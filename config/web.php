@@ -11,7 +11,6 @@ $config = [
     'bootstrap' => [
         'log',
         'queue',
-        'app\bootstrap\SetUp'
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

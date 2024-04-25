@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model \app\models\work\order\DocumentOrderWork */
+/* @var $model app\models\work\DocumentOrderWork */
 $session = Yii::$app->session;
 $this->title = 'Редактировать приказ: ' . $model->order_name;
 $this->params['breadcrumbs'][] = ['label' => 'Приказы', 'url' => ['index', 'c' => $session->get('type') == 1 ? 1 : 0]];

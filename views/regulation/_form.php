@@ -1,5 +1,6 @@
 <?php
 
+use wbraganca\dynamicform\DynamicFormWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -33,7 +34,7 @@ $session = Yii::$app->session;
     <?= $form->field($model, 'short_name')->textInput(['maxlength' => true]) ?>
 
     <?php
-    $orders = \app\models\work\order\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
+    $orders = \app\models\work\DocumentOrderWork::find()->where(['!=', 'order_name', 'Резерв'])->all();
     $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
     $params = [];
 

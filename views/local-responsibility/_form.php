@@ -111,7 +111,7 @@ use yii\widgets\ActiveForm;
                 //'buttonImage' => 'images/calendar.gif'
             ]])->label('Дата прикрепления ответственности');
 
-        $orders = \app\models\work\order\DocumentOrderWork::find()->all();
+        $orders = \app\models\work\DocumentOrderWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
             'prompt' => '',
@@ -141,10 +141,10 @@ use yii\widgets\ActiveForm;
                 //'buttonImageOnly' => true,
                 //'buttonImage' => 'images/calendar.gif'
             ]])->label(false);
-        echo '</td><td>'.Html::a(\app\models\work\order\DocumentOrderWork::find()->where(['id' => $model->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])). '</td>';
+        echo '</td><td>'.Html::a(\app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one()->fullName, \yii\helpers\Url::to(['document-order/view', 'id' => $model->order_id])). '</td>';
         echo '</td><td>'.Html::submitButton('Открепить', ['class' => 'btn btn-danger', 'onclick' => 'clickSubmit()']). '</td><tr>';
         echo '</table>';
-        $orders = \app\models\work\order\DocumentOrderWork::find()->all();
+        $orders = \app\models\work\DocumentOrderWork::find()->all();
         $items = \yii\helpers\ArrayHelper::map($orders,'id','fullName');
         $params = [
             'prompt' => '',
