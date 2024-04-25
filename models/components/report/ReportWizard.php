@@ -698,26 +698,31 @@ class ReportWizard
         $counter = 20;
         foreach ($ageParticipantsTechDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Техническая '.$participant->id);
             $counter++;
         }
 
         foreach ($ageParticipantsSciDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Научная '.$participant->id);
             $counter++;
         }
 
         foreach ($ageParticipantsSocDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Соцпед '.$participant->id);
             $counter++;
         }
 
         foreach ($ageParticipantsArtDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Художественная '.$participant->id);
             $counter++;
         }
 
         foreach ($ageParticipantsSportDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Спортивная '.$participant->id);
             $counter++;
         }
 
