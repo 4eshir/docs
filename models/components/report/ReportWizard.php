@@ -678,6 +678,52 @@ class ReportWizard
         //----------------------
 
 
+        //DEBUG
+
+        $ageParticipantsTechDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $ageParticipantsSciDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $ageParticipantsSocDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $socialGroups, 1,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $ageParticipantsArtDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $artGroups, 1,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $ageParticipantsSportDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 1,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+
+        $counter = 20;
+        foreach ($ageParticipantsTechDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $counter++;
+        }
+
+        foreach ($ageParticipantsSciDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $counter++;
+        }
+
+        foreach ($ageParticipantsSocDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $counter++;
+        }
+
+        foreach ($ageParticipantsArtDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $counter++;
+        }
+
+        foreach ($ageParticipantsSportDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->fullName);
+            $counter++;
+        }
+
+
+        //DEBUG
+
         //--Разбиваем детей по возрастам (техническая направленность)--
         $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 6, count($ageParticipants12));
