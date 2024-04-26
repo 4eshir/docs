@@ -496,6 +496,10 @@ class SupportReportFunctions
         $participants = $test_mode == 0 ?
             TrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $groupIds])->andWhere(['IN', 'participant.sex', $sex])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all() :
             GetGroupParticipantsTrainingGroupParticipantWork::find()->joinWith(['participant participant'])->where(['IN', 'training_group_id', $groupIds])->andWhere(['IN', 'participant.sex', $sex])->orderBy(['participant_id' => SORT_ASC, 'id' => SORT_ASC])->all();
+
+        if (count($participants) == 0) {
+            return [];
+        }
         //--------------------------------------------
 
         //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
