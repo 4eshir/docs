@@ -404,14 +404,20 @@ class SupportReportFunctions
     }
     //-------------------------------------------------------------------------
 
+    static public function GetAge($birthday_timestamp, $current_timestamp)
+    {
+        $age = date('Y', $birthday_timestamp) - date('Y', $birthday_timestamp);
+        if (date('md', $birthday_timestamp) > date('md', $current_timestamp)) $age--;
+
+        return $age;
+    }
 
     //--Функция проверки возраста обучающегося--
     static public function CheckAge($birthday, $ages, $current_date)
     {
         $birthday_timestamp = strtotime($birthday);
         $current_timestamp = strtotime($current_date);
-        $age = date('Y', $current_timestamp) - date('Y', $birthday_timestamp);
-        if (date('md', $birthday_timestamp) > date('md', $current_timestamp)) $age--;
+        $age = self::GetAge($birthday_timestamp, $current_timestamp);
 
         return in_array($age, $ages);
     }

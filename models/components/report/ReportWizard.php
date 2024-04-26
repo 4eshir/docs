@@ -695,22 +695,24 @@ class ReportWizard
         $ageParticipantsSportDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 1,
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
-        /*foreach ($ageParticipantsSciDebug as $participant) {
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, 'Научная '.$participant->id);
+        foreach ($ageParticipantsSciDebug as $participant) {
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(3, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(4, $counter, 'Научная '.$participant->id);
             $counter++;
-        }*/
+        }
 
         $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
-        var_dump('Людей младше 3 лет: '.count($ageParticipants12));
 
+        $counter = 20;
         for ($i = 3; $i < 18; $i++)
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
-            var_dump('Людей '.$i.' лет: '.count($ageParticipants));
+            foreach ($ageParticipants as $participant) {
+                $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->id);
+                $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, SupportReportFunctions::GetAge($participant->participant->birthdate, strtotime(date('Y-m-d'))));
+                $counter++;
+            }
         }
-
-        var_dump('Всего людей: '.count($ageParticipantsSciDebug));
 
 
         //DEBUG
