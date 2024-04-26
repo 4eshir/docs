@@ -701,7 +701,7 @@ class ReportWizard
             $counter++;
         }*/
 
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         var_dump('Людей младше 3 лет: '.count($ageParticipants12));
 
         for ($i = 3; $i < 18; $i++)
