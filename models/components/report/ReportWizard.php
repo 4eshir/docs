@@ -698,11 +698,11 @@ class ReportWizard
         $counter = 20;
         foreach ($ageParticipantsSciDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(3, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
-            $inputData->getSheet(0)->setCellValueByColumnAndRow(4, $counter, 'Научная '.$participant->id);
+            $inputData->getSheet(0)->setCellValueByColumnAndRow(4, $counter, SupportReportFunctions::GetAge($participant->participant->birthdate, strtotime(date('Y-m-d'))));
             $counter++;
         }
 
-        $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+        /*$ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         for ($i = 3; $i < 18; $i++)
         {
@@ -712,7 +712,8 @@ class ReportWizard
                 $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, SupportReportFunctions::GetAge($participant->participant->birthdate, strtotime(date('Y-m-d'))));
                 $counter++;
             }
-        }
+            $counter++;
+        }*/
 
 
         //DEBUG
