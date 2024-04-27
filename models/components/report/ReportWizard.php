@@ -695,6 +695,8 @@ class ReportWizard
         $ageParticipantsSportDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $sportGroups, 1,
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(6, 20, "Всего: ".count($ageParticipantsSciDebug));
+
         $counter = 20;
         foreach ($ageParticipantsSciDebug as $participant) {
             $inputData->getSheet(0)->setCellValueByColumnAndRow(3, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
@@ -704,17 +706,20 @@ class ReportWizard
 
         $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $counter = 20;
+        $sum = 0;
         for ($i = 3; $i < 17; $i++)
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             foreach ($ageParticipants as $participant) {
-                $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->id);
+                $inputData->getSheet(0)->setCellValueByColumnAndRow(0, $counter, $participant->participant->secondname.' '.$participant->participant->firstname.' '.$participant->participant->patronymic);
                 $inputData->getSheet(0)->setCellValueByColumnAndRow(1, $counter, SupportReportFunctions::GetAge(strtotime($participant->participant->birthdate), strtotime(((int)explode("-", $start_date)[0] + 1).'-01-01')));
                 $counter++;
             }
+            $sum += count($ageParticipants);
             $counter++;
         }
 
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(7, 20, "Всего по возрастам: ".$sum);
 
         //DEBUG
 
