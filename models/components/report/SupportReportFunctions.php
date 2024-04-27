@@ -406,7 +406,7 @@ class SupportReportFunctions
 
     static public function GetAge($birthday_timestamp, $current_timestamp)
     {
-        $age = date('Y', $birthday_timestamp) - date('Y', $birthday_timestamp);
+        $age = date('Y', $current_timestamp) - date('Y', $birthday_timestamp);
         if (date('md', $birthday_timestamp) > date('md', $current_timestamp)) $age--;
 
         return $age;
