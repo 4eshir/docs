@@ -509,18 +509,27 @@ class SupportReportFunctions
         //--------------------------------------------
 
         //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
-        $currentParticipant = $participants[0]->participant_id; // текущий id обучающегося (для уникального режима)
-        $resultParticipant = $unique == 0 ? [] : [$participants[0]]; // если считаем уникальных - то первого сразу заносим в список
+        $currentParticipant = null;
+        $resultParticipant = [];
+        /*$currentParticipant = $participants[0]->participant_id; // текущий id обучающегося (для уникального режима)
+        $resultParticipant = $unique == 0 ? [] : [$participants[0]]; // если считаем уникальных - то первого сразу заносим в список*/
         foreach ($participants as $participant)
         {
-            if ($age !== ReportConst::AGES_ALL)
-                if (!self::CheckAge($participant->participant->birthdate, $age, $current_date))
+            if ($age !== ReportConst::AGES_ALL) {
+                if (!self::CheckAge($participant->participant->birthdate, $age, $current_date)) {
                     continue;
+                }
+            }
+
 
             if ($unique == 1)
             {
-                if ($participant->participant_id == $currentParticipant)
+                if (!$currentParticipant) {
+                    $currentParticipant = $participant->participant_id;
+                    $resultParticipant[] = $currentParticipant;
+                } else if ($participant->participant_id == $currentParticipant) {
                     continue;
+                }
                 else
                 {
                     // Обновление уникального обучающегося
