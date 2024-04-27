@@ -707,7 +707,7 @@ class ReportWizard
         $ageParticipants12 = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 0, [0, 1, 2], ((int)explode("-", $start_date)[0] + 1).'-01-01');
         $counter = 20;
         $sum = 0;
-        for ($i = 3; $i < 17; $i++)
+        for ($i = 3; $i < 18; $i++)
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
             foreach ($ageParticipants as $participant) {
