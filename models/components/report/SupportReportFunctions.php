@@ -511,8 +511,6 @@ class SupportReportFunctions
         //--Производим отбор по возрасту и удаляем дубликаты (при необходимости)--
         $currentParticipant = null;
         $resultParticipant = [];
-        /*$currentParticipant = $participants[0]->participant_id; // текущий id обучающегося (для уникального режима)
-        $resultParticipant = $unique == 0 ? [] : [$participants[0]]; // если считаем уникальных - то первого сразу заносим в список*/
         foreach ($participants as $participant)
         {
             if ($age !== ReportConst::AGES_ALL) {

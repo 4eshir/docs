@@ -680,7 +680,7 @@ class ReportWizard
 
         //DEBUG
 
-        $ageParticipantsTechDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1,
+        /*$ageParticipantsTechDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroups, 1,
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
         $ageParticipantsSciDebug = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $scienceGroups, 1,
@@ -719,7 +719,7 @@ class ReportWizard
             $counter++;
         }
 
-        $inputData->getSheet(0)->setCellValueByColumnAndRow(7, 20, "Всего по возрастам: ".$sum);
+        $inputData->getSheet(0)->setCellValueByColumnAndRow(7, 20, "Всего по возрастам: ".$sum);*/
 
         //DEBUG
 
@@ -802,14 +802,14 @@ class ReportWizard
         for ($i = 3; $i < 18; $i++)
         {
             $ageParticipants = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD,
-                array_merge($scienceGroups, array_merge($socialGroups, array_merge($artGroups, $sportGroups))),
+                array_merge($technicalGroupsRemote, array_merge($technicalGroupsFulltime, array_merge($scienceGroups, array_merge($socialGroups, array_merge($artGroups, $sportGroups))))),
                 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
 
-            $ageParticipantsFulltimeTech = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
-            $ageParticipantsRemoteTech = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            /*$ageParticipantsFulltimeTech = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsFulltime, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');
+            $ageParticipantsRemoteTech = SupportReportFunctions::GetParticipantsFromGroups(ReportConst::PROD, $technicalGroupsRemote, 1, [$i], ((int)explode("-", $start_date)[0] + 1).'-01-01');*/
 
-            $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 16, count($ageParticipants) + count($ageParticipantsFulltimeTech) + count($ageParticipantsRemoteTech));
-            $sumAgesUnic += count($ageParticipants) + count($ageParticipantsFulltimeTech) + count($ageParticipantsRemoteTech);
+            $inputData->getSheet(1)->setCellValueByColumnAndRow($i + 1, 16, count($ageParticipants));
+            $sumAgesUnic += count($ageParticipants);
         }
         //--------------------------------
 
