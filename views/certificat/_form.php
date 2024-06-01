@@ -62,7 +62,6 @@ if(isset($_GET['group_id'])) {
     foreach($cert as $one) $cIds[] = $one->training_group_participant_id;
 
     $tps = TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['status' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->andWhere(['success' => 1])->all();
-    var_dump(TrainingGroupParticipantWork::find()->joinWith(['trainingGroup trainingGroup'])->where(['trainingGroup.archive' => 0])->andWhere(['status' => 0])->andWhere(['NOT IN', 'training_group_participant.id', $cIds])->andWhere(['success' => 1])->createCommand()->getRawSql());
 
     echo '<table class="table table-striped">';
     foreach($tps as $tp)
