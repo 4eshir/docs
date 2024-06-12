@@ -3483,15 +3483,37 @@ class ExcelWizard
             $startRow++;
             $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow(0, $startRow)->getValue();
         }
-        $fioColumnIndex = 0;
+        $fio1ColumnIndex = 0;
         $tempValue = '_';
-        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio1ColumnIndex, $startRow)->getValue();
 
-        while ($fioColumnIndex < 100 && $tempValue !== 'Фамилия Имя Отчество проектанта')
+        while ($fio1ColumnIndex < 100 && $tempValue !== 'Фамилия обучающегося')
         {
 
-            $fioColumnIndex++;
-            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startRow)->getValue();
+            $fio1ColumnIndex++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio1ColumnIndex, $startRow)->getValue();
+        }
+
+        $fio2ColumnIndex = 0;
+        $tempValue = '_';
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio2ColumnIndex, $startRow)->getValue();
+
+        while ($fio2ColumnIndex < 100 && $tempValue !== 'Имя обучающегося')
+        {
+
+            $fio2ColumnIndex++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio2ColumnIndex, $startRow)->getValue();
+        }
+
+        $fio3ColumnIndex = 0;
+        $tempValue = '_';
+        $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio3ColumnIndex, $startRow)->getValue();
+
+        while ($fio3ColumnIndex < 100 && $tempValue !== 'Отчество обучающегося')
+        {
+
+            $fio3ColumnIndex++;
+            $tempValue = $inputData->getActiveSheet()->getCellByColumnAndRow($fio3ColumnIndex, $startRow)->getValue();
         }
 
         $birthdateColumnIndex = 0;
@@ -3512,15 +3534,19 @@ class ExcelWizard
 
 
         $names = [];
-        $curName = "_";
+        $curName1 = "_";
+        $curName2 = "_";
+        $curName3 = "_";
         $startIndex = $startRow + 1;
         $mainIndex = 0;
 
         while ($mainIndex < $inputData->getActiveSheet()->getHighestRow() - $startRow)
         {
-            $curName = $inputData->getActiveSheet()->getCellByColumnAndRow($fioColumnIndex, $startIndex + $mainIndex)->getValue();
-            if ($curName !== null)
-                $names[] = $curName;
+            $curName1 = $inputData->getActiveSheet()->getCellByColumnAndRow($fio1ColumnIndex, $startIndex + $mainIndex)->getValue();
+            $curName2 = $inputData->getActiveSheet()->getCellByColumnAndRow($fio2ColumnIndex, $startIndex + $mainIndex)->getValue();
+            $curName3 = $inputData->getActiveSheet()->getCellByColumnAndRow($fio3ColumnIndex, $startIndex + $mainIndex)->getValue();
+            if ($curName1 !== null || $curName2 !== null || $curName3 !== null)
+                $names[] = $curName1 . ' ' . $curName2 . ' ' . $curName3;
             else
                 $names[] = "none none none";
             $mainIndex++;
