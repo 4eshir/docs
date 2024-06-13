@@ -269,6 +269,11 @@ class PdfWizard
 
         $date = $part->trainingGroupWork->protection_date;
         $type = strripos($certificat->certificatTemplate->name, 'Плюс') ? 'ИНТЕНСИВ+' : 'ИНТЕНСИВ';
+        if (strripos($certificat->certificatTemplate->name, 'ПРО'))
+        {
+            $type = 'РШТ.ПРО';
+        }
+        $prof = $type === 'РШТ.ПРО' ? ' профориентационной' : '';
 
         $style = 'padding-left: -15px; margin: 10px;';
         $styleDistance = 'height: 1px; margin: 10px;';
@@ -288,13 +293,13 @@ class PdfWizard
         $content .= '
             <p style="'.$styleDistance.'"></p>
             <p style="font-size: 18px; '.$style.'">'. date("d", strtotime($date)) . ' '
-                    . WordWizard::Month(date("m", strtotime($date))) . ' '
-                    . date("Y", strtotime($date)) . ' года
+            . WordWizard::Month(date("m", strtotime($date))) . ' '
+            . date("Y", strtotime($date)) . ' года
             </p>
             <p style="'.$styleDistance.'"></p>
             <p style="font-size: 24px; font-weight: bold;'.$style.'">'. $part->participantWork->fullName .'</p>
             <p style="'.$styleDistance.'"></p>
-            <p style="font-size: 16px;'.$style.'">'.$genderVerbs[0].' очное обучение по программе мероприятия</p>
+            <p style="font-size: 16px;'.$style.'">'.$genderVerbs[0].' очное обучение по'. $prof .' программе мероприятия</p>
             <p style="'.$styleDistance.'"></p>
             <p style="font-size: 24px;'.$style.'">'.$type.'</p>
             <p style="'.$styleDistance.'"></p>
