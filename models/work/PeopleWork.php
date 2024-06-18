@@ -176,8 +176,7 @@ class PeopleWork extends People
 
     public function getPositions()
     {
-        $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
-        return implode(', ', $pos);
+        return $this->positionWork->name;
     }
 
     public function getFullName()
