@@ -131,7 +131,7 @@ class DebugReportFunctions
                     $participant->groupProjectThemesWork->projectThemeWork->name.";".
                     $participant->trainingGroupWork->protection_date.";".
                     $participant->groupProjectThemesWork->projectTypeWork->name.";".
-                    $participant->trainingGroupWork->expertsArray[0]->expertWork->fullName.";".
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->fio.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positionsListRaw . ";" .
