@@ -101,6 +101,9 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positions . ";" .
                     $section . "\r\n";
+
+
+                    var_dump($participant->trainingGroupWork->expertsArray[0]->expertWork);
             }
 
         }
