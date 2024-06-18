@@ -101,7 +101,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->positionsListRaw . ";" .
                     $section . "\r\n";
-                
+
             }
 
         }
@@ -134,7 +134,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->fullName.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name.";".
-                    $participant->trainingGroupWork->expertsArray[0]->expertWork->positionWork->name.";".
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->positionsListRaw . ";" .
                     $section."\r\n";
             }
 
