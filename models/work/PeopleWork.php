@@ -19,6 +19,7 @@ use app\models\extended\AccessTrainingGroup;
 use app\models\null\CompanyNull;
 use app\models\null\PositionNull;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 
@@ -176,8 +177,11 @@ class PeopleWork extends People
 
     public function getPositions()
     {
+        $positions = '';
         $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
-        return implode(', ', $pos);
+        foreach ($pos as $posOne)
+            $positions .= $posOne->position->name . ', ';
+        return substr($positions, 0, -2);
     }
 
     public function getFullName()
