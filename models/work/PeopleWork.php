@@ -176,7 +176,7 @@ class PeopleWork extends People
 
     public function getPositions()
     {
-        return $this->positionWork->name;
+        return '$this->positionWork->name';
     }
 
     public function getFullName()
