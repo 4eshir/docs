@@ -99,11 +99,9 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->fio . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertTypeWork->name . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->companyWork->name . ";" .
-                    $participant->trainingGroupWork->expertsArray[0]->expertWork->positions . ";" .
+                    $participant->trainingGroupWork->expertsArray[0]->expertWork->positionsListRaw . ";" .
                     $section . "\r\n";
-
-
-                    var_dump($participant->trainingGroupWork->expertsArray[0]->expertWork);
+                
             }
 
         }

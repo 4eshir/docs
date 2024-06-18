@@ -175,7 +175,7 @@ class PeopleWork extends People
         return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
     }
 
-    public function getPositions()
+    public function getPositionsListRaw()
     {
         $positions = '';
         $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
