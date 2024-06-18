@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '376519a344faf732e624d13052ee5974b1de573e',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -585,6 +585,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/message',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-http/message-factory' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '4d8778e1c7d405cbb471574821c1ff5b68cc8f57',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/message-factory',
+            'aliases' => array(
+                0 => '1.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'php-http/message-factory-implementation' => array(
@@ -1189,9 +1200,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '376519a344faf732e624d13052ee5974b1de573e',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -365,6 +365,7 @@ class RoleBaseAccess
             "delete-expert" => [5, 6, 7],
             "get-archive" => [51, 52],
             "send-certificats" => [51, 52],
+            "create-protocol" => [51, 52],
         ],
         //--------------
 

@@ -24,7 +24,6 @@ use app\models\null\PeopleNull;
 use app\models\null\TrainingProgramNull;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
-use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\TrainingGroupExpertWork;
 use app\models\work\GroupProjectThemesWork;
@@ -1079,6 +1078,20 @@ class TrainingGroupWork extends TrainingGroup
             if ($part->participant_id == $participant_id)
                 return false;
         return true;
+    }
+
+    public function allowedProtocol()
+    {
+        $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
+        $allowFlag = true;
+        foreach ($participants as $participant) {
+            /** @var TrainingGroupParticipantWork $participant */
+            if ($participant->success === null) {
+                $allowFlag = false;
+            }
+        }
+
+        return $allowFlag;
     }
 
     public function InfoProtectionGroup($user_id)

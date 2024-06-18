@@ -169,6 +169,17 @@ class PeopleWork extends People
         return $achieveList;
     }
 
+    public function getFio()
+    {
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+    }
+
+    public function getPositions()
+    {
+        $pos = PeoplePositionBranch::find()->where(['people_id' => $this->id])->all();
+        return implode(', ', $pos);
+    }
+
     public function getFullName()
     {
         $positions = '';

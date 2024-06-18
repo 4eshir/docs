@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\components\PdfWizard;
 use app\models\components\RoleBaseAccess;
+use app\models\extended\ProtocolForm;
 use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
 use app\models\work\AccessLevelWork;
@@ -770,6 +771,24 @@ class TrainingGroupController extends Controller
         }
         
         return $this->redirect('index?r=training-group/update&id=' . $modelId);
+    }
+
+    public function actionCreateProtocol($gId)
+    {
+        $model = new ProtocolForm($gId);
+
+        if($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validate()) {
+                $model->save(false);
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('/training-group/protocol-settings', [
+            'model' => $model,
+        ]);
     }
 
     //Проверка на права доступа к CRUD-операциям

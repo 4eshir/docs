@@ -1,0 +1,50 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\extended\ProtocolForm */
+/* @var $form yii\bootstrap\ActiveForm */
+?>
+
+<?php
+$this->title = 'Протокол итоговой аттестации';
+?>
+
+<style>
+
+</style>
+
+<div class="man-hours-report-form">
+
+    <h5><b>Выберите название публичного мероприятия из списка или введите его вручную</b></h5>
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'dropdownEventName')->dropDownList(['boobs1' => 'boobs1', 'boobs2' => 'boobs2'])->label(false) ?>
+    <?= $form->field($model, 'textEventName')->textInput()->label(false) ?>
+
+    <br>
+    <label><b>Выделите всех присутствовавших на защите:</b></label><br>
+    <div class="checkbox-list">
+        <?= $form->field($model, 'chooseParticipants')->checkboxList(
+            \yii\helpers\ArrayHelper::map($model->participants, 'id', function ($participant) {
+                return $participant->participant['secondname'] . ' ' . $participant->participant['firstname'] . ' ' . $participant->participant['patronymic'];
+            })
+        )->label(false) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::submitButton('Скачать отчет', ['class' => 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+
+<style>
+    .checkbox-list label {
+        display: block;
+    }
+</style>
