@@ -92,7 +92,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['*'],
+        'allowedIPs' => ['5.139.210.46'],
     ];
 
     $config['bootstrap'][] = 'gii';
