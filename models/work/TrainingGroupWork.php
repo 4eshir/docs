@@ -316,7 +316,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= ' Сертификат № ' . Html::a($part->certificatWork->CertificatLongNumber, \yii\helpers\Url::to(['certificat/view', 'id' => $part->certificatWork->id]));
             
             $cert = CertificatWork::find()->where(['training_group_participant_id' => $part->id])->one();
-            if ($cert->status != 0)
+            if ($cert && $cert->status != 0)
                 $result .= $cert->status == 1 ? ' <i><span>(отправлен)</span></i>' : ' <i><span style="color: red">(ошибка отправки)</span></i>';
 
             $result .= '<br>';
