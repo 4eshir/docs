@@ -17,7 +17,12 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        'gridview' => ['class' => 'kartik\grid\Module']
+        'gridview' => ['class' => 'kartik\grid\Module'],
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            // другие параметры модуля отладки...
+            'allowedIPs' => ['127.0.0.1', '::1', '5.139.210.137'], // Замените "Your_IP_Address" на ваш реальный IP-адрес
+        ],
     ],
 
     'components' => [
