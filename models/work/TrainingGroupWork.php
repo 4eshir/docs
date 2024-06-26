@@ -561,6 +561,11 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadWorkDataFile($upd = null)
     {
+        ini_set('upload_max_filesize', '40M');
+        ini_set('post_max_size', '60M');
+
+        var_dump($_SERVER['CONTENT_LENGTH']);
+
         $path = '/upload/files/training-group/work-data/';
         $result = '';
         $counter = 0;
@@ -595,6 +600,9 @@ class TrainingGroupWork extends TrainingGroup
         if (strlen($result) > 3)
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены файлы рабочих материалов '.$result);
         return true;
+
+        ini_restore('upload_max_filesize');
+        ini_restore('post_max_size');
     }
 
     public function uploadFileParticipants()
