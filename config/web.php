@@ -79,10 +79,6 @@ $config = [
         */
     ],
     'params' => $params,
-    'on beforeRequest' => function() {
-        error_reporting(E_ALL);
-        ini_set('display_errors', 0);
-    },
 ];
 
 if (YII_ENV_DEV) {
