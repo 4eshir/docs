@@ -18,11 +18,6 @@ $config = [
     ],
     'modules' => [
         'gridview' => ['class' => 'kartik\grid\Module'],
-        'debug' => [
-            'class' => 'yii\debug\Module',
-            // другие параметры модуля отладки...
-            'allowedIPs' => ['127.0.0.1', '::1', '5.139.210.137'], // Замените "Your_IP_Address" на ваш реальный IP-адрес
-        ],
     ],
 
     'components' => [
@@ -92,7 +87,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['*'],
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
