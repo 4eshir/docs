@@ -564,9 +564,6 @@ class TrainingGroupWork extends TrainingGroup
         ini_set('upload_max_filesize', '40M');
         ini_set('post_max_size', '60M');
 
-        var_dump($_SERVER['CONTENT_LENGTH']);
-        die();
-
         $path = '/upload/files/training-group/work-data/';
         $result = '';
         $counter = 0;
