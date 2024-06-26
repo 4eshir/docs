@@ -297,6 +297,7 @@ class TrainingGroupController extends Controller
             $session->set("show", "common");
 
         if ($model->load(Yii::$app->request->post())) {
+            var_dump('boobs');
             $model->number = "";
             $model->photosFile = UploadedFile::getInstances($model, 'photosFile');
             $model->presentDataFile = UploadedFile::getInstances($model, 'presentDataFile');
