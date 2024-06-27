@@ -352,6 +352,7 @@ class RoleBaseAccess
             "view" => [2, 3, 4],
             "download-excel" => [2, 3, 4],
             "delete-file" => [5, 6, 7],
+            "delete-link" => [5, 6, 7],
             "get-file" => [2, 3, 4],
             "subcat" => [2, 3, 4],
             "parse" => [5, 6, 7],
