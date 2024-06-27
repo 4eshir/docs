@@ -36,7 +36,7 @@ use app\models\common;
 use app\models\components\Logger;
 
 
-const _MAX_FILE_SIZE = 26214400;
+const _MAX_FILE_SIZE = 15728640;
 
 class TrainingGroupWork extends TrainingGroup
 {
@@ -74,17 +74,19 @@ class TrainingGroupWork extends TrainingGroup
             [['start_date', 'finish_date', 'budget'], 'required'],
             [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id', 'last_edit_id', 'protection_confirm', 'is_network'], 'integer'],
             [['start_date', 'finish_date', 'protection_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
-            //[['delArr'], 'each', 'rule' => ['string']],
+            [['photos_link', 'present_data_link', 'work_data_link'], 'string'],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
-            [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
-            [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => 26214400],
-            [['presentDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
-            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'maxSize' => 524288000, 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => 26214400, 'skipOnEmpty' => true],
+            [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE, 'maxFiles' => 10],
+            [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE],
+            [['presentDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE, 'maxFiles' => 10],
+            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'maxSize' => _MAX_FILE_SIZE, 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => _MAX_FILE_SIZE, 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserWork::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserWork::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgramWork::className(), 'targetAttribute' => ['training_program_id' => 'id']],
+
+            [['photos_link', 'present_data_link', 'work_data_link'], 'match', 'pattern' => '/^https:\/\/disk\.yandex\.ru\//', 'message' => 'Допустимы только ссылки на Яндекс.Диск.'],
         ];
     }
 
