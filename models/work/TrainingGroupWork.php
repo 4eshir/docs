@@ -22,11 +22,11 @@ use app\models\components\LessonDatesJob;
 use app\models\components\RoleBaseAccess;
 use app\models\null\PeopleNull;
 use app\models\null\TrainingProgramNull;
+use app\models\work\GroupProjectThemesWork;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\TrainingGroupExpertWork;
-use app\models\work\GroupProjectThemesWork;
 use app\models\work\UserWork;
 use Mpdf\Tag\Tr;
 use Yii;
@@ -168,6 +168,11 @@ class TrainingGroupWork extends TrainingGroup
         }
 
         return $res.'</table>';
+    }
+
+    public function getGroupProjectThemes()
+    {
+        return GroupProjectThemesWork::find()->where(['training_group_id' => $this->id])->all();
     }
 
     public function getProjectThemes()
@@ -1110,7 +1115,7 @@ class TrainingGroupWork extends TrainingGroup
     public function InfoProtectionGroup($user_id)
     {
         $dateCheck = date('Y-m-d', strtotime(date("Y-m-d") . '-14 day'));
-        $groups = TrainingGroupWork::find()->joinWith(['groupProjectThemes theme'])
+        $groups = TrainingGroupWork::find()/*->joinWith(['groupProjectThemes theme'])*/
             ->where(['archive' => 0]);
 
         $flag = false;
@@ -1133,9 +1138,10 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTheme as $group)
                 {
-                    if (!empty($group->groupProjectThemes))
+                    /** @var TrainingGroupWork $group */
+                    if (!empty($group->getGroupProjectThemes()))
                     {
-                        foreach ($group->groupProjectThemes as $theme)
+                        foreach ($group->getGroupProjectThemes() as $theme)
                             if ($theme->confirm == 0)
                             {
                                 $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';
