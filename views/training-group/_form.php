@@ -431,7 +431,10 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
                 'yearRange' => '2000:2050',
             ]]) ?>
 
+    <br>
+    <hr>
     <?= $form->field($model, 'photosFile[]')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'photos_link')->textInput()->label('Ссылка для фотоматериалов, объема > 15 Мб (Яндекс.Диск)') ?>
     <?php
     if (strlen($model->photos) > 2)
     {
@@ -442,12 +445,20 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['training-group/get-file', 'fileName' => $split[$i]])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'photos'])).'</td></tr>';
         }
         echo '</table>';
+        echo '<br>';
     }
-    echo '<br>';
+    if (strlen($model->photos_link) > 2)
+    {
+        echo '<table>';
+        echo '<tr><td><h5>Данные на Яндекс.Диске: '.Html::a($model->photos_link, $model->photos_link).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-link', 'modelId' => $model->id, 'type' => 'photos'])).'</td></tr>';
+        echo '</table>';
+        echo '<br>';
+    }
     ?>
 
-
+    <hr>
     <?= $form->field($model, 'presentDataFile[]')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'present_data_link')->textInput()->label('Ссылка для презентационных материалов, объема > 15 Мб (Яндекс.Диск)') ?>
     <?php
     if (strlen($model->present_data) > 2)
     {
@@ -458,11 +469,20 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['training-group/get-file', 'fileName' => $split[$i], 'type' => 'present_data'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'present_data'])).'</td></tr>';
         }
         echo '</table>';
+        echo '<br>';
     }
-    echo '<br>';
+    if (strlen($model->present_data_link) > 2)
+    {
+        echo '<table>';
+        echo '<tr><td><h5>Данные на Яндекс.Диске: '.Html::a($model->present_data_link, $model->present_data_link).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-link', 'modelId' => $model->id, 'type' => 'present'])).'</td></tr>';
+        echo '</table>';
+        echo '<br>';
+    }
     ?>
 
+    <hr>
     <?= $form->field($model, 'workDataFile[]')->fileInput(['multiple' => true]) ?>
+    <?= $form->field($model, 'work_data_link')->textInput()->label('Ссылка для рабочих материалов, объема > 15 Мб (Яндекс.Диск)') ?>
     <?php
     if (strlen($model->work_data) > 2)
     {
@@ -473,8 +493,15 @@ $isMethodist = \app\models\work\UserRoleWork::find()->where(['user_id' => Yii::$
             echo '<tr><td><h5>Загруженный файл: '.Html::a($split[$i], \yii\helpers\Url::to(['training-group/get-file', 'fileName' => $split[$i], 'type' => 'work_data'])).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-file', 'fileName' => $split[$i], 'modelId' => $model->id, 'type' => 'work_data'])).'</td></tr>';
         }
         echo '</table>';
+        echo '<br>';
     }
-    echo '<br>';
+    if (strlen($model->work_data_link) > 2)
+    {
+        echo '<table>';
+        echo '<tr><td><h5>Данные на Яндекс.Диске: '.Html::a($model->work_data_link, $model->work_data_link).'</h5></td><td style="padding-left: 10px">'.Html::a('X', \yii\helpers\Url::to(['training-group/delete-link', 'modelId' => $model->id, 'type' => 'work'])).'</td></tr>';
+        echo '</table>';
+        echo '<br>';
+    }
     ?>
     </div>
 

@@ -673,6 +673,25 @@ class TrainingGroupController extends Controller
         }
     }
 
+    public function actionDeleteLink($modelId, $type)
+    {
+        $group = TrainingGroupWork::find()->where(['id' => $modelId])->one();
+        switch ($type) {
+            case 'photos':
+                $group->photos_link = '';
+                break;
+            case 'present':
+                $group->present_data_link = '';
+                break;
+            case 'work':
+                $group->work_data_link = '';
+                break;
+        }
+
+        $group->save(false);
+        return $this->redirect('index?r=training-group/update&id='.$modelId);
+    }
+
     public function actionParse()
     {
         //var_dump(Yii::$app->basePath.'/upload/files/bitrix/groups/group1.xls');

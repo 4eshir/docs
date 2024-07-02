@@ -22,11 +22,11 @@ use app\models\components\LessonDatesJob;
 use app\models\components\RoleBaseAccess;
 use app\models\null\PeopleNull;
 use app\models\null\TrainingProgramNull;
+use app\models\work\GroupProjectThemesWork;
 use app\models\work\PeopleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TrainingProgramWork;
 use app\models\work\TrainingGroupExpertWork;
-use app\models\work\GroupProjectThemesWork;
 use app\models\work\UserWork;
 use Mpdf\Tag\Tr;
 use Yii;
@@ -36,7 +36,7 @@ use app\models\common;
 use app\models\components\Logger;
 
 
-const _MAX_FILE_SIZE = 26214400;
+const _MAX_FILE_SIZE = 15728640;
 
 class TrainingGroupWork extends TrainingGroup
 {
@@ -74,17 +74,19 @@ class TrainingGroupWork extends TrainingGroup
             [['start_date', 'finish_date', 'budget'], 'required'],
             [['training_program_id', 'teacher_id', 'open', 'budget', 'branchId', 'participant_id', 'branch_id', 'order_stop', 'creator_id', 'last_edit_id', 'protection_confirm', 'is_network'], 'integer'],
             [['start_date', 'finish_date', 'protection_date', 'schedule_type', 'certificatArr', 'sendMethodArr', 'idArr', 'delArr'], 'safe'],
-            //[['delArr'], 'each', 'rule' => ['string']],
+            [['photos_link', 'present_data_link', 'work_data_link'], 'string'],
             [['photos', 'present_data', 'work_data', 'number', 'creatorString'], 'string', 'max' => 1000],
-            [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
-            [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => 26214400],
-            [['presentDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => 26214400, 'maxFiles' => 10],
-            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'maxSize' => 524288000, 'skipOnEmpty' => true, 'maxFiles' => 10],
-            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => 26214400, 'skipOnEmpty' => true],
+            [['photosFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE, 'maxFiles' => 10],
+            [['certFile'], 'file', 'extensions' => 'xlsx, xls', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE],
+            [['presentDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, ppt, pptx, doc, docx, zip, rar, 7z, tag', 'skipOnEmpty' => true, 'maxSize' => _MAX_FILE_SIZE, 'maxFiles' => 10],
+            [['workDataFile'], 'file', 'extensions' => 'jpg, jpeg, png, pdf, doc, docx, zip, rar, 7z, tag', 'maxSize' => _MAX_FILE_SIZE, 'skipOnEmpty' => true, 'maxFiles' => 10],
+            [['fileParticipants'], 'file', 'extensions' => 'xls, xlsx', 'maxSize' => _MAX_FILE_SIZE, 'skipOnEmpty' => true],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => PeopleWork::className(), 'targetAttribute' => ['teacher_id' => 'id']],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserWork::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['last_edit_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserWork::className(), 'targetAttribute' => ['last_edit_id' => 'id']],
             [['training_program_id'], 'exist', 'skipOnError' => true, 'targetClass' => TrainingProgramWork::className(), 'targetAttribute' => ['training_program_id' => 'id']],
+
+            [['photos_link', 'present_data_link', 'work_data_link'], 'match', 'pattern' => '/^https:\/\/disk\.yandex\.ru\//', 'message' => 'Допустимы только ссылки на Яндекс.Диск.'],
         ];
     }
 
@@ -166,6 +168,11 @@ class TrainingGroupWork extends TrainingGroup
         }
 
         return $res.'</table>';
+    }
+
+    public function getGroupProjectThemes()
+    {
+        return GroupProjectThemesWork::find()->where(['training_group_id' => $this->id])->all();
     }
 
     public function getProjectThemes()
@@ -316,7 +323,7 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= ' Сертификат № ' . Html::a($part->certificatWork->CertificatLongNumber, \yii\helpers\Url::to(['certificat/view', 'id' => $part->certificatWork->id]));
             
             $cert = CertificatWork::find()->where(['training_group_participant_id' => $part->id])->one();
-            if ($cert->status != 0)
+            if ($cert && $cert->status != 0)
                 $result .= $cert->status == 1 ? ' <i><span>(отправлен)</span></i>' : ' <i><span style="color: red">(ошибка отправки)</span></i>';
 
             $result .= '<br>';
@@ -561,6 +568,9 @@ class TrainingGroupWork extends TrainingGroup
 
     public function uploadWorkDataFile($upd = null)
     {
+        ini_set('upload_max_filesize', '40M');
+        ini_set('post_max_size', '60M');
+
         $path = '/upload/files/training-group/work-data/';
         $result = '';
         $counter = 0;
@@ -595,6 +605,9 @@ class TrainingGroupWork extends TrainingGroup
         if (strlen($result) > 3)
             Logger::WriteLog(Yii::$app->user->identity->getId(), 'В группу '.$this->GenerateNumber().' добавлены файлы рабочих материалов '.$result);
         return true;
+
+        ini_restore('upload_max_filesize');
+        ini_restore('post_max_size');
     }
 
     public function uploadFileParticipants()
@@ -1031,6 +1044,11 @@ class TrainingGroupWork extends TrainingGroup
         }
     }
 
+    public function load($data, $formName = null)
+    {
+        return parent::load($data, $formName); // TODO: Change the autogenerated stub
+    }
+
     public function beforeSave($insert)
     {
         if ($this->creator_id === null)
@@ -1097,7 +1115,7 @@ class TrainingGroupWork extends TrainingGroup
     public function InfoProtectionGroup($user_id)
     {
         $dateCheck = date('Y-m-d', strtotime(date("Y-m-d") . '-14 day'));
-        $groups = TrainingGroupWork::find()->joinWith(['groupProjectThemes theme'])
+        $groups = TrainingGroupWork::find()/*->joinWith(['groupProjectThemes theme'])*/
             ->where(['archive' => 0]);
 
         $flag = false;
@@ -1120,9 +1138,10 @@ class TrainingGroupWork extends TrainingGroup
                 $result .= '<table style="width: 700px; font-size: 15px; margin-bottom: 50px;" class="table table-bordered"><thead><tr><td>Номер учебной группы</td><td>Дата защиты группы</td><td>Дата окончания занятий</td></tr></thead>';
                 foreach ($groupsTheme as $group)
                 {
-                    if (!empty($group->groupProjectThemes))
+                    /** @var TrainingGroupWork $group */
+                    if (!empty($group->getGroupProjectThemes()))
                     {
-                        foreach ($group->groupProjectThemes as $theme)
+                        foreach ($group->getGroupProjectThemes() as $theme)
                             if ($theme->confirm == 0)
                             {
                                 $result .= '<tr><td>'. $group->getNumberView() . '</td><td>'.$group->protection_date.'</td><td>'.$group->finish_date.'</td></tr>';

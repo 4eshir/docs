@@ -17,7 +17,12 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        'gridview' => ['class' => 'kartik\grid\Module']
+        'gridview' => ['class' => 'kartik\grid\Module'],
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            // другие параметры модуля отладки...
+            'allowedIPs' => ['*'], // Замените "Your_IP_Address" на ваш реальный IP-адрес
+        ],
     ],
 
     'components' => [
@@ -87,7 +92,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['*'],
+        'allowedIPs' => ['5.139.210.46'],
     ];
 
     $config['bootstrap'][] = 'gii';
