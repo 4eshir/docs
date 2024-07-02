@@ -1752,7 +1752,7 @@ class WordWizard
         $isAnnex3 = false;
         foreach ($groupParticipants as $part)
         {
-            if ($part->certificatWork->certificat_id !== NULL)
+            if ($part->certificatWork->certificat_number !== NULL)
             {
                 $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
                 $numberStr++;
@@ -1794,7 +1794,7 @@ class WordWizard
             $numberStr = 1;
             foreach ($groupParticipants as $part)
             {
-                if ($part->certificatWork->certificat_id === NULL)
+                if ($part->certificatWork->certificat_number === NULL)
                 {
                     $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
                     $numberStr++;
