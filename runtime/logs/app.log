@@ -4561,3 +4561,791 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1719915272.9903
     'REQUEST_TIME' => 1719915272
 ]
+2024-07-02 13:55:08 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\SiteController.php:103
+2024-07-02 13:55:08 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:07 [127.0.0.1][31][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_SEC_PURPOSE' => 'prefetch;prerender'
+    'HTTP_PURPOSE' => 'prefetch'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917707.9604
+    'REQUEST_TIME' => 1719917707
+]
+2024-07-02 13:55:11 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php:88
+2024-07-02 13:55:11 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:10 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Findex'
+    'REQUEST_URI' => '/index.php?r=training-group%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917710.7304
+    'REQUEST_TIME' => 1719917710
+]
+2024-07-02 13:55:14 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php:178
+2024-07-02 13:55:14 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:13 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/view'
+    'id' => '1389'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fview&id=1389'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fview&id=1389'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917713.6803
+    'REQUEST_TIME' => 1719917713
+]
+2024-07-02 13:55:17 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php:178
+2024-07-02 13:55:17 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:17 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/view'
+    'id' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fview&id=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fview&id=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917717.1446
+    'REQUEST_TIME' => 1719917717
+]
+2024-07-02 13:55:19 [127.0.0.1][31][-][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\TrainingGroupWork::teacherGroups in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get()
+#1 E:\OSPanel\domains\localhost\docs\models\components\WordWizard.php(1587): yii\db\BaseActiveRecord->__get()
+#2 E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php(816): app\models\components\WordWizard::DownloadProtocol()
+#3 [internal function]: app\controllers\TrainingGroupController->actionCreateProtocol()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#5 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#9 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2024-07-02 13:55:19 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:19 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:19 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/create-protocol'
+    'gId' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=1371'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fcreate-protocol&gId=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fcreate-protocol&gId=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917719.5668
+    'REQUEST_TIME' => 1719917719
+]
+2024-07-02 13:55:28 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php:178
+2024-07-02 13:55:28 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:27 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/view'
+    'id' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fview&id=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fview&id=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917727.7952
+    'REQUEST_TIME' => 1719917727
+]
+2024-07-02 13:55:30 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\TrainingGroupWork::teacherGroups in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get()
+#1 E:\OSPanel\domains\localhost\docs\models\components\WordWizard.php(1589): yii\db\BaseActiveRecord->__get()
+#2 E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php(816): app\models\components\WordWizard::DownloadProtocol()
+#3 [internal function]: app\controllers\TrainingGroupController->actionCreateProtocol()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#5 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#9 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2024-07-02 13:55:30 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:30 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:55:30 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][info][application] $_GET = [
+    'r' => 'training-group/create-protocol'
+    'gId' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=1371'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62794'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fcreate-protocol&gId=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fcreate-protocol&gId=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917730.2492
+    'REQUEST_TIME' => 1719917730
+]
+2024-07-02 13:56:28 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\TrainingGroupWork::teacherGroups in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get()
+#1 E:\OSPanel\domains\localhost\docs\models\components\WordWizard.php(1589): yii\db\BaseActiveRecord->__get()
+#2 E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php(816): app\models\components\WordWizard::DownloadProtocol()
+#3 [internal function]: app\controllers\TrainingGroupController->actionCreateProtocol()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#5 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#9 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2024-07-02 13:56:28 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:56:28 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:56:28 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][info][application] $_GET = [
+    'r' => 'training-group/create-protocol'
+    'gId' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=1371'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62810'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fcreate-protocol&gId=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fcreate-protocol&gId=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917788.4654
+    'REQUEST_TIME' => 1719917788
+]
+2024-07-02 13:58:08 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: app\models\work\TrainingGroupWork::teacherGroups in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:154
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\BaseActiveRecord.php(296): yii\base\Component->__get()
+#1 E:\OSPanel\domains\localhost\docs\models\components\WordWizard.php(1661): yii\db\BaseActiveRecord->__get()
+#2 E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php(816): app\models\components\WordWizard::DownloadProtocol()
+#3 [internal function]: app\controllers\TrainingGroupController->actionCreateProtocol()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#5 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#9 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#10 {main}
+2024-07-02 13:58:08 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:58:08 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:58:08 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][info][application] $_GET = [
+    'r' => 'training-group/create-protocol'
+    'gId' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=1371'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62811'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fcreate-protocol&gId=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fcreate-protocol&gId=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917888.3984
+    'REQUEST_TIME' => 1719917888
+]
+2024-07-02 13:58:54 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][error][yii\base\UnknownMethodException] yii\base\UnknownMethodException: Calling unknown method: app\models\work\PeopleWork::getSortName() in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Component.php:300
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\models\components\WordWizard.php(1661): yii\base\Component->__call()
+#1 E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php(816): app\models\components\WordWizard::DownloadProtocol()
+#2 [internal function]: app\controllers\TrainingGroupController->actionCreateProtocol()
+#3 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#5 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#8 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#9 {main}
+2024-07-02 13:58:54 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:58:54 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:58:54 [127.0.0.1][31][c2chnq9j0njv70cjp6fcgq7jqcqb18qd][info][application] $_GET = [
+    'r' => 'training-group/create-protocol'
+    'gId' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=training-group%2Fview&id=1371'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62836'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fcreate-protocol&gId=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fcreate-protocol&gId=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917934.362
+    'REQUEST_TIME' => 1719917934
+]
+2024-07-02 13:59:12 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\TrainingGroupController.php:178
+2024-07-02 13:59:12 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-02 13:59:12 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'training-group/view'
+    'id' => '1371'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'c2chnq9j0njv70cjp6fcgq7jqcqb18qd'
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    '_csrf' => '543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://docs/'
+    'userSessionTimeout' => 8640000
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+    'show' => 'common'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=c2chnq9j0njv70cjp6fcgq7jqcqb18qd; _identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; _csrf=543d24e013700521eb5d623480f46bf1fac29817d3764c79d70e2d35ae5ddec1a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22L1mYDMJd_-BA4vMIG9hrOtkgwCODj1vG%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '62837'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=training-group%2Fview&id=1371'
+    'REQUEST_URI' => '/index.php?r=training-group%2Fview&id=1371'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1719917952.4436
+    'REQUEST_TIME' => 1719917952
+]

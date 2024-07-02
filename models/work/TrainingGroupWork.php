@@ -1101,13 +1101,13 @@ class TrainingGroupWork extends TrainingGroup
     public function allowedProtocol()
     {
         $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
-        $allowFlag = true;
-        //foreach ($participants as $participant) {
+        $allowFlag = false;
+        foreach ($participants as $participant) {
             /** @var TrainingGroupParticipantWork $participant */
-        //    if ($participant->success === null) {
-        //        $allowFlag = false;
-        //    }
-        //}
+            if ($participant->success === 1) {
+                $allowFlag = true;
+            }
+        }
 
         return $allowFlag;
     }
