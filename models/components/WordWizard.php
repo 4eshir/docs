@@ -1584,7 +1584,7 @@ class WordWizard
                 $bossShort = 'Баганина А.А.';
         }
         $experts = TrainingGroupExpertWork::find()->where(['training_group_id' => $modelGroup->id])->andWhere(['expert_type_id' => 2])->all();  // внутренние эксперты
-
+var_dump($modelGroup->teacherGroups);var_dump($modelGroup->teacherGroups[0]->teacher->getFio());die();
         $section->addText('Присутствовали ответственные лица:', null, array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('          1. Руководитель учебной группы – ' . $modelGroup->teacherGroups[0]->teacher->getFio() . '.', null, array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('          2. Руководитель отдела «'.$modelGroup->branch->name.'» ' . $boss . '.', null, array('align' => 'both', 'spaceAfter' => 0));
