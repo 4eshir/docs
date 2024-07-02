@@ -1566,22 +1566,27 @@ class WordWizard
 
         $boss = '';
         $bossShort = '';
+        $expertExept = 0;
         switch ($modelGroup->branch->name) {
             case 'Кванториум':
                 $boss = 'Цырульников Евгений Сергеевич';
                 $bossShort = 'Цырульников Е.С.';
+                $expertExept = 19;
                 break;
             case 'Технопарк':
                 $boss = 'Толочина Оксана Георгиевна';
                 $bossShort = 'Толочина О.Г.';
+                $expertExept = 946;
                 break;
             case 'ЦДНТТ':
                 $boss = 'Дубовская Лариса Валерьевна';
                 $bossShort = 'Дубовская Л.В.';
+                $expertExept = 21;
                 break;
             default:
                 $boss = 'Баганина Анна Александровна';
                 $bossShort = 'Баганина А.А.';
+                $expertExept = 36;
         }
         $experts = TrainingGroupExpertWork::find()->where(['training_group_id' => $modelGroup->id])->andWhere(['expert_type_id' => 2])->all();  // внутренние эксперты
 
@@ -1591,8 +1596,11 @@ class WordWizard
         $numberStr = 3;
         foreach ($experts as $expert)
         {
-            $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
-            $numberStr++;
+            if($expert->expert_id !== $expertExept)
+            {
+                $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
+                $numberStr++;
+            }
         }
         $section->addTextBreak(1);
         $section->addText('Научно-техническая конференция SchoolTech Conference', array('underline' => 'single'), array('spaceAfter' => 0));
@@ -1605,7 +1613,7 @@ class WordWizard
             $numberStr = 1;
             foreach ($modelGroup->trainingGroupExperts as $expert)
             {
-                if ($expert->expert_type_id == 1)
+                if ($expert->expert_type_id == 1 && $expert->expert_id !== $expertExept)
                 {
                     $section->addText('          '.$numberStr.'. ' . $expert->expertWork->companyWork->short_name . ' ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio(),null, array('align' => 'both', 'spaceAfter' => 0));
                     $numberStr++;
