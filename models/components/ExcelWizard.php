@@ -331,10 +331,10 @@ class ExcelWizard
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");;
         header("Content-Disposition: attachment;filename=journal.xls");
-//header("Content-Disposition: attachment;filename=test.xls");
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
+        exit;
     }
 
 
