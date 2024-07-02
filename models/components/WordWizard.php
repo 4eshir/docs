@@ -1638,7 +1638,7 @@ class WordWizard
         $refPart = 0;
         foreach ($groupParticipants as $part)
         {
-            if ($part->success === 1)
+            if ($part->certificatWork->certificat_number === 1)
             {
                 $refPart++;
                 if ($refPart > 1)
