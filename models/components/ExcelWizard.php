@@ -324,7 +324,7 @@ class ExcelWizard
         */
 
 
-        header("Pragma: public");
+        /*header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Content-Type: application/force-download");
@@ -333,6 +333,13 @@ class ExcelWizard
         header("Content-Disposition: attachment;filename=journal.xls");
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+        exit;*/
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="journal.xlsx"');
+        header('Cache-Control: max-age=0');
+        mb_internal_encoding('Windows-1251');
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel2007');
         $writer->save('php://output');
         exit;
     }
