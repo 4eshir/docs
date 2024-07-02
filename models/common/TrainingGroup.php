@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\work\TrainingGroupExpertWork;
 use Yii;
 
 /**
@@ -198,7 +199,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
      */
     public function getTrainingGroupExperts()
     {
-        return $this->hasMany(TrainingGroupExpert::className(), ['training_group_id' => 'id']);
+        return $this->hasMany(TrainingGroupExpertWork::className(), ['training_group_id' => 'id']);
     }
 
     /**

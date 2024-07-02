@@ -2,6 +2,7 @@
 
 namespace app\models\common;
 
+use app\models\work\PeopleWork;
 use Yii;
 
 /**
@@ -56,7 +57,7 @@ class TeacherGroup extends \yii\db\ActiveRecord
      */
     public function getTeacher()
     {
-        return $this->hasOne(People::className(), ['id' => 'teacher_id']);
+        return $this->hasOne(PeopleWork::className(), ['id' => 'teacher_id']);
     }
 
     /**

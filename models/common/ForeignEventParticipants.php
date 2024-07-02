@@ -147,4 +147,9 @@ class ForeignEventParticipants extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Visit::className(), ['foreign_event_participant_id' => 'id']);
     }
+
+    public function getFio()
+    {
+        return $this->secondname.' '.$this->firstname.' '.$this->patronymic;
+    }
 }

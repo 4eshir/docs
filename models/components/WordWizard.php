@@ -17,6 +17,7 @@ use app\models\work\ResponsibleWork;
 use app\models\work\TeacherGroupWork;
 use app\models\work\TeacherParticipantBranchWork;
 use app\models\work\TeacherParticipantWork;
+use app\models\work\TrainingGroupExpertWork;
 use app\models\work\TrainingGroupParticipantWork;
 use app\models\work\TrainingGroupWork;
 use app\models\work\TrainingProgramWork;
@@ -1508,6 +1509,290 @@ class WordWizard
 
 
         $text = 'Пр.' . date("Ymd", strtotime($order->order_date)) . '_' . $order->order_number . $order->order_copy_id . $order->order_postfix . '_' . substr($order->order_name, 0, 35);
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $text . '.docx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+
+        $writer = \PhpOffice\PhpWord\IOFactory::createWriter($inputData, 'Word2007');
+        $writer->save("php://output");
+        exit;
+    }
+
+    static public function DownloadProtocol ($modelGroup, $groupParticipants)
+    {
+        ini_set('memory_limit', '512M');
+
+        $inputData = new PhpWord();
+        $inputData->setDefaultFontName('Times New Roman');
+        $inputData->setDefaultFontSize(14);
+
+        /** @var TrainingGroupParticipantWork $groupParticipants */
+        /** @var TrainingGroupWork $modelGroup */
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15) ));
+
+        $section->addText('ПРОТОКОЛ ИТОГОВОЙ АТТЕСТАЦИИ', array('bold' => true), array('align' => 'center'));
+        $section->addText('отдел «'. $modelGroup->branch->name .'» ГАОУ АО ДО «РШТ»', array('underline' => 'single'), array('align' => 'center'));
+        $section->addTextBreak(1);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(4000);
+        $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г.');
+        $cell = $table->addCell(4000);
+        $cell->addText('№ ________________________');
+        $section->addTextBreak(2);
+
+        $section->addText('Демонстрация результатов образовательной деятельности', array('bold' => true), array('align' => 'center'));
+        $section->addTextBreak(1);
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(5000);
+        $cell->addText($modelGroup->trainingProgram->name, array('underline' => 'single'));
+        $table->addCell(2000);
+        $table->addRow();
+        $cell = $table->addCell(5000);
+        $cell->addText($modelGroup->number, array('underline' => 'single'));
+        $table->addCell(2000);
+        $section->addTextBreak(2);
+
+        $boss = '';
+        $bossShort = '';
+        switch ($modelGroup->branch->name) {
+            case 'Кванториум':
+                $boss = 'Цырульников Евгений Сергеевич';
+                $bossShort = 'Цырульников Е.С.';
+                break;
+            case 'Технопарк':
+                $boss = 'Толочина Оксана Георгиевна';
+                $bossShort = 'Толочина О.Г.';
+                break;
+            case 'ЦДНТТ':
+                $boss = 'Дубовская Лариса Валерьевна';
+                $bossShort = 'Дубовская Л.В.';
+                break;
+            default:
+                $boss = 'Баганина Анна Александровна';
+                $bossShort = 'Баганина А.А.';
+        }
+        $experts = TrainingGroupExpertWork::find()->where(['training_group_id' => $modelGroup->id])->andWhere(['expert_type_id' => 2])->all();  // внутренние эксперты
+
+        $section->addText('Присутствовали ответственные лица:', null, array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          1. Руководитель учебной группы – ' . $modelGroup->teacherGroups[0]->teacher->getFio() . '.', null, array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          2. Руководитель отдела «'.$modelGroup->branch->name.'» ' . $boss . '.', null, array('align' => 'both', 'spaceAfter' => 0));
+        $numberStr = 3;
+        foreach ($experts as $expert)
+        {
+            $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
+            $numberStr++;
+        }
+        $section->addTextBreak(1);
+        $section->addText('Научно-техническая конференция SchoolTech Conference', array('underline' => 'single'), array('spaceAfter' => 0));
+        $section->addText('(публичное мероприятие, на котором проводилась аттестация)', array('size' => 12, 'italic' => true), array('spaceAfter' => 0));
+        $section->addTextBreak(1);
+
+        if ($modelGroup->trainingGroupExperts)
+        {
+            $section->addText('Приглашенные эксперты:', array('underline' => 'single'), array('spaceAfter' => 0));
+            $numberStr = 1;
+            foreach ($modelGroup->trainingGroupExperts as $expert)
+            {
+                if ($expert->expert_type_id == 1)
+                {
+                    $section->addText('          '.$numberStr.'. ' . $expert->expertWork->companyWork->short_name . ' ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio(),null, array('align' => 'both', 'spaceAfter' => 0));
+                    $numberStr++;
+                }
+            }
+        }
+        $section->addTextBreak(1);
+
+        $section->addText('Повестка дня:', null, array('align' => 'center', 'spaceAfter' => 0));
+        $section->addText('          1. Принятие решения о результатах итоговой аттестации.', null, array('align' => 'both', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $section->addText('Приняли участие в итоговой аттестации обучающиеся согласно Приложению № 1 к настоящему протоколу.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+        $section->addTextBreak(1);
+        if ($modelGroup->trainingGroupExperts)
+            $section->addText('Ответственными лицами и экспертами были заданы вопросы.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+        else
+            $section->addText('Ответственными лицами были заданы вопросы.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+        $section->addText('Ответственные лица, ознакомившись с демонстрацией результатов образовательной деятельности каждого обучающегося,', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+        $section->addText('Постановили:', array('bold' => true), array('align' => 'both', 'spaceAfter' => 0));
+        $section->addText('          1. Признать обучающихся согласно Приложению № 2 к настоящему протоколу успешно прошедшими итоговую аттестацию и выдать сертификаты об обучении.', null, array('align' => 'both', 'spaceAfter' => 0));
+
+        $refPart = 0;
+        foreach ($groupParticipants as $part)
+        {
+            if ($part->success === 1)
+            {
+                $refPart++;
+                if ($refPart > 1)
+                    break;
+            }
+        }
+
+        if ($refPart !== 0)
+        {
+            if ($refPart > 1)
+                $section->addText('          1.1. Признать обучающихся согласно Приложению № 3 к настоящему протоколу непрошедшими итоговую аттестацию и выдать справки об обучении.', null, array('align' => 'both', 'spaceAfter' => 0));
+            else
+                $section->addText('          1.1. Признать обучающегося согласно Приложению № 3 к настоящему протоколу непрошедшим итоговую аттестацию и выдать справку об обучении.', null, array('align' => 'both', 'spaceAfter' => 0));
+            $section->addText('          2. Рекомендовать обучающимся согласно Приложению № 3 к настоящему протоколу повторно пройти итоговую аттестацию.', null, array('align' => 'both', 'spaceAfter' => 0));
+        }
+
+        $section->addTextBreak(1);
+        $section->addText('Подписи ответственных лиц:');
+        $section->addTextBreak(1);
+
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Руководитель учебной группы');
+        $cell = $table->addCell(6000);
+        $cell->addText('________________');
+        $cell = $table->addCell(6000);
+        $cell->addText('/ '.$modelGroup->teacherGroups[0]->teacher->getShortName() . '/');
+        $table->addRow();
+        $cell = $table->addCell(6000);
+        $cell->addText('Руководитель отдела «'.$modelGroup->branch->name.'»');
+        $cell = $table->addCell(6000);
+        $cell->addText('________________');
+        $cell = $table->addCell(6000);
+        $cell->addText('/ '. $bossShort . '/');
+
+        foreach ($experts as $expert)
+        {
+            $table->addRow();
+            $cell = $table->addCell(6000);
+            $cell->addText($expert->expertWork->positionWork->name);
+            $cell = $table->addCell(6000);
+            $cell->addText('________________');
+            $cell = $table->addCell(6000);
+            $cell->addText('/ '. $expert->expertWork->getShortName() . '/');
+        }
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15)));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('Приложение №1', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('к протоколу итоговой аттестации', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
+
+        $section->addText('Перечень обучающихся, принявших участие в итоговой аттестации', null, array('align' => 'center', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $numberStr = 1;
+        foreach ($groupParticipants as $part)
+        {
+            $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+            $numberStr++;
+        }
+
+        $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+            'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+            'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+            'marginRight' => WordWizard::convertMillimetersToTwips(15)));
+        $table = $section->addTable();
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('Приложение №2', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('к протоколу итоговой аттестации', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
+            . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $section->addTextBreak(2);
+
+        $section->addText('Перечень обучающихся, прошедших итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
+        $section->addTextBreak(1);
+        $numberStr = 1;
+        $isAnnex3 = false;
+        foreach ($groupParticipants as $part)
+        {
+            if ($part->certificat_number !== NULL)
+            {
+                $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+                $numberStr++;
+            }
+            else
+            {
+                $isAnnex3 = true;
+            }
+        }
+
+        if ($isAnnex3)
+        {
+            $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
+                'marginLeft' => WordWizard::convertMillimetersToTwips(30),
+                'marginBottom' => WordWizard::convertMillimetersToTwips(20),
+                'marginRight' => WordWizard::convertMillimetersToTwips(15)));
+            $table = $section->addTable();
+            $table->addRow();
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('Приложение №3', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            $table->addRow();
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('к протоколу итоговой аттестации', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            $table->addRow();
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
+                . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
+                . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            $section->addTextBreak(2);
+
+            $section->addText('Перечень обучающихся, признанных непрошедшими итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
+            $section->addTextBreak(1);
+            $numberStr = 1;
+            foreach ($groupParticipants as $part)
+            {
+                if ($part->certificat_number === NULL)
+                {
+                    $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
+                    $numberStr++;
+                }
+            }
+        }
+
+
+        $text = 'Протокол итоговой аттестации группы ' . $modelGroup->number;
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $text . '.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

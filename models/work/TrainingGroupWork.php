@@ -1084,12 +1084,12 @@ class TrainingGroupWork extends TrainingGroup
     {
         $participants = TrainingGroupParticipantWork::find()->where(['training_group_id' => $this->id])->all();
         $allowFlag = true;
-        foreach ($participants as $participant) {
+        //foreach ($participants as $participant) {
             /** @var TrainingGroupParticipantWork $participant */
-            if ($participant->success === null) {
-                $allowFlag = false;
-            }
-        }
+        //    if ($participant->success === null) {
+        //        $allowFlag = false;
+        //    }
+        //}
 
         return $allowFlag;
     }

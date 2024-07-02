@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\common\DocumentOrder;
 use app\models\components\PdfWizard;
 use app\models\components\RoleBaseAccess;
+use app\models\components\WordWizard;
 use app\models\extended\ProtocolForm;
 use app\models\strategies\FileDownloadStrategy\FileDownloadServer;
 use app\models\strategies\FileDownloadStrategy\FileDownloadYandexDisk;
@@ -775,12 +777,34 @@ class TrainingGroupController extends Controller
 
     public function actionCreateProtocol($gId)
     {
-        $model = new ProtocolForm($gId);
+        $group = $this->findModel($gId);
+
+        $expelledParticipant = OrderGroupParticipantWork::find()
+            ->select('order_group_participant.group_participant_id')
+            ->joinWith(['orderGroup'])
+            ->joinWith(['orderGroup.documentOrder'])
+            ->where(['order_group.training_group_id' => $gId])
+            ->andWhere(['in', 'order_group_participant.status', [1, 2]])
+            ->andWhere(['<', 'document_order.order_date', $group->protection_date])
+            ->asArray()
+            ->all();
+        $arrExpelledParticipant = array_column($expelledParticipant, 'group_participant_id');
+
+        $participantInProtocol = array_filter($group->trainingGroupParticipants, function($participant) use ($arrExpelledParticipant) {
+            return !in_array($participant->id, $arrExpelledParticipant);
+        });
+
+        WordWizard::DownloadProtocol($group, $participantInProtocol);
+
+        //$participantExpelled = OrderGroupParticipantWork::find()->where([])
+        /*$model = new ProtocolForm($gId);
 
         if($model->load(Yii::$app->request->post()))
         {
             if ($model->validate()) {
                 $model->save(false);
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен протокол группы ' . $gId);
+                WordWizard::DownloadProtocol($model);
 
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -788,7 +812,7 @@ class TrainingGroupController extends Controller
 
         return $this->render('/training-group/protocol-settings', [
             'model' => $model,
-        ]);
+        ]);*/
     }
 
     //Проверка на права доступа к CRUD-операциям
