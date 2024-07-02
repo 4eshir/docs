@@ -1677,13 +1677,16 @@ class WordWizard
 
         foreach ($experts as $expert)
         {
-            $table->addRow();
-            $cell = $table->addCell(6000);
-            $cell->addText($expert->expertWork->positionWork->name);
-            $cell = $table->addCell(6000);
-            $cell->addText('________________');
-            $cell = $table->addCell(6000);
-            $cell->addText('/ '. $expert->expertWork->getShortName() . '/');
+            if ($expert->expert_id !== $expertExept)
+            {
+                $table->addRow();
+                $cell = $table->addCell(6000);
+                $cell->addText($expert->expertWork->positionWork->name);
+                $cell = $table->addCell(6000);
+                $cell->addText('________________');
+                $cell = $table->addCell(6000);
+                $cell->addText('/ '. $expert->expertWork->getShortName() . '/');
+            }
         }
 
         $section = $inputData->addSection(array('marginTop' => WordWizard::convertMillimetersToTwips(20),
@@ -1749,7 +1752,7 @@ class WordWizard
         $isAnnex3 = false;
         foreach ($groupParticipants as $part)
         {
-            if ($part->certificat_number !== NULL)
+            if ($part->certificatWork->certificat_id !== NULL)
             {
                 $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
                 $numberStr++;
@@ -1791,7 +1794,7 @@ class WordWizard
             $numberStr = 1;
             foreach ($groupParticipants as $part)
             {
-                if ($part->certificat_number === NULL)
+                if ($part->certificatWork->certificat_id === NULL)
                 {
                     $section->addText($numberStr.' '.$part->participant->getFio(), null, array('spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
                     $numberStr++;

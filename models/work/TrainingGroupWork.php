@@ -1240,4 +1240,9 @@ class TrainingGroupWork extends TrainingGroup
         //$grPrTheme =
 
     }
+
+    public function getTrainingGroupParticipantsWork()
+    {
+        return $this->hasMany(TrainingGroupParticipantWork::className(), ['training_group_id' => 'id']);
+    }
 }

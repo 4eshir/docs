@@ -809,7 +809,7 @@ class TrainingGroupController extends Controller
             ->all();
         $arrExpelledParticipant = array_column($expelledParticipant, 'group_participant_id');
 
-        $participantInProtocol = array_filter($group->trainingGroupParticipants, function($participant) use ($arrExpelledParticipant) {
+        $participantInProtocol = array_filter($group->trainingGroupParticipantsWork, function($participant) use ($arrExpelledParticipant) {
             return !in_array($participant->id, $arrExpelledParticipant);
         });
 
