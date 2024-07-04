@@ -510,7 +510,7 @@ class ForeignEventWork extends ForeignEvent
                             ->joinWith('teacherParticipant')
                             ->where(['team_name_id' => $team->team_name_id])
                             ->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])
-                            ->andWhere(['teacherParticipant.nomination' => $nom->nomination])->all();
+                            ->andWhere(['teacher_participant.nomination' => $nom->nomination])->all();
                         foreach ($teamParts as $onePart)
                         {
                             $part = new ParticipantAchievement();
