@@ -486,6 +486,7 @@ class ForeignEventWork extends ForeignEvent
             foreach ($this->achievement as $achievementOne)
             {
                 $duplicate = ParticipantAchievementWork::find()->where(['teacher_participant_id' => $achievementOne->fio])->one();
+                $nom = TeacherParticipant::find()->where(['id' => $achievementOne->fio])->one();
 
                 if ($duplicate == null)
                 {
@@ -505,7 +506,11 @@ class ForeignEventWork extends ForeignEvent
 
                     if ($team->team_name_id != null)
                     {
-                        $teamParts = TeamWork::find()->where(['team_name_id' => $team->team_name_id])->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])->all();
+                        $teamParts = TeamWork::find()
+                            ->joinWith('teacherParticipant')
+                            ->where(['team_name_id' => $team->team_name_id])
+                            ->andWhere(['!=', 'teacher_participant_id', $achievementOne->fio])
+                            ->andWhere(['teacherParticipant.nomination' => $nom->nomination])->all();
                         foreach ($teamParts as $onePart)
                         {
                             $part = new ParticipantAchievement();
