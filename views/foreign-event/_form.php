@@ -306,7 +306,7 @@ use yii\jui\DatePicker;
                                 //$partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
                                 //    ->groupBy(['focus'])->groupBy(['nomination'])->groupBy(['teams.team_name_id']);
                                 $partsTeam = \app\models\work\TeacherParticipantWork::find()->joinWith(['teams teams'])->where(['teacher_participant.foreign_event_id' => $model->id])->andWhere(['IS NOT','teams.team_name_id', null])
-                                    ->groupBy(['focus'])->groupBy(['teams.team_name_id'])->groupBy(['nomination']);
+                                    ->groupBy(['teams.team_name_id']);
 
                                 $parts = \app\models\work\TeacherParticipantWork::find()->where(['foreign_event_id' => $model->id])->andWhere(['NOT IN', 'id', $partsArr])->union($partsTeam)->all();
 
