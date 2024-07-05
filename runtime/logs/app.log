@@ -7154,3 +7154,502 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1720078531.1894
     'REQUEST_TIME' => 1720078531
 ]
+2024-07-04 12:52:39 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php:65
+2024-07-04 12:52:39 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 12:52:35 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'foreign-event/index'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55858'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Findex'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Findex'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720086754.5328
+    'REQUEST_TIME' => 1720086754
+]
+2024-07-04 12:52:43 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php:78
+2024-07-04 12:52:43 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 12:52:42 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'foreign-event/view'
+    'id' => '567'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55858'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Fview&id=567'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fview&id=567'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720086762.6363
+    'REQUEST_TIME' => 1720086762
+]
+2024-07-04 12:52:46 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][error][yii\db\Exception] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1320
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1320): PDOStatement->execute()
+#1 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1186): yii\db\Command->internalExecute()
+#2 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal()
+#3 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all()
+#5 E:\OSPanel\domains\localhost\docs\views\foreign-event\_form.php(309): yii\db\ActiveQuery->all()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#9 E:\OSPanel\domains\localhost\docs\views\foreign-event\update.php(20): yii\base\View->render()
+#10 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#11 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#12 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#13 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render()
+#14 E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php(174): yii\base\Controller->render()
+#15 [internal function]: app\controllers\ForeignEventController->actionUpdate()
+#16 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#17 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#18 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#19 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#20 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#21 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#22 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+The SQL being executed was: (SELECT * FROM `teacher_participant` WHERE `foreign_event_id`=567) UNION ( SELECT `teacher_participant`.* FROM `teacher_participant` LEFT JOIN `team` `teams` ON `teacher_participant`.`id` = `teams`.`teacher_participant_id` WHERE (`teacher_participant`.`foreign_event_id`=567) AND (`teams`.`team_name_id` IS NOT NULL) GROUP BY `teams`.`team_name_id` ) in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1325): yii\db\Schema->convertException()
+#1 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1186): yii\db\Command->internalExecute()
+#2 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal()
+#3 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all()
+#5 E:\OSPanel\domains\localhost\docs\views\foreign-event\_form.php(309): yii\db\ActiveQuery->all()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#9 E:\OSPanel\domains\localhost\docs\views\foreign-event\update.php(20): yii\base\View->render()
+#10 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#11 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#12 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#13 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render()
+#14 E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php(174): yii\base\Controller->render()
+#15 [internal function]: app\controllers\ForeignEventController->actionUpdate()
+#16 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#17 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#18 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#19 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#20 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#21 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#22 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1055
+    [2] => Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+)
+
+2024-07-04 12:52:46 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 12:52:46 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 12:52:45 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][info][application] $_GET = [
+    'r' => 'foreign-event/update'
+    'id' => '567'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Fview&id=567'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55858'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Fupdate&id=567'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fupdate&id=567'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720086765.8478
+    'REQUEST_TIME' => 1720086765
+]
+2024-07-04 12:52:52 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php:78
+2024-07-04 12:52:52 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 12:52:51 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'foreign-event/view'
+    'id' => '567'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '55859'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Fview&id=567'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fview&id=567'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720086771.8135
+    'REQUEST_TIME' => 1720086771
+]
+2024-07-04 13:34:16 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][error][yii\db\Exception] PDOException: SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php:1320
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1320): PDOStatement->execute()
+#1 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1186): yii\db\Command->internalExecute()
+#2 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal()
+#3 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all()
+#5 E:\OSPanel\domains\localhost\docs\views\foreign-event\_form.php(309): yii\db\ActiveQuery->all()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#9 E:\OSPanel\domains\localhost\docs\views\foreign-event\update.php(20): yii\base\View->render()
+#10 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#11 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#12 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#13 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render()
+#14 E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php(174): yii\base\Controller->render()
+#15 [internal function]: app\controllers\ForeignEventController->actionUpdate()
+#16 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#17 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#18 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#19 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#20 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#21 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#22 {main}
+
+Next yii\db\Exception: SQLSTATE[42000]: Syntax error or access violation: 1055 Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+The SQL being executed was: (SELECT * FROM `teacher_participant` WHERE `foreign_event_id`=567) UNION ( SELECT `teacher_participant`.* FROM `teacher_participant` LEFT JOIN `team` `teams` ON `teacher_participant`.`id` = `teams`.`teacher_participant_id` WHERE (`teacher_participant`.`foreign_event_id`=567) AND (`teams`.`team_name_id` IS NOT NULL) GROUP BY `teams`.`team_name_id` ) in E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Schema.php:676
+Stack trace:
+#0 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1325): yii\db\Schema->convertException()
+#1 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(1186): yii\db\Command->internalExecute()
+#2 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal()
+#3 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\Query.php(249): yii\db\Command->queryAll()
+#4 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\db\ActiveQuery.php(133): yii\db\Query->all()
+#5 E:\OSPanel\domains\localhost\docs\views\foreign-event\_form.php(309): yii\db\ActiveQuery->all()
+#6 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#7 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#8 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#9 E:\OSPanel\domains\localhost\docs\views\foreign-event\update.php(20): yii\base\View->render()
+#10 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(347): require('E:\\OSPanel\\doma...')
+#11 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#12 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#13 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(407): yii\base\View->render()
+#14 E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php(174): yii\base\Controller->render()
+#15 [internal function]: app\controllers\ForeignEventController->actionUpdate()
+#16 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#17 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams()
+#18 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Module.php(552): yii\base\Controller->runAction()
+#19 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction()
+#20 E:\OSPanel\domains\localhost\docs\vendor\yiisoft\yii2\base\Application.php(384): yii\web\Application->handleRequest()
+#21 E:\OSPanel\domains\localhost\docs\web\index.php(13): yii\base\Application->run()
+#22 {main}
+Additional Information:
+Array
+(
+    [0] => 42000
+    [1] => 1055
+    [2] => Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'u1471742_index.teacher_participant.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+)
+
+2024-07-04 13:34:16 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 13:34:16 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 13:34:16 [127.0.0.1][31][ttm0uupu75t0b3qtnpmpakaapqnpo249][info][application] $_GET = [
+    'r' => 'foreign-event/update'
+    'id' => '567'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Fview&id=567'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57210'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Fupdate&id=567'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fupdate&id=567'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720089256.4132
+    'REQUEST_TIME' => 1720089256
+]
+2024-07-04 13:34:22 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+    in E:\OSPanel\domains\localhost\docs\views\layouts\main.php:190
+    in E:\OSPanel\domains\localhost\docs\controllers\ForeignEventController.php:78
+2024-07-04 13:34:22 [127.0.0.1][31][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 127.0.0.1
+2024-07-04 13:34:22 [127.0.0.1][31][-][info][application] $_GET = [
+    'r' => 'foreign-event/view'
+    'id' => '567'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    '_identity' => '51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[31,\"JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9\",362400]\";}'
+    'PHPSESSID' => 'ttm0uupu75t0b3qtnpmpakaapqnpo249'
+    '_csrf' => '0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 31
+    '__authKey' => 'JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'docs'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'
+    'HTTP_REFERER' => 'http://docs/index.php?r=foreign-event%2Findex'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_identity=51a78a21327136d1762c1b0f8670b4a42afbebce36f49b4e891246af9f738d9ba%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B31%2C%22JAdXSt2mzw_mU9BlFF4puOD9LiH0w6_9%22%2C362400%5D%22%3B%7D; PHPSESSID=ttm0uupu75t0b3qtnpmpakaapqnpo249; _csrf=0cebfab14819ce00f72ea2408504326941429270b62b419b61b41ad7b5037c40a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22R_w1toOmJ2YSv8CuYN_1dgK_lJg-g14r%22%3B%7D'
+    'HTTP_SEC_GPC' => '1'
+    'PATH' => 'e:\\ospanel\\modules\\php\\PHP_7.4\\ext;e:\\ospanel\\modules\\php\\PHP_7.4\\pear;e:\\ospanel\\modules\\php\\PHP_7.4\\pear\\bin;e:\\ospanel\\modules\\php\\PHP_7.4;e:\\ospanel\\modules\\wget\\bin;e:\\ospanel\\modules\\database\\MySQL-8.0-Win10\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4\\bin;e:\\ospanel\\modules\\http\\Apache_2.4-PHP_7.2-7.4;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\system32\\Wbem;C:\\WINDOWS\\SysWOW64'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'docs'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/OSPanel/domains/localhost/docs/web'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/OSPanel/domains/localhost/docs/web/index.php'
+    'REMOTE_PORT' => '57211'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=foreign-event%2Fview&id=567'
+    'REQUEST_URI' => '/index.php?r=foreign-event%2Fview&id=567'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1720089262.6651
+    'REQUEST_TIME' => 1720089262
+]
