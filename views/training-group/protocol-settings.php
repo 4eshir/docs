@@ -33,7 +33,16 @@ $this->title = 'Протокол итоговой аттестации';
         <?= $form->field($model, 'chooseParticipants')->checkboxList(
             \yii\helpers\ArrayHelper::map($model->participants, 'id', function ($participant) {
                 return $participant->participant['secondname'] . ' ' . $participant->participant['firstname'] . ' ' . $participant->participant['patronymic'];
-            })
+            }),
+            [
+                'item' => function ($index, $label, $name, $checked, $value) {
+                    return Html::checkbox($name, $checked, [
+                        'value' => $value,
+                        'label' => $label,
+                        'checked' => true,
+                    ]);
+                },
+            ]
         )->label(false) ?>
     </div>
 
