@@ -1562,7 +1562,7 @@ class WordWizard
         $table->addCell(2000);
         $table->addRow();
         $cell = $table->addCell(5000);
-        $cell->addText($modelGroup->number, array('underline' => 'single'));
+        $cell->addText($modelGroup->number, array('underline' => 'single'), array('align' => 'right'));
         $table->addCell(2000);
         $section->addTextBreak(2);
 
