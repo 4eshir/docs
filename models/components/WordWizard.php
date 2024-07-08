@@ -1596,10 +1596,9 @@ class WordWizard
         $numberStr = 3;
         foreach ($experts as $expert)
         {
-            var_dump($expert->expertWork->positionsWork2[0]->position->name);die();
             if($expert->expert_id !== $expertExept)
             {
-                $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
+                $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionsWork2[0]->position->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
                 $numberStr++;
             }
         }
