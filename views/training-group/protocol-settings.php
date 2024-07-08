@@ -25,7 +25,8 @@ $this->title = 'Протокол итоговой аттестации';
     <?php /*echo $form->field($model, 'dropdownEventName')->
         dropDownList(['Научно-техническая конференция SchoolTech Conference' => 'Научно-техническая конференция SchoolTech Conference',
                     'Демонстрация результатов образовательной деятельности' => 'Демонстрация результатов образовательной деятельности'])->label(false)*/ ?>
-    <?php echo $form->field($model, 'textEventName')->textInput(['value' => 'Научно-техническая конференция SchoolTech Conference'])->label(false) ?>
+    <?php echo $form->field($model, 'textEventName')->textInput(['value' => 'Научно-техническая конференция SchoolTech Conference',
+        'placeholder' => 'Демонстрация результатов образовательной деятельности'])->label(false) ?>
 
     <br>
     <label><b>Выделите всех присутствовавших на защите:</b></label><br>
