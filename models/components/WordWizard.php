@@ -1550,7 +1550,7 @@ class WordWizard
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
             . date("Y", strtotime($modelGroup->protection_date)) . ' г.');
         $cell = $table->addCell(4000);
-        $cell->addText('№ ________________________');
+        $cell->addText('№ ' . $modelGroup->number);
         $section->addTextBreak(2);
 
         $section->addText('Демонстрация результатов образовательной деятельности', array('bold' => true), array('align' => 'center'));
@@ -1717,7 +1717,7 @@ class WordWizard
         $cell = $table->addCell(8000);
         $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(2);
 
         $section->addText('Перечень обучающихся, принявших участие в итоговой аттестации', null, array('align' => 'center', 'spaceAfter' => 0));
@@ -1750,7 +1750,7 @@ class WordWizard
         $cell = $table->addCell(8000);
         $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(2);
 
         $section->addText('Перечень обучающихся, прошедших итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
@@ -1793,7 +1793,7 @@ class WordWizard
             $cell = $table->addCell(8000);
             $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-                . date("Y", strtotime($modelGroup->protection_date)) . ' г. № __________', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+                . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $section->addTextBreak(2);
 
             $section->addText('Перечень обучающихся, признанных непрошедшими итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
