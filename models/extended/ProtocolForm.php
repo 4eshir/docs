@@ -4,6 +4,7 @@ namespace app\models\extended;
 
 use app\models\work\OrderGroupParticipantWork;
 use app\models\work\TrainingGroupParticipantWork;
+use app\models\work\TrainingGroupWork;
 use yii\base\Model;
 
 class ProtocolForm extends Model
@@ -24,7 +25,7 @@ class ProtocolForm extends Model
     public function __construct($groupId, $config = [])
     {
         parent::__construct($config);
-        $group = $this->findModel($groupId);
+        $group = TrainingGroupWork::find()->where(['id' => $groupId])->one();
         $expelledParticipant = OrderGroupParticipantWork::find()
             ->select('order_group_participant.group_participant_id')
             ->joinWith(['orderGroup'])
