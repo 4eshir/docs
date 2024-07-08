@@ -1596,6 +1596,7 @@ class WordWizard
         $numberStr = 3;
         foreach ($experts as $expert)
         {
+            var_dump($expert->expertWork->positionWork->name);
             if($expert->expert_id !== $expertExept)
             {
                 $section->addText('          '.$numberStr.'. ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio() . '.',null, array('align' => 'both', 'spaceAfter' => 0));
@@ -1609,12 +1610,15 @@ class WordWizard
 
         if ($modelGroup->trainingGroupExperts)
         {
-            $section->addText('Приглашенные эксперты:', array('underline' => 'single'), array('spaceAfter' => 0));
             $numberStr = 1;
             foreach ($modelGroup->trainingGroupExperts as $expert)
             {
                 if ($expert->expert_type_id == 1 && $expert->expert_id !== $expertExept)
                 {
+                    if ($numberStr === 1)
+                    {
+                        $section->addText('Приглашенные эксперты:', array('underline' => 'single'), array('spaceAfter' => 0));
+                    }
                     $section->addText('          '.$numberStr.'. ' . $expert->expertWork->companyWork->short_name . ' ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio(),null, array('align' => 'both', 'spaceAfter' => 0));
                     $numberStr++;
                 }
