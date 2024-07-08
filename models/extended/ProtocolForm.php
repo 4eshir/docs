@@ -12,6 +12,14 @@ class ProtocolForm extends Model
     public $participants;
     public $chooseParticipants;
 
+    public function rules()
+    {
+        return [
+            [['textEventName', 'chooseParticipants'], 'required'],
+            [['dropdownEventName', 'textEventName', 'participants', 'chooseParticipants'], 'safe'],
+        ];
+    }
+
     public function __construct($groupId, $config = [])
     {
         parent::__construct($config);

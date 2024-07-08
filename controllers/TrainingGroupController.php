@@ -798,7 +798,7 @@ class TrainingGroupController extends Controller
     {
         $group = $this->findModel($gId);
 
-        $expelledParticipant = OrderGroupParticipantWork::find()
+        /*$expelledParticipant = OrderGroupParticipantWork::find()
             ->select('order_group_participant.group_participant_id')
             ->joinWith(['orderGroup'])
             ->joinWith(['orderGroup.documentOrder'])
@@ -811,9 +811,30 @@ class TrainingGroupController extends Controller
 
         $participantInProtocol = array_filter($group->trainingGroupParticipantsWork, function($participant) use ($arrExpelledParticipant) {
             return !in_array($participant->id, $arrExpelledParticipant);
-        });
+        });*/
 
-        WordWizard::DownloadProtocol($group, $participantInProtocol);
+        $model = new ProtocolForm($gId);
+
+        if($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validate()) {
+                //var_dump($participantInProtocol);
+                //var_dump($model);
+                /*$cache = Yii::$app->cache;
+                $cache->set('eventName', serialize($model->dropdownEventName), 3600);*/
+                $participantInProtocol = TrainingGroupParticipantWork::find()->where(['in', 'id', $model->chooseParticipants])->all();
+                Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен протокол группы ' . $gId);
+                WordWizard::DownloadProtocol($group, $participantInProtocol, $model->textEventName);
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        return $this->render('/training-group/protocol-settings', [
+            'model' => $model,
+        ]);
+
+        //WordWizard::DownloadProtocol($group, $participantInProtocol);
 
         //$participantExpelled = OrderGroupParticipantWork::find()->where([])
         /*$model = new ProtocolForm($gId);

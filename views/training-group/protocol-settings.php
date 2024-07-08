@@ -18,14 +18,14 @@ $this->title = 'Протокол итоговой аттестации';
 
 <div class="man-hours-report-form">
 
-    <h5><b>Выберите название публичного мероприятия из списка или введите его вручную</b></h5>
+    <h5><b>Выберите название публичного мероприятия или введите его вручную</b></h5>
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php echo $form->field($model, 'dropdownEventName')->
+    <?php /*echo $form->field($model, 'dropdownEventName')->
         dropDownList(['Научно-техническая конференция SchoolTech Conference' => 'Научно-техническая конференция SchoolTech Conference',
-                    'Демонстрация результатов образовательной деятельности' => 'Демонстрация результатов образовательной деятельности'])->label(false) ?>
-    <?php /* $form->field($model, 'textEventName')->textInput()->label(false)*/ ?>
+                    'Демонстрация результатов образовательной деятельности' => 'Демонстрация результатов образовательной деятельности'])->label(false)*/ ?>
+    <?php echo $form->field($model, 'textEventName')->textInput(['value' => 'Научно-техническая конференция SchoolTech Conference'])->label(false) ?>
 
     <br>
     <label><b>Выделите всех присутствовавших на защите:</b></label><br>

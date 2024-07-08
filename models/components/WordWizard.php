@@ -1521,8 +1521,10 @@ class WordWizard
         exit;
     }
 
-    static public function DownloadProtocol ($modelGroup, $groupParticipants)
+    static public function DownloadProtocol ($modelGroup, $groupParticipants, $eventName)
     {
+        //$myCachedData = unserialize(Yii::$app->cache->get('eventName'));
+        //var_dump($groupParticipants, $eventName);die();
         ini_set('memory_limit', '512M');
 
         $inputData = new PhpWord();
@@ -1603,7 +1605,7 @@ class WordWizard
             }
         }
         $section->addTextBreak(1);
-        $section->addText('Научно-техническая конференция SchoolTech Conference', array('underline' => 'single'), array('spaceAfter' => 0));
+        $section->addText($eventName, array('underline' => 'single'), array('spaceAfter' => 0));
         $section->addText('(публичное мероприятие, на котором проводилась аттестация)', array('size' => 12, 'italic' => true), array('spaceAfter' => 0));
         $section->addTextBreak(1);
 
