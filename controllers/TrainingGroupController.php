@@ -818,10 +818,6 @@ class TrainingGroupController extends Controller
         if($model->load(Yii::$app->request->post()))
         {
             if ($model->validate()) {
-                //var_dump($participantInProtocol);
-                //var_dump($model);
-                /*$cache = Yii::$app->cache;
-                $cache->set('eventName', serialize($model->dropdownEventName), 3600);*/
                 $participantInProtocol = TrainingGroupParticipantWork::find()->where(['in', 'id', $model->chooseParticipants])->all();
                 Logger::WriteLog(Yii::$app->user->identity->getId(), 'Выгружен протокол группы ' . $gId);
                 WordWizard::DownloadProtocol($group, $participantInProtocol, $model->textEventName);

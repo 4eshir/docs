@@ -1549,8 +1549,8 @@ class WordWizard
         $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
             . date("Y", strtotime($modelGroup->protection_date)) . ' г.');
-        $cell = $table->addCell(4000);
-        $cell->addText('№ ' . $modelGroup->number);
+        $cell = $table->addCell(6000);
+        $cell->addText('№ ' . $modelGroup->number, null, array('align' => 'right'));
         $section->addTextBreak(2);
 
         $section->addText('Демонстрация результатов образовательной деятельности', array('bold' => true), array('align' => 'center'));
@@ -1562,7 +1562,7 @@ class WordWizard
         $table->addCell(2000);
         $table->addRow();
         $cell = $table->addCell(5000);
-        $cell->addText($modelGroup->number, array('underline' => 'single'), array('align' => 'right'));
+        $cell->addText($modelGroup->number, array('underline' => 'single'));
         $table->addCell(2000);
         $section->addTextBreak(2);
 
@@ -1668,31 +1668,31 @@ class WordWizard
 
         $table = $section->addTable();
         $table->addRow();
-        $cell = $table->addCell(6000);
+        $cell = $table->addCell(8000);
         $cell->addText('Руководитель учебной группы');
         $cell = $table->addCell(6000);
-        $cell->addText('________________');
+        $cell->addText('________________', null, array('align' => 'center'));
         $cell = $table->addCell(6000);
-        $cell->addText('/ '.$modelGroup->teachersArray[0]->teacher->getShortName() . '/');
+        $cell->addText('/ '.$modelGroup->teachersArray[0]->teacher->getShortName() . '/', null, array('align' => 'right'));
         $table->addRow();
-        $cell = $table->addCell(6000);
+        $cell = $table->addCell(8000);
         $cell->addText('Руководитель отдела «'.$modelGroup->branch->name.'»');
         $cell = $table->addCell(6000);
-        $cell->addText('________________');
+        $cell->addText('________________', null, array('align' => 'center'));
         $cell = $table->addCell(6000);
-        $cell->addText('/ '. $bossShort . '/');
+        $cell->addText('/ '. $bossShort . '/', null, array('align' => 'right'));
 
         foreach ($experts as $expert)
         {
             if ($expert->expert_id !== $expertExept)
             {
                 $table->addRow();
-                $cell = $table->addCell(6000);
+                $cell = $table->addCell(8000);
                 $cell->addText($expert->expertWork->positionsWork2[0]->position->name);
                 $cell = $table->addCell(6000);
-                $cell->addText('________________');
+                $cell->addText('________________', null, array('align' => 'center'));
                 $cell = $table->addCell(6000);
-                $cell->addText('/ '. $expert->expertWork->getShortName() . '/');
+                $cell->addText('/ '. $expert->expertWork->getShortName() . '/', null, array('align' => 'right'));
             }
         }
 
@@ -1717,7 +1717,12 @@ class WordWizard
         $cell = $table->addCell(8000);
         $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г.', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('№ ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(2);
 
         $section->addText('Перечень обучающихся, принявших участие в итоговой аттестации', null, array('align' => 'center', 'spaceAfter' => 0));
@@ -1750,7 +1755,12 @@ class WordWizard
         $cell = $table->addCell(8000);
         $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
             . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-            . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            . date("Y", strtotime($modelGroup->protection_date)) . ' г.', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+        $table->addRow();
+        $cell = $table->addCell(10000);
+        $cell->addText('', null, array('spaceAfter' => 0));
+        $cell = $table->addCell(8000);
+        $cell->addText('№ ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
         $section->addTextBreak(2);
 
         $section->addText('Перечень обучающихся, прошедших итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
@@ -1793,7 +1803,12 @@ class WordWizard
             $cell = $table->addCell(8000);
             $cell->addText('«' . date("d", strtotime($modelGroup->protection_date)) . '» '
                 . WordWizard::Month(date("m", strtotime($modelGroup->protection_date))) . ' '
-                . date("Y", strtotime($modelGroup->protection_date)) . ' г. № ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+                . date("Y", strtotime($modelGroup->protection_date)) . ' г.', array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
+            $table->addRow();
+            $cell = $table->addCell(10000);
+            $cell->addText('', null, array('spaceAfter' => 0));
+            $cell = $table->addCell(8000);
+            $cell->addText('№ ' . $modelGroup->number, array('size' => '12'), array('align' => 'left', 'spaceAfter' => 0));
             $section->addTextBreak(2);
 
             $section->addText('Перечень обучающихся, признанных непрошедшими итоговую аттестацию', null, array('align' => 'center', 'spaceAfter' => 0));
