@@ -1607,6 +1607,7 @@ class WordWizard
         $section->addText('(публичное мероприятие, на котором проводилась аттестация)', array('size' => 12, 'italic' => true), array('spaceAfter' => 0));
         $section->addTextBreak(1);
 
+        $expertFlag = false;
         if ($modelGroup->trainingGroupExperts)
         {
             $numberStr = 1;
@@ -1616,9 +1617,10 @@ class WordWizard
                 {
                     if ($numberStr === 1)
                     {
+                        $expertFlag = true;
                         $section->addText('Приглашенные эксперты:', array('underline' => 'single'), array('spaceAfter' => 0));
                     }
-                    $section->addText('          '.$numberStr.'. ' . $expert->expertWork->companyWork->short_name . ' ' . $expert->expertWork->positionWork->name . ' ' . $expert->expertWork->getFio(),null, array('align' => 'both', 'spaceAfter' => 0));
+                    $section->addText('          '.$numberStr.'. ' . $expert->expertWork->companyWork->short_name . ' ' . $expert->expertWork->positionsWork2->position->name . ' ' . $expert->expertWork->getFio(),null, array('align' => 'both', 'spaceAfter' => 0));
                     $numberStr++;
                 }
             }
@@ -1630,7 +1632,7 @@ class WordWizard
         $section->addTextBreak(1);
         $section->addText('Приняли участие в итоговой аттестации обучающиеся согласно Приложению № 1 к настоящему протоколу.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
         $section->addTextBreak(1);
-        if ($modelGroup->trainingGroupExperts)
+        if ($modelGroup->trainingGroupExperts && $expertFlag)
             $section->addText('Ответственными лицами и экспертами были заданы вопросы.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
         else
             $section->addText('Ответственными лицами были заданы вопросы.', null, array('align' => 'both', 'spaceAfter' => 0, 'indentation' => array('hanging' => -700)));
@@ -1684,7 +1686,7 @@ class WordWizard
             {
                 $table->addRow();
                 $cell = $table->addCell(6000);
-                $cell->addText($expert->expertWork->positionWork->name);
+                $cell->addText($expert->expertWork->positionsWork2[0]->position->name);
                 $cell = $table->addCell(6000);
                 $cell->addText('________________');
                 $cell = $table->addCell(6000);
