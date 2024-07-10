@@ -405,7 +405,8 @@ use yii\jui\DatePicker;
 
     <?php
     $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_participation_id])->one();
-    echo $form->field($model, 'order_participation')->textInput(['readonly' => true, 'value' => $order->fullName])->label('Приказ об участии');
+    if ($order)
+        echo $form->field($model, 'order_participation')->textInput(['readonly' => true, 'value' => $order->fullName])->label('Приказ об участии');
     ?>
 
     <?php
