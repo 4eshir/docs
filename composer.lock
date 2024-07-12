@@ -8450,6 +8450,7 @@
         "arhitector/yandex": 20,
         "yiisoft/yii2-queue": 20,
         "guzzlehttp/psr7": 20,
+        "php-http/message-factory": 20,
         "zhuravljov/yii2-queue": 20
     },
     "prefer-stable": false,
@@ -8459,5 +8460,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

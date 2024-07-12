@@ -55,8 +55,8 @@ class TrainingGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'number', 'start_date', 'finish_date', 'branch_id', 'order_status'], 'required'],
-            [['id', 'training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_status', 'order_stop', 'archive', 'creator_id', 'last_edit_id', 'protection_confirm', 'is_network'], 'integer'],
+            [['id', 'number', 'start_date', 'finish_date', 'branch_id'], 'required'],
+            [['id', 'training_program_id', 'teacher_id', 'open', 'schedule_type', 'budget', 'branch_id', 'order_stop', 'archive', 'creator_id', 'last_edit_id', 'protection_confirm', 'is_network'], 'integer'],
             [['start_date', 'finish_date', 'protection_date'], 'safe'],
             [['number'], 'string', 'max' => 100],
             [['photos', 'present_data', 'work_data'], 'string', 'max' => 1000],

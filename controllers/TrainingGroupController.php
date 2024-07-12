@@ -798,21 +798,6 @@ class TrainingGroupController extends Controller
     {
         $group = $this->findModel($gId);
 
-        /*$expelledParticipant = OrderGroupParticipantWork::find()
-            ->select('order_group_participant.group_participant_id')
-            ->joinWith(['orderGroup'])
-            ->joinWith(['orderGroup.documentOrder'])
-            ->where(['order_group.training_group_id' => $gId])
-            ->andWhere(['in', 'order_group_participant.status', [1, 2]])
-            ->andWhere(['<', 'document_order.order_date', $group->protection_date])
-            ->asArray()
-            ->all();
-        $arrExpelledParticipant = array_column($expelledParticipant, 'group_participant_id');
-
-        $participantInProtocol = array_filter($group->trainingGroupParticipantsWork, function($participant) use ($arrExpelledParticipant) {
-            return !in_array($participant->id, $arrExpelledParticipant);
-        });*/
-
         $model = new ProtocolForm($gId);
 
         if($model->load(Yii::$app->request->post()))
@@ -829,8 +814,6 @@ class TrainingGroupController extends Controller
         return $this->render('/training-group/protocol-settings', [
             'model' => $model,
         ]);
-
-        //WordWizard::DownloadProtocol($group, $participantInProtocol);
 
         //$participantExpelled = OrderGroupParticipantWork::find()->where([])
         /*$model = new ProtocolForm($gId);
