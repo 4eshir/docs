@@ -56,6 +56,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 return 'Нет';
         }, 'filter' => [1 => "Да", 0 => "Нет"]],
         ['attribute' => 'responsibleString', 'label' => 'Ответственный(-ые) работник(-и)'],
+        ['attribute' => 'eventDepartment', 'label' => 'Мероприятие проводит', 'value' => function($model){
+            $tech = \app\models\work\EventBranchWork::find()->where(['branch_id' => 2])->andWhere(['event_id' => $model->id])->all();
+            $quant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 1])->andWhere(['event_id' => $model->id])->all();
+            $cdntt = \app\models\work\EventBranchWork::find()->where(['branch_id' => 3])->andWhere(['event_id' => $model->id])->all();
+            $mobquant = \app\models\work\EventBranchWork::find()->where(['branch_id' => 4])->andWhere(['event_id' => $model->id])->all();
+            $cod = \app\models\work\EventBranchWork::find()->where(['branch_id' => 7])->andWhere(['event_id' => $model->id])->all();
+
+            $result = '';
+            if (count($tech) > 0)
+                $result = $result.'Технопарк';
+            if (count($quant) > 0)
+                if ($result == '')
+                    $result = $result.'Кванториум';
+                else
+                    $result = $result." Кванториум";
+            if (count($cdntt) > 0)
+                if ($result == '')
+                    $result = $result.'ЦДНТТ';
+                else
+                    $result = $result." ЦДНТТ";
+            if (count($mobquant) > 0)
+                if ($result == '')
+                    $result = $result.'Мобильный_кванториум';
+                else
+                    $result = $result." Мобильный_кванториум";
+
+            if (count($cod) > 0)
+                if ($result == '')
+                    $result = $result.'ЦОД';
+                else
+                    $result = $result." ЦОД";
+
+            return $result;
+        }, 'format' => 'raw'],
         ['attribute' => 'orderString', 'value' => function($model){
             $order = \app\models\work\DocumentOrderWork::find()->where(['id' => $model->order_id])->one();
             if ($order == null)
