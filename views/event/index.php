@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ['attribute' => 'eventLevelString', 'label' => 'Уровень мероприятия', 'value' => function($model){
             return \app\models\work\EventLevelWork::find()->where(['id' => $model->event_level_id])->one()->name;
         }, 'encodeLabel' => false],
-        'scopesSplitter',
+        ['attribute' => 'scopesSplitter', 'label' => 'Тематическая направленность'],
         ['attribute' => 'childs', 'value' => function($model){
             return \app\models\work\EventParticipantsWork::find()->where(['event_id' => $model->id])->one()->child_participants;
         }, 'encodeLabel' => false],
