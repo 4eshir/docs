@@ -40,7 +40,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
     <?php
     $objects = \app\models\work\MaterialObjectWork::find()->where(['NOT IN', 'id',
         (new \yii\db\Query())->select('material_object_id')->from('container_object')])->orderBy(['name' => SORT_ASC])->all();
-    $items = \yii\helpers\ArrayHelper::map($objects,'id','name');
+    $items = \yii\helpers\ArrayHelper::map($objects,'id','nameWithNumb');
     $params = [
         'prompt' => '',
         'style' => 'width: 50%',

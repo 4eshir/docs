@@ -118,6 +118,11 @@ class MaterialObjectWork extends MaterialObject
         return Html::a($this->name, \yii\helpers\Url::to(['material-object/view', 'id' => $this->id]));
     }
 
+    public function getNameWithNumb()
+    {
+        return $this->inventory_number . ' ' . $this->name;
+    }
+
     public function getNameAndNumberMaterialObject()
     {
         $result = $this->name;
