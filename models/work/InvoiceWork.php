@@ -154,7 +154,7 @@ class InvoiceWork extends Invoice
     public function beforeSave($insert)
     {
         if ($this->contract_id == 0) {
-            $this->contractor_id = null;
+            $this->contract_id = null;
         }
 
         $duplicate = InvoiceWork::find()->where(['date_invoice' => $this->date_invoice])->andWhere(['number' => $this->number])
