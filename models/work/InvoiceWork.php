@@ -194,7 +194,7 @@ class InvoiceWork extends Invoice
 
                     $newObjectEntry = new ObjectEntryWork();
                     $newObjectEntry->entry_id = $entry->id;
-                    $newObjectEntry->material_object_id = 1;
+                    $newObjectEntry->material_object_id = null;
                     $newObjectEntry->save();
                     $tempId = $newObjectEntry->id;
 
@@ -204,9 +204,6 @@ class InvoiceWork extends Invoice
                     $newObject->filesTmp = $_FILES["MaterialObjectWork"]["tmp_name"][$i]["characteristics"];
                     $newObject->filesName = $_FILES["MaterialObjectWork"]["name"][$i]["characteristics"];
                     $newObject->save();
-
-                    $newObjectEntry->material_object_id = $newObject->id;
-                    $newObjectEntry->save();
 
                     $newObjectEntry = ObjectEntryWork::find()->where(['id' => $tempId])->one();
                     $newObjectEntry->material_object_id = $newObject->id;
