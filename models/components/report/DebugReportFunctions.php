@@ -92,6 +92,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->name . ";" .
+                    $participant->trainingGroupWork->trainingProgramWork->getAllowRemote() . ";" .
                     $successString . ";" .
                     $participant->groupProjectThemesWork->projectThemeWork->name . ";" .
                     $participant->trainingGroupWork->protection_date . ";" .
@@ -127,6 +128,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->budgetText.";".
                     $participant->trainingGroupWork->trainingProgramWork->thematicDirectionWork->full_name.";".
                     $participant->trainingGroupWork->trainingProgramWork->name.";".
+                    $participant->trainingGroupWork->trainingProgramWork->getAllowRemote() . ";" .
                     $successString.";".
                     $participant->groupProjectThemesWork->projectThemeWork->name.";".
                     $participant->trainingGroupWork->protection_date.";".
