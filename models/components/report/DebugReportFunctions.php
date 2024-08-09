@@ -94,7 +94,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->trainingProgramWork->name . ";" .
                     $participant->trainingGroupWork->trainingProgramWork->getAllowRemote() . ";" .
                     $successString . ";" .
-                    addslashes($participant->groupProjectThemesWork->projectThemeWork->name) . ";" .
+                    str_replace(["'", '"'], ['', ''], $participant->groupProjectThemesWork->projectThemeWork->name) . ";" .
                     $participant->trainingGroupWork->protection_date . ";" .
                     $participant->groupProjectThemesWork->projectTypeWork->name . ";" .
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->fio . ";" .
@@ -130,7 +130,7 @@ class DebugReportFunctions
                     $participant->trainingGroupWork->trainingProgramWork->name.";".
                     $participant->trainingGroupWork->trainingProgramWork->getAllowRemote() . ";" .
                     $successString.";".
-                    addslashes($participant->groupProjectThemesWork->projectThemeWork->name).";".
+                    str_replace(["'", '"'], ['', ''], $participant->groupProjectThemesWork->projectThemeWork->name).";".
                     $participant->trainingGroupWork->protection_date.";".
                     $participant->groupProjectThemesWork->projectTypeWork->name.";".
                     $participant->trainingGroupWork->expertsArray[0]->expertWork->fio.";".
