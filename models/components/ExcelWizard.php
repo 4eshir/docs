@@ -223,7 +223,7 @@ class ExcelWizard
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
 
-        $model = new JournalModel($group_id);
+        /*$model = new JournalModel($group_id);
 
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
@@ -321,7 +321,7 @@ class ExcelWizard
         $row = $row + 2;
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
         $row = $row + 3;
-        $lesCount++;
+        $lesCount++;*/
 
 
         header("Pragma: public");
