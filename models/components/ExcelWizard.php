@@ -218,12 +218,13 @@ class ExcelWizard
         $counter = 0; //основной счетчик для visits
         $lesCount = 0; //счетчик для страниц
         ini_set('memory_limit', '512M');
-
-        //$inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
-        //$inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
-        $inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal2.xlsx');
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
+        /*$inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+        //$inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal2.xlsx');
 
         /*$model = new JournalModel($group_id);
 
