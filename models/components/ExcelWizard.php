@@ -214,67 +214,18 @@ class ExcelWizard
 
     static public function DownloadJournal($group_id)
     {
-        $onPage = 20; //количество занятий на одной странице
+        /*$onPage = 20; //количество занятий на одной странице
         $counter = 0; //основной счетчик для visits
         $lesCount = 0; //счетчик для страниц
 
         ini_set('memory_limit', '512M');
-        $training_group_id = $group_id;
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
-        $reader = \PHPExcel_IOFactory::createReader($inputType);
-        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
 
-
-        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
-            ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
-        $c = 1;
-
-        $styleArray = array('fill'    => array(
-            'type'      => 'solid',
-            'color'     => array('rgb' => 'FFFFFF')
-        ),
-            'borders' => array(
-                'bottom'    => array('style' => 'thin'),
-                'right'     => array('style' => 'thin'),
-                'top'     => array('style' => 'thin'),
-                'left'     => array('style' => 'thin')
-            )
-        );
-
-        foreach ($lessons as $lesson)
-        {
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 11 + $c, $c);
-
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 11 + $c, $lesson->trainingGroupLesson->lesson_date);
-
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 11 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
-
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11 + $c, $lesson->theme);
-            $inputData->getActiveSheet()->getRowDimension(11 + $c)->setRowHeight(12.5 * (strlen($lesson->theme) / 60) + 15);
-
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 11 + $c, $lesson->trainingGroupLesson->duration);
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 11 + $c, "Групповая");
-            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 11 + $c, $lesson->controlType->name);
-            $c++;
-        }
-
-        for ($i = 11; $i < 11 + count($lessons); $i++)
-        {
-            $inputData->getSheet(0)->getStyle('A'.$i.':B'.($i+1))->applyFromArray($styleArray);
-            $inputData->getSheet(0)->getStyle('B'.$i.':C'.($i+1))->applyFromArray($styleArray);
-            $inputData->getSheet(0)->getStyle('C'.$i.':D'.($i+1))->applyFromArray($styleArray);
-            $inputData->getSheet(0)->getStyle('D'.$i.':E'.($i+1))->applyFromArray($styleArray);
-            $inputData->getSheet(0)->getStyle('E'.$i.':F'.($i+1))->applyFromArray($styleArray);
-            $inputData->getSheet(0)->getStyle('F'.$i.':G'.($i+1))->applyFromArray($styleArray);
-        }
-        $inputData->getSheet(0)->getStyle('A12:G'. (11 + count($lessons)))->applyFromArray($styleArray);
-
-        /*$inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
         //$inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal2.xlsx');
 
-        /*$model = new JournalModel($group_id);
+        $model = new JournalModel($group_id);
 
         $lessons = TrainingGroupLessonWork::find()->where(['training_group_id' => $model->trainingGroup])->orderBy(['lesson_date' => SORT_ASC])->all();
         $newLessons = array();
@@ -372,7 +323,7 @@ class ExcelWizard
         $row = $row + 2;
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, $row, 'Подпись');
         $row = $row + 3;
-        $lesCount++;*/
+        $lesCount++;
 
 
         header("Pragma: public");
@@ -382,6 +333,68 @@ class ExcelWizard
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");;
         header("Content-Disposition: attachment;filename=journal.xls");
+        header("Content-Transfer-Encoding: binary ");
+        $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
+        $writer->save('php://output');
+        exit;*/
+        ini_set('memory_limit', '512M');
+
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_KUG.xlsx');
+        $reader = \PHPExcel_IOFactory::createReader($inputType);
+        $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
+
+
+        $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
+            ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
+        $c = 1;
+
+        $styleArray = array('fill'    => array(
+            'type'      => 'solid',
+            'color'     => array('rgb' => 'FFFFFF')
+        ),
+            'borders' => array(
+                'bottom'    => array('style' => 'thin'),
+                'right'     => array('style' => 'thin'),
+                'top'     => array('style' => 'thin'),
+                'left'     => array('style' => 'thin')
+            )
+        );
+
+        foreach ($lessons as $lesson)
+        {
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(0, 11 + $c, $c);
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(1, 11 + $c, $lesson->trainingGroupLesson->lesson_date);
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 11 + $c, mb_substr($lesson->trainingGroupLesson->lesson_start_time, 0, -3).' - '.mb_substr($lesson->trainingGroupLesson->lesson_end_time, 0, -3));
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(3, 11 + $c, $lesson->theme);
+            $inputData->getActiveSheet()->getRowDimension(11 + $c)->setRowHeight(12.5 * (strlen($lesson->theme) / 60) + 15);
+
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(4, 11 + $c, $lesson->trainingGroupLesson->duration);
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(5, 11 + $c, "Групповая");
+            $inputData->getActiveSheet()->setCellValueByColumnAndRow(6, 11 + $c, $lesson->controlType->name);
+            $c++;
+        }
+
+        for ($i = 11; $i < 11 + count($lessons); $i++)
+        {
+            $inputData->getSheet(0)->getStyle('A'.$i.':B'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('B'.$i.':C'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('C'.$i.':D'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('D'.$i.':E'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('E'.$i.':F'.($i+1))->applyFromArray($styleArray);
+            $inputData->getSheet(0)->getStyle('F'.$i.':G'.($i+1))->applyFromArray($styleArray);
+        }
+        $inputData->getSheet(0)->getStyle('A12:G'. (11 + count($lessons)))->applyFromArray($styleArray);
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header("Content-Disposition: attachment;filename=kug.xls");
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
