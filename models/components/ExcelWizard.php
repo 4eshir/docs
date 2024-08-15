@@ -220,7 +220,7 @@ class ExcelWizard
         ini_set('memory_limit', '512M');
 
         //$inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
-        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/electronicJournal2.xlsx');
+        $inputType = \PHPExcel_IOFactory::identify(Yii::$app->basePath.'/templates/template_JOU.xlsx');
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         //$inputData = $reader->load(Yii::$app->basePath.'/templates/template_JOU.xlsx');
         $inputData = $reader->load(Yii::$app->basePath.'/templates/electronicJournal2.xlsx');
