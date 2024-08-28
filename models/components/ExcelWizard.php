@@ -3904,5 +3904,6 @@ class ExcelWizard
         header("Content-Transfer-Encoding: binary ");
         $writer = \PHPExcel_IOFactory::createWriter($inputData, 'Excel5');
         $writer->save('php://output');
+        exit;
     }
 }
