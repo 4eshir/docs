@@ -154,6 +154,10 @@ class ExcelWizard
         $reader = \PHPExcel_IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath.'/templates/template_KUG.xlsx');
 
+        $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 8, $group->number);
+        $branch = $group->branchWork->name == 'Центр одаренных детей' ? '' : $group->branchWork->name;
+        $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 9, $branch);
 
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
                                         ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
