@@ -1585,16 +1585,24 @@ class WordWizard
                 $bossShort = 'Дубовская Л.В.';
                 $expertExept = 21;
                 break;
-            default:
+            case 'Центр одаренных детей':
                 $boss = 'Баганина Анна Александровна';
                 $bossShort = 'Баганина А.А.';
                 $expertExept = 36;
+                break;
+            default:
+                $boss = 'Толочина Оксана Георгиевна';
+                $bossShort = 'Толочина О.Г.';
+                $expertExept = 946;
         }
         $experts = TrainingGroupExpertWork::find()->where(['training_group_id' => $modelGroup->id])->andWhere(['expert_type_id' => 2])->all();  // внутренние эксперты
 
         $section->addText('Присутствовали ответственные лица:', null, array('align' => 'both', 'spaceAfter' => 0));
         $section->addText('          1. Руководитель учебной группы – ' . $modelGroup->teachersArray[0]->teacher->getFio() . '.', null, array('align' => 'both', 'spaceAfter' => 0));
-        $section->addText('          2. Руководитель отдела «'.$modelGroup->branch->name.'» ' . $boss . '.', null, array('align' => 'both', 'spaceAfter' => 0));
+        if ($modelGroup->branch->name === 'Мобильный кванториум')
+            $section->addText('          2. Заместитель руководителя - заведующий по образовательной деятельности ' . $boss . '.', null, array('align' => 'both', 'spaceAfter' => 0));
+        else
+            $section->addText('          2. Руководитель отдела «'.$modelGroup->branch->name.'» ' . $boss . '.', null, array('align' => 'both', 'spaceAfter' => 0));
         $numberStr = 3;
         foreach ($experts as $expert)
         {
