@@ -156,7 +156,7 @@ class ExcelWizard
 
         $group = TrainingGroupWork::find()->where(['id' => $training_group_id])->one();
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 8, $group->number);
-        $branch = $group->branch->name == 'Центр одаренных детей' ? '' : $group->branch->name;
+        $branch = 'Отдел "' . $group->branch->name . '" ГАОУ АО ДО "РШТ"';
         $inputData->getActiveSheet()->setCellValueByColumnAndRow(2, 9, $branch);
 
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
