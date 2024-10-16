@@ -4096,17 +4096,17 @@ class ExcelWizard
             if ($magic > 20 * (1 + $flag) + 5 + $flag)
             {
                 $sheets++;
-                echo $sheets . ' ' . $inputData->getSheetCount(); // Отладочное сообщение
+                var_dump( $sheets, $inputData->getSheetCount()); // Отладочное сообщение
                 if ($sheets > $inputData->getSheetCount())
                 {
-                    echo "Выход из цикла: превышен лимит листов.\n"; // Отладочное сообщение
+                    var_dump( "Выход из цикла: превышен лимит листов.\n"); // Отладочное сообщение
                     break;
                 }
                 $magic = 5;
             }
-            die();
+            var_dump($magic, $sheets, $inputData->getSheetCount(), 'THEEND');
         }
-
+        var_dump('end');die();
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
 
         $strThemes = 'Тема проекта: ';
