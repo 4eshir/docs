@@ -4089,8 +4089,6 @@ class ExcelWizard
         $sheets = 0;
         foreach ($lessons as $lesson)
         {
-            var_dump($magic, $sheets, $inputData->getSheetCount(), 'THEEND');
-            if($sheets==1) die();
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, $magic, date("d.m.Y", strtotime($lesson->trainingGroupLesson->lesson_date)));
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
             $magic++;
@@ -4098,16 +4096,14 @@ class ExcelWizard
             if ($magic > 20 * (1 + $flag) + 5 + $flag)
             {
                 $sheets++;
-                var_dump( $sheets, $inputData->getSheetCount()); // Отладочное сообщение
-                if ($sheets > $inputData->getSheetCount())
+                if ($sheets >= $inputData->getSheetCount())
                 {
-                    var_dump( "Выход из цикла: превышен лимит листов.\n"); // Отладочное сообщение
                     break;
                 }
                 $magic = 5;
             }
         }
-        var_dump('end');die();
+
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
 
         $strThemes = 'Тема проекта: ';
