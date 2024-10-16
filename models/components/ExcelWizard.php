@@ -4115,17 +4115,24 @@ class ExcelWizard
 
         for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
         {
-            if ($order1->order_postfix == null)
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26,51, $order1->order_number.'/'.$order1->order_copy_id);
-            else
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, 51, $order1->order_number.'/'.$order1->order_copy_id.'/'.$order1->order_postfix);
+            if ($order1)
+            {
+                if ($order1->order_postfix == null)
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26,51, $order1->order_number.'/'.$order1->order_copy_id);
+                else
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, 51, $order1->order_number.'/'.$order1->order_copy_id.'/'.$order1->order_postfix);
+            }
 
-            if ($order2->order_postfix == null)
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(30,51, $order2->order_number.'/'.$order2->order_copy_id);
-            else
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(30, 51, $order2->order_number.'/'.$order2->order_copy_id.'/'.$order2->order_postfix);
+            if ($order2)
+            {
+                if ($order2->order_postfix == null)
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(30,51, $order2->order_number.'/'.$order2->order_copy_id);
+                else
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(30, 51, $order2->order_number.'/'.$order2->order_copy_id.'/'.$order2->order_postfix);
+            }
 
-            $inputData->getSheet($sheets)->setCellValue('AB51', date("d.m.Y", strtotime($group->protection_date)));
+            if ($group->protection_date)
+                $inputData->getSheet($sheets)->setCellValue('AB51', date("d.m.Y", strtotime($group->protection_date)));
 
             $inputData->getSheet($sheets)->setCellValue('Z1', $strThemes);
             $inputData->getSheet($sheets)->getStyle('Z1')->getAlignment()->setWrapText(true);
