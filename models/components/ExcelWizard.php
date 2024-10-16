@@ -4089,6 +4089,8 @@ class ExcelWizard
         $sheets = 0;
         foreach ($lessons as $lesson)
         {
+            var_dump($magic, $sheets, $inputData->getSheetCount(), 'THEEND');
+            if($sheets==1) die();
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, $magic, date("d.m.Y", strtotime($lesson->trainingGroupLesson->lesson_date)));
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
             $magic++;
@@ -4104,7 +4106,6 @@ class ExcelWizard
                 }
                 $magic = 5;
             }
-            var_dump($magic, $sheets, $inputData->getSheetCount(), 'THEEND');
         }
         var_dump('end');die();
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
