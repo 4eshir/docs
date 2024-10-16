@@ -4096,10 +4096,10 @@ class ExcelWizard
             if ($magic > 20 * (1 + $flag) + 5 + $flag)
             {
                 $sheets++;
-                var_dump( $sheets, $inputData->getSheetCount()); // Отладочное сообщение
+                echo $sheets . ' ' . $inputData->getSheetCount(); // Отладочное сообщение
                 if ($sheets > $inputData->getSheetCount())
                 {
-                    var_dump( "Выход из цикла: превышен лимит листов.\n"); // Отладочное сообщение
+                    echo "Выход из цикла: превышен лимит листов.\n"; // Отладочное сообщение
                     break;
                 }
                 $magic = 5;
