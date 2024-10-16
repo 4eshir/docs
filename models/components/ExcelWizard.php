@@ -4096,10 +4096,15 @@ class ExcelWizard
             if ($magic > 20 * (1 + $flag) + 5 + $flag)
             {
                 $sheets++;
+                var_dump( "Смена листа: текущий лист = $sheets, количество листов = " . $inputData->getSheetCount() . "\n"); // Отладочное сообщение
                 if ($sheets > $inputData->getSheetCount())
+                {
+                    var_dump( "Выход из цикла: превышен лимит листов.\n"); // Отладочное сообщение
                     break;
+                }
                 $magic = 5;
             }
+            die();
         }
 
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
