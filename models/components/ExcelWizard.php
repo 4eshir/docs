@@ -4038,7 +4038,6 @@ class ExcelWizard
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(2, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
             $inputData->getSheet($sheets)->getStyle('B'. $magic);
 
-            if ($magic === 26) $magic++;
             $tempSheets = $sheets;
             for ($cp = 0; $cp < ceil(count($parts) / 46); $cp++)
             {
