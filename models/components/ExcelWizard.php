@@ -4049,7 +4049,7 @@ class ExcelWizard
                 }
                 $tempSheets++;
             }
-            if ($magic === 26) $magic--;
+            if ($magic >= 26) $magic--;
             for($i = 0; $i < count($parts); ) //цикл заполнения детей на странице
             {
                 if ($i !== 0 && $i % 46 === 0)
