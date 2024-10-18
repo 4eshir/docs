@@ -4089,14 +4089,14 @@ class ExcelWizard
 
                     if ($i % $onPage === 0 && $i !== 0)
                     {
-                        if (($magic === 27 && $flag === 1) || $flag === 0)
+                        if (($magic === 26 && $flag === 1) || $flag === 0)
                         {
                             $magic = 0;
                             if (count($parts) > 46)
                                 $tempSheets = $tempSheets + 2;
                         }
                         else if ($flag === 1)
-                            $magic = 27;
+                            $magic = 26;
                     }
                     $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(2 + $i % $onPage, 6 + $j + $magic, $visits->excelStatus);
                 }
