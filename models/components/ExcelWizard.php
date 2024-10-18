@@ -4196,7 +4196,6 @@ class ExcelWizard
 }
 
 function truncateString($string, $limit = 87) {
-    // Убедитесь, что строка в UTF-8
     $string = mb_convert_encoding($string, 'UTF-8', 'auto');
 
     if (mb_strlen($string, 'UTF-8') > $limit) {
