@@ -4007,7 +4007,7 @@ class ExcelWizard
         $reader = IOFactory::createReader($inputType);
         $inputData = $reader->load(Yii::$app->basePath . $fileName);
 
-        for ($i = 1; $i < count($lessons) / ($onPage * (1 + $flag)); $i++)
+        for ($i = 1; $i < (count($lessons) / ($onPage * (1 + $flag))) * ceil(count($parts) / 46); $i++)
         {
             $clone = clone $inputData->getActiveSheet();
             $clone->setTitle('Шаблон' . $i);
@@ -4026,7 +4026,7 @@ class ExcelWizard
             if ($lesCount % 2 !== 0)
             {
                 if ($flag == 1)
-                    $magic = 25;
+                    $magic = 26;
                 else
                 {
                     $sheets++;
@@ -4038,42 +4038,68 @@ class ExcelWizard
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(2, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
             $inputData->getSheet($sheets)->getStyle('B'. $magic);
 
-            if ($magic === 25) $magic++;
-            for ($i = 0; $i + $lesCount * $onPage < count($lessons) && $i < $onPage; $i++) //цикл заполнения дат на странице
+            if ($magic === 26) $magic++;
+            $tempSheets = $sheets;
+            for ($cp = 0; $cp < ceil(count($parts) / 46); $cp++)
             {
-                $inputData->getSheet($sheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
-                $inputData->getSheet($sheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->getStyle()->getAlignment()->setTextRotation(90);
+                for ($i = 0; $i + $lesCount * $onPage < count($lessons) && $i < $onPage; $i++) //цикл заполнения дат на странице
+                {
+                    $inputData->getSheet($tempSheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                    $inputData->getSheet($tempSheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->getStyle()->getAlignment()->setTextRotation(90);
+                }
+                $tempSheets++;
             }
 
-            for($i = 0; $i < count($parts); $i++) //цикл заполнения детей на странице
+            for($i = 0; $i < count($parts); ) //цикл заполнения детей на странице
             {
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, $i + 6 + $magic, $parts[$i]->participantWork->shortName);
+                if ($i !== 0 && $i % 46 === 0)
+                {
+                    $sheets++;
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, 1 + $magic, 'Группа: ' . $group->number);
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(2, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
+                    $inputData->getSheet($sheets)->getStyle('B'. $magic);
+                    $inputData->getSheet($sheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->setValueExplicit(date("d.m", strtotime($lessons[$i + $lesCount * $onPage]->lesson_date)), \PHPExcel_Cell_DataType::TYPE_STRING);
+                    $inputData->getSheet($sheets)->getCellByColumnAndRow(2 + $i, 4 + $magic)->getStyle()->getAlignment()->setTextRotation(90);
+                }
+                for ($j = 0; $j < 46 && $i < count($parts); $j++)
+                {
+                    $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, $j + 6 + $magic, $parts[$i]->participantWork->shortName);
+                    $i++;
+                }
+                //$inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, $i + 6 + $magic, $parts[$i]->participantWork->shortName);
             }
-
             $lesCount++;
         }
 
         $delay = 0;
-        for ($cp = 0; $cp < count($parts); $cp++)
+        for ($cp = 0; $cp < count($parts); )
         {
             $sheets = 0;
             $magic = 0;
-            for ($i = 0; $i < count($lessons); $i++, $delay++)
+            if ($cp !== 0 && $cp % 46 === 0)
             {
-                $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
-
-                if ($i % $onPage === 0 && $i !== 0)
+                $sheets++;
+            }
+            for ($j = 0; $j < 46 && $cp < count($parts); $j++)
+            {
+                $tempSheets = $sheets;
+                for ($i = 0; $i < count($lessons); $i++, $delay++)
                 {
-                    if (($magic === 26 && $flag === 1) || $flag === 0)
-                    {
-                        $magic = 0;
-                        $sheets++;
-                    }
-                    else if ($flag === 1)
-                        $magic = 26;
-                }
+                    $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$delay]])->one();
 
-                $inputData->getSheet($sheets)->setCellValueByColumnAndRow(2 + $i % $onPage, 6 + $cp + $magic, $visits->excelStatus);
+                    if ($i % $onPage === 0 && $i !== 0)
+                    {
+                        if (($magic === 26 && $flag === 1) || $flag === 0)
+                        {
+                            $magic = 0;
+                            $tempSheets = $tempSheets + 2;
+                        }
+                        else if ($flag === 1)
+                            $magic = 26;
+                    }
+                    $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(2 + $i % $onPage, 6 + $j + $magic, $visits->excelStatus);
+                }
+                $cp++;
             }
         }
 
@@ -4085,23 +4111,28 @@ class ExcelWizard
         $lessons = LessonThemeWork::find()->joinWith(['trainingGroupLesson trainingGroupLesson'])->where(['trainingGroupLesson.training_group_id' => $training_group_id])
             ->orderBy(['trainingGroupLesson.lesson_date' => SORT_ASC, 'trainingGroupLesson.lesson_start_time' => SORT_ASC])->all();
 
-        $magic = 5;
         $sheets = 0;
-        foreach ($lessons as $lesson)
+        for ($i = 0; $i < ceil(count($parts) / 46); $i++)
         {
-            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(26, $magic, date("d.m.Y", strtotime($lesson->trainingGroupLesson->lesson_date)));
-            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
-            $magic++;
-
-            if ($magic > 20 * (1 + $flag) + 5 + $flag)
+            $magic = 5;
+            $tempSheets = $sheets;
+            foreach ($lessons as $lesson)
             {
-                $sheets++;
-                if ($sheets >= $inputData->getSheetCount())
+                $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(26, $magic, date("d.m.Y", strtotime($lesson->trainingGroupLesson->lesson_date)));
+                $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
+                $magic++;
+
+                if ($magic > 20 * (1 + $flag) + 5 + $flag)
                 {
-                    break;
+                    $tempSheets += 2;
+                    if ($tempSheets >= $inputData->getSheetCount())
+                    {
+                        break;
+                    }
+                    $magic = 5;
                 }
-                $magic = 5;
             }
+            $sheets++;
         }
 
         $themes = GroupProjectThemesWork::find()->where(['confirm' => 1])->andWhere(['training_group_id' => $training_group_id])->all();
