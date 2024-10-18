@@ -4048,7 +4048,7 @@ class ExcelWizard
                 }
                 $tempSheets++;
             }
-            if ($magic >= 26) $magic--;
+
             for($i = 0; $i < count($parts); ) //цикл заполнения детей на странице
             {
                 if ($i !== 0 && $i % 46 === 0)
@@ -4070,17 +4070,20 @@ class ExcelWizard
             $lesCount++;
         }
 
-        $delay = 0;
+
         for ($cp = 0; $cp < count($parts); )
         {
             $sheets = 0;
-            $magic = 0;
+
             if ($cp !== 0 && $cp % 46 === 0)
             {
                 $sheets++;
             }
+
             for ($j = 0; $j < 46 && $cp < count($parts); $j++)
             {
+                $delay = 0;
+                $magic = 0;
                 $tempSheets = $sheets;
                 for ($i = 0; $i < count($lessons); $i++, $delay++)
                 {
@@ -4098,11 +4101,12 @@ class ExcelWizard
                             $magic = 26;
                     }
                     $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(2 + $i % $onPage, 6 + $j + $magic, $visits->excelStatus);
+                    //var_dump(2 + $i % $onPage, 6 + $j + $magic, 'end');
                 }
                 $cp++;
             }
         }
-
+//die();
         for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
         {
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(32, 51, count($lessons)*count($parts));
