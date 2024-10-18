@@ -4124,7 +4124,7 @@ class ExcelWizard
             foreach ($lessons as $lesson)
             {
                 $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(26, $magic, date("d.m.Y", strtotime($lesson->trainingGroupLesson->lesson_date)));
-                $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(27, $magic, $lesson->theme);
+                $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(27, $magic, truncateString($lesson->theme));
                 $magic++;
 
                 if ($magic > 20 * (1 + $flag) + 5 + $flag)
@@ -4180,7 +4180,6 @@ class ExcelWizard
             $inputData->getSheet($sheets)->getStyle('B1')->getAlignment()->setWrapText(true);
         }
 
-
         // Сохранение файла
         header("Pragma: public");
         header("Expires: 0");
@@ -4194,4 +4193,14 @@ class ExcelWizard
         $writer->save('php://output');
         exit;
     }
+}
+
+function truncateString($string, $limit = 87) {
+    // Убедитесь, что строка в UTF-8
+    $string = mb_convert_encoding($string, 'UTF-8', 'auto');
+
+    if (mb_strlen($string, 'UTF-8') > $limit) {
+        return mb_substr($string, 0, $limit, 'UTF-8') . '...';
+    }
+    return $string;
 }
