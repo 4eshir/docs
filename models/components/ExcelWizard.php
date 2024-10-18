@@ -4096,17 +4096,18 @@ class ExcelWizard
                             $magic = 0;
                             if (count($parts) > 46)
                                 $tempSheets = $tempSheets + 2;
+                            else
+                                $tempSheets++;
                         }
                         else if ($flag === 1)
                             $magic = 26;
                     }
                     $inputData->getSheet($tempSheets)->setCellValueByColumnAndRow(2 + $i % $onPage, 6 + $j + $magic, $visits->excelStatus);
-                    //var_dump(2 + $i % $onPage, 6 + $j + $magic, 'end');
                 }
                 $cp++;
             }
         }
-//die();
+
         for ($sheets = 0; $sheets < $inputData->getSheetCount(); $sheets++)
         {
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(32, 51, count($lessons)*count($parts));
@@ -4128,7 +4129,10 @@ class ExcelWizard
 
                 if ($magic > 20 * (1 + $flag) + 5 + $flag)
                 {
-                    $tempSheets += 2;
+                    if (count($parts) > 46)
+                        $tempSheets += 2;
+                    else
+                        $tempSheets++;
                     if ($tempSheets >= $inputData->getSheetCount())
                     {
                         break;
