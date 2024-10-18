@@ -4092,7 +4092,8 @@ class ExcelWizard
                         if (($magic === 27 && $flag === 1) || $flag === 0)
                         {
                             $magic = 0;
-                            $tempSheets = $tempSheets + 2;
+                            if (count($parts) > 46)
+                                $tempSheets = $tempSheets + 2;
                         }
                         else if ($flag === 1)
                             $magic = 27;
