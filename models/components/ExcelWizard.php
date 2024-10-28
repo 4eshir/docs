@@ -4034,7 +4034,7 @@ class ExcelWizard
                 }
             }
 
-            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, 1 + $magic, 'Группа: ' . $group->number);
+            $inputData->getSheet($sheets)->setCellValueByColumnAndRow(1, 1 + $magic, 'Группа: ' . PHP_EOL . $group->number);
             $inputData->getSheet($sheets)->setCellValueByColumnAndRow(2, 1 + $magic, 'Программа: ' . $group->programNameNoLink);
             $inputData->getSheet($sheets)->getStyle('B'. $magic);
 
