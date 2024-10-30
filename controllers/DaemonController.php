@@ -137,7 +137,7 @@ class DaemonController extends Controller
 
     public function actionMessageErrors()
     {
-        $users = UserWork::find()->all();
+        $users = UserWork::find()->where(['id' => 31])->all();
         $functionsSet = RoleFunctionRoleWork::find();
         //$users = UserWork::find()->joinWith(['userRoles userRoles'])->all();
 
