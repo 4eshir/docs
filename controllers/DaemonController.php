@@ -140,7 +140,7 @@ class DaemonController extends Controller
         $users = UserWork::find()->all();
         $functionsSet = RoleFunctionRoleWork::find();
         //$users = UserWork::find()->joinWith(['userRoles userRoles'])->all();
-
+var_dump('count user', count($users));
         $messages = [];
         foreach ($users as $user)
         {
