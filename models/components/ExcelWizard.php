@@ -4074,15 +4074,15 @@ class ExcelWizard
         for ($cp = 0; $cp < count($parts); )
         {
             $sheets = 0;
+            $delay = 0;
 
             if ($cp !== 0 && $cp % 46 === 0)
             {
                 $sheets++;
             }
-
+            
             for ($j = 0; $j < 46 && $cp < count($parts); $j++)
             {
-                $delay = 0;
                 $magic = 0;
                 $tempSheets = $sheets;
                 for ($i = 0; $i < count($lessons); $i++, $delay++)
