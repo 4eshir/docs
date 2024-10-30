@@ -4080,7 +4080,7 @@ class ExcelWizard
             {
                 $sheets++;
             }
-            
+
             for ($j = 0; $j < 46 && $cp < count($parts); $j++)
             {
                 $magic = 0;

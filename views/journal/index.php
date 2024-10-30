@@ -168,7 +168,6 @@ $this->params['breadcrumbs'][] = $this->title;
             $visits = \app\models\work\VisitWork::find()->where(['id' => $model->visits_id[$counter]])->one();
             echo $visits->prettyStatus;
             $counter++;
-            var_dump($counter);
         }
         echo '<td style="text-align: left; ">'.$part->groupProjectThemes->projectTheme->name.'</td>';
         echo '<td>'.$part->points.'</td>';
