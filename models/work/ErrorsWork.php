@@ -240,7 +240,7 @@ class ErrorsWork extends Errors
                 $errorsListSet = GroupErrorsWork::find();
                 foreach ($groups as $group)
                 {
-                    $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->andWhere(['<', 'time_start', $dateStartErrors])->all();
+                    $errorsList = $errorsListSet->where(['training_group_id' => $group->id, 'time_the_end' => NULL, 'amnesty' => NULL, 'critical' => 1])->andWhere(['>', 'time_start', $dateStartErrors])->all();
 
                     foreach ($errorsList as $error)
                     {
@@ -261,7 +261,7 @@ class ErrorsWork extends Errors
                 $branchsSet = BranchProgramWork::find();
                 foreach ($programs as $program)
                 {
-                    $errorsList = $errorsListSet->where(['training_program_id' => $program->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['<', 'time_start', $dateStartErrors])->all();
+                    $errorsList = $errorsListSet->where(['training_program_id' => $program->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['>', 'time_start', $dateStartErrors])->all();
                     $branchs = $branchsSet->where(['training_program_id' => $program->id])->all();
                     foreach ($errorsList as $error)
                     {
@@ -285,7 +285,7 @@ class ErrorsWork extends Errors
                 $branchsSet = BranchWork::find();
                 foreach ($orders as $order)
                 {
-                    $errorsList = $errorsListSet->where(['document_order_id' => $order->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['<', 'time_start', $dateStartErrors])->all();
+                    $errorsList = $errorsListSet->where(['document_order_id' => $order->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['>', 'time_start', $dateStartErrors])->all();
                     $branchs = $branchsSet->where(['id' => $order->nomenclature_id])->one();
                     foreach ($errorsList as $error)
                     {
@@ -307,7 +307,7 @@ class ErrorsWork extends Errors
 
                 foreach ($events as $event)
                 {
-                    $errorsList = $errorsListSet->where(['event_id' => $event->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['<', 'time_start', $dateStartErrors])->all();
+                    $errorsList = $errorsListSet->where(['event_id' => $event->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['>', 'time_start', $dateStartErrors])->all();
                     $branchs = $branchsSet->where(['event_id' => $event->id])->all();
                     foreach ($errorsList as $error)
                     {
@@ -331,7 +331,7 @@ class ErrorsWork extends Errors
 
                 foreach ($foreignEvents as $foreignEvent)
                 {
-                    $errorsList = $errorsListSet->where(['foreign_event_id' => $foreignEvent->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['<', 'time_start', $dateStartErrors])->all();
+                    $errorsList = $errorsListSet->where(['foreign_event_id' => $foreignEvent->id, 'time_the_end' => NULL, 'amnesty' => NULL])->andWhere(['>', 'time_start', $dateStartErrors])->all();
                     $branchsEvent = $branchsSet->where(['teacherParticipant.foreign_event_id' => $foreignEvent->id])->all();
                     $branchsNoDouble = [];
                     foreach ($branchsEvent as $branch)
