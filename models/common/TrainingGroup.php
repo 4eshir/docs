@@ -198,7 +198,7 @@ class TrainingGroup extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTeachersArray()
+    public function getTeacherGroups()
     {
         return $this->hasMany(TeacherGroup::className(), ['training_group_id' => 'id']);
     }
