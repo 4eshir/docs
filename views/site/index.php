@@ -135,8 +135,8 @@ $this->title = 'ЦСХД';
 
 <?php
 
-$img_src = "item.jpg";
-$img_src_main = "main.jpg";
+$img_src = "happy_new_year.png";
+$img_src_main = "happy_new_year_back.jpg";
 
 ?>
 
