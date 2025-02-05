@@ -19,7 +19,7 @@ use Yii;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 
 /**
- * @property ForeignEventParticipantsWork $participantsWork
+ * @property ForeignEventParticipantsWork $participantWork
  */
 class TeacherParticipantWork extends TeacherParticipant
 {
