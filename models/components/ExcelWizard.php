@@ -608,13 +608,7 @@ class ExcelWizard
         //выборка команд
 
         $eventIds = ArrayHelper::getColumn($teacherPart, 'teacherParticipant.foreign_event_id');
-        var_dump($eventIds);
-        $tpIds = [];
-        foreach ($teacherPart as $one)
-        {
-            //$eventIds[] = $one->teacherParticipantWork->foreign_event_id;
-            $tpIds[] = $one->teacher_participant_id;
-        }
+        $tpIds = ArrayHelper::getColumn($teacherPart, 'teacher_participant_id');
 
         $teamNames = TeamNameWork::find()->where(['IN', 'foreign_event_id', $eventIds])->all();
         $tnIds = SupportReportFunctions::GetIdFromArray($teamNames);
