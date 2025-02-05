@@ -608,6 +608,7 @@ class ExcelWizard
         //выборка команд
 
         $eventIds = ArrayHelper::getColumn($teacherPart, 'teacherParticipant.foreign_event_id');
+        var_dump($eventIds);
         $tpIds = [];
         foreach ($teacherPart as $one)
         {
