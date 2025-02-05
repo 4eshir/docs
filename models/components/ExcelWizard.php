@@ -598,6 +598,11 @@ class ExcelWizard
                 ->andWhere(['participant_id' => $one->teacherParticipantWork->participant_id])
                 ->one();
 
+            var_dump($one->teacherParticipantWork->foreign_event_id);
+            var_dump($one->teacherParticipantWork->participant_id);
+            var_dump($one->id);
+            var_dump('----------');
+
             if ($temp !== null) $result[] = $temp->id;
         }
 
