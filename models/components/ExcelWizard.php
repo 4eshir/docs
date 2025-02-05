@@ -594,8 +594,8 @@ class ExcelWizard
         {
             /** @var TeacherParticipantBranchWork $one */
             $temp = ParticipantAchievementWork::find()
-                ->where(['foreign_event_id' => $one->teacherParticipantWork2->foreign_event_id])
-                ->andWhere(['participant_id' => $one->teacherParticipantWork2->participant_id])
+                ->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])
+                ->andWhere(['participant_id' => $one->teacherParticipant->participant_id])
                 ->one();
 
 
