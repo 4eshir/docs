@@ -602,8 +602,8 @@ class ExcelWizard
         }
 
 
+        var_dump($result);
         $result = ParticipantAchievementWork::find()->where(['IN', 'id', $result])->all();
-        var_dump(count($result));
 
         return $result;
     }
