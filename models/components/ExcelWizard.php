@@ -617,7 +617,7 @@ class ExcelWizard
         $winners = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
         $prizes = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
 
-        var_dump($tpIds);
+        var_dump(ArrayHelper::getColumn($winners, 'teacher_participant_id'));
         // получаем всех победителей и призеров в командах
         $winnersTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
         $prizesTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
