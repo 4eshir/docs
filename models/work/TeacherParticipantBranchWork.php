@@ -23,7 +23,7 @@ class TeacherParticipantBranchWork extends TeacherParticipantBranch
         $this->teacherParticipantWork = new TeacherParticipantWork($tTeacherParticipantId, $tParticipantId, null, null, null, null, null);
     }
 
-    public function getTeacherParticipantWork()
+    public function getTeacherParticipantWork2()
     {
         return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
     }
