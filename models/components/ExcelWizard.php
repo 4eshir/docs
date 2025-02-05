@@ -593,6 +593,7 @@ class ExcelWizard
         foreach ($teacherPart as $one)
         {
             /** @var TeacherParticipantBranchWork $one */
+            var_dump($one->attributes);
             $temp = ParticipantAchievementWork::find()
                 ->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])
                 ->andWhere(['participant_id' => $one->teacherParticipant->participant_id])
