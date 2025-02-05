@@ -602,6 +602,8 @@ class ExcelWizard
             if ($temp !== null) $result[] = $temp->id;
         }
 
+        var_dump($result);
+
         $result = ParticipantAchievementWork::find()->where(['IN', 'id', $result])->all();
 
         return $result;
