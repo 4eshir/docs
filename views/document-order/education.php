@@ -223,7 +223,7 @@ $session = Yii::$app->session;
             }
         }
 
-        if (nom === '11-31')
+        if (nom === '11-31' || nom === '13-19')
         {
             document.getElementById("order_participant").getElementsByTagName("thead")[0].getElementsByTagName("th")[3].style.display = "";
             for (let i = 0; i < rowsPart.length; i++)
@@ -333,7 +333,7 @@ $session = Yii::$app->session;
                 <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="2" tabindex="3" style="margin-right: 5px" ><i></i><span>По заявлению родителя</span></label><br>
                 <label class="modal-radio"><input type="radio" name="DocumentOrderWork[study_type]" value="3" tabindex="3" style="margin-right: 5px" ><i></i><span>По соглашению сторон</span></label><br><br></div>`;
         }
-        if (nom === '11-31')
+        if (nom === '11-31' || nom === '13-19')
         {
             document.getElementById('documentorderwork-order_name').value = 'О переводе';
             document.getElementById('study-type').style.display = '';

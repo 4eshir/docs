@@ -161,7 +161,7 @@ class DaemonController extends Controller
                 $errorsSystem = $errors->SystemCriticalMessage($user, $functions);
                 if ($errorsSystem !== '')
                 {
-                    $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки!' . '<br><br><div style="max-width: 800px;">';
+                    $string = 'Еженедельная сводка об ошибках в ЦСХД. Внимание, в данной сводке выводятся только критические ошибки за последнюю неделю!' . '<br><br><div style="max-width: 800px;">';
                     $string .= $errorsSystem . '</div>';   // тут будет лежать всё то, что отправится пользователю
                     $string .= '<br><br> Чтобы узнать больше перейдите на сайт ЦСХД: https://index.schooltech.ru/';
                     $string .= '<br>---------------------------------------------------------------------------';

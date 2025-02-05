@@ -182,4 +182,24 @@ class TrainingGroup extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TrainingGroupParticipant::className(), ['training_group_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[OrderGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderGroups()
+    {
+        return $this->hasMany(OrderGroup::className(), ['training_group_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TeacherGroup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeacherGroups()
+    {
+        return $this->hasMany(TeacherGroup::className(), ['training_group_id' => 'id']);
+    }
 }
