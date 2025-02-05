@@ -580,12 +580,24 @@ class ExcelWizard
 
     static public function GetDetailPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
-        $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>=', 'foreignEvent.finish_date', $start_date])->andWhere(['<=', 'foreignEvent.finish_date', $end_date])->all();
+        $teacherPart = TeacherParticipantBranchWork::find()
+            ->joinWith(['teacherParticipant teacherParticipant'])
+            ->joinWith(['teacherParticipant.foreignEvent foreignEvent'])
+            ->where(['IN', 'foreignEvent.event_level_id', $event_level])
+            ->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])
+            ->andWhere(['>=', 'foreignEvent.finish_date', $start_date])
+            ->andWhere(['<=', 'foreignEvent.finish_date', $end_date])
+            ->all();
+
+        var_dump(count($teacherPart));
 
         $result = [];
         foreach ($teacherPart as $one)
         {
-            $temp = ParticipantAchievementWork::find()->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])->andWhere(['participant_id' => $one->teacherParticipant->participant_id])->one();
+            $temp = ParticipantAchievementWork::find()
+                ->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])
+                ->andWhere(['participant_id' => $one->teacherParticipant->participant_id])
+                ->one();
 
             if ($temp !== null) $result[] = $temp->id;
         }
