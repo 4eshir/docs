@@ -991,9 +991,9 @@ class ExcelWizard
         for ($i = 0; $i < count($newResult); $i++)
         {
             /** @var ParticipantAchievementWork[] $newResult */
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 5 + $i, $newResult[$i]->teacherParticipant->participant->secondname);
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, 5 + $i, $newResult[$i]->foreignEvent->eventLevel->name);
-            $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 5 + $i, $newResult[$i]->foreignEvent->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 5 + $i, $newResult[$i]->teacherParticipantWork->participantsWork->getShortName());
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(2, 5 + $i, $newResult[$i]->foreignEventWork->eventLevel->name);
+            $inputData->getSheet(2)->setCellValueByColumnAndRow(3, 5 + $i, $newResult[$i]->foreignEventWork->name);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(4, 5 + $i, $newResult[$i]->teacherParticipant->nomination);
             $inputData->getSheet(2)->setCellValueByColumnAndRow(5, 5 + $i, ExcelWizard::InTeam($newResult[$i]->foreign_event_id, $newResult[$i]->participant_id) ? 'Групповая' : 'Индивидуальная');
             $inputData->getSheet(2)->setCellValueByColumnAndRow(6, 5 + $i, $newResult[$i]->winner ? 'Победитель' : 'Призер');

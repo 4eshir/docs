@@ -8,7 +8,10 @@ use app\models\null\ForeignEventParticipantsNull;
 use app\models\null\TeacherParticipantNull;
 use Yii;
 
-
+/**
+ * @property TeacherParticipantWork $teacherParticipantWork
+ * @property ForeignEventWork $foreignEventWork
+ */
 class ParticipantAchievementWork extends ParticipantAchievement
 {
     const PRIZE = 0;
@@ -40,8 +43,7 @@ class ParticipantAchievementWork extends ParticipantAchievement
 
     public function getTeacherParticipantWork()
     {
-        $try = $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
-        return $try->all() ? $try : new TeacherParticipantNull();
+        return $this->hasOne(TeacherParticipantWork::className(), ['id' => 'teacher_participant_id']);
     }
 
     public function getStatusString()

@@ -18,7 +18,9 @@ use Yii;
 
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 
-
+/**
+ * @property ForeignEventParticipantsWork $participantsWork
+ */
 class TeacherParticipantWork extends TeacherParticipant
 {
     public $team;
@@ -140,8 +142,7 @@ class TeacherParticipantWork extends TeacherParticipant
 
     public function getParticipantWork()
     {
-        $try = $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
-        return $try->all() ? $try : new ForeignEventParticipantsNull();
+        return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
     }
 
     public function getForeignEventWork()
