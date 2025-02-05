@@ -596,7 +596,14 @@ class ExcelWizard
 
     static public function NewGetPrizeWinners($event_level, $branch_id, $start_date, $end_date)
     {
-        $teacherPart = TeacherParticipantBranchWork::find()->joinWith(['teacherParticipant teacherParticipant'])->joinWith(['teacherParticipant.foreignEvent foreignEvent'])->where(['IN', 'foreignEvent.event_level_id', $event_level])->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])->andWhere(['>=', 'foreignEvent.finish_date', $start_date])->andWhere(['<=', 'foreignEvent.finish_date', $end_date])->all();
+        $teacherPart = TeacherParticipantBranchWork::find()
+            ->joinWith(['teacherParticipant teacherParticipant'])
+            ->joinWith(['teacherParticipant.foreignEvent foreignEvent'])
+            ->where(['IN', 'foreignEvent.event_level_id', $event_level])
+            ->andWhere(['IN', 'teacher_participant_branch.branch_id', $branch_id])
+            ->andWhere(['>=', 'foreignEvent.finish_date', $start_date])
+            ->andWhere(['<=', 'foreignEvent.finish_date', $end_date])
+            ->all();
         //выборка команд
 
         $eventIds = [];
@@ -606,6 +613,8 @@ class ExcelWizard
             $eventIds[] = $one->teacherParticipantWork->foreign_event_id;
             $tpIds[] = $one->teacher_participant_id;
         }
+
+        var_dump($eventIds);
 
         $teamNames = TeamNameWork::find()->where(['IN', 'foreign_event_id', $eventIds])->all();
         $tnIds = SupportReportFunctions::GetIdFromArray($teamNames);
@@ -931,11 +940,11 @@ class ExcelWizard
 
         $tgIds = [];
 
-        $trainingGroups1 = TrainingGroupWork::find()/*->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
+        $trainingGroups1 = TrainingGroupWork::find()->joinWith(['trainingProgram trainingProgram'])->where(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])->andWhere(['<=', 'start_date', $end_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])->andWhere(['>=', 'finish_date', $start_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['<=', 'start_date', $start_date])->andWhere(['>=', 'finish_date', $end_date])])
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
-            */->all();
+            ->all();
 
 
 
