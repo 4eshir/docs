@@ -611,7 +611,7 @@ class ExcelWizard
         $tpIds = [];
         foreach ($teacherPart as $one)
         {
-            $eventIds[] = $one->teacherParticipantWork->foreign_event_id;
+            //$eventIds[] = $one->teacherParticipantWork->foreign_event_id;
             $tpIds[] = $one->teacher_participant_id;
         }
 
