@@ -196,7 +196,7 @@ class ForeignEventWork extends ForeignEvent
     {
         $parts = ParticipantAchievementWork::find()->joinWith(['teacherParticipant teacherParticipant'])->where(['teacherParticipant.foreign_event_id' => $this->id])->orderBy(['winner' => SORT_DESC])->all();
         $partsLink = '';
-        var_dump(count($parts));die;
+        
         foreach ($parts as $partOne)
         {
             $team = TeamWork::find()->where(['teacher_participant_id' => $partOne->teacherParticipantWork->id])->one();
