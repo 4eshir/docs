@@ -614,7 +614,7 @@ class ExcelWizard
             $tpIds[] = $one->teacher_participant_id;
         }
 
-        var_dump($eventIds);
+        var_dump(count(ForeignEventWork::find()->where(['IN', 'id', $eventIds])->all()));
 
         $teamNames = TeamNameWork::find()->where(['IN', 'foreign_event_id', $eventIds])->all();
         $tnIds = SupportReportFunctions::GetIdFromArray($teamNames);
