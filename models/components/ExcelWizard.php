@@ -42,6 +42,7 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Query;
 use \PHPExcel_Style_Border;
+use yii\helpers\ArrayHelper;
 
 class ExcelWizard
 {
@@ -606,11 +607,10 @@ class ExcelWizard
             ->all();
         //выборка команд
 
-        $eventIds = [];
+        $eventIds = ArrayHelper::getColumn($teacherPart, 'teacherParticipant.foreign_event_id');
         $tpIds = [];
         foreach ($teacherPart as $one)
         {
-            var_dump($one->teacherParticipantWork->foreign_event_id);
             $eventIds[] = $one->teacherParticipantWork->foreign_event_id;
             $tpIds[] = $one->teacher_participant_id;
         }
