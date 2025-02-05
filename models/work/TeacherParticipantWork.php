@@ -20,6 +20,7 @@ use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 
 /**
  * @property ForeignEventParticipantsWork $participantWork
+ * @property ForeignEventWork $foreignEventWork
  */
 class TeacherParticipantWork extends TeacherParticipant
 {
@@ -140,15 +141,14 @@ class TeacherParticipantWork extends TeacherParticipant
         return $result;
     }
 
+    public function getForeignEventWork()
+    {
+        return $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
+    }
+
     public function getParticipantWork()
     {
         return $this->hasOne(ForeignEventParticipantsWork::className(), ['id' => 'participant_id']);
-    }
-
-    public function getForeignEventWork()
-    {
-        $try = $this->hasOne(ForeignEventWork::className(), ['id' => 'foreign_event_id']);
-        return $try->all() ? $try : new ForeignEventNull();
     }
 
     public function getTeacherWork()
