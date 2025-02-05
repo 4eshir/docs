@@ -589,18 +589,19 @@ class ExcelWizard
             ->andWhere(['<=', 'foreignEvent.finish_date', $end_date])
             ->all();
 
-        var_dump(count($teacherPart));
-
         $result = [];
         foreach ($teacherPart as $one)
         {
+            /** @var TeacherParticipantBranchWork $one */
             $temp = ParticipantAchievementWork::find()
-                ->where(['foreign_event_id' => $one->teacherParticipant->foreign_event_id])
-                ->andWhere(['participant_id' => $one->teacherParticipant->participant_id])
+                ->where(['foreign_event_id' => $one->teacherParticipantWork->foreign_event_id])
+                ->andWhere(['participant_id' => $one->teacherParticipantWork->participant_id])
                 ->one();
 
             if ($temp !== null) $result[] = $temp->id;
         }
+
+        var_dump(count($result));
 
         $result = ParticipantAchievementWork::find()->where(['IN', 'id', $result])->all();
 
