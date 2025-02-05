@@ -955,11 +955,7 @@ class ExcelWizard
             ->orWhere(['IN', 'training_group.id', (new Query())->select('training_group.id')->from('training_group')->where(['>=', 'start_date', $start_date])->andWhere(['<=', 'finish_date', $end_date])])
             ->all();
 
-
-
-
         foreach ($trainingGroups1 as $trainingGroup) $tgIds[] = $trainingGroup->id;
-
 
         $participants = TrainingGroupParticipantWork::find()->where(['IN', 'training_group_id', $tgIds])->andWhere(['IN', 'participant_id', ExcelWizard::GetParticipantsIdsFromGroups($tgIds)])->all();
 
@@ -993,7 +989,7 @@ class ExcelWizard
         $inputData->getSheet(1)->setCellValueByColumnAndRow(3, 7, $result[0] + $result[2]);
 
         $newResult = ExcelWizard::GetDetailPrizeWinners([6, 7, 8], [1, 2, 3, 4, 7], $start_date, $end_date);
-        //var_dump(count($newResult));
+        var_dump(count($newResult));
         for ($i = 0; $i < count($newResult); $i++)
         {
             $inputData->getSheet(2)->setCellValueByColumnAndRow(1, 5 + $i, $newResult[$i]->participantWork->secondname);
