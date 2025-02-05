@@ -614,10 +614,23 @@ class ExcelWizard
         $tnIds = SupportReportFunctions::GetIdFromArray($teamNames);
 
         // получаем всех победителей и призеров за исключением командных
-        $winners = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
+        $winners = ParticipantAchievementWork::find()
+            ->where(['IN', 'teacher_participant_id', $tpIds])
+            ->andWhere(['OR',
+                ['NOT IN', 'team_name_id', $tnIds],
+                ['IS', 'team_name_id', null]
+            ])
+            ->andWhere(['winner' => 1])
+            ->all();
         $prizes = ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
 
-        var_dump(ParticipantAchievementWork::find()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['NOT IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->createCommand()->getRawSql());die;
+        var_dump(ParticipantAchievementWork::find()
+            ->where(['IN', 'teacher_participant_id', $tpIds])
+            ->andWhere(['OR',
+                ['NOT IN', 'team_name_id', $tnIds],
+                ['IS', 'team_name_id', null]
+            ])
+            ->andWhere(['winner' => 1])->createCommand()->getRawSql());die;
         // получаем всех победителей и призеров в командах
         $winnersTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 1])->all();
         $prizesTeam = ParticipantAchievementWork::find()->select('team_name_id')->distinct()->where(['IN', 'teacher_participant_id', $tpIds])->andWhere(['IN', 'team_name_id', $tnIds])->andWhere(['winner' => 0])->all();
