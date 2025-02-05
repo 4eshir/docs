@@ -19,6 +19,7 @@ use Yii;
  * @property int|null $team_name_id
  *
  * @property TeacherParticipant $teacherParticipant
+ * @property ForeignEvent $foreignEvent
  */
 class ParticipantAchievement extends \yii\db\ActiveRecord
 {
